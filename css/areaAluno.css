@@ -1,0 +1,135 @@
+@charset "utf-8";
+/* CSS Document */
+
+#box_right_1{	
+	width:99%;
+	height:176px;
+	margin-bottom:29px;
+	margin-top:21px;
+	border:2px dotted #FAB625;	
+}
+
+p#box_right_1_img{	
+	background:url(../img/galeria.png) no-repeat;
+	width: 133px;
+	height: 28px;
+	margin: -16px 25px;
+}
+
+#box_right_2{
+	width:100%;
+	height:176px;
+	margin-bottom:29px;	
+	border:2px dotted #24ADB5;
+}
+p#box_right_2_img{	
+	background:url(../img/mensagens.png) no-repeat;
+	width: 175px;
+	height: 28px;
+	margin: -12px 25px;
+}
+
+#box_right_3{
+	width:100%;
+	height:143px;	
+	border:2px dotted #C5D221;
+}
+p#box_right_3_img{	
+	background:url(../img/mais_vistos.png) no-repeat;
+	width: 205px;
+	height: 28px;
+	margin: -13px 25px;
+}
+
+.box_right_box{
+	margin: 37px 25px;
+}
+
+#box_right_1_box_titulo_1{
+	font-size:14px;
+	margin-bottom:9px;
+}
+#box_right_1_box_titulo_2{
+	color:#4D4D4D;
+	font-size:14px;
+	margin:23px 0 9px 0;
+}
+.box_right_1_box_select{
+	background:url(../img/combo.png) no-repeat;
+	  background-size: 306px 25px;
+}
+.box_right_1_box_select select{
+	width: 100%;
+	height: 25px;
+	opacity: 0;
+}
+#tb_mensagens{
+	width:100%;
+	border:1px soid;
+}
+#tb_mensagens th{
+	font-size:14px;
+	color:#1C7B7F;
+	text-align: left;
+	padding-bottom: 21px;
+}
+
+#tb_mensagens td{
+	font-size:12px;
+	color:#000000;
+	text-align: left;
+	padding-bottom: 15px;
+}
+
+#n_lida td{
+	font-weight:bold;
+}
+
+.box_right_box_mv{
+	margin: 21px 25px 0 25px;
+	height: 102px;
+}
+
+.mv_caixa{
+	width:100px;
+	float:left;
+	height:97px;
+	margin-right:2px;
+}
+.mv_video{
+	background:#F7F8E5;
+}
+.mv_foto{
+	background:#FFF4E3;
+}
+.mv_jogo{
+	background:#E9F4F5;
+}
+
+.mv_icone_video{
+	background:url(../img/video.png) no-repeat;
+	height: 58px;
+  	background-position: 26px;
+}
+
+.mv_icone_foto{
+	background:url(../img/photo.png) no-repeat;
+	height: 58px;
+  	background-position: 26px;
+}
+
+.mv_icone_jogo{
+	background:url(../img/game.png) no-repeat;
+	height: 58px;
+  	background-position: 26px;
+}
+
+.mv_texto{
+	width: 88px;
+	height: 31px;
+	background: #FDFDF7;
+	margin-left: 5px;
+	font-size: 12px;
+	color: #4D4D4D;
+	padding: 2px;
+}
