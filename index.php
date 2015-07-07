@@ -12,11 +12,11 @@ $templateGeral = new Template();
    	<title>home</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <!--<script src="//use.typekit.net/rtp0aku.js"></script>
-		<script>try{Typekit.load();}catch(e){}</script>-->
+        <script>try{Typekit.load();}catch(e){}</script>-->
        	<script src="js/jquery-2.1.1.min.js"></script>   
         <script src="js/c2runtime.js"></script>   
         <script src="js/ScaleScript.js"></script>  
-        <script src="js/Funcoes.js"></script>           
+        <!--<script src="js/Funcoes.js"></script>-->           
     </head>    
 <body>
 	<!--Conteudo Geral-->

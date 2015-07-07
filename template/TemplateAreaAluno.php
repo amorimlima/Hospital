@@ -18,7 +18,7 @@ class TemplateAreaAluno {
 	}
 
    //Topo Site	
-   public function topoSite()
+   public function Teste2()
    {
 		
    }
