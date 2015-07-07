@@ -92,13 +92,64 @@ p{
 #menu{
 	display:block;
 	float:right;
-	width:100%;
+	width: 98.2%;
 	height:50px;
 }
 #menu a{
 	text-decoration:none;
+}
+
+#mn_livro{
+	background:url(../img/bt_livros_normal.png) no-repeat;
+	padding: 0px 52px 25px 52px;
 	margin-right: 20.6px;
 }
+#mn_livro:hover{
+	background:url(../img/bt_livros_ativo.png) no-repeat;
+	padding: 0px 52px 25px 52px;
+}
+
+#mn_exercicios{
+	background:url(../img/bt_exercicios_normal.png) no-repeat;
+	padding: 0px 52px 25px 52px;
+	margin-right: 20.6px;
+}
+mn_exercicios:hover{
+	background:url(../img/bt_livros_ativo.png) no-repeat;
+	padding: 0px 52px 25px 52px;
+}
+
+#mn_mensagens{
+	background:url(../img/bt_mensagens_normal.png) no-repeat;
+	padding: 0px 71px 25px 71px;
+	margin-right: 20.6px;
+}
+#mn_mensagens:hover{
+	background:url(../img/bt_mensagens_ativo.png) no-repeat;
+	padding: 0px 71px 25px 71px;
+}
+
+#mn_forum{
+	background:url(../img/bt_forum_normal.png) no-repeat;
+	padding: 0px 57px 25px 57px;
+	margin-right: 20.6px;
+}
+#mn_forum:hover{
+	background:url(../img/bt_forum_ativo.png) no-repeat;
+	padding: 0px 57px 25px 57px;
+}
+
+#mn_galeria{
+	background:url(../img/bt_galeria_normal.png) no-repeat;
+	padding: 0px 56px 25px 56px;
+}
+#mn_galeria:hover{
+	background:url(../img/bt_galeria_ativo.png) no-repeat;
+	padding: 0px 56px 25px 56px;
+}
+
+
+
 
 /*CONTEUDO AREA*/
 #Conteudo_Area{
@@ -118,9 +169,14 @@ p{
 #Conteudo_Area_box_left{
 	width:792px;
 	height: 588px;
-	border:1px solid;
 	float:left;
 	margin:24px 0 0 49px;
+}
+
+#Conteudo_Area_box_left iframe{
+	border:0;
+	padding:0;
+	
 }
 
 #Conteudo_Area_box_right{
