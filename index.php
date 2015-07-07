@@ -24,8 +24,8 @@ $templateGeral = new Template();
     	<!--Topo-->
     	<div id="topo">        	
             <?php 
-				$templateGeral->topoSite();
-			?> 
+                $templateGeral->topoSite();
+            ?> 
         </div>
         <!--Conteudo Central-->
         <div id="Conteudo_Area"> 
