@@ -30,20 +30,12 @@ class Template {
                     	<img src="img/separador.png" width="2" height="22" alt=""/>
                     </span>
                     <p id="logout">SAIR</p>
-                </div>
+                </div>		
                 <div id="menu">
-                    <a href="livro.php">
-                    	<img src="img/bt_livros_normal.png" id="mn_livro" width="103" height="40" alt=""/>
-                    </a>
-                    <a href="mensagens.php">
-                    	<img src="img/bt_mensagens_normal.png" id="mn_mensagens" width="142" height="38" alt=""/>
-                    </a>
-                    <a href="forum.php">
-                    	<img src="img/bt_forum_normal.png" id="mn_forum" width="114" height="38" alt=""/>
-                    </a>
-                    <a href="galeria.php">
-                    	<img src="img/bt_galeria_normal.png" id="mn_galeria" width="111" height="38" alt=""/>
-                    </a>
+                    <a href="livro.php" id="mn_livro"></a>
+                    <a href="mensagens.php" id="mn_mensagens"></a>
+                    <a href="forum.php" id="mn_forum"></a>
+                    <a href="galeria.php" id="mn_galeria"></a>
                 </div>
 			  </div>';
    }
