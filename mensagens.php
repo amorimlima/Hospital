@@ -12,9 +12,9 @@ $templateGeral = new Template();
    	<title>home</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <!--<script src="//use.typekit.net/rtp0aku.js"></script>
-		<script>try{Typekit.load();}catch(e){}</script>
+	<script>try{Typekit.load();}catch(e){}</script>-->
         
-        <script src="js/ScaleScript.js"></script>   -->         
+        <script src="js/ScaleScript.js"></script>            
     </head>    
 <body>
 	<!--Conteudo Geral-->
@@ -22,8 +22,8 @@ $templateGeral = new Template();
     	<!--Topo-->
     	<div id="topo">        	
             <?php 
-				$templateGeral->topoSite();
-			?> 
+                $templateGeral->topoSite();
+            ?> 
         </div>
         <!--Conteudo Central-->
         <div id="Conteudo_Area">
