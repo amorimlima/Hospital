@@ -20,6 +20,7 @@ class CategoriaDAO extends DAO{
     	$sql  = "insert into categorias (categoria,tituloCategoria,cidadeCategoria,enderecoCategoria,telefoneCategoria) values ";
     	$sql .= "('".$categoria->getCategoria()."','".$categoria->getTituloCategoria()."',".$categoria->getCidadeCategoria().",";
     	$sql .= "'".$categoria->getEnderecoCategoria()."','".$categoria->getTelefoneCategoria()."')";
+       
 		echo $sql;
     	return $this->execute($sql);
     }
