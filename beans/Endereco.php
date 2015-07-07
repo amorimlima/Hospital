@@ -1,4 +1,3 @@
-
 <?php
 /*
 *
@@ -18,19 +17,19 @@
 
 class Endereco
 { 
-private $ndr_id;
+private $end_id;
 
-private $ndr_logradouro;
-private $ndr_numero;
-private $ndr_complemento;
-private $ndr_cep;
-private $ndr_cidade;
-private $ndr_uf;
-private $ndr_pais;
-private $ndr_telefone_residencial;
-private $ndr_telefone_comercial;
-private $ndr_telefone_celular;
-private $ndr_email;
+private $end_logradouro;
+private $end_numero;
+private $end_complemento;
+private $end_cep;
+private $end_cidade;
+private $end_uf;
+private $end_pais;
+private $end_telefone_residencial;
+private $end_telefone_comercial;
+private $end_telefone_celular;
+private $end_email;
 
 
 
@@ -42,130 +41,129 @@ public function Endereco()
 
 
 
-public function getNdr_id()
+public function getend_id()
 {
-return $this->ndr_id;
+return $this->end_id;
 }
 
-public function getNdr_logradouro()
+public function getend_logradouro()
 {
-return $this->ndr_logradouro;
+return $this->end_logradouro;
 }
 
-public function getNdr_numero()
+public function getend_numero()
 {
-return $this->ndr_numero;
+return $this->end_numero;
 }
 
-public function getNdr_complemento()
+public function getend_complemento()
 {
-return $this->ndr_complemento;
+return $this->end_complemento;
 }
 
-public function getNdr_cep()
+public function getend_cep()
 {
-return $this->ndr_cep;
+return $this->end_cep;
 }
 
-public function getNdr_cidade()
+public function getend_cidade()
 {
-return $this->ndr_cidade;
+return $this->end_cidade;
 }
 
-public function getNdr_uf()
+public function getend_uf()
 {
-return $this->ndr_uf;
+return $this->end_uf;
 }
 
-public function getNdr_pais()
+public function getend_pais()
 {
-return $this->ndr_pais;
+return $this->end_pais;
 }
 
-public function getNdr_telefone_residencial()
+public function getend_telefone_residencial()
 {
-return $this->ndr_telefone_residencial;
+return $this->end_telefone_residencial;
 }
 
-public function getNdr_telefone_comercial()
+public function getend_telefone_comercial()
 {
-return $this->ndr_telefone_comercial;
+return $this->end_telefone_comercial;
 }
 
-public function getNdr_telefone_celular()
+public function getend_telefone_celular()
 {
-return $this->ndr_telefone_celular;
+return $this->end_telefone_celular;
 }
 
-public function getNdr_email()
+public function getend_email()
 {
-return $this->ndr_email;
+return $this->end_email;
 }
 
 
 
-public function setNdr_id($val)
+public function setend_id($val)
 {
-$this->ndr_id =  $val;
+$this->end_id =  $val;
 }
 
-public function setNdr_logradouro($val)
+public function setend_logradouro($val)
 {
-$this->ndr_logradouro =  $val;
+$this->end_logradouro =  $val;
 }
 
-public function setNdr_numero($val)
+public function setend_numero($val)
 {
-$this->ndr_numero =  $val;
+$this->end_numero =  $val;
 }
 
-public function setNdr_complemento($val)
+public function setend_complemento($val)
 {
-$this->ndr_complemento =  $val;
+$this->end_complemento =  $val;
 }
 
-public function setNdr_cep($val)
+public function setend_cep($val)
 {
-$this->ndr_cep =  $val;
+$this->end_cep =  $val;
 }
 
-public function setNdr_cidade($val)
+public function setend_cidade($val)
 {
-$this->ndr_cidade =  $val;
+$this->end_cidade =  $val;
 }
 
-public function setNdr_uf($val)
+public function setend_uf($val)
 {
-$this->ndr_uf =  $val;
+$this->end_uf =  $val;
 }
 
-public function setNdr_pais($val)
+public function setend_pais($val)
 {
-$this->ndr_pais =  $val;
+$this->end_pais =  $val;
 }
 
-public function setNdr_telefone_residencial($val)
+public function setend_telefone_residencial($val)
 {
-$this->ndr_telefone_residencial =  $val;
+$this->end_telefone_residencial =  $val;
 }
 
-public function setNdr_telefone_comercial($val)
+public function setend_telefone_comercial($val)
 {
-$this->ndr_telefone_comercial =  $val;
+$this->end_telefone_comercial =  $val;
 }
 
-public function setNdr_telefone_celular($val)
+public function setend_telefone_celular($val)
 {
-$this->ndr_telefone_celular =  $val;
+$this->end_telefone_celular =  $val;
 }
 
-public function setNdr_email($val)
+public function setend_email($val)
 {
-$this->ndr_email =  $val;
+$this->end_email =  $val;
 }
 
 
 } 
 
 ?>
-

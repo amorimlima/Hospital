@@ -18,9 +18,9 @@
 
 class Administracao
 { 
-private $dmn_id;
+private $adm_id;
 
-private $dmn_administracao;
+private $adm_administracao;
 
 
 
@@ -34,24 +34,24 @@ public function Administracao()
 
 public function getDmn_id()
 {
-return $this->dmn_id;
+return $this->adm_id;
 }
 
 public function getDmn_administracao()
 {
-return $this->dmn_administracao;
+return $this->adm_administracao;
 }
 
 
 
 public function setDmn_id($val)
 {
-$this->dmn_id =  $val;
+$this->adm_id =  $val;
 }
 
 public function setDmn_administracao($val)
 {
-$this->dmn_administracao =  $val;
+$this->adm_administracao =  $val;
 }
 
 
