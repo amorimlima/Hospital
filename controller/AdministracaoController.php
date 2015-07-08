@@ -24,28 +24,28 @@ class AdministracaoController {
 	
 	public function insert($adm)
 	{
-		return $this->administracaoDAO->insertAdministracao($adm);
+		return $this->administracaoDAO->insert($adm);
 	}
 	
 	public function update($adm)
 	{
-		return $this->administracaoDAO->updateAdministracao($adm);
+		return $this->administracaoDAO->update($adm);
 	}
 	
 	public function delete($idadm)
 	{
-		return $this->administracaoDAO->deleteAdministracao($idadm);
+		return $this->administracaoDAO->delete($idadm);
 	}
 	
 	public function select($idadm)
 	{
-		$adm = $this->administracaoDAO->selectAdministracao($idadm);
+		$adm = $this->administracaoDAO->select($idadm);
 		return $adm;
 	}
 	
 	public function selectAll()
 	{
-		$adm = $this->administracaoDAO->selectAdministracaoFull();
+		$adm = $this->administracaoDAO->selectFull();
 		return $adm;
 	}
 }

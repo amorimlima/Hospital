@@ -16,7 +16,7 @@ class AdministracaoDAO extends DAO{
         parent::__construct($da);
      }
     
-     public function insertAdministracao($adm)
+     public function insert($adm)
      {
          $sql  = "insert into administracao (adm_administracao) values ";
          $sql .= "('".$adm->getDmn_administracao()."','";
@@ -24,20 +24,20 @@ class AdministracaoDAO extends DAO{
     	return $this->execute($sql);
      }
      
-     public function updateAdministracao($adm)
+     public function update($adm)
      {
          $sql  = "update administracao set adm_administracao = '".$adm->getDmn_administracao()."',";
          $sql .= "where adm_id = ".$adm->getgetDmn_id()." limit 1";
          return $this->execute($sql);
      } 
      
-     public function deleteAdministracao($idadm)
+     public function delete($idadm)
      {
         $sql = "delete from administracao where adm_id = ".$idadm."";
     	return $this->execute($sql);   
      }
      
-     public function selectAdministracao($idadm)
+     public function select($idadm)
      {
         $sql = "select * from administracao where adm_id = ".$idadm." ";
     	$result = $this->retrieve($sql);
@@ -51,7 +51,7 @@ class AdministracaoDAO extends DAO{
      }
      
      
-     public function selectAdministracaoFull()
+     public function selectFull()
      {
         $sql = "select * from administracao";
     	$result = $this->retrieve($sql);
