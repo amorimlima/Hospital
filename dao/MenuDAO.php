@@ -78,3 +78,4 @@ class MenuDAO extends DAO{
     	return $lista;
      }
 }
+?>
