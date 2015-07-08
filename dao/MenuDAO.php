@@ -77,5 +77,23 @@ class MenuDAO extends DAO{
         }
     	return $lista;
      }
+     
+     public function selectTipo($tipo)
+     {
+        $sql = "select * from menu where tipo_menu = ".$tipo."";
+    	$result = $this->retrieve($sql);
+    	$lista = array();
+        while ($qr = mysql_fetch_array($result))
+    	{
+
+                $mnu = new Menu();
+                $mnu->setId_men($qr["id_menu"]);
+                $mnu->setTipo_menu($qr["tipo_menu"]);
+                $mnu->setBtn_menu($qr["btn_menu"]);
+                $mnu->setObj_menu($qr["obj_menu"]);
+                array_push($lista, $mnu);
+        }
+    	return $lista;
+     }
 }
 ?>

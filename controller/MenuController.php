@@ -40,6 +40,11 @@ class MenuController {
 		$mnu = $this->menuDAO->select($idmnu);
 		return $mnu;
 	}
+        
+        public function selectTipo($tipo){
+                 $mnu = $this->menuDAO->selectTipo($tipo);
+		return $mnu;
+        }
 	
 	public function selectAll()
 	{
