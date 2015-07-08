@@ -102,8 +102,7 @@ class EnderecoDAO extends DAO{
                 $end->setend_email($qr["end_email"]);
             	array_push($lista, $end);                    
         }	
-    	return $end;
+    	return $lista;
     }
-    
 }
 ?>
