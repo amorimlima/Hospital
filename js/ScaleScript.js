@@ -1,3 +1,6 @@
+$(document).ready(function (){
+   resize(); 
+});
 
 window.onresize = function(){resize();}
 
