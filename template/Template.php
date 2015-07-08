@@ -17,7 +17,8 @@ class Template {
     }
 
     //Topo Site	
-    public function topoSite1() {
+    public function topoSite() {
+        echo "Teste";
         echo '<div id="logo">
             	<img src="img/logo.png" width="359" height="61" alt=""/>
             </div>
