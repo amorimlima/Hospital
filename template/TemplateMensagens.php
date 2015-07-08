@@ -16,7 +16,6 @@ class TemplateAreaAluno {
 	{
 		self::$path = $_SESSION['URL_SYS'];
 	}
-        //teste
    //Topo Site	
    public function Teste()
    {
