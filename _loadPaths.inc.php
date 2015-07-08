@@ -34,7 +34,7 @@ $_LOAD_PATH_SYS['images']     = $_LOAD_PATH_SYS['home'].'images'.$_PATH_SEPARATO
 $_LOAD_PATH_SYS['template']   = $_LOAD_PATH_SYS['home'].'template'.$_PATH_SEPARATOR;
 
 if ($system == "W")
-	$_LOAD_URL_SYS['BASE_URL']    = '/CriancasComoParceiras/';
+	$_LOAD_URL_SYS['BASE_URL']    = '/Hospital/';
 else
 	$_LOAD_URL_SYS['BASE_URL']    = '/';
 
