@@ -23,7 +23,7 @@ class AnoLetivoDAO extends DAO {
         parent::__construct($da);
     }
     
-       public function insertAno_letivo($ano)
+       public function insert($ano)
      {
          $sql  = "insert into ano_letivo (ano_ano) values ";
          $sql .= "('".$ano->getAno()."','";
@@ -31,20 +31,20 @@ class AnoLetivoDAO extends DAO {
     	return $this->execute($sql);
      }
      
-     public function updateAno_letivo($ano)
+     public function update($ano)
      {
          $sql  = "update ano_letivo set ano_ano = '".$ano->getAno()."',";
          $sql .= "where ano_id = ".$ano->getNlt_id()." limit 1";
          return $this->execute($sql);
      } 
      
-     public function deleteAno_letivo($idano)
+     public function delete($idano)
      {
         $sql = "delete from ano_letivo where ano_id = ".$idano."";
     	return $this->execute($sql);   
      }
      
-     public function selectAno_letivo($idano)
+     public function select($idano)
      {
         $sql = "select * from ano_letivo where ano_id = ".$idano." ";
     	$result = $this->retrieve($sql);
@@ -57,7 +57,7 @@ class AnoLetivoDAO extends DAO {
     	return $ano;
      }
      
-     public function selectAno_letivoFull()
+     public function selectFull()
      {
         $sql = "select * from ano_letivo";
     	$result = $this->retrieve($sql);

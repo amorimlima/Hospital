@@ -23,28 +23,28 @@ class AnoLetivoController {
 	
 	public function insert($ano)
 	{
-		return $this->anoLetivoDAO->insertAno_letivo($ano);
+		return $this->anoLetivoDAO->insert($ano);
 	}
 	
 	public function update($ano)
 	{
-		return $this->anoLetivoDAO->updateAno_letivo($ano);
+		return $this->anoLetivoDAO->update($ano);
 	}
 	
 	public function delete($idano)
 	{
-		return $this->anoLetivoDAO->deleteAno_letivo($idano);
+		return $this->anoLetivoDAO->delete($idano);
 	}
 	
 	public function select($idano)
 	{
-		$ano = $this->anoLetivoDAO->selectAno_letivo($idano);
+		$ano = $this->anoLetivoDAO->select($idano);
 		return $ano;
 	}
 	
 	public function selectAll()
 	{
-		$ano = $this->anoLetivoDAO->selectAno_letivoFull();
+		$ano = $this->anoLetivoDAO->selectFull();
 		return $ano;
 	}
 }
