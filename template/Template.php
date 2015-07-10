@@ -21,6 +21,7 @@ class Template {
     public function topoSite() {
         $menuControler = new MenuController();
         $menu = $menuControler->selectTipoPerfil('Botao','2');
+        var_dump($menu);
         echo '<div id="logo">
             	<img src="img/logo.png" width="359" height="61" alt=""/>
             </div>
