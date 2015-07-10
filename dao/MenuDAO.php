@@ -102,9 +102,7 @@ class MenuDAO extends DAO{
         $sql.= "JOIN menu m ON m.id_menu = a.id_menu";
         $sql.= "JOIN perfil p ON p.prf_id = a.prf_id";
         $sql.= "WHERE a.prf_id =".$perfil." and m.tipo_menu = ".$tipo."";        
-        
-        die($sql);
-        
+                
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysql_fetch_array($result))
