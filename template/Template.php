@@ -18,11 +18,10 @@ class Template {
     }
 
     //Topo Site	
-    public function topoSite() {
+    public function topoSite(){
         $menuControler = new MenuController();
-        $menu = $menuControler->selectTipoPerfil('Botao','2');
-        var_dump($menu);
-        echo '<div id="logo">
+        $menuLista = $menuControler->selectTipoPerfil('Botao','2');
+        echo'<div id="logo">
             	<img src="img/logo.png" width="359" height="61" alt=""/>
             </div>
             <div id="boxMenu"> 
@@ -32,16 +31,25 @@ class Template {
                         <img src="img/separador.png" width="2" height="22" alt=""/>
                     </span>
                     <p id="logout">SAIR</p>
-                </div>		
-                <div id="menu">
-                    <a href="exercicios.php" id="mn_exercicios"></a>
-                    <a href="mensagens.php" id="mn_mensagens"></a>
-                    <a href="forum.php" id="mn_forum"></a>
-                    <a href="galeria.php" id="mn_galeria"></a>
                 </div>
-            </div>';
+            <div id="menu">
+                <ul>';
+                    foreach($menuLista as $menu){
+                        $menuId = explode(".", $menu->getBtn_menu()); 
+                        echo '<li><a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'"></a>';
+                        if($menuId[0]=='livros'){
+                            echo'<ul id="sbm_exercicios">
+                                <li><a href="#">1º Ano</a></li>
+                                <li><a href="#">2º Ano</a></li>
+                                <li><a href="#">3º Ano</a></li>
+                                <li><a href="#">4º Ano</a></li>
+                                <li><a href="#">5º Ano</a></li>
+                            </ul>';
+                        }
+                        echo'</li>';
+                    }                
+            echo'</ul></div></div>';
     }
-
 }
 
 ?>

@@ -29,7 +29,7 @@ $templateGeral = new Template();
         <div id="Conteudo_Area"> 
         	<!--Area Duas colunas Media e Pequena-->         
             <div id="Conteudo_Area_box_left">
-            	<iframe id="" src="Objetos/4_Atividade_Quarto/index.html" width="100%" height="100%"></iframe>
+            	<!--<iframe id="" src="Objetos/4_Atividade_Quarto/index.html" width="100%" height="100%"></iframe>-->
             </div>      
             <div id="Conteudo_Area_box_right">
             </div>     	

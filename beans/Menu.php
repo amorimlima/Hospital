@@ -31,7 +31,7 @@ class Menu {
     public function  getBtn_menu(){
         return $this->btn_menu;
     }
-    public function  getObj_menu(){
+    public function  getOrdem_menu(){
         return $this->obj_menu;
     }
     
@@ -45,7 +45,7 @@ class Menu {
     public function  setBtn_menu($val){
         $this->btn_menu = $val;
     }
-    public function  setObj_menu($val){
+    public function  setOrdem_menu($val){
         $this->obj_menu = $val;
     }
 }

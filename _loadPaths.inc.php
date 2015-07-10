@@ -10,7 +10,7 @@ else
 
 
 if ($system == "W")
-	$_LOAD_PATH_SYS['home']    = 'C:\\wamp\\www\\CriancasComoParceiras\\'; // Windows
+	$_LOAD_PATH_SYS['home']    = 'C:\\wamp\\www\\Hospital\\'; // Windows
 else
 	$_LOAD_PATH_SYS['home']    = '/home/CriancasComoParceiras/public_html/';
 

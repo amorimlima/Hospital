@@ -42,8 +42,8 @@ p{
 	height:80%;
 	margin: 0px auto;
 	background:#FFFFFF;
-	/*transform-origin:top left;
-	-webkit-transform-origin:top left;*/
+	transform-origin:top left;
+	-webkit-transform-origin:top left;
 }
 
 /*TOPO*/
@@ -90,23 +90,77 @@ p{
 }
 /*MENU*/
 #menu{
-	display:block;
-	float:right;
-	min-width: 105%;
-	height:50px;
-	text-align:right;
+    display: block;
+    float: right;
+    min-width: 103%;
+    height: 50px;
+    margin-right: -4px;
+    text-align: left;
 }
-#menu a{	
-	text-decoration:none;
+#menu ul{
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    float: right;
+    width: 95.4%;
 }
 
-#mn_livro{
+#menu ul li a{ 
+    float: left;
+    height: 14px;
+    font-size: 17px;
+    font-family: Overlock;
+    vertical-align: middle;
+}
+
+#menu ul li #sbm_exercicios{
+    position:absolute; 
+    top: 107px;
+    display:none;
+}
+
+#menu ul li:hover #sbm_exercicios, #menu li.over #sbm_exercicios{
+    width: 6%;
+    height: 147px;
+    display: block;
+    text-align: right;
+    border-left: 1px dotted #7DBA31;
+    padding-top: 10px;
+    margin-left: 32px;
+}
+#sbm_exercicios li{
+    height: 21px;
+    margin-bottom: 6px;
+    margin-left: 11px;
+    position: relative;
+    padding: 2px 0;
+    z-index: 999;
+    border: 1px solid #7DBA31;
+    background-color: #FFFFFF;
+}
+#sbm_exercicios li:hover{
+    background-color: #e9f1db;
+}
+
+#sbm_exercicios a{
+    background: url(../img/submenu.png) no-repeat;
+    min-width: 80px;
+    margin-left: -21px;
+    background-position: 9px 10px;
+    margin-bottom: 2px;
+}
+
+#menu a{	
+    text-decoration:none;
+}
+
+#mn_livros{
 	background:url(../img/bt_livros_normal.png) no-repeat;
         background-size: 100%;
 	padding: 0px 52px 25px 52px;
 	margin-right: 20.6px;
 }
-#mn_livro:hover{
+#mn_livros:hover{
 	background:url(../img/bt_livros_ativo.png) no-repeat;
         background-size: 100%;
 	padding: 0px 52px 25px 52px;
