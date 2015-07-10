@@ -7,7 +7,7 @@ window.onresize = function(){resize();}
 function resize(){
     height = window.innerHeight,
    	width = window.innerWidth,
-   	scale = Math.min(1,height/828,width/1280);
+   	scale = Math.min(1,height/800,width/1280);
    	document.body.style['-webkit-transform'] = 'scale('+scale+')';
    	document.body.style['-ms-transform'] = 'scale('+scale+')';
    	document.body.style['-moz-transform'] = 'scale('+scale+')';

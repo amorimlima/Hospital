@@ -2,6 +2,7 @@
 
 session_start();
 $path = $_SESSION['PATH_SYS'];
+include_once($path['controller'].'MenuController.php');
 
 /**
  * Description of Template
@@ -18,6 +19,8 @@ class Template {
 
     //Topo Site	
     public function topoSite() {
+        $menuControler = new MenuController();
+        $menu = $menuControler->selectTipoPerfil('Botao','2');
         echo '<div id="logo">
             	<img src="img/logo.png" width="359" height="61" alt=""/>
             </div>

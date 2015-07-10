@@ -14,7 +14,7 @@ include_once($path['dao'].'MenuDAO.php');
  * @author Kevyn
  */
 class MenuController {
-     private $menuDAO;
+    private $menuDAO;
     public function __construct()
 	{
 		$this->menuDAO =  new MenuDAO(new DataAccess());
@@ -44,6 +44,11 @@ class MenuController {
         public function selectTipo($tipo){
                  $mnu = $this->menuDAO->selectTipo($tipo);
 		return $mnu;
+        }
+        
+        public function selectTipoPerfil($tipo,$perfil){
+            $mnu = $this->menuDAO->selectTipoPerfil($tipo,$perfil);
+	    return $mnu;
         }
 	
 	public function selectAll()

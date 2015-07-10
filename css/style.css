@@ -20,7 +20,7 @@ body
 	margin:0;
 	padding:0;
 	width:1024px;
-	height:768px;
+	height:76,8%;
 	transform-origin:top left;
 	-webkit-transform-origin:top left;
 }
@@ -39,7 +39,7 @@ p{
 
 #Container{
 	width:1280px;
-	height:800px;
+	height:80%;
 	margin: 0px auto;
 	background:#FFFFFF;
 	/*transform-origin:top left;
@@ -70,7 +70,7 @@ p{
 	float: right;
 }
 #user_logado{
-	font-size: 14px;
+	font-size: 87.5%;
 	color: #4D4D4D;
 	color: rgb(77, 77, 77);
 	width: 150px;
@@ -82,7 +82,7 @@ p{
 }
 #logout{
 	font-family : Source Sans Pro;
-	font-size : 14px;
+	font-size : 87.5%;
 	color : #4D4D4D;
 	color : rgb(77, 77, 77);
   	float: left;
@@ -92,64 +92,72 @@ p{
 #menu{
 	display:block;
 	float:right;
-	width: 98.2%;
+	min-width: 105%;
 	height:50px;
+	text-align:right;
 }
-#menu a{
+#menu a{	
 	text-decoration:none;
 }
 
 #mn_livro{
 	background:url(../img/bt_livros_normal.png) no-repeat;
+        background-size: 100%;
 	padding: 0px 52px 25px 52px;
 	margin-right: 20.6px;
 }
 #mn_livro:hover{
 	background:url(../img/bt_livros_ativo.png) no-repeat;
+        background-size: 100%;
 	padding: 0px 52px 25px 52px;
 }
 
 #mn_exercicios{
 	background:url(../img/bt_exercicios_normal.png) no-repeat;
-	padding: 0px 52px 25px 52px;
+	background-size: 100%;
+        padding: 0px 52px 25px 75px;
 	margin-right: 20.6px;
 }
-mn_exercicios:hover{
-	background:url(../img/bt_livros_ativo.png) no-repeat;
-	padding: 0px 52px 25px 52px;
+#mn_exercicios:hover{
+	background:url(../img/bt_exercicios_ativo.png) no-repeat;
+        background-size: 100%;
+	padding: 0px 52px 25px 75px;
 }
 
 #mn_mensagens{
 	background:url(../img/bt_mensagens_normal.png) no-repeat;
+        background-size: 100%;
 	padding: 0px 71px 25px 71px;
 	margin-right: 20.6px;
 }
 #mn_mensagens:hover{
 	background:url(../img/bt_mensagens_ativo.png) no-repeat;
+        background-size: 100%;
 	padding: 0px 71px 25px 71px;
 }
 
 #mn_forum{
 	background:url(../img/bt_forum_normal.png) no-repeat;
+        background-size: 100%;
 	padding: 0px 57px 25px 57px;
 	margin-right: 20.6px;
 }
 #mn_forum:hover{
 	background:url(../img/bt_forum_ativo.png) no-repeat;
+        background-size: 100%;
 	padding: 0px 57px 25px 57px;
 }
 
 #mn_galeria{
 	background:url(../img/bt_galeria_normal.png) no-repeat;
+        background-size: 100%;
 	padding: 0px 56px 25px 56px;
 }
 #mn_galeria:hover{
 	background:url(../img/bt_galeria_ativo.png) no-repeat;
+        background-size: 100%;
 	padding: 0px 56px 25px 56px;
 }
-
-
-
 
 /*CONTEUDO AREA*/
 #Conteudo_Area{
@@ -168,7 +176,7 @@ mn_exercicios:hover{
 }
 #Conteudo_Area_box_left{
 	width:792px;
-	height: 588px;
+	height: 90%;
 	float:left;
 	margin:24px 0 0 49px;
 }

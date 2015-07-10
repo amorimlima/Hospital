@@ -46,17 +46,17 @@ p#box_right_3_img{
 }
 
 #box_right_1_box_titulo_1{
-	font-size:14px;
+	font-size:87.5%;
 	margin-bottom:9px;
 }
 #box_right_1_box_titulo_2{
 	color:#4D4D4D;
-	font-size:14px;
+	font-size:87.5%;
 	margin:23px 0 9px 0;
 }
 .box_right_1_box_select{
 	background:url(../img/combo.png) no-repeat;
-	  background-size: 306px 25px;
+	background-size: 306px 25px;
 }
 .box_right_1_box_select select{
 	width: 100%;
@@ -68,14 +68,14 @@ p#box_right_3_img{
 	border:1px soid;
 }
 #tb_mensagens th{
-	font-size:14px;
+	font-size:87.5%;
 	color:#1C7B7F;
 	text-align: left;
 	padding-bottom: 21px;
 }
 
 #tb_mensagens td{
-	font-size:12px;
+	font-size:75%;
 	color:#000000;
 	text-align: left;
 	padding-bottom: 15px;
@@ -129,7 +129,7 @@ p#box_right_3_img{
 	height: 31px;
 	background: #FDFDF7;
 	margin-left: 5px;
-	font-size: 12px;
+	font-size: 75%;
 	color: #4D4D4D;
 	padding: 2px;
 }

@@ -95,5 +95,29 @@ class MenuDAO extends DAO{
         }
     	return $lista;
      }
+     
+      public function selectTipoPerfil($tipo,$perfil)
+     {
+        $sql = "SELECT * FROM  `acesso` a";
+        $sql.= "JOIN menu m ON m.id_menu = a.id_menu";
+        $sql.= "JOIN perfil p ON p.prf_id = a.prf_id";
+        $sql.= "WHERE a.prf_id =".$perfil." and m.tipo_menu = ".$tipo."";        
+        
+        die($sql);
+        
+    	$result = $this->retrieve($sql);
+    	$lista = array();
+        while ($qr = mysql_fetch_array($result))
+    	{
+
+                $mnu = new Menu();
+                $mnu->setId_men($qr["id_menu"]);
+                $mnu->setTipo_menu($qr["tipo_menu"]);
+                $mnu->setBtn_menu($qr["btn_menu"]);
+                $mnu->setObj_menu($qr["obj_menu"]);
+                array_push($lista, $mnu);
+        }
+    	return $lista;
+     }    
 }
 ?>
