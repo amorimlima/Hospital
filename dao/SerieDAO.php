@@ -24,7 +24,7 @@ class SerieDAO extends DAO{
      public function insert($ser)
      {
          $sql  = "insert into serie (sri_serie) values ";
-         $sql .= "('".$ser->getSri_serie()."','";
+         $sql .= "('".$ser->getSri_serie()."')";
 		echo $sql;
     	return $this->execute($sql);
      }

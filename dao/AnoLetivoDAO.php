@@ -26,7 +26,7 @@ class AnoLetivoDAO extends DAO {
        public function insert($ano)
      {
          $sql  = "insert into ano_letivo (ano_ano) values ";
-         $sql .= "('".$ano->getAno()."','";
+         $sql .= "('".$ano->getAno()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
@@ -72,8 +72,6 @@ class AnoLetivoDAO extends DAO {
         }
     	return $lista;
      }
-     
-     
-    
+
 }
 ?>

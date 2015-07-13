@@ -25,7 +25,7 @@ class CategoriaFuncionalDAO extends DAO{
     public function insert($cat)
      {
          $sql  = "insert into categoria_funcional (ctf_categoria) values ";
-         $sql .= "('".$cat->getCtf_categoria()."','";
+         $sql .= "('".$cat->getCtf_categoria()."')";
 		echo $sql;
     	return $this->execute($sql);
      }

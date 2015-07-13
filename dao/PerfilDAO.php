@@ -25,7 +25,7 @@ class PerfilDAO extends DAO{
     public function insert($prf)
      {
          $sql  = "insert into perfil (prf_perfil) values ";
-         $sql .= "('".$prf->getPrf_perfil()."','";
+         $sql .= "('".$prf->getPrf_perfil()."')";
 		echo $sql;
     	return $this->execute($sql);
      }

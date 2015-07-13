@@ -24,7 +24,7 @@ class CapituloDAO extends DAO{
      public function insert($cap)
      {
          $sql  = "insert into capitulo (cpt_capitulo) values ";
-         $sql .= "('".$cap->getCpt_capitulo()."','";
+         $sql .= "('".$cap->getCpt_capitulo()."')";
 		echo $sql;
     	return $this->execute($sql);
      }

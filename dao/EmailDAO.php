@@ -26,7 +26,7 @@ class EmailDAO extends DAO{
      {
          $sql  = "insert into email (email_usuario,email_tipo_email,email_identificacao_email) values ";
          $sql .= "('".$eml->getMl_usuario()."','";
-         $sql .= "('".$eml->getMl_tipo_email()."','".$eml->getMl_identificacao_email()."',";
+         $sql .= $eml->getMl_tipo_email()."','".$eml->getMl_identificacao_email()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
@@ -36,7 +36,7 @@ class EmailDAO extends DAO{
         $sql  = "update email set email_usuario = '".$eml->getMl_usuario()."',";
     	$sql .= "email_tipo_email = '".$eml->getMl_tipo_email()."',";
     	$sql .= "email_identificacao_email = ".$eml->getMl_identificacao_email().",";
-        
+        $sql .= "where  email_id = ".$eml->getMl_id()." limit 1";
         return $this->execute($sql);
      }
      
