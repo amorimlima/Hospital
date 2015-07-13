@@ -26,8 +26,8 @@ class ExercicioDAO {
      {
          $sql  = "insert into exercicio (exe_tipo,exe_serie,exe_tema,exe_capitulo) values ";
          $sql .= "('".$exe->getexe_tipo()."','";
-         $sql .= "','".$exe->getexe_serie()."','".$exe->getexe_tema()."',";
-         $sql .= "','".$exe->getexe_capitulo()."')";
+         $sql .= "'".$exe->getexe_serie()."','".$exe->getexe_tema()."',";
+         $sql .= "'".$exe->getexe_capitulo()."')";
 		echo $sql;
     	return $this->execute($sql);
      }

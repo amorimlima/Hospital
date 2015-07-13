@@ -24,7 +24,7 @@ class GrauInstrucaoDAO extends DAO{
     public function insert($gra)
      {
         $sql  = "insert into grau_instrucao (grt_instrucao) values ";
-        $sql .= "('".$gra->getGrt_instrucao."','";
+        $sql .= "('".$gra->getGrt_instrucao()."')";
 		echo $gra;
     	return $this->execute($sql);
      }

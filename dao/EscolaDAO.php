@@ -26,8 +26,8 @@ class EscolaDAO extends DAO{
      {
          $sql  = "insert into escola (esc_razao_social,esc_cnpj,esc_endereco,esc_tipo_escola,esc_administracao) values ";
          $sql .= "('".$esc->getesc_razao_social()."','";
-         $sql .= "','".$esc->getesc_cnpj()."','".$esc->getesc_endereco()."','";
-         $sql .= "','".$esc->getesc_tipo_escola()."','".$esc->getesc_administracao()."')";
+         $sql .= "'".$esc->getesc_cnpj()."','".$esc->getesc_endereco()."','";
+         $sql .= "'".$esc->getesc_tipo_escola()."','".$esc->getesc_administracao()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
