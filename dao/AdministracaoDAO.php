@@ -26,7 +26,7 @@ class AdministracaoDAO extends DAO{
      
      public function update($adm)
      {
-         $sql  = "update administracao set adm_administracao = '".$adm->getDmn_administracao()."',";
+         $sql  = "update administracao set adm_administracao = '".$adm->getDmn_administracao()."'";
          $sql .= "where adm_id = ".$adm->getgetDmn_id()." limit 1";
          return $this->execute($sql);
      } 

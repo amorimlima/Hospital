@@ -35,7 +35,7 @@ class GabaritoDAO extends DAO{
      {
         $sql  = "update gabarito set gbt_exercicio = '".$gab->getGbt_exercicio()."',";
     	$sql .= "gbt_questao = '".$gab->getGbt_questao()."',";
-    	$sql .= "gbt_resposta = ".$gab->getGbt_resposta().",";
+    	$sql .= "gbt_resposta = '".$gab->getGbt_resposta()."'";
         $sql .= "where  gbt_id = ".$gab->getGbt_id()." limit 1";
         return $this->execute($sql);
      }

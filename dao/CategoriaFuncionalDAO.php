@@ -32,7 +32,7 @@ class CategoriaFuncionalDAO extends DAO{
      
      public function update($cat)
      {
-         $sql  = "update categoria_funcional set ctf_categoria = '".$cat->getCtf_categoria()."',";
+         $sql  = "update categoria_funcional set ctf_categoria = '".$cat->getCtf_categoria()."'";
          $sql .= "where ctf_id = ".$cat->getCtf_id()." limit 1";
          return $this->execute($sql);
      } 

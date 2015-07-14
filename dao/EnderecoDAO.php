@@ -46,7 +46,7 @@ class EnderecoDAO extends DAO{
         $sql .= "end_telefone_residencial = '".$end->getend_telefone_residencial()."',";
         $sql .= "end_telefone_comercial = '".$end->getend_telefone_comercial()."',";
         $sql .= "end_telefone_celular = '".$end->getend_telefone_celular()."',";
-        $sql .= "end_email = '".$end->getend_email()."',";
+        $sql .= "end_email = '".$end->getend_email()."'";
     	$sql .= "where end_id = ".$end->getend_id()." limit 1";
     	return $this->execute($sql);
     }

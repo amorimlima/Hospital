@@ -33,7 +33,7 @@ class AnoLetivoDAO extends DAO {
      
      public function update($ano)
      {
-         $sql  = "update ano_letivo set ano_ano = '".$ano->getAno()."',";
+         $sql  = "update ano_letivo set ano_ano = '".$ano->getAno()."'";
          $sql .= "where ano_id = ".$ano->getNlt_id()." limit 1";
          return $this->execute($sql);
      } 
