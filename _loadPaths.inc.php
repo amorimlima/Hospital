@@ -12,7 +12,7 @@ else
 if ($system == "W")
 	$_LOAD_PATH_SYS['home']    = 'C:\\wamp\\www\\Hospital\\'; // Windows
 else
-	$_LOAD_PATH_SYS['home']    = '/home/CriancasComoParceiras/public_html/';
+	$_LOAD_PATH_SYS['home']    = '/var/www/html/';
 
 
 $_LOAD_PATH_SYS['sys']        = $_LOAD_PATH_SYS['home'].'sys'.$_PATH_SEPARATOR;
@@ -36,21 +36,12 @@ $_LOAD_PATH_SYS['template']   = $_LOAD_PATH_SYS['home'].'template'.$_PATH_SEPARA
 if ($system == "W")
 	$_LOAD_URL_SYS['BASE_URL']    = '/Hospital/';
 else
-	$_LOAD_URL_SYS['BASE_URL']    = '/';
+	$_LOAD_URL_SYS['BASE_URL']    = '/var/www/html/';
 
 $_LOAD_URL_SYS['URL_MINIATURAS']      		= $_LOAD_URL_SYS['BASE_URL'].'miniaturas/';
 $_LOAD_URL_SYS['URL_IMGG']      		    = $_LOAD_URL_SYS['BASE_URL'].'imgg/';
 $_LOAD_URL_SYS['URL_IMGP']      		    = $_LOAD_URL_SYS['BASE_URL'].'imgp/';
 $_LOAD_URL_SYS['URL_TEMPORARIA']      		= $_LOAD_URL_SYS['BASE_URL'].'temporaria/';
-$_LOAD_URL_SYS['ADMIN_URL']      			= $_LOAD_URL_SYS['BASE_URL'].'sys/Adm/';
-$_LOAD_URL_SYS['CATEGORIA_URL']  			= $_LOAD_URL_SYS['BASE_URL'].'sys/Adm/categoria/';
-$_LOAD_URL_SYS['EVENTO_URL']       			= $_LOAD_URL_SYS['BASE_URL'].'sys/Adm/evento/';
-$_LOAD_URL_SYS['GALERIA_URL'] 				= $_LOAD_URL_SYS['BASE_URL'].'sys/Adm/galeria/';
-$_LOAD_URL_SYS['MAPA_URL']   			    = $_LOAD_URL_SYS['BASE_URL'].'sys/Adm/mapa/';
-$_LOAD_URL_SYS['PATROCINIO_URL']       		= $_LOAD_URL_SYS['BASE_URL'].'sys/Adm/patrocinio/';
-$_LOAD_URL_SYS['PONTOTURISTICO_URL']       	= $_LOAD_URL_SYS['BASE_URL'].'sys/Adm/pontoTuristico/';
-$_LOAD_URL_SYS['VISITA_URL']        		= $_LOAD_URL_SYS['BASE_URL'].'sys/Adm/visita/';
-
 
 $_SESSION['PATH_SYS'] = $_LOAD_PATH_SYS;
 $_SESSION['URL_SYS']  = $_LOAD_URL_SYS;

@@ -22,7 +22,7 @@ class Template {
         $menuControler = new MenuController();
         $menuLista = $menuControler->selectTipoPerfil('Botao','2');
         echo'<div id="logo">
-            	<img src="img/logo.png" width="359" height="61" alt=""/>
+            	<a href="index.php"><img src="img/logo.png" width="359" height="61" alt=""/></a>
             </div>
             <div id="boxMenu"> 
                 <div id="user_logout">

@@ -1,0 +1,218 @@
+#box_msg_geral{
+    width: 100%;
+    height: 100%;
+    border: 1px dotted #24ADB5;
+    background: #FFFFFF;
+}
+#box_msg_left{
+    margin: 0;
+    padding: 0;
+    width: 31%;
+    height: 100%;
+    border-right: 1px dotted #24ADB5;
+    float: left;
+}
+#box_msg_right_top{
+    margin: 0;
+    padding: 0;
+    width: 68.9%;
+    height: 55%;
+    border-bottom: 1px dotted #24ADB5;
+    float: left;
+}
+#box_msg_right_botton{
+    margin: 0;
+    padding: 0;
+    width: 68.9%;
+    height: 45.9%;
+    float: left;
+}
+.btn_msg{
+    width: 100%;
+    height: 32.5%;
+    background-color: #DEF3F4;
+}
+.btn_msg span{
+    width: 242px;
+    float: right;
+    height: 100%;
+    line-height: 193px;
+    font-family: Overlock;
+    font-weight: bold;
+    font-size: 14px;
+    color: #1C7B7F;
+}
+#btn_recebidos{
+    background:#DEF3F4 url(../img/icone_recebidos.png) no-repeat;
+    background-position: 53px 61px;
+}
+#btn_enviados{
+    margin: 7.5px 0;
+    background:#DEF3F4 url(../img/icone_enviados.png) no-repeat;
+    background-position: 53px 61px;
+}
+#btn_excluidos{
+    background:#DEF3F4 url(../img/icone_excluidos.png) no-repeat;
+    background-position: 53px 61px;
+}
+#btn_recebidos:hover{
+    background:#BDE7E9 url(../img/icone_recebidos.png) no-repeat;
+    background-position: 53px 61px;
+}
+#btn_enviados:hover{
+    margin: 7.5px 0;
+    background:#BDE7E9 url(../img/icone_enviados.png) no-repeat;
+    background-position: 53px 61px;
+}
+#btn_excluidos:hover{
+    background:#BDE7E9 url(../img/icone_excluidos.png) no-repeat;
+    background-position: 53px 61px;
+}
+#box_NRE{
+    height: 35px;
+    width: 48%;
+    float: right;
+    padding-top: 30px;
+}
+#box_NRE a{
+    float: left;
+    margin-right: 20px;
+    text-decoration:none; 
+}
+#btn_msg_novo{
+    background:url(../img/bt_novo_normal.png) no-repeat;
+    width: 89px;
+    height: 32px;
+}
+#btn_msg_novo:hover{
+    background:url(../img/bt_novo_ativo.png) no-repeat;
+    width: 89px;
+    height: 32px;
+}
+#btn_msg_responder{
+    background:url(../img/bt_responder_normal.png) no-repeat;
+    width: 126px;
+    height: 32px;
+}
+#btn_msg_responder:hover{
+    background:url(../img/bt_responder_ativo.png) no-repeat; 
+    width: 126px;
+    height: 32px;
+}
+#btn_msg_excluir{
+    background:url(../img/bt_excluir_normal.png) no-repeat;
+    width: 88px;
+    height: 29px;
+}
+#btn_msg_excluir:hover{
+    background:url(../img/bt_excluir_ativo.png) no-repeat;
+    width: 88px;
+    height: 29px;
+}
+
+#tbl_msg{
+    margin-top: 80px;
+    width: 100%;
+    font-family: overlock;
+    text-align: left;
+    border-spacing: 11px;
+}
+#linha_titulos{
+    margin-bottom: 15px;
+}
+#titulo_rem{
+    color: #1C7B7F;
+    font-size: 14px;
+    padding: 2px 82px 2px 55px;
+}
+#titulo_ass{
+    color:#1C7B7F;
+    font-size: 14px;
+    padding: 2px 412px 2px 0;
+}
+#titulo_data{
+    color:#1C7B7F;
+    font-size: 14px;
+}
+.col1:nth-child(odd){
+    background-color: #F4FBFB;
+    height: 32px;
+}
+.col1:nth-child(even){
+    background-color: #FFFFFF;
+    height: 32px;
+}
+.msg_nome{
+    width: 153px;
+    float: left;
+    font-family: SourceSansPro;
+    font-size: 12px;
+    padding: 9px 0px 0px 53px;
+}
+.msg_assunto{
+    width: 472px;
+    float: left;
+    font-family: SourceSansPro;
+    font-size: 12px;
+    padding: 9px 0px 0px 0px;
+}
+.msg_data{
+    width: 132px;
+    float: left;
+    font-family: SourceSansPro;
+    font-size: 12px;
+    padding: 9px 0px 0px 0px;
+}
+.msg_nao_lida p{
+    font-weight: bold;
+}
+#ass_linha{
+    background: #E5F5F6;
+    padding: 11px 0px 11px 27px;
+}
+#ass_msg{
+    font-family: Source Sans Pro;
+    font-size: 16px;
+    padding-right: 5px;
+}
+#ass_msg_data{
+    font-family: Source Sans Pro;
+    font-size: 12px;
+    color: #666666;
+}
+#ass_linha_rem{
+    background: #F4FBFB;
+    margin-top: 2px;
+    padding: 4px 0;
+}
+#ass_linha_para{
+    background: #F4FBFB; 
+    margin-top: 2px;
+    padding: 4px 0;
+}
+#msg_rem{
+    width: 24px;
+    text-align: right;
+    padding: 3px 5px 3px 20px;
+    background: #E9F7F8;
+    border-right: 2px solid #FFFFFF;
+}
+#msg_para{
+    width: 24px;
+    text-align: right;
+    padding: 3px 5px 3px  72px;
+    background: #E9F7F8;
+    border-right: 2px solid #FFFFFF;
+}
+#ass_msg_rem_nome{
+    padding-left: 10px;
+    font-family: Source Sans Pro;
+    font-size: 12px;
+    color: #666666;
+}
+#ass_msg_para_nome{
+    padding-left: 10px;
+    font-family: Source Sans Pro;
+    font-size: 12px;
+    color: #666666;
+}
