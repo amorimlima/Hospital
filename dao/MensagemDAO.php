@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
@@ -90,6 +90,16 @@ class MensagemDAO extends DAO{
     	return $mens;
      }
      
+     public function count(){
+        $sql = "select * from mensagem";
+        $result = $this->retrieve($sql);
+        $qr = mysqli_num_rows($result);
+        
+        return $qr;
+        
+     }
+
+
      public function selectFull()
      {
         $sql = "select * from mensagem";

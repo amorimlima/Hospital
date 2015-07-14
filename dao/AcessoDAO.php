@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
