@@ -15,7 +15,7 @@ include_once($path['beans'].'Exercicio.php');
  *
  * @author Kevyn
  */
-class ExercicioDAO {
+class ExercicioDAO extends DAO{
     //put your code here
     
     public function  __construct($da) {
