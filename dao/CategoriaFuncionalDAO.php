@@ -25,14 +25,14 @@ class CategoriaFuncionalDAO extends DAO{
     public function insert($cat)
      {
          $sql  = "insert into categoria_funcional (ctf_categoria) values ";
-         $sql .= "('".$cat->getCtf_categoria()."','";
+         $sql .= "('".$cat->getCtf_categoria()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
      
      public function update($cat)
      {
-         $sql  = "update categoria_funcional set ctf_categoria = '".$cat->getCtf_categoria()."',";
+         $sql  = "update categoria_funcional set ctf_categoria = '".$cat->getCtf_categoria()."'";
          $sql .= "where ctf_id = ".$cat->getCtf_id()." limit 1";
          return $this->execute($sql);
      } 

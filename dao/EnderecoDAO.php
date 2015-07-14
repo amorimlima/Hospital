@@ -26,9 +26,9 @@ class EnderecoDAO extends DAO{
      {
         $sql  = "insert into endereco (end_logradouro,end_numero,end_complemento,end_cep,end_cidade,end_uf,end_pais,end_telefone_residencial,end_telefone_comercial,end_telefone_celular,end_email) values ";
         $sql .= "('".$end->getend_logradouro()."','".$end->getend_numero()."',".$end->getend_complemento().",";
-    	$sql .= "'".$end->getend_cep()."','".$end->getend_cidade()."')";
-        $sql .= "'".$end->getend_uf()."','".$end->getend_pais()."')";
-        $sql .= "'".$end->getend_telefone_residencial()."','".$end->getend_telefone_comercial()."')";
+    	$sql .= "'".$end->getend_cep()."','".$end->getend_cidade().",";
+        $sql .= "'".$end->getend_uf()."','".$end->getend_pais().",";
+        $sql .= "'".$end->getend_telefone_residencial()."','".$end->getend_telefone_comercial().",";
         $sql .= "'".$end->getend_telefone_celular()."','".$end->getend_email()."')";
 		echo $sql;
     	return $this->execute($sql);
@@ -40,12 +40,12 @@ class EnderecoDAO extends DAO{
     	$sql .= "end_numero = '".$end->getend_numero()."',";
     	$sql .= "end_complemento = ".$end->getend_complemento().",";
     	$sql .= "end_cep = '".$end->getend_cep()."',";
-    	$sql .= "end_cidade = '".$end->getend_cidade()."'";
-        $sql .= "end_uf = '".$end->getend_uf()."'";
-        $sql .= "end_pais = '".$end->getend_pais()."'";
-        $sql .= "end_telefone_residencial = '".$end->getend_telefone_residencial()."'";
-        $sql .= "end_telefone_comercial = '".$end->getend_telefone_comercial()."'";
-        $sql .= "end_telefone_celular = '".$end->getend_telefone_celular()."'";
+    	$sql .= "end_cidade = '".$end->getend_cidade()."',";
+        $sql .= "end_uf = '".$end->getend_uf()."',";
+        $sql .= "end_pais = '".$end->getend_pais()."',";
+        $sql .= "end_telefone_residencial = '".$end->getend_telefone_residencial()."',";
+        $sql .= "end_telefone_comercial = '".$end->getend_telefone_comercial()."',";
+        $sql .= "end_telefone_celular = '".$end->getend_telefone_celular()."',";
         $sql .= "end_email = '".$end->getend_email()."'";
     	$sql .= "where end_id = ".$end->getend_id()." limit 1";
     	return $this->execute($sql);

@@ -19,14 +19,14 @@ class AdministracaoDAO extends DAO{
      public function insert($adm)
      {
          $sql  = "insert into administracao (adm_administracao) values ";
-         $sql .= "('".$adm->getDmn_administracao()."','";
+         $sql .= "('".$adm->getDmn_administracao()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
      
      public function update($adm)
      {
-         $sql  = "update administracao set adm_administracao = '".$adm->getDmn_administracao()."',";
+         $sql  = "update administracao set adm_administracao = '".$adm->getDmn_administracao()."'";
          $sql .= "where adm_id = ".$adm->getgetDmn_id()." limit 1";
          return $this->execute($sql);
      } 

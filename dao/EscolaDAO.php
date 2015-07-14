@@ -26,8 +26,8 @@ class EscolaDAO extends DAO{
      {
          $sql  = "insert into escola (esc_razao_social,esc_cnpj,esc_endereco,esc_tipo_escola,esc_administracao) values ";
          $sql .= "('".$esc->getesc_razao_social()."','";
-         $sql .= "('".$esc->getesc_cnpj()."','".$esc->getesc_endereco()."',";
-         $sql .= "('".$esc->getesc_tipo_escola()."','".$esc->getesc_administracao()."',";
+         $sql .= "'".$esc->getesc_cnpj()."','".$esc->getesc_endereco()."','";
+         $sql .= "'".$esc->getesc_tipo_escola()."','".$esc->getesc_administracao()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
@@ -36,10 +36,10 @@ class EscolaDAO extends DAO{
      {
         $sql  = "update escola set esc_razao_social = '".$esc->getesc_razao_social()."',";
     	$sql .= "esc_cnpj = '".$esc->getesc_cnpj()."',";
-    	$sql .= "esc_endereco = ".$esc->getesc_endereco().",";
-        $sql .= "esc_tipo_escola = ".$esc->getesc_tipo_escola().",";
-        $sql .= "esc_administracao = ".$esc->getesc_administracao().",";
-        
+    	$sql .= "esc_endereco = '".$esc->getesc_endereco()."',";
+        $sql .= "esc_tipo_escola = '".$esc->getesc_tipo_escola()."',";
+        $sql .= "esc_administracao = '".$esc->getesc_administracao()."'";
+        $sql .= "where  esc_id = ".$esc->getesc_id()." limit 1";
         return $this->execute($esc);
      }
      
@@ -68,7 +68,7 @@ class EscolaDAO extends DAO{
      
      public function selectFull()
      {
-        $sql = "select * from escola where esc_id = ".$idesc." ";
+        $sql = "select * from escola";
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysql_fetch_array($result))

@@ -24,14 +24,14 @@ class CapituloDAO extends DAO{
      public function insert($cap)
      {
          $sql  = "insert into capitulo (cpt_capitulo) values ";
-         $sql .= "('".$cap->getCpt_capitulo()."','";
+         $sql .= "('".$cap->getCpt_capitulo()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
      
      public function update($cap)
      {
-         $sql  = "update capitulo set cpt_capitulo = '".$cap->getCpt_capitulo()."',";
+         $sql  = "update capitulo set cpt_capitulo = '".$cap->getCpt_capitulo()."'";
          $sql .= "where cpt_id = ".$cap->getCpt_id()." limit 1";
          return $this->execute($sql);
      }

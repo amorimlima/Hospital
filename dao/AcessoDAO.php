@@ -24,7 +24,7 @@ class AcessoDAO extends DAO{
     public function insert($ace)
      {
          $sql  = "insert into acesso (prf_id,id_menu) values ";
-        $sql .= "('".$ace->getPrf_id()."','".$ace->getId_menu()."',";
+        $sql .= "('".$ace->getPrf_id()."','".$ace->getId_menu()."')";
 		echo $ace;
     	return $this->execute($sql);
      }
@@ -32,7 +32,7 @@ class AcessoDAO extends DAO{
      public function update($ace)
      {
          $sql  = "update acesso set prf_id = '".$ace->getPrf_id()."',";
-         $sql .= "id_menu = '".$ace->getId_menu()."',";
+         $sql .= "id_menu = '".$ace->getId_menu();
          $sql .= "where prf_id = ".$ace->getPrf_id()." and id_menu=".$ace->getId_menu()." limit 1";
          return $this->execute($sql);
      } 

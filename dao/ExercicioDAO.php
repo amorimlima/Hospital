@@ -15,7 +15,7 @@ include_once($path['beans'].'Exercicio.php');
  *
  * @author Kevyn
  */
-class ExercicioDAO {
+class ExercicioDAO extends DAO{
     //put your code here
     
     public function  __construct($da) {
@@ -26,8 +26,8 @@ class ExercicioDAO {
      {
          $sql  = "insert into exercicio (exe_tipo,exe_serie,exe_tema,exe_capitulo) values ";
          $sql .= "('".$exe->getexe_tipo()."','";
-         $sql .= "('".$exe->getexe_serie()."','".$exe->getexe_tema()."',";
-         $sql .= "('".$exe->getexe_capitulo()."','";
+         $sql .= "'".$exe->getexe_serie()."','".$exe->getexe_tema()."',";
+         $sql .= "'".$exe->getexe_capitulo()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
@@ -38,6 +38,7 @@ class ExercicioDAO {
     	$sql .= "exe_serie = '".$exe->getexe_serie()."',";
     	$sql .= "exe_tema = ".$exe->getexe_tema().",";
         $sql .= "exe_capitulo = ".$exe->getexe_capitulo().",";
+        $sql .= "where exe_id = ".$exe->getexe_id()." limit 1";
         
         return $this->execute($sql);
      }

@@ -25,7 +25,7 @@ class ForumTopicoDAO {
      public function insert($frt)
      {
          $sql  = "insert into forum_topico (frt_topico) values ";
-         $sql .= "('".$frt->getFrt_topico()."','";
+         $sql .= "('".$frt->getFrt_topico()."')";
 		echo $sql;
     	return $this->execute($sql);
      }

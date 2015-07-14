@@ -26,14 +26,14 @@ class AnoLetivoDAO extends DAO {
        public function insert($ano)
      {
          $sql  = "insert into ano_letivo (ano_ano) values ";
-         $sql .= "('".$ano->getAno()."','";
+         $sql .= "('".$ano->getAno()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
      
      public function update($ano)
      {
-         $sql  = "update ano_letivo set ano_ano = '".$ano->getAno()."',";
+         $sql  = "update ano_letivo set ano_ano = '".$ano->getAno()."'";
          $sql .= "where ano_id = ".$ano->getNlt_id()." limit 1";
          return $this->execute($sql);
      } 
@@ -72,8 +72,6 @@ class AnoLetivoDAO extends DAO {
         }
     	return $lista;
      }
-     
-     
-    
+
 }
 ?>

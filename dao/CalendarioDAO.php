@@ -28,10 +28,10 @@ class CalendarioDAO extends DAO{
      {
          $sql  = "insert into calendario (cld_data_inicio,cld_data_fim,cld_evento,cld_ano_letivo,cld_tipo_evento,cld_descricao,cld_imagem,cld_hora_inicio,cld_hora_fim,cld_visivel) values ";
          $sql .= "('".$cal->getCld_data_inicio()."','".$cal->getCld_data_fim()."',".$cal->getCld_evento().",";
-         $sql .= "'".$cal->getCld_ano_letivo()."','".$cal->getCld_tipo_evento()."')";
-         $sql .= "'".$cal->getCld_descricao()."','".$cal->getCld_imagem()."')";         
-         $sql .= "'".$cal->getCld_hora_inicio()."','".$cal->getCld_hora_fim()."')";   
-         $sql .= "'".$cal->getCld_visivel()."','";   
+         $sql .= "'".$cal->getCld_ano_letivo()."','".$cal->getCld_tipo_evento().",";
+         $sql .= "'".$cal->getCld_descricao()."','".$cal->getCld_imagem().",";         
+         $sql .= "'".$cal->getCld_hora_inicio()."','".$cal->getCld_hora_fim().",";   
+         $sql .= "'".$cal->getCld_visivel()."')";   
 		echo $sql;
     	return $this->execute($sql);
      }
@@ -42,11 +42,11 @@ class CalendarioDAO extends DAO{
     	$sql .= "cld_data_fim = '".$cal->getCld_data_fim()."',";
     	$sql .= "cld_evento = ".$cal->getCld_evento().",";
     	$sql .= "cld_ano_letivo = '".$cal->getCld_ano_letivo()."',";
-    	$sql .= "cld_tipo_evento = '".$cal->getCld_tipo_evento()."'";
-        $sql .= "cld_descricao = '".$cal->getCld_descricao()."'";
-        $sql .= "cld_imagem = '".$cal->getCld_imagem()."'";
-        $sql .= "cld_hora_inicio = '".$cal->getCld_hora_inicio()."'";
-        $sql .= "cld_hora_fim = '".$cal->getCld_hora_fim()."'";
+    	$sql .= "cld_tipo_evento = '".$cal->getCld_tipo_evento()."',";
+        $sql .= "cld_descricao = '".$cal->getCld_descricao()."',";
+        $sql .= "cld_imagem = '".$cal->getCld_imagem()."',";
+        $sql .= "cld_hora_inicio = '".$cal->getCld_hora_inicio()."',";
+        $sql .= "cld_hora_fim = '".$cal->getCld_hora_fim()."',";
         $sql .= "cld_visivel = '".$cal->getCld_visivel()."'";
     	$sql .= "where cld_id = ".$cal->getCld_id()." limit 1";
     	return $this->execute($sql);
