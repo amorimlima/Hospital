@@ -25,10 +25,10 @@ class UsuarioDAO extends DAO{
      public function insert($user)
      {
          $sql  = "insert into usuario (usr_nome,usr_data_nascimento,usr_endereco, usr_escola,usr_data_entrada_escola,usr_nse,usr_perfil) values ";
-         $sql .= "('".$user->getUsr_nome()."','";
-         $sql .= "('".$user->getUsr_data_nascimento()."','";
-         $sql .= "('".$user->getUsr_endereco()."','";
-         $sql .= "('".$user->getUsr_escola()."','";
+         $sql .= "('".$user->getUsr_nome()."',";
+         $sql .= "'".$user->getUsr_data_nascimento()."',";
+         $sql .= "'".$user->getUsr_endereco()."',";
+         $sql .= "'".$user->getUsr_escola()."',";
          $sql .= "'".$user->getUsr_data_entrada_escola()."','".$user->getUsr_nse()."',";
          $sql .= "'".$user->getUsr_perfil()."')";
 		echo $sql;
