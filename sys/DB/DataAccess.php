@@ -12,9 +12,10 @@ class DataAccess
 	{
             //L -> '187.73.149.26:8080', 'root', 'jogoshcb' DB -> hcb_criancas
             //W ->'localhost', 'root','' DB -> hcb_criancas
-            $this->connect = mysql_connect('localhost','root','');//
+            $this->connect = mysqli_connect('localhost','root','kevyn');//
             //$this->connect = mysql_connect('127.0.0.1','root','jogoshcb');//
-            mysql_select_db('hcb_criancas', $this->connect) or die(mysql_error());//
+            mysqli_select_db($this->connect, 'hcb_criancas') or die(mysql_error());//
+       
 	}
 	
 	public function getDBConnect()
@@ -27,7 +28,7 @@ class DataAccess
 	public function execute($sql)
 	{
 		//echo $sql;
-		$query = mysql_query($sql, $this->getDBConnect());// or die(mysql_error()."Erro!!");
+		$query = mysqli_query($this->getDBConnect(),$sql);// or die(mysql_error()."Erro!!");
 
 		/* Executa o SQL */
 		if ($query)
@@ -40,7 +41,7 @@ class DataAccess
 	/**/
 	public function executeAndReturnLastID($sql)
 	{
-		$query = mysql_query($sql, $this->getDBConnect()) or die(mysql_error()."Erro!!");				
+		$query = mysqli_query($sql, $this->getDBConnect()) or die(mysql_error()."Erro!!");				
 				
 		/* Executa o SQL */			
 		if ($query)
@@ -60,7 +61,7 @@ class DataAccess
     */
     public function isError ()
     {
-        return mysql_error( $this->getDBConnect() );
+        return mysqli_error( $this->getDBConnect() );
     }
 	
 		
