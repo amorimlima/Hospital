@@ -4,6 +4,8 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'AcessoDAO.php');
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
