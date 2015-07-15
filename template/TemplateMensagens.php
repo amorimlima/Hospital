@@ -1,7 +1,13 @@
 <?php
+<<<<<<< HEAD
 if(!isset($_SESSION['PATH_SYS'])){
    session_start();  
 }
+=======
+//session_start();
+include_once($path['dao'].'MensagemDAO.php');
+include_once($path['controller'].'MensagemController.php');
+>>>>>>> origin/master
 $path = $_SESSION['PATH_SYS'];
 
 /**
@@ -10,7 +16,7 @@ $path = $_SESSION['PATH_SYS'];
  * @author MuranoDesign
  */
 
-class TemplateAreaAluno {
+class TemplateMensagens {
 
     public static $path;
 
@@ -23,5 +29,12 @@ class TemplateAreaAluno {
    {
 		
    }
+   
+   public function recebidos(){
+       $mensagem = new MensagemController();
+       return $mensagem->count();
+       
+   }
+   
 }
 ?>

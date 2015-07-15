@@ -1,7 +1,11 @@
 <?php
+<<<<<<< HEAD
 if(!isset($_SESSION['PATH_SYS'])){
    session_start();  
 }
+=======
+//session_start();
+>>>>>>> origin/master
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'MensagemDAO.php');
 /*
@@ -44,8 +48,14 @@ class MensagemController {
 		$mens = $this->mensagemDAO->select($idmens);
 		return $mens;
 	}
-	
-	public function selectAll()
+        
+        public function count(){
+            $valor = $this->mensagemDAO->count();
+            return $valor;
+        }
+
+
+        public function selectAll()
 	{
 		$mens = $this->mensagemDAO->selectFull();
 		return $mens;

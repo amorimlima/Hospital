@@ -108,7 +108,7 @@ class MenuDAO extends DAO{
         
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $mnu = new Menu();
                 $mnu->setId_men($qr["id_menu"]);

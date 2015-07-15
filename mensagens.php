@@ -1,10 +1,18 @@
+<<<<<<< HEAD
 ﻿<?php 
 if(!isset($_SESSION['PATH_SYS'])){
    require_once '_loadPaths.inc.php'; 
 }
+=======
+<?php 
+require_once '_loadPaths.inc.php';
+//session_start();
+>>>>>>> origin/master
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
+include_once($path['template'].'TemplateMensagens.php');
 $templateGeral = new Template();
+$templateMensagens = new TemplateMensagens();
 ?>
 <!doctype html>
 <html>
@@ -33,7 +41,7 @@ $templateGeral = new Template();
             <div id="Conteudo_Area_box_Grande">
                 <div id="box_msg_geral">
                     <div id="box_msg_left">
-                        <div id="btn_recebidos" class="btn_msg btn_msg_ativo"><span>RECEBIDOS(34)</span></div>
+                        <div id="btn_recebidos" class="btn_msg btn_msg_ativo"><span>RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span></div>
                         <div id="btn_enviados" class="btn_msg"><span>ENVIADOS</span></div>
                         <div id="btn_excluidos" class="btn_msg"><span>EXCLUÍDOS</span></div>
                     </div>
