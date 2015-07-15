@@ -1,11 +1,11 @@
 <?php
-<<<<<<< HEAD
+
 if(!isset($_SESSION['PATH_SYS'])){
    session_start();  
 }
-=======
+
 //session_start();
->>>>>>> origin/master
+
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'MensagemDAO.php');
 /*
