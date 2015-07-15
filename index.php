@@ -1,6 +1,13 @@
 ﻿<?php 
-require_once '_loadPaths.inc.php';
-session_start();
+if(!isset($_SESSION['PATH_SYS'])){
+   require_once '_loadPaths.inc.php'; 
+}
+
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
+error_reporting(E_ALL);
+
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
 $templateGeral = new Template();

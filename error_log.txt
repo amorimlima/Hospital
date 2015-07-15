@@ -1,0 +1,32 @@
+[15-Jul-2015 17:33:49 Europe/Paris] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\wamp\www\Hospital\sys\DB\DataAccess.php on line 16
+[15-Jul-2015 17:33:49 Europe/Paris] PHP Stack trace:
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   1. {main}() C:\wamp\www\Hospital\index.php:0
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   2. Template->topoSite() C:\wamp\www\Hospital\index.php:32
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   3. MenuController->__construct() C:\wamp\www\Hospital\template\Template.php:24
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   4. DataAccess->__construct() C:\wamp\www\Hospital\controller\MenuController.php:24
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   5. DataAccess->connect() C:\wamp\www\Hospital\sys\DB\DataAccess.php:8
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   6. mysql_connect() C:\wamp\www\Hospital\sys\DB\DataAccess.php:16
+[15-Jul-2015 17:33:49 Europe/Paris] PHP Warning:  mysql_connect(): Access denied for user 'root'@'localhost' (using password: YES) in C:\wamp\www\Hospital\sys\DB\DataAccess.php on line 16
+[15-Jul-2015 17:33:49 Europe/Paris] PHP Stack trace:
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   1. {main}() C:\wamp\www\Hospital\index.php:0
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   2. Template->topoSite() C:\wamp\www\Hospital\index.php:32
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   3. MenuController->__construct() C:\wamp\www\Hospital\template\Template.php:24
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   4. DataAccess->__construct() C:\wamp\www\Hospital\controller\MenuController.php:24
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   5. DataAccess->connect() C:\wamp\www\Hospital\sys\DB\DataAccess.php:8
+[15-Jul-2015 17:33:49 Europe/Paris] PHP   6. mysql_connect() C:\wamp\www\Hospital\sys\DB\DataAccess.php:16
+[15-Jul-2015 17:33:50 Europe/Paris] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in C:\wamp\www\Hospital\sys\DB\DataAccess.php on line 17
+[15-Jul-2015 17:33:50 Europe/Paris] PHP Stack trace:
+[15-Jul-2015 17:33:50 Europe/Paris] PHP   1. {main}() C:\wamp\www\Hospital\index.php:0
+[15-Jul-2015 17:33:50 Europe/Paris] PHP   2. Template->topoSite() C:\wamp\www\Hospital\index.php:32
+[15-Jul-2015 17:33:50 Europe/Paris] PHP   3. MenuController->__construct() C:\wamp\www\Hospital\template\Template.php:24
+[15-Jul-2015 17:33:50 Europe/Paris] PHP   4. DataAccess->__construct() C:\wamp\www\Hospital\controller\MenuController.php:24
+[15-Jul-2015 17:33:50 Europe/Paris] PHP   5. DataAccess->connect() C:\wamp\www\Hospital\sys\DB\DataAccess.php:8
+[15-Jul-2015 17:33:50 Europe/Paris] PHP   6. mysql_select_db() C:\wamp\www\Hospital\sys\DB\DataAccess.php:17
+[15-Jul-2015 17:36:27 Europe/Paris] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in C:\wamp\www\Hospital\sys\DB\DataAccess.php on line 15
+[15-Jul-2015 17:36:27 Europe/Paris] PHP Stack trace:
+[15-Jul-2015 17:36:27 Europe/Paris] PHP   1. {main}() C:\wamp\www\Hospital\index.php:0
+[15-Jul-2015 17:36:27 Europe/Paris] PHP   2. Template->topoSite() C:\wamp\www\Hospital\index.php:32
+[15-Jul-2015 17:36:27 Europe/Paris] PHP   3. MenuController->__construct() C:\wamp\www\Hospital\template\Template.php:24
+[15-Jul-2015 17:36:27 Europe/Paris] PHP   4. DataAccess->__construct() C:\wamp\www\Hospital\controller\MenuController.php:24
+[15-Jul-2015 17:36:27 Europe/Paris] PHP   5. DataAccess->connect() C:\wamp\www\Hospital\sys\DB\DataAccess.php:8
+[15-Jul-2015 17:36:27 Europe/Paris] PHP   6. mysql_connect() C:\wamp\www\Hospital\sys\DB\DataAccess.php:15

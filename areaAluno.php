@@ -1,6 +1,7 @@
 ﻿<?php 
-require_once '_loadPaths.inc.php';
-session_start();
+if(!isset($_SESSION['PATH_SYS'])){
+   require_once '_loadPaths.inc.php'; 
+}
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateAreaAluno.php');
@@ -15,8 +16,9 @@ $templateAreaAluno = new TemplateAreaAluno();
    	<title>home</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" type="text/css" href="css/areaAluno.css">
-        <!--<script src="//use.typekit.net/rtp0aku.js"></script>
-		<script>try{Typekit.load();}catch(e){}</script>-->        
+        <script src="//use.typekit.net/rtp0aku.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>      
+        <script src="js/jquery-2.1.1.min.js"></script>
         <script src="js/ScaleScript.js"></script>            
     </head>    
 <body>

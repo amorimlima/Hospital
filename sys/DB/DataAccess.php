@@ -13,7 +13,7 @@ class DataAccess
             //L -> '187.73.149.26:8080', 'root', 'jogoshcb' DB -> hcb_criancas
             //W ->'localhost', 'root','' DB -> hcb_criancas
             $this->connect = mysql_connect('localhost','root','');//
-            //$this->connect = mysql_connect('127.0.0.1','root','jogoshcb');//
+            //$this->connect = mysql_connect('localhost','root','jogoshcb');//
             mysql_select_db('hcb_criancas', $this->connect) or die(mysql_error());//
 	}
 	

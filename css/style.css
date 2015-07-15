@@ -19,8 +19,8 @@ body
 {
 	margin:0;
 	padding:0;
-	width:1024px;
-	height:76,8%;
+	//width:1024px;
+	//height:76,8%;
 	transform-origin:top left;
 	-webkit-transform-origin:top left;
 }
@@ -148,12 +148,13 @@ p{
 #menu a{	
     text-decoration:none;
 }
-
+img{max-width:100%;
+    height:auto;}
 #mn_livros{
-	background:url(../img/bt_livros_normal.png) no-repeat;
-        background-size: 100%;
-	padding: 0px 52px 25px 52px;
-	margin-right: 20.6px;
+    background:url(../img/bt_livros_normal.png) no-repeat;
+    
+    padding: 0px 52px 25px 52px;
+    margin-right: 20.6px;
 }
 #mn_livros:hover{
 	background:url(../img/bt_livros_ativo.png) no-repeat;
