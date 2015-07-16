@@ -50,5 +50,10 @@ class UsuarioController {
 		$user = $this->usuarioDAO->selectFull();
 		return $user;
 	}
+	public function autenticaUsuario($usuario,$senha)
+	{
+		$user = $this->usuarioDAO->autenticaUsuario($usuario,$senha);
+		return $user;
+	}
 }
 ?>
