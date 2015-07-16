@@ -43,7 +43,7 @@ class MensagemController {
 		return $this->mensagemDAO->delete($idmens);
 	}
 	
-	public function select($idmens)
+	public function selectMensagem($idmens)
 	{
 		$mens = $this->mensagemDAO->select($idmens);
 		return $mens;
@@ -54,6 +54,10 @@ class MensagemController {
             return $valor;
         }
 
+        public function listaEnviadas($idmens){
+            $valor = $this->mensagemDAO->listaEnviadas($idmens);
+            return $valor;
+        }
 
         public function selectAll()
 	{

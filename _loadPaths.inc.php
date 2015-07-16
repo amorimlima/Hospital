@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 
 $system = "W"; // W ou L
 
@@ -10,7 +10,7 @@ else
 
 
 if ($system == "W")
-	$_LOAD_PATH_SYS['home']    = 'C:\\wamp\\www\\Hospital\\'; // Windows
+	$_LOAD_PATH_SYS['home']    = 'C:\\wamp\\www\\CriancasComoParceiras\\Hospital\\'; // Windows
 else
 	$_LOAD_PATH_SYS['home']    = '/var/www/html/';
 
@@ -33,8 +33,11 @@ $_LOAD_PATH_SYS['temporaria'] = $_LOAD_PATH_SYS['home'].'temporaria'.$_PATH_SEPA
 $_LOAD_PATH_SYS['images']     = $_LOAD_PATH_SYS['home'].'images'.$_PATH_SEPARATOR;
 $_LOAD_PATH_SYS['template']   = $_LOAD_PATH_SYS['home'].'template'.$_PATH_SEPARATOR;
 
+$_LOAD_PATH_SYS['funcao']     = $_LOAD_PATH_SYS['home'].'funcao'.$_PATH_SEPARATOR;
+
+ 
 if ($system == "W")
-	$_LOAD_URL_SYS['BASE_URL']    = '/Hospital/';
+	$_LOAD_URL_SYS['BASE_URL']    = '/CriancasComoParceiras/Hospital/';
 else
 	$_LOAD_URL_SYS['BASE_URL']    = '/var/www/html/';
 
@@ -42,6 +45,7 @@ $_LOAD_URL_SYS['URL_MINIATURAS']      		= $_LOAD_URL_SYS['BASE_URL'].'miniaturas
 $_LOAD_URL_SYS['URL_IMGG']      		    = $_LOAD_URL_SYS['BASE_URL'].'imgg/';
 $_LOAD_URL_SYS['URL_IMGP']      		    = $_LOAD_URL_SYS['BASE_URL'].'imgp/';
 $_LOAD_URL_SYS['URL_TEMPORARIA']      		= $_LOAD_URL_SYS['BASE_URL'].'temporaria/';
+$_LOAD_URL_SYS['URL_AJAX']       = $_LOAD_URL_SYS['BASE_URL'].'ajax/';
 
 $_SESSION['PATH_SYS'] = $_LOAD_PATH_SYS;
 $_SESSION['URL_SYS']  = $_LOAD_URL_SYS;

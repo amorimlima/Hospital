@@ -1,16 +1,14 @@
-<<<<<<< HEAD
+
 ﻿<?php 
 if(!isset($_SESSION['PATH_SYS'])){
    require_once '_loadPaths.inc.php'; 
 }
-=======
-<?php 
-require_once '_loadPaths.inc.php';
-//session_start();
->>>>>>> origin/master
+
+
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateMensagens.php');
+
 $templateGeral = new Template();
 $templateMensagens = new TemplateMensagens();
 ?>
@@ -24,7 +22,8 @@ $templateMensagens = new TemplateMensagens();
         <!--<script src="//use.typekit.net/rtp0aku.js"></script>
 	<script>try{Typekit.load();}catch(e){}</script>-->
         <script src="js/jquery-2.1.1.min.js"></script>
-        <script src="js/ScaleScript.js"></script>            
+        <script src="js/ScaleScript.js"></script>    
+        <script src="js/Mensagem.js"></script>  
     </head>    
 <body>
 	<!--Conteudo Geral-->
@@ -39,11 +38,15 @@ $templateMensagens = new TemplateMensagens();
         <div id="Conteudo_Area">
         	<!--Area Unica-->
             <div id="Conteudo_Area_box_Grande">
+                <div id="retorno" style="background: #666; height: 50px; width: 100%; color: #fff">
+                    
+                </div>
+                
                 <div id="box_msg_geral">
                     <div id="box_msg_left">
-                        <div id="btn_recebidos" class="btn_msg btn_msg_ativo"><span>RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span></div>
-                        <div id="btn_enviados" class="btn_msg"><span>ENVIADOS</span></div>
-                        <div id="btn_excluidos" class="btn_msg"><span>EXCLUÍDOS</span></div>
+                        <div id="btn_recebidos"  class="btn_msg btn_msg_ativo"><span>RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span></div>
+                        <div id="btn_enviados" onclick="envidasFuncao()" class="btn_msg"><span>ENVIADOS</span></div>
+                        <div id="btn_excluidos" onclick="deleteFuncao()" class="btn_msg"><span>EXCLUÍDOS</span></div>
                     </div>
                     <div id="box_msg_right_top">
                         <div id="box_NRE">
