@@ -30,7 +30,7 @@ class DataAccess
 	public function execute($sql)
 	{
 		//echo $sql;
-		$query = mysqli_query($sql,$this->getDBConnect());// or die(mysql_error()."Erro!!");
+		$query = mysqli_query($this->getDBConnect(),$sql);// or die(mysql_error()."Erro!!");
 
 		/* Executa o SQL */
 		if ($query)
