@@ -37,25 +37,45 @@ class MensagemController {
 	{
 		return $this->mensagemDAO->update($mens);
 	}
-	
-	public function delete($idmens)
+        
+        public function msgLida($idmens){
+            return $this->mensagemDAO->msgLida($idmens);
+        }
+
+        public function delete($idmens)
 	{
-		return $this->mensagemDAO->delete($idmens);
+            return $this->mensagemDAO->delete($idmens);
 	}
 	
 	public function selectMensagem($idmens)
 	{
-		$mens = $this->mensagemDAO->select($idmens);
-		return $mens;
+            $mens = $this->mensagemDAO->select($idmens);
+            return $mens;
 	}
         
-        public function count(){
-            $valor = $this->mensagemDAO->count();
+        public function count($idmens){
+            $valor = $this->mensagemDAO->count($idmens);
             return $valor;
         }
 
         public function listaEnviadas($idmens){
             $valor = $this->mensagemDAO->listaEnviadas($idmens);
+            return $valor;
+        }
+        
+        public function deletadas(){
+             $valor = $this->mensagemDAO->deletadas();
+            return $valor;
+        } 
+
+
+        public function detalhe($idmens){
+            $valor = $this->mensagemDAO->detalhe($idmens);
+            return $valor;
+        }
+
+        public function listaRecebidos($idmens){
+            $valor = $this->mensagemDAO->listaRecebidos($idmens);
             return $valor;
         }
 

@@ -32,7 +32,7 @@ class TemplateMensagens {
    
    public function recebidos(){
        $mensagem = new MensagemController();
-       return $mensagem->count();
+       return $mensagem->count(20);
        
    }
    

@@ -61,19 +61,19 @@ class MensagemDAO extends DAO{
         $sql .= "msg_anexo = '".$mens->getMsg_anexo()."',";
         $sql .= "destinatarios = '".$mens->getDestinatarios()."',";
     	$sql .= "msg_destinatario_grupo = ".$mens->getMsg_destinatario_grupo().",";
-        $sql .= "where  msg_id = ".$mens->getMsg_id()." limit 1";
+        $sql .= "where  msg_id = ".$mens    ->getMsg_id()." limit 1";
         return $this->execute($sql);
      }
      
      public function delete($idmens)
      {
-         $sql = "delete from mensagem where msg_id = ".$idmens."";
+         $sql = "update mensagem set msg_ativo = 0 where msg_id = ".$idmens."";
     	return $this->execute($sql); 
      }
      
      public function select($idmens)
      {
-        $sql = "select * from mensagem where msg_id = ".$idmens." ";
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_id = ".$idmens." ";
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
 
@@ -96,8 +96,8 @@ class MensagemDAO extends DAO{
     	return $mens;
      }
      
-     public function count(){
-        $sql = "select * from mensagem";
+     public function count($idmens){
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_lida = 'n' and msg_destinatario=".$idmens." ";
         $result = $this->retrieve($sql);
         $qr = mysqli_num_rows($result);
         
@@ -107,12 +107,98 @@ class MensagemDAO extends DAO{
      
      public function listaEnviadas($idmens) {
      
-        $sql = "select * from mensagem where msg_id = ".$idmens." ";
-    	$result = $this->retrieve($sql);
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_remetente = ".$idmens." ";
         $lista = array();
+    	$result = $this->retrieve($sql);
+    	while ($qr = mysqli_fetch_array($result))
+    	{  
+               $mens = new Mensagem();
+                $mens->setMsg_id($qr["msg_id"]);
+                $mens->setMsg_destinatario($qr["msg_destinatario"]);
+                $mens->setMsg_remetente($qr["msg_remetente"]);
+                $mens->setMsg_assunto($qr["msg_assunto"]);
+                $mens->setMsg_mensagem($qr["msg_mensagem"]);
+                $mens->setMsg_lida($qr["msg_lida"]);
+                $mens->setMsg_cx_entrada($qr["msg_cx_entrada"]);
+                $mens->setMsg_cx_enviado($qr["msg_cx_enviado"]);
+                $mens->setMsg_tipo_mensagem($qr["msg_tipo_mensagem"]);
+                $mens->setMsg_data($qr["msg_data"]);
+                $mens->setMsg_proprietario($qr["msg_proprietario"]);
+                $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setDestinatarios($qr["destinatarios"]);
+                $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
+                array_push($lista, $mens);
+
+        } 
+    	return $lista;
+         
+     }
+     
+     public function msgLida($idmens){
+          $sql  = "update mensagem set msg_lida ='s' where msg_id=".$idmens." ";
+          return $this->execute($sql);
+     }
+
+          public function detalhe($idmens){
+         $sql = "select * from mensagem where msg_ativo = 1 and msg_id = ".$idmens." ";
+         $result = $this->retrieve($sql);
+    	 $qr = mysqli_fetch_array($result);
+         $mens = new Mensagem();
+                $mens->setMsg_id($qr["msg_id"]);
+                $mens->setMsg_destinatario($qr["msg_destinatario"]);
+                $mens->setMsg_remetente($qr["msg_remetente"]);
+                $mens->setMsg_assunto($qr["msg_assunto"]);
+                $mens->setMsg_mensagem($qr["msg_mensagem"]);
+                $mens->setMsg_lida($qr["msg_lida"]);
+                $mens->setMsg_cx_entrada($qr["msg_cx_entrada"]);
+                $mens->setMsg_cx_enviado($qr["msg_cx_enviado"]);
+                $mens->setMsg_tipo_mensagem($qr["msg_tipo_mensagem"]);
+                $mens->setMsg_data($qr["msg_data"]);
+                $mens->setMsg_proprietario($qr["msg_proprietario"]);
+                $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setDestinatarios($qr["destinatarios"]);
+                $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
+ 
+    	return $mens;
+         
+     }
+
+
+     public function listaRecebidos($idmens){
+         
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_destinatario = ".$idmens." ";
+        $lista = array();
+    	$result = $this->retrieve($sql);
+    	while ($qr = mysqli_fetch_array($result))
+    	{  
+               $mens = new Mensagem();
+                $mens->setMsg_id($qr["msg_id"]);
+                $mens->setMsg_destinatario($qr["msg_destinatario"]);
+                $mens->setMsg_remetente($qr["msg_remetente"]);
+                $mens->setMsg_assunto($qr["msg_assunto"]);
+                $mens->setMsg_mensagem($qr["msg_mensagem"]);
+                $mens->setMsg_lida($qr["msg_lida"]);
+                $mens->setMsg_cx_entrada($qr["msg_cx_entrada"]);
+                $mens->setMsg_cx_enviado($qr["msg_cx_enviado"]);
+                $mens->setMsg_tipo_mensagem($qr["msg_tipo_mensagem"]);
+                $mens->setMsg_data($qr["msg_data"]);
+                $mens->setMsg_proprietario($qr["msg_proprietario"]);
+                $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setDestinatarios($qr["destinatarios"]);
+                $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
+                array_push($lista, $mens);
+
+        } 
+    	return $lista;
+     }
+
+     public function selectFull()
+     {
+        $sql = "select * from mensagem msg_ativo = 1";
+    	$result = $this->retrieve($sql);
+    	$lista = array();
         while ($qr = mysql_fetch_array($result))
     	{
-
                 $mens = new Mensagem();
                 $mens->setMsg_id($qr["msg_id"]);
                 $mens->setMsg_destinatario($qr["msg_destinatario"]);
@@ -129,18 +215,15 @@ class MensagemDAO extends DAO{
                 $mens->setDestinatarios($qr["destinatarios"]);
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
                 array_push($lista, $mens);
-        } 
+        }    
     	return $lista;
-         
      }
-
-
-     public function selectFull()
-     {
-        $sql = "select * from mensagem";
+     
+     public function deletadas(){
+        $sql = "select * from mensagem where msg_ativo = 0";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $mens = new Mensagem();
                 $mens->setMsg_id($qr["msg_id"]);
