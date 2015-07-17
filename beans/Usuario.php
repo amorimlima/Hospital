@@ -27,6 +27,8 @@ private $usr_escola;
 private $usr_data_entrada_escola;
 private $usr_nse;
 private $usr_perfil;
+private $usr_login;
+private $usr_senha;
 
 
 
@@ -78,6 +80,15 @@ public function getUsr_perfil()
 return $this->usr_perfil;
 }
 
+public function getUsr_login()
+{
+return $this->usr_login;
+}
+
+public function getUsr_senha()
+{
+return $this->usr_senha;
+}
 
 
 public function setUsr_id($val)
@@ -119,7 +130,14 @@ public function setUsr_perfil($val)
 {
 $this->usr_perfil =  $val;
 }
-
+public function setUsr_login($val)
+{
+$this->usr_login =  $val;
+}
+public function setUsr_senha($val)
+{
+$this->usr_senha =  $val;
+}
 
 } 
 
