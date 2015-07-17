@@ -51,7 +51,7 @@ class MenuDAO extends DAO{
      {
         $sql = "select * from menu where id_menu = ".$idmnu." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $mnu = new Menu();
                 $mnu->setId_men($qr["id_menu"]);
@@ -67,7 +67,7 @@ class MenuDAO extends DAO{
         $sql = "select * from menu";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $mnu = new Menu();
@@ -85,7 +85,7 @@ class MenuDAO extends DAO{
         $sql = "select * from menu where tipo_menu = ".$tipo."";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $mnu = new Menu();

@@ -1,4 +1,4 @@
-        function deleteFuncao(){
+            function deleteFuncao(){
                 var idMgs = $('.delete').attr('id');
                 var retorno = $('#'+idMgs).attr('class');
                 retorno = retorno.split(' ');
@@ -35,7 +35,7 @@
 		  success:function(data)
                   {
 		     $('#box_msg_teste').html(data);
-                     $('#box_msg_right_botton').toggle();
+                     $('#box_msg_right_botton').hide();
            
 		  }
 		  });
@@ -50,7 +50,8 @@
 		  success:function(data)
                   {
 		     $('#box_msg_teste').html(data);
-                     $('#box_msg_right_botton').toggle();
+                     $('#box_msg_right_botton').hide();
+           
            
 		  }
 		  });
@@ -107,7 +108,8 @@
 		  success:function(data)
                   {
 		     $('#box_msg_teste').html(data);
-                     $('#box_msg_right_botton').toggle();
+                     $('#box_msg_right_botton').hide();
+           
            
 		  }
 		  });
