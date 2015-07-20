@@ -136,28 +136,28 @@ switch ($_POST["acao"]){
         
    
                 echo '<p id="ass_linha">
-                      <span id="ass_msg">REPOSIÇÃO</span>
-                      <span id="ass_msg_data">'.$mensagem->getMsg_data().'</span>
+                        <span id="ass_msg">REPOSIÇÃO</span>
+                        <span id="ass_msg_data">'.$mensagem->getMsg_data().'</span>
                       </p>
                       <p id="ass_linha_rem">
-                      <span id="msg_rem">REMETENTE:</span>
-                      <span id="ass_msg_rem_nome">'.$mensagem->getMsg_remetente().'</span>
+                        <span id="msg_rem">REMETENTE:</span>
+                        <span id="ass_msg_rem_nome">'.$mensagem->getMsg_remetente().'</span>
                       </p>
                       <p id="ass_linha_para">
-                      <span id="msg_para">PARA:</span>
-                      <span id="ass_msg_para_nome">'.$mensagem->getMsg_destinatario().'</span>
+                        <span id="msg_para">PARA:</span>
+                        <span id="ass_msg_para_nome">'.$mensagem->getMsg_destinatario().'</span>
                       </p>
 
                       <div id="ass_linha_titulo_msg">
-                      <span id="msg_msg">'.$mensagem->getMsg_mensagem().'</span>
+                        <span id="msg_msg">'.$mensagem->getMsg_mensagem().'</span>
                       </div>
                       
                       <div id="ass_resposta_msg">
                         <p id="ass_linha_titulo_resp">
                            <span id="ass_msg_resp">RESPOSTA</span>
                         </p>
-                        <textarea name="msg_resposta" rows=7 cols=105> 
-                        </textarea>
+                      <textarea name="msg_resposta" rows=7 cols=105> 
+                      </textarea>
                       </div>';
                       //</div>';     <div id="tbl_msg_detalhe">
                
@@ -171,32 +171,32 @@ switch ($_POST["acao"]){
         if($mensagem->getMsg_lida() == 'n'){
             
             $mensagemController->msgLida($idmens);
-           // $template->recebidos();
+            // $template->recebidos();
         }
 
         $mensagem->getMsg_id();
        
    
                 echo '<p id="ass_linha">
-                      <span id="ass_msg">REPOSIÇÃO</span>
-                      <span id="ass_msg_data">'.$mensagem->getMsg_data().'</span>
+                        <span id="ass_msg">REPOSIÇÃO</span>
+                        <span id="ass_msg_data">'.$mensagem->getMsg_data().'</span>
                       </p>
-                      <p id="ass_linha_rem">
-                      <span id="msg_rem">REMETENTE:</span>
+                        <p id="ass_linha_rem">
+                         <span id="msg_rem">REMETENTE:</span>
                       <span id="ass_msg_rem_nome">'.$mensagem->getMsg_remetente().'</span>
                       </p>
-                      <p id="ass_linha_para">
-                      <span id="msg_para">PARA:</span>
-                      <span id="ass_msg_para_nome">'.$mensagem->getMsg_destinatario().'</span>
+                        <p id="ass_linha_para">
+                        <span id="msg_para">PARA:</span>
+                        <span id="ass_msg_para_nome">'.$mensagem->getMsg_destinatario().'</span>
                       </p>
-                      <div id="ass_linha_titulo_msg">
+                        <div id="ass_linha_titulo_msg">
                       <span id="msg_msg">'.$mensagem->getMsg_mensagem().'</span>
                       </div>
                       
                       <div id="ass_resposta_msg">
                        <p id="ass_linha_titulo_resp">
                            <span id="ass_msg_resp">RESPOSTA</span>
-                        </p>
+                       </p>
                         <textarea name="msg_resposta" rows=7 cols=105> 
                         </textarea>
                       </div>';
