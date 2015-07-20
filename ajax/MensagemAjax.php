@@ -77,7 +77,13 @@ switch ($_POST["acao"]){
                         </p>
                         <textarea name="msg_resposta" rows=7 cols=105> 
                         </textarea>
+                      </div>
+                      
+                       <div id="btn_msg_resposta">
+                         <input type="button" onclick="responder()" name="enviar" value="Enviar">
                       </div>';
+        
+        break;
     }
     
     

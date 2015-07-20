@@ -1,8 +1,8 @@
             function deleteFuncao(){
                 var idMgs = $('.delete').attr('id');
-                var retorno = $('#'+idMgs).attr('class');
-                retorno = retorno.split(' ');
                 if (typeof idMgs !== "undefined") {
+                     var retorno = $('#'+idMgs).attr('class');
+                     retorno = retorno.split(' ');
                      var id = idMgs.split('_');
                      $.ajax({
                      url:'ajax/MensagemAjax.php',
@@ -71,7 +71,7 @@
 
 		     $('#box_msg_right_botton').html(data);
                      $('#msg_valores_'+idMensagem).addClass('delete');
-                     $('#box_msg_right_botton').toggle();
+                     $('#box_msg_right_botton').show()();
                      //$('#n_msg').html('RECEBIDOS('+t+')');
            
 		  }
@@ -93,7 +93,7 @@
 		     $('#box_msg_right_botton').html(data);
                      $('#msg_valores_'+idMensagem).addClass('delete');
                      $('#n_msg').html('RECEBIDOS('+t+')');
-                     $('#box_msg_right_botton').toggle();
+                     $('#box_msg_right_botton').show()();
 		  }
 		  });
         }
@@ -125,15 +125,14 @@
 		  success:function(data)
                   {
 		     //$('#box_msg_teste').html(data);
-                    //$('#box_msg_right_botton').hide();
-                 
-           
+                        //$('#box_msg_right_botton').hide();
 		  }
 		  });
             
         }
         
         function novo(){
+             
              $.ajax({
 	          url:'ajax/MensagemAjax.php',
 	          type:'post',
@@ -142,10 +141,7 @@
 		  success:function(data)
                   {
                       $('#box_msg_right_botton').html(data);
-		     //$('#box_msg_teste').html(data);
-                    //$('#box_msg_right_botton').hide();
-                 
-           
+		  
 		  }
 		  });
             
