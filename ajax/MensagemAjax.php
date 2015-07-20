@@ -181,16 +181,16 @@ switch ($_POST["acao"]){
                         <span id="ass_msg">REPOSIÇÃO</span>
                         <span id="ass_msg_data">'.$mensagem->getMsg_data().'</span>
                       </p>
-                        <p id="ass_linha_rem">
-                         <span id="msg_rem">REMETENTE:</span>
-                      <span id="ass_msg_rem_nome">'.$mensagem->getMsg_remetente().'</span>
+                      <p id="ass_linha_rem">
+                        <span id="msg_rem">REMETENTE:</span>
+                        <span id="ass_msg_rem_nome">'.$mensagem->getMsg_remetente().'</span>
                       </p>
                         <p id="ass_linha_para">
                         <span id="msg_para">PARA:</span>
                         <span id="ass_msg_para_nome">'.$mensagem->getMsg_destinatario().'</span>
                       </p>
-                        <div id="ass_linha_titulo_msg">
-                      <span id="msg_msg">'.$mensagem->getMsg_mensagem().'</span>
+                      <div id="ass_linha_titulo_msg">
+                        <span id="msg_msg">'.$mensagem->getMsg_mensagem().'</span>
                       </div>
                       
                       <div id="ass_resposta_msg">
