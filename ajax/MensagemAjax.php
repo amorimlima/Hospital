@@ -24,7 +24,7 @@ switch ($_POST["acao"]){
         break;
     }
     
-    case "Deletadas":{
+    case "deletadas":{
         
         $mensagem = $mensagemController->deletadas();
 
@@ -34,7 +34,9 @@ switch ($_POST["acao"]){
             }else{
                 $naolida = '';
             }
-                echo '<div id="msg_valores_'.$value->getMsg_id().'" onclick="EnviadasDetalheFuncao('.$value->getMsg_id().')"  class="col1">
+            
+            //onclick="EnviadasDetalheFuncao('.$value->getMsg_id().')"
+                echo '<div id="msg_valores_'.$value->getMsg_id().'"   class="col1">
                       <p class="msg_nome ">'.$value->getMsg_id().'</p>
                       <p class="msg_assunto">'.$value->getMsg_assunto().'</p>
                       <p class="msg_data">'.$value->getMsg_data().'</p>
@@ -45,15 +47,39 @@ switch ($_POST["acao"]){
             break;
     }
     
-    case "criarMensagem":{
+    case "responder":{
         
-            break;
-    }
-     
-    case "editarMensagem":{
         
-            break;
+        
     }
+    
+    case "novo":{
+        echo '<p id="ass_linha">
+                      <span id="ass_msg">REPOSIÇÃO</span>
+                      <span id="ass_msg_data"></span>
+                      </p>
+                      <p id="ass_linha_rem">
+                      <span id="msg_rem">REMETENTE:</span>
+                      <span id="ass_msg_rem_nome"></span>
+                      </p>
+                      <p id="ass_linha_para">
+                      <span id="msg_para">PARA:</span>
+                      <span id="ass_msg_para_nome"></span>
+                      </p>
+
+                      <div id="ass_linha_titulo_msg">
+                      <span id="msg_msg"></span>
+                      </div>
+                      
+                      <div id="ass_resposta_msg">
+                        <p id="ass_linha_titulo_resp">
+                           <span id="ass_msg_resp">ENVIAR</span>
+                        </p>
+                        <textarea name="msg_resposta" rows=7 cols=105> 
+                        </textarea>
+                      </div>';
+    }
+    
     
     case "listaEnviadas":{
         $idmens = $_POST["id"];
@@ -115,10 +141,17 @@ switch ($_POST["acao"]){
                       <span id="msg_para">PARA:</span>
                       <span id="ass_msg_para_nome">'.$mensagem->getMsg_destinatario().'</span>
                       </p>
-                      
-                      
+
                       <div id="ass_linha_titulo_msg">
                       <span id="msg_msg">'.$mensagem->getMsg_mensagem().'</span>
+                      </div>
+                      
+                      <div id="ass_resposta_msg">
+                        <p id="ass_linha_titulo_resp">
+                           <span id="ass_msg_resp">RESPOSTA</span>
+                        </p>
+                        <textarea name="msg_resposta" rows=7 cols=105> 
+                        </textarea>
                       </div>';
                       //</div>';     <div id="tbl_msg_detalhe">
                
@@ -152,6 +185,14 @@ switch ($_POST["acao"]){
                       </p>
                       <div id="ass_linha_titulo_msg">
                       <span id="msg_msg">'.$mensagem->getMsg_mensagem().'</span>
+                      </div>
+                      
+                      <div id="ass_resposta_msg">
+                       <p id="ass_linha_titulo_resp">
+                           <span id="ass_msg_resp">RESPOSTA</span>
+                        </p>
+                        <textarea name="msg_resposta" rows=7 cols=105> 
+                        </textarea>
                       </div>';
                
         break;
@@ -163,12 +204,7 @@ switch ($_POST["acao"]){
          $result = Array('qtd'=>$valor);
          echo json_encode($result);
     }
-            
-    
-    case "listarMensagemId":{
-        
-            break;
-    }
+           
 }
 
 ?>

@@ -52,8 +52,8 @@ $templateMensagens = new TemplateMensagens();
                     </div>
                     <div id="box_msg_right_top">
                         <div id="box_NRE">
-                            <a href="#" id="btn_msg_novo"></a>
-                            <a href="#" id="btn_msg_responder"></a>
+                            <a href="#" onclick="novo()" id="btn_msg_novo"></a>
+                            <a href="#" onclick="responder()" id="btn_msg_responder"></a>
                             <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>
                         </div>
                         <div id="tbl_msg">
@@ -67,7 +67,7 @@ $templateMensagens = new TemplateMensagens();
                         </div>
                     </div>
                     <div id="box_msg_right_botton">
-                       
+                      
                     </div>
                 </div>
             </div>              	

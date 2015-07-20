@@ -104,7 +104,7 @@
 	          url:'ajax/MensagemAjax.php',
 	          type:'post',
 		  dataType:'html',
-		  data:{'acao':'Deletadas'},
+		  data:{'acao':'deletadas'},
 		  success:function(data)
                   {
 		     $('#box_msg_teste').html(data);
@@ -113,6 +113,42 @@
            
 		  }
 		  });
+        }
+        
+        function responder(){
+            
+             $.ajax({
+	          url:'ajax/MensagemAjax.php',
+	          type:'post',
+		  dataType:'html',
+		  data:{'acao':'responder'},
+		  success:function(data)
+                  {
+		     //$('#box_msg_teste').html(data);
+                    //$('#box_msg_right_botton').hide();
+                 
+           
+		  }
+		  });
+            
+        }
+        
+        function novo(){
+             $.ajax({
+	          url:'ajax/MensagemAjax.php',
+	          type:'post',
+		  dataType:'html',
+		  data:{'acao':'novo'},
+		  success:function(data)
+                  {
+                      $('#box_msg_right_botton').html(data);
+		     //$('#box_msg_teste').html(data);
+                    //$('#box_msg_right_botton').hide();
+                 
+           
+		  }
+		  });
+            
         }
         
         function recarrega(){
@@ -133,3 +169,5 @@
                   
                   return retorno;
         }
+        
+       
