@@ -1,0 +1,161 @@
+#box_forum_top{
+    width: 100%;
+    border: 1px dotted #E35F0F;
+    background: #FFFFFF;
+    float: left;
+    margin-bottom: 25px;
+}
+#txt_pergunta{
+    margin: 24px 24px 16px 24px;
+    color: #E35F0F;
+    font-family: Overlock;
+    font-weight: bold;
+}
+#box_pergunta{
+    width: 93.3%;
+    height: 84px;
+    margin: 0px 24px 2px;
+    padding: 10px 15px;
+    border:0;
+    resize: none;
+    -webkit-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+    -moz-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+    box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+    float: left;
+}
+#btn_perguntar{
+    font-family: Source Sans Pro;
+    font-size: 87.5%;
+    background: #EA813D;
+    border: 0;
+    padding: 0;
+    float: right;
+    padding: 10px;    
+    color: #FFFFFF;
+    margin: 15px 24px;
+}
+#box_forum_botton{
+    width: 100%;
+    height: 55.1%;
+    border: 1px dotted #E35F0F;
+    background: #FFFFFF;
+    float: left;
+}
+#txt_postagens{
+    margin: 27px 24px 16px 24px;
+    color: #E35F0F;
+    font-family: Overlock;
+    font-weight: bold;
+    width: 50%;
+    float: left;
+}
+#txt_pesquisa{
+    margin: 18px 24px 16px 24px;
+    float: right;
+    padding: 9px;
+    -webkit-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+    -moz-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+    box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+    background: url(../img/lupinha.png) no-repeat; 
+    background-position: 5px 7px;
+}
+#txt_pesquisa input{
+    border: 0;
+    margin-left: 23px;
+} 
+#box_alunos{
+    margin-top: 73px;
+    height: 77%;
+    width: 99.8%;
+    overflow: auto;
+}
+.perg_box:nth-child(odd){
+    background-color: #FEF8F4;
+    height: 70px;
+}
+.perg_box:nth-child(even){
+    background-color: #FFFFFF;
+    height: 70px;
+}
+
+.perg_box_1{
+    float: left;
+    width: 75%;
+    height: 70px;
+    margin: 0;
+}
+.foto_aluno{
+    float: left;
+    margin: 14px 22px;
+}
+.foto_aluno img{
+    height: 45px;
+    width: 45px;
+}
+.perg_aluno{
+    margin: 16px 0 4px;
+    font-family: Source Sans Pro;
+    font-size: 12px;
+    font-weight: bold;
+}
+.nome_aluno{
+    font-weight: normal;
+    font-size: 11px;
+}
+.post_data{
+    font-weight: normal;
+    font-size: 9px;
+}
+.perg_box_2{
+    float: left;
+    width: 23.5%;
+}
+.qtd_visu{
+    width: 143px;
+    float: left;
+    margin: 22px 0 0 11px;
+    line-height: 31px;
+}
+
+.qtd_visu span{
+    color: #E35F0F;
+    font-size: 22px;
+    float: left;
+    margin-right: 5px;
+    margin-left: 20px;
+}
+.qtd_resp{
+    width: 103px;
+    float: left;
+    margin: 22px 0 0 11px;
+    line-height: 31px;
+}
+.qtd_resp span{
+    color: #E35F0F;
+    font-size: 22px;
+    float: left;
+    margin-right: 5px;
+}
+
+/*Barra de rolagem personalizada*/
+#box_alunos::-webkit-scrollbar {
+    background: #FCE9DB;
+} 
+#box_alunos::-webkit-scrollbar-thumb {
+    background: #F0A36D;height:18px;
+} 
+#box_alunos::-webkit-scrollbar-button:vertical:decrement {
+    background: url(../img/arrow_up.png) no-repeat;background-position:5px
+} 
+#box_alunos::-webkit-scrollbar-button:vertical:increment {
+    background: url(../img/arrow_down.png) no-repeat;background-position:5px
+} 
+#box_alunos::-webkit-scrollbar-track {
+    background:#FCE9DB;
+} 
+#box_alunos::-webkit-scrollbar-track-piece {
+    background:#FCE9DB;
+} 
+#box_alunos::-webkit-scrollbar-corner {
+    background:#FCE9DB;
+} 
