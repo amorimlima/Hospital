@@ -44,7 +44,7 @@ $templateForum = new TemplateForum();
                         <input type="text" placeholder="Pesquise no fórum!">
                     </p>
                     <div id="box_alunos">
-                        <div class="perg_box">
+                        <div class="perg_box cx_rosa">
                             <div class="perg_box_1">
                                 <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
                                 <p class="perg_aluno">QUAL É A DIFERENÇA ENTRE ESQUISTOSSOMOSE E CÓLERA?</p>
@@ -52,11 +52,11 @@ $templateForum = new TemplateForum();
                                 <p class="post_data">Postado dia 02/05/2015 às 15:30</p>
                             </div>
                             <div class="perg_box_2">
-                                <p class="qtd_visu"><span>8</span> visualizações</p>
-                                <p class="qtd_resp"><span>3</span> respostas</p>
+                                <p class="qtd_visu cx_brancaP"><span>8</span> visualizações</p>
+                                <p class="qtd_resp cx_brancaP"><span>3</span> respostas</p>
                             </div>
                         </div>
-                        <div class="perg_box">
+                        <div class="perg_box cx_branca">
                             <div class="perg_box_1">
                                 <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
                                 <p class="perg_aluno">QUAL É A DIFERENÇA ENTRE ESQUISTOSSOMOSE E CÓLERA?</p>
@@ -64,32 +64,8 @@ $templateForum = new TemplateForum();
                                 <p class="post_data">Postado dia 02/05/2015 às 15:30</p>
                             </div>
                             <div class="perg_box_2">
-                                <p class="qtd_visu"><span>8</span> visualizações</p>
-                                <p class="qtd_resp"><span>3</span> respostas</p>
-                            </div>
-                        </div>
-                        <div class="perg_box">
-                            <div class="perg_box_1">
-                                <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
-                                <p class="perg_aluno">QUAL É A DIFERENÇA ENTRE ESQUISTOSSOMOSE E CÓLERA?</p>
-                                <p class="nome_aluno">Laura Sampaio</p>
-                                <p class="post_data">Postado dia 02/05/2015 às 15:30</p>
-                            </div>
-                            <div class="perg_box_2">
-                                <p class="qtd_visu"><span>8</span> visualizações</p>
-                                <p class="qtd_resp"><span>3</span> respostas</p>
-                            </div>
-                        </div>
-                        <div class="perg_box">
-                            <div class="perg_box_1">
-                                <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
-                                <p class="perg_aluno">QUAL É A DIFERENÇA ENTRE ESQUISTOSSOMOSE E CÓLERA?</p>
-                                <p class="nome_aluno">Laura Sampaio</p>
-                                <p class="post_data">Postado dia 02/05/2015 às 15:30</p>
-                            </div>
-                            <div class="perg_box_2">
-                                <p class="qtd_visu"><span>8</span> visualizações</p>
-                                <p class="qtd_resp"><span>3</span> respostas</p>
+                                <p class="qtd_visu cx_rosaP"><span>8</span> visualizações</p>
+                                <p class="qtd_resp cx_rosaP"><span>3</span> respostas</p>
                             </div>
                         </div>
                     </div>
