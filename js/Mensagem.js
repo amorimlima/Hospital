@@ -141,7 +141,7 @@
 		  success:function(data)
                   {
                       $('#box_msg_right_botton').html(data);
-		  
+                      $('#box_msg_right_botton').show()();
 		  }
 		  });
             

@@ -61,7 +61,7 @@ class MensagemDAO extends DAO{
         $sql .= "msg_anexo = '".$mens->getMsg_anexo()."',";
         $sql .= "destinatarios = '".$mens->getDestinatarios()."',";
     	$sql .= "msg_destinatario_grupo = ".$mens->getMsg_destinatario_grupo().",";
-        $sql .= "where  msg_id = ".$mens    ->getMsg_id()." limit 1";
+        $sql .= "where  msg_id = ".$mens->getMsg_id()." limit 1";
         return $this->execute($sql);
      }
      
