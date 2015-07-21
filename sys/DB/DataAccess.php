@@ -12,10 +12,7 @@ class DataAccess
 	{
             //L -> '187.73.149.26:8080', 'root', 'jogoshcb' DB -> hcb_criancas
             //W ->'localhost', 'root','' DB -> hcb_criancas
-
-         
-            $this->connect = mysqli_connect('localhost','root','kevyn');//
-            //$this->connect = mysql_connect('127.0.0.1','root','jogoshcb');//
+            $this->connect = mysqli_connect('localhost','root','');//
             mysqli_select_db($this->connect, 'hcb_criancas') or die(mysql_error());//
 
 	}
@@ -54,7 +51,6 @@ class DataAccess
 			return null;	
 	}
 	
-
     /**
     * Returns any MySQL errors
     *
@@ -65,8 +61,8 @@ class DataAccess
     {
         return mysqli_error( $this->getDBConnect() );
     }
-	
-		
+
+    
 }
 
 ?>
