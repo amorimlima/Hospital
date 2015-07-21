@@ -69,18 +69,24 @@
     width: 99.8%;
     overflow: auto;
 }
-.perg_box:nth-child(odd){
+.cx_rosa{
     background-color: #FEF8F4;
     height: 70px;
 }
-.perg_box:nth-child(even){
+.cx_branca{
     background-color: #FFFFFF;
     height: 70px;
+}
+.cx_rosaP{
+    background-color: #FEF8F4;
+}
+.cx_brancaP{
+    background-color: #FFFFFF;
 }
 
 .perg_box_1{
     float: left;
-    width: 75%;
+    width: 71%;
     height: 70px;
     margin: 0;
 }
@@ -108,7 +114,7 @@
 }
 .perg_box_2{
     float: left;
-    width: 23.5%;
+    width: 25.5%;
 }
 .qtd_visu{
     width: 143px;
@@ -125,7 +131,7 @@
     margin-left: 20px;
 }
 .qtd_resp{
-    width: 103px;
+    width: 114px;
     float: left;
     margin: 22px 0 0 11px;
     line-height: 31px;
@@ -135,6 +141,7 @@
     font-size: 22px;
     float: left;
     margin-right: 5px;
+    margin-left: 20px;
 }
 
 /*Barra de rolagem personalizada*/
