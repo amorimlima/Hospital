@@ -44,8 +44,14 @@ class ForumQuestaoController {
 		$foq = $this->forumQuestaoDAO->select($idfoq);
 		return $foq;
 	}
-	
-	public function selectAll()
+        
+        public function selectComleta($keyword){
+                $foq = $this->forumQuestaoDAO->selectCompleta($keyword);
+		return $foq;
+        }
+            
+
+                public function selectAll()
 	{
 		$foq = $this->forumQuestaoDAO->selectFull();
 		return $foq;
