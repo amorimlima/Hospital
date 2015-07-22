@@ -65,7 +65,7 @@ class UsuarioDAO extends DAO{
      {
         $sql = "select * from usuario where usr_id = ".$iduser." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
         
                 $user = new Usuario();
                 $user->setUsr_id($qr["usr_id"]);
@@ -76,8 +76,8 @@ class UsuarioDAO extends DAO{
                 $user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
                 $user->setUsr_nse($qr["usr_nse"]);
                 $user->setUsr_perfil($qr["usr_perfil"]);
-                $user->setUsr_login($qr["usr_login"]);
-            	$user->setUsr_senha($qr["usr_senha"]);
+                //$user->setUsr_login($qr["usr_login"]);
+            	//$user->setUsr_senha($qr["usr_senha"]);
                 
               	
     	return $user;
