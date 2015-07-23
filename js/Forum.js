@@ -12,7 +12,6 @@ function listaQuestao(){
 		  data:{'acao':'listaQuestao'},
 		  success:function(data)
                   {
-                     
 		      $('#box_alunos').html(data);
 		  }
 		  });
@@ -29,6 +28,7 @@ function perguntar(){
 		  success:function(data)
                   {
                       alert('perguntar registrada com sucesso');
+                      $('#box_pergunta').val('');
                       listaQuestao();
 		     
 		  }
