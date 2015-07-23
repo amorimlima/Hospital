@@ -71,17 +71,22 @@ class ForumQuestaoDAO extends DAO{
      
      public function selectCompleta($keyword)
      {
-        $sql = "select frq_questao from forum_questao where  frq_questao like '".$keyword."%' ";
+        $sql = "select * from forum_questao where  frq_questao like '".$keyword."%' ";
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
     	{
 
-                $foq = new ForumQuestao();
+               $foq = new ForumQuestao();
+                $foq->setFrq_id($qr["frq_id"]);
+                $foq->setFrq_usuario($qr["frq_usuario"]);
                 $foq->setFrq_questao($qr["frq_questao"]);
-             
+                $foq->setFrq_anexo($qr["frq_anexo"]);
+                $foq->setFrq_data($qr["frq_data"]);
+                $foq->setFrq_topico($qr["frq_topico"]);
                 array_push($lista, $foq);
-        }    	
+        }    
+       
     	return $lista;
      }
 

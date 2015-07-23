@@ -1,5 +1,6 @@
 $(document).ready(function(){
     listaQuestao();
+  
 });
 
 
@@ -19,7 +20,7 @@ function listaQuestao(){
 
 function perguntar(){
     var texto = $('#box_pergunta').val();
-    alert(texto);
+ 
      $.ajax({
 	          url:'ajax/ForumAjax.php',
 	          type:'post',
@@ -34,3 +35,22 @@ function perguntar(){
 		  });
 }
 
+   function completar() { 
+       var texto = $('#keyword').val();
+     
+        $.ajax({
+	          url:'ajax/ForumAjax.php',
+	          type:'post',
+		  dataType:'html',
+		  data:{'acao':'autoComplete','valor':texto},
+		  success:function(data)
+                  {
+                      $('#box_alunos').html(data);
+		     
+		  }
+		  });
+    //var esportes = //[ "Natação", "Futebol", "Vôlei", "Basquete" ];
+    
+    
+     }
+ 

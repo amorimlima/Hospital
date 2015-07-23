@@ -12,7 +12,7 @@ include_once($path['template'].'TemplateForum.php');
 $template = new TemplateForum();
 $forumController = new ForumQuestaoController();
 $userController = new UsuarioController();
-//$_POST["acao"] = "perguntar";
+//$_POST["acao"] = "autoComplete";
 
 switch ($_POST["acao"]){
       case "listaQuestao":{
@@ -89,11 +89,55 @@ switch ($_POST["acao"]){
          $questao->setFrq_usuario($usuario);
          $forumController->insert($questao);
          
-          break;
-           
+          break;  
       }
       
-  
       
+      case "autoComplete":{
+         $keyword =  $_POST['valor'];
+          $valores =  $forumController->selectComleta($keyword);
+          $cont = 0;
+          
+       
+           foreach ($valores as $key => $value)
+           {
+            
+              $user = $userController->select(($value->getFrq_usuario()));
+              
+              
+              if($cont % 2 == 0){
+                  echo '<div class="perg_box cx_rosa">
+                            <div class="perg_box_1">
+                                <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
+                                <p class="perg_aluno">'.$value->getFrq_questao().'</p>
+                                <p class="nome_aluno">'.$user->getUsr_nome().'</p>
+                                <p class="post_data">'.$value->getFrq_data().'</p>
+                            </div>
+                            <div class="perg_box_2">
+                                <p class="qtd_visu cx_brancaP"><span>8</span> visualizações</p>
+                                <p class="qtd_resp cx_brancaP"><span>3</span> respostas</p>
+                            </div>
+                        </div>';
+              }else{             
+                  echo  '<div class="perg_box cx_branca">
+                            <div class="perg_box_1">
+                                <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
+                                <p class="perg_aluno">'.$value->getFrq_questao().'</p>
+                                <p class="nome_aluno">'.$user->getUsr_nome().'</p>
+                                <p class="post_data">'.$value->getFrq_data().'</p>
+                            </div>
+                            <div class="perg_box_2">
+                                <p class="qtd_visu cx_rosaP"><span>8</span> visualizações</p>
+                                <p class="qtd_resp cx_rosaP"><span>3</span> respostas</p>
+                            </div>
+                        </div>';
+              }
+              $cont++;
+               
+          } 
+          
+         
+              break;
+      }
 }
 

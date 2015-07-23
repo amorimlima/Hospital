@@ -18,8 +18,13 @@ $templateForum = new TemplateForum();
         <script src="//use.typekit.net/rtp0aku.js"></script>
 	<script>try{Typekit.load();}catch(e){}</script>
         <script src="js/jquery-2.1.1.min.js"></script>
-        <script src="js/Forum.js"></script>  
-    
+         
+       
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script src="js/Forum.js"></script>
+
         <!--<script src="js/ScaleScript.js"></script>-->    
     </head>    
 <body>
@@ -43,7 +48,8 @@ $templateForum = new TemplateForum();
                 <div id="box_forum_botton">
                     <p id="txt_postagens">POSTAGENS RECENTES</p>
                     <p id="txt_pesquisa">
-                        <input  id="keyword" type="text" placeholder="Pesquise no fórum!">
+                        <input onkeypress="completar()" id="keyword" type="text" placeholder="Pesquise no fórum!">
+                      
                     </p>
                     <div id="box_alunos">
                         
