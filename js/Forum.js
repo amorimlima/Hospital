@@ -3,7 +3,6 @@ $(document).ready(function(){
   
 });
 
-
 function listaQuestao(){
     $.ajax({
 	          url:'ajax/ForumAjax.php',
@@ -49,8 +48,6 @@ function perguntar(){
 		     
 		  }
 		  });
-    //var esportes = //[ "Natação", "Futebol", "Vôlei", "Basquete" ];
-    
-    
+
      }
  

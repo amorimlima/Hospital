@@ -67,12 +67,10 @@
 		  data:{'acao':'listaEnviadasDetalhe','id':idMensagem},
 		  success:function(data)
                   {
-                     //var t = recarrega();
 
 		     $('#box_msg_right_botton').html(data);
                      $('#msg_valores_'+idMensagem).addClass('delete');
                      $('#box_msg_right_botton').show()();
-                     //$('#n_msg').html('RECEBIDOS('+t+')');
            
 		  }
 		  });
@@ -124,8 +122,7 @@
 		  data:{'acao':'responder'},
 		  success:function(data)
                   {
-		     //$('#box_msg_teste').html(data);
-                        //$('#box_msg_right_botton').hide();
+
 		  }
 		  });
             
