@@ -190,3 +190,36 @@
 [17-Jul-2015 23:53:03 Europe/Paris] PHP   3. MenuController->selectTipoPerfil() C:\wamp\www\CriancasComoParceiras\Hospital\template\Template.php:25
 [17-Jul-2015 23:53:03 Europe/Paris] PHP   4. MenuDAO->selectTipoPerfil() C:\wamp\www\CriancasComoParceiras\Hospital\controller\MenuController.php:58
 [17-Jul-2015 23:53:03 Europe/Paris] PHP   5. mysqli_fetch_array() C:\wamp\www\CriancasComoParceiras\Hospital\dao\MenuDAO.php:111
+[28-Jul-2015 22:37:02 Europe/Paris] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'179.99.205.228' (using password: YES) in C:\wamp\www\CriancasComoParceiras\Hospital\sys\DB\DataAccess.php on line 15
+[28-Jul-2015 22:37:02 Europe/Paris] PHP Stack trace:
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   1. {main}() C:\wamp\www\CriancasComoParceiras\Hospital\index.php:0
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   2. Template->topoSite() C:\wamp\www\CriancasComoParceiras\Hospital\index.php:32
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   3. MenuController->__construct() C:\wamp\www\CriancasComoParceiras\Hospital\template\Template.php:24
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   4. DataAccess->__construct() C:\wamp\www\CriancasComoParceiras\Hospital\controller\MenuController.php:28
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   5. DataAccess->connect() C:\wamp\www\CriancasComoParceiras\Hospital\sys\DB\DataAccess.php:8
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   6. mysqli_connect() C:\wamp\www\CriancasComoParceiras\Hospital\sys\DB\DataAccess.php:15
+[28-Jul-2015 22:37:02 Europe/Paris] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in C:\wamp\www\CriancasComoParceiras\Hospital\sys\DB\DataAccess.php on line 34
+[28-Jul-2015 22:37:02 Europe/Paris] PHP Stack trace:
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   1. {main}() C:\wamp\www\CriancasComoParceiras\Hospital\index.php:0
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   2. Template->topoSite() C:\wamp\www\CriancasComoParceiras\Hospital\index.php:32
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   3. MenuController->selectTipoPerfil() C:\wamp\www\CriancasComoParceiras\Hospital\template\Template.php:25
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   4. MenuDAO->selectTipoPerfil() C:\wamp\www\CriancasComoParceiras\Hospital\controller\MenuController.php:58
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   5. DAO->retrieve() C:\wamp\www\CriancasComoParceiras\Hospital\dao\MenuDAO.php:109
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   6. DataAccess->execute() C:\wamp\www\CriancasComoParceiras\Hospital\sys\DB\DAO.php:22
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   7. mysqli_query() C:\wamp\www\CriancasComoParceiras\Hospital\sys\DB\DataAccess.php:34
+[28-Jul-2015 22:37:02 Europe/Paris] PHP Warning:  mysqli_error() expects parameter 1 to be mysqli, boolean given in C:\wamp\www\CriancasComoParceiras\Hospital\sys\DB\DataAccess.php on line 66
+[28-Jul-2015 22:37:02 Europe/Paris] PHP Stack trace:
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   1. {main}() C:\wamp\www\CriancasComoParceiras\Hospital\index.php:0
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   2. Template->topoSite() C:\wamp\www\CriancasComoParceiras\Hospital\index.php:32
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   3. MenuController->selectTipoPerfil() C:\wamp\www\CriancasComoParceiras\Hospital\template\Template.php:25
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   4. MenuDAO->selectTipoPerfil() C:\wamp\www\CriancasComoParceiras\Hospital\controller\MenuController.php:58
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   5. DAO->retrieve() C:\wamp\www\CriancasComoParceiras\Hospital\dao\MenuDAO.php:109
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   6. DataAccess->isError() C:\wamp\www\CriancasComoParceiras\Hospital\sys\DB\DAO.php:24
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   7. mysqli_error() C:\wamp\www\CriancasComoParceiras\Hospital\sys\DB\DataAccess.php:66
+[28-Jul-2015 22:37:02 Europe/Paris] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in C:\wamp\www\CriancasComoParceiras\Hospital\dao\MenuDAO.php on line 111
+[28-Jul-2015 22:37:02 Europe/Paris] PHP Stack trace:
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   1. {main}() C:\wamp\www\CriancasComoParceiras\Hospital\index.php:0
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   2. Template->topoSite() C:\wamp\www\CriancasComoParceiras\Hospital\index.php:32
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   3. MenuController->selectTipoPerfil() C:\wamp\www\CriancasComoParceiras\Hospital\template\Template.php:25
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   4. MenuDAO->selectTipoPerfil() C:\wamp\www\CriancasComoParceiras\Hospital\controller\MenuController.php:58
+[28-Jul-2015 22:37:02 Europe/Paris] PHP   5. mysqli_fetch_array() C:\wamp\www\CriancasComoParceiras\Hospital\dao\MenuDAO.php:111

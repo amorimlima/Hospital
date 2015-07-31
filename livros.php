@@ -18,7 +18,7 @@ $templateGeral = new Template();
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/areaAluno.css">
+	<link rel="stylesheet" type="text/css" href="css/livros.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -50,13 +50,13 @@ $templateGeral = new Template();
                         <nav id="bs-navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                             <ul class="nav navbar-nav" id="menu">
                                 <li class="mn_li" id="mn_livros_sub">
-                                    <a href="livros.php" id="mn_livros" class="mn_a_menu"></a>
+                                    <a href="#" id="mn_livros" class="mn_a_menu"></a>
                                     <ul id="sbm_exercicios">
-                                        <li class="sub_a"><a href="#">1º Ano</a></li>
-                                        <li class="sub_a"><a href="#">2º Ano</a></li>
-                                        <li class="sub_a"><a href="#">3º Ano</a></li>
-                                        <li class="sub_a"><a href="#">4º Ano</a></li>
-                                        <li class="sub_a"><a href="#">5º Ano</a></li>
+                                        <li class="sub_a"><a href="livros.php">1º Ano</a></li>
+                                        <li class="sub_a"><a href="livros.php">2º Ano</a></li>
+                                        <li class="sub_a"><a href="livros.php">3º Ano</a></li>
+                                        <li class="sub_a"><a href="livros.php">4º Ano</a></li>
+                                        <li class="sub_a"><a href="livros.php">5º Ano</a></li>
                                     </ul>
                                 </li>
                                 <li class="mn_li">
@@ -81,7 +81,7 @@ $templateGeral = new Template();
         </div>
         <div id="Conteudo_Area">
             <div class="row">
-               <div class="col-xs-12 col-md-12 col-lg-8">
+                <div class="col-xs-12 col-md-12 col-lg-8">
                		<div  id="Conteudo_Area_box_left">
                         <a href="#">
                             <!--<iframe id="objeto" src="Objetos/_embed/index.html" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true" width="100%" height="100%"></iframe>-->
@@ -91,76 +91,20 @@ $templateGeral = new Template();
                 </div>
                 <div class="col-xs-12 col-md-12 col-lg-4">
                 	<div id="Conteudo_Area_box_right">
-                        <div id="box_right_1">
-                            <p id="box_right_1_img"></p>
-                            <div class="box_right_box">
-                                <p id="box_right_1_box_titulo_1">CATEGORIA</p>
-                                <p class="box_right_1_box_select">
-                                    <select id="categoria">
-                                        <option value="-1"></option>
-                                    </select>
-                                </p>
-                                <p id="box_right_1_box_titulo_2">ASSUNTO</p>
-                                <p class="box_right_1_box_select">
-                                    <select id="assunto">
-                                        <option value="-1"></option>
-                                    </select>
-                                </p>
-                            </div>
-                        </div>
-                        <div id="box_right_2">
-                            <p id="box_right_2_img"></p>
-                            <div class="box_right_box">
-                                <table id="tb_mensagens">
-                                  <thead>
-                                    <tr>
-                                      <th>REMETENTE</th>
-                                      <th>ASSUNTO</th>
-                                      <th>DATA</th>
-                                    </tr>
-                                  <thead>
-                                  <tbody>
-                                    <tr id="n_lida">
-                                      <td>Laura Sampaio</td>
-                                      <td>Aula 12</td>
-                                      <td>02/03/2015</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Talita Lourenço</td>
-                                      <td>Reposição</td>
-                                      <td>02/03/2015</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Maurício Santos</td>
-                                      <td>Dúvida ex.03</td>
-                                      <td>01/03/2015</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div id="box_right_3">
-                            <p id="box_right_3_img"></p>
-                            <div class="box_right_box_mv">
-                                <div class="mv_caixa mv_video">
-                                    <p class="mv_icone_video"></p>
-                                    <p class="mv_texto">
-                                        Conheça os perigos da sua...
-                                    </p>
-                                </div>
-                                <div class="mv_caixa mv_foto">
-                                    <p class="mv_icone_foto"></p>
-                                    <p class="mv_texto">
-                                        Parques ecológicos
-                                    </p>
-                                </div>
-                                <div class="mv_caixa mv_jogo">
-                                    <p class="mv_icone_jogo"></p>
-                                    <p class="mv_texto">
-                                        Reciclagem - O Jogo
-                                    </p>
-                                </div>
-                            </div>
+                        <input type="radio" name="tabs" class="tabs" id="tab1" checked>
+                        <label for="tab1">Item</label>
+                        <div>
+                          <p>1º Ano</p>
+                        </div>                    
+                        <input type="radio" name="tabs" class="tabs" id="tab2">
+                        <label for="tab2">Item</label>
+                        <div>
+                          <p>2º Ano</p>
+                        </div>      
+                       	<input type="radio" name="tabs" class="tabs" id="tab3">
+                        <label for="tab3">Item</label>
+                        <div>
+                           <p>3º Ano</p>
                         </div>
                     </div>
                 </div>

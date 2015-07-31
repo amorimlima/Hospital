@@ -81,15 +81,15 @@ textarea:focus, input:focus, select:focus {
     text-align: left;
 	float: right;
 }
-#menu{
+#menu ul {
   	padding: 0px;
   	list-style: none;
 }
-#menu .mn_li{
+#menu li{
 	padding: 0;
 	display: inline;
 }
-#menu .mn_li .mn_a_menu{ 
+#menu ul li a{ 
     float: left;
     height: 40px;
     font-size: 17px;
@@ -98,49 +98,41 @@ textarea:focus, input:focus, select:focus {
     color:#000000;
 }
 
-#sbm_exercicios{
+#menu ul li #sbm_exercicios{
     position:absolute; 
-    top: 30px; 
-	border-left: 1px dotted #7cb931; 
-	display:none;
+    top: 107px;
+    display:none;
 }
 
-#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
-	width: 78px;
-	height: 130px;
-	display: block;
-	border-left: 1px dotted #7cb931;
-	position: absolute;
-	z-index: 9999;
-	padding: 10px 0px;
-	margin: 6px 31px
+#menu ul li:hover #sbm_exercicios, #menu li.over #sbm_exercicios{
+    width: 6%;
+    height: 147px;
+    display: block;
+    text-align: right;
+    border-left: 1px dotted #7DBA31;
+    padding-top: 10px;
+    margin-left: 32px;
 }
-#sbm_exercicios .sub_a{
-	height: 21px;
-	margin-bottom: 6px;
-	margin-left: 11px;
-	position: relative; 
-	padding: 0px 0;
-	z-index: 999;
-	border: 1px solid #7DBA31;
-	background-color: #FFFFFF;
-	list-style: none;
-	width: 66px;
+#sbm_exercicios li{
+    height: 21px;
+    margin-bottom: 6px;
+    margin-left: 11px;
+    position: relative;
+    padding: 2px 0;
+    z-index: 999;
+    border: 1px solid #7DBA31;
+    background-color: #FFFFFF;
 }
-#sbm_exercicios .sub_a a{
-	background: url(../img/submenu.png) no-repeat;
-	min-width: 80px;
-	margin-left: -23px;
-	background-position: 10px 9px;
-	margin-bottom: 11px;
-	text-decoration: none;
-	height: 14px;
-	padding-left: 36px;
-	color: #000;
-	font-family : Overlock;
-}
-#sbm_exercicios .sub_a:hover{
+#sbm_exercicios li:hover{
     background-color: #e9f1db;
+}
+
+#sbm_exercicios a{
+    background: url(../img/submenu.png) no-repeat;
+    min-width: 80px;
+    margin-left: -21px;
+    background-position: 9px 10px;
+    margin-bottom: 2px;
 }
 
 #menu a{	
@@ -148,8 +140,7 @@ textarea:focus, input:focus, select:focus {
     float: left;
     height: 41px;
 }
-img{
-	max-width:100%;
+img{max-width:100%;
     height:auto;
 }
 #mn_livros{
@@ -234,10 +225,6 @@ img{
     margin: 24px 10px 0 49px;
     float: left;
     width: 90.8%;
-	height:581px;
-}
-#img_teste{
-	height:581px;
 }
 
 #Conteudo_Area_box_left iframe{
@@ -249,6 +236,7 @@ img{
 
 #Conteudo_Area_box_right{
 	margin: 24px 49px 0 0;
+	background:#B4171A;	
 	height:581px;
 }
 
@@ -313,6 +301,7 @@ img{
 	}
 	#Conteudo_Area_box_right{
 		margin: 24px 0 0 0;
+		background:#B4171A;	
 		height:581px;
 	}
 	#Conteudo_Area_box_left iframe{
