@@ -1,6 +1,5 @@
             function deleteFuncao(){
                 var idMgs = $('.delete').attr('id');
-                
                 if (typeof idMgs !== "undefined") {
                      var retorno = $('#'+idMgs).attr('class');
                      retorno = retorno.split(' ');
@@ -14,6 +13,7 @@
                      {
 		     $('#retorno').html(data.msg);
                      $('#box_msg_right_botton').toggle();
+                     $('#'+idMgs).remove();
                       if(retorno[0] == 'recebido'){
                            recebidasFuncao();
                       }else if(retorno[0] == 'enviado'){
@@ -115,7 +115,7 @@
         }
         
         function EnviadasMobileDetalheFuncao(idMensagem){
-            $('.col1').removeClass('delete');
+            $('.col1-mobile').removeClass('delete');
             
             $.ajax({
 	          url:'ajax/MensagemAjax.php',
@@ -126,7 +126,7 @@
                   {
                        
                        $('#abrir_msg_'+idMensagem).html(data);
-                       $('#box_msg_recebidas_mobile'+idMensagem).addClass('delete');
+                       $('#msg_valores_'+idMensagem).addClass('delete');
                        $('#abrir_msg_').show()();
                      //var t = recarrega();
                      /*
@@ -160,7 +160,7 @@
         }
         
         function RecebidasMobileDetalheFuncao(idMensagem){
-             $('.col1').removeClass('delete');
+             $('.col1-mobile').removeClass('delete');
              $('#msg_valores_'+idMensagem).removeClass('msg_nao_lida');
             $.ajax({
 	          url:'ajax/MensagemAjax.php',
@@ -170,7 +170,7 @@
 		  success:function(data)
                   {
                        $('#abrir_msg_'+idMensagem).html(data);
-                       $('#box_msg_recebidas_mobile'+idMensagem).addClass('delete');
+                       $('#msg_valores_'+idMensagem).addClass('delete');
                        $('#abrir_msg_').show()();
 		  }
 		  });
@@ -187,6 +187,23 @@
                   {
 		     $('#box_msg_listas').html(data);
                      $('#box_msg_right_botton').hide();
+           
+           
+		  }
+		  });
+        }
+        
+        function deletadasFuncaoMobile(){
+            
+            $.ajax({
+	          url:'ajax/MensagemAjax.php',
+	          type:'post',
+		  dataType:'html',
+		  data:{'acao':'deletadasMobile'},
+		  success:function(data)
+                  {
+		     $('#tbl_msg3').html(data);
+                     //$('#box_msg_right_botton').hide();
            
            
 		  }

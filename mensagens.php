@@ -100,6 +100,7 @@ $templateMensagens = new TemplateMensagens();
                                         <div class="row panel-collapse collapse" id="box-enviados">
                                             <div class="col-xs-12 col-md-12 col-lg-12">
                                                 <div id="tbl_msg2">
+                                                   
                                                     
                                                 </div>
                                             </div>
