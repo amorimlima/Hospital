@@ -98,14 +98,16 @@ textarea:focus, input:focus, select:focus {
     color:#000000;
 }
 
+
+/*
 #sbm_exercicios{
-    position:absolute; 
+     
     top: 30px; 
 	border-left: 1px dotted #7cb931; 
 	display:none;
 }
 
-#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
+#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over {
 	width: 78px;
 	height: 130px;
 	display: block;
@@ -141,7 +143,7 @@ textarea:focus, input:focus, select:focus {
 }
 #sbm_exercicios .sub_a:hover{
     background-color: #e9f1db;
-}
+}*/
 
 #menu a{	
     text-decoration: none;
@@ -253,7 +255,7 @@ img{
 }
 
 
-/*RODAPÉ*/
+/*RODAPÃ‰*/
 #rodape{
 	background:url(../img/barra_colorida.png) repeat-x;
 	height:7px;
@@ -408,6 +410,54 @@ img{
 		background-position: 24px;
    	 	margin-bottom: 2px;
 	}
+	
+	
+	/*#sbm_exercicios{
+		background:#e5f1d5;
+		margin: 0px;
+		padding: 0px;
+	}*/
+	
+	#sbm_exercicios{
+		width: 100% !important;
+	}
+	
+	#sbm_exercicios .sub_a{
+		list-style: none;
+		opacity: 10;
+		height: 50px;
+		background:#e5f1d5;
+		padding-top: 10px;
+		padding-left: 10px;
+		width: 100% !important;
+		border-bottom: 2px solid #ffffff;
+		
+	}
+	#sbm_exercicios .sub_a a{
+		color: #7DBA31;
+		font-size:20px;
+	}
+	#sbm_exercicios .sub_a a:hover{
+	   text-decoration: underline;
+	}
+
+	.mn_a_menu{
+		float: none !important;
+	}
+	#sbm_exercicios{
+     	
+    	top: 30px; 
+		display:none;
+	}
+
+	#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
+		width: 78px;
+		display: block;
+		z-index: 9999;
+	}
+
+	
+	
 	.navbar-nav>li>a{
 		line-height: 0px;
 		color:#FFF;
@@ -421,4 +471,50 @@ img{
 	.navbar-nav>li {
     	float: none;
 	}
+	
+	#sbm_exercicios .sub_a{
+		height: 21px;
+		margin-bottom: 6px;
+		margin-left: 11px;
+		position: relative; 
+		padding: 0px 0;
+		z-index: 999;
+		border: 1px solid #7DBA31;
+		background-color: #FFFFFF;
+		list-style: none;
+		width: 66px;
+	}
+	#sbm_exercicios .sub_a a{
+		background: url(../img/submenu.png) no-repeat;
+		min-width: 80px;
+		margin-left: -23px;
+		background-position: 10px 9px;
+		margin-bottom: 11px;
+		text-decoration: none;
+		height: 14px;
+		padding-left: 36px;
+		color: #000;
+		font-family : Overlock;
+	}
+	#sbm_exercicios .sub_a:hover{
+	    background-color: #e9f1db;
+	}
+
+#sbm_exercicios{
+    position:absolute; 
+    top: 30px; 
+	border-left: 1px dotted #7cb931; 
+	display:none;
+}
+
+#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
+	width: 78px;
+	height: 130px;
+	display: block;
+	border-left: 1px dotted #7cb931;
+	position: absolute;
+	z-index: 9999;
+	padding: 10px 0px;
+	margin: 6px 31px
+}
 }
