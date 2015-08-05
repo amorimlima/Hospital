@@ -88,8 +88,6 @@
 		     $('#tbl_msg1').html(data);
                    
                      //$('#box_msg_right_botton').hide();
-           
-           
 		  }
 		  });
         }
