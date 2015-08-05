@@ -310,6 +310,7 @@ img{
 		margin: 24px 3%;
 		float: left;
 		width: 97%;
+		height: auto;
 	}
 	#Conteudo_Area_box_right{
 		margin: 24px 0 0 0;
@@ -334,7 +335,7 @@ img{
 	#user_logout {
 		text-align: right;
 		float: right;
-		margin: 19px 46px 16px;
+		margin: 19px 63px 16px;
 		width: 100%;
 	}
 	#logo{

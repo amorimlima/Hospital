@@ -1,10 +1,8 @@
-
 <?php 
 
 if(!isset($_SESSION['PATH_SYS'])){
    require_once '_loadPaths.inc.php'; 
 }
-
 
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
@@ -25,100 +23,99 @@ $templateMensagens = new TemplateMensagens();
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/mensagens.css">
-
+    <link href='http://fonts.googleapis.com/css?family=Overlock:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/mensagens.css">	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="js/Mensagem.js"></script>
+    <script src="//use.typekit.net/rtp0aku.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
   </head>
   <body>
   	<div id="container">
         <div class="row">
-           <div class="col-lg-12" id="topo">
-                <div class="row" id="row_logout">                    
-                    <div class="col-xs-12 col-md-6 col-lg-7 pull-right" id="boxMenu">
-                    	<div id="user_logout">
-                        	<div id="user_logout_pequena">
-                                <p id="user_logado">Rosana Amaral</p>
-                                <span id="separador">
-                                    <img class="img-responsive" src="img/separador.png" width="2" height="22" alt=""/>
-                                </span>
-                                <p id="logout">SAIR</p>
-                            </div>
-                        </div>
-                        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <nav id="bs-navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-                            <ul class="nav navbar-nav" id="menu">
-                                <li class="mn_li" id="mn_livros_sub">
-                                    <a href="livros.php" id="mn_livros" class="mn_a_menu"></a>
-                                    <ul id="sbm_exercicios">
-                                        <li class="sub_a"><a href="#">1º Ano</a></li>
-                                        <li class="sub_a"><a href="#">2º Ano</a></li>
-                                        <li class="sub_a"><a href="#">3º Ano</a></li>
-                                        <li class="sub_a"><a href="#">4º Ano</a></li>
-                                        <li class="sub_a"><a href="#">5º Ano</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mn_li">
-                                    <a href="mensagens.php" id="mn_mensagens" class="mn_a_menu"></a>
-                                </li>
-                                <li class="mn_li">
-                                    <a href="forum.php" id="mn_forum" class="mn_a_menu"></a>
-                                </li>
-                                <li class="mn_li">
-                                    <a href="galeria.php" id="mn_galeria" class="mn_a_menu"></a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="row">                	
-                    <div class="col-xs-12 col-md-6 col-lg-5" id="logo">
-                        <a href="index.php"><img src="img/logo.png"/></a>
-                    </div>                    
-                </div>
-           </div>       
+			<?php 
+            	$templateGeral->topoSite();
+            ?>            
         </div>
         <div id="Conteudo_Area">
         	<div class="row">
-               <div class="col-xs-12 col-md-12 col-lg-12">   
+               <div class="col-xs-12 col-md-12 col-lg-12"  id="area_geral">   
                     <div id="Conteudo_Area_box_Grande">           
-                        <div id="box_msg_geral">
-                            <div id="box_msg_left">
-                                <div id="btn_recebidos" onclick="recebidasFuncao()" class="btn_msg btn_msg_ativo">
-                                    <span id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>
-                                    
-                                </div>
-                                <div id="btn_enviados" onclick="envidasFuncao()" class="btn_msg"><span>ENVIADOS</span></div>
-                                <div id="btn_excluidos" onclick="deletadas()"  class="btn_msg"><span>EXCLUÍDOS</span></div>
-                            </div>
-                            <div id="box_msg_right_top">
-                                <div id="box_NRE">
-                                    <a href="#" onclick="novo()" id="btn_msg_novo"></a>
-                                    <a href="#" onclick="responder()" id="btn_msg_responder"></a>
-                                    <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>
-                                </div>
-                                <div id="tbl_msg">
-                                    <p id="linha_titulos">
-                                        <span id="titulo_rem">REMETENTE</span>
-                                        <span id="titulo_ass">ASSUNTO</span>
-                                        <span id="titulo_data">DATA</span>
-                                    </p>
-                                    <div id="box_msg_teste"> 
+                        <div id="box_msg_geral">                        	
+                            <div class="row">               					
+               					<div class="col-xs-12 col-md-12 col-lg-8 pull-right"> 
+                                    <div class="row" id="ln_NRE">
+                                        <div class="col-xs-12 col-md-12 col-lg-12">
+                                            <div id="box_NRE">
+                                                <a href="#" onclick="novo()" id="btn_msg_novo"></a>
+                                                <a href="#" onclick="responder()" class="margin_ambas" id="btn_msg_responder"></a>
+                                                <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="desk-msg">
+                                        <div class="col-xs-12 col-md-12 col-lg-12">
+                                            <div id="tbl_msg">
+                                                <p id="linha_titulos">
+                                                    <span id="titulo_rem">REMETENTE</span>
+                                                    <span id="titulo_ass">ASSUNTO</span>
+                                                    <span id="titulo_data">DATA</span>
+                                                </p>
+                                                <div id="box_msg_listas"></div>
+                                                <div id="box_msg_right_botton" >
+                                                   
+                                                </div>
+                                               
+                                            </div>
+                                     	</div>
+                                    </div>
+                                </div>                                
+                                <div class="col-xs-12 col-md-12 col-lg-4 pull-left" id="box_msg_left">   
+                                    <!--Menu geral-->
+                                    <div id="mn_geral">
+                                        <div id="btn_recebidos" onclick="recebidasFuncao()" class="btn_msg btn_msg_ativo">
+                                            <span id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>                                    	</div>
+                                        <div id="btn_enviados" onclick="envidasFuncao()" class="btn_msg"><span>ENVIADOS</span></div>
+                                        <div id="btn_excluidos" onclick="deletadas()"  class="btn_msg"><span>EXCLUÍDOS</span></div>
+                                    </div>       
+                                    <!--Menu mobile-->
+                                    <div id="mn_mobile">
+                                        <div id="btn_recebidos" onclick="recebidasFuncaoMobile()" class="btn_msg btn_msg_ativo" data-toggle="collapse" data-target="#box-recebidas">
+                                            <span id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>                                    	</div>                                    
+                                        <div class="row panel-collapse collapse in" id="box-recebidas">
+                                            <div class="col-xs-12 col-md-12 col-lg-12">
+                                                <div id="tbl_msg1">
+                                                    
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="btn_enviados" onclick="envidasFuncaoMobile()" class="btn_msg" data-toggle="collapse" data-target="#box-enviados">
+                                        <span>ENVIADOS</span></div>
+                                        <div class="row panel-collapse collapse" id="box-enviados">
+                                            <div class="col-xs-12 col-md-12 col-lg-12">
+                                                <div id="tbl_msg2">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="btn_excluidos" onclick="deletadasFuncaoMobile()"  class="btn_msg" data-toggle="collapse" data-target="#box-excluidos">
+                                        <span>EXCLUÍDOS</span></div>
+                                        <div class="row panel-collapse collapse" id="box-excluidos">
+                                            <div class="col-xs-12 col-md-12 col-lg-12">
+                                                <div id="tbl_msg3">
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="box_msg_right_botton">
-                              
-                            </div>
+                        	</div>                            
                         </div>
                     </div>              	
                 </div>

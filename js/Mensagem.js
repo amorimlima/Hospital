@@ -1,5 +1,6 @@
             function deleteFuncao(){
                 var idMgs = $('.delete').attr('id');
+                
                 if (typeof idMgs !== "undefined") {
                      var retorno = $('#'+idMgs).attr('class');
                      retorno = retorno.split(' ');
@@ -34,12 +35,28 @@
 		  data:{'acao':'listaEnviadas','id':'20'},
 		  success:function(data)
                   {
-		     $('#box_msg_teste').html(data);
+		     $('#box_msg_listas').html(data);
                      $('#box_msg_right_botton').hide();
            
 		  }
 		  });
               }
+              
+        function envidasFuncaoMobile(){
+             $.ajax({
+	          url:'ajax/MensagemAjax.php',
+	          type:'post',
+		  dataType:'html',
+		  data:{'acao':'listaEnviadosMobile','id':'20'},
+		  success:function(data)
+                  {
+		     $('#tbl_msg2').html(data);
+                    
+                    // $('#box_msg_right_botton').hide();
+           
+		  }
+		  });
+        }
               
         function recebidasFuncao(){
                $.ajax({
@@ -49,13 +66,32 @@
 		  data:{'acao':'listaRecebidos','id':'20'},
 		  success:function(data)
                   {
-		     $('#box_msg_teste').html(data);
+          
+		     $('#box_msg_listas').html(data);
                      $('#box_msg_right_botton').hide();
            
            
 		  }
 		  });
           
+        }
+        
+        function recebidasFuncaoMobile(){
+             $.ajax({
+	          url:'ajax/MensagemAjax.php',
+	          type:'post',
+		  dataType:'html',
+		  data:{'acao':'listaRecebidosMobile','id':'20'},
+		  success:function(data)
+                  {
+          
+		     $('#tbl_msg1').html(data);
+                   
+                     //$('#box_msg_right_botton').hide();
+           
+           
+		  }
+		  });
         }
         
         function EnviadasDetalheFuncao(idMensagem){
@@ -72,6 +108,31 @@
 		     $('#box_msg_right_botton').html(data);
                      $('#msg_valores_'+idMensagem).addClass('delete');
                      $('#box_msg_right_botton').show()();
+                     //$('#n_msg').html('RECEBIDOS('+t+')');
+           
+		  }
+		  });
+        }
+        
+        function EnviadasMobileDetalheFuncao(idMensagem){
+            $('.col1').removeClass('delete');
+            
+            $.ajax({
+	          url:'ajax/MensagemAjax.php',
+	          type:'post',
+		  dataType:'html',
+		  data:{'acao':'listaEnviadasMobileDetalhe','id':idMensagem},
+		  success:function(data)
+                  {
+                       
+                       $('#abrir_msg_'+idMensagem).html(data);
+                       $('#box_msg_recebidas_mobile'+idMensagem).addClass('delete');
+                       $('#abrir_msg_').show()();
+                     //var t = recarrega();
+                     /*
+		     $('#box_msg_right_botton').html(data);
+                     
+                     $('#box_msg_right_botton').show()();*/
                      //$('#n_msg').html('RECEBIDOS('+t+')');
            
 		  }
@@ -98,6 +159,23 @@
 		  });
         }
         
+        function RecebidasMobileDetalheFuncao(idMensagem){
+             $('.col1').removeClass('delete');
+             $('#msg_valores_'+idMensagem).removeClass('msg_nao_lida');
+            $.ajax({
+	          url:'ajax/MensagemAjax.php',
+	          type:'post',
+		  dataType:'html',
+		  data:{'acao':'listaRecebidasMobileDetalhe','id':idMensagem},
+		  success:function(data)
+                  {
+                       $('#abrir_msg_'+idMensagem).html(data);
+                       $('#box_msg_recebidas_mobile'+idMensagem).addClass('delete');
+                       $('#abrir_msg_').show()();
+		  }
+		  });
+        }
+        
         function deletadas(){
             
             $.ajax({
@@ -107,7 +185,7 @@
 		  data:{'acao':'deletadas'},
 		  success:function(data)
                   {
-		     $('#box_msg_teste').html(data);
+		     $('#box_msg_listas').html(data);
                      $('#box_msg_right_botton').hide();
            
            

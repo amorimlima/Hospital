@@ -23,34 +23,51 @@ class Template {
     public function topoSite(){
         $menuControler = new MenuController();
         $menuLista = $menuControler->selectTipoPerfil('Botao','2');
-        echo'<div id="logo">
-            	<a href="index.php"><img src="img/logo.png" width="359" height="61" alt=""/></a>
-            </div>
-            <div id="boxMenu"> 
-                <div id="user_logout">
-                    <p id="user_logado">Rosana Amaral</p>
-                    <span id="separador">
-                        <img src="img/separador.png" width="2" height="22" alt=""/>
-                    </span>
-                    <p id="logout">SAIR</p>
-                </div>
-            <div id="menu">
-                <ul>';
-                    foreach($menuLista as $menu){
-                        $menuId = explode(".", $menu->getBtn_menu()); 
-                        echo '<li><a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'"></a>';
-                        if($menuId[0]=='livros'){
-                            echo'<ul id="sbm_exercicios">
-                                <li><a href="#">1º Ano</a></li>
-                                <li><a href="#">2º Ano</a></li>
-                                <li><a href="#">3º Ano</a></li>
-                                <li><a href="#">4º Ano</a></li>
-                                <li><a href="#">5º Ano</a></li>
-                            </ul>';
-                        }
-                        echo'</li>';
-                    }                
-            echo'</ul></div></div>';
+        echo'<div class="col-lg-12" id="topo">
+                <div class="row" id="row_logout">                    
+                    <div class="col-xs-12 col-md-6 col-lg-7 pull-right" id="boxMenu">
+                    	<div id="user_logout">
+                        	<div id="user_logout_pequena">
+                                <p id="user_logado">Rosana Amaral</p>
+                                <span id="separador">
+                                    <img class="img-responsive" src="img/separador.png" width="2" height="22" alt=""/>
+                                </span>
+                                <p id="logout">SAIR</p>
+                            </div>
+                        </div>
+                        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <nav id="bs-navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+                            <ul class="nav navbar-nav" id="menu">';
+								foreach($menuLista as $menu){
+									$menuId = explode(".", $menu->getBtn_menu()); 
+									echo '<li class="mn_li" id="mn_livros_sub">
+									<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
+									if($menuId[0]=='livros'){
+										echo'<ul id="sbm_exercicios">
+												<li class="sub_a"><a href="#">1º Ano</a></li>
+												<li class="sub_a"><a href="#">2º Ano</a></li>
+												<li class="sub_a"><a href="#">3º Ano</a></li>
+												<li class="sub_a"><a href="#">4º Ano</a></li>
+												<li class="sub_a"><a href="#">5º Ano</a></li>
+											</ul>';
+									}
+									echo'</li>';
+								}                
+            				echo'</ul>
+							</nav>
+						</div>
+					</div>
+					<div class="row">                	
+						<div class="col-xs-12 col-md-6 col-lg-5" id="logo">
+							<a href="index.php"><img src="img/logo.png"/></a>
+						</div>                    
+					</div>
+			   </div>';
     }
 }
 

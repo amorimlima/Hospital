@@ -9,7 +9,7 @@ include_once($path['beans'].'Mensagem.php');
 include_once($path['template'].'TemplateMensagens.php');
 $template = new TemplateMensagens();
 $mensagemController = new MensagemController();
-//$_POST["acao"] = "recarrega";
+//$_POST["acao"] = "listaEnviadasMobileDetalhe";
 switch ($_POST["acao"]){
     case "deleteMensagem":{
       
@@ -107,6 +107,43 @@ switch ($_POST["acao"]){
         break;
     }
     
+    case "listaEnviadosMobile":{
+        $idmens = $_POST["id"];
+        
+        $mensagem = $mensagemController->listaEnviadas($idmens);
+
+        foreach ($mensagem as $value) {
+            if($value->getMsg_lida() === 'n'){
+                $naolida = 'msg_nao_lida';
+            }else{
+                $naolida = '';
+            }
+                 
+                
+             echo'<p class="row" id="linha_titulos">
+                    <span class="col-xs-3 col-md-3 col-lg-3" id="titulo_rem">REMETENTE</span>
+                    <span class="col-xs-6 col-md-6 col-lg-6" id="titulo_ass">ASSUNTO</span>
+                    <span class="col-xs-3 col-md-3 col-lg-3" id="titulo_data">DATA</span>
+                </p>
+             
+                <div id="box_msg_recebidas_mobile" onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')" >
+                    <div id="msg_valores_'.$value->getMsg_id().'"   class="col1-mobile row">
+                        <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
+                          <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
+                          <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.$value->getMsg_assunto().'</p>
+                          <p class="msg_data_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_data().'</p>
+                    </div>
+                    <div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'">
+                            
+                    </div>
+                </div>';
+             
+        }               
+                                                    
+        
+        break;
+    }
+    
     case "listaRecebidos":{
         $idmens = $_POST["id"];
         
@@ -125,6 +162,44 @@ switch ($_POST["acao"]){
                 </div>';
         }               
         break;
+    }
+    
+    case "listaRecebidosMobile":{
+         $idmens = $_POST["id"];
+        
+        $mensagem = $mensagemController->listaRecebidos($idmens);
+
+        foreach ($mensagem as $value) {
+            if($value->getMsg_lida() === 'n'){
+                $naolida = 'msg_nao_lida';
+            }else{
+                $naolida = '';
+            }
+                echo '<p class="row" id="linha_titulos">
+                        <span class="col-xs-3 col-md-3 col-lg-3" id="titulo_rem">REMETENTE</span>
+                        <span class="col-xs-6 col-md-6 col-lg-6" id="titulo_ass">ASSUNTO</span>
+                        <span class="col-xs-3 col-md-3 col-lg-3" id="titulo_data">DATA</span>
+                    </p>
+                    
+                <div id="box_msg_recebidas_mobile" >
+                    <div id="msg_valores_'.$value->getMsg_id().'" onclick="RecebidasMobileDetalheFuncao('.$value->getMsg_id().')" class="col1-mobile row">
+                            <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
+                            <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
+                            <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.$value->getMsg_assunto().'</p>
+                            <p class="msg_data_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_data().'</p>
+                        </div>
+                        
+                        <div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'">
+                            
+                        </div>
+                    </div>
+                    <!--Box que abre quando clicar na msg-->
+
+                   
+                </div>';
+                    
+        }    
+         break;
     }
     
     case "listaEnviadasDetalhe":{
@@ -163,6 +238,36 @@ switch ($_POST["acao"]){
                
         break;
     }
+    
+    case "listaEnviadasMobileDetalhe":{
+        
+        $idmens = $_POST["id"];
+        
+        $mensagem = $mensagemController->detalhe($idmens);
+        
+        $mensagem->getMsg_id();
+        
+       echo '<p>'.$mensagem->getMsg_mensagem().'</p>';
+        //.$mensagem->getMsg_mensagem().
+        break;
+    }
+    
+    case "listaRecebidasMobileDetalhe":{
+        $idmens = $_POST["id"];
+        
+        $mensagem = $mensagemController->detalhe($idmens);
+        if($mensagem->getMsg_lida() == 'n'){
+            
+            $mensagemController->msgLida($idmens);
+            // $template->recebidos();
+        }
+
+        echo '<p>'.$mensagem->getMsg_mensagem().'</p>';
+        //.$mensagem->getMsg_mensagem().
+        break;
+    }
+    
+    
     
     case "listaRecebidasDetalhe":{
         $idmens = $_POST["id"];
