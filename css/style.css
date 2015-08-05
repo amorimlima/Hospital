@@ -255,7 +255,7 @@ img{
 }
 
 
-/*RODAPÃ‰*/
+/*RODAPÃƒâ€°*/
 #rodape{
 	background:url(../img/barra_colorida.png) repeat-x;
 	height:7px;
@@ -450,11 +450,11 @@ img{
 		display:none;
 	}
 
-	#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
+	/*#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
 		width: 78px;
 		display: block;
 		z-index: 9999;
-	}
+	}*/
 
 	
 	
