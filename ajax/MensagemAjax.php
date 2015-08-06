@@ -16,11 +16,11 @@ switch ($_POST["acao"]){
         $idmens = $_POST["id"];
         $mensagem = $mensagemController->selectMensagem($idmens);
     
-        if(!empty($mensagem->getMsg_id())){
+        //if(!empty($mensagem->getMsg_id())){
             $mensagemController->delete($_POST["id"]);  
             $result = Array('ok'=>true,'msg'=>'<div class="alert alert-danger"><i class="fa fa-times"></i> Deletado com sucesso!</div>');
           echo json_encode($mensagem);
-        }
+        //}
         break;
     }
     

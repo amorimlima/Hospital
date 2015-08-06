@@ -91,7 +91,7 @@ $templateMensagens = new TemplateMensagens();
                                                     <span id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>                                    			</div>                                    
                                                 <div class="row panel-collapse collapse in" id="box-recebidas" role="tabpanel" aria-labelledby="headingOne">
                                                     <div class="col-xs-12 col-md-12 col-lg-12">
-                                                        <div id="">
+                                                        <div id="tbl_msg1">
                                                             teste
                                                             
                                                         </div>
@@ -106,7 +106,7 @@ $templateMensagens = new TemplateMensagens();
                                                 </div>                                    
                                                 <div class="row panel-collapse collapse" id="box-enviados" role="tabpanel" aria-labelledby="headingTwo">
                                                     <div class="col-xs-12 col-md-12 col-lg-12">
-                                                        <div id="">                                                            
+                                                        <div id="tbl_msg2">                                                            
                                                             teste 22222
                                                         </div>
                                                     </div>
