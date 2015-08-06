@@ -226,7 +226,7 @@
 		width: 96.1%;
 		height: 588px;
 		float: left;
-		margin: 24px 0 0 8px;
+		margin: 15px 0 0 8px;
 	}
 	.btn_msg span {		
 		width: 242px;
@@ -283,7 +283,7 @@
 		background-size: 31px;
 	}
 	#box_NRE{
-		height: 35px;
+		height: 45px;
 		width: 100%;
 		padding:0;
 	}
@@ -358,7 +358,7 @@
 		margin-bottom: 0px;
 	}
 	.col1-mobile:nth-child(odd) {
-		background-color: #F4FBFB;
+		background-color: rgb(242, 242, 238);
 		min-height: 26px;
 	}
 	.col1-mobile:nth-child(even) {
@@ -371,6 +371,7 @@
 	.msg_detalhe{
 		display:none;	
 		padding:10px;
-		background:#C6DCE1;
+		background-color: rgb(226, 225, 215);
+		margin-bottom:2px;
 	}
 }
