@@ -31,7 +31,6 @@ $templateMensagens = new TemplateMensagens();
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
     <script src="//use.typekit.net/rtp0aku.js"></script>
 	<script>try{Typekit.load();}catch(e){}</script>
   </head>
@@ -82,37 +81,51 @@ $templateMensagens = new TemplateMensagens();
                                             <span id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>                                    	</div>
                                         <div id="btn_enviados" onclick="envidasFuncao()" class="btn_msg"><span>ENVIADOS</span></div>
                                         <div id="btn_excluidos" onclick="deletadas()"  class="btn_msg"><span>EXCLUÍDOS</span></div>
-                                    </div>       
+                                    </div>  
                                     <!--Menu mobile-->
-                                    <div id="mn_mobile">
-                                        <div id="btn_recebidos" onclick="recebidasFuncaoMobile()" class="btn_msg btn_msg_ativo" data-toggle="collapse" data-target="#box-recebidas">
-                                            <span id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>                                    	</div>                                    
-                                        <div class="row panel-collapse collapse in" id="box-recebidas">
-                                            <div class="col-xs-12 col-md-12 col-lg-12">
-                                                <div id="tbl_msg1">
-                                                    
-                                                    
+                                    <div class="panel-group" id="mn_mobile" role="tablist" aria-multiselectable="true">
+                                    	
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <div role="button" data-toggle="collapse" data-parent="#mn_mobile" aria-expanded="true" aria-controls="box-recebidas" id="btn_recebidos" onclick="recebidasFuncaoMobile()" class="btn_msg btn_msg_ativo panel-title" data-target="#box-recebidas" >
+                                                    <span id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>                                    			</div>                                    
+                                                <div class="row panel-collapse collapse in" id="box-recebidas" role="tabpanel" aria-labelledby="headingOne">
+                                                    <div class="col-xs-12 col-md-12 col-lg-12">
+                                                        <div id="">
+                                                            teste
+                                                            
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                        	</div>
                                         </div>
-                                        <div id="btn_enviados" onclick="envidasFuncaoMobile()" class="btn_msg" data-toggle="collapse" data-target="#box-enviados">
-                                        <span>ENVIADOS</span></div>
-                                        <div class="row panel-collapse collapse" id="box-enviados">
-                                            <div class="col-xs-12 col-md-12 col-lg-12">
-                                                <div id="tbl_msg2">
-                                                   
-                                                    
+                                      
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingTwo">
+                                                <div role="button" data-toggle="collapse" data-parent="#mn_mobile" aria-expanded="false" aria-controls="box-enviados" id="btn_enviados" onclick="envidasFuncaoMobile()" class="btn_msg btn_msg_ativo panel-title collapsed" data-target="#box-enviados">                                           			<span>ENVIADOS</span>                                   			
+                                                </div>                                    
+                                                <div class="row panel-collapse collapse" id="box-enviados" role="tabpanel" aria-labelledby="headingTwo">
+                                                    <div class="col-xs-12 col-md-12 col-lg-12">
+                                                        <div id="">                                                            
+                                                            teste 22222
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                        	</div>
                                         </div>
-                                        <div id="btn_excluidos" onclick="deletadasFuncaoMobile()"  class="btn_msg" data-toggle="collapse" data-target="#box-excluidos">
-                                        <span>EXCLUÍDOS</span></div>
-                                        <div class="row panel-collapse collapse" id="box-excluidos">
-                                            <div class="col-xs-12 col-md-12 col-lg-12">
-                                                <div id="tbl_msg3">
-                                                   
+                                        
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingThree">
+                                                <div role="button" data-toggle="collapse" data-parent="#mn_mobile" aria-expanded="false" aria-controls="box-excluidos" id="btn_excluidos" onclick="deletadasFuncaoMobile()" class="btn_msg btn_msg_ativo panel-title collapsed" data-target="#box-excluidos">                                           			<span>EXCLUÍDOS</span>                                   			
+                                                </div>                                    
+                                                <div class="row panel-collapse collapse" id="box-excluidos" role="tabpanel" aria-labelledby="headingThree">
+                                                    <div class="col-xs-12 col-md-12 col-lg-12">
+                                                        <div id="tbl_msg3">
+                                                            teste 33333
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                        	</div>
                                         </div>
                                     </div>
                                 </div>
@@ -130,6 +143,6 @@ $templateMensagens = new TemplateMensagens();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/funcoes.js"></script>
-    <script src="js/Mensagem.js"></script>
+	<script src="js/Mensagem.js"></script>
 </body>
 </html>
