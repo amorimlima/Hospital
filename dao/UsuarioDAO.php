@@ -83,6 +83,30 @@ class UsuarioDAO extends DAO{
     	return $user;
      }
      
+     public function selectbyPerfil($idescola){
+        $sql = "select * from usuario where usr_perfil <> 6 and usr_escola = ".$idescola."";
+    	$result = $this->retrieve($sql);
+    	$lista = array();
+        while ($qr = mysql_fetch_array($result))
+    	{
+
+                $user = new Usuario();
+                $user->setUsr_id($qr["usr_id"]);
+                $user->setUsr_nome($qr["usr_nome"]);
+                $user->setUsr_data_nascimento($qr["usr_data_nascimento"]);
+                $user->setUsr_endereco($qr["usr_endereco"]);
+                $user->setUsr_escola($qr["usr_escola"]);
+                $user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
+                $user->setUsr_nse($qr["usr_nse"]);
+                $user->setUsr_perfil($qr["usr_perfil"]);
+                $user->setUsr_login($qr["usr_login"]);
+            	$user->setUsr_senha($qr["usr_senha"]);
+                array_push($lista, $user);
+                
+        }	
+    	return $lista;
+     }
+
       public function selectFull()
      {
         $sql = "select * from usuario";

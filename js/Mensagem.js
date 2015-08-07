@@ -160,7 +160,7 @@
         function RecebidasMobileDetalheFuncao(idMensagem){
              $('.col1-mobile').removeClass('delete');
              $('#msg_valores_'+idMensagem).removeClass('msg_nao_lida');
-            $.ajax({
+             $.ajax({
 	          url:'ajax/MensagemAjax.php',
 	          type:'post',
 		  dataType:'html',

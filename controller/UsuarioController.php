@@ -44,8 +44,13 @@ class UsuarioController {
 		$user = $this->usuarioDAO->select($iduser);
 		return $user;
 	}
-	
-	public function selectAll()
+        
+        public function  selectbyPerfil($idescola){
+            $user = $this->usuarioDAO->selectbyPerfil($idescola);
+            return $user;
+        }
+
+                public function selectAll()
 	{
 		$user = $this->usuarioDAO->selectFull();
 		return $user;
