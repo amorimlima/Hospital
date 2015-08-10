@@ -374,4 +374,16 @@
 		background-color: rgb(226, 225, 215);
 		margin-bottom:2px;
 	}
+	.panel-group {
+		margin-bottom: 0px;
+	}
+	.panel-group .panel+.panel {
+		 margin-top: 0px; 
+	}
+	.panel-body {
+		 padding: 0px; 
+	}
+	.panel{
+		border:0;
+	}
 }

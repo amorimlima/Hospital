@@ -15,7 +15,7 @@ p{
 	margin: 0;
 	padding: 0;
 }
-textarea:focus, input:focus, select:focus {
+textarea:focus, input:focus, select:focus, button:focus  {
     box-shadow: 0 0 0 0;
     border: 0 none;
     outline: 0;
@@ -97,54 +97,6 @@ textarea:focus, input:focus, select:focus {
     vertical-align: middle;
     color:#000000;
 }
-
-
-/*
-#sbm_exercicios{
-     
-    top: 30px; 
-	border-left: 1px dotted #7cb931; 
-	display:none;
-}
-
-#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over {
-	width: 78px;
-	height: 130px;
-	display: block;
-	border-left: 1px dotted #7cb931;
-	position: absolute;
-	z-index: 9999;
-	padding: 10px 0px;
-	margin: 6px 31px
-}
-#sbm_exercicios .sub_a{
-	height: 21px;
-	margin-bottom: 6px;
-	margin-left: 11px;
-	position: relative; 
-	padding: 0px 0;
-	z-index: 999;
-	border: 1px solid #7DBA31;
-	background-color: #FFFFFF;
-	list-style: none;
-	width: 66px;
-}
-#sbm_exercicios .sub_a a{
-	background: url(../img/submenu.png) no-repeat;
-	min-width: 80px;
-	margin-left: -23px;
-	background-position: 10px 9px;
-	margin-bottom: 11px;
-	text-decoration: none;
-	height: 14px;
-	padding-left: 36px;
-	color: #000;
-	font-family : Overlock;
-}
-#sbm_exercicios .sub_a:hover{
-    background-color: #e9f1db;
-}*/
-
 #menu a{	
     text-decoration: none;
     float: left;
@@ -253,13 +205,26 @@ img{
 	margin: 24px 49px 0 0;
 	height:581px;
 }
-
-
-/*RODAPÃƒâ€°*/
+/*RODAPE°*/
 #rodape{
 	background:url(../img/barra_colorida.png) repeat-x;
 	height:7px;
 }
+
+/*BOTAO PADRAO FORM*/
+.btn_form{
+	font-family: Source Sans Pro;
+	font-size: 87.5%;	
+	border: 0;
+	padding: 0;
+	float: right;
+	padding: 4px 13px 2px;
+	color: #FFFFFF;
+}
+.btn_form_forum{
+	background: #EA813D;
+}
+
 @media (max-width:768px){
 	.navbar-toggle .icon-bar{
 		display: block;
@@ -355,14 +320,14 @@ img{
 	
 	/*Menu*/	
 	#mn_livros{
-		background: #7DBA31 url(../img/btn_livro.png) no-repeat;    
+		background: #7DBA31 url(../img/btn_livros.png) no-repeat;    
 		width: 100%;
 		margin-right: 4%;
 		background-position: 24px;
     	margin-bottom: 2px;
 	}
 	#mn_livros:hover{
-		background: #7DBA31 url(../img/btn_livro.png) no-repeat;    
+		background: #7DBA31 url(../img/btn_livros.png) no-repeat;    
 		width: 100%;
 		margin-right: 4%;
 		background-position: 24px;
@@ -410,18 +375,9 @@ img{
 		background-position: 24px;
    	 	margin-bottom: 2px;
 	}
-	
-	
-	/*#sbm_exercicios{
-		background:#e5f1d5;
-		margin: 0px;
-		padding: 0px;
-	}*/
-	
 	#sbm_exercicios{
 		width: 100% !important;
-	}
-	
+	}	
 	#sbm_exercicios .sub_a{
 		list-style: none;
 		opacity: 10;
@@ -449,15 +405,6 @@ img{
     	top: 30px; 
 		display:none;
 	}
-
-	/*#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
-		width: 78px;
-		display: block;
-		z-index: 9999;
-	}*/
-
-	
-	
 	.navbar-nav>li>a{
 		line-height: 0px;
 		color:#FFF;
@@ -500,21 +447,21 @@ img{
 	    background-color: #e9f1db;
 	}
 
-#sbm_exercicios{
-    position:absolute; 
-    top: 30px; 
-	border-left: 1px dotted #7cb931; 
-	display:none;
-}
-
-#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
-	width: 78px;
-	height: 130px;
-	display: block;
-	border-left: 1px dotted #7cb931;
-	position: absolute;
-	z-index: 9999;
-	padding: 10px 0px;
-	margin: 6px 31px
-}
+	#sbm_exercicios{
+		position:absolute; 
+		top: 30px; 
+		border-left: 1px dotted #7cb931; 
+		display:none;
+	}
+	
+	#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
+		width: 78px;
+		height: 130px;
+		display: block;
+		border-left: 1px dotted #7cb931;
+		position: absolute;
+		z-index: 9999;
+		padding: 10px 0px;
+		margin: 6px 31px
+	}
 }

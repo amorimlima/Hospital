@@ -37,8 +37,8 @@ switch ($_POST["acao"]){
                                 <p class="post_data">'.$value->getFrq_data().'</p>
                             </div>
                             <div class="perg_box_2 col-xs-12 col-md-4 col-lg-4">
-                                <p class="qtd_visu cx_rosaP"><span>8</span> visualizações</p>
-                                <p class="qtd_resp cx_rosaP"><span>3</span> respostas</p>
+                                <p class="qtd_visu cx_brancaP"><span>8</span> visualizações</p>
+                                <p class="qtd_resp cx_brancaP"><span>3</span> respostas</p>
                             </div>
                         </div>';
                   

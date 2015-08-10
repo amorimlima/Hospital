@@ -52,7 +52,7 @@ $templateForum = new TemplateForum();
                                     <p id="txt_pergunta">TEM ALGUMA PERGUNTA?</p>
                                     <div role="form" id="frm_pergunta">
                                         <textarea id="box_pergunta" class="form-control" rows="5" placeholder="Digite aqui sua pergunta!"></textarea>
-                                        <button onClick="enviar()" id="btn_perguntar">PERGUNTAR</button>
+                                        <button onClick="enviar()" id="btn_perguntar" class="btn_form btn_form_forum">PERGUNTAR</button>
                                     </div>
                                 </div>
                              </div>
