@@ -50,6 +50,7 @@
 		  data:{'acao':'listaEnviadosMobile','id':'20'},
 		  success:function(data)
                   {
+				  
 		     $('#tbl_msg2').html(data);
                     
                     // $('#box_msg_right_botton').hide();
@@ -84,7 +85,6 @@
 		  data:{'acao':'listaRecebidosMobile','id':'20'},
 		  success:function(data)
                   {
-          
 		     $('#tbl_msg1').html(data);
                    
                      //$('#box_msg_right_botton').hide();
