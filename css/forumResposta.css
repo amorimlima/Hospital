@@ -62,13 +62,58 @@
 }
 #postagens_recentes{
 	background:#fff;
-	height:581px;	
-	padding:18px 31px 18px 27px;
+	height:581px;
 	border:dotted 2px #E35F0F;
 }
 #postagens_img {
     background: url(../img/postagens_recentes.png) no-repeat;
     width: 341px;
     height: 29px;
-    margin: -32px 0 0 -8px;
+    margin: -14px 0 0 19px;
+}
+#txt_pesquisa{
+	margin: 18px 26px 0px 19px;
+    float: right;
+    padding: 4px 0 4px 32px;
+    width: 85%;
+    height: 36px;
+	-webkit-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+	-moz-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+	box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+	background: url(../img/lupinha.png) no-repeat;
+	background-position: 5px 7px;
+}
+#txt_pesquisa input {
+    border:0;
+	line-height: 30px;
+    height: 30px;
+}
+.ln_box{
+	height: 82px;
+	padding:18px;
+}
+.ln_box_rosa{
+	background: #FDF0E7;
+}
+.ln_box_branca{
+	background:#FFFFFF;	
+}
+#box_result_pesquisa{
+	margin-top: 82px;
+}
+.ln_pergunta{
+	font-size:14px;
+	font-weight:bold;
+	font-family:SourceSansPro;
+	float:left;
+	margin-bottom:10px;
+}
+.ln_info{
+	font-size:12px;
+	font-family:SourceSansPro;
+	float:right;
+}
+.paipe{
+	background:#ED9255;
+	margin: 0 3px;
 }

@@ -11,9 +11,18 @@ html{
 	margin:0;
 	font-family : Source Sans Pro;
 }
-p{
+body {
+    font-family : Source Sans Pro;
+    font-size: 14px;
+    line-height: none;
+    color: #000000;
+    background-color: #fff;
+}
+p,a{
 	margin: 0;
 	padding: 0;
+	font-family : Source Sans Pro;
+	color:#000000;
 }
 textarea:focus, input:focus, select:focus, button:focus  {
     box-shadow: 0 0 0 0;

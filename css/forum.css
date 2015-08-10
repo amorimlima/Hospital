@@ -98,10 +98,12 @@
 .nome_aluno{
     font-weight: normal;
     font-size: 11px;
+	color:#000000;
 }
 .post_data{
     font-weight: normal;
     font-size: 9px;
+	color:#4D4D4D;
 }
 .perg_box_2{
     float: left;

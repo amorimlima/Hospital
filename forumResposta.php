@@ -109,6 +109,25 @@ $templateGeral = new Template();
                         <div id="Conteudo_Area_box_right">
 							<div id="postagens_recentes">
                             	<p id="postagens_img"></p>
+                                <p id="txt_pesquisa">
+                                    <input id="txt_pesquisa_input" onkeypress="autoComplete()" type="text" placeholder="Pesquise no fórum!">
+                                </p>
+                                <div id="box_result_pesquisa">
+                                	
+                                	<div class="ln_box ln_box_rosa">
+                                    	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
+                                        <p class="ln_info">Última postagem 02/05/2015 às 15:13 <span class="paipe">|</span>8 visualizações<span class="paipe">|</span>3 respostas</p>
+                                    </div>
+                                    <div class="ln_box ln_box_branca">
+                                    	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
+                                        <p class="ln_info">Última postagem 02/05/2015 às 15:13 <span class="paipe">|</span>8 visualizações<span class="paipe">|</span>3 respostas</p>
+                                    </div>
+                                    <div class="ln_box ln_box_rosa">
+                                    	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
+                                        <p class="ln_info">Última postagem 02/05/2015 às 15:13 <span class="paipe">|</span>8 visualizações<span class="paipe">|</span>3 respostas</p>
+                                    </div>
+                                    
+                                </div>
                         	</div>                          
                         </div>     	
                     </div>
