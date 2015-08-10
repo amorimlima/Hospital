@@ -62,16 +62,15 @@ switch ($_POST["acao"]){
             }
             
                 
-              echo'<div id="box_msg_recebidas_mobile" onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')" >
-						<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile ">
-							<div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
-								  <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
-								  <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.$value->getMsg_assunto().'</p>
-								  <p class="msg_data_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_data().'</p>
-							</div>
+              echo'<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile" onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')">
+						<div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
+							  <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
+							  <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.$value->getMsg_assunto().'</p>
+							  <p class="msg_data_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_data().'</p>
 						</div>
-                    <div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'"></div>
-                </div>';
+						<div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'"></div>
+				    </div>';
+                    
         }               
         break;
     }
@@ -156,10 +155,7 @@ switch ($_POST["acao"]){
             }
                  
                 
-             echo'
-             
-                <div id="box_msg_recebidas_mobile" onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')" >
-                    <div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile ">
+             echo'<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile " onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')">
                         <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
                           <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
                           <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.$value->getMsg_assunto().'</p>
@@ -167,9 +163,7 @@ switch ($_POST["acao"]){
                     </div>
                     <div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'">
                             
-                    </div>
-                </div>';
-             
+                    </div>';             
         }               
                                                     
         
@@ -214,8 +208,6 @@ switch ($_POST["acao"]){
                 $naolida = '';
             }
                 echo '
-                    
-                <div id="box_msg_recebidas_mobile" >
                     <div id="msg_valores_'.$value->getMsg_id().'" onclick="RecebidasMobileDetalheFuncao('.$value->getMsg_id().')" class=" '.$naolida.' row col1-mobile ">
                             <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
                             <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
@@ -226,11 +218,7 @@ switch ($_POST["acao"]){
                         <div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'">
                             
                         </div>
-                    </div>
-                    <!--Box que abre quando clicar na msg-->
-
-                   
-                </div>';
+                    </div>';
                     
         }    
          break;

@@ -94,7 +94,8 @@ $templateMensagens = new TemplateMensagens();
                                         <div id="box-recebidas" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                           <div class="panel-body">
                                              <div class=" col-xs-12 col-md-12 col-lg-12">                                                            
-                                                <div id="tbl_msg1">
+                                                <div id="box_msg_recebidas_mobile">
+                                                	
                                                 </div>
                                             </div>
                                           </div>
@@ -112,7 +113,7 @@ $templateMensagens = new TemplateMensagens();
                                         <div id="box-enviados" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                           <div class="panel-body">
                                              <div class=" col-xs-12 col-md-12 col-lg-12">                                                            
-                                                <div id="tbl_msg2">
+                                                <div id="box_msg_enviadas_mobile">
                                                 </div>
                                             </div>
                                           </div>
@@ -127,7 +128,7 @@ $templateMensagens = new TemplateMensagens();
                                         <div id="box-excluidos" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" id="box-excluidos">
                                           <div class="panel-body">
                                             <div class="col-xs-12 col-md-12 col-lg-12">
-                                                <div id="tbl_msg3">
+                                                <div id="box_msg_excluidas_mobile">
                                                 
                                                 </div>
                                             </div>
