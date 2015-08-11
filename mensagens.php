@@ -65,9 +65,29 @@ $templateMensagens = new TemplateMensagens();
                                                     <span id="titulo_ass">ASSUNTO</span>
                                                     <span id="titulo_data">DATA</span>
                                                 </p>
-                                                <div id="box_msg_listas"></div>
+                                                <div id="box_msg_listas">
+                                                	<?php $templateMensagens->mensagensRecebidas(20);?>
+                                                </div>
                                             </div>
-                                            <div id="box_msg_right_botton"></div>
+                                            <div id="box_msg_right_botton">
+                                                <p id="ass_linha">
+                                                	<span id="ass_msg">REPOSIÇÃO</span>
+                                                	<span id="ass_msg_data"></span>
+                                                </p>
+                                                <p id="ass_linha_rem">
+                                                	<span id="msg_rem">REMETENTE:</span>
+                                                	<span id="ass_msg_rem_nome"></span>
+                                                </p>
+                                                <p id="ass_linha_para">
+                                                    <span id="msg_para">PARA:</span>
+                                                    <span id="ass_msg_para_nome"></span>
+                                                </p>                                          
+                                                <div id="ass_resposta_msg">
+                                                    <p id="ass_linha_titulo_resp">
+                                                       <span id="ass_msg_resp"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
                                      	</div>
                                     </div>
                                 </div>                                

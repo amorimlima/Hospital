@@ -83,38 +83,8 @@ switch ($_POST["acao"]){
     }
     
     case "novo":{
-        echo '<p id="ass_linha">
-                      <span id="ass_msg">REPOSIÇÃO</span>
-                      <span id="ass_msg_data"></span>
-                      </p>
-                      <p id="ass_linha_rem">
-                      <span id="msg_rem">REMETENTE:</span>
-                      <span id="ass_msg_rem_nome"></span>
-                      </p>
-                      <p id="ass_linha_para">
-                      <span id="msg_para">PARA:</span>
-                      <span id="ass_msg_para_nome"></span>
-                      </p>
-
-                      <div id="ass_linha_titulo_msg">
-                      <span id="msg_msg"></span>
-                      </div>
-                      
-                      <div id="ass_resposta_msg">
-                        <p id="ass_linha_titulo_resp">
-                           <span id="ass_msg_resp">ENVIAR</span>
-                        </p>
-                        <textarea name="msg_resposta" rows=7 cols=105> 
-                        </textarea>
-                      </div>
-                      
-                       <div id="btn_msg_resposta">
-                         <input type="button" onclick="responder()" name="enviar" value="Enviar">
-                      </div>';
         
-        break;
-    }
-    
+    }    
     
     case "listaEnviadas":{
         $idmens = $_POST["id"];
@@ -127,11 +97,11 @@ switch ($_POST["acao"]){
             }else{
                 $naolida = '';
             }
-                echo '<div id="msg_valores_'.$value->getMsg_id().'" onclick="EnviadasDetalheFuncao('.$value->getMsg_id().')"  class=" enviado col1">
-                      <p class="msg_nome ">'.$value->getMsg_id().'</p>
-                      <p class="msg_assunto">'.$value->getMsg_assunto().'</p>
-                      <p class="msg_data">'.$value->getMsg_data().'</p>
-                </div>';
+			echo '<div id="msg_valores_'.$value->getMsg_id().'" onclick="EnviadasDetalheFuncao('.$value->getMsg_id().')"  class=" enviado col1">
+				  <p class="msg_nome ">'.$value->getMsg_id().'</p>
+				  <p class="msg_assunto">'.$value->getMsg_assunto().'</p>
+				  <p class="msg_data">'.$value->getMsg_data().'</p>
+			</div>';
         }               
         break;
     }
@@ -152,8 +122,7 @@ switch ($_POST["acao"]){
                 $naolida = 'msg_nao_lida';
             }else{
                 $naolida = '';
-            }
-                 
+            }                 
                 
              echo'<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile " onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')">
                         <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
@@ -224,39 +193,17 @@ switch ($_POST["acao"]){
     }
     
     case "listaEnviadasDetalhe":{
-         $idmens = $_POST["id"];
+        
+		$idmens = $_POST["id"];
         
         $mensagem = $mensagemController->detalhe($idmens);
         
         $mensagem->getMsg_id();
         
-   
-                echo '<p id="ass_linha">
-                        <span id="ass_msg">REPOSIÇÃO</span>
-                        <span id="ass_msg_data">'.$mensagem->getMsg_data().'</span>
-                      </p>
-                      <p id="ass_linha_rem">
-                        <span id="msg_rem">REMETENTE:</span>
-                        <span id="ass_msg_rem_nome">'.$mensagem->getMsg_remetente().'</span>
-                      </p>
-                      <p id="ass_linha_para">
-                        <span id="msg_para">PARA:</span>
-                        <span id="ass_msg_para_nome">'.$mensagem->getMsg_destinatario().'</span>
-                      </p>
-
-                      <div id="ass_linha_titulo_msg">
-                        <span id="msg_msg">'.$mensagem->getMsg_mensagem().'</span>
-                      </div>
-                      
-                      <div id="ass_resposta_msg">
-                        <p id="ass_linha_titulo_resp">
-                           <span id="ass_msg_resp">RESPOSTA</span>
-                        </p>
-                      <textarea name="msg_resposta" rows=7 cols=105> 
-                      </textarea>
-                      </div>';
-                      //</div>';     <div id="tbl_msg_detalhe">
-               
+		$result = Array('data'=>$mensagem->getMsg_data(),'remetente'=>$mensagem->getMsg_remetente(),'destinatario'=>$mensagem->getMsg_destinatario(),'mensagem'=>$mensagem->getMsg_mensagem());
+		
+        echo json_encode($result);
+		   
         break;
     }
     
@@ -302,30 +249,9 @@ switch ($_POST["acao"]){
 
         $mensagem->getMsg_id();
        
-   
-                echo '<p id="ass_linha">
-                        <span id="ass_msg">REPOSIÇÃO</span>
-                        <span id="ass_msg_data">'.$mensagem->getMsg_data().'</span>
-                      </p>
-                      <p id="ass_linha_rem">
-                        <span id="msg_rem">REMETENTE:</span>
-                        <span id="ass_msg_rem_nome">'.$mensagem->getMsg_remetente().'</span>
-                      </p>
-                        <p id="ass_linha_para">
-                        <span id="msg_para">PARA:</span>
-                        <span id="ass_msg_para_nome">'.$mensagem->getMsg_destinatario().'</span>
-                      </p>
-                      <div id="ass_linha_titulo_msg">
-                        <span id="msg_msg">'.$mensagem->getMsg_mensagem().'</span>
-                      </div>
-                      
-                      <div id="ass_resposta_msg">
-                       <p id="ass_linha_titulo_resp">
-                           <span id="ass_msg_resp">RESPOSTA</span>
-                       </p>
-                        <textarea name="msg_resposta" rows=7 cols=105> 
-                        </textarea>
-                      </div>';
+		$result = Array('data'=>$mensagem->getMsg_data(),'remetente'=>$mensagem->getMsg_remetente(),'destinatario'=>$mensagem->getMsg_destinatario(),'mensagem'=>$mensagem->getMsg_mensagem());
+		
+		echo json_encode($result);
                
         break;
     }

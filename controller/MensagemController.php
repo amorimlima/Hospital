@@ -53,33 +53,33 @@ class MensagemController {
             return $mens;
 	}
         
-        public function count($idmens){
-            $valor = $this->mensagemDAO->count($idmens);
-            return $valor;
-        }
+	public function count($idmens){
+		$valor = $this->mensagemDAO->count($idmens);
+		return $valor;
+	}
 
-        public function listaEnviadas($idmens){
-            $valor = $this->mensagemDAO->listaEnviadas($idmens);
-            return $valor;
-        }
-        
-        public function deletadas(){
-             $valor = $this->mensagemDAO->deletadas();
-            return $valor;
-        } 
+	public function listaEnviadas($idmens){
+		$valor = $this->mensagemDAO->listaEnviadas($idmens);
+		return $valor;
+	}
+	
+	public function deletadas(){
+		 $valor = $this->mensagemDAO->deletadas();
+		return $valor;
+	} 
 
 
-        public function detalhe($idmens){
-            $valor = $this->mensagemDAO->detalhe($idmens);
-            return $valor;
-        }
+	public function detalhe($idmens){
+		$valor = $this->mensagemDAO->detalhe($idmens);
+		return $valor;
+	}
 
-        public function listaRecebidos($idmens){
-            $valor = $this->mensagemDAO->listaRecebidos($idmens);
-            return $valor;
-        }
+	public function listaRecebidos($destinatario){
+		$valor = $this->mensagemDAO->listaRecebidos($destinatario);
+		return $valor;
+	}
 
-        public function selectAll()
+	public function selectAll()
 	{
 		$mens = $this->mensagemDAO->selectFull();
 		return $mens;

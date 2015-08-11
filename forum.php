@@ -63,7 +63,7 @@ $templateForum = new TemplateForum();
                                         <input id="txt_pesquisa_input" onkeypress="autoComplete()" type="text" placeholder="Pesquise no fórum!">
                                     </p>
                                     <div id="box_alunos">
-                                                                    
+                                         <?php $templateForum->listaAlunos()?>                           
                                     </div>
                                 </div>
                             </div> 

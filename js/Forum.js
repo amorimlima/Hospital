@@ -1,16 +1,3 @@
-$(document).ready(function (){
-    $.ajax({                                      
-      url:'ajax/ForumAjax.php',
-      type:'post',
-      dataType:'html',
-      data:{'acao':'listaQuestao'},           
-      success:function(data)
-        {
-           $('#box_alunos').html(data);
-        }
-    });
-});
-
 function enviar(){
     var t =  $("#box_pergunta").val();   
      $.ajax({

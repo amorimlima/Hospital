@@ -163,9 +163,9 @@ class MensagemDAO extends DAO{
          
      }
           
-    public function listaRecebidos($idmens){
+    public function listaRecebidos($destinatario){
          
-        $sql = "select * from mensagem where msg_ativo = 1 and msg_destinatario = ".$idmens." ";
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_destinatario = ".$destinatario." ";
         $lista = array();
     	$result = $this->retrieve($sql);
     	while ($qr = mysqli_fetch_array($result))
