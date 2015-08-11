@@ -6,7 +6,7 @@
 	          url:'ajax/EnvioDocumentoAjax.php',
 	          type:'post',
 		  dataType:'html',
-		  data:{'acao':'upload','idDestinatario':'1;2;3;4;5;6','idRemetente':'7','escola':1,'visto':0,'url':url[2]},
+		  data:{'acao':'upload','idDestinatario':'2','idRemetente':'4','escola':1,'visto':0,'url':url[2]},
 		  success:function(data)
                   {
 		    

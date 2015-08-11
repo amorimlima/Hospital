@@ -19,12 +19,17 @@ switch ($_POST["acao"]){
         $escola = $_POST["escola"];
         $visto = $_POST["visto"];
         $url = $_POST["url"];
-        
+       
+        $destinatario = $destinatario.';0';
         if(isset($destinatario)){
             $destinatarios = split(';', $destinatario);
         }
         
         foreach ($destinatarios as $value) {
+            if($value == 0){
+               
+            }else{
+                
             if(isset($remetente)){
                 $envio->setEnv_idRemetente($remetente);
             }
@@ -43,11 +48,14 @@ switch ($_POST["acao"]){
             
             $envio->setEnv_idDestinatario($value);
             $envioController->insert($envio);
+            
+            }
         }
          
         echo "tudo cero";
               break;
       }
+      
    
 }
 
