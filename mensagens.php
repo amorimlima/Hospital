@@ -90,10 +90,7 @@ $templateMensagens = new TemplateMensagens();
                                     
                                         <div id="box-recebidas" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                           <div class="panel-body">
-                                             <div class=" col-xs-12 col-md-12 col-lg-12">                                                            
-                                                <div id="box_msg_recebidas_mobile">
-                                                	
-                                                </div>
+                                             <div class=" col-xs-12 col-md-12 col-lg-12">                                                <div id="box_msg_recebidas_mobile"></div>
                                             </div>
                                           </div>
                                         </div>

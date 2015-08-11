@@ -92,11 +92,11 @@
 	min-height: 82px;
 	padding:18px;
 }
-.ln_box_rosa{
-	background: #FDF0E7;
+.ln_box:nth-child(odd){
+    background-color: #FDF0E7;
 }
-.ln_box_branca{
-	background:#FFFFFF;	
+.ln_box:nth-child(even){
+    background-color: #FFFFFF;
 }
 #box_result_pesquisa{
 	margin-top: 82px;

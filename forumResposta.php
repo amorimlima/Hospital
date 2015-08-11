@@ -116,9 +116,8 @@ $templateGeral = new Template();
                                 <p id="txt_pesquisa">
                                     <input id="txt_pesquisa_input" onkeypress="autoComplete()" type="text" placeholder="Pesquise no fórum!">
                                 </p>
-                                <div id="box_result_pesquisa">
-                                	
-                                	<div class="ln_box ln_box_rosa">
+                                <div id="box_result_pesquisa">                                                            	
+                                	<div class="ln_box ln_box">
                                     	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
                                         <div class="ln_info row">
                                         	<p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem 02/05/2015 às 15:13</p> 
@@ -128,7 +127,7 @@ $templateGeral = new Template();
                                         <div style="clear:both"></div>
                                     </div>
                                     
-                                    <div class="ln_box ln_box_branca">
+                                    <div class="ln_box ln_box">
                                     	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
                                         <div class="ln_info row">
                                         	<p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem 02/05/2015 às 15:13</p> 
@@ -138,7 +137,7 @@ $templateGeral = new Template();
                                         <div style="clear:both"></div>
                                     </div>
                                     
-                                    <div class="ln_box ln_box_rosa">
+                                    <div class="ln_box ln_box">
                                     	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
                                         <div class="ln_info row">
                                         	<p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem 02/05/2015 às 15:13</p> 

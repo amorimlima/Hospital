@@ -207,8 +207,7 @@ switch ($_POST["acao"]){
             }else{
                 $naolida = '';
             }
-                echo '
-                    <div id="msg_valores_'.$value->getMsg_id().'" onclick="RecebidasMobileDetalheFuncao('.$value->getMsg_id().')" class=" '.$naolida.' row col1-mobile ">
+                echo '<div id="msg_valores_'.$value->getMsg_id().'" onclick="RecebidasMobileDetalheFuncao('.$value->getMsg_id().')" class=" '.$naolida.' row col1-mobile ">
                             <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
                             <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
                             <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.$value->getMsg_assunto().'</p>
