@@ -1,0 +1,132 @@
+#Conteudo_Area_box_Grande {
+	width:92.1%;
+	height: 588px;
+	float:left;
+	margin:24px 0 0 49px;
+}
+#box_topico{
+	background:#fff;
+	height:100px;	
+	padding:18px 31px 18px 27px;
+	margin-bottom:11px;
+	border:dotted 2px #E35F0F;
+}
+.dados_aluno{
+	padding-left: 14px;
+	font-family:Source Sans Pro;
+}
+.aluno_nome{
+	font-size: 14px;	
+}
+.aluno_data{
+	margin-left:15px;
+	font-size: 12px;
+}
+.resp_aluno{
+	padding-left: 14px;
+	font-family:Source Sans Pro;
+	font-size: 14px;
+}
+
+.box_topico_resp{
+	background:#FDF0E7;
+	min-height:100px;	
+	padding:18px 31px 18px 27px;
+	margin-bottom:11px;
+	border:1px solid #FFFFFF;
+}
+#campo_resp{
+	display:none;
+	background:#fff;
+	height:100px;	
+	padding:18px 5px 18px 27px;
+	margin-bottom:11px;
+	border:dotted 2px #E35F0F;
+    border: 0;
+    resize: none;
+    -webkit-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+    -moz-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+    box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+}
+#resp_forum{
+	width: 88%;
+    border: 0;
+    padding: 0;
+    font-family: Source Sans Pro;
+    font-size: 14px;
+    resize: none;
+    height: 57px;
+}
+#btn_pronto{
+	margin-top: 34px;
+}
+#postagens_recentes{
+	background:#fff;
+	height:581px;
+	border:dotted 2px #E35F0F;
+}
+#postagens_img {
+   /* background: url(../img/postagens_recentes.png) no-repeat;
+    width: 341px;*/
+    height: 29px;
+    margin: -14px 19px 0 19px;
+}
+#txt_pesquisa{
+	margin: 18px 26px 0px 19px;
+    float: right;
+    padding: 4px 0 4px 32px;
+    width: 85%;
+    height: 36px;
+	-webkit-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+	-moz-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+	box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
+	background: url(../img/lupinha.png) no-repeat;
+	background-position: 5px 7px;
+}
+#txt_pesquisa input {
+    border:0;
+	line-height: 30px;
+    height: 30px;
+}
+.ln_box{
+	min-height: 82px;
+	padding:18px;
+}
+.ln_box_rosa{
+	background: #FDF0E7;
+}
+.ln_box_branca{
+	background:#FFFFFF;	
+}
+#box_result_pesquisa{
+	margin-top: 82px;
+}
+.ln_pergunta{
+	font-size:14px;
+	font-weight:bold;
+	font-family:SourceSansPro;
+	float:left;
+	margin-bottom:10px;
+}
+.ln_info{
+	font-size:12px;
+	font-family:SourceSansPro;
+	float:right;
+	width:100%;
+}
+.paipeR{
+	color:#ED9255;
+	margin-right:3px;	
+}
+.paipeL{
+	color:#ED9255;
+	margin-left:1px;
+}
+
+@media (max-width:768px){
+	#Conteudo_Area_box_right {
+		margin: 24px 12px;
+		height: 581px;
+		width: 94%;
+	}
+}

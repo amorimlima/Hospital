@@ -50,7 +50,8 @@
 		  data:{'acao':'listaEnviadosMobile','id':'20'},
 		  success:function(data)
                   {
-		     $('#tbl_msg2').html(data);
+				  
+		     $('#box_msg_enviadas_mobile').html(data);
                     
                     // $('#box_msg_right_botton').hide();
            
@@ -84,8 +85,7 @@
 		  data:{'acao':'listaRecebidosMobile','id':'20'},
 		  success:function(data)
                   {
-          
-		     $('#tbl_msg1').html(data);
+		     $('#box_msg_recebidas_mobile').html(data);
                    
                      //$('#box_msg_right_botton').hide();
 		  }
@@ -100,13 +100,12 @@
 		  dataType:'html',
 		  data:{'acao':'listaEnviadasDetalhe','id':idMensagem},
 		  success:function(data)
-                  {
-                     //var t = recarrega();
-
+          {
+			 //var t = recarrega();
 		     $('#box_msg_right_botton').html(data);
-                     $('#msg_valores_'+idMensagem).addClass('delete');
-                     $('#box_msg_right_botton').show()();
-                     //$('#n_msg').html('RECEBIDOS('+t+')');
+			 $('#msg_valores_'+idMensagem).addClass('delete');
+			 $('#box_msg_right_botton').show()();
+			 //$('#n_msg').html('RECEBIDOS('+t+')');
            
 		  }
 		  });
@@ -200,7 +199,7 @@
 		  data:{'acao':'deletadasMobile'},
 		  success:function(data)
                   {
-		     $('#tbl_msg3').html(data);
+		     $('#box_msg_excluidas_mobile').html(data);
                      //$('#box_msg_right_botton').hide();
            
            

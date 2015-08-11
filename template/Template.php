@@ -49,11 +49,11 @@ class Template {
 									<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
 									if($menuId[0]=='livros'){
 										echo'<ul id="sbm_exercicios">
-												<li class="sub_a"><a href="#">1º Ano</a></li>
-												<li class="sub_a"><a href="#">2º Ano</a></li>
-												<li class="sub_a"><a href="#">3º Ano</a></li>
-												<li class="sub_a"><a href="#">4º Ano</a></li>
-												<li class="sub_a"><a href="#">5º Ano</a></li>
+												<li class="sub_a"><a href="livros.php?ano=1">1º Ano</a></li>
+												<li class="sub_a"><a href="livros.php?ano=2">2º Ano</a></li>
+												<li class="sub_a"><a href="livros.php?ano=3">3º Ano</a></li>
+												<li class="sub_a"><a href="livros.php?ano=4">4º Ano</a></li>
+												<li class="sub_a"><a href="livros.php?ano=5">5º Ano</a></li>
 											</ul>';
 									}
 									echo'</li>';

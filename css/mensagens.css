@@ -1,25 +1,25 @@
 #box_msg_geral{
     width: 100%;
     height: 100%;
-    border: 1px dotted #24ADB5;
+    border: 2px dotted #24ADB5;
     background: #FFFFFF;
 }
 #box_msg_left{
     height: 100%;
-    border-right: 1px dotted #24ADB5;
+    border-right: 2px dotted #24ADB5;
 }
 #box_msg_right_top{
     margin: 0;
     padding: 0;
     width: 68.9%;
     height: 55%;
-    border-bottom: 1px dotted #24ADB5;
+    border-bottom: 2px dotted #24ADB5;
     float: left;
 }
 #box_msg_right_botton{
     margin: 0;
     padding: 0;
-    width: 68.9%;
+    width: 100%;
     height: 45.9%;
     float: left;
 }
@@ -45,7 +45,7 @@
 	height:191px;
 }
 #btn_enviados{
-    margin: 6.4px 0;
+    margin: 5.5px 0;
     background:#DEF3F4 url(../img/icone_enviados.png) no-repeat;
     background-position: 53px 61px;
 	height:191px;
@@ -60,7 +60,7 @@
     background-position: 53px 61px;
 }
 #btn_enviados:hover{
-    margin: 6.4px 0;
+    margin: 5.5px 0;
     background:#BDE7E9 url(../img/icone_enviados.png) no-repeat;
     background-position: 53px 61px;
 }
@@ -113,11 +113,12 @@
     height: 29px;
 }
 #tbl_msg{
-    margin-top: 3px;
-    width: 100%;
-    font-family: overlock;
-    text-align: left;
-    border-spacing: 11px;
+	margin-top: 3px;
+	width: 100%;
+	font-family: overlock;
+	text-align: left;
+	border-spacing: 11px;
+	height: 225px;
 }
 #linha_titulos{
     margin-bottom: 15px;
@@ -171,6 +172,7 @@
 #ass_linha{
     background: #E5F5F6;
     padding: 11px 0px 11px 27px;
+	 border-top: 2px dotted #24ADB5;
 }
 #ass_msg{
     font-family: Source Sans Pro;
@@ -195,7 +197,7 @@
 #msg_rem{
     width: 24px;
     text-align: right;
-    padding: 3px 5px 3px 20px;
+    padding: 3px 6px 3px 23px;
     background: #E9F7F8;
     border-right: 2px solid #FFFFFF;
 }
@@ -220,6 +222,9 @@
 }
 #mn_mobile{
 	display:none;
+}
+#box_abre_msg{
+	padding:19px;
 }
 @media (max-width:768px){
 	#Conteudo_Area_box_Grande {
@@ -373,5 +378,17 @@
 		padding:10px;
 		background-color: rgb(226, 225, 215);
 		margin-bottom:2px;
+	}
+	.panel-group {
+		margin-bottom: 0px;
+	}
+	.panel-group .panel+.panel {
+		 margin-top: 0px; 
+	}
+	.panel-body {
+		 padding: 0px; 
+	}
+	.panel{
+		border:0;
 	}
 }
