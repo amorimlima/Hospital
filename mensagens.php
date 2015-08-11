@@ -66,11 +66,8 @@ $templateMensagens = new TemplateMensagens();
                                                     <span id="titulo_data">DATA</span>
                                                 </p>
                                                 <div id="box_msg_listas"></div>
-                                                <div id="box_msg_right_botton" >
-                                                   
-                                                </div>
-                                               
                                             </div>
+                                            <div id="box_msg_right_botton"></div>
                                      	</div>
                                     </div>
                                 </div>                                

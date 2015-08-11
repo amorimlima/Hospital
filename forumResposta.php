@@ -60,7 +60,7 @@ $templateGeral = new Template();
                                 		<span class="resp_aluno">Os sintomas da esquistossomose e da cólera são diferentes?</span>
                                 	</p> 
                                 </div>  
-                            </div>
+                            </div>                            
                             <div class="box_topico_resp">
                                 <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
                                     <img src="imgp/foto_aluno2.png">
@@ -73,7 +73,8 @@ $templateGeral = new Template();
                                     <div>  
                                         <p class="resp_aluno">Os sintomas da esquistossomose são febre, calafrios, tosse e dores musculares. Já o da cólera o mais normal é a pessoa ter diarréia, náusea e vômitos. Pelos sintomas já dá para perceber que as doenças são bem diferentes!</p>
                                     </div> 
-                                </div> 
+                                </div>
+                                <div style="clear:both"></div> 
                             </div>
                             <div class="box_topico_resp">
                                 <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
@@ -87,7 +88,8 @@ $templateGeral = new Template();
                                     <div>  
                                         <p class="resp_aluno">Os sintomas da esquistossomose são febre, calafrios, tosse e dores musculares. Já o da cólera o mais normal é a pessoa ter diarréia, náusea e vômitos. Pelos sintomas já dá para perceber que as doenças são bem diferentes!</p>
                                     </div> 
-                                </div> 
+                                </div>
+                                <div style="clear:both"></div> 
                              </div>
                              <button id="btn_responder" class="btn_form btn_form_forum">RESPONDER</button>
                              <div id="campo_resp">
@@ -108,7 +110,9 @@ $templateGeral = new Template();
                    <div class="col-xs-12 col-md-8 col-lg-4">     
                         <div id="Conteudo_Area_box_right">
 							<div id="postagens_recentes">
-                            	<p id="postagens_img"></p>
+                            	<p id="postagens_img">
+                                	<img src="img/postagens_recentes.png" class="img-responsive" alt=""/>
+                                </p>
                                 <p id="txt_pesquisa">
                                     <input id="txt_pesquisa_input" onkeypress="autoComplete()" type="text" placeholder="Pesquise no fórum!">
                                 </p>
@@ -116,15 +120,32 @@ $templateGeral = new Template();
                                 	
                                 	<div class="ln_box ln_box_rosa">
                                     	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
-                                        <p class="ln_info">Última postagem 02/05/2015 às 15:13 <span class="paipe">|</span>8 visualizações<span class="paipe">|</span>3 respostas</p>
+                                        <div class="ln_info row">
+                                        	<p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem 02/05/2015 às 15:13</p> 
+                                            <p class="col-xs-3 col-md-3 col-lg-3 align-right"><span class="paipeR">|</span>8 visualizações <span class="paipeL">|</span></p>
+                                            <p class="col-xs-2 col-md-2 col-lg-2 align-right">3 respostas</p>
+                                        </div>
+                                        <div style="clear:both"></div>
                                     </div>
+                                    
                                     <div class="ln_box ln_box_branca">
                                     	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
-                                        <p class="ln_info">Última postagem 02/05/2015 às 15:13 <span class="paipe">|</span>8 visualizações<span class="paipe">|</span>3 respostas</p>
+                                        <div class="ln_info row">
+                                        	<p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem 02/05/2015 às 15:13</p> 
+                                            <p class="col-xs-3 col-md-3 col-lg-3 align-right"><span class="paipeR">|</span>8 visualizações <span class="paipeL">|</span></p>
+                                            <p class="col-xs-2 col-md-2 col-lg-2 align-right">3 respostas</p>
+                                        </div>
+                                        <div style="clear:both"></div>
                                     </div>
+                                    
                                     <div class="ln_box ln_box_rosa">
                                     	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
-                                        <p class="ln_info">Última postagem 02/05/2015 às 15:13 <span class="paipe">|</span>8 visualizações<span class="paipe">|</span>3 respostas</p>
+                                        <div class="ln_info row">
+                                        	<p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem 02/05/2015 às 15:13</p> 
+                                            <p class="col-xs-3 col-md-3 col-lg-3 align-right"><span class="paipeR">|</span>8 visualizações <span class="paipeL">|</span></p>
+                                            <p class="col-xs-2 col-md-2 col-lg-2 align-right">3 respostas</p>
+                                        </div>
+                                        <div style="clear:both"></div>
                                     </div>
                                     
                                 </div>
