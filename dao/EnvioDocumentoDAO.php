@@ -69,8 +69,8 @@ class EnvioDocumentoDAO extends DAO{
     	return $env;
      }
      
-    public function count(){
-        $sql = "select * from envio_documentos where visto = 0";
+    public function count($idenv){
+        $sql = "select * from envio_documentos where visto = 0 and idDestinatario = ".$idenv." ";
         $result = $this->retrieve($sql);
         $qr = mysqli_num_rows($result);
         
@@ -78,19 +78,26 @@ class EnvioDocumentoDAO extends DAO{
         
      }
      
-     public function selectNaoVistos($idenv){
-        $sql = "select * from envio_documentos where visto = 0 and idEnvioDocumento = ".$idenv." ";
-    	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+     public function updateVisto($idenv){
+         $sql  = "update envio_documentos set visto = 1 where idDestinatario = ".$idenv." ";
+         return $this->execute($sql);
+     }
 
+        public function selectNaoVistos($idenv){
+        $sql = "select * from envio_documentos where visto = 0 and idDestinatario = ".$idenv." ";
+    	$result = $this->retrieve($sql);
+    	$lista = array();
+        while ($qr = mysql_fetch_array($result))
+    	{
                 $env = new EnvioDocumento();
                 $env->setEnv_id($qr["idEnvioDocumento"]);
                 $env->setEnv_idEscola($qr["idEscolas"]);
                 $env->setEnv_idRemetente($qr["idRemetente"]);
                 $env->setEnv_idDestinatario($qr["idDestinatario"]);
                 $env->setEnv_url($qr["url"]);
-                $env->setVisto($qr["visto"]);
-	    	    	
+                $env->setVisto($qr["visto"]);	
+                array_push($lista, $env);
+        }	
     	return $env;
      }
 

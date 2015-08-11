@@ -48,13 +48,21 @@ class EnvioDocumentoController {
 		return $env;
 	}
         
-        public function selectNaoVistos($idenv)
+        public function count($idenv){
+            return $this->envioDocumentoDAO->count($idenv);
+        }
+        
+        public function updateVisto($idenv){
+            return $this->envioDocumentoDAO->updateVisto($idenv);
+        }
+
+                public function selectNaoVistos($idenv)
         {
                 $env = $this->envioDocumentoDAO->selectNaoVistos($idenv);
 		return $env;
         }
 
-                public function selectAll()
+        public function selectAll()
 	{
 		$env = $this->envioDocumentoDAO->selectFull();
 		return $env;
