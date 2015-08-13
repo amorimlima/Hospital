@@ -50,7 +50,7 @@ class TemplateForum{
 						<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
 						<p class="perg_aluno">'.$value->getFrq_questao().'</p>
 						<p class="nome_aluno">'.$user->getUsr_nome().'</p>
-						<p class="post_data">'.$value->getFrq_data().'</p>
+						<p class="post_data">Postado dia '.$value->getFrq_data().'</p>
 					</div>
 					<div class="perg_box_2 col-xs-12 col-md-4 col-lg-4">
 						<p class="qtd_visu '.$caixaPequena.'"><span>8</span> visualizações</p>

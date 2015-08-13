@@ -1,17 +1,19 @@
 #box_forum_top{
     width: 100%;
 	height:192px;
-    border: 1px dotted #E35F0F;
+    border: 2px dotted #E35F0F;
     background: #FFFFFF;
     margin-bottom: 25px;
 }
 #txt_pergunta{
-    margin: 24px 24px 16px 24px;
+    margin: 19px 24px 13px 24px;
     color: #E35F0F;
     font-family: Overlock;
     font-weight: bold;
+	font-size:17px;
 }
 #box_pergunta{
+	font-size:16px;
     height: 84px;    
     padding: 10px 15px;
     border:0;
@@ -24,12 +26,12 @@
 	padding: 0px 24px 2px;
 }
 #btn_perguntar{
-    margin: 15px 0px;
+    margin: 12px 0px;
 }
 #box_forum_botton{
     width: 100%;
     min-height: 61.1%;
-    border: 1px dotted #E35F0F;
+    border: 2px dotted #E35F0F;
     background: #FFFFFF;
     float: left;
 }
@@ -38,6 +40,7 @@
     color: #E35F0F;
     font-family: Overlock;
     font-weight: bold;
+	font-size:17px;
     width: 50%;
     float: left;
 }
@@ -49,7 +52,8 @@
     -moz-box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
     box-shadow: 0px 0px 4px 2px rgba(102,102,102,0.34);
     background: url(../img/lupinha.png) no-repeat; 
-    background-position: 5px 7px;
+    background-position: 8px 10px;
+    background-size: 19px 19px;
 }
 #txt_pesquisa input{
     border: 0;
@@ -58,7 +62,7 @@
 #box_alunos{
     margin-top: 73px;
     height: 295px;
-    width: 99.8%;
+    width: 100%;
     overflow: auto;
 }
 .cx_rosa{
@@ -66,11 +70,12 @@
     min-height: 70px;
 }
 .cx_branca{
-    background-color: #FFFFFF;
+   background-color: #FFFFFF;
    min-height: 70px;
 }
 .cx_rosaP{
-    background-color: #FEF8F4;
+    background-color: rgb(254,251,248);
+	border: 1px solid rgb(252,239,229);
 }
 .cx_brancaP{
     background-color: #FFFFFF;
@@ -89,20 +94,20 @@
     height: 45px;
     width: 45px;
 }
-.perg_aluno{
-    margin: 16px 0 4px;
-    font-family: Source Sans Pro;
-    font-size: 12px;
+.perg_aluno {
+    margin: 11px 0 0px;
+    font-size: 16px;
     font-weight: bold;
 }
 .nome_aluno{
     font-weight: normal;
-    font-size: 11px;
+    font-size: 14px;
 	color:#000000;
+	margin: -5px;
 }
 .post_data{
     font-weight: normal;
-    font-size: 9px;
+    font-size: 12px;
 	color:#4D4D4D;
 }
 .perg_box_2{
@@ -112,7 +117,7 @@
     width: 143px;
     float: left;
     margin: 22px 0 0 11px;
-    line-height: 31px;
+    line-height: 31px;	
 }
 
 .qtd_visu span{
@@ -135,30 +140,6 @@
     margin-right: 5px;
     margin-left: 20px;
 }
-
-/*Barra de rolagem personalizada*/
-#box_alunos::-webkit-scrollbar {
-    background: #FCE9DB;
-} 
-#box_alunos::-webkit-scrollbar-thumb {
-    background: #F0A36D;height:18px;
-} 
-#box_alunos::-webkit-scrollbar-button:vertical:decrement {
-    background: url(../img/arrow_up.png) no-repeat;background-position:5px
-} 
-#box_alunos::-webkit-scrollbar-button:vertical:increment {
-    background: url(../img/arrow_down.png) no-repeat;background-position:5px
-} 
-#box_alunos::-webkit-scrollbar-track {
-    background:#FCE9DB;
-} 
-#box_alunos::-webkit-scrollbar-track-piece {
-    background:#FCE9DB;
-} 
-#box_alunos::-webkit-scrollbar-corner {
-    background:#FCE9DB;
-} 
-
 @media (max-width:768px){
 	#area_geral{
 		min-height:854px;
@@ -197,3 +178,41 @@
 		overflow: auto;
 	}
 }
+
+/*Barra de rolagem com plugin JS */
+.mCSB_inside > .mCSB_container {
+   margin-right: 0px !important;
+}
+.mCSB_buttonUp{
+	background:url(../img/arrow_up.png) no-repeat !important;
+	background-position: 4px !important;
+    background-color: #FCE9DB !important;
+}
+
+.mCSB_buttonDown{
+    background:url(../img/arrow_down.png) no-repeat !important;
+	background-position: 4px !important;
+    background-color: #FCE9DB !important;
+}
+.mCSB_scrollTools .mCSB_buttonUp, .mCSB_scrollTools .mCSB_buttonDown{
+    opacity: 1 !important;
+}
+.mCSB_scrollTools .mCSB_dragger {
+    background-color: #F0A36D !important;
+}
+.mCSB_scrollTools .mCSB_draggerRail {
+    background-color: #FCE9DB !important
+}
+.mCSB_scrollTools .mCSB_draggerRail {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 auto !important; 
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    background-color: #FCE9DB !important;
+}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+     background-color: #F0A36D !important; 
+}
+/*Fim barra de rolagem*/

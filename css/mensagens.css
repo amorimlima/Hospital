@@ -12,40 +12,14 @@
     margin: 0;
     padding: 0;
     width: 68.9%;
-    /*height: 55%;*/
     border-bottom: 2px dotted #24ADB5;
     float: left;
 }
 
 #box_msg_listas{
-	height: 478px;
+	height: 472px;
     overflow: auto;
 }
-/*Barra de rolagem personalizada*/
-#box_msg_listas::-webkit-scrollbar {
-    background: #DEF3F4;
-} 
-#box_msg_listas::-webkit-scrollbar-thumb {
-    background: #24ADB5;
-	height:18px;
-} 
-#box_msg_listas::-webkit-scrollbar-button:vertical:decrement {
-    background: url(../img/arrow_up_azul.png) no-repeat;background-position:5px
-} 
-#box_msg_listas::-webkit-scrollbar-button:vertical:increment {
-    background: url(../img/arrow_down_azul.png) no-repeat;background-position:5px
-} 
-#box_msg_listas::-webkit-scrollbar-track {
-    background:#DEF3F4;
-} 
-#box_msg_listas::-webkit-scrollbar-track-piece {
-    background:#DEF3F4;
-} 
-#box_msg_listas::-webkit-scrollbar-corner {
-    background:#DEF3F4;
-}
-/*fim barra de rolagem*/
-
 #box_msg_right_botton{
     margin: 0;
     padding: 0;
@@ -71,37 +45,46 @@
     margin-left: 116px;
 }
 #btn_recebidos{
-    background:#DEF3F4 url(../img/icone_recebidos.png) no-repeat;
+    background:url(../img/icone_recebidos.png) no-repeat;
     background-position: 53px 61px;
 	height:191px;
+	background-color:#DEF3F4;
 }
 #btn_enviados{
     margin: 5.5px 0;
-    background:#DEF3F4 url(../img/icone_enviados.png) no-repeat;
+    background:url(../img/icone_enviados.png) no-repeat;
     background-position: 53px 61px;
 	height:191px;
+	background-color:#DEF3F4;
 }
 #btn_excluidos{
-    background:#DEF3F4 url(../img/icone_excluidos.png) no-repeat;
+    background:url(../img/icone_excluidos.png) no-repeat;
     background-position: 53px 61px;
 	height:191px;
+	background-color:#DEF3F4;
 }
 #btn_recebidos:hover{
-    background:#BDE7E9 url(../img/icone_recebidos.png) no-repeat;
+    background:url(../img/icone_recebidos.png) no-repeat;
     background-position: 53px 61px;
+	background-color:#BDE7E9;
 }
 #btn_enviados:hover{
     margin: 5.5px 0;
-    background:#BDE7E9 url(../img/icone_enviados.png) no-repeat;
+    background:url(../img/icone_enviados.png) no-repeat;
     background-position: 53px 61px;
+	background-color:#BDE7E9;
 }
 #btn_excluidos:hover{
-    background:#BDE7E9 url(../img/icone_excluidos.png) no-repeat;
+    background:url(../img/icone_excluidos.png) no-repeat;
     background-position: 53px 61px;
+	background-color:#BDE7E9;
+}
+.btn_msg_ativo{
+	background-color:#BDE7E9 !important;
 }
 #box_NRE{
     height: 68px;
-    width: 48%;
+    width: 51%;
     float: right;
     padding-top: 30px;
 }
@@ -148,25 +131,24 @@
 	width: 100%;
 	font-family: overlock;
 	text-align: left;
-	border-spacing: 11px;
-	height: 225px;
+	height: 257px;
 }
 #linha_titulos{
     margin-bottom: 15px;
 }
 #titulo_rem{
     color: #1C7B7F;
-    font-size: 14px;
+    font-size: 16px;
     padding: 2px 82px 2px 55px;
 }
 #titulo_ass{
     color:#1C7B7F;
-    font-size: 14px;
+    font-size: 16px;
     padding: 2px 412px 2px 0;
 }
 #titulo_data{
     color:#1C7B7F;
-    font-size: 14px;
+    font-size: 16px;
 }
 .col1:nth-child(odd){
     background-color: #F4FBFB;
@@ -176,29 +158,47 @@
     background-color: #FFFFFF;
     height: 32px;
 }
+.check-box{
+	padding: 0px 6px 0 7px;
+	background: url(../img/checkbox.png) no-repeat;
+	cursor: pointer;
+}
+.checked{
+	padding: 0px 6px 0 10px;
+	background: url(../img/checkbox_clicked.png) no-repeat;
+	cursor: pointer;
+}
+.msg_check{
+	padding: 8px 0 0 32px;
+    width: 7.333333%;
+}
 .msg_nome{
-    width: 153px;
     float: left;
-    font-family: SourceSansPro;
-    font-size: 12px;
-    padding: 9px 0px 0px 53px;
+    font-size: 14px;
+    padding: 6px 0;
+    border-right: 1px solid#FFF; 
 }
 .msg_assunto{
-    width: 472px;
     float: left;
-    font-family: SourceSansPro;
-    font-size: 12px;
-    padding: 9px 0px 0px 0px;
+    font-size: 14px;
+    padding: 6px 0px 6px 8px;
+	border-right: 1px solid#FFF; 
 }
 .msg_data{
-    width: 132px;
+   /* width: 132px;*/
     float: left;
-    font-family: SourceSansPro;
-    font-size: 12px;
-    padding: 9px 0px 0px 0px;
+    font-size: 14px;
+    padding: 6px 0px 0px 7px;
 }
 .msg_nao_lida p{
     font-weight: bold;
+}
+#ass_msg_resp{
+	width: 100%;
+    min-height: 149px;
+    padding: 10px 21px;
+	border: 0;
+	resize:0;
 }
 #ass_linha{
     background: #E5F5F6;
@@ -206,12 +206,10 @@
 	 border-top: 2px dotted #24ADB5;
 }
 #ass_msg{
-    font-family: Source Sans Pro;
     font-size: 16px;
     padding-right: 5px;
 }
 #ass_msg_data{
-    font-family: Source Sans Pro;
     font-size: 12px;
     color: #666666;
 }
@@ -241,13 +239,11 @@
 }
 #ass_msg_rem_nome{
     padding-left: 10px;
-    font-family: Source Sans Pro;
     font-size: 12px;
     color: #666666;
 }
 #ass_msg_para_nome{
     padding-left: 10px;
-    font-family: Source Sans Pro;
     font-size: 12px;
     color: #666666;
 }
@@ -360,8 +356,7 @@
 	#titulo_ass {
 		color: #1C7B7F;
 		font-size: 14px;
-		padding: 5px 0 5px 0;/*
-		border:1px solid #E51F22;*/
+		padding: 5px 0 5px 0;
 	}	
 	#titulo_data {
 		color: #1C7B7F;
@@ -369,17 +364,14 @@
 		padding: 5px 0 0 0px;
 	}
 	.msg_nome_mobile {
-		font-family: SourceSansPro;
 		font-size: 12px;
 		padding: 5px 2px;
 	}
 	.msg_assunto_mobile {
-		font-family: SourceSansPro;
 		font-size: 12px;
 		padding:5px 0 0;
 	}
 	.msg_data_mobile {
-		font-family: SourceSansPro;
 		font-size: 12px;
 		padding:5px 0 0;
 	}
@@ -423,3 +415,41 @@
 		border:0;
 	}
 }
+
+/*Barra de rolagem com plugin JS */
+.mCSB_inside > .mCSB_container {
+   margin-right: 0px !important;
+}
+.mCSB_buttonUp{
+	background:url(../img/arrow_up_azul.png) no-repeat !important;
+	background-position: 4px !important;
+    background-color: #DEF3F4 !important;
+}
+
+.mCSB_buttonDown{
+    background:url(../img/arrow_down_azul.png) no-repeat !important;
+	background-position: 4px !important;
+    background-color: #DEF3F4 !important;
+}
+.mCSB_scrollTools .mCSB_buttonUp, .mCSB_scrollTools .mCSB_buttonDown{
+    opacity: 1 !important;
+}
+.mCSB_scrollTools .mCSB_dragger {
+    background-color: #24ADB5 !important;
+}
+.mCSB_scrollTools .mCSB_draggerRail {
+    background-color: #DEF3F4 !important
+}
+.mCSB_scrollTools .mCSB_draggerRail {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 auto !important; 
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    background-color: #DEF3F4 !important;
+}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+     background-color: #24ADB5 !important; 
+}
+/*Fim barra de rolagem*/

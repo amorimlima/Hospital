@@ -1,3 +1,13 @@
+$(document).ready(function(e) {
+    //Barra de rolagem personalizada
+	$("#box_alunos").mCustomScrollbar({
+		axis:"y",
+		scrollButtons:{
+			enable:true
+		}
+	});	
+});
+
 function enviar(){
     var t =  $("#box_pergunta").val();   
      $.ajax({

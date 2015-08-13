@@ -24,15 +24,15 @@ $templateMensagens = new TemplateMensagens();
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href='http://fonts.googleapis.com/css?family=Overlock:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/mensagens.css">	
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="js/malihu.3.0.3/mCustomScrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="css/mensagens.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="//use.typekit.net/rtp0aku.js"></script>
-	<script>try{Typekit.load();}catch(e){}</script>
   </head>
   <body>
   	<div id="container">
@@ -60,13 +60,15 @@ $templateMensagens = new TemplateMensagens();
                                     <div class="row" id="desk-msg">
                                         <div class="col-xs-12 col-md-12 col-lg-12">
                                             <div id="tbl_msg">
-                                                <p id="linha_titulos">
-                                                    <span id="titulo_rem">REMETENTE</span>
-                                                    <span id="titulo_ass">ASSUNTO</span>
-                                                    <span id="titulo_data">DATA</span>
+                                                <p id="linha_titulos" class="row">
+                                                    <span id="titulo_rem" class="col-lg-3 font-SSP">REMETENTE</span>
+                                                    <span id="titulo_ass" class="col-lg-7 font-SSP">ASSUNTO</span>
+                                                    <span id="titulo_data" class="col-lg-2 font-SSP">DATA</span>
                                                 </p>
                                                 <div id="box_msg_listas">
-                                                	<?php $templateMensagens->mensagensRecebidas(20);?>
+                                                	<div id="box_recebe_msg">
+                                                		<?php $templateMensagens->mensagensRecebidas(20);?>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div id="box_msg_right_botton">
@@ -83,9 +85,7 @@ $templateMensagens = new TemplateMensagens();
                                                     <span id="ass_msg_para_nome"></span>
                                                 </p>                                          
                                                 <div id="ass_resposta_msg">
-                                                    <p id="ass_linha_titulo_resp">
-                                                       <span id="ass_msg_resp"></span>
-                                                    </p>
+                                                    <textarea id="ass_msg_resp"></textarea>
                                                 </div>
                                             </div>
                                      	</div>
@@ -164,12 +164,9 @@ $templateMensagens = new TemplateMensagens();
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
+    <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
     <script src="js/funcoes.js"></script>
 	<script src="js/Mensagem.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			recebidasFuncaoMobile();
-		});
-	</script>
 </body>
 </html>

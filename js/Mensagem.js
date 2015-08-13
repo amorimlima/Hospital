@@ -1,3 +1,17 @@
+$(document).ready(function(e) {
+    //Barra de rolagem personalizada
+	$("#box_msg_listas").mCustomScrollbar({
+		axis:"y",
+		scrollButtons:{
+			enable:true
+		}
+	});	
+	
+	$('.check-box').click(function(){
+		$(this).toggleClass('checked');
+	});
+});
+
 function deleteFuncao(){
 	var idMgs = $('.delete').attr('id');
 	if (typeof idMgs !== "undefined") {
@@ -27,6 +41,9 @@ function deleteFuncao(){
 }
         
 function envidasFuncao(){
+	$('#box_msg_listas').css('height','472px');
+	$('.btn_msg').removeClass('btn_msg_ativo');
+	$('#btn_enviados').addClass('btn_msg_ativo');
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
@@ -34,7 +51,7 @@ function envidasFuncao(){
 		data:{'acao':'listaEnviadas','id':'20'},
 		success:function(data)
 		{
-			$('#box_msg_listas').html(data);
+			$('#box_recebe_msg').html(data);
 			$('#box_msg_right_botton').hide();		
 		}
 	});
@@ -53,6 +70,9 @@ function envidasFuncaoMobile(){
 }
               
 function recebidasFuncao(){
+	$('#box_msg_listas').css('height','472px');
+	$('.btn_msg').removeClass('btn_msg_ativo');
+	$('#btn_recebidos').addClass('btn_msg_ativo');
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
@@ -60,7 +80,7 @@ function recebidasFuncao(){
 		data:{'acao':'listaRecebidos','id':'20'},
 		success:function(data)
 		{
-			$('#box_msg_listas').html(data);
+			$('#box_recebe_msg').html(data);
 			$('#box_msg_right_botton').hide();		
 		}
 	});
@@ -80,6 +100,7 @@ function recebidasFuncaoMobile(){
 }
         
 function EnviadasDetalheFuncao(idMensagem){
+	$('#box_msg_listas').css('height','222px');
 	$('.col1').removeClass('delete');
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
@@ -112,7 +133,8 @@ function EnviadasMobileDetalheFuncao(idMensagem){
 	});
 }
         
-function RecebidasDetalheFuncao(idMensagem){
+function RecebidasDetalheFuncao(idMensagem){	
+	$('#box_msg_listas').css('height','222px');
 	$('.col1').removeClass('delete');
 	$('#msg_valores_'+idMensagem).removeClass('msg_nao_lida');
 	$.ajax({
@@ -121,7 +143,8 @@ function RecebidasDetalheFuncao(idMensagem){
 		dataType:'json',
 		data:{'acao':'listaRecebidasDetalhe','id':idMensagem},
 		success:function(data){
-			var t = recarrega();					
+			var t = recarrega();
+								
 			$('#ass_msg_data').html(data.data);
 			$('#ass_msg_rem_nome').html(data.remetente);
 			$('#ass_msg_para_nome').html(data.destinatario);
@@ -152,13 +175,15 @@ function RecebidasMobileDetalheFuncao(idMensagem){
 }
         
 function deletadas(){
+	$('.btn_msg').removeClass('btn_msg_ativo');
+	$('#btn_excluidos').addClass('btn_msg_ativo');
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
 		data:{'acao':'deletadas'},
 		success:function(data){
-			$('#box_msg_listas').html(data);
+			$('#box_recebe_msg').html(data);
 			$('#box_msg_right_botton').hide();
 		}
 	});

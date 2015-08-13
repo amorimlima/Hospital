@@ -18,19 +18,18 @@ $templateForum = new TemplateForum();
         <title>Fórum</title>
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    	<link rel="stylesheet" type="text/css" href="css/forum.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">    	
         <link href='http://fonts.googleapis.com/css?family=Overlock:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="js/malihu.3.0.3/mCustomScrollbar.css" />
+        <link rel="stylesheet" type="text/css" href="css/forum.css">
+        
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-        <script src="//use.typekit.net/rtp0aku.js"></script>
-        
-        
-		<script>try{Typekit.load();}catch(e){}</script>   
+        <![endif]--> 
     </head>    
 <body>
 	<!--Conteudo Geral-->
@@ -79,6 +78,8 @@ $templateForum = new TemplateForum();
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
+    <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
     <script src="js/funcoes.js"></script>
     <script src="js/Forum.js"></script> 
 </body>

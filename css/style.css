@@ -9,10 +9,9 @@
 html{
 	padding:0;
 	margin:0;
-	font-family : Source Sans Pro;
 }
-body {
-    font-family : Source Sans Pro;
+body {	
+	font-family : Source Sans Pro;
     font-size: 14px;
     line-height: none;
     color: #000000;
@@ -21,8 +20,10 @@ body {
 p,a{
 	margin: 0;
 	padding: 0;
-	font-family : Source Sans Pro;
 	color:#000000;
+}
+.overlock{
+	font-family: Overlock !important;
 }
 .align-right{
 	text-align:right;
@@ -65,26 +66,25 @@ textarea:focus, input:focus, select:focus, button:focus  {
 #user_logout{
 	text-align: right;
 	float: left;
-	margin: 19px 46px 16px;
+	margin: 3px 43px 16px;
 	width: 88%;
 }
 #user_logout_pequena{
 	float: right;
 }
 #user_logado{
-	font-size: 87.5%;
+	font-size: 16px;
 	color: #4D4D4D;
 	color: rgb(77, 77, 77);
 	width: 150px;
 	float:left;
 }
 #separador{
-	margin: -3px 10px;
+	margin: 1px 10px;
 	float: left;
 }
 #logout{
-	font-family : Source Sans Pro;
-	font-size : 87.5%;
+	font-size : 16px;
 	color : #4D4D4D;
 	color : rgb(77, 77, 77);
   	float: left;
@@ -93,7 +93,7 @@ textarea:focus, input:focus, select:focus, button:focus  {
 /*MENU*/
 #menu{
     min-width: 79%;
-    margin-right: -4px;
+    margin-right: -6px;
     text-align: left;
 	float: right;
 }
@@ -229,7 +229,6 @@ img{
 
 /*BOTAO PADRAO FORM*/
 .btn_form{
-	font-family: Source Sans Pro;
 	font-size: 87.5%;	
 	border: 0;
 	padding: 0;
@@ -310,7 +309,7 @@ img{
 		margin-right: 34px;
 	}
 	#user_logado {
-		font-size: 87.5%;
+		font-size: 16px;
 		color: #4D4D4D;
 		color: rgb(77, 77, 77);
 		float: left;

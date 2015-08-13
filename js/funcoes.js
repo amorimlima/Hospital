@@ -12,8 +12,7 @@ $(document).ready(function(e) {
 		$('#img_teste').css('display','none'); 
 		$('#objeto').attr('src','Objetos/'+idTema+'/index.html').css({'display':'block','height':'581px'}); 
 		risizeObj();
-	});
-	
+	});	
 	
 	$("#mn_livros").click(function(){
 		if ($(window).width() < 769){
