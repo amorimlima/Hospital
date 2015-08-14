@@ -1,12 +1,22 @@
 <?php 
+
 if(!isset($_SESSION['PATH_SYS'])){
    require_once '_loadPaths.inc.php'; 
 }
+//echo '<pre>';
+//print_r($_SESSION);
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
-//include_once($path['template'].'TemplateForum.php');
+include_once($path['template'].'TemplateForumResposta.php');
+include_once($path['controller'].'ForumQuestaoController.php');
+include_once($path['controller'].'ForumRespostaController.php');
+
 $templateGeral = new Template();
-//$templateForum = new TemplateForum();
+$templateResposta = new TemplateForumResposta();
+$questaoController = new ForumQuestaoController();
+$respostasController = new ForumRespostaController();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,13 +31,17 @@ $templateGeral = new Template();
         <link rel="stylesheet" type="text/css" href="css/style.css">
     	<link rel="stylesheet" type="text/css" href="css/forumResposta.css">
         <link href='http://fonts.googleapis.com/css?family=Overlock:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="js/malihu.3.0.3/mCustomScrollbar.css" />
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <script src="//use.typekit.net/rtp0aku.js"></script>
+        
+        
+		<script>try{Typekit.load();}catch(e){}</script>   
     </head>    
 <body>
 	<!--Conteudo Geral-->
@@ -43,65 +57,8 @@ $templateGeral = new Template();
             <div class="row">
                 <div class="row">
                    <div class="col-xs-12 col-md-8 col-lg-8">               
-                        <div id="Conteudo_Area_box_left">
-							<div id="box_topico" class="row">
-                            	 <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                                    <img src="imgp/foto_aluno.png">
-                                 </p>
-                                <div class="col-xs-11 col-md-11 col-lg-11">
-                                	<p class="dados_aluno">
-                                		<span class="aluno_nome">Laura Sampaio</span>
-                                		<span class="aluno_data">Postado dia 01/05/2015 às 07:29</span>
-                                	</p>
-                                	<p>  
-                                		<span class="resp_aluno">Os sintomas da esquistossomose e da cólera são diferentes?</span>
-                                	</p> 
-                                </div>  
-                            </div>                            
-                            <div class="box_topico_resp">
-                                <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                                    <img src="imgp/foto_aluno2.png">
-                                 </p>
-                                <div class="col-xs-11 col-md-11 col-lg-11">
-                                    <div class="dados_aluno">
-                                        <span class="aluno_nome">Amauri Cardoso</span>
-                                        <span class="aluno_data">Postado dia 01/05/2015 às 07:29</span>
-                                    </div>
-                                    <div>  
-                                        <p class="resp_aluno">Os sintomas da esquistossomose são febre, calafrios, tosse e dores musculares. Já o da cólera o mais normal é a pessoa ter diarréia, náusea e vômitos. Pelos sintomas já dá para perceber que as doenças são bem diferentes!</p>
-                                    </div> 
-                                </div>
-                                <div style="clear:both"></div> 
-                            </div>
-                            <div class="box_topico_resp">
-                                <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                                    <img src="imgp/foto_aluno3.png">
-                                 </p>
-                                <div class="col-xs-11 col-md-11 col-lg-11">
-                                    <div class="dados_aluno">
-                                        <span class="aluno_nome">Laura Sampaio</span>
-                                        <span class="aluno_data">Postado dia 01/05/2015 às 07:29</span>
-                                    </div>
-                                    <div>  
-                                        <p class="resp_aluno">Os sintomas da esquistossomose são febre, calafrios, tosse e dores musculares. Já o da cólera o mais normal é a pessoa ter diarréia, náusea e vômitos. Pelos sintomas já dá para perceber que as doenças são bem diferentes!</p>
-                                    </div> 
-                                </div>
-                                <div style="clear:both"></div> 
-                             </div>
-                             <button id="btn_responder" class="btn_form btn_form_forum">RESPONDER</button>
-                             <div id="campo_resp">
-                            	<p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                                	<img src="imgp/foto_aluno3.png">
-                            	</p>
-                            	<div class="col-xs-11 col-md-11 col-lg-11">
-                                    <div class="dados_aluno">
-                                        <span class="aluno_nome">Laura Sampaio</span>
-                                        <span class="aluno_data">Postado dia 01/05/2015 às 07:29</span>
-                                        <textarea id="resp_forum" placeholder="Digite aqui sua resposta!"></textarea>
-                                    	<button class="btn_form btn_form_forum" id="btn_pronto">PRONTO</button>
-                                    </div>
-                            	</div> 
-                       	 	</div>
+                        <div id="Conteudo_Area_box_left" class="conteudoRespostas">
+							<?php $templateResposta->listaRespostas($_GET['resp']); ?>
                         </div>
                    </div>
                    <div class="col-xs-12 col-md-8 col-lg-4">     
@@ -111,39 +68,10 @@ $templateGeral = new Template();
                                 	<img src="img/postagens_recentes.png" class="img-responsive" alt=""/>
                                 </p>
                                 <p id="txt_pesquisa">
-                                    <input id="txt_pesquisa_input" onkeypress="autoComplete()" type="text" placeholder="Pesquise no fórum!">
+                                    <input id="txt_pesquisa_input"  type="text" placeholder="Pesquise no fórum!">
                                 </p>
-                                <div id="box_result_pesquisa">                                                            	
-                                	<div class="ln_box ln_box">
-                                    	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
-                                        <div class="ln_info row">
-                                        	<p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem 02/05/2015 às 15:13</p> 
-                                            <p class="col-xs-3 col-md-3 col-lg-3 align-right"><span class="paipeR">|</span>8 visualizações <span class="paipeL">|</span></p>
-                                            <p class="col-xs-2 col-md-2 col-lg-2 align-right">3 respostas</p>
-                                        </div>
-                                        <div style="clear:both"></div>
-                                    </div>
-                                    
-                                    <div class="ln_box ln_box">
-                                    	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
-                                        <div class="ln_info row">
-                                        	<p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem 02/05/2015 às 15:13</p> 
-                                            <p class="col-xs-3 col-md-3 col-lg-3 align-right"><span class="paipeR">|</span>8 visualizações <span class="paipeL">|</span></p>
-                                            <p class="col-xs-2 col-md-2 col-lg-2 align-right">3 respostas</p>
-                                        </div>
-                                        <div style="clear:both"></div>
-                                    </div>
-                                    
-                                    <div class="ln_box ln_box">
-                                    	<p class="ln_pergunta">Qual é a diferença entre esquistossomose e cólera?</p>
-                                        <div class="ln_info row">
-                                        	<p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem 02/05/2015 às 15:13</p> 
-                                            <p class="col-xs-3 col-md-3 col-lg-3 align-right"><span class="paipeR">|</span>8 visualizações <span class="paipeL">|</span></p>
-                                            <p class="col-xs-2 col-md-2 col-lg-2 align-right">3 respostas</p>
-                                        </div>
-                                        <div style="clear:both"></div>
-                                    </div>
-                                    
+                                <div id="box_result_pesquisa">  
+                                   	<?php $templateResposta->listaQuestoesRecentes(); ?>
                                 </div>
                         	</div>                          
                         </div>     	
@@ -158,7 +86,22 @@ $templateGeral = new Template();
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
+    <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
+	
     <script src="js/funcoes.js"></script>
     <script src="js/ForumResposta.js"></script> 
+    <script type="text/javascript">
+    	var resp = "<?php echo $_GET['resp']?>";
+    	$(document).ready(function (){
+    		//listaRespostas(resp);
+    		//autoCompleteRespostas('');
+    		
+    		// $('#txt_pesquisa_input').keyup(function(){
+				// alert('dsada');
+    			// autoCompleteRespostas($("#txt_pesquisa_input").val());
+        	// })
+    	})
+    </script>
 </body>
 </html>
