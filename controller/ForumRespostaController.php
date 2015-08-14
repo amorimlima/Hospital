@@ -50,5 +50,16 @@ class ForumRespostaController {
 		$for = $this->forumRespostaDAO->selectFull();
 		return $for;
 	}
+		public function selectByQuestao($idQuestao)
+	{
+		$for = $this->forumRespostaDAO->selectByQuestao($idQuestao);
+		return $for;
+	}
+
+	public function totalByQuestao($idQuestao)
+	{
+		$for = $this->forumRespostaDAO->totalByQuestao($idQuestao);
+		return $for;
+	}
 }
 ?>

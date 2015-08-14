@@ -56,5 +56,10 @@ class ForumQuestaoController {
 		$foq = $this->forumQuestaoDAO->selectFull();
 		return $foq;
 	}
+	public function selectUltimas($qtd)
+	{
+		$foq = $this->forumQuestaoDAO->selectUltimas($qtd);
+		return $foq;
+	}
 }
 ?>

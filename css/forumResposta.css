@@ -98,6 +98,12 @@
 }
 #box_result_pesquisa{
 	margin-top: 82px;
+	width: auto;
+	overflow: auto;
+	height: 481px
+}
+.conteudoRespostas{
+	overflow: auto;
 }
 .ln_pergunta{
 	font-size:14px;
@@ -126,3 +132,41 @@
 		width: 94%;
 	}
 }
+
+/*Barra de rolagem com plugin JS */
+.mCSB_inside > .mCSB_container {
+   margin-right: 0px !important;
+}
+.mCSB_buttonUp{
+	background:url(../img/arrow_up.png) no-repeat !important;
+	background-position: 4px !important;
+    background-color: #FCE9DB !important;
+}
+
+.mCSB_buttonDown{
+    background:url(../img/arrow_down.png) no-repeat !important;
+	background-position: 4px !important;
+    background-color: #FCE9DB !important;
+}
+.mCSB_scrollTools .mCSB_buttonUp, .mCSB_scrollTools .mCSB_buttonDown{
+    opacity: 1 !important;
+}
+.mCSB_scrollTools .mCSB_dragger {
+    background-color: #F0A36D !important;
+}
+.mCSB_scrollTools .mCSB_draggerRail {
+    background-color: #FCE9DB !important
+}
+.mCSB_scrollTools .mCSB_draggerRail {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 auto !important; 
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    background-color: #FCE9DB !important;
+}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+     background-color: #F0A36D !important; 
+}
+/*Fim barra de rolagem*/
