@@ -26,11 +26,11 @@ class ForumRespostaDAO extends DAO{
      
      public function insert($for)
      {
-         $sql  = "insert into  forum_resposta (frr_usuario,frr_resposta,frr_questao,frr_anexo,frr_data) values ";
-         $sql .= "('".$for->getFrr_usuario()."','".$for->getFrr_resposta()."',";
-         $sql .= "'".$for->getFrr_questao()."',";
-         $sql .= "'".$for->getFrr_anexo()."','".$for->getFrr_data()."')";
-		echo $sql;
+        $sql  = "insert into  forum_resposta (frr_usuario,frr_resposta,frr_questao,frr_anexo,frr_data) values ";
+        $sql .= "('".$for->getFrr_usuario()."','".$for->getFrr_resposta()."',";
+        $sql .= "'".$for->getFrr_questao()."',";
+        $sql .= "'".$for->getFrr_anexo()."','".$for->getFrr_data()."')";
+		//echo $sql;
     	return $this->execute($sql);
      }
      
@@ -89,6 +89,35 @@ class ForumRespostaDAO extends DAO{
         }    	
     	return $lista;
      }
+	      public function selectByQuestao($idQuestao){
+        $sql = "select * from forum_resposta where frr_questao = ".$idQuestao;
+        //echo $sql;
+    	$result = $this->retrieve($sql);
+    	$lista = array();
+        while ($qr = mysqli_fetch_array($result))
+    	{
+
+                $for = new ForumResposta();
+                $for->setFrr_id($qr["frr_id"]);
+                $for->setFrr_usuario($qr["frr_usuario"]);
+                $for->setFrr_resposta($qr["frr_resposta"]);
+                $for->setFrr_questao($qr["frr_questao"]);
+                $for->setFrr_anexo($qr["frr_anexo"]);
+                $for->setFrr_data($qr["frr_data"]);
+                array_push($lista, $for);
+                
+        }    	
+    	return $lista;
+     }
+     
+	public function totalByQuestao($idQuestao){
+		$sql = "select count(*) as total from forum_resposta where frr_questao = $idQuestao";
+		$result = $this->retrieve($sql);
+		
+		$qr = mysqli_fetch_array($result);
+		$total = $qr["total"];
+		return $total;
+	}
      
 }
 ?>

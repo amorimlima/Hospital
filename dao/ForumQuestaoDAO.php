@@ -29,7 +29,7 @@ class ForumQuestaoDAO extends DAO{
          $sql  = "insert into forum_questao (frq_usuario,frq_questao,frq_anexo,frq_data,frq_topico) values ";
          $sql .= "('".$foq->getFrq_usuario()."','".$foq->getFrq_questao()."',";
          $sql .= "'".$foq->getFrq_anexo()."','".$foq->getFrq_data()."','".$foq->getFrq_topico()."')";
-		echo $sql;
+	//	echo $sql;
     	return $this->execute($sql);
      }
      
@@ -55,7 +55,7 @@ class ForumQuestaoDAO extends DAO{
      {
         $sql = "select * from forum_questao where frq_id = ".$idfoq." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $foq = new ForumQuestao();
                 $foq->setFrq_id($qr["frq_id"]);
@@ -108,6 +108,27 @@ class ForumQuestaoDAO extends DAO{
                 $foq->setFrq_topico($qr["frq_topico"]);
                 array_push($lista, $foq);
         }    	
+    	return $lista;
+     }
+	 
+	  public function selectUltimas($qtd)
+     {
+        $sql = "select * from forum_questao order by frq_data desc limit ".$qtd;
+    	$result = $this->retrieve($sql);
+    	$lista = array();
+        while ($qr = mysqli_fetch_array($result))
+    	{
+
+               $foq = new ForumQuestao();
+                $foq->setFrq_id($qr["frq_id"]);
+                $foq->setFrq_usuario($qr["frq_usuario"]);
+                $foq->setFrq_questao($qr["frq_questao"]);
+                $foq->setFrq_anexo($qr["frq_anexo"]);
+                $foq->setFrq_data($qr["frq_data"]);
+                $foq->setFrq_topico($qr["frq_topico"]);
+                array_push($lista, $foq);
+        }    
+       
     	return $lista;
      }
 }
