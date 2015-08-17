@@ -45,7 +45,7 @@ $templateGeral = new Template();
                             <div id="box_gal_pesquisa">
                                 <div class="col-xs-12 col-md-6 col-lg-8">
                                     <div id="box_cat">
-                                        <p id="box_right_1_box_titulo_1" class="titulo">CATEGORIA</p>
+                                        <p id="box_right_1_box_titulo_1">CATEGORIA</p>
                                         <div class="box_right_1_box_select">
                                             <input type="text" id="select_text">
                                             <div id="box_select">
@@ -60,7 +60,7 @@ $templateGeral = new Template();
                                 </div>
                                 <div class="col-xs-12 col-md-6 col-lg-4">
                                     <div id="box_ass">
-                                        <p id="box_right_1_box_titulo_2" class="titulo">ASSUNTO</p>
+                                        <p id="box_right_1_box_titulo_2">ASSUNTO</p>
                                         <div class="box_right_1_box_select">
                                             <input type="text" id="assuno_text" placeholder="Digite o assunto que deseja pesquisar!">
                                         </div>
@@ -68,7 +68,7 @@ $templateGeral = new Template();
                                 </div>
                             </div>
                             <div class="box_left_gal_results">
-                            <p id="box_left_box_titulo_results" class="titulo">RESULTADOS DA PESQUISA</p>
+                            <p id="box_left_box_titulo_results">RESULTADOS DA PESQUISA</p>
                             <div id="box_left_resultados_container">
                                 <div class="gal_caixa1">
                                     <div class="gal_video">
@@ -171,7 +171,7 @@ $templateGeral = new Template();
                         <div id="box_mais_vistos">
                             <p id="topo_mais_vistos"></p>
                             <div id="container_mv_box">
-                                <div class="">
+                                <div class="row">
                                     <div class="mv_caixa">
                                         <div class="mv_caixa_icon">
                                             <div class="mv_video">
@@ -181,8 +181,7 @@ $templateGeral = new Template();
                                         </div>
                                         <div class="txt_mv_caixa">
                                             <p class="txt_mv_caixa_titulo">Os riscos do cigarro</p>
-                                            <p class="txt_mv_caixa_sub">Postado por Miriam Sagawa </p>
-                                            <p class="txt_mv_caixa_data">03/02/2015 às 15:16</p>
+                                            <p class="txt_mv_caixa_sub">Postado por Miriam Sagawa dia 03/02/2015 às 15:16</p>
                                             
                                         </div>
                                         <div class="clear"></div>
@@ -198,14 +197,13 @@ $templateGeral = new Template();
                                         </div>
                                         <div class="txt_mv_caixa">
                                             <p class="txt_mv_caixa_titulo">Parques ecológicos</p>
-                                            <p class="txt_mv_caixa_sub">Postado por Maria Aparecida </p>
-                                            <p class="txt_mv_caixa_data">12/01/2015 às 17:34</p>
+                                            <p class="txt_mv_caixa_sub">Postado por Maria Aparecida dia 12/01/2015 às 17:34</p>
                                          
                                         </div>
                                         <div class="clear"></div>
                                     </div>
                                 </div>
-                                <div class="">
+                                <div class="row">
                                     <div class="mv_caixa">
                                         <div class="mv_caixa_icon">
                                             <div class="mv_jogo">
@@ -215,8 +213,8 @@ $templateGeral = new Template();
                                         </div>
                                         <div class="txt_mv_caixa">
                                             <p class="txt_mv_caixa_titulo">Reciclagem - O Jogo</p>
-                                            <p class="txt_mv_caixa_sub">Postado por Mateus Salgado </p>
-                                            <p class="txt_mv_caixa_data">26/04/2015 às 13:49</p>
+                                            <p class="txt_mv_caixa_sub">Postado por Mateus Salgado dia 26/04/2015 às 13:49</p>
+                                            
                                         </div>
                                         <div class="clear"></div>
                                     </div>

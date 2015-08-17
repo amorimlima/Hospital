@@ -40,29 +40,30 @@ $templateGeral = new Template();
                 <div class="col-xs-12 col-md-12 col-lg-8">
                		<div  id="Conteudo_Area_box_left">
                         <a href="#">
-                           <!-- <iframe id="objeto" src="" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>  	-->
+                            <iframe id="objeto" src="" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>
+                        	<img src="img/atividade.png" alt="" id="img_teste" class="img-responsive"/>   	
                         </a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-12 col-lg-4">
                 	<div id="Conteudo_Area_box_right">
                         <div id="btn_exercicio">
-                        	<div id="btn_exercicio_5_parabens"></div>
-                            <div id="btn_exercicio_5_parabens_brilho"></div>
-                            <div id="caminho">
-                                <div class="row linha_top">
-                                    <p id="ln_1">
-                                        <span id="obj_ultimo"></span>
-                                    </p>
-                                </div>
-                                <div class="row linha">
-                                    
-                                </div>
-                                <div class="row linha">
-                                    
-                                </div>
-                            </div>                           
-                        </div>                         
+                        	<p id="HCB_1o_5cap/1_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_1ano.png">
+                            </p>
+                            <p id="HCB_2o_5cap/0_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_2ano.png">
+                            </p>
+                            <p id="HCB_3o_5cap/0_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_3ano.png">
+                            </p>
+                            <p id="HCB_4o_5cap/0_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_4ano.png">
+                            </p>
+                            <p id="HCB_5o_5cap/0_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_5ano.png">
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
