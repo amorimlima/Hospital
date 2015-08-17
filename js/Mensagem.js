@@ -7,10 +7,15 @@ $(document).ready(function(e) {
 		}
 	});	
 	
+	checkbox();
+	
+});
+
+function checkbox(){
 	$('.check-box').click(function(){
 		$(this).toggleClass('checked');
-	});
-});
+	});	
+}
 
 function deleteFuncao(){
 	var idMgs = $('.delete').attr('id');
@@ -52,7 +57,8 @@ function envidasFuncao(){
 		success:function(data)
 		{
 			$('#box_recebe_msg').html(data);
-			$('#box_msg_right_botton').hide();		
+			$('#box_msg_right_botton').hide();	
+			checkbox();	
 		}
 	});
 }
@@ -82,6 +88,7 @@ function recebidasFuncao(){
 		{
 			$('#box_recebe_msg').html(data);
 			$('#box_msg_right_botton').hide();		
+			checkbox();
 		}
 	});
 }
@@ -185,6 +192,7 @@ function deletadas(){
 		success:function(data){
 			$('#box_recebe_msg').html(data);
 			$('#box_msg_right_botton').hide();
+			checkbox();
 		}
 	});
 }

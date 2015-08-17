@@ -19,9 +19,16 @@ $(document).ready(function(e) {
 			$("#sbm_exercicios").toggle('slow');
 		}
 		return false;
-	})
+	});
 	
-	
+	//Aba calendario
+	$('#aba_data').click(function(){
+		$('#aba_calendario').toggle().animate({
+          backgroundColor: "#4ADB5",
+          color: "#000",
+          width: 197
+        }, 1000 );	
+	});	
 });
 
 function risizeObj(){
@@ -29,3 +36,4 @@ function risizeObj(){
     var altura  = ( 74 * largura ) / 100;	
     $('#objeto').css('height', Math.round(altura+10) + 'px');
 }
+

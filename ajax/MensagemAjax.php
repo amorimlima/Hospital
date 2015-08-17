@@ -29,11 +29,13 @@ switch ($_POST["acao"]){
         $mensagem = $mensagemController->deletadas();
 
         foreach ($mensagem as $value) {
-            echo'<div id="msg_valores_'.$value->getMsg_id().'"  onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')" class=" recebido col1 row">
-				  <p class="msg_check col-lg-1"><span class="check-box"></span></p>				  
-				  <p class="msg_nome col-lg-2">'.$value->getMsg_id().'</p>
-				  <p class="msg_assunto col-lg-7">'.$value->getMsg_assunto().'</p>
-				  <p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
+            echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" recebido col1 row">
+				  <p class="msg_check col-lg-1"><span class="check-box"></span></p>	
+				  <div  onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')">			  
+				  	<p class="msg_nome col-lg-2">'.$value->getMsg_id().'</p>
+				  	<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
+				  	<p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
+				  </div>
 			</div>';
         }               
         break;
@@ -60,7 +62,7 @@ switch ($_POST["acao"]){
               echo'<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile" onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')">
 						<div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
 							  <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
-							  <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.$value->getMsg_assunto().'</p>
+							  <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.utf8_encode($value->getMsg_assunto()).'</p>
 							  <p class="msg_data_mobile col-xs-3 col-md-3 col-lg-3">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 						</div>
 						<div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'"></div>
@@ -87,12 +89,14 @@ switch ($_POST["acao"]){
         $mensagem = $mensagemController->listaEnviadas($idmens);
 
         foreach ($mensagem as $value) {
-			echo'<div id="msg_valores_'.$value->getMsg_id().'"  onclick="EnviadasDetalheFuncao('.$value->getMsg_id().')" class=" enviado col1 row">
-				  <p class="msg_check col-lg-1"><span class="check-box"></span></p>				  
-				  <p class="msg_nome col-lg-2">'.$value->getMsg_id().'</p>
-				  <p class="msg_assunto col-lg-7">'.$value->getMsg_assunto().'</p>
-				  <p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
-			</div>';		
+			echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" enviado col1 row">
+					<p class="msg_check col-lg-1"><span class="check-box"></span></p>
+					<div  onclick="RecebidasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">				  				  
+					  <p class="msg_nome col-lg-2">'.utf8_encode($value->getMsg_id()).'</p>
+					  <p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
+					  <p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
+					</div>
+				</div>';		
         }               
         break;
     }
@@ -118,7 +122,7 @@ switch ($_POST["acao"]){
              echo'<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile " onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')">
                         <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
                           <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
-                          <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.$value->getMsg_assunto().'</p>
+                          <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.utf8_encode($value->getMsg_assunto()).'</p>
                           <p class="msg_data_mobile col-xs-3 col-md-3 col-lg-3">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
                     </div>
                     <div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'">
@@ -142,14 +146,14 @@ switch ($_POST["acao"]){
                 $naolida = '';
             }				
 			
-			echo'<div id="msg_valores_'.$value->getMsg_id().'"  onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')" class=" recebido '.$naolida.' col1 row">
-					  <p class="msg_check col-lg-1"><span class="check-box"></span></p>				  
-					  <p class="msg_nome col-lg-2">'.$value->getMsg_id().'</p>
-					  <p class="msg_assunto col-lg-7">'.$value->getMsg_assunto().'</p>
-					  <p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
-				</div>';	
-				
-				
+			echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" recebido '.$naolida.' col1 row">
+					  <p class="msg_check col-lg-1"><span class="check-box"></span></p>	
+					  <div onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')" > 			  
+					  	<p class="msg_nome col-lg-2">'.$value->getMsg_id().'</p>
+					  	<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
+					  	<p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
+					 </div>
+				  </div>';			
         }               
         break;
     }
@@ -174,7 +178,7 @@ switch ($_POST["acao"]){
                 echo '<div id="msg_valores_'.$value->getMsg_id().'" onclick="RecebidasMobileDetalheFuncao('.$value->getMsg_id().')" class=" '.$naolida.' row col1-mobile ">
                             <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
                             <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
-                            <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.$value->getMsg_assunto().'</p>
+                            <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.utf8_encode($value->getMsg_assunto()).'</p>
                             <p class="msg_data_mobile col-xs-3 col-md-3 col-lg-3">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
                         </div>
                         
@@ -195,7 +199,7 @@ switch ($_POST["acao"]){
         
         $mensagem->getMsg_id();
         
-		$result = Array('data'=>$mensagem->getMsg_data(),'remetente'=>$mensagem->getMsg_remetente(),'destinatario'=>$mensagem->getMsg_destinatario(),'mensagem'=>$mensagem->getMsg_mensagem());
+		$result = Array('data'=>$mensagem->getMsg_data(),'remetente'=>$mensagem->getMsg_remetente(),'destinatario'=>$mensagem->getMsg_destinatario(),'mensagem'=>utf8_encode($mensagem->getMsg_mensagem()));
 		
         echo json_encode($result);
 		   
@@ -210,7 +214,7 @@ switch ($_POST["acao"]){
         
         $mensagem->getMsg_id();
         
-       echo '<p>'.$mensagem->getMsg_mensagem().'</p>';
+       echo '<p>'.utf8_encode($mensagem->getMsg_mensagem()).'</p>';
         //.$mensagem->getMsg_mensagem().
         break;
     }
@@ -225,7 +229,7 @@ switch ($_POST["acao"]){
             // $template->recebidos();
         }
 
-        echo '<p>'.$mensagem->getMsg_mensagem().'</p>';
+        echo '<p>'.utf8_encode($mensagem->getMsg_mensagem()).'</p>';
         //.$mensagem->getMsg_mensagem().
         break;
     }
@@ -244,7 +248,7 @@ switch ($_POST["acao"]){
 
         $mensagem->getMsg_id();
        
-		$result = Array('data'=>$mensagem->getMsg_data(),'remetente'=>$mensagem->getMsg_remetente(),'destinatario'=>$mensagem->getMsg_destinatario(),'mensagem'=>$mensagem->getMsg_mensagem());
+		$result = Array('data'=>$mensagem->getMsg_data(),'remetente'=>$mensagem->getMsg_remetente(),'destinatario'=>$mensagem->getMsg_destinatario(),'mensagem'=>utf8_encode($mensagem->getMsg_mensagem()));
 		
 		echo json_encode($result);
                

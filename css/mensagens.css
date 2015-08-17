@@ -20,13 +20,12 @@
 	height: 472px;
     overflow: auto;
 }
-#box_msg_right_botton{
-    margin: 0;
-    padding: 0;
+#box_msg_right_botton {
     width: 100%;
-    height: 45.9%;
     float: left;
-	display:none;
+    display: none;
+    height: 249px;
+    margin-top: 6px;
 }
 .btn_msg{
     width: 100%;
@@ -51,7 +50,7 @@
 	background-color:#DEF3F4;
 }
 #btn_enviados{
-    margin: 5.5px 0;
+    margin: 6px 0;
     background:url(../img/icone_enviados.png) no-repeat;
     background-position: 53px 61px;
 	height:191px;
@@ -69,7 +68,7 @@
 	background-color:#BDE7E9;
 }
 #btn_enviados:hover{
-    margin: 5.5px 0;
+    margin: 6px 0;
     background:url(../img/icone_enviados.png) no-repeat;
     background-position: 53px 61px;
 	background-color:#BDE7E9;
@@ -195,7 +194,7 @@
 }
 #ass_msg_resp{
 	width: 100%;
-    min-height: 149px;
+    min-height: 139px;
     padding: 10px 21px;
 	border: 0;
 	resize:0;

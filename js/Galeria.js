@@ -8,7 +8,15 @@ $(document).ready(function (){
        var id_selecionado = $(this).attr('id');
        $('#select_text').val(selecionado);
        $('#box_select').hide();
-    });    
+    });  
+	
+    //Barra de rolagem personalizada
+	$("#box_left_resultados_container").mCustomScrollbar({
+		axis:"y",
+		scrollButtons:{
+			enable:true
+		}
+	});	
 });
         
        

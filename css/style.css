@@ -239,6 +239,28 @@ img{
 .btn_form_forum{
 	background: #EA813D;
 }
+#box_data{
+	position: absolute;
+	padding: 0;
+	height:180px;		
+	z-index: 999;
+	right: -1px;
+}
+#aba_calendario{
+	background: #7280F0;
+	width: 0px;
+	height: 180px;
+	float:left;
+}
+.alinharLeft{
+	float:left !important;
+}
+.aparece{
+	display:block !important;
+}
+#aba_data{
+	float:left;
+}
 
 @media (max-width:768px){
 	.navbar-toggle .icon-bar{

@@ -116,7 +116,7 @@
 .qtd_visu{
     width: 143px;
     float: left;
-    margin: 22px 0 0 11px;
+    margin: 22px 0 0 87px;
     line-height: 31px;	
 }
 
@@ -129,8 +129,8 @@
 }
 .qtd_resp{
     width: 114px;
-    float: left;
-    margin: 22px 0 0 11px;
+    float: right;
+    margin: 22px 38px 0px 0px;
     line-height: 31px;
 }
 .qtd_resp span{

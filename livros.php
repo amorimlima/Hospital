@@ -47,33 +47,23 @@ $templateGeral = new Template();
                 </div>
                 <div class="col-xs-12 col-md-12 col-lg-4">
                 	<div id="Conteudo_Area_box_right">
-                        <input type="radio" name="tabs" class="tabs" id="tab1" checked>
-                        <label for="tab1">1º Ano</label>
-                        <div>
-                            <p>Capítulo 5</p>
-                            <p class="tema" id="1_ano/Capitulo_5/1_Introducao_Pratinha">Tema Segurança em casa</p>
-                            <p class="tema" id="1_ano/Capitulo_5/1_Introducao_Pratinha">Tema Meio Ambiente</p>
-                        </div>                    
-                        <input type="radio" name="tabs" class="tabs" id="tab2">
-                        <label for="tab2">2º Ano</label>
-                        <div>
-                          <p>2-5º Capitulo</p>
-                        </div>        
-                       	<input type="radio" name="tabs" class="tabs" id="tab3">
-                        <label for="tab3">3º Ano</label>
-                        <div>
-                          <p>3-5º Capitulo</p>
+                        <div id="btn_exercicio">
+                        	<p id="HCB_1o_5cap/1_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_1ano.png">
+                            </p>
+                            <p id="HCB_2o_5cap/0_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_2ano.png">
+                            </p>
+                            <p id="HCB_3o_5cap/0_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_3ano.png">
+                            </p>
+                            <p id="HCB_4o_5cap/0_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_4ano.png">
+                            </p>
+                            <p id="HCB_5o_5cap/0_Introducao_Pratinha" class="tema">
+                            	<img src="img/btn_5ano.png">
+                            </p>
                         </div>
-                        <input type="radio" name="tabs" class="tabs" id="tab4">
-                        <label for="tab4">4º Ano</label>
-                        <div>
-                          <p>4-5º Capitulo</p>
-                        </div> 
-                        <input type="radio" name="tabs" class="tabs" id="tab5">
-                        <label for="tab5" style="margin-right:0">5º Ano</label>
-                        <div>
-                          <p>5-5º Capitulo</p>
-                        </div>   
                     </div>
                 </div>
             </div>
@@ -86,5 +76,6 @@ $templateGeral = new Template();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/funcoes.js"></script>
+    <script src="js/livros.js"></script>
   </body>
 </html>
