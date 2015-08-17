@@ -71,3 +71,38 @@ input.tabs:checked + label + div {
 #objeto{
 	display:none;
 }
+#btn_exercicio{
+	background:url(../img/5_fundo.png) no-repeat;
+	height:100%;
+}
+#btn_exercicio_5_parabens{
+	position: absolute;
+	width: 100%;
+	z-index:1;
+	background:url(../img/5_parabens.png) no-repeat;
+	height:100%;
+}
+#btn_exercicio_5_parabens_brilho{
+	position: absolute;
+	width: 100%;
+	z-index:2;
+	background:url(../img/5_parabens_comp.png) no-repeat;
+	height:100%;
+}
+#caminho{
+	position: absolute;
+	width: 389px;
+	z-index:3;
+	height:590px;
+}
+.linha_top{
+	margin-top: 133px;
+	border:1px solid;
+	height:150px;
+	width: 378px;
+}
+.linha{
+	border:1px solid;
+	height:150px;
+	width: 378px;
+}

@@ -7,9 +7,8 @@
 
 #box_left_resultados_container {
     overflow: auto;
-    height: 420px;
+    height: 400px;
 }
-
 
 /* Mais Vistos */
     #topo_mais_vistos{
@@ -24,20 +23,18 @@
     @media (min-width: 768px) and (max-width: 991px) {
         #box_mais_vistos{
             margin-top: 100px;
-            width: 95%;
+            width: 100%;
             height: 68%;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
-            margin-left: 49px;
         }
     }
     @media (min-width: 992px) and (max-width: 1199px) {
         #box_mais_vistos{
-            width: 95%;
-            height: 68%;
+            width: 100%;
+            height: auto;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
-            margin-left: 49px;
         }
     }
 
@@ -93,6 +90,7 @@
             background-position: 26px;
         }
         .icon_texto{
+            border: 1px solid white;
             width: 88px;
             height: 31px;
             background: #FDFDF7;
@@ -114,21 +112,18 @@
         .txt_mv_caixa_titulo {
             font-family: "Source Sans Pro";
             font-size: 13pt;
-            font-weight: 300;
-            line-height: 1;
-            margin-bottom: 2px;
+            font-weight: 400;
+            margin-bottom: 3px;
         }
 
         .txt_mv_caixa_sub {
             font-family: "Source Sans Pro";
-            font-size: 8pt;
+            font-size: 11pt;
             font-weight: 300;
-            letter-spacing: -0.15px;
-            margin-bottom: 5px;
+            margin-bottom: -2px; 
         }
-        .txt_mv_caixa_corpo {
+        .txt_mv_caixa_data {
             font-family: "Source Sans Pro";
-            line-height: 1.1;
             font-size: 10pt;
             font-weight: 300;
         }
@@ -138,7 +133,6 @@
     }
     @media (min-width: 768px) and (max-width: 1199px) {
         .mv_caixa{
-            width: 100%;
             height: auto;
             margin-right:2px;
             width: 100%;
@@ -181,6 +175,7 @@
             background-position: 26px;
         }
         .icon_texto{
+            border: 1px solid white;
             width: 88px;
             height: 31px;
             background: #FDFDF7;
@@ -202,21 +197,18 @@
         .txt_mv_caixa_titulo {
             font-family: "Source Sans Pro";
             font-size: 13pt;
-            font-weight: 300;
-            line-height: 1;
-            margin-bottom: 2px;
+            font-weight: 400;
+            margin-bottom: 3px;
         }
 
         .txt_mv_caixa_sub {
             font-family: "Source Sans Pro";
-            font-size: 8pt;
+            font-size: 11pt;
             font-weight: 300;
-            letter-spacing: -0.15px;
-            margin-bottom: 5px;
+            margin-bottom: -2px; 
         }
-        .txt_mv_caixa_corpo {
+        .txt_mv_caixa_data {
             font-family: "Source Sans Pro";
-            line-height: 1.1;
             font-size: 10pt;
             font-weight: 300;
         }
@@ -225,9 +217,9 @@
         }
     }
     @media (max-width: 767px) {
-    #box_mais_vistos{
+        #box_mais_vistos{
             width: 100%;
-            height: 68%;
+            height: auto;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
         }
@@ -273,6 +265,7 @@
             background-position: 50%;
         }
         .icon_texto{
+            border: 1px solid white;
             width: 50%;
             height: 30%;
             background: #FDFDF7;
@@ -297,21 +290,18 @@
         .txt_mv_caixa_titulo {
             font-family: "Source Sans Pro";
             font-size: 13pt;
-            font-weight: 300;
-            line-height: 1;
-            margin-bottom: 2px;
+            font-weight: 400;
+            margin-bottom: 3px;
         }
 
         .txt_mv_caixa_sub {
             font-family: "Source Sans Pro";
-            font-size: 8pt;
+            font-size: 11pt;
             font-weight: 300;
-            letter-spacing: -0.15px;
-            margin-bottom: 5px;
+            margin-bottom: -2px; 
         }
-        .txt_mv_caixa_corpo {
+        .txt_mv_caixa_data {
             font-family: "Source Sans Pro";
-            line-height: 1.1;
             font-size: 10pt;
             font-weight: 300;
         }
@@ -319,6 +309,7 @@
             clear: both;
         }
     }
+
 
 /* Box galeria */
     @media (min-width: 992px) {
@@ -437,26 +428,33 @@
         margin: 37px 25px;
     }
     #box_right_1_box_titulo_1{
-        font-size: 87.5%;
+        font-size: 12pt;
+        font-weight: 400;
         margin: 23px 0 16px;
     }
     #box_right_1_box_titulo_2{
-        font-size: 87.5%;
+        font-size: 12pt;
+        font-weight: 400;
         margin: 23px 0 16px;
     }
     #box_left_box_titulo_results{
         font-size: 87.5%;
-        margin: 23px 0 16px 0px;
+        margin: 23px 0 16px;
     }
-
+    .box_left_gal_results {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto; 
+    }
 /* Resultados */
     @media (min-width: 1200px) {
         #box_left_box_titulo_results{
-            font-size: 87.5%;
-            margin: 23px 0 16px 17px;
+            font-size: 12pt;
+            font-weight: 400;
+            margin: 30px 0 16px;
         }
         .gal_caixa1, .gal_caixa2 {
-            width: 95%;
+            width: 100%;
             height: 100px;
             background-color: rgb(255,252,246);
             padding-top: 10px;
@@ -500,19 +498,20 @@
         .gal_caixa_texto_titulo {
             font-family: "Source Sans Pro";
             font-size: 14pt;
+            font-weight: 400;
             font-weight: 300;
             line-height: 1;
             margin-bottom: 1px;
         }
         .gal_caixa_texto_sub {
             font-family: "Source Sans Pro";
-            font-size: 9pt;
+            font-size: 10pt;
             font-weight: 300;
             margin-bottom: 5px;
         }
         .gal_caixa_texto_corpo {
             font-family: "Source Sans Pro";
-            line-height: 1.2;
+            line-height: 1;
             font-size: 11pt;
             font-weight: 300;
         }
@@ -522,11 +521,12 @@
     }
     @media (min-width: 768px) and (max-width: 1199px) {
         #box_left_box_titulo_results{
-            font-size: 87.5%;
-            margin: 23px 0 16px 17px;
+            font-size: 12pt;
+            font-weight: 400;
+            margin: 30px 0 16px;
         }
         .gal_caixa1, .gal_caixa2 {
-            width: 95%;
+            width: 100%;
             height: 100px;
             background-color: rgb(255,252,246);
             padding-top: 10px;
@@ -570,19 +570,20 @@
         .gal_caixa_texto_titulo {
             font-family: "Source Sans Pro";
             font-size: 14pt;
+            font-weight: 400;
             font-weight: 300;
             line-height: 1;
             margin-bottom: 1px;
         }
         .gal_caixa_texto_sub {
             font-family: "Source Sans Pro";
-            font-size: 9pt;
+            font-size: 10pt;
             font-weight: 300;
             margin-bottom: 5px;
         }
         .gal_caixa_texto_corpo {
             font-family: "Source Sans Pro";
-            line-height: 1.2;
+            line-height: 1;
             font-size: 11pt;
             font-weight: 300;
         }
@@ -592,11 +593,12 @@
     }
     @media (max-width: 767px) {
         #box_left_box_titulo_results{
-            font-size: 87.5%;
-            margin: 23px 0 16px 17px;
+            font-size: 12pt;
+            font-weight: 400;
+            margin: 30px 0 16px;
         }
         .gal_caixa1, .gal_caixa2 {
-            width: 95%;
+            width: 100%;
             height: auto;
             background-color: rgb(255,252,246);
             padding-top: 10px;
@@ -632,19 +634,20 @@
         .gal_caixa_texto_titulo {
             font-family: "Source Sans Pro";
             font-size: 14pt;
+            font-weight: 400;
             font-weight: 300;
             line-height: 1;
             margin-bottom: 1px;
         }
         .gal_caixa_texto_sub {
             font-family: "Source Sans Pro";
-            font-size: 9pt;
+            font-size: 10pt;
             font-weight: 300;
             margin-bottom: 5px;
         }
         .gal_caixa_texto_corpo {
             font-family: "Source Sans Pro";
-            line-height: 1.2;
+            line-height: 1;
             font-size: 11pt;
             font-weight: 300;
         }
@@ -665,10 +668,9 @@
     }
     @media (min-width: 768px) and (max-width: 1199px) {
         #box_carregar{  
-            width: 95%;
+            width: 100%;
             height: 30%;
             margin-top: 12px;
-            margin-left: 49px;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
         }
@@ -695,6 +697,37 @@
         margin: auto;
         cursor: pointer;
     }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    #Conteudo_Area_box_right {
+        width: 95%;
+        margin: 24px auto 0 auto;
+        height: 581px;
+    }
+    #Conteudo_Area_box_left {
+        margin: 24px auto 0 auto;
+        float: none;
+        width: 95%;
+        height: 581px;
+    }
+}
+
+@media (max-width: 767px) {
+    #Conteudo_Area_box_right {
+        width: 95%;
+        margin: 113px auto 0 auto;
+        height: auto;
+    }
+    #box_galeria {
+        height: 670px;
+    }
+    #Conteudo_Area_box_left {
+        margin: 24px auto 0 auto;
+        float: none;
+        width: 95%;
+        height: 581px;
+    }
+}
 
 /* Rodapé */ 
     @media (max-width: 767px) {
