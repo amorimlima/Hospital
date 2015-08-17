@@ -132,7 +132,7 @@ img{
 	width:18%;
     margin-right: 4%;
 }
-#mn_livros:hover,{
+#mn_livros:hover{
 	background:url(../img/bt_livros_ativo.png) no-repeat;
 	background-size: 100%;
 	width:18%;
@@ -383,7 +383,7 @@ img{
 	}
 	#mn_mensagens:hover{
 		background: #25ADB4 url(../img/btn_msg.png) no-repeat;
-		width: 100%; 
+		width: 100%;
 		margin-right: 4%;
 		background-position: 24px;
    	 	margin-bottom: 2px;
