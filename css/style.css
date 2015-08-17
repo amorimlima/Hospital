@@ -32,6 +32,10 @@ p,a{
 	text-align:left;
 }
 
+a, a:visited, a:focus, a:active, a:hover{
+    outline:0 none !important;
+}
+
 textarea:focus, input:focus, select:focus, button:focus  {
     box-shadow: 0 0 0 0;
     border: 0 none;
@@ -128,7 +132,7 @@ img{
 	width:18%;
     margin-right: 4%;
 }
-#mn_livros:hover{
+#mn_livros:hover,{
 	background:url(../img/bt_livros_ativo.png) no-repeat;
 	background-size: 100%;
 	width:18%;
@@ -501,4 +505,11 @@ img{
 		padding: 10px 0px;
 		margin: 6px 31px
 	}
+}
+
+
+@-moz-document url-prefix(){
+    #sbm_exercicios{
+        top: 45px;
+    }
 }
