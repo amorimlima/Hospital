@@ -208,7 +208,7 @@ img{
     margin: 24px 10px 0 49px;
     float: left;
     width: 90.8%;
-	height:581px;
+    max-height:581px;
 }
 #img_teste{
 	height:581px;
