@@ -32,26 +32,29 @@ class TemplateForumResposta{
 		$questoes = $questaoController->selectUltimas(5);
 		$html = '';
 		if (count($questoes)>0){
+                    
 			foreach ($questoes as $q){
-            	$totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
-				$totalViews = $viewController->totalByQuestao($q->getFrq_id());
-				
-				if ($totalViews == 1) $msgView = '1 visualização';
-					else $msgView = $totalViews.' visualizaçôes';
+                            $totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
+                            $totalViews = $viewController->totalByQuestao($q->getFrq_id());		
+                            if ($totalViews == 1) $msgView = '1 visualização';
+                            else $msgView = $totalViews.' visualizaçôes';
 					
-                $data = substr(str_replace(' ',' às ',$q->getFrq_data()),0,-3);
-                $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
-						<p class="ln_pergunta">'.utf8_encode($q->getFrq_questao()).'</p>
-				        <div class="ln_info row">
-				          <p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem '.$data.'</p> 
-				          <p class="col-xs-3 col-md-3 col-lg-3 align-right"><span class="paipeR">|</span>'.$msgView.' <span class="paipeL">|</span></p>
-				          <p class="col-xs-2 col-md-2 col-lg-2 align-right">'.$totalRespostas.' respostas</p>
-				        </div>
-				        <div style="clear:both"></div>
+                            $data = substr(str_replace(' ',' às ',$q->getFrq_data()),0,-3);
+                            $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
+                                            <p class="ln_pergunta">'.utf8_encode($q->getFrq_questao()).'</p>
+                                            <div class="ln_info row">
+                                                <p class="col-xs-12 col-md-12 col-lg-12 align-left">Última postagem '.$data.'</p>
+                                            </div>
+                                            <div style="clear:both"></div>
+                                            <div class="ln_info row">
+                                                <p class="col-xs-4 col-md-4 col-lg-4 align-right">'.$msgView.' <span class="paipeL">|</span></p>
+                                                <p class="col-xs-4 col-md-4 col-lg-4 align-left">&nbsp'.$totalRespostas.' respostas</p>
+                                            </div>
+                                            <div style="clear:both"></div>
 				      </div>';
-             }
-        }
-        echo $html;
+                        }
+                }
+                echo $html;
    	}
 	
 	
@@ -94,10 +97,51 @@ class TemplateForumResposta{
                    <span class="resp_aluno">'.utf8_encode($resp->getFrq_questao()).'</span>
                  </p>
                </div>
-              </div>';
+              </div>
+              <div id="box_Respostas">';
 	  	
 	  	if (count($respostas) > 0){
-	  		foreach($respostas as $r){
+                    if (count ($respostas) > 4){
+                        foreach($respostas as $r){
+
+	  			$usuarioResposta = $userController->select($r->getFrr_usuario());	  
+	  			$dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
+	  			
+		  		$html .= '<div class="box_topico_resp margin_right">
+	                                <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
+	                                    <img src="imgp/foto_aluno2.png">
+	                                 </p>
+	                                <div class="col-xs-11 col-md-11 col-lg-11">
+	                                    <div class="dados_aluno">
+	                                        <span class="aluno_nome">'.utf8_encode($usuarioResposta->getUsr_nome()).'</span>
+	                                        <span class="aluno_data">Postado dia '.$dataResposta.'</span>
+	                                    </div>
+	                                    <div>  
+	                                        <p class="resp_aluno">'.utf8_encode($r->getFrr_resposta()).'</p>
+	                                    </div> 
+	                                </div>
+	                                <div style="clear:both"></div> 
+	                            </div>';
+	  		}
+                        $html .= ' <button id="btn_responder" class="btn_form btn_form_forum margin_right">RESPONDER</button>
+                             <div id="campo_resp">
+                            	<p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
+                                	<img src="imgp/foto_aluno3.png">
+                            	</p>
+                            	<div class="col-xs-11 col-md-11 col-lg-11">
+                                    <div class="dados_aluno">
+                                        <span class="aluno_nome">'.utf8_encode($logado->getUsr_nome()).'</span>
+                                        <span class="aluno_data">Postado dia  <span class="dataResposta"></span></span>
+                                        <textarea id="resp_forum" placeholder="Digite aqui sua resposta!"></textarea>
+                                    	<button class="btn_form btn_form_forum" id="btn_pronto" idAluno="'.$id.'">PRONTO</button>
+                                    </div>
+                            	</div> 
+                       	 	</div>
+                                </div>
+                        ';
+                    }
+                    else{
+                        foreach($respostas as $r){
 
 	  			$usuarioResposta = $userController->select($r->getFrr_usuario());	  
 	  			$dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
@@ -118,9 +162,7 @@ class TemplateForumResposta{
 	                                <div style="clear:both"></div> 
 	                            </div>';
 	  		}
-	  	}
-	  	
-			$html .= ' <button id="btn_responder" class="btn_form btn_form_forum">RESPONDER</button>
+                        $html .= ' <button id="btn_responder" class="btn_form btn_form_forum">RESPONDER</button>
                              <div id="campo_resp">
                             	<p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
                                 	<img src="imgp/foto_aluno3.png">
@@ -134,7 +176,10 @@ class TemplateForumResposta{
                                     </div>
                             	</div> 
                        	 	</div>
+                                </div>
                         ';
+                    }
+	  	}
 
 		echo $html;
 	}
