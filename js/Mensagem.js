@@ -18,31 +18,56 @@ function checkbox(){
 }
 
 function deleteFuncao(){
-	var idMgs = $('.delete').attr('id');
-	if (typeof idMgs !== "undefined") {
-		var retorno = $('#'+idMgs).attr('class');
-		retorno = retorno.split(' ');
-		var id = idMgs.split('_');
-		$.ajax({
-			url:'ajax/MensagemAjax.php',
-			type:'post',
-			dataType:'json',
-			data:{'acao':'deleteMensagem','id':id[2]},
-			success:function(data)
-			{
-				$('#retorno').html(data.msg);
-				$('#box_msg_right_botton').toggle();
-				$('#'+idMgs).remove();
-				if(retorno[0] == 'recebido'){
-				   recebidasFuncao();
-				}else if(retorno[0] == 'enviado'){
-				  envidasFuncao();
-				}	
-			}
-		});
-	}else{
+	
+	var contMsg = 0;
+	var msg;
+	var retorno;
+	
+	//Passa por todas as mensagens checadas 
+	$('.checked').each(function(){
+		//Pega o id da div a ser excluido
+		var idMgs = $(this).parent().parent().attr('id');
+		//Verifica se trouxe o id corretamente
+		if (typeof idMgs !== "undefined") {
+			
+			contMsg++;
+			//Paga a classe para saber se lista as mensagens enviadas ou recebidas após a exclusão
+			retorno = $('#'+idMgs).attr('class');
+			retorno = retorno.split(' ');
+			
+			//Tranforma em array o id para pegar somente o código salvo no banco 
+			var id = idMgs.split('_');
+
+			$.ajax({
+				url:'ajax/MensagemAjax.php',
+				type:'post',
+				dataType:'json',
+				data:{'acao':'deleteMensagem','id':id[2]},
+				success:function(data)
+				{
+					//msg = data.msg;
+					$('#'+idMgs).remove();
+					
+				}
+			});
+		}
+	})
+	
+	//Verifica se alguma mensagem foi excluida
+	if (contMsg==0) {
 		alert('Selecione uma mensagem para ser deletada!');
+	}else{
+		//Se excluiu, limpa a div e carrega as mensagens novamente 
+		alert('Mensagem(s) excluída(s) com sucesso!');
+		$('#box_msg_right_botton').hide();
+		if(retorno[0] == 'recebido'){
+		   recebidasFuncao();
+		}else if(retorno[0] == 'enviado'){
+		  envidasFuncao();
+		}	
 	}
+	
+	return false;
 }
         
 function envidasFuncao(){
@@ -61,6 +86,7 @@ function envidasFuncao(){
 			checkbox();	
 		}
 	});
+	return false;
 }
               
 function envidasFuncaoMobile(){
@@ -73,6 +99,7 @@ function envidasFuncaoMobile(){
 			$('#box_msg_enviadas_mobile').html(data);		
 		}
 	});
+	return false;
 }
               
 function recebidasFuncao(){
@@ -91,6 +118,7 @@ function recebidasFuncao(){
 			checkbox();
 		}
 	});
+	return false;
 }
         
 function recebidasFuncaoMobile(){
@@ -104,6 +132,7 @@ function recebidasFuncaoMobile(){
 			$('#box_msg_recebidas_mobile').html(data);
 		}
 	});
+	return false;
 }
         
 function EnviadasDetalheFuncao(idMensagem){
@@ -248,4 +277,4 @@ function recarrega(){
 	return retorno;
 }
         
-       
+		

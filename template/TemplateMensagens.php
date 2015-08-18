@@ -40,7 +40,7 @@ class TemplateMensagens {
             }else{
                 $naolida = '';
             }
-			echo '<div id="msg_valores_'.$value->getMsg_id().'" class=" recebido '.$naolida.' col1 row">
+			echo '<div id="msg_valores_'.$value->getMsg_id().'" class="recebido '.$naolida.' col1 row">
 				  <p class="msg_check col-lg-1"><span class="check-box"></span></p>	
 				  <div  onclick="RecebidasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">			  
 				  	<p class="msg_nome col-lg-2">'.utf8_encode($value->getMsg_id()).'</p>
