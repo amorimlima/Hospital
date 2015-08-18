@@ -11,6 +11,9 @@
 	margin-bottom:11px;
 	border:dotted 2px #E35F0F;
 }
+#box_Respostas{
+    max-height: 470px;
+}
 .dados_aluno{
 	padding-left: 14px;
 }
@@ -31,7 +34,11 @@
 	min-height:100px;	
 	padding:18px 31px 18px 27px;
 	margin-bottom:11px;
-	border:1px solid #FFFFFF;
+	/*border:1px solid #FFFFFF;*/
+}
+
+.margin_right{
+    margin-right: 25px;
 }
 #campo_resp{
 	display:none;
