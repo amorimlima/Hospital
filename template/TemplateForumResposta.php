@@ -41,7 +41,7 @@ class TemplateForumResposta{
 					
                 $data = substr(str_replace(' ',' às ',$q->getFrq_data()),0,-3);
                 $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
-						<p class="ln_pergunta">'.$q->getFrq_questao().'</p>
+						<p class="ln_pergunta">'.utf8_encode($q->getFrq_questao()).'</p>
 				        <div class="ln_info row">
 				          <p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem '.$data.'</p> 
 				          <p class="col-xs-3 col-md-3 col-lg-3 align-right"><span class="paipeR">|</span>'.$msgView.' <span class="paipeL">|</span></p>
