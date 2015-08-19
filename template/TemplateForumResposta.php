@@ -124,7 +124,7 @@ class TemplateForumResposta{
 	                            </div>';
 	  		}
                         $html .= ' <button id="btn_responder" class="btn_form btn_form_forum margin_right">RESPONDER</button>
-                             <div id="campo_resp">
+                             <div id="campo_resp" class="margin_right">
                             	<p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
                                 	<img src="imgp/foto_aluno3.png">
                             	</p>
