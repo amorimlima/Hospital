@@ -1,7 +1,8 @@
 $(document).ready(function (){
     var url = window.location.href;
 	var retorno = url.split("/"); 	
-	retorno = retorno[3].split("?"); 
+	retorno = retorno[4].split("?"); //local
+	//retorno = retorno[3].split("?"); //servidor
 	
 	var obj='';
 	switch (retorno[1]){
