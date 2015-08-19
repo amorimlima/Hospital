@@ -414,6 +414,204 @@
 		border:0;
 	}
 }
+#conteudo_mensagem {
+	display: block;
+	width: auto;
+	height: auto;
+}
+
+/* Nova mensagem */
+	#nova_mensagem {
+		display: none;
+		width: auto;
+		height: auto;
+		padding: 10px;
+		border: 2px dotted rgb(35,173,181);
+		background-color: #FFF;
+	}
+	#nova_mensagem_topo {
+		height: 47px;
+		margin-bottom: 10px;
+	}
+	.nova_mensagem_btns {
+		display: inline-block;
+		height: 100%;
+		width: 110px;
+		cursor: pointer;
+	}
+	#nova_msg_enviar {
+		background-image: url(../img/btnEnviar.png);
+		background-repeat: no-repeat;
+		background-position: 50%;
+		background-size: 100%
+	}
+	#nova_msg_enviar:hover {
+		background-image: url(../img/btnEnviar_ativo.png);
+	}
+	#nova_msg_anexar {
+		margin-left: 20px;
+		background-image: url(../img/btnAnexar.png);
+		background-repeat: no-repeat;
+		background-position: 50%;
+		background-size: 100%
+	}
+	#nova_msg_anexar:hover {
+		background-image: url(../img/btnAnexar_ativo.png);
+	}
+	.campo_nova_mensagem {
+		background-color: rgb(211,238,240);
+		margin-bottom: 5px;
+		padding: 10px;
+	}
+	.nome_campo {
+		color: rgb(36,172,191);
+		text-align: right;
+		margin: 3px 0;
+		padding-right: 10px;
+	}
+	.mensagem_campo {
+		width: 100%;
+		border: 0px solid;
+		height: 26px;
+	}
+	@media (min-width: 992px) {
+		#mensagem_campo_conteudo {
+			height: 365px;
+		}
+		#mensagem_conteudo {
+			margin-top: 20px;
+			margin-bottom: 0;
+		}
+		.nome_campo {
+			font-family: "Overlock-Regular";
+			font-size: 12pt;
+			letter-spacing: 0.8px;
+			color: rgb(36,172,191);
+			text-align: right;
+			margin: 3px 0;
+			padding-right: 10px;
+		}
+	}
+	@media (max-width: 991px) {
+		#mensagem_campo_conteudo {
+			height: 315px;
+		}
+		#mensagem_conteudo {
+			margin-top: 20px;
+			margin-bottom: 0;
+		}
+		.nome_campo {
+			font-family: "Overlock-Regular";
+			font-size: 12pt;
+			letter-spacing: 0.8px;
+			color: rgb(36,172,191);
+			text-align: center;
+			margin: 3px 0;
+			padding-right: 10px;
+		}
+	}
+
+/* Modal */
+	.modal-content {
+		border: 3px dotted #26adb5;
+		border-radius: 15px;
+		width: auto;
+		height: auto;
+		padding: 20px 0;
+	}
+	.modal-footer {
+		text-align: center;
+		padding-bottom: 0;
+	}
+	.modal-body {
+		padding: 0;
+	}
+	.btn-default {
+		background-color: rgb(255,255,255);
+		border: 2px solid;
+		width: 30%;
+	}
+	.img_check {
+		position: absolute;
+		left: 10%;
+		width: 50px;
+		height: 100%;
+		background-image: url("../img/sucesso.png");
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		margin-right: 10px;
+	}
+	.img_alert {
+		position: absolute;
+		left: 10%;
+		width: 50px;
+		height: 100%;
+		background-image: url("../img/alert.png");
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		margin-right: 10px;
+	}
+	.img_erro {
+		position: absolute;
+		left: 10%;
+		width: 50px;
+		height: 100%;
+		background-image: url("../img/erro.png");
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		margin-right: 10px;
+	}
+	.modal-body-container{
+		width: 100%;
+		padding: 10% 10% 10% 30%;				
+	}
+	.modal-body-container div {
+		display: inline-block;
+		margin: 0 auto;
+		width: 100%;
+	}
+	.modal-body-container div p {
+		word-break: normal;
+	}
+	.txt-box {
+		font-family: "Source Sans Pro";
+		font-weight: 600;
+		font-size: 12pt;
+		color: #26adb5;
+	}
+	.modal-footer {
+		border-top: 0 !important;
+	}
+	@media (min-width: 768px) {
+		.modal-dialog {
+			width: 350px;
+			margin-top: 25vh;
+			background-color: #fff;
+			border-radius: 15px;
+		}
+	}
+	@media (max-width: 767px) {
+		.modal-dialog {
+			width: auto;
+			margin-top: 25vh;
+			margin-left: 10px;
+			margin-right: 10px;
+			background-color: #fff;
+			border-radius: 15px;
+		}
+	}
+	.btn-default {
+		background-color: #e6f2f4;
+		color: #26adb5;
+		border: 2px solid #26adb5;
+		font-weight: 600;
+	}
+	.btn-default:hover, .btn-default:active, .btn-default:active:hover {
+		background-color: #fff;
+		color: #26adb5;
+		border: 2px solid #26adb5;
+		font-weight: 600;
+	}
 
 /*Barra de rolagem com plugin JS */
 .mCSB_inside > .mCSB_container {
