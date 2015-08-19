@@ -10,7 +10,7 @@ $(document).ready(function(e) {
 	$('.tema').click(function(){
 		var idTema = $(this).attr('id');
 		$('#img_teste').css('display','none'); 
-		$('#objeto').attr('src','Objetos/'+idTema+'/index.html').css({'display':'block','height':'581px'}); 
+		$('#objeto').attr('src','Objetos/'+idTema+'/index.html').css({'display':'block'}); 
 		risizeObj();
 	});	
 	

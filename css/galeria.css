@@ -20,15 +20,7 @@
     #container_mv_box {
         margin: 5px 20px 0;
     }
-    @media (min-width: 768px) and (max-width: 991px) {
-        #box_mais_vistos{
-            margin-top: 100px;
-            width: 100%;
-            height: 68%;
-            border: 2px dotted #FAB522;
-            background: #FFFFFF;
-        }
-    }
+
     @media (min-width: 992px) and (max-width: 1199px) {
         #box_mais_vistos{
             width: 100%;
@@ -41,7 +33,7 @@
     @media (min-width: 1200px) {
         #box_mais_vistos{
             width: 100%;
-            height: 68%;
+            height: 62%;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
         }
@@ -131,7 +123,7 @@
             clear: both;
         }
     }
-    @media (min-width: 768px) and (max-width: 1199px) {
+    @media (min-width: 390px) and (max-width: 1199px) {
         .mv_caixa{
             height: auto;
             margin-right:2px;
@@ -188,7 +180,7 @@
         }
         .txt_mv_caixa {
             display: inline-block;
-            width: 80%;
+            width: 65%;
             height: 100%;
             padding-top: 0;
             margin top: 0;
@@ -216,7 +208,7 @@
             clear: both;
         }
     }
-    @media (max-width: 767px) {
+    @media (max-width: 389px) {
         #box_mais_vistos{
             width: 100%;
             height: auto;
@@ -309,7 +301,211 @@
             clear: both;
         }
     }
+    @media (min-width: 390px) and (max-width: 767px) {
+        #box_mais_vistos{
+            margin-top: 100px;
+            width: 100%;
+            height: 68%;
+            border: 2px dotted #FAB522;
+            background: #FFFFFF;
+        }
+    }
+    @media (min-width: 768px) and (max-width: 991px) {
+        #box_mais_vistos{
+            margin-top: 100px;
+            width: 100%;
+            height: 35%;
+            border: 2px dotted #FAB522;
+            background: #FFFFFF;
+        }
+        .mv {
+            display: inline-block;
+            width: 33%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .mv_caixa{
+            display: inline-block;
+            height: auto;
+            width: 100%;
+            margin-bottom: 10px;
+        } 
+        .mv_caixa_icon {
+            display: block;
+            width: 100%;
+            height: 100px;
+        }
+        .mv_video{
+            background:#F7F8E5;
+            width: 100%;
+            height: 100%;
+        }
+        .icon_video{
+            background:url(../img/video.png) no-repeat;
+            height: 58px;
+            background-position: 50% 10px;
+        }
+        .mv_foto{
+            background:#FFF4E3;
+            width: 100%;
+            height: 100%;
+        }
+        .icon_foto{
+            background:url(../img/photo.png) no-repeat;
+            height: 58px;
+            background-position: 50% 10px;
+        }
+        .mv_jogo{
+            background:#E9F4F5;
+            width: 100%;
+            height: 100%;
+        }
+        .icon_jogo{
+            background:url(../img/game.png) no-repeat;
+            height: 58px;
+            background-position: 50% 10px;
+        }
+        .icon_texto{
+            border: 1px solid white;
+            width: 88px;
+            height: 31px;
+            background: #FDFDF7;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 80%;
+            line-height: 1.2;
+            color: #4D4D4D;
+            padding: 2px;
+        }
+        .txt_mv_caixa {
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding-top: 0;
+            margin top: 0;
+            margin-left: 5px;
+        }
+        .txt_mv_caixa_titulo {
+            font-family: "Source Sans Pro";
+            font-size: 13pt;
+            font-weight: 400;
+            margin-bottom: 3px;
+        }
 
+        .txt_mv_caixa_sub {
+            font-family: "Source Sans Pro";
+            font-size: 11pt;
+            font-weight: 300;
+            margin-bottom: -2px; 
+        }
+        .txt_mv_caixa_data {
+            font-family: "Source Sans Pro";
+            font-size: 10pt;
+            font-weight: 300;
+        }
+        .clear {
+            clear: both;
+        }
+    }
+    @media (min-width: 991px) and (max-width: 1199px) {
+        #box_mais_vistos{
+            margin-top: 35px;
+            width: 100%;
+            height: 35%;
+            border: 2px dotted #FAB522;
+            background: #FFFFFF;
+        }
+        .mv {
+            display: inline-block;
+            width: 33%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .mv_caixa{
+            display: inline-block;
+            height: auto;
+            width: 100%;
+            margin-bottom: 10px;
+        } 
+        .mv_caixa_icon {
+            display: block;
+            width: 100%;
+            height: 100px;
+        }
+        .mv_video{
+            background:#F7F8E5;
+            width: 100%;
+            height: 100%;
+        }
+        .icon_video{
+            background:url(../img/video.png) no-repeat;
+            height: 58px;
+            background-position: 50% 10px;
+        }
+        .mv_foto{
+            background:#FFF4E3;
+            width: 100%;
+            height: 100%;
+        }
+        .icon_foto{
+            background:url(../img/photo.png) no-repeat;
+            height: 58px;
+            background-position: 50% 10px;
+        }
+        .mv_jogo{
+            background:#E9F4F5;
+            width: 100%;
+            height: 100%;
+        }
+        .icon_jogo{
+            background:url(../img/game.png) no-repeat;
+            height: 58px;
+            background-position: 50% 10px;
+        }
+        .icon_texto{
+            border: 1px solid white;
+            width: 88px;
+            height: 31px;
+            background: #FDFDF7;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 80%;
+            line-height: 1.2;
+            color: #4D4D4D;
+            padding: 2px;
+        }
+        .txt_mv_caixa {
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding-top: 0;
+            margin top: 0;
+            margin-left: 5px;
+        }
+        .txt_mv_caixa_titulo {
+            font-family: "Source Sans Pro";
+            font-size: 13pt;
+            font-weight: 400;
+            margin-bottom: 3px;
+        }
+
+        .txt_mv_caixa_sub {
+            font-family: "Source Sans Pro";
+            font-size: 11pt;
+            font-weight: 300;
+            margin-bottom: -2px; 
+        }
+        .txt_mv_caixa_data {
+            font-family: "Source Sans Pro";
+            font-size: 10pt;
+            font-weight: 300;
+        }
+        .clear {
+            clear: both;
+        }
+    }
 
 /* Box galeria */
     @media (min-width: 992px) {
@@ -402,6 +598,8 @@
         }
     }
     #box_select{
+        z-index: 10;
+        position: absolute;
         border: 1px solid #FED488;
         border-top: 0;
         width: 85.1%;
@@ -415,7 +613,7 @@
         font-size : 12px;
         color : #4D4D4D;
         color : rgb(77, 77, 77);
-        height: 21px;
+        height: 30px;
         background: #FEF8EF;
         border-bottom: 1px solid #FFFFFF;
         padding: 6px 0px 0px 10px;
@@ -628,7 +826,7 @@
             display: inline-block;
             height: auto;
             margin-left: 10px;
-            margin-right: 10px;
+            margin-right: 30px;
             margin-bottom: 10px;
         }
         .gal_caixa_texto_titulo {
@@ -660,7 +858,7 @@
     @media (min-width: 1200px) {
         #box_carregar{  
             width: 100%;
-            height: 30%;
+            height: 36%;
             margin-top: 12px;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
@@ -669,7 +867,7 @@
     @media (min-width: 768px) and (max-width: 1199px) {
         #box_carregar{  
             width: 100%;
-            height: 30%;
+            height: 60%;
             margin-top: 12px;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
@@ -678,7 +876,7 @@
     @media (max-width: 767px) {
         #box_carregar{  
             width: 100%;
-            height: 30%;
+            height: 200px;
             margin-top: 12px;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
@@ -732,7 +930,7 @@
 /* Rodapé */ 
     @media (max-width: 767px) {
         #rodape {
-            margin-top: 185px;
+            margin-top: 20px;
         }
     }
 	

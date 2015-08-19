@@ -16,7 +16,14 @@ $(document).ready(function (){
 		scrollButtons:{
 			enable:true
 		}
-	});	
+	});
+	//Barra de rolagem personalizada - box galeria
+	$("#box_select").mCustomScrollbar({
+		axis:"y",
+		scrollButtons:{
+		  enable:true
+		}
+	});
 });
         
        

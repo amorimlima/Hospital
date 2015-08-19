@@ -1,0 +1,271 @@
+
+#btn_exercicio{
+	background:url(../img/5_fundo.png) no-repeat;
+	height:100%;
+}
+#btn_exercicio_5_parabens{
+	position: absolute;
+	width: 100%;
+	z-index:1;
+	background:url(../img/5_parabens.png) no-repeat;
+	height:100%;
+}
+#btn_exercicio_5_parabens_brilho{
+	position: absolute;
+	width: 100%;
+	z-index:2;
+	background:url(../img/5_parabens_comp.png) no-repeat;
+	height:100%;
+	display:none;
+}
+#caminho{
+	position: absolute;
+	width: 389px;
+	z-index:3;
+	height:590px;
+}
+.linha_top{
+	margin-top: 133px;
+	border:1px solid;
+	height:150px;
+	width: 378px;
+}
+.linha{
+	margin-top: 140px;
+	height: 345px;
+	width: 378px;
+}
+.linha_atividade1,.linha_atividade2,.linha_atividade3,.linha_atividade4,.linha_atividade5{
+	display:none;
+}
+.aparecer_mapa{
+	display:block !important;
+}
+.obj_icone{
+	position: absolute;
+	z-index: 999;
+    background: url(../img/bt_normal.png) no-repeat;
+    width: 31px;
+    height: 31px;
+}
+.obj_icone_ativo{
+	position: absolute;
+	z-index: 999;
+    background: url(../img/bt_ativo.png) no-repeat !important;
+    width: 31px;
+    height: 31px;
+}
+
+/*Objetos com 14 atividades*/
+.obj_icone1{   
+	bottom: 120px;
+	left: 65px;
+}
+.obj_icone2{
+    bottom: 170px;
+    left: 65px;
+}
+.obj_icone3{
+    bottom: 186px;
+    left: 118px;
+}
+.obj_icone4{
+    bottom: 186px;
+    left: 180px;
+}
+.obj_icone5{
+    bottom: 186px;
+    left: 244px;
+}
+.obj_icone6{
+    bottom: 221px;
+    left: 299px;
+}
+.obj_icone7{
+    bottom: 269px;
+    left: 283px;
+}
+.obj_icone8{
+    bottom: 269px;
+    left: 226px;
+}
+.obj_icone9{
+    bottom: 269px;
+    left: 163px;
+}
+.obj_icone10{
+    bottom: 269px;
+    left: 98px;
+}
+.obj_icone11{
+    bottom: 311px;
+    left: 70px;
+}
+.obj_icone12{
+	bottom: 351px;
+	left: 100px;
+}
+.obj_icone13{
+    bottom: 352px;
+    left: 153px;
+}
+.obj_icone14{
+    bottom: 407px;
+    left: 179px;
+}
+
+/*Objetos com 15 atividades*/
+.obj_icone15_1{   
+	bottom: 120px;
+	left: 65px;
+}
+.obj_icone15_2{
+    bottom: 170px;
+    left: 65px;
+}
+.obj_icone15_3{
+    bottom: 186px;
+    left: 118px;
+}
+.obj_icone15_4{
+	bottom: 186px;
+	left: 180px;
+}
+.obj_icone15_5{
+    bottom: 186px;
+    left: 239px;
+}
+.obj_icone15_6{
+   bottom: 194px;
+    left: 300px;
+}
+.obj_icone15_7{
+    bottom: 247px;
+    left: 301px;
+}
+.obj_icone15_8{
+	bottom: 269px;
+    left: 252px;
+}
+.obj_icone15_9{
+    bottom: 269px;
+    left: 194px;
+}
+.obj_icone15_10{
+    bottom: 268px;
+    left: 139px;
+}
+.obj_icone15_11{
+    bottom: 270px;
+    left: 84px;
+}
+.obj_icone15_12{
+	bottom: 314px;
+    left: 68px;
+}
+.obj_icone15_13{
+	bottom: 351px;
+	left: 100px;
+}
+.obj_icone15_14{
+    bottom: 352px;
+    left: 153px;
+}
+.obj_icone15_15{
+    bottom: 407px;
+    left: 179px;
+}
+
+/*Objetos com 20 atividades*/
+.obj_icone20_1{   
+    bottom: 115px;
+    left: 65px;
+}
+.obj_icone20_2{
+	bottom: 155px;
+    left: 65px;
+}
+.obj_icone20_3{
+    bottom: 186px;
+   	left: 91px;
+}
+.obj_icone20_4{
+	bottom: 186px;
+    left: 134px;
+}
+.obj_icone20_5{
+    bottom: 186px;
+    left: 178px;
+}
+.obj_icone20_6{
+    bottom: 186px;
+    left: 223px;
+}
+.obj_icone20_7{
+    bottom: 188px;
+    left: 268px;
+}
+.obj_icone20_8{
+    bottom: 209px;
+    left: 301px;
+}
+.obj_icone20_9 {
+    bottom: 246px;
+    left: 301px;
+}
+.obj_icone20_10 {
+	bottom: 270px;
+    left: 271px;
+}
+.obj_icone20_11{
+	bottom: 269px;
+    left: 227px;
+}
+.obj_icone20_12{
+    bottom: 269px;
+    left: 180px;
+}
+.obj_icone20_13{
+    bottom: 268px;
+    left: 134px;
+}
+
+.obj_icone20_14{
+	bottom: 269px;
+    left: 90px;
+}
+.obj_icone20_15{
+    bottom: 303px;
+    left: 70px;
+}
+.obj_icone20_16{
+	bottom: 342px;
+	left: 71px;
+}
+.obj_icone20_17{
+ 	bottom: 354px;
+    left: 107px;
+}
+.obj_icone20_18{
+    bottom: 354px;
+    left: 148px;
+}
+.obj_icone20_19{
+	bottom: 370px;
+	left: 179px;   
+}
+.obj_icone20_20{
+    bottom: 411px;
+    left: 179px;
+}
+
+@media (max-width:768px){
+	#Conteudo_Area_box_left iframe{
+		padding: 0;
+		width: 100%;
+		height: 230px !important;
+		border: 0;
+	}
+}
+
+

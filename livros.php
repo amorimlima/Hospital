@@ -39,30 +39,30 @@ $templateGeral = new Template();
             <div class="row">
                 <div class="col-xs-12 col-md-12 col-lg-8">
                		<div  id="Conteudo_Area_box_left">
-                        <a href="#">
-                           <!-- <iframe id="objeto" src="" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>  	-->
+                        <a href="#">                        	
+                        	<img src="img/atividade.png" alt="" id="img_teste" class="img-responsive"/>   	
                         </a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-12 col-lg-4">
                 	<div id="Conteudo_Area_box_right">
                         <div id="btn_exercicio">
-                        	<div id="btn_exercicio_5_parabens"></div>
-                            <div id="btn_exercicio_5_parabens_brilho"></div>
-                            <div id="caminho">
-                                <div class="row linha_top">
-                                    <p id="ln_1">
-                                        <span id="obj_ultimo"></span>
-                                    </p>
-                                </div>
-                                <div class="row linha">
-                                    
-                                </div>
-                                <div class="row linha">
-                                    
-                                </div>
-                            </div>                           
-                        </div>                         
+                        	<p class="tema">
+                            	<a class="cap_1"><img src="img/cap_1.png"></a>
+                            </p>
+                            <p class="tema">
+                            	<a class="cap_2"><img src="img/cap_2.png"></a>
+                            </p>
+                            <p class="tema">
+                            	<a class="cap_3"><img src="img/cap_3.png"></a>
+                            </p>
+                            <p class="tema">
+                            	<a class="cap_4"><img src="img/cap_4.png"></a>
+                            </p>
+                            <p class="tema">
+                            	<a class="cap_5"><img src="img/cap_5.png"></a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
