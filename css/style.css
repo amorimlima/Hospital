@@ -359,7 +359,7 @@ img{
 		border-radius: 15px;
 	}
 }
-@media (max-width:768px){
+@media (max-width:767px){
 	.navbar-toggle .icon-bar{
 		display: block;
 		width: 22px;

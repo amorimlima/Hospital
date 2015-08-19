@@ -134,13 +134,23 @@
 	margin-left:1px;
 }
 
-@media (max-width:768px){
+#Conteudo_Area_box_left{
+    margin: 24px 12px 0 36px;
+}
+
+@media (max-width:767px){
 	#Conteudo_Area_box_right {
-		margin: 24px 12px;
+		margin: 24px 12px 24px 24px;
 		height: 581px;
 		width: 94%;
 	}
+        
+        #Conteudo_Area_box_left{       
+        margin: 24px 5px;
+        }
 }
+
+
 
 /*Barra de rolagem com plugin JS */
 .mCSB_inside > .mCSB_container {

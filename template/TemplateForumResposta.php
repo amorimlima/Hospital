@@ -180,6 +180,10 @@ class TemplateForumResposta{
                         ';
                     }
 	  	}
+                else
+                {
+                    $html .= '</div>';
+                }
 
 		echo $html;
 	}
