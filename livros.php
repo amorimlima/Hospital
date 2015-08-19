@@ -40,7 +40,7 @@ $templateGeral = new Template();
                 <div class="col-xs-12 col-md-12 col-lg-8">
                		<div  id="Conteudo_Area_box_left">
                         <a href="#">                        	
-                        	<img src="img/atividade.png" alt="" id="img_teste" class="img-responsive"/>   	
+                        	<img src="" alt="" id="img_teste" class="img-responsive"/>   	
                         </a>
                     </div>
                 </div>

@@ -41,7 +41,7 @@ $templateGeral = new Template();
                		<div  id="Conteudo_Area_box_left">
                         <a href="#">
                             <!--<iframe id="objeto" src="Objetos/HCB_1o_5cap/4_Atividade_Quarto2/index.html" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true" width="100%" height="100%"></iframe>-->
-                        	<img src="img/atividade.png" alt="" id="img_teste" class="img-responsive"/>   	
+                        	<img src="img/abertura_Ca.png" alt="" id="img_teste" class="img-responsive"/>   	
                         </a>
                     </div>
                 </div>
