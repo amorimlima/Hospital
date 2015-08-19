@@ -219,10 +219,17 @@ function responder(){
 		}
 	});
 }
-        
+
+var controleMobile = 0; 
 function novo(){
 	$("#conteudo_mensagem").css("display", "none");
 	$("#nova_mensagem").css("display", "block");
+	 if( $("#mn_mobile").css("display") == "block") {
+	 	$("#box_msg_left").css("display", "none");
+	 	$("div.col-lg-8").addClass("col-sm-12");
+	 	$("div.col-lg-8").removeClass("col-sm-9");
+	 	controleMobile = 1;
+	 }
 	/*$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
@@ -234,6 +241,17 @@ function novo(){
 		}
 	});*/
 }
+function fecharNovaMsg () {
+	$("#conteudo_mensagem").css("display", "block");
+	$("#nova_mensagem").css("display", "none");
+	if (controleMobile === 1) {
+		$("#box_msg_left").css("display", "block");
+	 	$("div.col-lg-8").removeClass("col-sm-12");
+	 	$("div.col-lg-8").addClass("col-sm-9");
+	 	controleMobile = 0;
+	}
+}
+
 function checkEnviar () {
 	var para = document.getElementById("mensagem_campo_para");
 	var assunto = document.getElementById("mensagem_campo_assunto");
@@ -257,6 +275,12 @@ function modalOk() {
 	if (para.value != "" && assunto.value != "" && mensagem.value != "") {
 		$("#conteudo_mensagem").css("display", "block");
 		$("#nova_mensagem").css("display", "none");
+		if (controleMobile === 1) {
+			$("#box_msg_left").css("display", "block");
+		 	$("div.col-lg-8").removeClass("col-sm-12");
+		 	$("div.col-lg-8").addClass("col-sm-9");
+		 	controleMobile = 0;
+	}
 	}
 }
         

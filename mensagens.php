@@ -45,11 +45,12 @@ $templateMensagens = new TemplateMensagens();
         	<div class="row">
                <div class="col-xs-12 col-md-12 col-lg-12"  id="area_geral">   
                     <div id="Conteudo_Area_box_Grande">
-                        <div id="conteudo_mensagem">
+
                             <div id="box_msg_geral">                        	
-                                <div class="row">               					
-                   					<div class="col-xs-12 col-md-12 col-lg-8 pull-right">
-                                        <!--<div id="conteudo_mensagem">-->
+                                <div class="row">             					
+                   					<div class="col-xs-12 col-sm-9 col-md-9 col-lg-8 pull-right">
+                                        <!-- Conteudo mensagem-->
+                                        <div id="conteudo_mensagem">
                                             <div class="row" id="ln_NRE">
                                                 <div class="col-xs-12 col-md-12 col-lg-12">
                                                     <div id="box_NRE">
@@ -92,9 +93,46 @@ $templateMensagens = new TemplateMensagens();
                                                     </div>
                                              	</div>
                                             </div>
-                                        <!--</div>-->
+                                        </div>
+                                        <!-- nova mensagem -->
+                                        <div id="nova_mensagem">
+                                            <!-- área de botões -->
+                                            <div id="nova_mensagem_topo">
+                                                <div class="nova_mensagem_btns" id="nova_msg_enviar" onclick="checkEnviar()" data-toggle="modal" data-target="#feedback_nova_mensagem"></div>
+                                                <div class="nova_mensagem_btns" id="nova_msg_anexar"></div>
+                                                <button type="button" class="close" onclick="fecharNovaMsg()" id="bt_fechar_nova_msg">&times;</button>
+                                            </div>
+
+                                            <!-- área de campos do formulário -->
+                                            <div id="nova_mensagem_form">
+                                                <div class="campo_nova_mensagem" id="mensagem_para">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-2 col-lg-2 nome_campo">PARA:</div>
+                                                        <div class="col-xs-12 col-md-10 col-lg-10">
+                                                            <input type="text" name="para" id="mensagem_campo_para" class="mensagem_campo">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="campo_nova_mensagem" id="mensagem_assunto">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-2 col-lg-2 nome_campo">ASSUNTO:</div>
+                                                        <div class="col-xs-12 col-md-10 col-lg-10">
+                                                            <input type="text" name="assunto" id="mensagem_campo_assunto" class="mensagem_campo">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="campo_nova_mensagem" id="mensagem_conteudo">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-2 col-lg-2 nome_campo">MENSAGEM:</div>
+                                                        <div class="col-xs-12 col-md-10 col-lg-10">
+                                                            <textarea name="conteudo" id="mensagem_campo_conteudo" class="mensagem_campo"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>                                
-                                    <div class="col-xs-12 col-md-12 col-lg-4 pull-left" id="box_msg_left">   
+                                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4 pull-left" id="box_msg_left">   
                                         <!--Menu geral-->
                                         <div id="mn_geral">
                                             <div id="btn_recebidos" onclick="recebidasFuncao()" class="btn_msg btn_msg_ativo">
@@ -156,7 +194,7 @@ $templateMensagens = new TemplateMensagens();
                                     </div>
                             	</div>                            
                             </div>
-                        </div>
+
                         <!-- Modal -->
                                 <!-- Trigger the modal with a button
                                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Small Modal</button> -->
@@ -178,44 +216,6 @@ $templateMensagens = new TemplateMensagens();
                             </div>
                         </div>
                         <!-- Fim do Modal -->
-
-                        <!-- nova mensagem -->
-                        <div id="nova_mensagem">
-                            <!-- área de botões -->
-                            <div id="nova_mensagem_topo">
-                                <div class="nova_mensagem_btns" id="nova_msg_enviar" onclick="checkEnviar()" data-toggle="modal" data-target="#feedback_nova_mensagem"></div>
-                                <div class="nova_mensagem_btns" id="nova_msg_anexar"></div>
-                            </div>
-
-                            <!-- área de campos do formulário -->
-                            <div id="nova_mensagem_form">
-                                <div class="campo_nova_mensagem" id="mensagem_para">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-2 col-lg-2 nome_campo">PARA:</div>
-                                        <div class="col-xs-12 col-md-10 col-lg-10">
-                                            <input type="text" name="para" id="mensagem_campo_para" class="mensagem_campo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="campo_nova_mensagem" id="mensagem_assunto">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-2 col-lg-2 nome_campo">ASSUNTO:</div>
-                                        <div class="col-xs-12 col-md-10 col-lg-10">
-                                            <input type="text" name="assunto" id="mensagem_campo_assunto" class="mensagem_campo">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="campo_nova_mensagem" id="mensagem_conteudo">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-2 col-lg-2 nome_campo">MENSAGEM:</div>
-                                        <div class="col-xs-12 col-md-10 col-lg-10">
-                                            <textarea name="conteudo" id="mensagem_campo_conteudo" class="mensagem_campo"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>              	
                 </div>
             </div>

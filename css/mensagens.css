@@ -252,7 +252,7 @@
 #box_abre_msg{
 	padding:19px;
 }
-@media (max-width:768px){
+@media (max-width:991px){
 	#Conteudo_Area_box_Grande {
 		width: 96.1%;
 		height: 588px;
@@ -426,8 +426,6 @@
 		width: auto;
 		height: auto;
 		padding: 10px;
-		border: 2px dotted rgb(35,173,181);
-		background-color: #FFF;
 	}
 	#nova_mensagem_topo {
 		height: 47px;
@@ -491,8 +489,15 @@
 			margin: 3px 0;
 			padding-right: 10px;
 		}
+		#bt_fechar_nova_msg {
+			display: none;
+		}
 	}
 	@media (max-width: 991px) {
+		#nova_mensagem {
+			border: 2px dotted #24ADB5;
+			background-color: #FFF;
+		}
 		#mensagem_campo_conteudo {
 			height: 315px;
 		}
@@ -505,7 +510,7 @@
 			font-size: 12pt;
 			letter-spacing: 0.8px;
 			color: rgb(36,172,191);
-			text-align: center;
+			text-align: left;
 			margin: 3px 0;
 			padding-right: 10px;
 		}
