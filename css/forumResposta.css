@@ -109,7 +109,7 @@
 	margin-top: 82px;
 	width: auto;
 	overflow: auto;
-	height: 481px
+	height: 480px
 }
 .conteudoRespostas{
 	overflow: auto;
@@ -147,8 +147,12 @@
 @media (max-width:767px){
         
         #Conteudo_Area_box_left{       
-        margin: 24px 5px;
+       	 	margin: 24px 5px;
         }
+		#Conteudo_Area_box_right {
+			margin: 24px 5px;
+			width: 98%;
+		}
 }
 
 
