@@ -58,7 +58,7 @@ $(document).ready(function ()
     });
 
 	$("body").delegate("#btn_pronto", "click", function (){
-        return usuario = $(this).attr("idAluno");
+        usuario = $(this).attr("idAluno");
 		resposta = $("#resp_forum").val();
 		questao = resp, "" == resposta ? (alert("Resposta Inválida!!"), !1) : void $.ajax(
         {

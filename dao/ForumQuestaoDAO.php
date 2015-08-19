@@ -71,7 +71,8 @@ class ForumQuestaoDAO extends DAO{
      
      public function selectCompleta($keyword)
      {
-        $sql = "select * from forum_questao where  frq_questao like '".$keyword."%' ";
+        $sql = "select * from forum_questao where  frq_questao like '%".$keyword."%' ";
+		// echo $sql;
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
