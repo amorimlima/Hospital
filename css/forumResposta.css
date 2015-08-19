@@ -138,12 +138,13 @@
     margin: 24px 12px 0 36px;
 }
 
+#Conteudo_Area_box_right {
+	margin: 24px 12px 24px 24px;
+	height: 581px;
+        width: 94%;
+    }
+
 @media (max-width:767px){
-	#Conteudo_Area_box_right {
-		margin: 24px 12px 24px 24px;
-		height: 581px;
-		width: 94%;
-	}
         
         #Conteudo_Area_box_left{       
         margin: 24px 5px;
