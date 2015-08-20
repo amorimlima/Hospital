@@ -6,7 +6,6 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
 $templateGeral = new Template();
 //teste
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
