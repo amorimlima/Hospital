@@ -107,7 +107,7 @@ class MensagemDAO extends DAO{
      
      public function listaEnviadas($idmens) {
      
-        $sql = "select * from mensagem where msg_ativo = 1 and msg_remetente = ".$idmens." limit 1";
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_remetente = ".$idmens;
         $lista = array();
     	$result = $this->retrieve($sql);
     	while ($qr = mysqli_fetch_array($result))

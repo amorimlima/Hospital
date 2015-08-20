@@ -57,7 +57,7 @@ var contMsg = 0;
 		alert('Selecione uma mensagem para ser deletada!');
 	}else{
 		//Se excluiu, limpa a div e  
-		alert('Mensagem(s) exclu�da(s) com sucesso!');
+		alert('Mensagem(s) excluída(s) com sucesso!');
 		$('#box_msg_right_botton').hide();
 		if(retorno[0] == 'recebido'){
 		   recebidasFuncao();
@@ -82,7 +82,7 @@ function envidasFuncao(){
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
-		data:{'acao':'listaEnviadas','id':'20'},
+		data:{'acao':'listaEnviadas','id':'20'},  //Id colocado na mão
 		success:function(data)
 		{
 			$("#titulo_rem").text('DESTINATÁRIOS');
@@ -98,7 +98,7 @@ function envidasFuncaoMobile(){
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
-		data:{'acao':'listaEnviadosMobile','id':'20'},
+		data:{'acao':'listaEnviadosMobile','id':'20'},//id colocado na mão
 		success:function(data){		  
 			$('#box_msg_enviadas_mobile').html(data);		
 		}
@@ -118,7 +118,7 @@ function recebidasFuncao(){
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
-		data:{'acao':'listaRecebidos','id':'20'},
+		data:{'acao':'listaRecebidos','id':'20'},//id colocado na mão
 		success:function(data)
 		{
 			$("#titulo_rem").text('REMETENTES');
@@ -134,7 +134,7 @@ function recebidasFuncaoMobile(){
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
-		data:{'acao':'listaRecebidosMobile','id':'20'},
+		data:{'acao':'listaRecebidosMobile','id':'20'}, //id colocado na mão
 		success:function(data)
 		{
 			$('#box_msg_recebidas_mobile').html(data);
@@ -331,7 +331,7 @@ function recarrega(){
 		type:'post',
 		async: false,
 		dataType:'json',
-		data:{'acao':'recarrega','id':'20'},
+		data:{'acao':'recarrega','id':'20'},//id colocado na mão
 		success:function(data){
 			retorno = data.qtd;		
 		}	

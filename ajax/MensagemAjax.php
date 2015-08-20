@@ -36,24 +36,27 @@ switch ($_POST["acao"]){
 		
 		
 		if (count($mensagem)>0){
-			foreach ($mensagem as $value) {
+			foreach ($mensagem as $value){
 				//Fazer uma comparação com o usuário logado para listar o outro e o tipo da mensagem!!
-				// if ($value->getMsg_destinatario() == $usuarioLogado->getUsr_nome){
-					// $usuario = $usuarioController->select($value->getMsg_remetente());
-				// }else{
-					// $usuario = $usuarioController->select($value->getMsg_destinatario());
-				// }
-				$usuario = $usuarioController->select($value->getMsg_destinatario());
+				$userLogado = '20'; //Pegar o logado
+				if ($value->getMsg_destinatario() == $userLogado){
+					$usuario = $usuarioController->select($value->getMsg_remetente());
+					$tipo = '(recebida)';
+				 }else{
+					$usuario = $usuarioController->select($value->getMsg_destinatario());
+					$tipo = '(enviada)';	
+				 }
+				//$usuario = $usuarioController->select($value->getMsg_destinatario());
 				
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class="lixeira col1 row">
 					  <p class="msg_check col-lg-1"><span class="check-box"></span></p>	
 					  <div  onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')">			  
-						<p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
+						<p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).' '.$tipo.'</p>
 						<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
 						<p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 					  </div>
 				</div>';
-			} 
+			}
 		}else {
 			echo '<div class="alert alert-warning" role="alert"><strong>Nenhuma mensagem em sua Lixeira.</strong></div>';
 		}
@@ -103,11 +106,13 @@ switch ($_POST["acao"]){
     }    
     
     case "listaEnviadas":{
-        $idmens = $_POST["id"];
+        $idUser = $_POST["id"];
         
-        $mensagem = $mensagemController->listaEnviadas($idmens);
+        $mensagem = $mensagemController->listaEnviadas($idUser);
+
 		if (count($mensagem)>0){
 			foreach ($mensagem as $value) {
+				
 				$usuario = $usuarioController->select($value->getMsg_destinatario());
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" enviado col1 row">
 						<p class="msg_check col-lg-1"><span class="check-box"></span></p>
@@ -159,9 +164,9 @@ switch ($_POST["acao"]){
     }
     
     case "listaRecebidos":{
-        $idmens = $_POST["id"];
+        $iduser = $_POST["id"];
         
-        $mensagem = $mensagemController->listaRecebidos($idmens);
+        $mensagem = $mensagemController->listaRecebidos($iduser);
 
 		if (count($mensagem)>0){
 			foreach ($mensagem as $value) {
@@ -227,12 +232,14 @@ switch ($_POST["acao"]){
         
         $mensagem = $mensagemController->detalhe($idmens);
         
-        $mensagem->getMsg_id();
-        
+        //Pegar o nome do usuario logao!!
+        $remetente = 'Usuário logado';
+		$destinatario = $usuarioController->select($mensagem->getMsg_destinatario);
+		
 		$result = Array(
 			'data'=>$mensagem->getMsg_data(),
-			'remetente'=>$mensagem->getMsg_remetente(),
-			'destinatario'=>$mensagem->getMsg_destinatario(),
+			'remetente'=>utf8_encode($remetente),
+			'destinatario'=>utf8_encode($destinatario->getUsr_nome()),
 			'mensagem'=>utf8_encode($mensagem->getMsg_mensagem())
 		);
 		
@@ -280,7 +287,7 @@ switch ($_POST["acao"]){
             $mensagemController->msgLida($idmens);
         }
 		
-		$remetente = $usuarioController->select($iduser);
+		$remetente = $usuarioController->select($mensagem->getMsg_remetente());
 		$destinatario = 'Usuário Logado'; //Pegar da sessão quando tiver!!
        
 		$result = Array(
