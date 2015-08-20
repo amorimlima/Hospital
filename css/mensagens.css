@@ -31,6 +31,7 @@
     width: 100%;
     height: 32.5%;
     background-color: #DEF3F4;
+	cursor: pointer;
 }
 .btn_msg span{
     width: 242px;
@@ -620,6 +621,9 @@
 		border: 2px solid #26adb5;
 		font-weight: 600;
 	}
+.lixeira .recebido .enviado {
+	cursos: poiter;
+}
 
 /*Barra de rolagem com plugin JS */
 .mCSB_inside > .mCSB_container {
