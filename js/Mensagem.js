@@ -18,37 +18,66 @@ function checkbox(){
 }
 
 function deleteFuncao(){
-	var idMgs = $('.delete').attr('id');
-	if (typeof idMgs !== "undefined") {
-		var retorno = $('#'+idMgs).attr('class');
-		retorno = retorno.split(' ');
-		var id = idMgs.split('_');
-		$.ajax({
-			url:'ajax/MensagemAjax.php',
-			type:'post',
-			dataType:'json',
-			data:{'acao':'deleteMensagem','id':id[2]},
-			success:function(data)
-			{
-				$('#retorno').html(data.msg);
-				$('#box_msg_right_botton').toggle();
-				$('#'+idMgs).remove();
-				if(retorno[0] == 'recebido'){
-				   recebidasFuncao();
-				}else if(retorno[0] == 'enviado'){
-				  envidasFuncao();
-				}	
-			}
-		});
-	}else{
+var contMsg = 0;
+	var msg;
+	var retorno;
+	
+	//Passa por todas as mensagens checadas 
+	$('.checked').each(function(){
+		//Pega o id da div a ser excluido
+		var idMgs = $(this).parent().parent().attr('id');
+		//Verifica se trouxe o id corretamente
+		if (typeof idMgs !== "undefined") {
+			
+			contMsg++;
+			//Paga a classe para saber se lista as mensagens enviadas ou recebidas apÛs a exclus„o
+			retorno = $('#'+idMgs).attr('class');
+			retorno = retorno.split(' ');
+			
+			//Tranforma em array o id para pegar somente o cÛdigo salvo no banco 
+			var id = idMgs.split('_');
+
+			$.ajax({
+				url:'ajax/MensagemAjax.php',
+				type:'post',
+				dataType:'json',
+				data:{'acao':'deleteMensagem','id':id[2]},
+				success:function(data)
+				{
+					//msg = data.msg;
+					$('#'+idMgs).remove();
+					
+				}
+			});
+		}
+	})
+	
+	//Verifica se alguma mensagem foi excluida
+	if (contMsg==0) {
 		alert('Selecione uma mensagem para ser deletada!');
+	}else{
+		//Se excluiu, limpa a div e  
+		alert('Mensagem(s) excluÌda(s) com sucesso!');
+		$('#box_msg_right_botton').hide();
+		if(retorno[0] == 'recebido'){
+		   recebidasFuncao();
+		}else if(retorno[0] == 'enviado'){
+		  envidasFuncao();
+		}	
 	}
+	
+	return false;
 }
         
 function envidasFuncao(){
 	$('#box_msg_listas').css('height','472px');
 	$('.btn_msg').removeClass('btn_msg_ativo');
 	$('#btn_enviados').addClass('btn_msg_ativo');
+	
+	$('#nova_mensagem').css('display','none');
+	$('#box_recebe_msg').html('');
+	$('#conteudo_mensagem').css('display','block');
+	
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
@@ -56,6 +85,7 @@ function envidasFuncao(){
 		data:{'acao':'listaEnviadas','id':'20'},
 		success:function(data)
 		{
+			$("#titulo_rem").text('DESTINAT√ÅRIOS');
 			$('#box_recebe_msg').html(data);
 			$('#box_msg_right_botton').hide();	
 			checkbox();	
@@ -79,6 +109,11 @@ function recebidasFuncao(){
 	$('#box_msg_listas').css('height','472px');
 	$('.btn_msg').removeClass('btn_msg_ativo');
 	$('#btn_recebidos').addClass('btn_msg_ativo');
+	
+	$('#nova_mensagem').css('display','none');
+	$('#box_recebe_msg').html('');
+	$('#conteudo_mensagem').css('display','block');
+	
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
@@ -86,6 +121,7 @@ function recebidasFuncao(){
 		data:{'acao':'listaRecebidos','id':'20'},
 		success:function(data)
 		{
+			$("#titulo_rem").text('REMETENTES');
 			$('#box_recebe_msg').html(data);
 			$('#box_msg_right_botton').hide();		
 			checkbox();
@@ -156,8 +192,7 @@ function RecebidasDetalheFuncao(idMensagem){
 			$('#ass_msg_rem_nome').html(data.remetente);
 			$('#ass_msg_para_nome').html(data.destinatario);
 			$('#ass_msg_resp').html(data.mensagem);	
-			$('#msg_valores_'+idMensagem).addClass('delete');
-			
+						
 			$('#msg_valores_'+idMensagem).addClass('delete');
 			$('#n_msg').html('RECEBIDOS('+t+')');
 			$('#box_msg_right_botton').show();
@@ -184,12 +219,17 @@ function RecebidasMobileDetalheFuncao(idMensagem){
 function deletadas(){
 	$('.btn_msg').removeClass('btn_msg_ativo');
 	$('#btn_excluidos').addClass('btn_msg_ativo');
+	$('#nova_mensagem').css('display','none');
+	$('#box_recebe_msg').html('');
+	$('#conteudo_mensagem').css('display','block');
+	
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
 		data:{'acao':'deletadas'},
 		success:function(data){
+			$("#titulo_rem").text('USU√ÅRIOS');
 			$('#box_recebe_msg').html(data);
 			$('#box_msg_right_botton').hide();
 			checkbox();
@@ -298,5 +338,3 @@ function recarrega(){
 	});	
 	return retorno;
 }
-        
-       

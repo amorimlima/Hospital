@@ -84,5 +84,10 @@ class MensagemController {
 		$mens = $this->mensagemDAO->selectFull();
 		return $mens;
 	}
+		public function deleteDefinitivo($idmens)
+	{
+		$mens = $this->mensagemDAO->deleteDefinitivo($idmens);
+		return $mens;
+	}
 }
 ?>

@@ -34,21 +34,26 @@ class TemplateMensagens {
         $mensagemController = new MensagemController();
 	   	$mensagem = $mensagemController->listaRecebidos($destinatario);
 
-        foreach ($mensagem as $value) {
-            if($value->getMsg_lida() === 'n'){
-                $naolida = 'msg_nao_lida';
-            }else{
-                $naolida = '';
-            }
-			echo '<div id="msg_valores_'.$value->getMsg_id().'" class="recebido '.$naolida.' col1 row">
-				  <p class="msg_check col-lg-1"><span class="check-box"></span></p>	
-				  <div  onclick="RecebidasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">			  
-				  	<p class="msg_nome col-lg-2">'.utf8_encode($value->getMsg_id()).'</p>
-				  	<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
-				  	<p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
-				</div>
-			</div>';
-        }    
+		if (count($mensagem)>0){
+			foreach ($mensagem as $value) {
+				if($value->getMsg_lida() === 'n'){
+					$naolida = 'msg_nao_lida';
+				}else{
+					$naolida = '';
+				}
+				echo '<div id="msg_valores_'.$value->getMsg_id().'" class="recebido '.$naolida.' col1 row">
+					  <p class="msg_check col-lg-1"><span class="check-box"></span></p>	
+					  <div  onclick="RecebidasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">			  
+						<p class="msg_nome col-lg-2">'.utf8_encode($value->getMsg_id()).'</p>
+						<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
+						<p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
+					</div>
+				</div>';
+			}   
+		}else {
+			echo '<div class="alert alert-warning" role="alert"><strong>Nenhuma mensagem em sua Caixa de Entrada.</strong></div>';
+		}
+			
 	}
 }
 ?>

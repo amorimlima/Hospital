@@ -42,7 +42,7 @@ class MensagemDAO extends DAO{
          $sql .= "'".$mens->getMsg_proprietario()."',";
          $sql .= "'".$mens->getMsg_anexo()."',";
          $sql .= "'".$mens->getDestinatarios()."','".$mens->getMsg_destinatario_grupo()."')";
-		echo $sql;
+		//echo $sql;
     	return $this->execute($sql);
      }
      
@@ -67,13 +67,13 @@ class MensagemDAO extends DAO{
      
      public function delete($idmens)
      {
-         $sql = "update mensagem set msg_ativo = 0 where msg_id = ".$idmens."";
+         $sql = "update mensagem set msg_ativo = 0 where msg_id = ".$idmens." limit 1";
     	return $this->execute($sql); 
      }
      
      public function select($idmens)
      {
-        $sql = "select * from mensagem where msg_ativo = 1 and msg_id = ".$idmens." ";
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_id = ".$idmens." limit 1";
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
 
@@ -107,7 +107,7 @@ class MensagemDAO extends DAO{
      
      public function listaEnviadas($idmens) {
      
-        $sql = "select * from mensagem where msg_ativo = 1 and msg_remetente = ".$idmens." ";
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_remetente = ".$idmens." limit 1";
         $lista = array();
     	$result = $this->retrieve($sql);
     	while ($qr = mysqli_fetch_array($result))
@@ -135,17 +135,17 @@ class MensagemDAO extends DAO{
      }
      
      public function msgLida($idmens){
-          $sql  = "update mensagem set msg_lida ='s' where msg_id=".$idmens." ";
+          $sql  = "update mensagem set msg_lida ='s' where msg_id=".$idmens." limit 1";
           return $this->execute($sql);
      }
 
-          public function detalhe($idmens){
-         $sql = "select * from mensagem where msg_ativo = 1 and msg_id = ".$idmens." ";
-         $result = $this->retrieve($sql);
-    	 $qr = mysqli_fetch_array($result);
-         $mens = new Mensagem();
-                $mens->setMsg_id($qr["msg_id"]);
-                $mens->setMsg_destinatario($qr["msg_destinatario"]);
+    public function detalhe($idmens){
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_id = ".$idmens." limit 1";
+        $result = $this->retrieve($sql);
+		$qr = mysqli_fetch_array($result);
+        $mens = new Mensagem();
+            $mens->setMsg_id($qr["msg_id"]);
+            $mens->setMsg_destinatario($qr["msg_destinatario"]);
                 $mens->setMsg_remetente($qr["msg_remetente"]);
                 $mens->setMsg_assunto($qr["msg_assunto"]);
                 $mens->setMsg_mensagem($qr["msg_mensagem"]);
@@ -243,5 +243,10 @@ class MensagemDAO extends DAO{
         }    
     	return $lista;
      }
+	 
+	public function deleteDefinitivo($idmens){
+        $sql = "DELETE FROM `mensagem` WHERE msg_id = ".$idmens." limit 1";
+        return $this->execute($sql);
+    }
 }
 ?>
