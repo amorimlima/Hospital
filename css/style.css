@@ -267,8 +267,22 @@ img{
 }
 
 /* Modal: Alerta de mensagem */
-.modal-content {
+.modal-content-azul{
 	border: 3px dotted #26adb5;
+	border-radius: 15px;
+	width: auto;
+	height: auto;
+	padding: 20px 0;
+}
+.modal-content-laranja{
+	border: 3px dotted #FAB522;
+	border-radius: 15px;
+	width: auto;
+	height: auto;
+	padding: 20px 0;
+}
+.modal-content-vermelho{
+	border: 3px dotted #E35F0F;
 	border-radius: 15px;
 	width: auto;
 	height: auto;
@@ -281,7 +295,17 @@ img{
 .modal-body {
 	padding: 0;
 }
-.btn-default {
+.btn-azul{
+	background-color: rgb(255,255,255);
+	border: 2px solid;
+	width: 30%;
+}
+.btn-laranja{
+	background-color: rgb(255,255,255);
+	border: 2px solid;
+	width: 30%;
+}
+.btn-vermelho{
 	background-color: rgb(255,255,255);
 	border: 2px solid;
 	width: 30%;

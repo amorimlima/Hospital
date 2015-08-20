@@ -1,5 +1,4 @@
 <?php 
-
 if(!isset($_SESSION['PATH_SYS'])){
    require_once '_loadPaths.inc.php'; 
 }
@@ -10,13 +9,10 @@ include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateForumResposta.php');
 include_once($path['controller'].'ForumQuestaoController.php');
 include_once($path['controller'].'ForumRespostaController.php');
-
 $templateGeral = new Template();
 $templateResposta = new TemplateForumResposta();
 $questaoController = new ForumQuestaoController();
 $respostasController = new ForumRespostaController();
-
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -70,8 +66,10 @@ $respostasController = new ForumRespostaController();
                                 <p id="txt_pesquisa">
                                     <input id="txt_pesquisa_input"  type="text" placeholder="Pesquise no fórum!">
                                 </p>
-                                <div id="box_result_pesquisa">  
-                                   	<?php $templateResposta->listaQuestoesRecentes(); ?>
+                                <div id="resultadoPesq">
+                                	<div id="box_result_pesquisa">  
+                                   		<?php $templateResposta->listaQuestoesRecentes(); ?>
+                                	</div>
                                 </div>
                         	</div>                          
                         </div>     	
@@ -91,17 +89,5 @@ $respostasController = new ForumRespostaController();
 	
     <script src="js/funcoes.js"></script>
     <script src="js/ForumResposta.js"></script> 
-    <script type="text/javascript">
-    	var resp = "<?php echo $_GET['resp']?>";
-    	$(document).ready(function (){
-    		//listaRespostas(resp);
-    		//autoCompleteRespostas('');
-    		
-    		// $('#txt_pesquisa_input').keyup(function(){
-				// alert('dsada');
-    			// autoCompleteRespostas($("#txt_pesquisa_input").val());
-        	// })
-    	})
-    </script>
 </body>
 </html>

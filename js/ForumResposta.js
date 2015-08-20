@@ -33,7 +33,7 @@ function autoCompleteRespostas(a)
 }
 $(document).ready(function ()
 {
-    $("#box_result_pesquisa, #box_Respostas").mCustomScrollbar({
+    $("#resultadoPesq, #box_Respostas").mCustomScrollbar({
         axis: "y",
         scrollButtons: {
             enable: !0

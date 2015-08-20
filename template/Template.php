@@ -14,6 +14,10 @@ include_once($path['controller'].'MenuController.php');
 class Template {
 
     public static $path;
+	public $tipoIcone;
+	public $tipoModalCaixa;
+	public $tipoBotao;
+	public $textoMensagem;
 
     function __construct() {
         self::$path = $_SESSION['URL_SYS'];
@@ -79,6 +83,26 @@ class Template {
 					</div>
 			   </div>';
     }
+	
+	public function mensagemRetorno(){
+		echo '<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog modal-sm">
+					<div class="'.$tipoModalCaixa.'">
+						<div class="modal-body">
+							<div class="'.$tipoIcone.'"></div>
+							<div class="modal-body-container">
+								<div class="text-modal">
+									<p class="txt-box">'.$textoMensagem.'</p>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn '.$tipoBotao.'" data-dismiss="modal">OK</button>
+						</div>
+					</div>
+				</div>
+        	</div>';
+	}
 }
 
 ?>

@@ -33,9 +33,9 @@ $templateGeral = new Template();
   <body>
   	<div id="container">
         <div class="row">
-           <?php 
-				$templateGeral->topoSite();
-			?>       
+            <?php 
+		$templateGeral->topoSite();
+            ?>       
         </div>
         <div id="Conteudo_Area">
             <!-- Modal -->
@@ -46,21 +46,13 @@ $templateGeral = new Template();
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3">Open Alerta</button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="img_check"></div>
-                            <div class="modal-body-container">
-                                <div class="text-modal"><p class="txt-box">Sua mensagem foi enviada com sucesso!</p></div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                    </div>
-        </div>
+                    <?php 
+                        $templateGeral->textoMensagem('oi');
+                        $templateGeral->tipoBotao('btn-azul');
+                        $templateGeral->tipoIcone('img_erro');
+                        $templateGeral->tipoModalCaixa('modal-content-azul');
+                        $templateGeral->mensagemRetorno();
+                    ?>
                     <!-- Fim do Modal -->
                     
                     <!-- Modal -->

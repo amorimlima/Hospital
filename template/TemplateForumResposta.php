@@ -43,15 +43,14 @@ class TemplateForumResposta{
                             $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
                                             <p class="ln_pergunta">'.utf8_encode($q->getFrq_questao()).'</p>
                                             <div class="ln_info row">
-                                                <p class="col-xs-12 col-md-12 col-lg-12 align-left">Última postagem '.$data.'</p>
+                                                <p class="col-xs-12 col-md-12 col-lg-12 align-right">Última postagem '.date('d/m/Y',strtotime($data)).'</p>
                                             </div>
                                             <div style="clear:both"></div>
                                             <div class="ln_info row">
-                                                <p class="col-xs-4 col-md-4 col-lg-4 align-right">'.$msgView.' <span class="paipeL">|</span></p>
-                                                <p class="col-xs-4 col-md-4 col-lg-4 align-left">&nbsp'.$totalRespostas.' respostas</p>
+                                                <p class="col-xs-12 col-md-12 col-lg-12 align-right">'.$msgView.'<span class="paipeL">&nbsp|</span> &nbsp'.$totalRespostas.' respostas</p>
                                             </div>
                                             <div style="clear:both"></div>
-				      </div>';
+				      					</div>';
                         }
                 }
                 echo $html;
