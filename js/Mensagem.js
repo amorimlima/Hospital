@@ -262,14 +262,17 @@ function responder(){
 
 var controleMobile = 0; 
 function novo(){
+	$("#mensagem_campo_para").val('');
+	$("#mensagem_campo_assunto").val('');
+	$("#mensagem_campo_conteudo").val('');
 	$("#conteudo_mensagem").css("display", "none");
 	$("#nova_mensagem").css("display", "block");
-	 if( $("#mn_mobile").css("display") == "block") {
-	 	$("#box_msg_left").css("display", "none");
-	 	$("div.col-lg-8").addClass("col-sm-12");
-	 	$("div.col-lg-8").removeClass("col-sm-9");
-	 	controleMobile = 1;
-	 }
+	if( $("#mn_mobile").css("display") == "block") {
+		$("#box_msg_left").css("display", "none");
+		$("div.col-lg-8").addClass("col-sm-12");
+		$("div.col-lg-8").removeClass("col-sm-9");
+		controleMobile = 1;
+	}
 	/*$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',

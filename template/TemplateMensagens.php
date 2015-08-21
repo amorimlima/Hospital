@@ -7,6 +7,7 @@ if(!isset($_SESSION['PATH_SYS'])){
 //session_start();
 include_once($path['dao'].'MensagemDAO.php');
 include_once($path['controller'].'MensagemController.php');
+include_once($path['controller'].'UsuarioController.php');
 
 $path = $_SESSION['PATH_SYS'];
 
@@ -32,7 +33,9 @@ class TemplateMensagens {
 	
 	public function mensagensRecebidas($destinatario){
         $mensagemController = new MensagemController();
+		$usuarioController = new UsuarioController();
 	   	$mensagem = $mensagemController->listaRecebidos($destinatario);
+		
 
 		if (count($mensagem)>0){
 			foreach ($mensagem as $value) {
