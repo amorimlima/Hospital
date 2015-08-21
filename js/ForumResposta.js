@@ -16,20 +16,24 @@ function listaRespostas(a){
 
 function autoCompleteRespostas(a)
 {
-    $.ajax(
-    {
-        url: "ajax/ForumAjax.php",
-        type: "post",
-        dataType: "html",
-        data: {
-            acao: "listaQuestoesRecentes",
-            texto: a
-        },
-        success: function (a)
-        {
-            $("#box_result_pesquisa").html(a)
-        }
-    })
+	
+	setTimeout(function(){
+			console.log($("#txt_pesquisa_input").val()+' -- '+a);
+			if ( $("#txt_pesquisa_input").val() == a) {
+				$.ajax({
+					url: "ajax/ForumAjax.php",
+					type: "post",
+					dataType: "html",
+					data: {
+						acao: "listaQuestoesRecentes",
+						texto: a
+					},
+					success: function (a){
+						$("#box_result_pesquisa").html(a)
+					}
+				})
+			}
+	}, 3000)
 }
 $(document).ready(function ()
 {
@@ -41,7 +45,14 @@ $(document).ready(function ()
     });
 
 	$("#txt_pesquisa_input").keyup(function (){
-        autoCompleteRespostas($("#txt_pesquisa_input").val())
+		  // txt = $("#txt_pesquisa_input").val();
+		  //setTimeout(function(){
+			// console.log($("#txt_pesquisa_input").val());
+			// console.log(txt);
+			autoCompleteRespostas($("#txt_pesquisa_input").val())
+		  //}, 3000)
+		  //autoCompleteRespostas($("#txt_pesquisa_input").val())
+        
     });
 
 	$("body").delegate("#btn_responder", "click", function (){
