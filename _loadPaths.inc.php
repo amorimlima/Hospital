@@ -7,10 +7,10 @@ if ($system == "W")
 	$_PATH_SEPARATOR = '\\';  // Windows
 else
 	$_PATH_SEPARATOR = '/';  // Linux
-
+//
 
 if ($system == "W")
-	$_LOAD_PATH_SYS['home']    = 'C:\\wamp\\www\\CriancasComoParceiras\\Hospital\\'; // Windows
+	$_LOAD_PATH_SYS['home']    = 'C:\\wamp\\www\\Hospital\\'; // Windows
 else
 	$_LOAD_PATH_SYS['home']    = '/var/www/html/';
 
@@ -37,7 +37,7 @@ $_LOAD_PATH_SYS['funcao']     = $_LOAD_PATH_SYS['home'].'funcao'.$_PATH_SEPARATO
 
  
 if ($system == "W")
-	$_LOAD_URL_SYS['BASE_URL']    = '/CriancasComoParceiras/Hospital/';
+	$_LOAD_URL_SYS['BASE_URL']    = '/Hospital/';
 else
 	$_LOAD_URL_SYS['BASE_URL']    = '/var/www/html/';
 
