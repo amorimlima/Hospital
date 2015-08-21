@@ -18,7 +18,6 @@ function autoCompleteRespostas(a)
 {
 	
 	setTimeout(function(){
-			console.log($("#txt_pesquisa_input").val()+' -- '+a);
 			if ( $("#txt_pesquisa_input").val() == a) {
 				$.ajax({
 					url: "ajax/ForumAjax.php",
