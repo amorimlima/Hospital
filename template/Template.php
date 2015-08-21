@@ -13,11 +13,7 @@ include_once($path['controller'].'MenuController.php');
  */
 class Template {
 
-    public static $path;
-	public $tipoIcone;
-	public $tipoModalCaixa;
-	public $tipoBotao;
-	public $textoMensagem;
+    public static $path;    
 
     function __construct() {
         self::$path = $_SESSION['URL_SYS'];
@@ -83,25 +79,57 @@ class Template {
 					</div>
 			   </div>';
     }
-	
-	public function mensagemRetorno(){
-		echo '<div class="modal fade" id="myModal" role="dialog">
+	/*
+		$paginaMensagem => AQUI VAI O NOME DA PÁGINA ONDE VAI APARECER A MENSAGEM
+		$textoMensagem  => TEXTO QUE VAI APARECER NA MENSAGEM
+		$tipoMensagem	=> ÍCONE QUE VAI APARECER NA MENSAGEM(ERRO, ALERTA OU SUCESSO)
+	*/
+	public function mensagemRetorno($paginaMensagem,$textoMensagem,$tipoMensagem){
+        switch($paginaMensagem){
+			case 'mensagens':{
+				$corBorda = 'borda_azul';
+				$corTexto = 'txt_azul';
+				$corBotao = 'btn_azul';
+				break;
+			}
+			case 'forum':{
+				$corBorda = 'borda_vermelho';
+				$corTexto = 'txt_vermelho';
+				$corBotao = 'btn_vermelho';
+				break;
+			}
+			case 'galeria':{
+				$corBorda = 'borda_laranja';
+				$corTexto = 'txt_laranja';
+				$corBotao = 'btn_laranja';
+				break;
+			}
+			case 'livros':{
+				$corBorda = 'borda_verde';
+				$corTexto = 'txt_verde';
+				$corBotao = 'btn_verde';
+				break;
+			}		
+		}
+            
+		echo '<div class="modal fade exibirMsg in" id="myModal" role="dialog">
 				<div class="modal-dialog modal-sm">
-					<div class="'.$tipoModalCaixa.'">
+					<div class="'.$corBorda.'">
 						<div class="modal-body">
-							<div class="'.$tipoIcone.'"></div>
+							<div class="'.$tipoMensagem.'"></div>
 							<div class="modal-body-container">
 								<div class="text-modal">
-									<p class="txt-box">'.$textoMensagem.'</p>
+									<p class="'.$corTexto.'">'.$textoMensagem.'</p>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn '.$tipoBotao.'" data-dismiss="modal">OK</button>
+							<button type="button" class="btn '.$corBotao.'" id="botao_modal">OK</button>
 						</div>
 					</div>
 				</div>
-        	</div>';
+			</div>
+			<div class="modal-backdrop fade in" id="modal"></div>';
 	}
 }
 

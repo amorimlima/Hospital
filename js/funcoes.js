@@ -29,6 +29,11 @@ $(document).ready(function(e) {
           width: 197
         }, 1000 );	
 	});	
+	
+	$('#botao_modal').click(function(){
+		$('#myModal').removeClass('exibirMsg in');
+		$('#modal').removeClass('in');
+	});
 });
 
 function risizeObj(){

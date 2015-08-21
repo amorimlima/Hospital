@@ -164,7 +164,6 @@ img{
 	width:25%;
     margin-right: 4%;
 }
-
 #mn_forum{
 	background:url(../img/bt_forum_normal.png) no-repeat;
     background-size: 100%;
@@ -225,6 +224,7 @@ img{
 	margin: 24px 49px 0 0;
 	height:581px;
 }
+
 /*RODAPE°*/
 #rodape{
 	background:url(../img/barra_colorida.png) repeat-x;
@@ -266,27 +266,9 @@ img{
 	float:left;
 }
 
-/* Modal: Alerta de mensagem */
-.modal-content-azul{
-	border: 3px dotted #26adb5;
-	border-radius: 15px;
-	width: auto;
-	height: auto;
-	padding: 20px 0;
-}
-.modal-content-laranja{
-	border: 3px dotted #FAB522;
-	border-radius: 15px;
-	width: auto;
-	height: auto;
-	padding: 20px 0;
-}
-.modal-content-vermelho{
-	border: 3px dotted #E35F0F;
-	border-radius: 15px;
-	width: auto;
-	height: auto;
-	padding: 20px 0;
+/* MODAL: ALERTA DE MENSAGENS */
+.exibirMsg{
+	display:block !important;
 }
 .modal-footer {
 	text-align: center;
@@ -295,22 +277,116 @@ img{
 .modal-body {
 	padding: 0;
 }
-.btn-azul{
-	background-color: rgb(255,255,255);
-	border: 2px solid;
-	width: 30%;
+.borda_azul{
+	border: 3px dotted #26adb5;
+	border-radius: 15px;
+	width: auto;
+	height: auto;
+	padding: 20px 0;
+	color:#FAB522;
 }
-.btn-laranja{
-	background-color: rgb(255,255,255);
-	border: 2px solid;
-	width: 30%;
+.borda_laranja{
+	border: 3px dotted #FAB522;
+	border-radius: 15px;
+	width: auto;
+	height: auto;
+	padding: 20px 0;
 }
-.btn-vermelho{
-	background-color: rgb(255,255,255);
-	border: 2px solid;
-	width: 30%;
+.borda_vermelho{
+	border: 3px dotted #E35F0F;
+	border-radius: 15px;
+	width: auto;
+	height: auto;
+	padding: 20px 0;
 }
-.img_check {
+.borda_verde{
+	border: 3px dotted #7DBA31;
+	border-radius: 15px;
+	width: auto;
+	height: auto;
+	padding: 20px 0;
+}
+.txt_laranja{
+	color: #FAB522;
+	font-family: "Source Sans Pro";
+	font-weight: 600;
+	font-size: 14px;
+}
+.txt_azul{
+	color: #26adb5;
+	font-family: "Source Sans Pro";
+	font-weight: 600;
+	font-size: 14px;
+}
+.txt_vermelho{
+	color: #E35F0F;
+	font-family: "Source Sans Pro";
+	font-weight: 600;
+	font-size: 14px;;
+}
+.txt_verde{
+	color: #7DBA31;
+	font-family: "Source Sans Pro";
+	font-weight: 600;
+	font-size: 14px;
+}
+.btn_azul{
+	background-color: #e6f2f4;
+	color: #26adb5;
+	border: 2px solid #26adb5;
+	font-weight: 600;
+	width: 90px;
+}
+.btn_laranja{
+	background-color: #fde8bc;
+	color: #FAB522;
+	border: 2px solid #FAB522;
+	font-weight: 600;
+	width: 90px;
+}
+.btn_vermelho{
+	background-color: #f6cfb7;
+	color: #E35F0F;
+	border: 2px solid #E35F0F;
+	font-weight: 600;
+	width: 90px;
+}
+.btn_verde{
+	background-color: #d8eac1;
+	color: #7DBA31;
+	border: 2px solid #7DBA31;
+	font-weight: 600;
+	width: 90px;
+}
+.btn_azul:hover, .btn_azult:active, .btn_azul:active:hover {
+	background-color: #26adb5;
+	color: #FFFFFF;
+	border: 2px solid #26adb5;
+	font-weight: 600;
+	width: 90px;
+}
+.btn_laranja:hover, .btn_laranja:active, .btn_laranja:active:hover {
+	background-color: #FAB522;
+	color: #FFFFFF;
+	border: 2px solid #FAB522;
+	font-weight: 600;
+	width: 90px;
+}
+.btn_vermelho:hover, .btn_vermelho:active, .btn_vermelho:active:hover {
+	background-color: #E35F0F;
+	color: #FFFFFF;
+	border: 2px solid #E35F0F;
+	font-weight: 600;
+	width: 90px;
+}
+.btn_verde:hover, .btn_verde:active, .btn_verde:active:hover {
+	background-color: #7DBA31;
+	color: #FFFFFF;
+	border: 2px solid #7DBA31;
+	font-weight: 600;
+	width: 90px;
+}
+.sucesso{
 	position: absolute;
 	left: 10%;
 	width: 50px;
@@ -320,7 +396,7 @@ img{
 	background-position: 50% 50%;
 	margin-right: 10px;
 }
-.img_alert {
+.alerta{
 	position: absolute;
 	left: 10%;
 	width: 50px;
@@ -330,7 +406,7 @@ img{
 	background-position: 50% 50%;
 	margin-right: 10px;
 }
-.img_erro {
+.erro{
 	position: absolute;
 	left: 10%;
 	width: 50px;
@@ -352,27 +428,11 @@ img{
 .modal-body-container div p {
 	word-break: normal;
 }
-.txt-box {
-	font-family: "Source Sans Pro";
-	font-weight: 600;
-	font-size: 12pt;
-	color: #26adb5;
-}
 .modal-footer {
 	border-top: 0 !important;
 }
-.btn-default {
-	background-color: #e6f2f4;
-	color: #26adb5;
-	border: 2px solid #26adb5;
-	font-weight: 600;
-}
-.btn-default:hover, .btn-default:active, .btn-default:active:hover {
-	background-color: #26adb5;
-	color: #FFF;
-	border: 2px solid #26adb5;
-	font-weight: 600;
-}
+/*FIM DAS MENSAGENS*/
+
 @media (max-width: 767px) {
 	.modal-dialog {
 		width: auto;
