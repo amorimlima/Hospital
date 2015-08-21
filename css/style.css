@@ -632,6 +632,24 @@ img{
 	}
 }
 
+@media (min-width: 768px) and (max-width: 991px){
+    #logo{
+        position: absolute;
+        left: 95px;
+        top: 25px;
+    }
+    
+    #menu{
+        margin-right: 40px;
+        margin-top: 100px;
+        margin-bottom: 25px;
+    }
+    
+    #Conteudo_Area_box_left{
+        margin: 24px 12px 0px 36px;
+    }
+}
+
 @media (min-width: 768px){
 	.navbar-nav>li {
     	float: none;

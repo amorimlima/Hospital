@@ -132,3 +132,9 @@ p#box_right_3_img{
 	color: #4D4D4D;
 	padding: 2px;
 }
+
+@media (min-width: 768px) and (max-width: 991px){
+    #box_right_1{
+        margin-left: 27px;
+    }
+}

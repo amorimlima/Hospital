@@ -15,7 +15,7 @@ $(document).ready(function(e) {
 	});	
 	
 	$("#mn_livros").click(function(){
-		if ($(window).width() < 769){
+		if ($(window).width() < 768){
 			$("#sbm_exercicios").toggle('slow');
 		}
 		return false;

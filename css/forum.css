@@ -140,7 +140,7 @@
     margin-right: 5px;
     margin-left: 20px;
 }
-@media (max-width:768px){
+@media (max-width:767px){
 	#area_geral{
 		min-height:854px;
 	}

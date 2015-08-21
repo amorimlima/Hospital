@@ -259,7 +259,7 @@
     left: 179px;
 }
 
-@media (max-width:768px){
+@media (max-width:767px){
 	#Conteudo_Area_box_left iframe{
 		padding: 0;
 		width: 100%;
