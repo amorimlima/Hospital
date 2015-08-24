@@ -165,7 +165,7 @@ and open the template in the editor.
 }
 @media (min-width: 992px) and (max-width: 1199px) {
     #Conteudo_Area_box_left{
-        width: 90%;
+        width: 95%;
         float: none;
         margin: 35px auto 0;
     }
@@ -324,7 +324,7 @@ and open the template in the editor.
 }
 @media (min-width: 768px) and (max-width: 991px) {
     #Conteudo_Area_box_left{
-        width: 90%;
+        width: 95%;
         float: none;
         margin: 35px auto 0;
     }
@@ -485,7 +485,7 @@ and open the template in the editor.
 }
 @media (max-width: 767px) {
     #Conteudo_Area_box_left{
-        width: 90%;
+        width: 95%;
         float: none;
         margin: 35px auto 0;
     }
@@ -707,7 +707,7 @@ and open the template in the editor.
     #Conteudo_Area_box_right {
         margin: 24px auto 24px auto;
         height: auto;
-        width: 90%;
+        width: 95%;
     }
     #Conteudo_Area_box_right .box_left:first-child {
         margin-top: 0 !important;
@@ -896,7 +896,7 @@ and open the template in the editor.
     #Conteudo_Area_box_right {
         margin: 24px auto 24px auto;
         height: auto;
-        width: 90%;
+        width: 95%;
     }
 
     /* Box Livros */
@@ -1087,7 +1087,7 @@ and open the template in the editor.
     #Conteudo_Area_box_right {
         margin: 24px auto 24px auto;
         height: auto;
-        width: 90%;
+        width: 95%;
     }
 
     /* Box Livros */

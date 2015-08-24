@@ -43,7 +43,7 @@ $templateGeral = new Template();
                         <div id="box_galeria">
                             <p id="topo_galeria"></p>
                             <div id="box_gal_pesquisa">
-                                <div class="col-xs-12 col-md-6 col-lg-8">
+                                <div class="col-xs-12 col-md-6 col-lg-6">
                                     <div id="box_cat">
                                         <p id="box_right_1_box_titulo_1" class="titulo">CATEGORIA</p>
                                         <div class="box_right_1_box_select">
@@ -58,7 +58,7 @@ $templateGeral = new Template();
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-md-6 col-lg-4">
+                                <div class="col-xs-12 col-md-6 col-lg-6">
                                     <div id="box_ass">
                                         <p id="box_right_1_box_titulo_2" class="titulo">ASSUNTO</p>
                                         <div class="box_right_1_box_select">
@@ -232,10 +232,10 @@ $templateGeral = new Template();
                 </div>
             </div>
         </div>
-        </div>
         <footer>
             <div class="row" id="rodape"></div>
         </footer>
+        </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
