@@ -5,10 +5,13 @@ $(document).ready(function(e) {
 		scrollButtons:{
 			enable:true
 		}
-	});	
-	
+	});
 	checkbox();
 	
+	// $('#botao_modal').click(function(){
+		// $('.modalMensagem').css('display','none');
+		// return false;
+	// });
 });
 
 function checkbox(){
@@ -30,11 +33,11 @@ var contMsg = 0;
 		if (typeof idMgs !== "undefined") {
 			
 			contMsg++;
-			//Paga a classe para saber se lista as mensagens enviadas ou recebidas apÛs a exclus„o
+			//Paga a classe para saber se lista as mensagens enviadas ou recebidas ap√≥s a exclus√£o
 			retorno = $('#'+idMgs).attr('class');
 			retorno = retorno.split(' ');
 			
-			//Tranforma em array o id para pegar somente o cÛdigo salvo no banco 
+			//Tranforma em array o id para pegar somente o c√≥digo salvo no banco 
 			var id = idMgs.split('_');
 
 			$.ajax({
@@ -54,10 +57,13 @@ var contMsg = 0;
 	
 	//Verifica se alguma mensagem foi excluida
 	if (contMsg==0) {
-		alert('Selecione uma mensagem para ser deletada!');
+		//alert('Selecione uma mensagem para ser deletada!');
+		$('#mensagemErroDeletar').css('display','block');
 	}else{
 		//Se excluiu, limpa a div e  
-		alert('Mensagem(s) exclu√≠da(s) com sucesso!');
+		$('#mensagemSucessoDeletar').css('display','block');
+		//alert('Mensagem(s) exclu√≠da(s) com sucesso!');
+		
 		$('#box_msg_right_botton').hide();
 		if(retorno[0] == 'recebido'){
 		   recebidasFuncao();

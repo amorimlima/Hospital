@@ -224,6 +224,18 @@ $templateMensagens = new TemplateMensagens();
             <div class="row" id="rodape"></div>
         </footer>
     </div>
+	
+	<!--Sempre que for utilizar uma mensagem, criar uma div com a classe modalMensagem e com o display none-->
+	<div id="mensagemErroDeletar" class='modalMensagem' style="display:none">
+		<?php
+			$templateGeral->mensagemRetorno('mensagens','Selecione uma mensagem para ser deletada!','erro');
+		?>
+	</div>
+	<div id="mensagemSucessoDeletar" style="display:none" class='modalMensagem'>
+		<?php
+			$templateGeral->mensagemRetorno('mensagens','Mensagem deletada com sucesso!','sucesso');
+		?>
+	</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>

@@ -30,9 +30,9 @@ $(document).ready(function(e) {
         }, 1000 );	
 	});	
 	
-	$('#botao_modal').click(function(){
-		$('#myModal').removeClass('exibirMsg in');
-		$('#modal').removeClass('in');
+	$('.botao_modal').click(function(){
+		//Apenas esconde as divs com a classe modalMensagem
+		$('.modalMensagem').css('display','none');
 	});
 });
 

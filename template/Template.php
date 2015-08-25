@@ -124,12 +124,12 @@ class Template {
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn '.$corBotao.'" id="botao_modal">OK</button>
+							<button type="button" class="btn '.$corBotao.' botao_modal" >OK</button>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="modal-backdrop fade in" id="modal"></div>';
+			<div class="modal-backdrop fade in"></div>';
 	}
 }
 
