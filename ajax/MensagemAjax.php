@@ -37,7 +37,7 @@ switch ($_POST["acao"]){
 		
 		if (count($mensagem)>0){
 			foreach ($mensagem as $value){
-				//Fazer uma comparação com o usuário logado para listar o outro e o tipo da mensagem!!
+				//Fazer uma comparaÃ§Ã£o com o usuÃ¡rio logado para listar o outro e o tipo da mensagem!!
 				$userLogado = '20'; //Pegar o logado
 				if ($value->getMsg_destinatario() == $userLogado){
 					$usuario = $usuarioController->select($value->getMsg_remetente());
@@ -112,7 +112,7 @@ switch ($_POST["acao"]){
 
 		if (count($mensagem)>0){
 			foreach ($mensagem as $value) {
-				
+
 				$usuario = $usuarioController->select($value->getMsg_destinatario());
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" enviado col1 row">
 						<p class="msg_check col-lg-1"><span class="check-box"></span></p>
@@ -233,7 +233,7 @@ switch ($_POST["acao"]){
         $mensagem = $mensagemController->detalhe($idmens);
         
         //Pegar o nome do usuario logao!!
-        $remetente = 'Usuário logado';
+        $remetente = 'UsuÃ¡rio logado';
 		$destinatario = $usuarioController->select($mensagem->getMsg_destinatario);
 		
 		$result = Array(
@@ -288,7 +288,7 @@ switch ($_POST["acao"]){
         }
 		
 		$remetente = $usuarioController->select($mensagem->getMsg_remetente());
-		$destinatario = 'Usuário Logado'; //Pegar da sessão quando tiver!!
+		$destinatario = 'UsuÃ¡rio Logado'; //Pegar da sessÃ£o quando tiver!!
        
 		$result = Array(
 			'data'=>$mensagem->getMsg_data(),
