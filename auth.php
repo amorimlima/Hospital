@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(!isset($_SESSION['PATH_SYS'])){
+   require_once '_loadPaths.inc.php'; 
+}
+
 $paths = $_SESSION['PATH_SYS'];
 require_once ($paths["controller"]."UsuarioController.php");
 
@@ -11,11 +15,12 @@ if(isset($_POST)){
 
 	$usuarioController = new UsuarioController();
 	$user = $usuarioController->autenticaUsuario($usuario, $senha);
-	
+
+	//print_r($user);
 	if($user!=null){
-		//$adm = Array('nome'=>$user->getNome(),'id'=>$user->getId(),'grupo'=>$user->getGrupo_id());
-		//$_SESSION['ADM'] = serialize($adm);
-		$result = Array('erro'=>false,'msg'=>'Logado!!','url'=>'painel.php');
+		$adm = Array('nome'=>$user->getUsr_nome(),'id'=>$user->getUsr_id());
+		$_SESSION['USR'] = serialize($adm);
+		$result = Array('erro'=>false,'msg'=>'Logado!!','url'=>'inicio.php');
 	}else{
 		
 //		if($_SESSION['ADM']){

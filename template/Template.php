@@ -22,13 +22,20 @@ class Template {
     //Topo Site	
     public function topoSite(){
         $menuControler = new MenuController();
+		//$usuarioController = new UsuarioController();
         $menuLista = $menuControler->selectTipoPerfil('Botao','2');
+		if (!isset($_SESSION['USR'])) {
+			header("location:index.php");
+			die();
+		} else $usrLogado = unserialize($_SESSION['USR']);
+		
+		//$usuario = $usuarioController->select();
         echo'<div class="col-lg-12" id="topo">
                 <div class="row" id="row_logout">                    
                     <div class="col-xs-12 col-md-6 col-lg-7 pull-right" id="boxMenu">
                     	<div id="user_logout">
                         	<div id="user_logout_pequena">
-                                <p id="user_logado">Rosana Amaral</p>
+                                <p id="user_logado">'.$usrLogado['nome'].'</p>
                                 <span id="separador">
                                     <img class="img-responsive" src="img/separador.png" width="2" height="22" alt=""/>
                                 </span>

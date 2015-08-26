@@ -68,6 +68,11 @@ class MensagemController {
 		return $valor;
 	} 
 
+	public function deletadasByUsuario($idUsuario){
+		 $valor = $this->mensagemDAO->deletadasByUsuario($idUsuario);
+		return $valor;
+	} 
+
 
 	public function detalhe($idmens){
 		$valor = $this->mensagemDAO->detalhe($idmens);

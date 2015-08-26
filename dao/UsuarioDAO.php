@@ -112,7 +112,7 @@ class UsuarioDAO extends DAO{
         $sql = "select * from usuario";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
         
@@ -135,12 +135,13 @@ class UsuarioDAO extends DAO{
      
 	public function autenticaUsuario($usuario,$senha){
 		$sql = "select * from usuario where usr_login = '".$usuario."' and usr_senha = '".$senha."' limit 1";
+		//echo $sql;
+	
 		$user = null;
 
 		$result = $this->retrieve($sql);
-		//print_r($sql);
-		if(mysql_num_rows($result)>0){
-    		$qr = mysql_fetch_array($result);
+		if(mysqli_num_rows($result)>0){
+    		$qr = mysqli_fetch_array($result);
 			$user = new Usuario();
             $user->setUsr_id($qr["usr_id"]);
             $user->setUsr_nome($qr["usr_nome"]);
@@ -157,27 +158,6 @@ class UsuarioDAO extends DAO{
 		return $user;
 	}
 	
-public function autenticakhjgcUsuario($usuario,$senha){
-		$sql = "select * from usuarios where usuario = '".$usuario."' and senha = '".$senha."' limit 1";
-		$u = null;
-		$result = $this->retrieve($sql);
-		//echo mysql_num_rows($result);
-		if(mysql_num_rows($result)>0){
-			$qr = mysql_fetch_array($result);
-			$u = new Usuario();
-			$u->setId($qr["id"]);
-			$u->setNome($qr["nome"]);
-			$u->setSobrenome($qr["sobrenome"]);
-			$u->setUsuario($qr["usuario"]);
-			$u->setSenha($qr["senha"]);
-			$u->setEmail($qr["email"]);
-			$u->setGrupo_id($qr["grupo_id"]);
-			$u->setAtivo($qr["ativo"]);
-			$u->setLogin($qr["login"]);
-			$u->setSenha($qr["senha"]);
-		}
-		//print_r($u);
-		return $u;
-	}
+
 }
 ?>

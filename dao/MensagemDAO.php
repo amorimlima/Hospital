@@ -97,7 +97,7 @@ class MensagemDAO extends DAO{
      }
      
      public function count($idmens){
-        $sql = "select * from mensagem where msg_ativo = 1 and msg_lida = 'n' and msg_destinatario=".$idmens." ";
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_lida = 'n' and msg_destinatario=".$idmens." and msg_proprietario = ".$idmens;
         $result = $this->retrieve($sql);
         $qr = mysqli_num_rows($result);
         
@@ -107,7 +107,7 @@ class MensagemDAO extends DAO{
      
      public function listaEnviadas($idmens) {
      
-        $sql = "select * from mensagem where msg_ativo = 1 and msg_remetente = ".$idmens;
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_remetente = ".$idmens." and msg_proprietario = ".$idmens;
         $lista = array();
     	$result = $this->retrieve($sql);
     	while ($qr = mysqli_fetch_array($result))
@@ -165,7 +165,7 @@ class MensagemDAO extends DAO{
           
     public function listaRecebidos($destinatario){
          
-        $sql = "select * from mensagem where msg_ativo = 1 and msg_destinatario = ".$destinatario." ";
+        $sql = "select * from mensagem where msg_ativo = 1 and msg_destinatario = ".$destinatario." and msg_proprietario = ".$destinatario;
         $lista = array();
     	$result = $this->retrieve($sql);
     	while ($qr = mysqli_fetch_array($result))
@@ -244,9 +244,37 @@ class MensagemDAO extends DAO{
     	return $lista;
      }
 	 
+	 public function deletadasByUsuario($idUsuario){
+        $sql = "select * from mensagem where msg_ativo = 0 and msg_proprietario = ".$idUsuario;
+    	$result = $this->retrieve($sql);
+    	$lista = array();
+        while ($qr = mysqli_fetch_array($result))
+    	{
+                $mens = new Mensagem();
+                $mens->setMsg_id($qr["msg_id"]);
+                $mens->setMsg_destinatario($qr["msg_destinatario"]);
+                $mens->setMsg_remetente($qr["msg_remetente"]);
+                $mens->setMsg_assunto($qr["msg_assunto"]);
+                $mens->setMsg_mensagem($qr["msg_mensagem"]);
+                $mens->setMsg_lida($qr["msg_lida"]);
+                $mens->setMsg_cx_entrada($qr["msg_cx_entrada"]);
+                $mens->setMsg_cx_enviado($qr["msg_cx_enviado"]);
+                $mens->setMsg_tipo_mensagem($qr["msg_tipo_mensagem"]);
+                $mens->setMsg_data($qr["msg_data"]);
+                $mens->setMsg_proprietario($qr["msg_proprietario"]);
+                $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setDestinatarios($qr["destinatarios"]);
+                $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
+                array_push($lista, $mens);
+        }    
+    	return $lista;
+     }
+	 
 	public function deleteDefinitivo($idmens){
         $sql = "DELETE FROM `mensagem` WHERE msg_id = ".$idmens." limit 1";
         return $this->execute($sql);
     }
+	
+
 }
 ?>
