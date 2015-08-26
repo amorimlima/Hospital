@@ -141,6 +141,12 @@
     margin-left: 20px;
 }
 @media (max-width:767px){
+	#Conteudo_Area_box_Grande {
+		width: 92.1%;
+		height: 588px;
+		float: left;
+		margin: 24px 0 0 24px;
+	}
 	#area_geral{
 		min-height:854px;
 	}
@@ -172,12 +178,18 @@
 		overflow: auto;
 	}
 }
-@media (min-width: 768px) and (max-width: 1199px) {
-	#Conteudo_Area_box_Grande {
-		width: 95.1%;
-		height: 588px;
+@media (min-width: 768px) and (max-width: 991px) {
+	.qtd_resp {
+		width: 114px;
 		float: left;
-		margin: 24px 0 0 24px;
+		margin: 12px 0 14px 11px;
+		line-height: 31px;
+	}
+	.qtd_visu {
+		width: 143px;
+		float: left;
+		margin: 12px 0 0 87px;
+		line-height: 31px;
 	}
 }
 
