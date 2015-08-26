@@ -13,16 +13,14 @@ $mensagemController = new MensagemController();
 $usuarioController = new UsuarioController();
 //$_POST["acao"] = "listaEnviadasMobileDetalhe";
 switch ($_POST["acao"]){
-    case "deleteMensagem":{
-      
+     case "deleteMensagem":{      
         $idmens = $_POST["id"];
         $mensagem = $mensagemController->selectMensagem($idmens);
-    
-        if(!empty($mensagem->getMsg_id())){
+		if($mensagem->getMsg_id()!=NULL){
           $mensagemController->delete($_POST["id"]);  
           $result = Array('ok'=>true,'msg'=>'<div class="alert alert-danger"><i class="fa fa-times"></i> Deletado com sucesso!</div>');
           echo json_encode($mensagem);
-        }else{
+       	}else{
           $mensagemController->deleteDefinitivo($_POST["id"]);  
           $result = Array('ok'=>true,'msg'=>'<div class="alert alert-danger"><i class="fa fa-times"></i> Deletado com sucesso!</div>');
           echo json_encode($mensagem);
