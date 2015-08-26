@@ -1,4 +1,5 @@
 <?php
+//session_start();
 //if(!isset($_SESSION['PATH_SYS'])){
     require_once /*$_SESSION['BASE_URL']*/'../_loadPaths.inc.php';
 //}
@@ -12,6 +13,7 @@ $template = new TemplateMensagens();
 $mensagemController = new MensagemController();
 $usuarioController = new UsuarioController();
 //$_POST["acao"] = "listaEnviadasMobileDetalhe";
+//print_r($_POST);
 switch ($_POST["acao"]){
      case "deleteMensagem":{      
         $idmens = $_POST["id"];
@@ -30,13 +32,15 @@ switch ($_POST["acao"]){
     
     case "deletadas":{
         
-        $mensagem = $mensagemController->deletadas();
+		$logado = unserialize($_SESSION['USR']);
+        $mensagem = $mensagemController->deletadasByUsuario($logado['id']);
 		
 		
 		if (count($mensagem)>0){
 			foreach ($mensagem as $value){
 				//Fazer uma comparação com o usuário logado para listar o outro e o tipo da mensagem!!
-				$userLogado = '20'; //Pegar o logado
+				$logado = unserialize($_SESSION['USR']);
+				$userLogado = $logado['id'];
 				if ($value->getMsg_destinatario() == $userLogado){
 					$usuario = $usuarioController->select($value->getMsg_remetente());
 					$tipo = '(recebida)';
@@ -59,13 +63,13 @@ switch ($_POST["acao"]){
 			echo '<div class="alert alert-warning" role="alert"><strong>Nenhuma mensagem em sua Lixeira.</strong></div>';
 		}
         break;
-     
     }
     
     case "deletadasMobile":{
-         $mensagem = $mensagemController->deletadas();
+        $logado = unserialize($_SESSION['USR']);
+        $mensagem = $mensagemController->deletadasByUsuario($logado['id']);
 
-          echo '<p class="row" id="linha_titulos">
+        echo '<p class="row" id="linha_titulos">
                 <span class="col-xs-3 col-md-3 col-lg-3" id="titulo_rem">REMETENTE</span>
                 <span class="col-xs-6 col-md-6 col-lg-6" id="titulo_ass">ASSUNTO</span>
                 <span class="col-xs-3 col-md-3 col-lg-3" id="titulo_data">DATA</span>
@@ -79,7 +83,7 @@ switch ($_POST["acao"]){
             }
             
                 
-              echo'<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile" onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')">
+              echo'<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile" onclick="EnviadasMobileDetalhDetalheFuncao('.$value->getMsg_id().')">
 						<div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
 							  <p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$value->getMsg_id().'</p>
 							  <p class="msg_assunto_mobile col-xs-6 col-md-6 col-lg-6">'.utf8_encode($value->getMsg_assunto()).'</p>
@@ -114,7 +118,7 @@ switch ($_POST["acao"]){
 				$usuario = $usuarioController->select($value->getMsg_destinatario());
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" enviado col1 row">
 						<p class="msg_check col-lg-1"><span class="check-box"></span></p>
-						<div  onclick="RecebidasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">				  				  
+						<div  onclick="EnviadasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">				  				  
 						  <p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
 						  <p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
 						  <p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
@@ -230,10 +234,10 @@ switch ($_POST["acao"]){
         
         $mensagem = $mensagemController->detalhe($idmens);
         
-        //Pegar o nome do usuario logao!!
-        $remetente = 'Usuário logado';
-		$destinatario = $usuarioController->select($mensagem->getMsg_destinatario);
-		
+		$logado = unserialize($_SESSION['USR']);
+		$remetente = $logado['nome'];
+		$destinatario = $usuarioController->select($mensagem->getMsg_destinatario());
+
 		$result = Array(
 			'data'=>$mensagem->getMsg_data(),
 			'remetente'=>utf8_encode($remetente),
@@ -286,7 +290,8 @@ switch ($_POST["acao"]){
         }
 		
 		$remetente = $usuarioController->select($mensagem->getMsg_remetente());
-		$destinatario = 'Usuário Logado'; //Pegar da sessão quando tiver!!
+		$logado = unserialize($_SESSION['USR']);
+		$destinatario = $logado['nome'];
        
 		$result = Array(
 			'data'=>$mensagem->getMsg_data(),
@@ -305,8 +310,10 @@ switch ($_POST["acao"]){
          $valor = $mensagemController->count($idmens);
          $result = Array('qtd'=>$valor);
          echo json_encode($result);
+		 
+		 break;
     }
            
 }
 
-?>
+?> 
