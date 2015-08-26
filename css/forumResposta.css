@@ -1,3 +1,9 @@
+#Conteudo_Area_box_Grande {
+	width:92.1%;
+	height: 588px;
+	float:left;
+	margin:24px 0 0 49px;
+}
 #box_topico{
 	background:#fff;
 	height:100px;	
@@ -130,6 +136,16 @@
 	color:#ED9255;
 	margin-left:1px;
 }
+
+#Conteudo_Area_box_left{
+    margin: 24px 12px 0 36px;
+}
+
+#Conteudo_Area_box_right {
+	margin: 24px 12px 24px 24px;
+	height: 581px;
+        width: 94%;
+    }
 
 @media (max-width:767px){
         
