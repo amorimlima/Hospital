@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 
 $system = "W"; // W ou L
 
@@ -10,7 +10,7 @@ else
 //
 
 if ($system == "W")
-	$_LOAD_PATH_SYS['home']    = 'C:\\wamp\\www\\Hospital\\'; // Windows
+	$_LOAD_PATH_SYS['home']    = 'C:\\xampp\\htdocs\\Hospital\\'; // Windows
 else
 	$_LOAD_PATH_SYS['home']    = '/var/www/html/';
 
