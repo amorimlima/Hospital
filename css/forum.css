@@ -127,10 +127,22 @@
     margin-right: 5px;
     margin-left: 20px;
 }
-.qtd_resp{
+/*.qtd_resp{
     width: 114px;
     float: right;
     margin: 22px 38px 0px 0px;
+    line-height: 31px;
+}*/
+.qtd_resp {
+    width: 114px;
+    float: left;
+    margin: 22px 38px 0px 12px;
+    line-height: 31px;
+}
+.qtd_visu {
+    width: 143px;
+    float: left;
+    margin: 22px 0 0 87px;
     line-height: 31px;
 }
 .qtd_resp span{
@@ -141,12 +153,12 @@
     margin-left: 20px;
 }
 @media (max-width:767px){
-	#Conteudo_Area_box_Grande {
+	/*#Conteudo_Area_box_Grande {
 		width: 92.1%;
 		height: 588px;
 		float: left;
 		margin: 24px 0 0 24px;
-	}
+	}*/
 	#area_geral{
 		min-height:854px;
 	}
@@ -178,7 +190,7 @@
 		overflow: auto;
 	}
 }
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 979px) {
 	.qtd_resp {
 		width: 114px;
 		float: left;
@@ -191,6 +203,16 @@
 		margin: 12px 0 0 87px;
 		line-height: 31px;
 	}
+}
+
+@media (min-width: 980px) and (max-width: 1199px){
+    .qtd_visu{
+        margin: 12px 0 0 87px;
+    }
+
+    .qtd_resp{
+        margin: 12px 0px 14px 11px;
+    }
 }
 
 /*Barra de rolagem com plugin JS */
