@@ -5,7 +5,7 @@ and open the template in the editor.
 */
 /* 
     Created on : 20/08/2015, 12:48:23
-    Author     : MAC5
+    Author     : Lucas
 */
 
 /* Box Relatorios */
@@ -164,11 +164,6 @@ and open the template in the editor.
     }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
-    #Conteudo_Area_box_left{
-        width: 95%;
-        float: none;
-        margin: 35px auto 0;
-    }
     #box_relatorios{
         width: 100%;
         height: 560px;
@@ -323,11 +318,6 @@ and open the template in the editor.
     }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-    #Conteudo_Area_box_left{
-        width: 95%;
-        float: none;
-        margin: 35px auto 0;
-    }
     #box_relatorios{
         width: 100%;
         height: 560px;
@@ -484,11 +474,6 @@ and open the template in the editor.
     }
 }
 @media (max-width: 767px) {
-    #Conteudo_Area_box_left{
-        width: 95%;
-        float: none;
-        margin: 35px auto 0;
-    }
     #box_relatorios{
         width: 100%;
         height: auto;
@@ -704,11 +689,6 @@ and open the template in the editor.
         margin-top: 30px;
     }
 
-    #Conteudo_Area_box_right {
-        margin: 24px auto 24px auto;
-        height: auto;
-        width: 95%;
-    }
     #Conteudo_Area_box_right .box_left:first-child {
         margin-top: 0 !important;
     }
@@ -893,11 +873,6 @@ and open the template in the editor.
         margin-top: 45px;
     }
 
-    #Conteudo_Area_box_right {
-        margin: 24px auto 24px auto;
-        height: auto;
-        width: 95%;
-    }
 
     /* Box Livros */
         #box_livros {
@@ -1084,11 +1059,7 @@ and open the template in the editor.
         margin-top: 45px;
     }
 
-    #Conteudo_Area_box_right {
-        margin: 24px auto 24px auto;
-        height: auto;
-        width: 95%;
-    }
+
 
     /* Box Livros */
         #box_livros {

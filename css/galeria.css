@@ -11,7 +11,9 @@
 		margin: -13px 0 0 17px;
 	}
 	#container_mv_box {
-		margin: 5px 20px 0;
+		box-sizing: border-box;
+	    width: 100%;
+	    padding: 15px 2.5%;
 	}
 	#box_select{
 		z-index: 10;
@@ -52,7 +54,9 @@
 		margin: 23px 0 16px;
 	}
 	.box_left_gal_results {
-		width: 95%;
+		box-sizing: border-box;
+		padding: 0 2.5% ;
+		width: 100%;
 		margin-left: auto;
 		margin-right: auto; 
 	}
@@ -92,19 +96,8 @@
 		border: 2px dotted #FAB522;
 		background: #FFFFFF;
 	}
-	#Conteudo_Area_box_right {
-		width: 95%;
-		margin: 113px auto 0 auto;
-		height: auto;
-	}
 	#box_galeria {
 		height: 670px;
-	}
-	#Conteudo_Area_box_left {
-		margin: 24px auto 0 auto;
-		float: none;
-		width: 95%;
-		height: 581px;
 	}
 
 	/* Busca */
@@ -594,7 +587,7 @@
 @media (max-width: 767px) {
 	/* Mais Vistos */
 		/* Mobiles muito pequenos */
-		@media (max-width: 389px) {
+		@media (max-width: 480px) {
 			#box_mais_vistos{
 				width: 100%;
 				height: auto;
@@ -687,11 +680,10 @@
 		}
 
 		/* Mobiles comuns*/
-		@media (min-width: 390px) and (max-width: 767px) {
+		@media (min-width: 481px) and (max-width: 767px) {
 			#box_mais_vistos{
-				margin-top: 100px;
 				width: 100%;
-				height: 68%;
+				height: auto;
 				border: 2px dotted #FAB522;
 				background: #FFFFFF;
 			}
@@ -794,9 +786,8 @@
 @media (min-width: 768px) and (max-width: 991px) {
 	/* Mais Vistos */
 		#box_mais_vistos{
-			margin-top: 100px;
 			width: 100%;
-			height: 35%;
+			height: auto;
 			border: 2px dotted #FAB522;
 			background: #FFFFFF;
 		}
@@ -911,17 +902,6 @@
 			margin-top: 12px;
 			border: 2px dotted #FAB522;
 			background: #FFFFFF;
-		}
-		#Conteudo_Area_box_right {
-			width: 95%;
-			margin: 24px auto 0 auto;
-			height: auto;
-		}
-		#Conteudo_Area_box_left {
-			margin: 24px auto 0 auto;
-			float: none;
-			width: 95%;
-			height: 581px;
 		}
 }
 
@@ -1044,17 +1024,6 @@
 			margin-top: 12px;
 			border: 2px dotted #FAB522;
 			background: #FFFFFF;
-		}
-		#Conteudo_Area_box_right {
-			width: 95%;
-			margin: 24px auto 0 auto;
-			height: auto;
-		}
-		#Conteudo_Area_box_left {
-			margin: 24px auto 0 auto;
-			float: none;
-			width: 95%;
-			height: 581px;
 		}
 }
 
