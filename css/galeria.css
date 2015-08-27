@@ -13,7 +13,7 @@
 	#container_mv_box {
 		box-sizing: border-box;
 	    width: 100%;
-	    padding: 15px 2.5%;
+	    padding: 15px 15px;
 	}
 	#box_select{
 		z-index: 10;
@@ -55,11 +55,12 @@
 	}
 	.box_left_gal_results {
 		box-sizing: border-box;
-		padding: 0 2.5% ;
+		padding: 0;
 		width: 100%;
 		margin-left: auto;
 		margin-right: auto; 
 	}
+	#box_left_box_titulo_results { padding: 0 2.5%;	}
 	#assuno_text {
 		width: 100%;
 		height: 28px;
@@ -1030,13 +1031,13 @@
 @media (min-width: 1200px) {
 	/* Mais Vistos */
 		#box_mais_vistos{
+			box-sizing: border-box;
 			width: 100%;
-			height: 62%;
+			height: auto;
 			border: 2px dotted #FAB522;
 			background: #FFFFFF;
 		}
 		.mv_caixa{
-			/*margin-top: 15px;*/
 			width: 100%;
 			height: auto;
 			margin-right:2px;
@@ -1124,7 +1125,7 @@
 	/* Carregar Arquivos */
 		#box_carregar{  
 			width: 100%;
-			height: 36%;
+			height: 188px;
 			margin-top: 12px;
 			border: 2px dotted #FAB522;
 			background: #FFFFFF;
