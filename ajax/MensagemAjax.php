@@ -1,8 +1,7 @@
 <?php
-//session_start();
-//if(!isset($_SESSION['PATH_SYS'])){
-    require_once /*$_SESSION['BASE_URL']*/'../_loadPaths.inc.php';
-//}
+
+require_once '../_loadPaths.inc.php';
+
 $path = $_SESSION['PATH_SYS'];
 
 include_once($path['controller'].'MensagemController.php');
