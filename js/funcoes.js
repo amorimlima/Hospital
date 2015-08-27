@@ -1,11 +1,23 @@
 $(document).ready(function(e) {
-	var largura = $('#objeto').width();
-	var altura  = ( 74 * largura ) / 100;	
-	$('#objeto').css('height', Math.round(altura+10) + 'px');
+	//Define o tamanho do objeto na tela mobile
+	var largura = $(window).width();
+	var alturaJanela = $(window).height();
+	var altura =  $('#objeto').height();	
+	var result,total;
+	if(largura>1280){
+		total  = 581;
+	}else if(altura>alturaJanela){
+		result = (alturaJanela/largura)*100;
+		total  = (result * largura ) / 100;		
+	}else{
+		total  = (74 * largura ) / 100;	
+	}
+	$('#objeto').css('height', Math.round(total) + 'px');
+	//fim 
 	
-	var largura = $('#img_teste').width();
-	var altura  = ( 74 * largura ) / 100;	
-	$('#img_teste').css('height', Math.round(altura+10) + 'px');
+	var largura1 = $('#img_teste').width();
+	var altura2  = ( 74 * largura1) / 100;	
+	$('#img_teste').css('height', Math.round(altura2) + 'px');
 	
 	$('.tema').click(function(){
 		var idTema = $(this).attr('id');

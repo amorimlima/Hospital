@@ -442,8 +442,6 @@ img{
 		background-color: #fff;
 		border-radius: 15px;
 	}
-}
-@media (max-width:767px){
 	.navbar-toggle .icon-bar{
 		display: block;
 		width: 22px;
@@ -631,7 +629,8 @@ img{
 		font-family: Overlock;
 	}
 }
-@media (min-width: 768px){
+  
+@media (min-width: 768px) and (max-width: 991px) {
 	.navbar-nav>li {
     	float: none;
 	}
@@ -686,9 +685,6 @@ img{
 		padding: 10px 0px;
 		margin: 6px 31px
 	}
-}
-
-@media (min-width: 768px) {
    #logo {
 		position: absolute;
 		left: -15px;
@@ -736,12 +732,78 @@ img{
 		width: 95%;
 	}
 }
+@media (min-width: 992px){
+	.navbar-nav>li {
+    	float: none;
+	}
+	.modal-dialog {
+		width: 350px;
+		margin-top: 25vh;
+		background-color: #fff;
+		border-radius: 15px;
+	}
+	#sbm_exercicios .sub_a{
+		height: 21px;
+		margin-bottom: 6px;
+		margin-left: 11px;
+		position: relative; 
+		padding: 0px 0;
+		z-index: 999;
+		border: 1px solid #7DBA31;
+		background-color: #FFFFFF;
+		list-style: none;
+		width: 66px;
+	}
+	#sbm_exercicios .sub_a a{
+		background: url(../img/submenu.png) no-repeat;
+		min-width: 80px;
+		margin-left: -23px;
+		background-position: 10px 9px;
+		margin-bottom: 11px;
+		text-decoration: none;
+		height: 14px;
+		padding-left: 36px;
+		color: #000;
+		font-family : Overlock;
+	}
+	#sbm_exercicios .sub_a:hover{
+	    background-color: #e9f1db;
+	}
 
-
-
+	#sbm_exercicios{
+		position:absolute; 
+		top: 30px; 
+		border-left: 1px dotted #7cb931; 
+		display:none;
+	}
+	
+	#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
+		width: 78px;
+		height: 130px;
+		display: block;
+		border-left: 1px dotted #7cb931;
+		position: absolute;
+		z-index: 9999;
+		padding: 10px 0px;
+		margin: 6px 31px
+	}
+	#logo img {
+		margin-top: 20px;
+		float: left;
+		margin-left: 50px;
+		width: 67.5%;
+	}   
+	#menu {
+		min-width: 79%;
+		margin-right: -6px;
+		text-align: left;
+		float: right;
+	}
+}
 
 @-moz-document url-prefix(){
     #sbm_exercicios{
         top: 45px;
     }
 }
+
