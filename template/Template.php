@@ -39,7 +39,7 @@ class Template {
                                 <span id="separador">
                                     <img class="img-responsive" src="img/separador.png" width="2" height="22" alt=""/>
                                 </span>
-                                <p id="logout">SAIR</p>
+                                <a id="logout" href="sair.php">SAIR</a>
                             </div>
                         </div>
                         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
