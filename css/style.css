@@ -658,12 +658,10 @@ img{
 		float: left;
 		width: 100%;
 		height:auto;
-		border:1px solid;
 	}
 	#Conteudo_Area_box_right{
 		padding: 0 12px;
 		height:auto;
-		border:1px solid;
 	}
 	/*--------------------------------*/
 	.modal-dialog {
