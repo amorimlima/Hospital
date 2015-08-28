@@ -5,7 +5,7 @@
 	width:99%;
 	height:176px;
 	margin-bottom:29px;
-	margin-top:52px;
+	margin-top:26px;
 	border:2px dotted #FAB625;	
 }
 
@@ -131,10 +131,4 @@ p#box_right_3_img{
 	font-size: 75%;
 	color: #4D4D4D;
 	padding: 2px;
-}
-
-@media (min-width: 768px) and (max-width: 991px){
-    #box_right_1{
-        margin-left: 27px;
-    }
 }

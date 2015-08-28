@@ -32,7 +32,7 @@ class Template {
 		//$usuario = $usuarioController->select();
         echo'<div class="col-lg-12" id="topo">
                 <div class="row" id="row_logout">                    
-                    <div class="col-xs-12 col-md-6 col-lg-7 pull-right" id="boxMenu">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7 pull-right" id="boxMenu">
                     	<div id="user_logout">
                         	<div id="user_logout_pequena">
                                 <p id="user_logado">'.$usrLogado['nome'].'</p>
@@ -80,7 +80,7 @@ class Template {
 						</div>
 					</div>
 					<div class="row">                	
-						<div class="col-xs-12 col-md-6 col-lg-5" id="logo">
+						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-5" id="logo">
 							<a href="index.php"><img src="img/logo.png"/></a>
 						</div>                    
 					</div>

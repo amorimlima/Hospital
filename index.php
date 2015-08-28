@@ -23,7 +23,7 @@ $(document).ready(function(){
 		var user = $("#usuario").val();
 		var senha = $("#senha").val();
 		//alert(senha);
-		if(user != "" && senha != ""){
+		if(user != "" && senha != ""){ 
 			$.ajax({
 				url:'auth.php',
 				type:'post',
