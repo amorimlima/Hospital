@@ -53,9 +53,11 @@ $templateMensagens = new TemplateMensagens();
                                             <div class="row" id="ln_NRE">
                                                 <div class="col-xs-12 col-md-12 col-lg-12">
                                                     <div id="box_NRE">
-                                                        <a href="#" onclick="novo()" id="btn_msg_novo"></a>
-                                                        <a href="#" onclick="responder()" class="margin_ambas" id="btn_msg_responder"></a>
-                                                        <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>
+                                                    	<div id="box_nre_dentro">
+                                                            <a href="#" onclick="novo()" id="btn_msg_novo"></a>
+                                                            <a href="#" onclick="responder()" class="margin_ambas" id="btn_msg_responder"></a>
+                                                            <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>
+                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,23 +137,32 @@ $templateMensagens = new TemplateMensagens();
                                         <!--Menu geral-->
                                         <div id="mn_geral">
                                             <div id="btn_recebidos" onclick="recebidasFuncao()" class="btn_msg btn_msg_ativo">
+                                            	<span class="box_img"><img id="recebidas_msg" src="img/icone_recebidos.png" alt=""/></span>
                                                 <span id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>                                    	</div>
-                                            <div id="btn_enviados" onclick="envidasFuncao()" class="btn_msg"><span>ENVIADOS</span></div>
-                                            <div id="btn_excluidos" onclick="deletadas()"  class="btn_msg"><span>EXCLUÍDOS</span></div>
+                                            <div id="btn_enviados" onclick="envidasFuncao()" class="btn_msg">
+                                            	<span class="box_img"><img id="enviados_msg" src="img/icone_enviados.png" alt=""/></span>
+                                                <span>ENVIADOS</span>
+                                            </div>
+                                            <div id="btn_excluidos" onclick="deletadas()"  class="btn_msg">
+                                            	<span class="box_img"><img id="excluidos_msg" src="img/icone_excluidos.png" alt=""/></span>
+                                                <span>EXCLUÍDOS</span>
+                                            </div>
                                         </div>  
                                         <!--Menu mobile-->
     									<div class="panel-group" id="mn_mobile" role="tablist" aria-multiselectable="true">  
       									  <div class="panel">
                                             <div role="tab" id="headingOne">
                                                 <div onclick="recebidasFuncaoMobile()" id="btn_recebidos" class="btn_msg btn_msg_ativo panel-title collapsed" role="button" data-toggle="collapse" data-parent="#mn_mobile" href="#box-recebidas" aria-expanded="false" aria-controls="box-recebidas" data-target="#box-recebidas">
+                                                  <span class="box_img"><img id="recebidas_msg" src="img/icone_recebidos.png" alt=""/></span>
                                                   <span>RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>
                                                 </div>                                          
                                             </div>
                                         
                                             <div id="box-recebidas" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                               <div class="panel-body">
-                                                 <div class=" col-xs-12 col-md-12 col-lg-12">    <div id="box_msg_recebidas_mobile"></div>
-                                                </div>
+                                                 <div class=" col-xs-12 col-md-12 col-lg-12">    
+                                                 	<div id="box_msg_recebidas_mobile"></div>
+                                                 </div>
                                               </div>
                                             </div>
                                           </div>
@@ -159,7 +170,8 @@ $templateMensagens = new TemplateMensagens();
                                           <div class="panel">
                                             <div role="tab" id="headingTwo">
                                                 <div onclick="envidasFuncaoMobile()" id="btn_enviados" class="btn_msg btn_msg_ativo panel-title collapsed" role="button" data-toggle="collapse" data-parent="#mn_mobile" href="#box-enviados" aria-expanded="false" aria-controls="box-enviados" data-target="#box-enviados">
-                                                  <span>ENVIADOS</span>
+                                                 	<span class="box_img"><img id="enviados_msg" src="img/icone_enviados.png" alt=""/></span> 	
+                                                  	<span>ENVIADOS</span>
                                                 </div>
                                               
                                             </div>
@@ -176,7 +188,8 @@ $templateMensagens = new TemplateMensagens();
                                           <div class="panel">
                                             <div role="tab" id="headingThree">
                                                 <div role="button" data-toggle="collapse" data-parent="#mn_mobile" href="#box-excluidos" aria-expanded="false" aria-controls="box-excluidos" id="btn_excluidos" onclick="deletadasFuncaoMobile()" class="btn_msg btn_msg_ativo panel-title collapsed" data-target="#box-excluidos">
-                                                  <span>EXCLUÍDOS</span>
+                                                	<span class="box_img"><img id="excluidos_msg" src="img/icone_excluidos.png" alt=""/></span>
+                                                  	<span>EXCLUÍDOS</span>
                                                 </div>
                                             </div>
                                             <div id="box-excluidos" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" id="box-excluidos">

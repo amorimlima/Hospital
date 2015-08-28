@@ -34,7 +34,6 @@
 	cursor: pointer;
 }
 .btn_msg span{
-    width: 242px;
     float: left;
     height: 100%;
     line-height: 193px;
@@ -42,41 +41,33 @@
     font-weight: bold;
     font-size: 14px;
     color: #1C7B7F;
-    margin-left: 116px;
+}
+.box_img{
+	width: 68px;
+    margin-left: 52px;
 }
 #btn_recebidos{
-    background:url(../img/icone_recebidos.png) no-repeat;
-    background-position: 53px 61px;
 	height:189px;
 	background-color:#DEF3F4;
 }
+
 #btn_enviados{
     margin: 5px 0;
-    background:url(../img/icone_enviados.png) no-repeat;
-    background-position: 53px 61px;
 	height:189px;
 	background-color:#DEF3F4;
 }
 #btn_excluidos{
-    background:url(../img/icone_excluidos.png) no-repeat;
-    background-position: 53px 61px;
 	height:189px;
 	background-color:#DEF3F4;
 }
 #btn_recebidos:hover{
-    background:url(../img/icone_recebidos.png) no-repeat;
-    background-position: 53px 61px;
 	background-color:#BDE7E9;
 }
 #btn_enviados:hover{
     margin: 5px 0;
-    background:url(../img/icone_enviados.png) no-repeat;
-    background-position: 53px 61px;
 	background-color:#BDE7E9;
 }
 #btn_excluidos:hover{
-    background:url(../img/icone_excluidos.png) no-repeat;
-    background-position: 53px 61px;
 	background-color:#BDE7E9;
 }
 .btn_msg_ativo{
@@ -89,9 +80,14 @@
     padding-top: 30px;
 }
 #box_NRE a{
-    float: left;
+	float: left;
     text-decoration:none; 
 	cursor:pointer;
+}
+#box_nre_dentro{
+    height: 36px;
+    width: 398px;
+    float: right;
 }
 .margin_ambas{	
 	margin: 0 22.8px;
@@ -314,6 +310,7 @@
 #mensagem_campo_conteudo{
 	resize:none;
 }
+
 	
 /* Modal */
 .modal-content {
@@ -404,26 +401,175 @@
 		border-radius: 15px;
 	}
 }
-@media (min-width: 980px) and (max-width: 1199px){
-	.btn_msg span {
-		margin-left: 68px;
+
+@media (max-width:979px){
+	.btn_msg span {	
+		float: left;
+		height: 100%;
+		line-height: 62px;
+		font-family: Overlock;
+		font-weight: bold;
+		font-size: 14px;
+		color: #1C7B7F;
 	}
-	#btn_recebidos {
-		background-position: 12px 61px;
-		height: 190px;
-		background-color: #DEF3F4;
+	#mn_mobile{
+		display:block;
+	}
+	#mn_geral{
+		display:none;
+	}
+	.box_img{
+		width: 50px;
+    	margin-left: 21px;
+	}
+	#box_nre_dentro{
+		height: 36px;
+		width: 348px;
+		float: right;
+	}
+	#btn_recebidos{
+		height: 60px;
+		background-size: 36px;
+	}
+	#recebidas_msg{
+		height: 37px;
+		padding: 0px;
+		float: left;
+		margin: 14px 0 0 0;
+	}
+	#btn_enviados{
+		display:block;
+		height: 60px;
+	}
+	#enviados_msg{
+		height: 37px;
+		padding: 0px;
+		float: left;
+		margin: 14px 0 0 0;
+	}
+	#btn_excluidos{
+		height: 60px;
+		background-size: 31px;
+	}
+	#excluidos_msg{
+		height: 45px;
+		padding: 0px;
+		float: left;
+		margin: 9px 0 0 0;
+	}
+	#btn_recebidos:hover{
+		height: 60px;
+		background-size: 36px;
+	}
+	#btn_enviados:hover{
+		height: 60px;
+		background-size: 36px;
+	}
+	#btn_excluidos:hover{
+		height: 60px;
+		background-size: 31px;
+	}
+	#box_NRE{
+		height: 45px;
+		width: 100%;
+		padding:0;
+	}
+	#ln_RAD{
+		/*display:none;*/	
+	}
+	#box_msg_left {
+		width: 100%;
+		height: 33.2%;
+		border: 1px dotted #24ADB5;
+		background: #FFFFFF;
+	}
+	#box_msg_geral {
+		width: 100%;
+		height: 33.2%;
+		border: none;
+		background: none;
+	}
+	#box_NRE a {
+		text-decoration: none;
+		cursor: pointer;
+	}
+	.margin_ambas {
+		margin:0 6%;
+	}
+	#desk-msg{
+		display:none;
+	}
+	#titulo_rem {
+		max-width: 127px;
+		color: #1C7B7F;
+		font-size: 14px;
+		padding: 5px 2px;
+		/*border:1px solid;*/
+	}
+	#titulo_ass {
+		color: #1C7B7F;
+		font-size: 14px;
+		padding: 5px 0 5px 0;
 	}	
-	#btn_enviados {
-		background-position: 7px 61px;
-		height: 190px;
-		background-color: #DEF3F4;
+	#titulo_data {
+		color: #1C7B7F;
+		font-size: 14px;
+		padding: 5px 0 0 0px;
 	}
-	#btn_excluidos {
-		background: url(../img/icone_excluidos.png) no-repeat;
-		background-position: 16px 61px;
-		height: 190px;
-		background-color: #DEF3F4;
+	.msg_nome_mobile {
+		font-size: 12px;
+		padding: 5px 2px;
 	}
+	.msg_assunto_mobile {
+		font-size: 12px;
+		padding:5px 0 0;
+	}
+	.msg_data_mobile {
+		font-size: 12px;
+		padding:5px 0 0;
+	}
+	#tbl_msg {
+		margin-top: 3px;
+		width: 100%;
+		font-family: overlock;
+		text-align: left;
+		border-spacing: 0px; 
+	}
+	#linha_titulos {
+		margin-bottom: 0px;
+	}
+	.col1-mobile:nth-child(odd) {
+		background-color: rgb(242, 242, 238);
+		min-height: 26px;
+	}
+	.col1-mobile:nth-child(even) {
+		background-color: #FFFFFF;
+		min-height: 26px;
+	}
+	#box-enviados,#box-excluidos{
+		margin: 6.4px 0;
+	}
+	.msg_detalhe{
+		display:none;	
+		padding:10px;
+		background-color: rgb(226, 225, 215);
+		margin-bottom:2px;
+	}
+	.panel-group {
+		margin-bottom: 0px;
+	}
+	.panel-group .panel+.panel {
+		 margin-top: 0px; 
+	}
+	.panel-body {
+		 padding: 0px; 
+	}
+	.panel{
+		border:0;
+	}
+}
+@media (min-width: 980px) and (max-width: 1199px){
+	
 }
 
 .btn-default {
