@@ -81,7 +81,7 @@ class Template {
 					</div>
 					<div class="row">                	
 						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-5" id="logo">
-							<a href="index.php"><img src="img/logo.png"/></a>
+							<div id="logotipo"><a href="index.php"></a></div>
 						</div>                    
 					</div>
 			   </div>';

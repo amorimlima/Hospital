@@ -53,12 +53,6 @@ textarea:focus, input:focus, select:focus, button:focus  {
 #topo{	
 	height:133px;
 }
-#logo img{
-	margin-top: 20px;
-	float:left;
-	margin-left:50px;
-	width: 67.5%;
-}
 
 #boxMenu{
 7+8	float: right;
@@ -94,7 +88,7 @@ textarea:focus, input:focus, select:focus, button:focus  {
   	float: left;
 	width: 23px;
 }
-/*MENU*/ n
+/*MENU*/
 
 #menu{
     min-width: 79%;
@@ -542,14 +536,6 @@ img{
 		margin: 19px 63px 16px;
 		width: 100%;
 	}
-	#logo{
-		text-align: center;
-	}
-	#logo img{
-		margin: 20px 0 17px 0;
-		width: 67.5%;
-		float: none;
-	}
 	#boxMenu {
 		float: right;
 		padding: 12px 0 0 0 ;
@@ -766,11 +752,6 @@ img{
 	#logo{
 		text-align: center;
 	}
-	#logo img{
-		margin: 20px 0 17px 0;
-		width: 67.5%;
-		float: none;
-	}
 	#boxMenu {
 		float: right;
 		padding: 12px 0 0 0 ;
@@ -965,13 +946,7 @@ img{
 		z-index: 9999;
 		padding: 10px 0px;
 		margin: 6px 31px
-	}
-	#logo img {
-		margin-top: 20px;
-		float: left;
-		margin-left: 50px;
-		width: 67.5%;
-	}   
+	}  
 }
 
 
@@ -1035,13 +1010,7 @@ img{
 		z-index: 9999;
 		padding: 10px 0px;
 		margin: 6px 31px
-	}
-	#logo img {
-		margin-top: 20px;
-		float: left;
-		margin-left: 50px;
-		width: 67.5%;
-	}   
+	}  
 	#menu {
 		min-width: 79%;
 		margin-right: -6px;
@@ -1049,6 +1018,71 @@ img{
 		float: right;
 	}
 }
+/* Logo */
+	@media (max-width: 479px) {
+		#logo { height: 60px; }
+		#logotipo{
+			text-align: center;
+			margin: 15px 0;
+			width: 100%;
+			height: 100%;
+			max-height: 40px;
+			float: none;
+			background: url(../img/logo/logo_xs.png) no-repeat 50% 50%;
+		}
+	}
+	@media (min-width: 480px) and (max-width: 767px) {
+		#logo { height: 100px; }
+		#logotipo{
+			box-sizing: border-box;
+			text-align: center;
+			padding: 15px 0;
+			width: 100%;
+			height: 100%;
+			max-height: 100px;
+			float: none;
+			background: url(../img/logo/logo_md.png) no-repeat 50% 50%;
+		}
+	}
+	@media (min-width: 768px) and (max-width: 991px) {
+		#logo { height: 100px; }
+		#logotipo{
+			box-sizing: border-box;
+			text-align: center;
+			padding: 15px 0;
+			width: 100%;
+			height: 100%;
+			max-height: 100px;
+			float: none;
+			background: url(../img/logo/logo_lg.png) no-repeat 50% 50%;
+		}
+	}
+	@media (min-width: 992px) and (max-width: 1199px) {
+		#logo { height: 100px; }
+		#logotipo{
+			box-sizing: border-box;
+			text-align: center;
+			padding: 15px 0;
+			width: 100%;
+			height: 100%;
+			max-height: 100px;
+			float: none;
+			background: url(../img/logo/logo_lg.png) no-repeat 25px 50%;
+		}
+	}
+	@media (min-width: 1200px){
+		#logo { height: 100px; }
+		#logotipo{
+			box-sizing: border-box;
+			text-align: center;
+			padding: 15px 0;
+			width: 100%;
+			height: 100%;
+			max-height: 100px;
+			float: none;
+			background: url(../img/logo/logo_lg.png) no-repeat 50px 50%;
+		}
+	}
 
 @-moz-document url-prefix(){
     #sbm_exercicios{
