@@ -33,19 +33,47 @@
     background-color: #DEF3F4;
 	cursor: pointer;
 }
-.btn_msg span{
-    float: left;
-    height: 100%;
-    line-height: 193px;
-    font-family: Overlock;
-    font-weight: bold;
-    font-size: 14px;
-    color: #1C7B7F;
+
+@media (min-width: 1200px) {
+	.btn_msg div{
+		display: inline-block;
+    	height: 100%;
+    	line-height: 193px;
+    	font-family: Overlock;
+    	font-weight: bold;
+    	font-size: 14px;
+    	color: #1C7B7F;
+    	width: 68px;
+	}
+	.box_img{
+		width: 68px;
+    	margin-left: 52px;
+	}
 }
-.box_img{
-	width: 68px;
-    margin-left: 52px;
+
+@media (min-width: 980px) and (max-width: 1199px) {
+	.btn_msg div{
+	    padding-top: 30px;
+	    width: 100%;
+	    height: auto;
+	    font-family: Overlock;
+	    font-weight: bold;
+	    font-size: 14px;
+	    color: #1C7B7F;
+	}
+	.btn_msg div img {
+		display: block;
+		margin: 0 auto;
+	}
+	.btn_msg .box_text {width: 100%; text-align: center;}
+	.box_img{
+		display: block;
+		width: 100%;
+	    margin: 0 auto;
+	}
 }
+
+
 #btn_recebidos{
 	height:189px;
 	background-color:#DEF3F4;

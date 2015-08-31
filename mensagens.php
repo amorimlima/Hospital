@@ -137,15 +137,16 @@ $templateMensagens = new TemplateMensagens();
                                         <!--Menu geral-->
                                         <div id="mn_geral">
                                             <div id="btn_recebidos" onclick="recebidasFuncao()" class="btn_msg btn_msg_ativo">
-                                            	<span class="box_img"><img id="recebidas_msg" src="img/icone_recebidos.png" alt=""/></span>
-                                                <span id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>                                    	</div>
+                                            	<div class="box_img"><img id="recebidas_msg" src="img/icone_recebidos.png" alt=""/></div>
+                                                <div class="box_text" id="n_msg">RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</div>
+                                            </div>
                                             <div id="btn_enviados" onclick="envidasFuncao()" class="btn_msg">
-                                            	<span class="box_img"><img id="enviados_msg" src="img/icone_enviados.png" alt=""/></span>
-                                                <span>ENVIADOS</span>
+                                            	<div class="box_img"><img id="enviados_msg" src="img/icone_enviados.png" alt=""/></div>
+                                                <div class="box_text">ENVIADOS</div>
                                             </div>
                                             <div id="btn_excluidos" onclick="deletadas()"  class="btn_msg">
-                                            	<span class="box_img"><img id="excluidos_msg" src="img/icone_excluidos.png" alt=""/></span>
-                                                <span>EXCLUÍDOS</span>
+                                            	<div class="box_img"><img id="excluidos_msg" src="img/icone_excluidos.png" alt=""/></div>
+                                                <div class="box_text">EXCLUÍDOS</div>
                                             </div>
                                         </div>  
                                         <!--Menu mobile-->
