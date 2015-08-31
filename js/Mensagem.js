@@ -27,31 +27,33 @@ var contMsg = 0;
 	
 	//Passa por todas as mensagens checadas 
 	$('.checked').each(function(){
-		//Pega o id da div a ser excluido
-		var idMgs = $(this).parent().parent().attr('id');
-		//Verifica se trouxe o id corretamente
-		if (typeof idMgs !== "undefined") {
-			
-			contMsg++;
-			//Paga a classe para saber se lista as mensagens enviadas ou recebidas após a exclusão
-			retorno = $('#'+idMgs).attr('class');
-			retorno = retorno.split(' ');
-			
-			//Tranforma em array o id para pegar somente o código salvo no banco 
-			var id = idMgs.split('_');
+		if ($(this).is(":visible")){
+			//Pega o id da div a ser excluido
+			var idMgs = $(this).parent().parent().attr('id');
+			//Verifica se trouxe o id corretamente
+			if (typeof idMgs !== "undefined") {
+				
+				contMsg++;
+				//Paga a classe para saber se lista as mensagens enviadas ou recebidas após a exclusão
+				retorno = $('#'+idMgs).attr('class');
+				retorno = retorno.split(' ');
+				
+				//Tranforma em array o id para pegar somente o código salvo no banco 
+				var id = idMgs.split('_');
 
-			$.ajax({
-				url:'ajax/MensagemAjax.php',
-				type:'post',
-				dataType:'json',
-				data:{'acao':'deleteMensagem','id':id[2]},
-				success:function(data)
-				{
-					//msg = data.msg;
-					$('#'+idMgs).remove();
-					
-				}
-			});
+				$.ajax({
+					url:'ajax/MensagemAjax.php',
+					type:'post',
+					dataType:'json',
+					data:{'acao':'deleteMensagem','id':id[2]},
+					success:function(data)
+					{
+						// msg = data.msg;
+						$('.'+idMgs).remove();
+						
+					}
+				});
+			}
 		}
 	})
 	
@@ -106,7 +108,8 @@ function envidasFuncaoMobile(){
 		dataType:'html',
 		data:{'acao':'listaEnviadosMobile','id':'20'},//id colocado na mão
 		success:function(data){		  
-			$('#box_msg_enviadas_mobile').html(data);		
+			$('#box_msg_enviadas_mobile').html(data);	
+			checkbox();			
 		}
 	});
 }
@@ -144,6 +147,7 @@ function recebidasFuncaoMobile(){
 		success:function(data)
 		{
 			$('#box_msg_recebidas_mobile').html(data);
+			checkbox();
 		}
 	});
 }
@@ -182,6 +186,20 @@ function EnviadasMobileDetalheFuncao(idMensagem){
 	});
 }
         
+function DeletadasMobileDetalheFuncao(iMensagem){
+	$('.col1-mobile').removeClass('delete');	
+	$.ajax({
+		url:'ajax/MensagemAjax.php',
+		type:'post',
+		dataType:'html',
+		data:{'acao':'listaEnviadasMobileDetalhe','id':idMensagem},
+		success:function(data){		
+			$('#abrir_msg_'+idMensagem).html(data);
+			$('#msg_valores_'+idMensagem).addClass('delete');
+			$('#abrir_msg_').show();		
+		}
+	});
+}
 function RecebidasDetalheFuncao(idMensagem){	
 	$('#box_msg_listas').css('height','222px');
 	$('.col1').removeClass('delete');
@@ -251,6 +269,8 @@ function deletadasFuncaoMobile(){
 		data:{'acao':'deletadasMobile'},
 		success:function(data){
 			$('#box_msg_excluidas_mobile').html(data);
+			checkbox();
+			//console.log('aqui');
 		}
 	});
 }
