@@ -140,7 +140,7 @@ class MensagemDAO extends DAO{
      }
 
     public function detalhe($idmens){
-        $sql = "select * from mensagem where msg_ativo = 1 and msg_id = ".$idmens." limit 1";
+        $sql = "select * from mensagem where msg_id = ".$idmens." limit 1";
         $result = $this->retrieve($sql);
 		$qr = mysqli_fetch_array($result);
         $mens = new Mensagem();
