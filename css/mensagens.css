@@ -585,9 +585,6 @@
 	border: 2px solid #26adb5;
 	font-weight: 600;
 }
-.lixeira .recebido .enviado {
-	cursor: poiter;
-}
 
 /*Barra de rolagem com plugin JS */
 .mCSB_inside > .mCSB_container {
