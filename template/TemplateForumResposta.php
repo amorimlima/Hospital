@@ -97,94 +97,60 @@ class TemplateForumResposta{
                  </p>
                </div>
               </div>
-              <div id="box_Respostas">';
+              <div id="box_Respostas_container">
+                <div id="box_Respostas">';
 	  	
 	  	if (count($respostas) > 0){
-                    if (count ($respostas) > 4){
-                        foreach($respostas as $r){
-
-	  			$usuarioResposta = $userController->select($r->getFrr_usuario());	  
-	  			$dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
-	  			
-		  		$html .= '<div class="box_topico_resp margin_right">
-	                                <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-	                                    <img src="imgp/foto_aluno2.png">
-	                                 </p>
-	                                <div class="col-xs-11 col-md-11 col-lg-11">
-	                                    <div class="dados_aluno">
-	                                        <span class="aluno_nome">'.utf8_encode($usuarioResposta->getUsr_nome()).'</span>
-	                                        <span class="aluno_data">Postado dia '.$dataResposta.'</span>
-	                                    </div>
-	                                    <div>  
-	                                        <p class="resp_aluno">'.utf8_encode($r->getFrr_resposta()).'</p>
-	                                    </div> 
-	                                </div>
-	                                <div style="clear:both"></div> 
-	                            </div>';
-	  		}
-                        $html .= ' <button id="btn_responder" class="btn_form btn_form_forum margin_right">RESPONDER</button>
-                             <div id="campo_resp" class="margin_right">
-                            	<p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                                	<img src="imgp/foto_aluno3.png">
-                            	</p>
-                            	<div class="col-xs-11 col-md-11 col-lg-11">
-                                    <div class="dados_aluno">
-                                        <span class="aluno_nome">'.utf8_encode($logado->getUsr_nome()).'</span>
-                                        <span class="aluno_data">Postado dia  <span class="dataResposta"></span></span>
-                                        <textarea id="resp_forum" placeholder="Digite aqui sua resposta!"></textarea>
-                                    	<button class="btn_form btn_form_forum" id="btn_pronto" idAluno="'.$id.'">PRONTO</button>
-                                    </div>
-                            	</div> 
-                       	 	</div>
-                                </div>
-                        ';
+                    $marginRight="";
+                    if (count($respostas) > 4) {
+                        $marginRight = "margin_right";
                     }
-                    else{
-                        foreach($respostas as $r){
+                    foreach($respostas as $r){
 
-	  			$usuarioResposta = $userController->select($r->getFrr_usuario());	  
-	  			$dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
-	  			
-		  		$html .= '<div class="box_topico_resp">
-	                                <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-	                                    <img src="imgp/foto_aluno2.png">
-	                                 </p>
-	                                <div class="col-xs-11 col-md-11 col-lg-11">
-	                                    <div class="dados_aluno">
-	                                        <span class="aluno_nome">'.utf8_encode($usuarioResposta->getUsr_nome()).'</span>
-	                                        <span class="aluno_data">Postado dia '.$dataResposta.'</span>
-	                                    </div>
-	                                    <div>  
-	                                        <p class="resp_aluno">'.utf8_encode($r->getFrr_resposta()).'</p>
-	                                    </div> 
-	                                </div>
-	                                <div style="clear:both"></div> 
-	                            </div>';
-	  		}
-                        $html .= ' <button id="btn_responder" class="btn_form btn_form_forum">RESPONDER</button>
-                             <div id="campo_resp">
-                            	<p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                                	<img src="imgp/foto_aluno3.png">
-                            	</p>
-                            	<div class="col-xs-11 col-md-11 col-lg-11">
-                                    <div class="dados_aluno">
-                                        <span class="aluno_nome">'.utf8_encode($logado->getUsr_nome()).'</span>
-                                        <span class="aluno_data">Postado dia  <span class="dataResposta"></span></span>
-                                        <textarea id="resp_forum" placeholder="Digite aqui sua resposta!"></textarea>
-                                    	<button class="btn_form btn_form_forum" id="btn_pronto" idAluno="'.$id.'">PRONTO</button>
+                            $usuarioResposta = $userController->select($r->getFrr_usuario());	  
+                            $dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
+
+                            $html .= '<div class="box_topico_resp '.$marginRight.'">
+                                    <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
+                                        <img src="imgp/foto_aluno2.png">
+                                    </p>
+                                    <div class="col-xs-11 col-md-11 col-lg-11">
+                                        <div class="dados_aluno">
+                                            <span class="aluno_nome">'.utf8_encode($usuarioResposta->getUsr_nome()).'</span>
+                                            <span class="aluno_data">Postado dia '.$dataResposta.'</span>
+                                        </div>
+                                        <div>  
+                                            <p class="resp_aluno">'.utf8_encode($r->getFrr_resposta()).'</p>
+                                        </div> 
                                     </div>
-                            	</div> 
-                       	 	</div>
-                                </div>
-                        ';
+                                    <div style="clear:both"></div> 
+                                </div>';
                     }
-	  	}
+                    $html .= ' <button id="btn_responder" class="btn_form btn_form_forum margin_right">RESPONDER</button>
+                         <div id="campo_resp" class="margin_right">
+                            <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
+                                    <img src="imgp/foto_aluno3.png">
+                            </p>
+                            <div class="col-xs-11 col-md-11 col-lg-11">
+                                <div class="dados_aluno">
+                                    <span class="aluno_nome">'.utf8_encode($logado->getUsr_nome()).'</span>
+                                    <span class="aluno_data">Postado dia  <span class="dataResposta"></span></span>
+                                    <textarea id="resp_forum" placeholder="Digite aqui sua resposta!"></textarea>
+                                    <button class="btn_form btn_form_forum" id="btn_pronto" idAluno="'.$id.'">PRONTO</button>
+                                </div>
+                            </div> 
+                            </div>
+                            </div>
+                    ';
+                }
+                    
+	  	
                 else
                 {
-                    $html .= '</div>';
+                    $html .=    '</div>';
                 }
 
-		echo $html;
+		echo $html .= '</div>';
 	}
 }
 ?>

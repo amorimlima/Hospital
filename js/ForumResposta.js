@@ -9,9 +9,18 @@ function listaRespostas(a){
         },
         success: function (a)
         {
-            $(".conteudoRespostas").html(a)
+            $(".conteudoRespostas").html(a);
+            barraDeRolagem();
         }
     })
+}
+function barraDeRolagem () {
+    $("#resultadoPesq, #box_Respostas_container").mCustomScrollbar({
+        axis: "y",
+        scrollButtons: {
+            enable: !0
+        }
+    });
 }
 
 function autoCompleteRespostas(a)
@@ -34,14 +43,10 @@ function autoCompleteRespostas(a)
 			}
 	}, 3000)
 }
+// Barra de rolagem personalizada
 $(document).ready(function ()
 {
-    $("#resultadoPesq, #box_Respostas").mCustomScrollbar({
-        axis: "y",
-        scrollButtons: {
-            enable: !0
-        }
-    });
+   barraDeRolagem();
 
 	$("#txt_pesquisa_input").keyup(function (){
 		  // txt = $("#txt_pesquisa_input").val();

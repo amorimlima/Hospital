@@ -53,8 +53,10 @@ $respostasController = new ForumRespostaController();
             <div class="row">
                 <div class="row">
                    <div class="col-xs-12 col-md-8 col-lg-8">               
-                        <div id="Conteudo_Area_box_left" class="conteudoRespostas">
-							<?php $templateResposta->listaRespostas($_GET['resp']); ?>
+                        <div id="Conteudo_Area_box_left" >
+                            <div class="conteudoRespostas">
+				<?php $templateResposta->listaRespostas($_GET['resp']); ?>
+                            </div>
                         </div>
                    </div>
                    <div class="col-xs-12 col-md-8 col-lg-4">     

@@ -88,15 +88,21 @@ switch ($_POST["acao"]){
                    <span class="resp_aluno">'.utf8_encode($resp->getFrq_questao()).'</span>
                  </p>
                </div>
-              </div>';
+              </div>
+              <div id="box_Respostas_container">
+                <div id="box_Respostas">';
 	  	
 	  	if (count($respostas) > 0){
+                    $marginRight="";
+                    if (count($respostas) > 4) {
+                        $marginRight = "margin_right";
+                    }
 	  		foreach($respostas as $r){
 
 	  			$usuarioResposta = $userController->select($r->getFrr_usuario());	  
 	  			$dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
 	  			
-		  		$html .= '<div class="box_topico_resp">
+		  		$html .= '<div class="box_topico_resp '.$marginRight.'">
 	                                <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
 	                                    <img src="imgp/foto_aluno2.png">
 	                                 </p>
@@ -129,6 +135,7 @@ switch ($_POST["acao"]){
                             	</div> 
                        	 	</div>
                         </div>';
+                $html .= '</div></div>';
 
 		echo $html;
 	  	break;

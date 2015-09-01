@@ -141,22 +141,25 @@
 			width: 98%;
 		}
 }
+#box_Respostas_container {
+    height: 471px;
+}
 
 
 
 /*Barra de rolagem com plugin JS */
 .mCSB_inside > .mCSB_container {
-   margin-right: 0px !important;
+    margin-right: 0px !important;
 }
 .mCSB_buttonUp{
-	background:url(../img/arrow_up.png) no-repeat !important;
-	background-position: 4px !important;
+    background:url(../img/arrow_up.png) no-repeat !important;
+    background-position: 4px !important;
     background-color: #FCE9DB !important;
 }
 
 .mCSB_buttonDown{
     background:url(../img/arrow_down.png) no-repeat !important;
-	background-position: 4px !important;
+    background-position: 4px !important;
     background-color: #FCE9DB !important;
 }
 .mCSB_scrollTools .mCSB_buttonUp, .mCSB_scrollTools .mCSB_buttonDown{
