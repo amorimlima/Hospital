@@ -339,7 +339,11 @@
 	resize:none;
 	height: 375px;
 }
-
+@media (min-width: 980px) {
+	#bt_fechar_nova_msg {
+		display: none;
+	}
+}
 	
 /* Modal */
 .modal-content {
