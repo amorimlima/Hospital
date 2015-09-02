@@ -49,14 +49,7 @@ $(document).ready(function ()
    barraDeRolagem();
 
 	$("#txt_pesquisa_input").keyup(function (){
-		  // txt = $("#txt_pesquisa_input").val();
-		  //setTimeout(function(){
-			// console.log($("#txt_pesquisa_input").val());
-			// console.log(txt);
 			autoCompleteRespostas($("#txt_pesquisa_input").val())
-		  //}, 3000)
-		  //autoCompleteRespostas($("#txt_pesquisa_input").val())
-        
     });
 
 	$("body").delegate("#btn_responder", "click", function (){
