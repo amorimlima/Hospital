@@ -56,8 +56,8 @@ switch ($_POST["acao"]){
 	  	break;
 	  } 
 	  case "listaRespostaQuestao":{
-	  	
-	  	$logado = $userController->select(1); //Buscar o usuario certo depois q fizer o login!!!
+	  	$l = unserialize($_SESSION['USR']);
+	  	$logado = $userController->select($l['id']); //Buscar o usuario certo depois q fizer o login!!!
 	  	$id = $logado->getUsr_id();
 	  	
 	  	$resp = $forumController->select($_POST['resp']);
@@ -197,23 +197,20 @@ switch ($_POST["acao"]){
       }
 
 	case "perguntar":{
+
+		$logado = unserialize($_SESSION['USR']);
+		
 	 	$texto = $_POST["txt"];
 		$anexo = $_POST["anexo"];
 		$topico = $_POST["topico"];
-		$usuario = $_POST["usuario"];
-		
-		print_r($texto);
-		print_r($anexo);
-		print_r($anexo);
-		
-		print_r($data = date("Y-m-d")) ;
-		
-		
+		$usuario = $logado['id'];
+		$data = date("Y-m-d H:i:s");
+
 		$questao = new ForumQuestao();
-		$questao->setFrq_questao($texto);
-		$questao->setFrq_topico(1);
+		$questao->setFrq_questao(utf8_decode($texto));
+		$questao->setFrq_topico($topico);
 		
-		if($anexo == '0'){
+		if($anexo == ''){
 			$questao->setFrq_anexo('0');
 		}else{
 			$questao->setFrq_anexo($anexo);
@@ -229,7 +226,9 @@ switch ($_POST["acao"]){
 	
 	case "autoComplete":{
 	  $keyword =  $_POST['valor'];
-	  $valores =  $forumController->selectComleta($keyword);
+	  if ($keyword != '')
+	  	$valores =  $forumController->selectComleta($keyword);
+	  else $valores = $forumController->selectAll();
 	  $cont = 0;
 	
 	   foreach ($valores as $key => $value)
@@ -243,8 +242,8 @@ switch ($_POST["acao"]){
 			  echo '<div class="perg_box cx_rosa row">
 						<div class="perg_box_1 col-xs-12 col-md-8 col-lg-8">
 							<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
-							<p class="perg_aluno">'.$value->getFrq_questao().'</p>
-							<p class="nome_aluno">'.$user->getUsr_nome().'</p>
+							<p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
+							<p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
 							<p class="post_data">'.$value->getFrq_data().'</p>
 						</div>
 						<div class="perg_box_2 col-xs-12 col-md-4 col-lg-4">
@@ -258,8 +257,8 @@ switch ($_POST["acao"]){
 			  echo   '<div class="perg_box cx_branca row">
 						 <div class="perg_box_1 col-xs-12 col-md-8 col-lg-8">
 							 <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
-							 <p class="perg_aluno">'.$value->getFrq_questao().'</p>
-							 <p class="nome_aluno">'.$user->getUsr_nome().'</p>
+							 <p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
+							 <p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
 							 <p class="post_data">'.$value->getFrq_data().'</p>
 						 </div>                                
 						  <div class="perg_box_2 col-xs-12 col-md-4 col-lg-4">
