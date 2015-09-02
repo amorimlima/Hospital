@@ -17,7 +17,7 @@ include_once($path['beans'].'ForumTopico.php');
  *
  * @author Kevyn
  */
-class ForumTopicoDAO {
+class ForumTopicoDAO extends DAO{
     //put your code here
     
     public function  __construct($da) {
@@ -28,7 +28,7 @@ class ForumTopicoDAO {
      {
          $sql  = "insert into forum_topico (frt_topico) values ";
          $sql .= "('".$frt->getFrt_topico()."')";
-		echo $sql;
+		//echo $sql;
     	return $this->execute($sql);
      }
      
@@ -49,7 +49,7 @@ class ForumTopicoDAO {
      {
         $sql = "select * from forum_topico where frt_id = ".$idfrt." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $frt = new ForumTopico();
                 $frt->setFrt_id($qr["frt_id"]);
@@ -60,10 +60,10 @@ class ForumTopicoDAO {
      
      public function selectFull()
      {
-        $sql = "select * from forum_topico where frt_id = ".$idfrt." ";
+        $sql = "select * from forum_topico";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $frt = new ForumTopico();

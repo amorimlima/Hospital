@@ -5,8 +5,12 @@ if(!isset($_SESSION['PATH_SYS'])){
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateForum.php');
+include_once($path['controller'].'ForumTopicoController.php');
 $templateGeral = new Template();
 $templateForum = new TemplateForum();
+$topicoController = new ForumTopicoController();
+$topicos = $topicoController->selectAll();
+//print_r($topicos);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,6 +54,17 @@ $templateForum = new TemplateForum();
                                     <p id="txt_pergunta">TEM ALGUMA PERGUNTA?</p>
                                     <div role="form" id="frm_pergunta">
                                         <textarea id="box_pergunta" class="form-control" rows="5" placeholder="Digite aqui sua pergunta!"></textarea>
+                                        <p id="txt_pergunta">TÓPICOS: 
+										<select id="topico">
+										  <?php
+											foreach ($topicos as $t){
+												echo '<option value="'.$t->getFrt_id().'">'.$t->getFrt_topico().'</option>';
+											}
+										  ?>
+										  
+
+										</select>
+										</p>
                                         <button onClick="enviar()" id="btn_perguntar" class="btn_form btn_form_forum">PERGUNTAR</button>
                                     </div>
                                 </div>
@@ -74,6 +89,24 @@ $templateForum = new TemplateForum();
             <div class="row" id="rodape"></div>
         </footer>
     </div>
+	
+	<!-- Modais com as mensagens de erro/sucesso -->
+	<div id="forumErroVazia" class='modalMensagem' style="display:none">
+		<?php
+			$templateGeral->mensagemRetorno('forum','Preencha o campo da pergunta!','erro');
+		?>
+	</div>
+	<div id="forumErroInesperado" class='modalMensagem' style="display:none">
+		<?php
+			$templateGeral->mensagemRetorno('forum','Houve um erro inesperado. tente mais tarde!','erro');
+		?>
+	</div>
+	<div id="forumPerguntaSucesso" class='modalMensagem' style="display:none">
+		<?php
+			$templateGeral->mensagemRetorno('forum','Pergunta criada com sucesso!','sucesso');
+		?>
+	</div>
+	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>

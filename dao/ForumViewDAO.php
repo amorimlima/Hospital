@@ -52,6 +52,7 @@ class ForumViewDAO extends DAO{
 	
 	public function verificaUsuarioByQuestao($idUser, $idQuestao){
 		$sql = "select count(*) as total from forum_view where frv_questao = $idQuestao and frv_usuario = $idUser";
+		//echo $sql;
 		$result = $this->retrieve($sql);
 		
 		$qr = mysqli_fetch_array($result);

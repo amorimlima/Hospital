@@ -9,6 +9,7 @@ include_once($path['dao'].'ForumQuestaoDao.php');
 include_once($path['dao'].'ForumRespostaDAO.php');
 include_once($path['controller'].'ForumQuestaoController.php');
 include_once($path['controller'].'ForumRespostaController.php');
+include_once($path['controller'].'ForumViewController.php');
 include_once($path['controller'].'UsuarioController.php');
 
 $path = $_SESSION['PATH_SYS'];
@@ -32,10 +33,15 @@ class TemplateForum{
 	{			   
 		$forumController = new ForumQuestaoController();
 		$userController = new UsuarioController();
+		$viewController = new ForumViewController();
+		$respController = new ForumRespostaController();
+		
 		$forum = $forumController->selectAll();
 		$cont = 0; 
 		foreach ($forum as $key => $value){				
 			$user = $userController->select(($value->getFrq_usuario()));			
+			$view = $viewController->totalByQuestao($value->getFrq_id());
+			$resp = $respController->totalByQuestao($value->getFrq_id());
 			
 			if($cont % 2 == 0){
 				$caixaGrande  = "cx_rosa"; 	
@@ -53,8 +59,8 @@ class TemplateForum{
 						<p class="post_data">Postado dia '.$value->getFrq_data().'</p>
 					</div>
 					<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
-						<p class="qtd_visu '.$caixaPequena.'"><span>8</span> visualizações</p>
-						<p class="qtd_resp '.$caixaPequena.'"><span>3</span> respostas</p>
+						<p class="qtd_visu '.$caixaPequena.'"><span>'.$view.'</span> visualizações</p>
+						<p class="qtd_resp '.$caixaPequena.'"><span>'.$resp.'</span> respostas</p>
 					</div>
 				</div></a>';
 		  

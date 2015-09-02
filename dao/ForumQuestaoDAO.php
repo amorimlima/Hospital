@@ -29,7 +29,7 @@ class ForumQuestaoDAO extends DAO{
          $sql  = "insert into forum_questao (frq_usuario,frq_questao,frq_anexo,frq_data,frq_topico) values ";
          $sql .= "('".$foq->getFrq_usuario()."','".$foq->getFrq_questao()."',";
          $sql .= "'".$foq->getFrq_anexo()."','".$foq->getFrq_data()."','".$foq->getFrq_topico()."')";
-	//	echo $sql;
+		//echo $sql;
     	return $this->execute($sql);
      }
      
@@ -71,8 +71,8 @@ class ForumQuestaoDAO extends DAO{
      
      public function selectCompleta($keyword)
      {
-        $sql = "select * from forum_questao where  frq_questao like '%".$keyword."%' ";
-		// echo $sql;
+        $sql = "select * from forum_questao where  frq_questao like '%".utf8_decode($keyword)."%' ORDER BY frq_id DESC";
+		//echo $sql;
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
