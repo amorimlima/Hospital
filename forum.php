@@ -51,20 +51,17 @@ $topicos = $topicoController->selectAll();
                     	<div class="row">
                         	<div class="col-xs-12 col-md-12 col-lg-12">
                                 <div id="box_forum_top">
-                                    <p id="txt_pergunta">TEM ALGUMA PERGUNTA?</p>
+                                    <p class="txt_pergunta">TEM ALGUMA PERGUNTA?</p>
                                     <div role="form" id="frm_pergunta">
+                                        <select id="topico" placeholder="Tópico">
+                                            <option value="" selected disabled>Tópico</option>
+                                          <?php
+                                            foreach ($topicos as $t){
+                                                echo '<option value="'.$t->getFrt_id().'">'.$t->getFrt_topico().'</option>';
+                                            }
+                                          ?>
+                                        </select>
                                         <textarea id="box_pergunta" class="form-control" rows="5" placeholder="Digite aqui sua pergunta!"></textarea>
-                                        <p id="txt_pergunta">TÓPICOS: 
-										<select id="topico">
-										  <?php
-											foreach ($topicos as $t){
-												echo '<option value="'.$t->getFrt_id().'">'.$t->getFrt_topico().'</option>';
-											}
-										  ?>
-										  
-
-										</select>
-										</p>
                                         <button onClick="enviar()" id="btn_perguntar" class="btn_form btn_form_forum">PERGUNTAR</button>
                                     </div>
                                 </div>
