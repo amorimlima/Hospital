@@ -29,6 +29,7 @@ switch ($_POST["acao"]){
 	  	}else{
 	  		$questoes = $questaoController->selectUltimas(5);
 	  	}
+	//	print_r($questoes);
 	  	
 	  	$html = '';
 	  	if (count($questoes)>0){
@@ -176,13 +177,13 @@ switch ($_POST["acao"]){
 				}
                   
 				echo '<a href="forumResposta.php?resp='.$value->getFrq_id().'"><div class="perg_box '.$caixaGrande.' row">
-						<div class="perg_box_1 col-xs-12 col-md-8 col-lg-8">
+						<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
 							<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
 							<p class="perg_aluno">'.$value->getFrq_questao().'</p>
 							<p class="nome_aluno">'.$user->getUsr_nome().'</p>
 							<p class="post_data">'.$value->getFrq_data().'</p>
 						</div>
-						<div class="perg_box_2 col-xs-12 col-md-4 col-lg-4">
+						<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
 							<p class="qtd_visu '.$caixaPequena.'"><span>8</span> visualizações</p>
 							<p class="qtd_resp '.$caixaPequena.'"><span>3</span> respostas</p>
 						</div>
@@ -222,6 +223,7 @@ switch ($_POST["acao"]){
 		break;  
 	}
 	
+	
 	case "autoComplete":{
 	  $keyword =  $_POST['valor'];
 	  if ($keyword != '')
@@ -238,13 +240,13 @@ switch ($_POST["acao"]){
 		  if($cont % 2 == 0){
 			  
 			  echo '<div class="perg_box cx_rosa row">
-						<div class="perg_box_1 col-xs-12 col-md-8 col-lg-8">
+						<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
 							<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
 							<p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
 							<p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
 							<p class="post_data">'.$value->getFrq_data().'</p>
 						</div>
-						<div class="perg_box_2 col-xs-12 col-md-4 col-lg-4">
+						<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
 							<p class="qtd_visu cx_rosaP"><span>8</span> visualizações</p>
 							<p class="qtd_resp cx_rosaP"><span>3</span> respostas</p>
 						</div>
@@ -253,13 +255,13 @@ switch ($_POST["acao"]){
 		  }else{             
 	   
 			  echo   '<div class="perg_box cx_branca row">
-						 <div class="perg_box_1 col-xs-12 col-md-8 col-lg-8">
+						 <div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
 							 <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
 							 <p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
 							 <p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
 							 <p class="post_data">'.$value->getFrq_data().'</p>
 						 </div>                                
-						  <div class="perg_box_2 col-xs-12 col-md-4 col-lg-4">
+						  <div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
 							<p class="qtd_visu cx_rosaP"><span>8</span> visualizações</p>
 							<p class="qtd_resp cx_rosaP"><span>3</span> respostas</p>
 						  </div> 

@@ -20,11 +20,11 @@
     padding-left: 10px;
     display: block;
     margin: 15px 0;
-    border: 1px solid #E35F0F;
+    border: 1px solid rgb(234,146,91);
     height: 28px;
     width: 50%;
     max-width: 350px;
-    background: url(../img/bt_drop.png) no-repeat right center;
+    background: url(../img/bt_drop_forum.png) no-repeat right center;
     cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -82,11 +82,16 @@
     border: 0;
     margin-left: 23px;
 } 
-#box_alunos{
+#box_alunos_container{
     margin-top: 73px;
     height: 295px;
     width: 100%;
     overflow: auto;
+}
+#box_alunos {
+    height: 100%;
+    width: 100%;
+    overflow: inherit;
 }
 .cx_rosa{
     background-color: #FEF8F4;
@@ -206,12 +211,17 @@
 	#box_forum_botton {
 		height: 581px;
 	}
-	#box_alunos {
+	#box_alunos_container {
 		margin-top: 73px;
 		height: 440px;
 		width: 99.8%;
 		overflow: auto;
 	}
+    #box_alunos {
+        height: 100%;
+        width: 100%;
+        overflow: inherit;
+    }
 }
 @media (min-width: 768px) and (max-width: 979px) {
 	.qtd_resp {

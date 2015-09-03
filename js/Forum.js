@@ -1,6 +1,6 @@
 $(document).ready(function(e) {
     //Barra de rolagem personalizada
-	$("#box_alunos").mCustomScrollbar({
+	$("#box_alunos_container").mCustomScrollbar({
 		axis:"y",
 		scrollButtons:{
 			enable:true

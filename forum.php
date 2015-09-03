@@ -55,7 +55,7 @@ $topicos = $topicoController->selectAll();
                                     <div role="form" id="frm_pergunta">
                                         <select id="topico" placeholder="Tópico">
                                             <option value="" selected disabled>Tópico</option>
-                                          <?php
+                                            <?php
                                             foreach ($topicos as $t){
                                                 echo '<option value="'.$t->getFrt_id().'">'.$t->getFrt_topico().'</option>';
                                             }
@@ -72,8 +72,10 @@ $topicos = $topicoController->selectAll();
                                     <p id="txt_pesquisa">
                                         <input id="txt_pesquisa_input" onkeypress="autoComplete()" type="text" placeholder="Pesquise no fórum!">
                                     </p>
-                                    <div id="box_alunos">
-                                         <?php $templateForum->listaAlunos()?>                           
+                                    <div id="box_alunos_container">
+                                        <div id="box_alunos">
+                                             <?php $templateForum->listaAlunos()?>                           
+                                        </div>
                                     </div>
                                 </div>
                             </div> 
