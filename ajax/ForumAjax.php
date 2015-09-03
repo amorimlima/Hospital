@@ -91,9 +91,8 @@ switch ($_POST["acao"]){
               </div>
               <div id="box_Respostas_container">
                 <div id="box_Respostas">';
-	  	
+	  	$marginRight="";
 	  	if (count($respostas) > 0){
-                    $marginRight="";
                     if (count($respostas) > 4) {
                         $marginRight = "margin_right";
                     }
@@ -119,8 +118,7 @@ switch ($_POST["acao"]){
 	                            </div>';
 	  		}
 	  	}
-	  	
-	  	$html .= ' <button id="btn_responder" class="btn_form btn_form_forum">RESPONDER</button>
+	  	$html .= ' <button id="btn_responder" class="btn_form btn_form_forum '.$marginRight.'">RESPONDER</button>
                              <div id="campo_resp">
                             	<p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
                                 	<img src="imgp/foto_aluno3.png">
