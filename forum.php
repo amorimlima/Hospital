@@ -95,6 +95,11 @@ $topicos = $topicoController->selectAll();
 			$templateGeral->mensagemRetorno('forum','Preencha o campo da pergunta!','erro');
 		?>
 	</div>
+	<div id="forumErroTopico" class='modalMensagem' style="display:none">
+		<?php
+			$templateGeral->mensagemRetorno('forum','Selecione um tópico!','erro');
+		?>
+	</div>
 	<div id="forumErroInesperado" class='modalMensagem' style="display:none">
 		<?php
 			$templateGeral->mensagemRetorno('forum','Houve um erro inesperado. tente mais tarde!','erro');

@@ -13,11 +13,16 @@ $(document).ready(function(e) {
 });
 
 function enviar(){
-    var t =  $("#box_pergunta").val();
+	var t =  $("#box_pergunta").val();
     var topico = $("#topico").val();
+    //alert(topico);
     
-    return false;
-	if (t != ''){
+    if (t != ''){
+    	if (topico == null){
+    		$("#forumErroTopico").css('display','block');
+    		return false;
+    	}
+    	
 		$.ajax({
 			url:'ajax/ForumAjax.php',
 			type:'post',
