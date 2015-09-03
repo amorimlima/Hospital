@@ -56,6 +56,7 @@ $respostasController = new ForumRespostaController();
                         <div id="Conteudo_Area_box_left" >
                             <div class="conteudoRespostas">
 				<?php $templateResposta->listaRespostas($_GET['resp']); ?>
+						
                             </div>
                         </div>
                    </div>
@@ -83,6 +84,22 @@ $respostasController = new ForumRespostaController();
             <div class="row" id="rodape"></div>
         </footer>
     </div>
+    <input type="text" name="questao" id="questao" value="<?php echo $_GET['resp'];?>">
+    <div id="respostaErroVazia" class='modalMensagem' style="display:none">
+		<?php
+			$templateGeral->mensagemRetorno('forum','Resposta Inválida!','erro');
+		?>
+	</div>
+	<div id="respostaErroInesperado" class='modalMensagem' style="display:none">
+		<?php
+			$templateGeral->mensagemRetorno('forum','Houve um erro inesperado. tente mais tarde!','erro');
+		?>
+	</div>
+	<div id="respostaSucesso" class='modalMensagem' style="display:none">
+		<?php
+			$templateGeral->mensagemRetorno('forum','Respondido com sucesso!','sucesso');
+		?>
+	</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>

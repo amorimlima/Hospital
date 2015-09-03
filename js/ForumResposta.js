@@ -1,4 +1,5 @@
 function listaRespostas(a){
+	var questao = a;
     $.ajax({
         url: "ajax/ForumAjax.php",
         type: "post",
@@ -9,7 +10,8 @@ function listaRespostas(a){
         },
         success: function (a)
         {
-            $(".conteudoRespostas").html(a);
+            $('#questao').val(questao);
+        	$(".conteudoRespostas").html(a);
             barraDeRolagem();
         }
     })
@@ -68,21 +70,43 @@ $(document).ready(function ()
 	$("body").delegate("#btn_pronto", "click", function (){
         usuario = $(this).attr("idAluno");
 		resposta = $("#resp_forum").val();
-		questao = resp, "" == resposta ? (alert("Resposta Inválida!!"), !1) : void $.ajax(
-        {
-            url: "ajax/ForumAjax.php",
-            type: "post",
-            dataType: "json",
-            data: {
-                acao: "NovaRespostaQuestao",
-                questao: questao,
-                resposta: resposta,
-                usuario: usuario
-            },
-            success: function ()
-            {
-                listaRespostas(resp)
-            }
-        })
+		questao = $("#questao").val();
+		if (resposta != ''){
+			$.ajax({
+				url: "ajax/ForumAjax.php",
+			    type: "post",
+			    dataType: "json",
+			    data: {
+			    	acao: "NovaRespostaQuestao",
+			        questao: questao,
+			        resposta: resposta,
+			        usuario: usuario
+			    },
+			    success: function (){
+			    	$("#respostaSucesso").css('display','block');
+			    	listaRespostas(questao)
+			    }
+			})
+		}else {
+			//alert("Resposta Inválida!!");
+			$('#respostaErroVazia').css('display','block');
+		}
+		//"" == resposta ? (alert("Resposta Inválida!!"), !1) : void $.ajax(
+//        {
+//            url: "ajax/ForumAjax.php",
+//            type: "post",
+//            dataType: "json",
+//            data: {
+//                acao: "NovaRespostaQuestao",
+//                questao: questao,
+//                resposta: resposta,
+//                usuario: usuario
+//            },
+//            success: function ()
+//            {
+//                listaRespostas(resp)
+//            }
+//        })
+		return false;
     })
 });

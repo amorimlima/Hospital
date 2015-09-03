@@ -29,7 +29,6 @@ switch ($_POST["acao"]){
 	  	}else{
 	  		$questoes = $questaoController->selectUltimas(5);
 	  	}
-	//	print_r($questoes);
 	  	
 	  	$html = '';
 	  	if (count($questoes)>0){
@@ -222,7 +221,6 @@ switch ($_POST["acao"]){
 		
 		break;  
 	}
-	
 	
 	case "autoComplete":{
 	  $keyword =  $_POST['valor'];

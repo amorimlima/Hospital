@@ -63,19 +63,19 @@ class TemplateForumResposta{
 		$forumController = new ForumQuestaoController();
 		$viewController = new ForumViewController();
 		$respostasController = new ForumRespostaController();
-	
-		$logado = $userController->select(1); //Buscar o usuario certo depois q fizer o login!!!
-	  	$id = $logado->getUsr_id();
+		$logado = unserialize($_SESSION['USR']);
+		//$logado = $userController->select(); //Buscar o usuario certo depois q fizer o login!!!
+	  	$id = $logado['id'];
 	  	
 	  	$resp = $forumController->select($idQuestao);
 	  	
-	  	// if ($viewController->verificaUsuarioByQuestao($id,$idQuestao) == 0){
-	  		// $view = New ForumView();
-	  		// $view->setFrv_questao($idQuestao);
-	  		// $view->setFrv_usuario(1);
-	  		// $view->setFrv_data(date('Y-m-d h:i:s'));
-	  		// $viewController->insert($view);
-	  	// }
+	  	if ($viewController->verificaUsuarioByQuestao($id,$idQuestao) == 0){
+	  		$view = New ForumView();
+	  		$view->setFrv_questao($idQuestao);
+	  		$view->setFrv_usuario(1);
+	  		$view->setFrv_data(date('Y-m-d h:i:s'));
+	  		$viewController->insert($view);
+	  	}
 	  	
 	  	$usuario = $userController->select($resp->getFrq_usuario());  	
 		$respostas = $respostasController->selectByQuestao($resp->getFrq_id());
@@ -126,31 +126,27 @@ class TemplateForumResposta{
                                     <div style="clear:both"></div> 
                                 </div>';
                     }
-                    $html .= ' <button id="btn_responder" class="btn_form btn_form_forum margin_right">RESPONDER</button>
+        
+                }
+                    
+	  	            $html .= ' <button id="btn_responder" class="btn_form btn_form_forum margin_right">RESPONDER</button>
                          <div id="campo_resp" class="margin_right">
                             <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
                                     <img src="imgp/foto_aluno3.png">
                             </p>
                             <div class="col-xs-11 col-md-11 col-lg-11">
                                 <div class="dados_aluno">
-                                    <span class="aluno_nome">'.utf8_encode($logado->getUsr_nome()).'</span>
+                                    <span class="aluno_nome">'.utf8_encode($logado['nome']).'</span>
                                     <span class="aluno_data">Postado dia  <span class="dataResposta"></span></span>
                                     <textarea id="resp_forum" placeholder="Digite aqui sua resposta!"></textarea>
                                     <button class="btn_form btn_form_forum" id="btn_pronto" idAluno="'.$id.'">PRONTO</button>
                                 </div>
                             </div> 
                             </div>
-                            </div>
+                            <!-- </div> -->
                     ';
-                }
-                    
-	  	
-                else
-                {
-                    $html .=    '</div>';
-                }
 
-		echo $html .= '</div>';
+		echo $html .= '</div></div>';
 	}
 }
 ?>
