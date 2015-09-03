@@ -84,7 +84,7 @@ $respostasController = new ForumRespostaController();
             <div class="row" id="rodape"></div>
         </footer>
     </div>
-    <input type="text" name="questao" id="questao" value="<?php echo $_GET['resp'];?>">
+    <input type="hidden" name="questao" id="questao" value="<?php echo $_GET['resp'];?>">
     <div id="respostaErroVazia" class='modalMensagem' style="display:none">
 		<?php
 			$templateGeral->mensagemRetorno('forum','Resposta Inválida!','erro');
