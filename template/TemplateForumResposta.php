@@ -36,8 +36,11 @@ class TemplateForumResposta{
 			foreach ($questoes as $q){
                             $totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
                             $totalViews = $viewController->totalByQuestao($q->getFrq_id());		
-                            if ($totalViews == 1) $msgView = '1 visualização';
-                            else $msgView = $totalViews.' visualizaçôes';
+                            if ($totalViews == 1) $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">1</span> visualização</span>';
+                            	else $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">'.$totalViews.'</span> visualizações</span>';
+                            
+                            if ($totalRespostas == 1) $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">1</span> resposta</span>';
+                            	else $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">'.$totalRespostas.'</span> respostas</span>';
 					
                             $data = substr(str_replace(' ',' às ',$q->getFrq_data()),0,-3);
                             $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
@@ -47,7 +50,7 @@ class TemplateForumResposta{
                                             </div>
                                             <div style="clear:both"></div>
                                             <div class="ln_info row">
-                                                <p class="col-xs-12 col-md-12 col-lg-12 align-right">'.$msgView.'<span class="paipeL">&nbsp|</span> &nbsp'.$totalRespostas.' respostas</p>
+                                                <p class="col-xs-12 col-md-12 col-lg-12 align-right">'.$msgView.'<span class="paipeL">&nbsp|</span> &nbsp'.$totalRespostas.'</p>
                                             </div>
                                             <div style="clear:both"></div>
 				      					</div>';
@@ -72,7 +75,7 @@ class TemplateForumResposta{
 	  	if ($viewController->verificaUsuarioByQuestao($id,$idQuestao) == 0){
 	  		$view = New ForumView();
 	  		$view->setFrv_questao($idQuestao);
-	  		$view->setFrv_usuario(1);
+	  		$view->setFrv_usuario($id);
 	  		$view->setFrv_data(date('Y-m-d h:i:s'));
 	  		$viewController->insert($view);
 	  	}

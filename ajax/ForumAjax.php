@@ -29,6 +29,8 @@ switch ($_POST["acao"]){
 	  	}else{
 	  		$questoes = $questaoController->selectUltimas(5);
 	  	}
+	  	
+
 	//	print_r($questoes);
 	  	
 	  	$html = '';
@@ -36,17 +38,22 @@ switch ($_POST["acao"]){
 			foreach ($questoes as $q){
 				$viewController = new ForumViewController();
 				$totalViews = $viewController->totalByQuestao($q->getFrq_id());
-				if ($totalViews == 1) $msgView = '1 visualização';
-					else $msgView = $totalViews.' visualizaçôes';
+				$totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
+				
+				if ($totalViews == 1) $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">1</span> visualização</span>';
+                	else $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">'.$totalViews.'</span> visualizaçôes</span>';
+                            	
+				if ($totalRespostas == 1) $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">1</span> resposta</span>';
+                  	else $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">'.$totalRespostas.'</span> respostas</span>';
 					
-            	$totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
+            	
                 $data = substr(str_replace(' ',' às ',$q->getFrq_data()),0,-3);
                 $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
 						<p class="ln_pergunta">'.utf8_encode($q->getFrq_questao()).'</p>
 				        <div class="ln_info row">
 				          <p class="col-xs-7 col-md-7 col-lg-7 align-right">Última postagem '.$data.'</p> 
 				          <p class="col-xs-3 col-md-3 col-lg-3 align-right"><span class="paipeR">|</span>'.$msgView.' <span class="paipeL">|</span></p>
-				          <p class="col-xs-2 col-md-2 col-lg-2 align-right">'.$totalRespostas.' respostas</p>
+				          <p class="col-xs-2 col-md-2 col-lg-2 align-right">'.$totalRespostas.'</p>
 				        </div>
 				        <div style="clear:both"></div>
 				      </div>';
@@ -65,10 +72,11 @@ switch ($_POST["acao"]){
 	  	if ($viewController->verificaUsuarioByQuestao($id,$_POST['resp']) == 0){
 	  		$view = New ForumView();
 	  		$view->setFrv_questao($_POST['resp']);
-	  		$view->setFrv_usuario(1);
+	  		$view->setFrv_usuario($id);
 	  		$view->setFrv_data(date('Y-m-d h:i:s'));
 	  		$viewController->insert($view);
-	  	}
+	  		$htmlJquery = '<script text="<script type="text/javascript">atualizaVisitas('.$_POST['resp'].')</script>'; 
+	  	}else $htmlJquery = '';
 	  	
 	  	$usuario = $userController->select($resp->getFrq_usuario());  	
 		$respostas = $respostasController->selectByQuestao($resp->getFrq_id());
@@ -133,7 +141,8 @@ switch ($_POST["acao"]){
                             	</div> 
                        	 	</div>
                         </div>';
-                $html .= '</div></div>';
+       $html .= '</div></div>';
+       $html .= $htmlJquery;
 
 		echo $html;
 	  	break;

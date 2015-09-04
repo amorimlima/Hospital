@@ -71,6 +71,7 @@ $(document).ready(function ()
         usuario = $(this).attr("idAluno");
 		resposta = $("#resp_forum").val();
 		questao = $("#questao").val();
+		
 		if (resposta != ''){
 			$.ajax({
 				url: "ajax/ForumAjax.php",
@@ -84,29 +85,27 @@ $(document).ready(function ()
 			    },
 			    success: function (){
 			    	$("#respostaSucesso").css('display','block');
+			    	var totalResposta = $("#totalResp"+questao).text();
+					totalResposta++; 
+					if (totalResposta == 1)	$("#totalRespTexto"+questao).html('<span id="totalResp'+questao+'">1</span> Resposta');
+						else $("#totalRespTexto"+questao).html('<span id="totalResp'+questao+'">'+totalResposta+'</span> Respostas');
 			    	listaRespostas(questao)
 			    }
 			})
 		}else {
-			//alert("Resposta Inválida!!");
 			$('#respostaErroVazia').css('display','block');
 		}
-		//"" == resposta ? (alert("Resposta Inválida!!"), !1) : void $.ajax(
-//        {
-//            url: "ajax/ForumAjax.php",
-//            type: "post",
-//            dataType: "json",
-//            data: {
-//                acao: "NovaRespostaQuestao",
-//                questao: questao,
-//                resposta: resposta,
-//                usuario: usuario
-//            },
-//            success: function ()
-//            {
-//                listaRespostas(resp)
-//            }
-//        })
 		return false;
     })
 });
+
+function atualizaVisitas(questao){
+	//alert('Questao a ser atualizada'+idQuestao);
+	console.log(questao);
+	var total = $("#totalVis"+questao).text();
+	total++; 
+	console.log(total);
+	if (total == 1)	$("#totalVisTexto"+questao).html('<span id="totalVis'+questao+'">1</span> Visualização');
+		else $("#totalVisTexto"+questao).html('<span id="totalVis'+questao+'">'+total+'</span> Visualizações');
+	return false;
+}
