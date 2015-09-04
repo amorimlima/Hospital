@@ -35,7 +35,7 @@ $(document).ready(function(){
 						//$("#result").addClass('alert').html(data.msg);
 						alert(data.msg);
 						}else{
-							window.location  = data.url;
+							window.location.href=data.url;
 						}
 					}
 				});
