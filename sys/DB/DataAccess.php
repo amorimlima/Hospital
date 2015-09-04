@@ -32,13 +32,16 @@ class DataAccess
 	{
 		//echo $sql;
 		$query = mysqli_query($this->getDBConnect(),$sql);// or die(mysql_error()."Erro!!");
-
+		echo 'query: ';
+		print_r($query);
 		/* Executa o SQL */
 		if ($query)
-			return $query;
+		{echo '1';
+			return $query;}
 			//throw new Exception('Division by zero.');
 		else
-			return null;
+			{echo '1';
+			return null;}
 	}
 
 	/**/
