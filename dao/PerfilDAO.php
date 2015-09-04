@@ -26,8 +26,9 @@ class PerfilDAO extends DAO{
     
     public function insert($prf)
      {
-         $sql  = "insert into perfil (prf_perfil) values ";
-         $sql .= "('".$prf->getPrf_perfil()."')";
+         $sql  = "insert into perfil (prf_perfil,url,pagina) values ";
+         $sql .= "('".$prf->getPrf_perfil()."',";
+         $sql .= "'".$prf->getPrf_url()."','".$prf->getPrf_pagina()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
@@ -35,6 +36,8 @@ class PerfilDAO extends DAO{
      public function update($prf)
      {
          $sql  = "update perfil set prf_perfil = '".$prf->getPrf_perfil()."',";
+         $sql .= "url = '".$prf->getPrf_url()."',";
+    	 $sql .= "pagina = '".$prf->getPrf_pagina()."',";
          $sql .= "where prf_id = ".$prf->getPrf_id()." limit 1";
          return $this->execute($sql);
      } 
@@ -54,6 +57,8 @@ class PerfilDAO extends DAO{
                 $prf = new Perfil();
                 $prf->setPrf_id($qr["prf_id"]);
                 $prf->setPrf_perfil($qr["prf_perfil"]);
+                $prf->setPrf_url($qr["url"]);
+                $prf->setPrf_pagina($qr["pagina"]);
                  	
     	return $prf;
      }
@@ -68,7 +73,9 @@ class PerfilDAO extends DAO{
                 $prf = new Perfil();
                 $prf->setPrf_id($qr["prf_id"]);
                 $prf->setPrf_perfil($qr["prf_perfil"]);
-                array_push($lista, $adm);   
+                $prf->setPrf_url($qr["url"]);
+                $prf->setPrf_pagina($qr["pagina"]);
+                array_push($lista, $prf);   
         }
     	return $lista;
      }

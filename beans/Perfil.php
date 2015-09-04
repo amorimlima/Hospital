@@ -22,6 +22,10 @@ private $prf_id;
 
 private $prf_perfil;
 
+private $prf_url;
+
+private $prf_pagina;
+
 
 
 public function Perfil()
@@ -42,6 +46,13 @@ public function getPrf_perfil()
 return $this->prf_perfil;
 }
 
+public function getPrf_url(){
+    return $this->prf_url;
+}
+
+public function getPrf_pagina(){
+    return $this->prf_pagina;
+}
 
 
 public function setPrf_id($val)
@@ -52,6 +63,14 @@ $this->prf_id =  $val;
 public function setPrf_perfil($val)
 {
 $this->prf_perfil =  $val;
+}
+
+public function setPrf_url($val){
+$this->prf_url = $val;
+}
+
+public function setPrf_pagina($val){
+$this->prf_pagina = $val;
 }
 
 
