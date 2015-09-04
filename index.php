@@ -1,10 +1,5 @@
 <?php
 require_once '_loadPaths.inc.php';
-// session_start();
-// if(isset($_SESSION['USR'])){
-   // header("location:inicio.php");
-   // die();
-//}
 ?>
 <html>
 <head>
@@ -30,9 +25,7 @@ $(document).ready(function(){
 				dataType:'json',
 				data:{'usuario':user,'senha':senha},
 				success:function(data){
-					//alert(data.msg);
 					if(data.erro == true){
-						//$("#result").addClass('alert').html(data.msg);
 						alert(data.msg);
 						}else{
 							window.location.href=data.url;
@@ -41,7 +34,6 @@ $(document).ready(function(){
 				});
 			}else{
 				alert('Os campos são obrigatórios!');
-//				$("#result").addClass('alert').html("Os campos são obrigatórios");
 			}
 			return false;
 		});
@@ -61,10 +53,10 @@ $(document).ready(function(){
           <div class="modal-body">
               <form class="form center-block">
                 <div class="form-group">
-                  <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" placeholder="teste1">
+                  <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" value="aluno">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control input-lg form-actions" name="senha" id="senha" placeholder="teste">
+                    <input type="password" class="form-control input-lg form-actions" name="senha" id="senha" value="123">
                 </div>
                 <div class="form-group">
                   <button class="btn btn-primary btn-lg btn-block"  id="btLogar">Logar</button>

@@ -12,13 +12,13 @@ class DataAccess
 	{
             //L -> '187.73.149.26:8080', 'root', 'jogoshcb' DB -> hcb_criancas
             //W ->'localhost', 'root','' DB -> hcb_criancas
-            $this->connect = mysqli_connect('187.73.149.26:3306','root','jogoshcb','hcb_criancas');//
+           // $this->connect = mysqli_connect('localhost','root','jogoshcb');
+            //mysqli_select_db($this->connect, 'hcb_criancas') or die(mysql_error());
+			
+			$this->connect = mysqli_connect('187.73.149.26:3306','root','jogoshcb','hcb_criancas');//
             if(mysqli_connect_errno()){
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
-            }
-            //$this->connect = mysqli_connect('localhost','root','kevyn');
-           // mysqli_select_db($this->connect,'hcb_criancas') or die(mysqli_connect_error());//
-
+            }      
 	}
 	
 	public function getDBConnect()
@@ -32,16 +32,13 @@ class DataAccess
 	{
 		//echo $sql;
 		$query = mysqli_query($this->getDBConnect(),$sql);// or die(mysql_error()."Erro!!");
-		echo 'query: ';
-		print_r($query);
+
 		/* Executa o SQL */
 		if ($query)
-		{echo '1';
-			return $query;}
+			return $query;
 			//throw new Exception('Division by zero.');
 		else
-			{echo '1';
-			return null;}
+			return null;
 	}
 
 	/**/
@@ -58,6 +55,7 @@ class DataAccess
 			return null;	
 	}
 	
+
     /**
     * Returns any MySQL errors
     *
@@ -67,9 +65,7 @@ class DataAccess
     public function isError ()
     {
         return mysqli_error( $this->getDBConnect() );
-    }
-
-    
+    }		
 }
 
 ?>

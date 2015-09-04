@@ -35,7 +35,7 @@ class UsuarioDAO extends DAO{
          $sql .= "'".$user->getUsr_perfil()."',";
          $sql .= "'".$user->getUsr_login()."',";
          $sql .= "'".$user->getUsr_senha()."')";
-		echo $sql;
+		//echo $sql;
     	return $this->execute($sql);
      }
      
