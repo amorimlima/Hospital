@@ -1,0 +1,1251 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20/08/2015, 12:48:23
+    Author     : Lucas
+*/
+
+/* Box Relatorios */
+@media (min-width: 1200px) {
+    #box_relatorios{
+        width: 100%;
+        height: 581px;
+        border: 2px dotted rgb(229,124,44);
+        background: #FFFFFF;
+    }
+    #topo_relatorios {
+        background: url(../img/relatorios_large.png) no-repeat;
+        width: 192px;
+        height: 29px;
+        margin: -18px 0 0 17px;
+    }
+    #grafico_container {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    #area_grafico {
+        padding: 20px 25px 20px 20px;
+        width: 100%;
+        height: 441px;
+    }
+    #topo_grafico {
+        width: 100%;
+        height: 35px;
+    }
+    #header_grafico {
+        position: relative;
+        float: right;
+        width: 95%;
+        height: 100%;
+        border-left: 2px solid #e35e0f;
+    }
+    #seta_graph_cima {
+        position: absolute;
+        top: -10px;
+        left: -5px;
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    #leg_left {
+        position: absolute;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        width: 9%;
+        height: 300px;
+    }
+    .legenda_graph {
+        width: 30px;
+        height: 10%;
+        text-align: right;
+    }
+    .escola {
+        width: 9.5%;
+        position: relative;
+        display: inline-block;
+        height: 100%;
+    }
+    .graph_bar {
+        position: absolute;
+        width: 40%;
+        height: 100px;
+        background-color: rgb(248,211,182);
+        box-sizing: border-box;
+        left: 30%;
+        bottom: 0;
+        top: auto;
+        cursor: pointer;
+    }
+    .graph_bar:hover {
+        background-color: rgb(255,221,192);
+    }
+    #barras_grafico {
+        width: 95%;
+        float: right;
+    }
+    #grafico_relatorio {
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        border-left: 2px solid #e35e0f;
+        border-bottom: 2px solid #e35e0f;
+        float: right;
+        width: 100%;
+        height: 300px;
+        background: repeating-linear-gradient(
+            rgb(254,246,240),
+            rgb(254,246,240) 10%,
+            rgb(255,255,255) 10%,
+            rgb(255,255,255) 20%
+      );
+    }
+    #seta_graph_baixo {
+        position: absolute;
+        bottom: -7px;
+        right: -10px;
+        transform: rotate(90deg);
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    #leg_bottom {
+        width: 95%;
+        float: right;
+        height: 30px;
+    }
+    .escola_numero {
+        display: inline-block;
+        width: 9.5%;
+        height: 100%;
+    }
+    .escola_numero p {
+        text-align: right;
+        transform-origin: 71% 129% 0;
+        -webkit-transform-origin: 71% 129% 0;
+        transform: rotate(-80deg);
+    }
+    #footer_grafico {
+        /*background-color: rgb(85,85,180);*/
+        width: 100%;
+        height: 70px;
+        margin-top: 15px;
+        padding: 20px 0;
+    }
+    #bt_baixar_relatorio {
+        width: 150px;
+        height: 31px;
+        float: right;
+        padding: 4px;
+        background-color: rgb(227,108,47);
+        cursor: pointer;
+    }
+    #bt_baixar_relatorio:hover {
+        background-color: rgb(237,118,57);
+    }
+    #bt_baixar_relatorio p {
+        margin: 0;
+        padding: 0;
+        font-family: "Source Sans Pro";
+        letter-spacing: .4px;
+        font-weight: 300;
+        font-size: 12pt;
+        text-align: center;
+        color: white;
+    }
+    #aviso_mobile_relatorios {
+        display: none;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    #box_relatorios{
+        width: 100%;
+        height: 560px;
+        border: 2px dotted rgb(229,124,44);
+        background: #FFFFFF;
+    }
+    #topo_relatorios {
+        background: url(../img/relatorios_large.png) no-repeat;
+        width: 192px;
+        height: 29px;
+        margin: -18px 0 0 17px;
+    }
+    #grafico_container {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    #area_grafico {
+        padding: 20px 25px 20px 20px;
+        width: 100%;
+        height: 441px;
+    }
+    #topo_grafico {
+        width: 100%;
+        height: 35px;
+    }
+    #header_grafico {
+        position: relative;
+        float: right;
+        width: 95%;
+        height: 100%;
+        border-left: 2px solid #e35e0f;
+    }
+    #seta_graph_cima {
+        position: absolute;
+        top: -10px;
+        left: -5px;
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    #leg_left {
+        position: absolute;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        width: 9%;
+        height: 300px;
+    }
+    .legenda_graph {
+        width: 30px;
+        height: 10%;
+        text-align: right;
+    }
+    .escola {
+        width: 9.5%;
+        position: relative;
+        display: inline-block;
+        height: 100%;
+    }
+    .graph_bar {
+        position: absolute;
+        width: 40%;
+        height: 100px;
+        background-color: rgb(248,211,182);
+        box-sizing: border-box;
+        left: 30%;
+        bottom: 0;
+        top: auto;
+        cursor: pointer;
+    }
+    .graph_bar:hover {
+        background-color: rgb(255,221,192);
+    }
+    #barras_grafico {
+        width: 95%;
+        float: right;
+    }
+    #grafico_relatorio {
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        border-left: 2px solid #e35e0f;
+        border-bottom: 2px solid #e35e0f;
+        float: right;
+        width: 100%;
+        height: 300px;
+        background: repeating-linear-gradient(
+            rgb(254,246,240),
+            rgb(254,246,240) 10%,
+            rgb(255,255,255) 10%,
+            rgb(255,255,255) 20%
+      );
+    }
+    #seta_graph_baixo {
+        position: absolute;
+        bottom: -7px;
+        right: -10px;
+        transform: rotate(90deg);
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    #leg_bottom {
+        width: 95%;
+        float: right;
+        height: 30px;
+    }
+    .escola_numero {
+        display: inline-block;
+        width: 9.5%;
+        height: 100%;
+    }
+    .escola_numero p {
+        text-align: right;
+        transform-origin: 77% 145% 0;
+        -webkit-transform-origin: 77% 145% 0;
+        transform: rotate(-80deg);
+    }
+    #footer_grafico {
+        /*background-color: rgb(85,85,180);*/
+        width: 100%;
+        height: 70px;
+        padding: 20px 0;
+    }
+    #bt_baixar_relatorio {
+        width: 150px;
+        height: 31px;
+        float: right;
+        padding: 4px;
+        margin-right: 25px;
+        background-color: rgb(227,108,47);
+        cursor: pointer;
+    }
+    #bt_baixar_relatorio:hover {
+        background-color: rgb(237,118,57);
+    }
+    #bt_baixar_relatorio p {
+        margin: 0;
+        padding: 0;
+        font-family: "Source Sans Pro";
+        letter-spacing: .4px;
+        font-weight: 300;
+        font-size: 12pt;
+        text-align: center;
+        color: white;
+    }
+    #aviso_mobile_relatorios {
+        display: none;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    #box_relatorios{
+        width: 100%;
+        height: 560px;
+        border: 2px dotted rgb(229,124,44);
+        background: #FFFFFF;
+    }
+    #topo_relatorios {
+        background: url(../img/relatorios_large.png) no-repeat;
+        width: 192px;
+        height: 29px;
+        margin: -18px 0 0 17px;
+    }
+    #grafico_container {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    #area_grafico {
+        padding: 20px 25px 20px 20px;
+        width: 100%;
+        height: 441px;
+    }
+    #topo_grafico {
+        width: 100%;
+        height: 35px;
+    }
+    #header_grafico {
+        position: relative;
+        float: right;
+        width: 95%;
+        height: 100%;
+        border-left: 2px solid #e35e0f;
+    }
+    #seta_graph_cima {
+        position: absolute;
+        top: -10px;
+        left: -5px;
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    #leg_left {
+        position: absolute;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        width: 9%;
+        height: 300px;
+    }
+    .legenda_graph {
+        width: 30px;
+        height: 10%;
+        text-align: right;
+        padding-right: 5px;
+    }
+    .escola {
+        width: 9.5%;
+        position: relative;
+        display: inline-block;
+        height: 100%;
+    }
+    .graph_bar {
+        position: absolute;
+        width: 40%;
+        height: 100px;
+        background-color: rgb(248,211,182);
+        box-sizing: border-box;
+        left: 30%;
+        bottom: 0;
+        top: auto;
+        cursor: pointer;
+    }
+    .graph_bar:hover {
+        background-color: rgb(255,221,192);
+    }
+    #barras_grafico {
+        width: 95%;
+        float: right;
+    }
+    #grafico_relatorio {
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        border-left: 2px solid #e35e0f;
+        border-bottom: 2px solid #e35e0f;
+        float: right;
+        width: 100%;
+        height: 300px;
+        background: repeating-linear-gradient(
+            rgb(254,246,240),
+            rgb(254,246,240) 10%,
+            rgb(255,255,255) 10%,
+            rgb(255,255,255) 20%
+      );
+    }
+    #seta_graph_baixo {
+        position: absolute;
+        bottom: -7px;
+        right: -10px;
+        transform: rotate(90deg);
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    #leg_bottom {
+        width: 95%;
+        float: right;
+        height: 30px;
+    }
+    .escola_numero {
+        letter-spacing: -0.3px;
+        display: inline-block;
+        width: 9.5%;
+        height: 100%;
+    }
+    .escola_numero p {
+        text-align: right;
+        transform-origin: 77% 145% 0;
+        -webkit-transform-origin: 77% 145% 0;
+        transform: rotate(-80deg);
+    }
+    #footer_grafico {
+        /*background-color: rgb(85,85,180);*/
+        width: 100%;
+        height: 70px;
+        padding: 20px 0;
+    }
+    #bt_baixar_relatorio {
+        width: 150px;
+        height: 31px;
+        float: right;
+        padding: 4px;
+        margin-right: 25px;
+        background-color: rgb(227,108,47);
+        cursor: pointer;
+    }
+    #bt_baixar_relatorio:hover {
+        background-color: rgb(237,118,57);
+    }
+    #bt_baixar_relatorio p {
+        margin: 0;
+        padding: 0;
+        font-family: "Source Sans Pro";
+        letter-spacing: .4px;
+        font-weight: 300;
+        font-size: 12pt;
+        text-align: center;
+        color: white;
+    }
+    #aviso_mobile_relatorios {
+        display: none;
+    }
+}
+@media (max-width: 767px) {
+    #box_relatorios{
+        width: 100%;
+        height: auto;
+        border: 2px dotted rgb(229,124,44);
+        background: #FFFFFF;
+    }
+    #topo_relatorios {
+        background: url(../img/relatorios_large.png) no-repeat;
+        width: 192px;
+        height: 29px;
+        margin: -18px 0 0 17px;
+    }
+    #grafico_container {
+        display: none;
+    }
+    #aviso_mobile_relatorios {
+        display: block;
+        box-sizing: border-box;
+        width: 90%;
+        margin: 20px auto 25px;
+        font-size: 14px;
+    }
+}
+
+/* Boxes da esquerda */
+@media (min-width: 1200px) {
+    .box_left {
+        margin-top: 30px;
+    }
+
+    #Conteudo_Area_box_right .box_left:first-child {
+        margin-top: 0 !important;
+    }
+    /* Box Livros */
+        #box_livros {
+            width: 100%;
+            border: 2px dotted #7cb931;
+            background: #FFFFFF;
+        }
+        #topo_livros {
+            background: url(../img/livros.png) no-repeat;
+            width: 115px;
+            height: 29px;
+            margin: -18px 0 0 17px;
+        }
+        #bt_livro_container {
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
+            padding: 30px 10px;
+            text-align: center;
+        }
+        .bt_livro_ano {
+            margin: 0 auto;
+            display: inline-block;
+            max-width: 90px;
+            min-width: 75px;
+            height: auto;
+            margin: 5px 10px;
+            padding: 2px;
+            border: 1px solid #7dba31;
+            text-align: center;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+        .bt_livro_ano:hover {
+            background-color: rgb(228,239,211);
+        }
+        .livro_ano {
+            display: inline-block;
+            color: #7dba31;
+            width: 100%;
+            border: 1px dashed #7dba31;
+            border-radius: inherit;
+        }
+
+    /* Box Mensagens */ 
+        #box_mensagens {
+            width: 100%;
+            height: auto;
+            border: 2px dotted #23adb5;
+            background: #FFFFFF;
+        }
+        #topo_mensagens {
+            position: relative;
+            background: url(../img/mensagens.png) no-repeat;
+            width: 172px;
+            height: 29px;
+            margin: -18px 0 0 17px;
+        }
+        #box_mensagens .table {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        #box_mensagens .table>thead>tr>th {
+            padding: 8px 15px;
+            border-bottom: 0;
+            font-weight: 400 !important;
+            color: #1c7a7e;
+        }
+        .msg_label {
+            position: absolute;
+            left: auto;
+            right: -13px;
+            top: -7px;
+            font-size: 14px;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            color: #FFF;
+            background-color: #e27919;
+            border: 1.5px solid #f9b51c;
+            padding: 2px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: .9 !important;
+            cursor: default;
+        }
+        #box_mensagens .table>tbody>tr>td {
+            padding: 8px 15px;
+            border-top: 0 solid;
+            border-left: 2px solid white;
+        }
+        #box_mensagens .table>tbody>tr>td:first-child {
+            border-left: 0;
+        }
+        #box_mensagens .table-striped>tbody>tr {
+            cursor: pointer;
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(odd) {
+            background-color: rgb(241,250,249);
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(odd):hover {
+            background-color: rgb(231,240,239);
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(even):hover {
+            background-color: rgb(240,240,240);
+        }
+        .mensagem_nao_lida {
+            font-weight: 700;
+        }
+
+    /* Box Carregar */
+        #box_carregar {
+            width: 100%;
+            height: 200px;
+            border: 2px dotted #f59925;
+            background: #FFFFFF;
+            padding: 10px;
+            box-sizing: padding-box;
+        }
+        #bt_carregar {
+            box-sizing: border-box;
+            width: 100%;
+            height: 176px;
+            background: url(../img/bt_carregar_arquivos.png) no-repeat;
+            background-position: center;
+            cursor: pointer;
+        }
+        #contaier_boxes_carregar {
+            box-sizing: border-box;
+            width: 100%;
+            height: 176px;
+        }
+        .box_carregar {
+            display: inline-block;
+            box-sizing: border-box;
+            max-width: 200px;
+            width: 48%;
+            height: 87px;
+            padding: 5px;
+            margin: 0 !important;
+            
+        }
+        .box_carregar_conteudo {
+            background-color: rgb(255,238,209);
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .box_carregar_legenda {
+            text-align: center;
+            width: 100%;
+            font-size: 9px;
+            background-color: rgba(255,255,255,0.7);
+            padding: 5px 0;
+        }
+        .box_carregar_icon {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+        #icon_hiperlink_sm {
+            background: url(../img/icon_hiperlink_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_video_sm {
+            background: url(../img/icon_video_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_pdf_sm {
+            background: url(../img/icon_pdf_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_outros_sm {
+            background: url(../img/icon_outros_sm.png) no-repeat;
+            background-position: center;
+        }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .box_left {
+        margin-top: 30px;
+    }
+
+    #Conteudo_Area_box_right .box_left:first-child {
+        margin-top: 0 !important;
+    }
+    /* Box Livros */
+        #box_livros {
+            width: 100%;
+            border: 2px dotted #7cb931;
+            background: #FFFFFF;
+        }
+        #topo_livros {
+            background: url(../img/livros.png) no-repeat;
+            width: 115px;
+            height: 29px;
+            margin: -18px 0 0 17px;
+        }
+        #bt_livro_container {
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
+            padding: 30px 10px;
+            text-align: center;
+        }
+        .bt_livro_ano {
+            margin: 0 auto;
+            display: inline-block;
+            min-width: 120px;
+            height: auto;
+            margin: 5px 10px;
+            padding: 2px;
+            border: 1px solid #7dba31;
+            text-align: center;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+        .bt_livro_ano:hover {
+            background-color: rgb(228,239,211);
+        }
+        .livro_ano {
+            display: inline-block;
+            color: #7dba31;
+            width: 100%;
+            border: 1px dashed #7dba31;
+            border-radius: inherit;
+        }
+
+    /* Box Mensagens */ 
+        #box_mensagens {
+            width: 100%;
+            height: auto;
+            border: 2px dotted #23adb5;
+            background: #FFFFFF;
+        }
+        #topo_mensagens {
+            position: relative;
+            background: url(../img/mensagens.png) no-repeat;
+            width: 172px;
+            height: 29px;
+            margin: -18px 0 0 17px;
+        }
+        #box_mensagens .table {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        #box_mensagens .table>thead>tr>th {
+            padding: 8px 15px;
+            border-bottom: 0;
+            font-weight: 400 !important;
+            color: #1c7a7e;
+        }
+        .msg_label {
+            position: absolute;
+            left: auto;
+            right: -13px;
+            top: -7px;
+            font-size: 14px;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            color: #FFF;
+            background-color: #e27919;
+            border: 1.5px solid #f9b51c;
+            padding: 2px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: .9 !important;
+            cursor: default;
+        }
+        #box_mensagens .table>tbody>tr>td {
+            padding: 8px 15px;
+            border-top: 0 solid;
+            border-left: 2px solid white;
+        }
+        #box_mensagens .table>tbody>tr>td:first-child {
+            border-left: 0;
+        }
+        #box_mensagens .table-striped>tbody>tr {
+            cursor: pointer;
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(odd) {
+            background-color: rgb(241,250,249);
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(odd):hover {
+            background-color: rgb(231,240,239);
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(even):hover {
+            background-color: rgb(240,240,240);
+        }
+        .mensagem_nao_lida {
+            font-weight: 700;
+        }
+
+    /* Box Carregar */
+        #box_carregar {
+            width: 100%;
+            height: 200px;
+            border: 2px dotted #f59925;
+            background: #FFFFFF;
+            padding: 10px;
+            box-sizing: padding-box;
+        }
+        #bt_carregar {
+            box-sizing: border-box;
+            width: 100%;
+            height: 176px;
+            background: url(../img/bt_carregar_arquivos.png) no-repeat;
+            background-position: center;
+            cursor: pointer;
+        }
+        #contaier_boxes_carregar {
+            box-sizing: border-box;
+            width: 100%;
+            height: 176px;
+        }
+        .box_carregar {
+            display: inline-block;
+            box-sizing: border-box;
+            max-width: 200px;
+            width: 48%;
+            height: 87px;
+            padding: 5px;
+            margin: 0 !important;
+            
+        }
+        .box_carregar_conteudo {
+            background-color: rgb(255,238,209);
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .box_carregar_legenda {
+            text-align: center;
+            width: 100%;
+            font-size: 12px;
+            background-color: rgba(255,255,255,0.7);
+            padding: 3px 0 2px;
+        }
+        .box_carregar_icon {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+        #icon_hiperlink_sm {
+            background: url(../img/icon_hiperlink_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_video_sm {
+            background: url(../img/icon_video_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_pdf_sm {
+            background: url(../img/icon_pdf_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_outros_sm {
+            background: url(../img/icon_outros_sm.png) no-repeat;
+            background-position: center;
+        }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .box_left {
+        margin-top: 30px;
+    }
+
+    .box_left:first-child {
+        margin-top: 0;
+    }
+    /* Box Livros */
+        #box_livros {
+            width: 100%;
+            border: 2px dotted #7cb931;
+            background: #FFFFFF;
+        }
+        #topo_livros {
+            background: url(../img/livros.png) no-repeat;
+            width: 115px;
+            height: 29px;
+            margin: -18px 0 0 17px;
+        }
+        #bt_livro_container {
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
+            padding: 30px 10px;
+            text-align: center;
+        }
+        .bt_livro_ano {
+            margin: 0 auto;
+            display: inline-block;
+            min-width: 180px;
+            height: auto;
+            margin: 5px 10px;
+            padding: 2px;
+            border: 1px solid #7dba31;
+            text-align: center;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+        .bt_livro_ano:hover {
+            background-color: rgb(228,239,211);
+        }
+        .livro_ano {
+            display: inline-block;
+            color: #7dba31;
+            width: 100%;
+            height: 40px;
+            padding: 10px 0;
+            border: 1px dashed #7dba31;
+            border-radius: inherit;
+        }
+
+    /* Box Mensagens */ 
+        #box_mensagens {
+            width: 100%;
+            height: auto;
+            border: 2px dotted #23adb5;
+            background: #FFFFFF;
+        }
+        #topo_mensagens {
+            position: relative;
+            background: url(../img/mensagens.png) no-repeat;
+            width: 172px;
+            height: 29px;
+            margin: -18px 0 0 17px;
+        }
+        #box_mensagens .table {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        #box_mensagens .table>thead>tr>th {
+            padding: 8px 15px;
+            border-bottom: 0;
+            font-weight: 400 !important;
+            color: #1c7a7e;
+        }
+        .msg_label {
+            position: absolute;
+            left: auto;
+            right: -13px;
+            top: -7px;
+            font-size: 14px;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            color: #FFF;
+            background-color: #e27919;
+            border: 1.5px solid #f9b51c;
+            padding: 2px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: .9 !important;
+            cursor: default;
+        }
+        #box_mensagens .table>tbody>tr>td {
+            padding: 15px 15px;
+            border-top: 0 solid;
+            border-left: 2px solid white;
+        }
+        #box_mensagens .table>tbody>tr>td:first-child {
+            border-left: 0;
+        }
+        #box_mensagens .table-striped>tbody>tr {
+            cursor: pointer;
+            height: 50px;
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(odd) {
+            background-color: rgb(241,250,249);
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(odd):hover {
+            background-color: rgb(231,240,239);
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(even):hover {
+            background-color: rgb(240,240,240);
+        }
+        .mensagem_nao_lida {
+            font-weight: 700;
+        }
+
+    /* Box Carregar */
+        #box_carregar {
+            width: 100%;
+            height: auto;
+            border: 2px dotted #f59925;
+            background: #FFFFFF;
+            padding: 10px;
+            box-sizing: padding-box;
+        }
+        #bt_carregar {
+            box-sizing: border-box;
+            width: 100%;
+            height: 176px;
+            background: url(../img/bt_carregar_arquivos.png) no-repeat;
+            background-position: center;
+            cursor: pointer;
+        }
+        #contaier_boxes_carregar {
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
+        }
+        .box_carregar {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 49.5%;
+            height: 100px;
+            padding: 5px;
+            margin: 0 !important;
+            
+        }
+        .box_carregar_conteudo {
+            background-color: rgb(255,238,209);
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .box_carregar_legenda {
+            text-align: center;
+            width: 100%;
+            font-size: 14px;
+            background-color: rgba(255,255,255,0.7);
+            padding: 3px 0 2px;
+        }
+        .box_carregar_icon {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 5px;
+        }
+        #icon_hiperlink_sm {
+            background: url(../img/icon_hiperlink_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_video_sm {
+            background: url(../img/icon_video_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_pdf_sm {
+            background: url(../img/icon_pdf_sm.png) no-repeat;
+            background-size: 35px;
+            background-position: center;
+        }
+        #icon_outros_sm {
+            background: url(../img/icon_outros_sm.png) no-repeat;
+            background-size: 22px;
+            background-position: center;
+        }
+}
+@media (max-width: 767px) {
+    .box_left {
+        margin-top: 30px;
+    }
+
+    .box_left:first-child {
+        margin-top: 0;
+    }
+    /* Box Livros */
+        #box_livros {
+            width: 100%;
+            border: 2px dotted #7cb931;
+            background: #FFFFFF;
+        }
+        #topo_livros {
+            background: url(../img/livros.png) no-repeat;
+            width: 115px;
+            height: 29px;
+            margin: -18px 0 0 17px;
+        }
+        #bt_livro_container {
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
+            padding: 30px 10px;
+            text-align: center;
+        }
+        .bt_livro_ano {
+            margin: 0 auto;
+            display: inline-block;
+            min-width: 130px;
+            max-width: 500px;
+            width: 90%;
+            height: auto;
+            margin: 5px 10px;
+            padding: 2px;
+            border: 1px solid #7dba31;
+            text-align: center;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+        .bt_livro_ano:hover {
+            background-color: rgb(228,239,211);
+        }
+        .livro_ano {
+            display: inline-block;
+            color: #7dba31;
+            width: 100%;
+            height: 40px;
+            padding: 10px 0;
+            border: 1px dashed #7dba31;
+            border-radius: inherit;
+        }
+
+    /* Box Mensagens */ 
+        #box_mensagens {
+            width: 100%;
+            height: auto;
+            border: 2px dotted #23adb5;
+            background: #FFFFFF;
+        }
+        #topo_mensagens {
+            position: relative;
+            background: url(../img/mensagens.png) no-repeat;
+            width: 172px;
+            height: 29px;
+            margin: -18px 0 0 17px;
+        }
+        #box_mensagens .table {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        #box_mensagens .table>thead>tr>th {
+            padding: 8px 15px;
+            border-bottom: 0;
+            font-weight: 400 !important;
+            color: #1c7a7e;
+        }
+        .msg_label {
+            position: absolute;
+            left: auto;
+            right: -13px;
+            top: -7px;
+            font-size: 14px;
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            color: #FFF;
+            background-color: #e27919;
+            border: 1.5px solid #f9b51c;
+            padding: 2px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: .9 !important;
+            cursor: default;
+        }
+        #box_mensagens .table>tbody {
+            width: 100%;
+        }
+        #box_mensagens .table>tbody>tr>td {
+            padding: 15px 10px;
+            border-top: 0 solid;
+            border-left: 2px solid white;
+        }
+        #box_mensagens .table>tbody>tr>td:first-child {
+            border-left: 0;
+        }
+        #box_mensagens .table-striped>tbody>tr {
+            cursor: pointer;
+            height: 50px;
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(odd) {
+            background-color: rgb(241,250,249);
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(odd):hover {
+            background-color: rgb(231,240,239);
+        }
+        #box_mensagens .table-striped>tbody>tr:nth-of-type(even):hover {
+            background-color: rgb(240,240,240);
+        }
+        .mensagem_nao_lida {
+            font-weight: 700;
+        }
+
+    /* Box Carregar */
+        #box_carregar {
+            width: 100%;
+            height: auto;
+            border: 2px dotted #f59925;
+            background: #FFFFFF;
+            padding: 10px;
+            box-sizing: padding-box;
+        }
+        #bt_carregar {
+            box-sizing: border-box;
+            width: 100%;
+            height: 176px;
+            background: url(../img/bt_carregar_arquivos.png) no-repeat;
+            background-position: center;
+            cursor: pointer;
+        }
+        #contaier_boxes_carregar {
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
+        }
+        .box_carregar {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100px;
+            padding: 5px;
+            margin: 0 !important;
+            
+        }
+        .box_carregar_conteudo {
+            background-color: rgb(255,238,209);
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .box_carregar_legenda {
+            text-align: center;
+            width: 100%;
+            font-size: 14px;
+            background-color: rgba(255,255,255,0.7);
+            padding: 3px 0 2px;
+        }
+        .box_carregar_icon {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 5px;
+        }
+        #icon_hiperlink_sm {
+            background: url(../img/icon_hiperlink_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_video_sm {
+            background: url(../img/icon_video_sm.png) no-repeat;
+            background-position: center;
+        }
+        #icon_pdf_sm {
+            background: url(../img/icon_pdf_sm.png) no-repeat;
+            background-size: 35px;
+            background-position: center;
+        }
+        #icon_outros_sm {
+            background: url(../img/icon_outros_sm.png) no-repeat;
+            background-size: 22px;
+            background-position: center;
+        }
+}
