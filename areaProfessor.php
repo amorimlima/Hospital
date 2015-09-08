@@ -98,16 +98,16 @@ $templateGeral = new Template();
                                             </div>
                                         </div>
                                         <div id="leg_bottom">
-                                            <div id="aluno1" class="aluno_foto"><p>Escola 1</p></div>
-                                            <div id="aluno2" class="aluno_foto"><p>Escola 2</p></div>
-                                            <div id="aluno3" class="aluno_foto"><p>Escola 3</p></div>
-                                            <div id="aluno4" class="aluno_foto"><p>Escola 4</p></div>
-                                            <div id="aluno5" class="aluno_foto"><p>Escola 5</p></div>
-                                            <div id="aluno6" class="aluno_foto"><p>Escola 6</p></div>
-                                            <div id="aluno7" class="aluno_foto"><p>Escola 7</p></div>
-                                            <div id="aluno8" class="aluno_foto"><p>Escola 8</p></div>
-                                            <div id="aluno9" class="aluno_foto"><p>Escola 9</p></div>
-                                            <div id="aluno10" class="aluno_foto"><p>Escola 10</p></div>
+                                            <div id="aluno1" class="aluno_foto"><p><img src="imgp/foto_aluno.png"></p></div>
+                                            <div id="aluno2" class="aluno_foto"><p><img src="imgp/foto_aluno2.png"></p></div>
+                                            <div id="aluno3" class="aluno_foto"><p><img src="imgp/foto_aluno3.png"></p></div>
+                                            <div id="aluno4" class="aluno_foto"><p><img src="imgp/foto_aluno4.png"></p></div>
+                                            <div id="aluno5" class="aluno_foto"><p><img src="imgp/foto_aluno5.png"></p></div>
+                                            <div id="aluno6" class="aluno_foto"><p><img src="imgp/foto_aluno6.png"></p></div>
+                                            <div id="aluno7" class="aluno_foto"><p><img src="imgp/foto_aluno7.png"></p></div>
+                                            <div id="aluno8" class="aluno_foto"><p><img src="imgp/foto_aluno8.png"></p></div>
+                                            <div id="aluno9" class="aluno_foto"><p><img src="imgp/foto_aluno9.png"></p></div>
+                                            <div id="aluno10" class="aluno_foto"><p><img src="imgp/foto_aluno10.png"></p></div>
                                         </div>
                                     </div>
                                     <div id="footer_grafico">
