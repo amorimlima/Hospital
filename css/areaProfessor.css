@@ -134,8 +134,8 @@ and open the template in the editor.
     .aluno_foto p {
         text-align: right;
         transform-origin: 71% 129% 0;
-        -webkit-transform-origin: 71% 129% 0;
-        transform: rotate(-80deg);
+        margin-top:-06px;
+        margin-right:10px;
     }
     #footer_grafico {
         width: 100%;
@@ -283,12 +283,14 @@ and open the template in the editor.
         display: inline-block;
         width: 9.5%;
         height: 100%;
+        
     }
     .aluno_foto p {
         text-align: right;
         transform-origin: 77% 145% 0;
-        -webkit-transform-origin: 77% 145% 0;
-        transform: rotate(-80deg);
+        margin-top:-06px;
+        margin-right:10px;
+        
     }
     #footer_grafico {
         width: 100%;
