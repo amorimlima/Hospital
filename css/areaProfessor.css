@@ -29,6 +29,7 @@ and open the template in the editor.
         box-sizing: border-box;
     }
     #area_grafico {
+        position: relative;
         padding: 20px 25px 20px 20px;
         width: 100%;
         height: 441px;
@@ -44,7 +45,7 @@ and open the template in the editor.
         height: 100%;
         border-left: 2px solid #e35e0f;
     }
-    #seta_graph_cima {
+    #seta_graph_laranja {
         position: absolute;
         top: -10px;
         left: -5px;
@@ -52,21 +53,34 @@ and open the template in the editor.
         height: 10px;
         background: url(../img/seta_graph.png) no-repeat;
     }
-    #leg_left {
+    .leg_lateral {
+        display: block;
         position: absolute;
+    }
+    #leg_esq {
+        left: 20px;
         display: inline-block;
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        width: 9%;
+        width: 30px;
         height: 300px;
     }
-    .legenda_graph {
+    #leg_dir {
+        right: 20px;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        width: 30px;
+        height: 300px;
+    }
+    .leg_graph_esq {
         width: 30px;
         height: 10%;
         text-align: right;
     }
-    .escola {
+    .aluno {
         width: 9.5%;
         position: relative;
         display: inline-block;
@@ -96,6 +110,7 @@ and open the template in the editor.
         box-sizing: border-box;
         border-left: 2px solid #e35e0f;
         border-bottom: 2px solid #e35e0f;
+        margin: 0 auto;
         float: right;
         width: 100%;
         height: 300px;
@@ -106,33 +121,23 @@ and open the template in the editor.
             rgb(255,255,255) 20%
       );
     }
-    #seta_graph_baixo {
-        position: absolute;
-        bottom: -7px;
-        right: -10px;
-        transform: rotate(90deg);
-        width: 10px;
-        height: 10px;
-        background: url(../img/seta_graph.png) no-repeat;
-    }
     #leg_bottom {
         width: 95%;
         float: right;
         height: 30px;
     }
-    .escola_numero {
+    .aluno_foto {
         display: inline-block;
         width: 9.5%;
         height: 100%;
     }
-    .escola_numero p {
+    .aluno_foto p {
         text-align: right;
         transform-origin: 71% 129% 0;
         -webkit-transform-origin: 71% 129% 0;
         transform: rotate(-80deg);
     }
     #footer_grafico {
-        /*background-color: rgb(85,85,180);*/
         width: 100%;
         height: 70px;
         margin-top: 15px;
@@ -198,7 +203,7 @@ and open the template in the editor.
         height: 100%;
         border-left: 2px solid #e35e0f;
     }
-    #seta_graph_cima {
+    #seta_graph_laranja {
         position: absolute;
         top: -10px;
         left: -5px;
@@ -215,12 +220,12 @@ and open the template in the editor.
         width: 9%;
         height: 300px;
     }
-    .legenda_graph {
+    .leg_graph_esq {
         width: 30px;
         height: 10%;
         text-align: right;
     }
-    .escola {
+    .aluno {
         width: 9.5%;
         position: relative;
         display: inline-block;
@@ -274,19 +279,18 @@ and open the template in the editor.
         float: right;
         height: 30px;
     }
-    .escola_numero {
+    .aluno_foto {
         display: inline-block;
         width: 9.5%;
         height: 100%;
     }
-    .escola_numero p {
+    .aluno_foto p {
         text-align: right;
         transform-origin: 77% 145% 0;
         -webkit-transform-origin: 77% 145% 0;
         transform: rotate(-80deg);
     }
     #footer_grafico {
-        /*background-color: rgb(85,85,180);*/
         width: 100%;
         height: 70px;
         padding: 20px 0;
@@ -352,7 +356,7 @@ and open the template in the editor.
         height: 100%;
         border-left: 2px solid #e35e0f;
     }
-    #seta_graph_cima {
+    #seta_graph_laranja {
         position: absolute;
         top: -10px;
         left: -5px;
@@ -369,7 +373,7 @@ and open the template in the editor.
         width: 9%;
         height: 300px;
     }
-    .legenda_graph {
+    .leg_graph_esq {
         width: 30px;
         height: 10%;
         text-align: right;
