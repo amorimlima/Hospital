@@ -16,18 +16,21 @@ if(isset($_POST)){
 	$usuarioController = new UsuarioController();
 	$user = $usuarioController->autenticaUsuario($usuario, $senha);
 
-	//print_r($user);
 	if($user!=null){
-		$adm = Array('nome'=>$user->getUsr_nome(),'id'=>$user->getUsr_id());
+		$adm = Array(
+					'nome'	=>$user['usr_nome'],
+					'id'	=>$user['usr_id'],
+					'perfil'=>$user['prf_perfil'],
+					'url'	=>$user['prf_url'],
+					'pagina'=>utf8_encode($user['prf_pagina'])
+				);
+				
 		$_SESSION['USR'] = serialize($adm);
-		$result = Array('erro'=>false,'msg'=>'Logado!!','url'=>'inicio.php');
+		$result = Array('erro'=>false,'msg'=>'Logado!!','url'=>$adm['url']);
 	}else{
 		
-//		if($_SESSION['ADM']){
-//			unset($_SESSION['ADM']);
-//		}
-		$result = Array('erro'=>true,'msg'=>utf8_encode('Usu·rio ou Senha Inv·lida!!'));
+		$result = Array('erro'=>true,'msg'=>'Usu√°rio ou Senha Inv√°lida!!');
 	}
-	//print_r($result);
+
 	echo json_encode($result);	
 }

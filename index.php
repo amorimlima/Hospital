@@ -53,7 +53,7 @@ $(document).ready(function(){
           <div class="modal-body">
               <form class="form center-block">
                 <div class="form-group">
-                  <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" value="aluno">
+                  <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" value="hcbAluno">
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control input-lg form-actions" name="senha" id="senha" value="123">

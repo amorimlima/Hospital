@@ -22,7 +22,7 @@ $templateGeral = new Template();
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" type="text/css" href="css/areaHospital.css">
+        <link rel="stylesheet" type="text/css" href="css/areaProfessor.css">
         <link href='http://fonts.googleapis.com/css?family=Overlock:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="js/malihu.3.0.3/mCustomScrollbar.css" />
@@ -55,47 +55,59 @@ $templateGeral = new Template();
                                     <div id="area_grafico">
                                         <div id="topo_grafico">
                                             <div id="header_grafico">
-                                                <div id="seta_graph_cima"></div>
+                                                <div id="seta_graph_laranja"></div>
+                                                <div id="seta_graph_azul"></div>
                                             </div>
-                                        </div>
-                                        <div id="leg_left">
-                                            <div class="legenda_graph">100</div>
-                                            <div class="legenda_graph">90</div>
-                                            <div class="legenda_graph">80</div>
-                                            <div class="legenda_graph">70</div>
-                                            <div class="legenda_graph">60</div>
-                                            <div class="legenda_graph">50</div>
-                                            <div class="legenda_graph">40</div>
-                                            <div class="legenda_graph">30</div>
-                                            <div class="legenda_graph">20</div>
-                                            <div class="legenda_graph">10</div>
                                         </div>
                                         <div id="barras_grafico">
                                             <div id="grafico_relatorio">
-                                                <div class="escola" id="escola1"><div id="bar1" class="graph_bar"></div></div>
-                                                <div class="escola" id="escola2"><div id="bar2" class="graph_bar"></div></div>
-                                                <div class="escola" id="escola3"><div id="bar3" class="graph_bar"></div></div>
-                                                <div class="escola" id="escola4"><div id="bar4" class="graph_bar"></div></div>
-                                                <div class="escola" id="escola5"><div id="bar5" class="graph_bar"></div></div>
-                                                <div class="escola" id="escola6"><div id="bar6" class="graph_bar"></div></div>
-                                                <div class="escola" id="escola7"><div id="bar7" class="graph_bar"></div></div>
-                                                <div class="escola" id="escola8"><div id="bar8" class="graph_bar"></div></div>
-                                                <div class="escola" id="escola9"><div id="bar9" class="graph_bar"></div></div>
-                                                <div class="escola" id="escola10"><div id="bar10" class="graph_bar"></div></div>
-                                                <div id="seta_graph_baixo"></div>
+                                                <div class="aluno" id="aluno1"><div id="bar1" class="graph_bar"></div></div>
+                                                <div class="aluno" id="aluno2"><div id="bar2" class="graph_bar"></div></div>
+                                                <div class="aluno" id="aluno3"><div id="bar3" class="graph_bar"></div></div>
+                                                <div class="aluno" id="aluno4"><div id="bar4" class="graph_bar"></div></div>
+                                                <div class="aluno" id="aluno5"><div id="bar5" class="graph_bar"></div></div>
+                                                <div class="aluno" id="aluno6"><div id="bar6" class="graph_bar"></div></div>
+                                                <div class="aluno" id="aluno7"><div id="bar7" class="graph_bar"></div></div>
+                                                <div class="aluno" id="aluno8"><div id="bar8" class="graph_bar"></div></div>
+                                                <div class="aluno" id="aluno9"><div id="bar9" class="graph_bar"></div></div>
+                                                <div class="aluno" id="aluno10"><div id="bar10" class="graph_bar"></div></div>
+                                            </div>
+                                            <div id="leg_esq" class="leg_lateral">
+                                                <div class="leg_graph_esq">100</div>
+                                                <div class="leg_graph_esq">90</div>
+                                                <div class="leg_graph_esq">80</div>
+                                                <div class="leg_graph_esq">70</div>
+                                                <div class="leg_graph_esq">60</div>
+                                                <div class="leg_graph_esq">50</div>
+                                                <div class="leg_graph_esq">40</div>
+                                                <div class="leg_graph_esq">30</div>
+                                                <div class="leg_graph_esq">20</div>
+                                                <div class="leg_graph_esq">10</div>
+                                            </div>
+                                            <div id="leg_dir" class="leg_lateral">
+                                                <div class="leg_graph_dir">50</div>
+                                                <div class="leg_graph_dir">45</div>
+                                                <div class="leg_graph_dir">40</div>
+                                                <div class="leg_graph_dir">35</div>
+                                                <div class="leg_graph_dir">30</div>
+                                                <div class="leg_graph_dir">25</div>
+                                                <div class="leg_graph_dir">20</div>
+                                                <div class="leg_graph_dir">15</div>
+                                                <div class="leg_graph_dir">10</div>
+                                                <div class="leg_graph_dir">5</div>
                                             </div>
                                         </div>
                                         <div id="leg_bottom">
-                                            <div id="escola1" class="escola_numero"><p>Escola 1</p></div>
-                                            <div id="escola2" class="escola_numero"><p>Escola 2</p></div>
-                                            <div id="escola3" class="escola_numero"><p>Escola 3</p></div>
-                                            <div id="escola4" class="escola_numero"><p>Escola 4</p></div>
-                                            <div id="escola5" class="escola_numero"><p>Escola 5</p></div>
-                                            <div id="escola6" class="escola_numero"><p>Escola 6</p></div>
-                                            <div id="escola7" class="escola_numero"><p>Escola 7</p></div>
-                                            <div id="escola8" class="escola_numero"><p>Escola 8</p></div>
-                                            <div id="escola9" class="escola_numero"><p>Escola 9</p></div>
-                                            <div id="escola10" class="escola_numero"><p>Escola 10</p></div>
+                                            <div id="aluno1" class="aluno_foto"><p>Escola 1</p></div>
+                                            <div id="aluno2" class="aluno_foto"><p>Escola 2</p></div>
+                                            <div id="aluno3" class="aluno_foto"><p>Escola 3</p></div>
+                                            <div id="aluno4" class="aluno_foto"><p>Escola 4</p></div>
+                                            <div id="aluno5" class="aluno_foto"><p>Escola 5</p></div>
+                                            <div id="aluno6" class="aluno_foto"><p>Escola 6</p></div>
+                                            <div id="aluno7" class="aluno_foto"><p>Escola 7</p></div>
+                                            <div id="aluno8" class="aluno_foto"><p>Escola 8</p></div>
+                                            <div id="aluno9" class="aluno_foto"><p>Escola 9</p></div>
+                                            <div id="aluno10" class="aluno_foto"><p>Escola 10</p></div>
                                         </div>
                                     </div>
                                     <div id="footer_grafico">

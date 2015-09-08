@@ -6,6 +6,7 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
 include_once($path['beans'].'Usuario.php');
+include_once($path['beans'].'Perfil.php');
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -134,26 +135,22 @@ class UsuarioDAO extends DAO{
      }
      
 	public function autenticaUsuario($usuario,$senha){
-		$sql = "select * from usuario where usr_login = '".$usuario."' and usr_senha = '".$senha."' limit 1";
-		//echo $sql;
-	
-		$user = null;
-
+		$sql = "select * from usuario inner join perfil ON usr_perfil = prf_id
+				where usr_login = '".$usuario."' and usr_senha = '".$senha."' limit 1";
+		$user = array();
 		$result = $this->retrieve($sql);
 		if(mysqli_num_rows($result)>0){
     		$qr = mysqli_fetch_array($result);
-			$user = new Usuario();
-            $user->setUsr_id($qr["usr_id"]);
-            $user->setUsr_nome($qr["usr_nome"]);
-            $user->setUsr_data_nascimento($qr["usr_data_nascimento"]);
-            $user->setUsr_endereco($qr["usr_endereco"]);
-            $user->setUsr_escola($qr["usr_escola"]);
-            $user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
-            $user->setUsr_nse($qr["usr_nse"]);
-            $user->setUsr_perfil($qr["usr_perfil"]);
-            $user->setUsr_login($qr["usr_login"]);
-            $user->setUsr_senha($qr["usr_senha"]);
+		
+    		$user = array(
+				'usr_id' 	=> $qr["usr_id"],
+    			'usr_nome' 	=> $qr["usr_nome"],
+    			'prf_perfil'=> $qr["prf_perfil"],
+    			'prf_url'	=> $qr["url"],
+    			'prf_pagina'=> $qr["pagina"]
+			);
 		}
+		
 		//print_r($u);
 		return $user;
 	}
