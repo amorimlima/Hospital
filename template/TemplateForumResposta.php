@@ -10,6 +10,8 @@ include_once($path['controller'].'ForumQuestaoController.php');
 include_once($path['controller'].'ForumViewController.php');
 include_once($path['controller'].'ForumRespostaController.php');
 include_once($path['controller'].'UsuarioController.php');
+include_once($path['funcao'].'DatasFuncao.php');
+
 
 $path = $_SESSION['PATH_SYS'];
 
@@ -28,7 +30,8 @@ class TemplateForumResposta{
 		$questaoController = new ForumQuestaoController();
 		$respostasController = new ForumRespostaController();
 		$viewController = new ForumViewController();
-				
+		$dataFuncao = new DatasFuncao();
+		
 		$questoes = $questaoController->selectUltimas(5);
 		$html = '';
 		if (count($questoes)>0){
@@ -42,11 +45,12 @@ class TemplateForumResposta{
                             if ($totalRespostas == 1) $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">1</span> resposta</span>';
                             	else $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">'.$totalRespostas.'</span> respostas</span>';
 					
-                            $data = substr(str_replace(' ',' às ',$q->getFrq_data()),0,-3);
+                            $data = $dataFuncao->dataBR($q->getFrq_data());
+                            
                             $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
                                             <p class="ln_pergunta">'.utf8_encode($q->getFrq_questao()).'</p>
                                             <div class="ln_info row">
-                                                <p class="col-xs-12 col-md-12 col-lg-12 align-right">Última postagem '.date('d/m/Y',strtotime($data)).'</p>
+                                                <p class="col-xs-12 col-md-12 col-lg-12 align-right">Última postagem '.$data.'</p>
                                             </div>
                                             <div style="clear:both"></div>
                                             <div class="ln_info row">
@@ -66,8 +70,8 @@ class TemplateForumResposta{
 		$forumController = new ForumQuestaoController();
 		$viewController = new ForumViewController();
 		$respostasController = new ForumRespostaController();
+		$dataFuncao = new DatasFuncao();
 		$logado = unserialize($_SESSION['USR']);
-		//$logado = $userController->select(); //Buscar o usuario certo depois q fizer o login!!!
 	  	$id = $logado['id'];
 	  	
 	  	$resp = $forumController->select($idQuestao);
@@ -83,7 +87,7 @@ class TemplateForumResposta{
 	  	$usuario = $userController->select($resp->getFrq_usuario());  	
 		$respostas = $respostasController->selectByQuestao($resp->getFrq_id());
 		
-	  	$data = str_replace(' ',' às ',$resp->getFrq_data());
+	  	$data = $dataFuncao->dataTimeBRExibicao($resp->getFrq_data());
 	
 		
 		$html ='<div id="box_topico" class="row">
@@ -111,7 +115,7 @@ class TemplateForumResposta{
                     foreach($respostas as $r){
 
                             $usuarioResposta = $userController->select($r->getFrr_usuario());	  
-                            $dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
+                            $dataResposta = $dataFuncao->dataTimeBRExibicao($r->getFrr_data());
 
                             $html .= '<div class="box_topico_resp '.$marginRight.'">
                                     <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">

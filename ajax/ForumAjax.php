@@ -13,6 +13,7 @@ include_once($path['beans'].'ForumView.php');
 include_once($path['beans'].'ForumResposta.php');
 include_once($path['beans'].'Usuario.php');
 include_once($path['template'].'TemplateForum.php');
+include_once($path['funcao'].'DatasFuncao.php');
 $template = new TemplateForum();
 $forumController = new ForumQuestaoController();
 $userController = new UsuarioController();
@@ -35,8 +36,11 @@ switch ($_POST["acao"]){
 	  	
 	  	$html = '';
 	  	if (count($questoes)>0){
+	  		$viewController = new ForumViewController();
+			$dataFuncao = new DatasFuncao();
+			
 			foreach ($questoes as $q){
-				$viewController = new ForumViewController();
+				
 				$totalViews = $viewController->totalByQuestao($q->getFrq_id());
 				$totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
 				
@@ -47,7 +51,10 @@ switch ($_POST["acao"]){
                   	else $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">'.$totalRespostas.'</span> respostas</span>';
 					
             	
-                $data = substr(str_replace(' ',' às ',$q->getFrq_data()),0,-3);
+                //$data = substr(str_replace(' ',' às ',$q->getFrq_data()),0,-3);
+                $data = $dataFuncao->dataBR($q->getFrq_data());
+
+                
                 $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
 						<p class="ln_pergunta">'.utf8_encode($q->getFrq_questao()).'</p>
 				        <div class="ln_info row">
@@ -63,8 +70,9 @@ switch ($_POST["acao"]){
 	  	break;
 	  } 
 	  case "listaRespostaQuestao":{
+	  	$dataFuncao = new DatasFuncao();
 	  	$l = unserialize($_SESSION['USR']);
-	  	$logado = $userController->select($l['id']); //Buscar o usuario certo depois q fizer o login!!!
+	  	$logado = $userController->select($l['id']);
 	  	$id = $logado->getUsr_id();
 	  	
 	  	$resp = $forumController->select($_POST['resp']);
@@ -81,8 +89,8 @@ switch ($_POST["acao"]){
 	  	$usuario = $userController->select($resp->getFrq_usuario());  	
 		$respostas = $respostasController->selectByQuestao($resp->getFrq_id());
 		
-	  	$data = str_replace(' ',' às ',$resp->getFrq_data());
-
+	  	//$data = str_replace(' ',' às ',$resp->getFrq_data());
+		$data = $dataFuncao->dataTimeBRExibicao($resp->getFrq_data());
 	  	$html ='<div id="box_topico" class="row">
                  <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
                  	<img src="imgp/foto_aluno.png">
@@ -107,7 +115,8 @@ switch ($_POST["acao"]){
 	  		foreach($respostas as $r){
 
 	  			$usuarioResposta = $userController->select($r->getFrr_usuario());	  
-	  			$dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
+	  			//$dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
+	  			$dataResposta = $dataFuncao->dataTimeBRExibicao($r->getFrr_data());
 	  			
 		  		$html .= '<div class="box_topico_resp '.$marginRight.'">
 	                                <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
