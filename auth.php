@@ -18,11 +18,12 @@ if(isset($_POST)){
 
 	if($user!=null){
 		$adm = Array(
-					'nome'	=>$user['usr_nome'],
-					'id'	=>$user['usr_id'],
-					'perfil'=>$user['prf_perfil'],
-					'url'	=>$user['prf_url'],
-					'pagina'=>utf8_encode($user['prf_pagina'])
+					'nome'		=>$user['usr_nome'],
+					'id'		=>$user['usr_id'],
+					'perfil'	=>$user['prf_perfil'],
+					'perfil_id'	=>$user['prf_id'],
+					'url'		=>$user['prf_url'],
+					'pagina'	=>utf8_encode($user['prf_pagina'])
 				);
 				
 		$_SESSION['USR'] = serialize($adm);

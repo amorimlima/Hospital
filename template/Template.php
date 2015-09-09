@@ -23,16 +23,15 @@ class Template {
     public function topoSite(){
         $menuControler = new MenuController();
 		//$usuarioController = new UsuarioController();
-        $menuLista = $menuControler->selectTipoPerfil('Botao','2');
 		if (!isset($_SESSION['USR'])) {
 			header("location:index.php");
 			die();
 		} else $usrLogado = unserialize($_SESSION['USR']);
-		
+		$menuLista = $menuControler->selectTipoPerfil('Botao',$usrLogado['perfil_id']);
 		//$usuario = $usuarioController->select();
         echo'<div class="col-lg-12" id="topo">
                 <div class="row" id="row_logout">                    
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7 pull-right" id="boxMenu">
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-'.($usrLogado['perfil_id']==1?'8':'7').' pull-right" id="boxMenu">
                     	<div id="user_logout">
                         	<div id="user_logout_pequena">
                                 <p id="user_logado">'.$usrLogado['nome'].'</p>
@@ -49,38 +48,62 @@ class Template {
                             <span class="icon-bar"></span>
                         </button>
                         <nav id="bs-navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-                            <ul class="nav navbar-nav" id="menu">';
-								foreach($menuLista as $menu){
-									$menuId = explode(".", $menu->getBtn_menu()); 
-									echo '<li class="mn_li" id="mn_livros_sub">
-									<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
-									if($menuId[0]=='livros'){
-										echo'<ul id="sbm_exercicios">
-												<li class="sub_a">
-													<a href="livros.php?ano_1">1º Ano</a>
-												</li>
-												<li class="sub_a">
-													<a href="livros.php?ano_2">2º Ano</a>
-												</li>
-												<li class="sub_a">
-													<a href="livros.php?ano_3">3º Ano</a>
-												</li>
-												<li class="sub_a">
-													<a href="livros.php?ano_4">4º Ano</a>
-												</li>
-												<li class="sub_a">
-													<a href="livros.php?ano_5">5º Ano</a>
-												</li>
-											</ul>';
-									}
-									echo'</li>';
-								}                
-            				echo'</ul>
+                        	<div id="menu_container" class="'.($usrLogado['perfil_id']==1?'menu_container_aluno':'menu_container_normal').'">
+	                            <ul class="nav navbar-nav" id="menu">';
+									foreach($menuLista as $menu){
+										$menuId = explode(".", $menu->getBtn_menu());
+										echo '<li class="mn_li" id="mn_livros_sub">
+										<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
+										if ($usrLogado['perfil_id'] == 1){
+											if($menuId[0]=='exercicios'){
+												echo'<ul id="sbm_exercicios">
+														<li class="sub_a menu_li_capitulo">
+															<a href="livros.php?ano_1">1º Capítulo</a>
+														</li>
+														<li class="sub_a menu_li_capitulo">
+															<a href="livros.php?ano_2">2º Capítulo</a>
+														</li>
+														<li class="sub_a menu_li_capitulo">
+															<a href="livros.php?ano_3">3º Capítulo</a>
+														</li>
+														<li class="sub_a menu_li_capitulo">
+															<a href="livros.php?ano_4">4º Capítulo</a>
+														</li>
+														<li class="sub_a menu_li_capitulo">
+															<a href="livros.php?ano_5">5º Capítulo</a>
+														</li>
+													</ul>';
+											}
+										} else  {
+											if($menuId[0]=='livros'){
+												echo'<ul id="sbm_exercicios">
+														<li class="sub_a">
+															<a href="livros.php?ano_1">1º Ano</a>
+														</li>
+														<li class="sub_a">
+															<a href="livros.php?ano_2">2º Ano</a>
+														</li>
+														<li class="sub_a">
+															<a href="livros.php?ano_3">3º Ano</a>
+														</li>
+														<li class="sub_a">
+															<a href="livros.php?ano_4">4º Ano</a>
+														</li>
+														<li class="sub_a">
+															<a href="livros.php?ano_5">5º Ano</a>
+														</li>
+													</ul>';
+											}
+										} 
+										echo'</li>';
+									}                
+	            				echo'</ul>
+	            				</div>
 							</nav>
 						</div>
 					</div>
 					<div class="row">                	
-						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-5" id="logo">
+						<div class="col-xs-12 col-sm-12 col-md-5 col-lg-'.($usrLogado['perfil_id']==1?'4':'5').'" id="logo">
 							<div id="logotipo"><a href="index.php"></a></div>
 						</div>                    
 					</div>
