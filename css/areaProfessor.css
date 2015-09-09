@@ -26,11 +26,13 @@ and open the template in the editor.
         width: 100%;
         height: auto;
         padding: 20px;
+        margin-top: 40px;
+        margin-right:50px;
         box-sizing: border-box;
     }
     #area_grafico {
         position: relative;
-        padding: 20px 25px 20px 20px;
+        padding: 20px 40px 20px 20px;
         width: 100%;
         height: 441px;
     }
@@ -44,11 +46,20 @@ and open the template in the editor.
         width: 95%;
         height: 100%;
         border-left: 2px solid #e35e0f;
+        border-right:2px solid #00BFFF;
     }
     #seta_graph_laranja {
         position: absolute;
         top: -10px;
         left: -5px;
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    #seta_graph_azul{
+        position:absolute;
+        top: -10px;
+        right:-7px;
         width: 10px;
         height: 10px;
         background: url(../img/seta_graph.png) no-repeat;
@@ -61,15 +72,17 @@ and open the template in the editor.
         left: 20px;
         display: inline-block;
         margin: 0;
+        margin-top: -13px;
         padding: 0;
         box-sizing: border-box;
         width: 30px;
         height: 300px;
     }
     #leg_dir {
-        right: 20px;
+        right: 7px;
         display: inline-block;
         margin: 0;
+        margin-top: -13px;
         padding: 0;
         box-sizing: border-box;
         width: 30px;
@@ -80,6 +93,38 @@ and open the template in the editor.
         height: 10%;
         text-align: right;
     }
+    #leg_temp{
+        position:absolute;
+        left:-100px;
+        top:140px;
+	-webkit-transform:rotate(270deg);
+	-moz-transform:rotate(270deg);
+	-o-transform: rotate(270deg);
+	white-space:nowrap;
+    }
+    #leg_topo{
+        position:absolute;
+        top:-70px;
+        left:130px;
+        margin:0px;
+        color:#A0522D;
+    }
+    #leg_quant{
+        position:absolute;
+        right:-75px;
+        top:140px;
+	-webkit-transform:rotate(270deg);
+	-moz-transform:rotate(270deg);
+	-o-transform: rotate(270deg);
+	white-space:nowrap;
+        color:#A0522D;
+    }
+    .leg_graph_dir{
+        width: 30px;
+        height: 10%;
+        text-align:left;
+        color:#A0522D;
+    }
     .aluno {
         width: 9.5%;
         position: relative;
@@ -88,9 +133,9 @@ and open the template in the editor.
     }
     .graph_bar {
         position: absolute;
-        width: 40%;
-        height: 100px;
-        background-color: rgb(248,211,182);
+        width: 50%;
+        height: 50px;
+        background-color: rgba(255,165,0,.7);
         box-sizing: border-box;
         left: 30%;
         bottom: 0;
@@ -106,10 +151,9 @@ and open the template in the editor.
     }
     #grafico_relatorio {
         position: relative;
-        display: inline-block;
-        box-sizing: border-box;
         border-left: 2px solid #e35e0f;
-        border-bottom: 2px solid #e35e0f;
+        border-bottom: 2px solid rgba(0,0,0,.7);
+        border-right: 2px solid #00BFFF;
         margin: 0 auto;
         float: right;
         width: 100%;
@@ -134,7 +178,7 @@ and open the template in the editor.
     .aluno_foto p {
         text-align: right;
         transform-origin: 71% 129% 0;
-        margin-top:-06px;
+        margin-top:5px;
         margin-right:10px;
     }
     #footer_grafico {
@@ -144,10 +188,12 @@ and open the template in the editor.
         padding: 20px 0;
     }
     #bt_baixar_relatorio {
-        width: 150px;
-        height: 31px;
+        position:relative;
+        top:-30px;
+        width: 200px;
+        height: 25px;
         float: right;
-        padding: 4px;
+        padding:4px;
         background-color: rgb(227,108,47);
         cursor: pointer;
     }
@@ -160,18 +206,43 @@ and open the template in the editor.
         font-family: "Source Sans Pro";
         letter-spacing: .4px;
         font-weight: 300;
-        font-size: 12pt;
+        font-size: 10pt;
+        text-align: center;
+        color: white;
+    }
+    #bt_mudar_grupo {
+        position:relative;
+        top:-30px;
+        right:5px;
+        width: 100px;
+        height: 25px;
+        float: right;
+        padding:4px;
+        background-color: rgb(227,108,47);
+        cursor: pointer;
+    }
+    #bt_mudar_grupo:hover {
+        background-color: rgb(237,118,57);
+    }
+    #bt_mudar_grupo p {
+        margin: 0;
+        padding: 0;
+        font-family: "Source Sans Pro";
+        letter-spacing: .4px;
+        font-weight: 300;
+        font-size: 10pt;
         text-align: center;
         color: white;
     }
     #aviso_mobile_relatorios {
         display: none;
-    }
+    
 }
+    
 @media (min-width: 992px) and (max-width: 1199px) {
     #box_relatorios{
         width: 100%;
-        height: 560px;
+        height: 581px;
         border: 2px dotted rgb(229,124,44);
         background: #FFFFFF;
     }
@@ -185,10 +256,13 @@ and open the template in the editor.
         width: 100%;
         height: auto;
         padding: 20px;
+        margin-top: 40px;
+        margin-right:50px;
         box-sizing: border-box;
     }
     #area_grafico {
-        padding: 20px 25px 20px 20px;
+        position: relative;
+        padding: 20px 40px 20px 20px;
         width: 100%;
         height: 441px;
     }
@@ -202,6 +276,7 @@ and open the template in the editor.
         width: 95%;
         height: 100%;
         border-left: 2px solid #e35e0f;
+        border-right:2px solid #00BFFF;
     }
     #seta_graph_laranja {
         position: absolute;
@@ -211,19 +286,74 @@ and open the template in the editor.
         height: 10px;
         background: url(../img/seta_graph.png) no-repeat;
     }
-    #leg_left {
+    #seta_graph_azul{
+        position:absolute;
+        top: -10px;
+        right:-7px;
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    .leg_lateral {
+        display: block;
         position: absolute;
+    }
+    #leg_esq {
+        left: 20px;
         display: inline-block;
         margin: 0;
+        margin-top: -13px;
         padding: 0;
         box-sizing: border-box;
-        width: 9%;
+        width: 30px;
+        height: 300px;
+    }
+    #leg_dir {
+        right: 7px;
+        display: inline-block;
+        margin: 0;
+        margin-top: -13px;
+        padding: 0;
+        box-sizing: border-box;
+        width: 30px;
         height: 300px;
     }
     .leg_graph_esq {
         width: 30px;
         height: 10%;
         text-align: right;
+    }
+    #leg_temp{
+        position:absolute;
+        left:-100px;
+        top:140px;
+	-webkit-transform:rotate(270deg);
+	-moz-transform:rotate(270deg);
+	-o-transform: rotate(270deg);
+	white-space:nowrap;
+    }
+    #leg_topo{
+        position:absolute;
+        top:-70px;
+        left:220px;
+        margin:0px;
+        color:#A0522D;
+    }
+    #leg_quant{
+        position:absolute;
+        right:-75px;
+        top:140px;
+	-webkit-transform:rotate(270deg);
+	-moz-transform:rotate(270deg);
+	-o-transform: rotate(270deg);
+	white-space:nowrap;
+        color:#A0522D;
+    }
+    .leg_graph_dir{
+        width: 30px;
+        height: 10%;
+        text-align:left;
+        color:#A0522D;
     }
     .aluno {
         width: 9.5%;
@@ -234,8 +364,8 @@ and open the template in the editor.
     .graph_bar {
         position: absolute;
         width: 40%;
-        height: 100px;
-        background-color: rgb(248,211,182);
+        height: 50px;
+        background-color: rgba(255,165,0,.7);
         box-sizing: border-box;
         left: 30%;
         bottom: 0;
@@ -251,10 +381,10 @@ and open the template in the editor.
     }
     #grafico_relatorio {
         position: relative;
-        display: inline-block;
-        box-sizing: border-box;
         border-left: 2px solid #e35e0f;
-        border-bottom: 2px solid #e35e0f;
+        border-bottom: 2px solid rgba(0,0,0,.7);
+        border-right: 2px solid #00BFFF;
+        margin: 0 auto;
         float: right;
         width: 100%;
         height: 300px;
@@ -264,15 +394,6 @@ and open the template in the editor.
             rgb(255,255,255) 10%,
             rgb(255,255,255) 20%
       );
-    }
-    #seta_graph_baixo {
-        position: absolute;
-        bottom: -7px;
-        right: -10px;
-        transform: rotate(90deg);
-        width: 10px;
-        height: 10px;
-        background: url(../img/seta_graph.png) no-repeat;
     }
     #leg_bottom {
         width: 95%;
@@ -283,26 +404,26 @@ and open the template in the editor.
         display: inline-block;
         width: 9.5%;
         height: 100%;
-        
     }
     .aluno_foto p {
         text-align: right;
-        transform-origin: 77% 145% 0;
-        margin-top:-06px;
-        margin-right:10px;
-        
+        transform-origin: 71% 129% 0;
+        margin-top:5px;
+        margin-right:23px;
     }
     #footer_grafico {
         width: 100%;
         height: 70px;
+        margin-top: 15px;
         padding: 20px 0;
     }
     #bt_baixar_relatorio {
-        width: 150px;
-        height: 31px;
+        position:relative;
+        top:-30px;
+        width: 200px;
+        height: 25px;
         float: right;
-        padding: 4px;
-        margin-right: 25px;
+        padding:4px;
         background-color: rgb(227,108,47);
         cursor: pointer;
     }
@@ -315,195 +436,39 @@ and open the template in the editor.
         font-family: "Source Sans Pro";
         letter-spacing: .4px;
         font-weight: 300;
-        font-size: 12pt;
+        font-size: 10pt;
         text-align: center;
         color: white;
     }
-    #aviso_mobile_relatorios {
-        display: none;
-    }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-    #box_relatorios{
-        width: 100%;
-        height: 560px;
-        border: 2px dotted rgb(229,124,44);
-        background: #FFFFFF;
-    }
-    #topo_relatorios {
-        background: url(../img/relatorios_large.png) no-repeat;
-        width: 192px;
-        height: 29px;
-        margin: -18px 0 0 17px;
-    }
-    #grafico_container {
-        width: 100%;
-        height: auto;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-    #area_grafico {
-        padding: 20px 25px 20px 20px;
-        width: 100%;
-        height: 441px;
-    }
-    #topo_grafico {
-        width: 100%;
-        height: 35px;
-    }
-    #header_grafico {
-        position: relative;
+    #bt_mudar_grupo {
+        position:relative;
+        top:-30px;
+        right:5px;
+        width: 100px;
+        height: 25px;
         float: right;
-        width: 95%;
-        height: 100%;
-        border-left: 2px solid #e35e0f;
-    }
-    #seta_graph_laranja {
-        position: absolute;
-        top: -10px;
-        left: -5px;
-        width: 10px;
-        height: 10px;
-        background: url(../img/seta_graph.png) no-repeat;
-    }
-    #leg_left {
-        position: absolute;
-        display: inline-block;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        width: 9%;
-        height: 300px;
-    }
-    .leg_graph_esq {
-        width: 30px;
-        height: 10%;
-        text-align: right;
-        padding-right: 5px;
-    }
-    .escola {
-        width: 9.5%;
-        position: relative;
-        display: inline-block;
-        height: 100%;
-    }
-    .graph_bar {
-        position: absolute;
-        width: 40%;
-        height: 100px;
-        background-color: rgb(248,211,182);
-        box-sizing: border-box;
-        left: 30%;
-        bottom: 0;
-        top: auto;
-        cursor: pointer;
-    }
-    .graph_bar:hover {
-        background-color: rgb(255,221,192);
-    }
-    #barras_grafico {
-        width: 95%;
-        float: right;
-    }
-    #grafico_relatorio {
-        position: relative;
-        display: inline-block;
-        box-sizing: border-box;
-        border-left: 2px solid #e35e0f;
-        border-bottom: 2px solid #e35e0f;
-        float: right;
-        width: 100%;
-        height: 300px;
-        background: repeating-linear-gradient(
-            rgb(254,246,240),
-            rgb(254,246,240) 10%,
-            rgb(255,255,255) 10%,
-            rgb(255,255,255) 20%
-      );
-    }
-    #seta_graph_baixo {
-        position: absolute;
-        bottom: -7px;
-        right: -10px;
-        transform: rotate(90deg);
-        width: 10px;
-        height: 10px;
-        background: url(../img/seta_graph.png) no-repeat;
-    }
-    #leg_bottom {
-        width: 95%;
-        float: right;
-        height: 30px;
-    }
-    .escola_numero {
-        letter-spacing: -0.3px;
-        display: inline-block;
-        width: 9.5%;
-        height: 100%;
-    }
-    .escola_numero p {
-        text-align: right;
-        transform-origin: 77% 145% 0;
-        -webkit-transform-origin: 77% 145% 0;
-        transform: rotate(-80deg);
-    }
-    #footer_grafico {
-        /*background-color: rgb(85,85,180);*/
-        width: 100%;
-        height: 70px;
-        padding: 20px 0;
-    }
-    #bt_baixar_relatorio {
-        width: 150px;
-        height: 31px;
-        float: right;
-        padding: 4px;
-        margin-right: 25px;
+        padding:4px;
         background-color: rgb(227,108,47);
         cursor: pointer;
     }
-    #bt_baixar_relatorio:hover {
+    #bt_mudar_grupo:hover {
         background-color: rgb(237,118,57);
     }
-    #bt_baixar_relatorio p {
+    #bt_mudar_grupo p {
         margin: 0;
         padding: 0;
         font-family: "Source Sans Pro";
         letter-spacing: .4px;
         font-weight: 300;
-        font-size: 12pt;
+        font-size: 10pt;
         text-align: center;
         color: white;
     }
+    }
     #aviso_mobile_relatorios {
         display: none;
     }
-}
-@media (max-width: 767px) {
-    #box_relatorios{
-        width: 100%;
-        height: auto;
-        border: 2px dotted rgb(229,124,44);
-        background: #FFFFFF;
-    }
-    #topo_relatorios {
-        background: url(../img/relatorios_large.png) no-repeat;
-        width: 192px;
-        height: 29px;
-        margin: -18px 0 0 17px;
-    }
-    #grafico_container {
-        display: none;
-    }
-    #aviso_mobile_relatorios {
-        display: block;
-        box-sizing: border-box;
-        width: 90%;
-        margin: 20px auto 25px;
-        font-size: 14px;
-    }
-}
-
+    
 /* Boxes da esquerda */
 @media (min-width: 1200px) {
     .box_left {
@@ -875,6 +840,234 @@ and open the template in the editor.
         }
 }
 @media (min-width: 768px) and (max-width: 991px) {
+    #box_relatorios{
+        width: 100%;
+        height: 581px;
+        border: 2px dotted rgb(229,124,44);
+        background: #FFFFFF;
+    }
+    #topo_relatorios {
+        background: url(../img/relatorios_large.png) no-repeat;
+        width: 192px;
+        height: 29px;
+        margin: -18px 0 0 17px;
+    }
+    #grafico_container {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        margin-top: 40px;
+        margin-right:50px;
+        box-sizing: border-box;
+    }
+    #area_grafico {
+        position: relative;
+        padding: 20px 40px 20px 20px;
+        width: 100%;
+        height: 441px;
+    }
+    #topo_grafico {
+        width: 100%;
+        height: 35px;
+    }
+    #header_grafico {
+        position: relative;
+        float: right;
+        width: 95%;
+        height: 100%;
+        border-left: 2px solid #e35e0f;
+        border-right:2px solid #00BFFF;
+    }
+    #seta_graph_laranja {
+        position: absolute;
+        top: -10px;
+        left: -5px;
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    #seta_graph_azul{
+        position:absolute;
+        top: -10px;
+        right:-7px;
+        width: 10px;
+        height: 10px;
+        background: url(../img/seta_graph.png) no-repeat;
+    }
+    .leg_lateral {
+        display: block;
+        position: absolute;
+    }
+    #leg_esq {
+        left: 20px;
+        display: inline-block;
+        margin: 0;
+        margin-top: -13px;
+        padding: 0;
+        box-sizing: border-box;
+        width: 30px;
+        height: 300px;
+    }
+    #leg_dir {
+        right: 7px;
+        display: inline-block;
+        margin: 0;
+        margin-top: -13px;
+        padding: 0;
+        box-sizing: border-box;
+        width: 30px;
+        height: 300px;
+    }
+    .leg_graph_esq {
+        width: 30px;
+        height: 10%;
+        text-align: right;
+    }
+    #leg_temp{
+        position:absolute;
+        left:-100px;
+        top:140px;
+	-webkit-transform:rotate(270deg);
+	-moz-transform:rotate(270deg);
+	-o-transform: rotate(270deg);
+	white-space:nowrap;
+    }
+    #leg_topo{
+        position:absolute;
+        top:-70px;
+        left:130px;
+        margin:0px;
+        color:#A0522D;
+    }
+    #leg_quant{
+        position:absolute;
+        right:-75px;
+        top:140px;
+	-webkit-transform:rotate(270deg);
+	-moz-transform:rotate(270deg);
+	-o-transform: rotate(270deg);
+	white-space:nowrap;
+        color:#A0522D;
+    }
+    .leg_graph_dir{
+        width: 30px;
+        height: 10%;
+        text-align:left;
+        color:#A0522D;
+    }
+    .aluno {
+        width: 9.5%;
+        position: relative;
+        display: inline-block;
+        height: 100%;
+    }
+    .graph_bar {
+        position: absolute;
+        width: 50%;
+        height: 50px;
+        background-color: rgba(255,165,0,.7);
+        box-sizing: border-box;
+        left: 30%;
+        bottom: 0;
+        top: auto;
+        cursor: pointer;
+    }
+    .graph_bar:hover {
+        background-color: rgb(255,221,192);
+    }
+    #barras_grafico {
+        width: 95%;
+        float: right;
+    }
+    #grafico_relatorio {
+        position: relative;
+        border-left: 2px solid #e35e0f;
+        border-bottom: 2px solid rgba(0,0,0,.7);
+        border-right: 2px solid #00BFFF;
+        margin: 0 auto;
+        float: right;
+        width: 100%;
+        height: 300px;
+        background: repeating-linear-gradient(
+            rgb(254,246,240),
+            rgb(254,246,240) 10%,
+            rgb(255,255,255) 10%,
+            rgb(255,255,255) 20%
+      );
+    }
+    #leg_bottom {
+        width: 95%;
+        float: right;
+        height: 30px;
+    }
+    .aluno_foto {
+        display: inline-block;
+        width: 9.5%;
+        height: 100%;
+    }
+    .aluno_foto p {
+        text-align: right;
+        transform-origin: 71% 129% 0;
+        margin-top:5px;
+        margin-right:10px;
+    }
+    #footer_grafico {
+        width: 100%;
+        height: 70px;
+        margin-top: 15px;
+        padding: 20px 0;
+    }
+    #bt_baixar_relatorio {
+        position:relative;
+        top:-30px;
+        width: 200px;
+        height: 25px;
+        float: right;
+        padding:4px;
+        background-color: rgb(227,108,47);
+        cursor: pointer;
+    }
+    #bt_baixar_relatorio:hover {
+        background-color: rgb(237,118,57);
+    }
+    #bt_baixar_relatorio p {
+        margin: 0;
+        padding: 0;
+        font-family: "Source Sans Pro";
+        letter-spacing: .4px;
+        font-weight: 300;
+        font-size: 10pt;
+        text-align: center;
+        color: white;
+    }
+    #bt_mudar_grupo {
+        position:relative;
+        top:-30px;
+        right:5px;
+        width: 100px;
+        height: 25px;
+        float: right;
+        padding:4px;
+        background-color: rgb(227,108,47);
+        cursor: pointer;
+    }
+    #bt_mudar_grupo:hover {
+        background-color: rgb(237,118,57);
+    }
+    #bt_mudar_grupo p {
+        margin: 0;
+        padding: 0;
+        font-family: "Source Sans Pro";
+        letter-spacing: .4px;
+        font-weight: 300;
+        font-size: 10pt;
+        text-align: center;
+        color: white;
+    }
+    }
+    #aviso_mobile_relatorios {
+        display: none;
+    }
     .box_left {
         margin-top: 30px;
     }
@@ -1061,8 +1254,9 @@ and open the template in the editor.
             background-size: 22px;
             background-position: center;
         }
-}
+        
 @media (max-width: 767px) {
+    
     .box_left {
         margin-top: 30px;
     }
