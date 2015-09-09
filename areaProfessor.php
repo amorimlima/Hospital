@@ -71,18 +71,23 @@ $templateGeral = new Template();
                                                 <div class="aluno" id="aluno8"><div id="bar8" class="graph_bar"></div></div>
                                                 <div class="aluno" id="aluno9"><div id="bar9" class="graph_bar"></div></div>
                                                 <div class="aluno" id="aluno10"><div id="bar10" class="graph_bar"></div></div>
+                                                <div id="leg_topo">QUANTIDADE E TEMPO DE ACESSO POR CAPÍTULO(POR ALUNO)</div>
+                                            </div>
+                                            <div>
+                                                
                                             </div>
                                             <div id="leg_esq" class="leg_lateral">
+                                                <div class="leg_graph_esq">200</div>
+                                                <div class="leg_graph_esq">180</div>
+                                                <div class="leg_graph_esq">160</div>
+                                                <div class="leg_graph_esq">140</div>
+                                                <div class="leg_graph_esq">120</div>
                                                 <div class="leg_graph_esq">100</div>
-                                                <div class="leg_graph_esq">90</div>
                                                 <div class="leg_graph_esq">80</div>
-                                                <div class="leg_graph_esq">70</div>
                                                 <div class="leg_graph_esq">60</div>
-                                                <div class="leg_graph_esq">50</div>
                                                 <div class="leg_graph_esq">40</div>
-                                                <div class="leg_graph_esq">30</div>
                                                 <div class="leg_graph_esq">20</div>
-                                                <div class="leg_graph_esq">10</div>
+                                                <div id="leg_temp">TEMPO DE ACESSO (em minutos)</div>   
                                             </div>
                                             <div id="leg_dir" class="leg_lateral">
                                                 <div class="leg_graph_dir">50</div>
@@ -95,12 +100,13 @@ $templateGeral = new Template();
                                                 <div class="leg_graph_dir">15</div>
                                                 <div class="leg_graph_dir">10</div>
                                                 <div class="leg_graph_dir">5</div>
+                                                <div id="leg_quant">QUANTIDADE DE ACESSOS</div>
                                             </div>
                                         </div>
                                         <div id="leg_bottom">
-                                            <div id="aluno1" class="aluno_foto"><p><img src="imgp/foto_aluno.png"></p></div>
-                                            <div id="aluno2" class="aluno_foto"><p><img src="imgp/foto_aluno2.png"></p></div>
-                                            <div id="aluno3" class="aluno_foto"><p><img src="imgp/foto_aluno3.png"></p></div>
+                                            <div id="aluno1" class="aluno_foto"><p><img src="imgp/foto_aluno8.png"></p></div>
+                                            <div id="aluno2" class="aluno_foto"><p><img src="imgp/foto_aluno7.png"></p></div>
+                                            <div id="aluno3" class="aluno_foto"><p><img src="imgp/foto_aluno6.png"></p></div>
                                             <div id="aluno4" class="aluno_foto"><p><img src="imgp/foto_aluno4.png"></p></div>
                                             <div id="aluno5" class="aluno_foto"><p><img src="imgp/foto_aluno5.png"></p></div>
                                             <div id="aluno6" class="aluno_foto"><p><img src="imgp/foto_aluno6.png"></p></div>
@@ -111,7 +117,8 @@ $templateGeral = new Template();
                                         </div>
                                     </div>
                                     <div id="footer_grafico">
-                                        <div id="bt_baixar_relatorio"><p>BAIXAR RELATORIO</p></div>
+                                        <div id="bt_baixar_relatorio"><p>DOWNLOAD DO RELATÓRIO</p></div>
+                                        <div id="bt_mudar_grupo"><p>MUDAR GRUPO</p></div>
                                     </div>
                                 </div>
                                 <div id="aviso_mobile_relatorios">
