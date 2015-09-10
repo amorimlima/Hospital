@@ -141,11 +141,11 @@ class UsuarioDAO extends DAO{
 		$result = $this->retrieve($sql);
 		if(mysqli_num_rows($result)>0){
     		$qr = mysqli_fetch_array($result);
-		
     		$user = array(
 				'usr_id' 	=> $qr["usr_id"],
     			'usr_nome' 	=> $qr["usr_nome"],
     			'prf_perfil'=> $qr["prf_perfil"],
+                'prf_id'    => $qr["prf_id"],
     			'prf_url'	=> $qr["url"],
     			'prf_pagina'=> $qr["pagina"]
 			);

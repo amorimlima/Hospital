@@ -91,7 +91,7 @@ textarea:focus, input:focus, select:focus, button:focus  {
 /*MENU*/
 
 #menu{
-    min-width: 79%;
+    min-width: 73%;
     margin-right: -6px;
     text-align: left;
 	float: right;
@@ -137,13 +137,13 @@ img{
 #mn_exercicios{
 	background:url(../img/bt_exercicios_normal.png) no-repeat;
 	background-size: 100%;
-	width:25%;
+	width:22%;
     margin-right: 4%;
 }
 #mn_exercicios:hover{
 	background:url(../img/bt_exercicios_ativo.png) no-repeat;
     background-size: 100%;
-	width:25%;
+	width:22%;
     margin-right: 4%;
 }
 
@@ -451,12 +451,10 @@ img{
 		float: left;
 		width: 100%;
 		height:auto;
-		border:1px solid;
 	}
 	#Conteudo_Area_box_right{
 		padding: 0 12px;
 		height:auto;
-		border:1px solid;
 	}
 	/*--------------------------------*/
 	.modal-dialog {
@@ -555,6 +553,20 @@ img{
 		margin-right: 4%;
 		background-position: 24px;
    	 	margin-bottom: 2px;
+	}
+	#mn_exercicios{
+		background: #7DBA31 url(../img/btn_exercicios.png) no-repeat;
+		width:100%;
+		background-position: 24px;
+	    margin-right: 4%;
+	    margin-bottom: 2px
+	}
+	#mn_exercicios:hover{
+		background: #7DBA31 url(../img/btn_exercicios.png) no-repeat;
+		width:100%;
+		background-position: 24px;
+	    margin-right: 4%;
+	    margin-bottom: 2px
 	}
 	#mn_mensagens{
 		background: #25ADB4 url(../img/btn_msg.png) no-repeat;
@@ -770,6 +782,20 @@ img{
 		background-position: 24px;
    	 	margin-bottom: 2px;
 	}
+	#mn_exercicios{
+		background: #7DBA31 url(../img/btn_exercicios.png) no-repeat;
+		width:100%;
+		background-position: 24px;
+	    margin-right: 4%;
+	    margin-bottom: 2px
+	}
+	#mn_exercicios:hover{
+		background: #7DBA31 url(../img/btn_exercicios.png) no-repeat;
+		width:100%;
+		background-position: 24px;
+	    margin-right: 4%;
+	    margin-bottom: 2px
+	}
 	#mn_mensagens{
 		background: #25ADB4 url(../img/btn_msg.png) no-repeat;
 		width: 100%;
@@ -871,19 +897,31 @@ img{
 		float: left;
 		width: 100%;
 		height:auto;
-		border:1px solid;
 	}
 	#Conteudo_Area_box_right{
 		padding: 0 24px;
 		height:auto;
-		border:1px solid;
 	}
 	/*--------------------------------*/
+	#menu_container {
+		display: inline-block;
+		float: right;
+	}
+	.menu_container_aluno {
+		width: 526px;
+	}
+	.menu_container_normal {
+		width: 488px;
+	}
 	#menu {
-		min-width: 100%;
+		display: block;
+		width: 100%;
 		margin-right: -28px;
 		text-align: left;
-		float: right;
+	}
+	#menu li {
+		width: auto;
+		height: auto;
 	}
 	.navbar-nav>li {
     	float: none;
@@ -944,7 +982,16 @@ img{
 		z-index: 9999;
 		padding: 10px 0px;
 		margin: 6px 31px
-	}  
+	}
+	#mn_exercicios, #mn_exercicios:hover{
+		max-width: 118px;
+	}
+	#mn_mensagens, #mn_mensagens:hover{
+		max-width: 128px;
+	}
+	#mn_forum, #mn_forum:hover, #mn_galeria, #mn_galeria:hover {
+		max-width: 98px;
+	}
 }
 
 
@@ -1008,12 +1055,34 @@ img{
 		z-index: 9999;
 		padding: 10px 0px;
 		margin: 6px 31px
-	}  
-	#menu {
-		min-width: 79%;
-		margin-right: -6px;
-		text-align: left;
+	}
+	#menu_container {
+		display: inline-block;
 		float: right;
+	}
+	.menu_container_aluno {
+		width: 605px;
+	}
+	.menu_container_normal {
+		width: 575px;
+	}
+	#menu {
+		display: block;
+		width: 100%;
+		margin-right: -28px;
+		text-align: left;
+	}
+	#menu>li:last-child>a {
+		margin-right: 0;
+	}
+	#mn_exercicios, #mn_exercicios:hover{
+		max-width: 127px;
+	}
+	#mn_mensagens, #mn_mensagens:hover{
+		max-width: 140px;
+	}
+	#mn_forum, #mn_forum:hover, #mn_galeria, #mn_galeria:hover {
+		max-width: 108px;
 	}
 }
 /* Logo */
@@ -1067,6 +1136,7 @@ img{
 			max-height: 100px;
 			float: none;
 			background: url(../img/logo/logo_lg.png) no-repeat 25px 50%;
+			background-size: 90%;
 		}
 	}
 	@media (min-width: 1200px){
@@ -1080,9 +1150,12 @@ img{
 			max-height: 100px;
 			float: none;
 			background: url(../img/logo/logo_lg.png) no-repeat 50px 50%;
+			background-size: 88%;
 		}
 	}
-
+.menu_li_capitulo {
+	width: 87px !important;
+}
 @-moz-document url-prefix(){
     #sbm_exercicios{
         top: 45px;
