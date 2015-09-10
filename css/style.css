@@ -908,10 +908,10 @@ img{
 		float: right;
 	}
 	.menu_container_aluno {
-		width: 526px;
+		width: 400px;
 	}
 	.menu_container_normal {
-		width: 488px;
+		width: 366px;
 	}
 	#menu {
 		display: block;
@@ -983,14 +983,17 @@ img{
 		padding: 10px 0px;
 		margin: 6px 31px
 	}
+	#mn_livros, #mn_livros:hover {
+		width: 88px;
+	}
 	#mn_exercicios, #mn_exercicios:hover{
-		max-width: 118px;
+		width: 118px;
 	}
 	#mn_mensagens, #mn_mensagens:hover{
-		max-width: 128px;
+		width: 128px;
 	}
 	#mn_forum, #mn_forum:hover, #mn_galeria, #mn_galeria:hover {
-		max-width: 98px;
+		width: 98px;
 	}
 }
 
@@ -1061,10 +1064,10 @@ img{
 		float: right;
 	}
 	.menu_container_aluno {
-		width: 605px;
+		width: 462px;
 	}
 	.menu_container_normal {
-		width: 575px;
+		width: 430px;
 	}
 	#menu {
 		display: block;
@@ -1075,14 +1078,17 @@ img{
 	#menu>li:last-child>a {
 		margin-right: 0;
 	}
+	#mn_livros, #mn_livros:hover {
+		width: 103px;
+	}
 	#mn_exercicios, #mn_exercicios:hover{
-		max-width: 127px;
+		width: 127px;
 	}
 	#mn_mensagens, #mn_mensagens:hover{
-		max-width: 140px;
+		width: 140px;
 	}
 	#mn_forum, #mn_forum:hover, #mn_galeria, #mn_galeria:hover {
-		max-width: 108px;
+		width: 108px;
 	}
 }
 /* Logo */
