@@ -238,6 +238,7 @@ and open the template in the editor.
         display: none;
     
 }
+}
     
 @media (min-width: 992px) and (max-width: 1199px) {
     #box_relatorios{
@@ -464,10 +465,11 @@ and open the template in the editor.
         text-align: center;
         color: white;
     }
-    }
+  
     #aviso_mobile_relatorios {
         display: none;
     }
+}
     
 /* Boxes da esquerda */
 @media (min-width: 1200px) {
@@ -1064,7 +1066,6 @@ and open the template in the editor.
         text-align: center;
         color: white;
     }
-    }
     #aviso_mobile_relatorios {
         display: none;
     }
@@ -1075,8 +1076,7 @@ and open the template in the editor.
     .box_left:first-child {
         margin-top: 0;
     }
-    /* Box Livros */
-        #box_livros {
+    #box_livros {
             width: 100%;
             border: 2px dotted #7cb931;
             background: #FFFFFF;
@@ -1097,7 +1097,9 @@ and open the template in the editor.
         .bt_livro_ano {
             margin: 0 auto;
             display: inline-block;
-            min-width: 180px;
+            min-width: 130px;
+            max-width: 500px;
+            width: 90%;
             height: auto;
             margin: 5px 10px;
             padding: 2px;
@@ -1161,8 +1163,11 @@ and open the template in the editor.
             line-height: .9 !important;
             cursor: default;
         }
+        #box_mensagens .table>tbody {
+            width: 100%;
+        }
         #box_mensagens .table>tbody>tr>td {
-            padding: 15px 15px;
+            padding: 15px 10px;
             border-top: 0 solid;
             border-left: 2px solid white;
         }
@@ -1211,7 +1216,7 @@ and open the template in the editor.
         .box_carregar {
             display: inline-block;
             box-sizing: border-box;
-            width: 49.5%;
+            width: 100%;
             height: 100px;
             padding: 5px;
             margin: 0 !important;
@@ -1254,9 +1259,21 @@ and open the template in the editor.
             background-size: 22px;
             background-position: center;
         }
+}
         
 @media (max-width: 767px) {
-    
+    #aviso_mobie{
+        display: block;
+    }
+    #barras_grafico{
+        display: none;
+    }
+    #leg_bottom{
+        display:none;
+    }
+    #footer_grafico{
+        display:none;
+    }
     .box_left {
         margin-top: 30px;
     }
@@ -1448,5 +1465,4 @@ and open the template in the editor.
             background-size: 22px;
             background-position: center;
         }
-}
 }
