@@ -27,6 +27,7 @@ class Template {
 			header("location:index.php");
 			die();
 		} else $usrLogado = unserialize($_SESSION['USR']);
+		$NomeUser = $usrLogado['nome'];
 		$menuLista = $menuControler->selectTipoPerfil('Botao',$usrLogado['perfil_id']);
 		//$usuario = $usuarioController->select();
         echo'<div class="col-lg-12" id="topo">
@@ -53,7 +54,7 @@ class Template {
 									foreach($menuLista as $menu){
 										$menuId = explode(".", $menu->getBtn_menu());
 										echo '<li class="mn_li" id="mn_livros_sub">
-										<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
+										<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
 										if ($usrLogado['perfil_id'] == 1){
 											if($menuId[0]=='exercicios'){
 												echo'<ul id="sbm_exercicios">
@@ -104,7 +105,7 @@ class Template {
 					</div>
 					<div class="row">                	
 						<div class="col-xs-12 col-sm-12 col-md-5 col-lg-'.($usrLogado['perfil_id']==1?'4':'5').'" id="logo">
-							<div id="logotipo"><a href="index.php"></a></div>
+							<a href="area'.$NomeUser.'.php"><div id="logotipo"></div></a>
 						</div>                    
 					</div>
 			   </div>';

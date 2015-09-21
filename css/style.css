@@ -1072,7 +1072,7 @@ img{
 	#menu {
 		display: block;
 		width: 100%;
-		margin-right: -28px;
+		margin-right: -18px;
 		text-align: left;
 	}
 	#menu>li:last-child>a {
