@@ -1167,4 +1167,7 @@ img{
         top: 45px;
     }
 }
-
+/* Temporario */
+.Li_not-a-link {
+	cursor: default;
+}

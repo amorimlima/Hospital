@@ -59,19 +59,19 @@ class Template {
 											if($menuId[0]=='exercicios'){
 												echo'<ul id="sbm_exercicios">
 														<li class="sub_a menu_li_capitulo">
-															<a href="livros.php?ano_1">1º Capítulo</a>
+															<a href="#" class="Li_not-a-link">1º Capítulo</a>
 														</li>
 														<li class="sub_a menu_li_capitulo">
-															<a href="livros.php?ano_2">2º Capítulo</a>
+															<a href="#" class="Li_not-a-link">2º Capítulo</a>
 														</li>
 														<li class="sub_a menu_li_capitulo">
-															<a href="livros.php?ano_3">3º Capítulo</a>
+															<a href="#" class="Li_not-a-link">3º Capítulo</a>
 														</li>
 														<li class="sub_a menu_li_capitulo">
-															<a href="livros.php?ano_4">4º Capítulo</a>
+															<a href="#" class="Li_not-a-link">4º Capítulo</a>
 														</li>
 														<li class="sub_a menu_li_capitulo">
-															<a href="livros.php?ano_5">5º Capítulo</a>
+															<a href="capitulos.php?ano_5">5º Capítulo</a>
 														</li>
 													</ul>';
 											}
