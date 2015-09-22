@@ -74,7 +74,7 @@ class Template {
 															<a href="capitulos.php?ano_5">5º Capítulo</a>
 														</li>
 													</ul>';
-										}elseif($usrLogado['perfil_id'] == 2 && $menuId[0]=='livros'){
+										}elseif($usrLogado['perfil_id'] != 1 && $menuId[0]=='livros'){
 											  echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
 													<ul id="sbm_exercicios">
 														<li class="sub_a">
@@ -93,7 +93,7 @@ class Template {
 															<a href="livros.php?ano_5">5º Ano</a>
 														</li>
 													</ul>';
-										} else{
+										}else{
 											 echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
 										}
 										echo'</li>';
@@ -105,7 +105,7 @@ class Template {
 					</div>
 					<div class="row">                	
 						<div class="col-xs-12 col-sm-12 col-md-5 col-lg-'.($usrLogado['perfil_id']==1?'4':'5').'" id="logo">
-							<a href="area'.$NomeUser.'.php"><div id="logotipo"></div></a>
+							<a href="'.$usrLogado['url'].'"><div id="logotipo"></div></a>
 						</div>                    
 					</div>
 			   </div>';

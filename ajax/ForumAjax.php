@@ -173,46 +173,51 @@ switch ($_POST["acao"]){
 	  	break;
 	  }
 	  
-      case "listaQuestao":{
-          
-          $forum = $forumController->selectAll();
-          $cont = 0;
-         
-          
-          foreach ($forum as $key => $value)
-           {
-            
-              	$user = $userController->select(($value->getFrq_usuario()));
-				
-				if($cont % 2 == 0){
-					$caixaGrande  = "cx_rosa"; 	
-					$caixaPequena = "cx_brancaP";
-				}else{
-					$caixaGrande  = "cx_branca"; 	
-					$caixaPequena = "cx_rosaP";
-				}
-                  
-				echo '<a href="forumResposta.php?resp='.$value->getFrq_id().'"><div class="perg_box '.$caixaGrande.' row">
-						<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
-							<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
-							<p class="perg_aluno">'.$value->getFrq_questao().'</p>
-							<p class="nome_aluno">'.$user->getUsr_nome().'</p>
-							<p class="post_data">'.$value->getFrq_data().'</p>
-						</div>
-						<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
-							<p class="qtd_visu '.$caixaPequena.'"><span>8</span> visualizações</p>
-							<p class="qtd_resp '.$caixaPequena.'"><span>3</span> respostas</p>
-						</div>
-					</div></a>';
-              
-              $cont++;
-               
-          } 
-          
-          break;
-      }
+//      case "listaQuestao":{
+//          $viewController = new ForumViewController();
+//	  	  $respController = new ForumRespostaController();
+//          $forum = $forumController->selectAll();
+//          $cont = 0;
+//         
+//          
+//          foreach ($forum as $key => $value)
+//           {
+//            
+//              	$user = $userController->select(($value->getFrq_usuario()));
+//				$view = $viewController->totalByQuestao($value->getFrq_id());
+//		  		$resp = $respController->totalByQuestao($value->getFrq_id());
+//		  
+//				if($cont % 2 == 0){
+//					$caixaGrande  = "cx_rosa"; 	
+//					$caixaPequena = "cx_brancaP";
+//				}else{
+//					$caixaGrande  = "cx_branca"; 	
+//					$caixaPequena = "cx_rosaP";
+//				}
+//                  
+//				echo '<a href="forumResposta.php?resp='.$value->getFrq_id().'"><div class="perg_box '.$caixaGrande.' row">
+//						<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
+//							<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
+//							<p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
+//							<p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
+//							<p class="post_data">'.$value->getFrq_data().'</p>
+//						</div>
+//						<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
+//							<p class="qtd_visu '.$caixaPequena.'"><span>8</span> visualizações</p>
+//							<p class="qtd_resp '.$caixaPequena.'"><span>3</span> respostas</p>
+//						</div>
+//					</div></a>';
+//              
+//              $cont++;
+//               
+//          } 
+//          
+//          break;
+//      }
 
 	case "perguntar":{
+		
+		$dataFuncao = new DatasFuncao();
 
 		$logado = unserialize($_SESSION['USR']);
 		
@@ -234,59 +239,83 @@ switch ($_POST["acao"]){
 		
 		$questao->setFrq_data($data);
 		$questao->setFrq_usuario($usuario);
-		$forumController->insert($questao);
+		$id = $forumController->insert($questao);
+		$user = $userController->select($usuario);
 		
+
+			
+				
+		//$html  = '<a href="forumResposta.php?resp='.$id.'"><div class="perg_box '.$caixaGrande.' row">
+		echo '<a href="forumResposta.php?resp='.$id.'" id="caixaQuestao'.$id.'"><div id="perg_box'.$id.'" class="perg_box row">
+						<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
+							<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
+							<p class="perg_aluno questaoTexto" id="'.$id.'">'.$texto.'</p>
+							<p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
+							<p class="post_data">Postado dia '.$dataFuncao->dataTimeBRExibicao($data).'</p>
+						</div>
+						<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
+							<p id="qtd_visu'.$id.'" class="qtd_visu"><span>0</span> visualizações</p>
+							<p id="qtd_resp'.$id.'" class="qtd_resp"><span>0</span> respostas</p>
+							
+						</div>
+					</div></a>';
+	  	
+	  	
 		break;  
 	}
 	
 	
-	case "autoComplete":{
-	  $keyword =  $_POST['valor'];
-	  if ($keyword != '')
-	  	$valores =  $forumController->selectComleta($keyword);
-	  else $valores = $forumController->selectAll();
-	  $cont = 0;
-	
-	   foreach ($valores as $key => $value)
-	   {
-		
-		  $user = $userController->select(($value->getFrq_usuario()));
-		  
-		  
-		  if($cont % 2 == 0){
-			  
-			  echo '<div class="perg_box cx_rosa row">
-						<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
-							<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
-							<p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
-							<p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
-							<p class="post_data">'.$value->getFrq_data().'</p>
-						</div>
-						<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
-							<p class="qtd_visu cx_brancaP"><span>8</span> visualizações</p>
-							<p class="qtd_resp cx_brancaP"><span>3</span> respostas</p>
-						</div>
-					</div>';
-			  
-		  }else{             
-	   
-			  echo   '<div class="perg_box cx_branca row">
-						 <div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
-							 <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
-							 <p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
-							 <p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
-							 <p class="post_data">'.$value->getFrq_data().'</p>
-						 </div>                                
-						  <div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
-							<p class="qtd_visu cx_rosaP"><span>8</span> visualizações</p>
-							<p class="qtd_resp cx_rosaP"><span>3</span> respostas</p>
-						  </div> 
-					 </div>';
-		  }
-		  $cont++;
-		   
-	  }      
-		  break;
-	}
+//	case "autoComplete":{
+//	  $keyword =  $_POST['valor'];
+//	  if ($keyword != '')
+//	  	$valores =  $forumController->selectComleta($keyword);
+//	  else $valores = $forumController->selectAll();
+//	  
+//	  $viewController = new ForumViewController();
+//	  $respController = new ForumRespostaController();
+//	  $cont = 0;
+//	
+//	   foreach ($valores as $key => $value)
+//	   {
+//		
+//		  $user = $userController->select(($value->getFrq_usuario()));
+//		  $view = $viewController->totalByQuestao($value->getFrq_id());
+//		  $resp = $respController->totalByQuestao($value->getFrq_id());
+//		  
+//		  if($cont % 2 == 0){
+//			  
+//			  echo '<div class="perg_box cx_rosa row">
+//						<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
+//							<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
+//							<p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
+//							<p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
+//							<p class="post_data">'.$value->getFrq_data().'</p>
+//						</div>
+//						<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
+//							<p class="qtd_visu cx_brancaP"><span>'.$view.'</span> visualizações</p>
+//							<p class="qtd_resp cx_brancaP"><span>'.$resp.'</span> respostas</p>
+//						</div>
+//					</div>';
+//			  
+//		  }else{             
+//	   
+//			  echo   '<div class="perg_box cx_branca row">
+//						 <div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
+//							 <p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
+//							 <p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
+//							 <p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
+//							 <p class="post_data">'.$value->getFrq_data().'</p>
+//						 </div>                                
+//						  <div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
+//							<p class="qtd_visu cx_rosaP"><span>8</span> visualizações</p>
+//							<p class="qtd_resp cx_rosaP"><span>3</span> respostas</p>
+//						  </div> 
+//					 </div>';
+//		  }
+//		  $cont++;
+//		   
+//	  }      
+//		  break;
+//	}
 }
 
