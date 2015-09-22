@@ -90,7 +90,7 @@ function envidasFuncao(){
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
-		data:{'acao':'listaEnviadas','id':'20'},  //Id colocado na mão
+		data:{'acao':'listaEnviadas','id':$('#idUsuario').val()},
 		success:function(data)
 		{
 			$("#titulo_rem").text('DESTINATÁRIOS');
@@ -106,7 +106,7 @@ function envidasFuncaoMobile(){
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
-		data:{'acao':'listaEnviadosMobile','id':'20'},//id colocado na mão
+		data:{'acao':'listaEnviadosMobile','id':$('#idUsuario').val()},
 		success:function(data){		  
 			$('#box_msg_enviadas_mobile').html(data);	
 			checkbox();			
@@ -127,7 +127,7 @@ function recebidasFuncao(){
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
-		data:{'acao':'listaRecebidos','id':'20'},//id colocado na mão
+		data:{'acao':'listaRecebidos','id':$('#idUsuario').val()},
 		success:function(data)
 		{
 			$("#titulo_rem").text('REMETENTES');
@@ -143,7 +143,7 @@ function recebidasFuncaoMobile(){
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'html',
-		data:{'acao':'listaRecebidosMobile','id':'20'}, //id colocado na mão
+		data:{'acao':'listaRecebidosMobile','id':$('#idUsuario').val()},
 		success:function(data)
 		{
 			$('#box_msg_recebidas_mobile').html(data);
@@ -360,7 +360,7 @@ function recarrega(){
 		type:'post',
 		async: false,
 		dataType:'json',
-		data:{'acao':'recarrega','id':'20'},//id colocado na mão
+		data:{'acao':'recarrega','id':$('#idUsuario').val()},
 		success:function(data){
 			retorno = data.qtd;		
 		}	

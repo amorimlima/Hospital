@@ -10,6 +10,9 @@ include_once($path['template'].'TemplateMensagens.php');
 
 $templateGeral = new Template();
 $templateMensagens = new TemplateMensagens();
+
+$logado = unserialize($_SESSION['USR']);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -35,6 +38,7 @@ $templateMensagens = new TemplateMensagens();
     <![endif]-->
   </head>
   <body>
+  	<input type="text" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
   	<div id="container">
         <div class="row">
 			<?php 
@@ -71,7 +75,7 @@ $templateMensagens = new TemplateMensagens();
                                                         </p>
                                                         <div id="box_msg_listas">
                                                         	<div id="box_recebe_msg">
-                                                        		<?php $templateMensagens->mensagensRecebidas(20);?>
+                                                        		<?php $templateMensagens->mensagensRecebidas($logado['id']);?>
                                                             </div>
                                                         </div>
                                                     </div>

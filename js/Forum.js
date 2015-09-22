@@ -8,14 +8,48 @@ $(document).ready(function(e) {
 	});	
 	
 	$("#txt_pesquisa_input").keyup(function (){
-		autoComplete($("#txt_pesquisa_input").val());
+		var texto = $(this).val().toUpperCase();
+		
+		$('.questaoTexto').each(function(){
+			if($(this).html().toUpperCase().indexOf(texto)==-1) {
+					$(this).parent().parent().parent().css('display','none');
+				} else {
+					$(this).parent().parent().parent().css('display','block');
+				}
+		});
+		
+		colorirDivs();
+
+		//autoComplete($("#txt_pesquisa_input").val());
 	});
 });
 
+function colorirDivs(){
+	$('.qtd_visu').removeClass('cx_rosaP cx_brancaP');
+	$('.qtd_resp').removeClass('cx_brancaP cx_rosaP');
+	$('.perg_box').removeClass('cx_branca cx_rosa');
+	cont = 0;
+	
+	$('.questaoTexto').each(function(){
+		if ($(this).is(':visible')){
+			id = $(this).attr('id'); 
+
+			if (cont%2 == 0){
+				$('#qtd_visu'+id).addClass('cx_brancaP');
+				$('#qtd_resp'+id).addClass('cx_brancaP');
+				$('#perg_box'+id).addClass('cx_rosa');
+			}else{
+				$('#qtd_visu'+id).addClass('cx_rosaP');
+				$('#qtd_resp'+id).addClass('cx_rosaP');
+				$('#perg_box'+id).addClass('cx_branca');
+			}
+			cont++;
+		}
+	})
+}
 function enviar(){
 	var t =  $("#box_pergunta").val();
     var topico = $("#topico").val();
-    //alert(topico);
     
     if (t != ''){
     	if (topico == null){
@@ -23,29 +57,29 @@ function enviar(){
     		return false;
     	}
     	
+    	//$('#box_alunos').prepend('dsadsadsadasd');
+    	//return false;
 		$.ajax({
 			url:'ajax/ForumAjax.php',
 			type:'post',
 			dataType:'html',
-			data:{'acao':'perguntar','anexo':'','topico':topico,'txt':t},
+			data:{
+				'acao':'perguntar',
+				'anexo':'',
+				'topico':topico,
+				'txt':t
+			},
 			success:function(data)
 			{
-				$.ajax({                                      
-					url:'ajax/ForumAjax.php',
-					type:'post',
-					dataType:'html',
-					data:{'acao':'listaQuestao'},           
-					success:function(data)
-					  {
-						$("#forumPerguntaSucesso").css('display','block');
-						$("#box_pergunta").val("");
-						$("#topico option").eq(0).attr('selected','selected');
-						$('#box_alunos').html(data);
-					  },
-					error:function(){
-						$("#forumErroInesperado").css('display','block');
-					  }
-				});
+				$('#box_alunos').prepend(data);
+				colorirDivs();
+				$("#forumPerguntaSucesso").css('display','block');
+				$("#box_pergunta").val("");
+				$("#topico option").eq(0).attr('selected','selected');
+
+
+				
+
 			}
 		});
 	}else{
@@ -55,34 +89,22 @@ function enviar(){
 	return false;
 }
 
-function autoComplete(a){
-	
-	setTimeout(function(){
-		if ( $("#txt_pesquisa_input").val() == a) {
-			$.ajax({
-				url: "ajax/ForumAjax.php",
-				type: "post",
-				dataType: "html",
-				data: {
-					acao: "autoComplete",
-					valor: a
-				},
-				success: function (data){
-					$("#box_alunos").html(data)
-				}
-			})
-		}
-	}, 3000)    
-//    var t = $("#txt_pesquisa_input").val(); 
-//
-//    $.ajax({                                      
-//        url:'ajax/ForumAjax.php',
-//        type:'post',
-//        dataType:'html',
-//        data:{'acao':'autoComplete','valor':t},           
-//        success:function(data)
-//          {
-//             $('#box_alunos').html(data);
-//          }
-//    });
-}
+//function autoComplete(a){
+//	
+//	setTimeout(function(){
+//		if ( $("#txt_pesquisa_input").val() == a) {
+//			$.ajax({
+//				url: "ajax/ForumAjax.php",
+//				type: "post",
+//				dataType: "html",
+//				data: {
+//					acao: "autoComplete",
+//					valor: a
+//				},
+//				success: function (data){
+//					$("#box_alunos").html(data)
+//				}
+//			})
+//		}
+//	}, 3000)    
+//}

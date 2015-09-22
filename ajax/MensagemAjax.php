@@ -130,7 +130,7 @@ switch ($_POST["acao"]){
     
     case "listaEnviadas":{
         $idUser = $_POST["id"];
-        
+        //print_r($_REQUEST);
         $mensagem = $mensagemController->listaEnviadas($idUser);
 
 		if (count($mensagem)>0){

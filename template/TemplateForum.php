@@ -11,6 +11,7 @@ include_once($path['controller'].'ForumQuestaoController.php');
 include_once($path['controller'].'ForumRespostaController.php');
 include_once($path['controller'].'ForumViewController.php');
 include_once($path['controller'].'UsuarioController.php');
+include_once($path['funcao'].'DatasFuncao.php');
 
 $path = $_SESSION['PATH_SYS'];
 
@@ -35,6 +36,7 @@ class TemplateForum{
 		$userController = new UsuarioController();
 		$viewController = new ForumViewController();
 		$respController = new ForumRespostaController();
+		$dataFuncao = new DatasFuncao();
 		
 		$forum = $forumController->selectAll();
 		$cont = 0; 
@@ -51,16 +53,16 @@ class TemplateForum{
 				$caixaPequena = "cx_rosaP";
 			}
 			  
-			echo '<a href="forumResposta.php?resp='.$value->getFrq_id().'"><div class="perg_box '.$caixaGrande.' row">
+			echo '<a href="forumResposta.php?resp='.$value->getFrq_id().'" id="caixaQuestao'.$value->getFrq_id().'"><div id="perg_box'.$value->getFrq_id().'" class="perg_box '.$caixaGrande.' row">
 					<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
 						<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
-						<p class="perg_aluno">'.utf8_encode($value->getFrq_questao()).'</p>
+						<p class="perg_aluno questaoTexto" id="'.$value->getFrq_id().'">'.utf8_encode($value->getFrq_questao()).'</p>
 						<p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
-						<p class="post_data">Postado dia '.$value->getFrq_data().'</p>
+						<p class="post_data">Postado dia '.$dataFuncao->dataTimeBRExibicao($value->getFrq_data()).'</p>
 					</div>
 					<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
-						<p class="qtd_visu '.$caixaPequena.'"><span>'.$view.'</span> visualizações</p>
-						<p class="qtd_resp '.$caixaPequena.'"><span>'.$resp.'</span> respostas</p>
+						<p id="qtd_visu'.$value->getFrq_id().'" class="qtd_visu '.$caixaPequena.'"><span>'.$view.'</span> visualizações</p>
+						<p id="qtd_resp'.$value->getFrq_id().'" class="qtd_resp '.$caixaPequena.'"><span>'.$resp.'</span> respostas</p>
 					</div>
 				</div></a>';
 		  

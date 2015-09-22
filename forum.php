@@ -70,7 +70,7 @@ $topicos = $topicoController->selectAll();
                                 <div id="box_forum_botton">
                                     <p id="txt_postagens">POSTAGENS RECENTES</p>
                                     <p id="txt_pesquisa">
-                                        <input id="txt_pesquisa_input" onkeypress="autoComplete()" type="text" placeholder="Pesquise no fórum!">
+                                        <input id="txt_pesquisa_input" type="text" placeholder="Pesquise no fórum!">
                                     </p>
                                     <div id="box_alunos_container">
                                         <div id="box_alunos">
