@@ -44,12 +44,12 @@ class DataAccess
 	/**/
 	public function executeAndReturnLastID($sql)
 	{
-		$query = mysqli_query($sql, $this->getDBConnect()) or die(mysql_error()."Erro!!");				
+		$query = mysqli_query($this->getDBConnect(),$sql) or die(mysql_error()."Erro!!");				
 				
 		/* Executa o SQL */			
 		if ($query)
 		{
-			return mysql_insert_id($this->getDBConnect());
+			return mysqli_insert_id($this->getDBConnect());
 		}
 		else
 			return null;	
