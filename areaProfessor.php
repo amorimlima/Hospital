@@ -132,11 +132,11 @@ $templateGeral = new Template();
                             <div id="box_livros" class="box_left">
                                 <p id="topo_livros"></p>
                                 <div id="bt_livro_container">
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_1_ano">1º Ano</span></p>
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_2_ano">2º Ano</span></p>
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_3_ano">3º Ano</span></p>
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_4_ano">4º Ano</span></p>
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_5_ano">5º Ano</span></p>
+                                    <a href="livros.php?ano_1"><p class="bt_livro_ano"><span class="livro_ano" id="livro_1_ano">1º Ano</span></p></a>
+                                    <a href="livros.php?ano_2"><p class="bt_livro_ano"><span class="livro_ano" id="livro_2_ano">2º Ano</span></p></a>
+                                    <a href="livros.php?ano_3"><p class="bt_livro_ano"><span class="livro_ano" id="livro_3_ano">3º Ano</span></p></a>
+                                    <a href="livros.php?ano_4"><p class="bt_livro_ano"><span class="livro_ano" id="livro_4_ano">4º Ano</span></p></a>
+                                    <a href="livros.php?ano_5"><p class="bt_livro_ano"><span class="livro_ano" id="livro_5_ano">5º Ano</span></p></a>
                                 </div>
                             </div>
                             <div id="box_mensagens" class="box_left">
@@ -167,41 +167,6 @@ $templateGeral = new Template();
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                            <div id="box_carregar" class="box_left">
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-6 col-lg-6">
-                                        <div id="bt_carregar"></div>
-                                    </div>
-                                    <div class="col-xs-12 col-md-6 col-lg-6">
-                                        <div id="contaier_boxes_carregar">
-                                            <div class="box_carregar">
-                                                <div class="box_carregar_conteudo">
-                                                    <div class="box_carregar_icon" id="icon_hiperlink_sm"></div>
-                                                    <p class="box_carregar_legenda">Hiperlink</p>
-                                                </div>
-                                            </div>
-                                            <div class="box_carregar">
-                                                <div class="box_carregar_conteudo">
-                                                    <div class="box_carregar_icon" id="icon_video_sm"></div>
-                                                    <p class="box_carregar_legenda">Video</p>
-                                                </div>
-                                            </div>
-                                            <div class="box_carregar">
-                                                <div class="box_carregar_conteudo">
-                                                    <div class="box_carregar_icon" id="icon_pdf_sm"></div>
-                                                    <p class="box_carregar_legenda">Documento PDF</p>
-                                                </div>
-                                            </div>
-                                            <div class="box_carregar">
-                                                <div class="box_carregar_conteudo">
-                                                    <div class="box_carregar_icon" id="icon_outros_sm"></div>
-                                                    <p class="box_carregar_legenda">Outros</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>     	
                     </div>

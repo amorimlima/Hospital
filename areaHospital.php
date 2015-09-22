@@ -113,11 +113,11 @@ $templateGeral = new Template();
                             <div id="box_livros" class="box_left">
                                 <p id="topo_livros"></p>
                                 <div id="bt_livro_container">
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_1_ano">1º Ano</span></p>
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_2_ano">2º Ano</span></p>
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_3_ano">3º Ano</span></p>
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_4_ano">4º Ano</span></p>
-                                    <p class="bt_livro_ano"><span class="livro_ano" id="livro_5_ano">5º Ano</span></p>
+                                    <a href="livros.php?ano_1"><p class="bt_livro_ano"><span class="livro_ano" id="livro_1_ano">1º Ano</span></p></a>
+                                    <a href="livros.php?ano_2"><p class="bt_livro_ano"><span class="livro_ano" id="livro_2_ano">2º Ano</span></p></a>
+                                    <a href="livros.php?ano_3"><p class="bt_livro_ano"><span class="livro_ano" id="livro_3_ano">3º Ano</span></p></a>
+                                    <a href="livros.php?ano_4"><p class="bt_livro_ano"><span class="livro_ano" id="livro_4_ano">4º Ano</span></p></a>
+                                    <a href="livros.php?ano_5"><p class="bt_livro_ano"><span class="livro_ano" id="livro_5_ano">5º Ano</span></p></a>
                                 </div>
                             </div>
                             <div id="box_mensagens" class="box_left">
