@@ -38,7 +38,7 @@ $logado = unserialize($_SESSION['USR']);
     <![endif]-->
   </head>
   <body>
-  	<input type="text" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
+  	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
   	<div id="container">
         <div class="row">
 			<?php 
