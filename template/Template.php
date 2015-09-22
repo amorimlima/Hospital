@@ -53,11 +53,11 @@ class Template {
 	                            <ul class="nav navbar-nav" id="menu">';
 									foreach($menuLista as $menu){
 										$menuId = explode(".", $menu->getBtn_menu());
-										echo '<li class="mn_li" id="mn_livros_sub">
-										<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
-										if ($usrLogado['perfil_id'] == 1){
-											if($menuId[0]=='exercicios'){
-												echo'<ul id="sbm_exercicios">
+										echo '<li class="mn_li" id="mn_livros_sub">';
+										if ($usrLogado['perfil_id'] == 1 && $menuId[0]=='exercicios'){
+												echo'
+													<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
+													<ul id="sbm_exercicios">
 														<li class="sub_a menu_li_capitulo">
 															<a href="#" class="Li_not-a-link">1º Capítulo</a>
 														</li>
@@ -74,10 +74,9 @@ class Template {
 															<a href="capitulos.php?ano_5">5º Capítulo</a>
 														</li>
 													</ul>';
-											}
-										} else  {
-											if($menuId[0]=='livros'){
-												echo'<ul id="sbm_exercicios">
+										}elseif($usrLogado['perfil_id'] == 2 && $menuId[0]=='livros'){
+											  echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
+													<ul id="sbm_exercicios">
 														<li class="sub_a">
 															<a href="livros.php?ano_1">1º Ano</a>
 														</li>
@@ -94,8 +93,9 @@ class Template {
 															<a href="livros.php?ano_5">5º Ano</a>
 														</li>
 													</ul>';
-											}
-										} 
+										} else{
+											 echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
+										}
 										echo'</li>';
 									}                
 	            				echo'</ul>
