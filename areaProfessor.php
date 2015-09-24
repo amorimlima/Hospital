@@ -168,6 +168,41 @@ $templateGeral = new Template();
                                     </tbody>
                                 </table>
                             </div>
+                            <div id="box_carregar" class="box_left">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6 col-lg-6">
+                                        <div id="bt_carregar"></div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 col-lg-6">
+                                        <div id="contaier_boxes_carregar">
+                                            <div class="box_carregar">
+                                                <div class="box_carregar_conteudo">
+                                                    <div class="box_carregar_icon" id="icon_hiperlink_sm"></div>
+                                                    <p class="box_carregar_legenda">Hiperlink</p>
+                                                </div>
+                                            </div>
+                                            <div class="box_carregar">
+                                                <div class="box_carregar_conteudo">
+                                                    <div class="box_carregar_icon" id="icon_video_sm"></div>
+                                                    <p class="box_carregar_legenda">Video</p>
+                                                </div>
+                                            </div>
+                                            <div class="box_carregar">
+                                                <div class="box_carregar_conteudo">
+                                                    <div class="box_carregar_icon" id="icon_pdf_sm"></div>
+                                                    <p class="box_carregar_legenda">Documento PDF</p>
+                                                </div>
+                                            </div>
+                                            <div class="box_carregar">
+                                                <div class="box_carregar_conteudo">
+                                                    <div class="box_carregar_icon" id="icon_outros_sm"></div>
+                                                    <p class="box_carregar_legenda">Outros</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>     	
                     </div>
                 </div>
