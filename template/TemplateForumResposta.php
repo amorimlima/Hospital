@@ -33,34 +33,66 @@ class TemplateForumResposta{
 		$dataFuncao = new DatasFuncao();
 		
 		$questoes = $questaoController->selectUltimas(5);
-		$html = '';
+		$questoesAll = $questaoController->selectAll();
+		$html = '<div id="listaRecentes">';
 		if (count($questoes)>0){
                     
 			foreach ($questoes as $q){
-                            $totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
-                            $totalViews = $viewController->totalByQuestao($q->getFrq_id());		
-                            if ($totalViews == 1) $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">1</span> visualização</span>';
-                            	else $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">'.$totalViews.'</span> visualizações</span>';
+            	$totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
+                $totalViews = $viewController->totalByQuestao($q->getFrq_id());		
+                if ($totalViews == 1) $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">1</span> visualização</span>';
+                	else $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">'.$totalViews.'</span> visualizações</span>';
                             
-                            if ($totalRespostas == 1) $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">1</span> resposta</span>';
-                            	else $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">'.$totalRespostas.'</span> respostas</span>';
+                if ($totalRespostas == 1) $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">1</span> resposta</span>';
+                	else $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">'.$totalRespostas.'</span> respostas</span>';
 					
-                            $data = $dataFuncao->dataBR($q->getFrq_data());
+                $data = $dataFuncao->dataBR($q->getFrq_data());
                             
-                            $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
-                                            <p class="ln_pergunta">'.utf8_encode($q->getFrq_questao()).'</p>
-                                            <div class="ln_info row">
-                                                <p class="col-xs-12 col-md-12 col-lg-12 align-right">Última postagem '.$data.'</p>
-                                            </div>
-                                            <div style="clear:both"></div>
-                                            <div class="ln_info row">
-                                                <p class="col-xs-12 col-md-12 col-lg-12 align-right">'.$msgView.'<span class="paipeL">&nbsp|</span> &nbsp'.$totalRespostas.'</p>
-                                            </div>
-                                            <div style="clear:both"></div>
-				      					</div>';
-                        }
+                $html .= '<div class="ln_box ln_box caixaQuestao" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
+                			<p class="ln_pergunta">'.utf8_encode($q->getFrq_questao()).'</p>
+                            <div class="ln_info row">
+                            	<p class="col-xs-12 col-md-12 col-lg-12 align-right">Última postagem '.$data.'</p>
+                            </div>
+                            <div style="clear:both"></div>
+                            <div class="ln_info row">
+                            	<p class="col-xs-12 col-md-12 col-lg-12 align-right">'.$msgView.'<span class="paipeL">&nbsp|</span> &nbsp'.$totalRespostas.'</p>
+                            </div>
+                          	<div style="clear:both"></div>
+				      	 </div>';
                 }
-                echo $html;
+         }
+         $html .= '</div>';
+        
+         //Daqui p baixo, vai listar as questões que serão listadas apenas no caso de efetuar uma busca, senão nem aparecerão na tela.
+         $html .= '<div id="listaPesquisa" style="display:none">';
+         	foreach($questoesAll as $q){
+         		$totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
+                $totalViews = $viewController->totalByQuestao($q->getFrq_id());
+         		$data = $dataFuncao->dataBR($q->getFrq_data());
+         		
+         		if ($totalViews == 1) $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">1</span> visualização</span>';
+                	else $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">'.$totalViews.'</span> visualizações</span>';
+                            
+                if ($totalRespostas == 1) $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">1</span> resposta</span>';
+                	else $totalRespostas = '<span id="totalRespTexto'.$q->getFrq_id().'"><span id="totalResp'.$q->getFrq_id().'">'.$totalRespostas.'</span> respostas</span>';
+         		
+         		$html .= '<div class="ln_box caixaQuestao caixaQuestaoPesquisa" style="cursor: pointer" onClick="listaRespostas('.$q->getFrq_id().')" id="'.$q->getFrq_id().'">
+                			<p class="ln_pergunta perguntaPesquisa">'.utf8_encode($q->getFrq_questao()).'</p>
+                            <div class="ln_info row">
+                            	<p class="col-xs-12 col-md-12 col-lg-12 align-right">Última postagem '.$data.'</p>
+                            </div>
+                            <div style="clear:both"></div>
+                            <div class="ln_info row">
+                            	<p class="col-xs-12 col-md-12 col-lg-12 align-right">'.$msgView.'<span class="paipeL">&nbsp|</span> &nbsp'.$totalRespostas.'</p>
+                            </div>
+                          	<div style="clear:both"></div>
+				      	 </div>';
+                }
+
+        $html .= '</div>';
+         //Fim da div da busca
+
+        echo $html;
    	}
 	
 	
@@ -106,9 +138,9 @@ class TemplateForumResposta{
               </div>
               <div id="box_Respostas_container">
                 <div id="box_Respostas">';
-	  	
+	  	$marginRight="";
 	  	if (count($respostas) > 0){
-                    $marginRight="";
+                    
                     if (count($respostas) > 4) {
                         $marginRight = "margin_right";
                     }
