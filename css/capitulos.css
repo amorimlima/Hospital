@@ -57,59 +57,59 @@
 }
 
 /*Objetos com 14 atividades*/
-.obj_icone1{   
+.obj_icone14_1{   
 	bottom: 120px;
 	left: 65px;
 }
-.obj_icone2{
+.obj_icone14_2{
     bottom: 170px;
     left: 65px;
 }
-.obj_icone3{
+.obj_icone14_3{
     bottom: 186px;
     left: 118px;
 }
-.obj_icone4{
+.obj_icone14_4{
     bottom: 186px;
     left: 180px;
 }
-.obj_icone5{
+.obj_icone14_5{
     bottom: 186px;
     left: 244px;
 }
-.obj_icone6{
+.obj_icone14_6{
     bottom: 221px;
     left: 299px;
 }
-.obj_icone7{
+.obj_icone14_7{
     bottom: 269px;
     left: 283px;
 }
-.obj_icone8{
+.obj_icone14_8{
     bottom: 269px;
     left: 226px;
 }
-.obj_icone9{
+.obj_icone14_9{
     bottom: 269px;
     left: 163px;
 }
-.obj_icone10{
+.obj_icone14_10{
     bottom: 269px;
     left: 98px;
 }
-.obj_icone11{
+.obj_icone14_11{
     bottom: 311px;
     left: 70px;
 }
-.obj_icone12{
+.obj_icone14_12{
 	bottom: 351px;
 	left: 100px;
 }
-.obj_icone13{
+.obj_icone14_13{
     bottom: 352px;
     left: 153px;
 }
-.obj_icone14{
+.obj_icone14_14{
     bottom: 407px;
     left: 179px;
 }
@@ -172,6 +172,144 @@
     left: 153px;
 }
 .obj_icone15_15{
+    bottom: 407px;
+    left: 179px;
+}
+
+/*Objetos com 16 Atividades*/
+
+.obj_icone16_1{
+    bottom: 120px;
+    left: 65px;
+}                                                                      
+.obj_icone16_2{
+    bottom: 177px;
+    left: 65px;
+}
+.obj_icone16_3{
+    bottom: 186px;
+    left: 113px;
+}
+.obj_icone16_4{
+    bottom: 186px;
+    left: 170px;
+}
+.obj_icone16_5{
+    bottom: 186px;
+    left: 227px;
+}
+.obj_icone16_6{
+    bottom: 186px;
+    left: 284px;
+}
+.obj_icone16_7{
+    bottom: 226px;
+    left: 301px;
+}
+.obj_icone16_8{
+    bottom: 269px;
+    left: 287px;
+}
+.obj_icone16_9{
+    bottom: 269px;
+    left: 230px;
+}
+.obj_icone16_10{
+    bottom: 269px;
+    left: 173px;
+}
+.obj_icone16_11{
+    bottom: 269px;
+    left: 116px;
+}
+.obj_icone16_12{
+    bottom: 280px;
+    left: 69px;
+}
+.obj_icone16_13{
+    bottom: 337px;
+    left: 69px;
+}
+.obj_icone16_14{
+    bottom: 352px;
+    left: 111px;
+}
+.obj_icone16_15{
+    bottom: 352px;
+    left: 168px;
+}
+.obj_icone16_16{
+    bottom: 407px;
+    left: 179px;
+}
+
+/*Objetos com 17 Atividades*/
+
+.obj_icone17_1{
+    bottom: 120px;
+    left: 65px;
+}                                                                      
+.obj_icone17_2{
+    bottom: 174px;
+    left: 65px;
+}
+.obj_icone17_3{
+    bottom: 186px;
+    left: 107px;
+}
+.obj_icone17_4{
+    bottom: 186px;
+    left: 161px;
+}
+.obj_icone17_5{
+    bottom: 186px;
+    left: 215px;
+}
+.obj_icone17_6{
+    bottom: 186px;
+    left: 269px;
+}
+.obj_icone17_7{
+    bottom: 208px;
+    left: 301px;
+}
+.obj_icone17_8{
+    bottom: 262px;
+    left: 301px;
+}
+.obj_icone17_9{
+    bottom: 269px;
+    left: 254px;
+}
+.obj_icone17_10{
+    bottom: 269px;
+    left: 200px;
+}
+.obj_icone17_11{
+    bottom: 269px;
+    left: 146px;
+}
+.obj_icone17_12{
+    bottom: 269px;
+    left: 92px;
+}
+.obj_icone17_13{
+    bottom: 306px;
+    left: 69px;
+}
+.obj_icone17_14{
+    bottom: 352px;
+    left: 79px;
+}
+.obj_icone17_15{
+    bottom: 352px;
+    left: 134px;
+}
+.obj_icone17_16{
+    bottom: 355px;
+    left: 179px;
+}
+.obj_icone17_17{
     bottom: 407px;
     left: 179px;
 }
@@ -258,4 +396,187 @@
     bottom: 411px;
     left: 179px;
 }
-                                                                                     
+
+/*Objetos com 21 atividades*/
+.obj_icone21_1{   
+    bottom: 120px;
+    left: 65px;
+}
+.obj_icone21_2{
+    bottom: 163px;
+    left: 65px;
+}
+.obj_icone21_3{
+    bottom: 186px;
+    left: 85px;
+}
+.obj_icone21_4{
+    bottom: 186px;
+    left: 128px;
+}
+.obj_icone21_5{
+    bottom: 186px;
+    left: 172px;
+}
+.obj_icone21_6{
+    bottom: 186px;
+    left: 215px;
+}
+.obj_icone21_7{
+    bottom: 186px;
+    left: 258px;
+}
+.obj_icone21_8{
+    bottom: 187px;
+    left: 301px;
+}
+.obj_icone21_9 {
+    bottom: 227px;
+    left: 301px;
+}
+.obj_icone21_10 {
+    bottom: 261px;
+    left: 301px;
+}
+.obj_icone21_11{
+    bottom: 269px;
+    left: 262px;
+}
+.obj_icone21_12{
+    bottom: 269px;
+    left: 225px;
+}
+.obj_icone21_13{
+    bottom: 269px;
+    left: 186px;
+}
+.obj_icone21_14{
+    bottom: 269px;
+    left: 143px;
+}
+.obj_icone21_15{
+    bottom: 269px;
+    left: 100px;
+}
+.obj_icone21_16{
+    bottom: 287px;
+    left: 68px;
+}
+.obj_icone21_17{
+    bottom: 326px;
+    left: 68px;
+}
+.obj_icone21_18{
+    bottom: 352px;
+    left: 95px;
+}
+.obj_icone21_19{
+    bottom: 352px;
+    left: 137px;   
+}
+.obj_icone21_20{
+    bottom: 352px;
+    left: 177px;
+}
+.obj_icone21_21{
+    bottom: 407px;
+    left: 179px;
+}
+
+/*Objetos com 24 atividades*/
+.obj_icone24_1{   
+    bottom: 120px;
+    left: 65px;
+}
+.obj_icone24_2{
+    bottom: 158px;
+    left: 65px;
+}
+.obj_icone24_3{
+    bottom: 186px;
+    left: 75px;
+}
+.obj_icone24_4{
+    bottom: 186px;
+    left: 113px;
+}
+.obj_icone24_5{
+    bottom: 186px;
+    left: 150px;
+}
+.obj_icone24_6{
+    bottom: 186px;
+    left: 188px;
+}
+.obj_icone24_7{
+    bottom: 186px;
+    left: 226px;
+}
+.obj_icone24_8{
+    bottom: 186px;
+    left: 264px;
+}
+.obj_icone24_9{
+    bottom: 186px;
+    left: 301px;
+}
+.obj_icone24_10 {
+    bottom: 224px;
+    left: 301px;
+}
+.obj_icone24_11 {
+    bottom: 261px;
+    left: 301px;
+}
+.obj_icone24_12{
+    bottom: 269px;
+    left: 271px;
+}
+.obj_icone24_13{
+    bottom: 269px;
+    left: 233px;
+}
+.obj_icone24_14{
+    bottom: 269px;
+    left: 195px;
+}
+.obj_icone24_15{
+    bottom: 269px;
+    left: 158px;
+}
+.obj_icone24_16{
+    bottom: 269px;
+    left: 120px;
+}
+.obj_icone24_17{
+    bottom: 269px;
+    left: 82px;
+}
+.obj_icone24_18{
+    bottom: 292px;
+    left: 68px;
+}
+.obj_icone24_19{
+    bottom: 330px;
+    left: 68px;
+}
+.obj_icone24_20{
+    bottom: 352px;
+    left: 84px;   
+}
+.obj_icone24_21{
+    bottom: 352px;
+    left: 122px;
+}
+.obj_icone24_22{
+    bottom: 352px;
+    left: 159px;
+}
+.obj_icone24_23{
+    bottom: 369px;
+    left: 179px;
+}
+.obj_icone24_24{
+    bottom: 407px;
+    left: 179px;
+}

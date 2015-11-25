@@ -51,7 +51,10 @@ $templateGeral = new Template();
                             <div id="btn_exercicio_5_parabens_brilho"></div>
                             <div id="caminho">
                                 <div class="row">
-                                    <div class="linha linha_atividade1">
+                                    <div class="linha" id="linha_atividade">
+                                        
+                                    </div>
+                                    <!-- <div class="linha linha_atividade1">
                                         <span id="HCB_1o_5cap/2_Avaliacao_Inicial_pt2" class="tema obj_icone obj_icone20_1"></span>
                                         <span id="HCB_1o_5cap/3_Texto_INMETRO" class="tema obj_icone obj_icone20_2"></span>
                                         <span id="HCB_1o_5cap/4_Atividade_quarto" class="tema obj_icone obj_icone20_3"></span>
@@ -139,7 +142,7 @@ $templateGeral = new Template();
                                         <span id="HCB_5o_5cap/13_Fazer_MapadeRiscos" class="tema obj_icone obj_icone15_13"></span>
                                         <span id="HCB_5o_5cap/14_AvaliacaoFinal" class="tema obj_icone obj_icone15_14"></span>
                                         <span id="HCB_5o_5cap/15_FB_Final" class="tema obj_icone obj_icone15_15"></span>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>                           
                         </div>                         

@@ -59,7 +59,7 @@ class Template {
 													<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
 													<ul id="sbm_exercicios">
 														<li class="sub_a menu_li_capitulo">
-															<a href="#" class="Li_not-a-link">1º Capítulo</a>
+															<a href="capitulos.php?ano_5_capitulo_1">1º Capítulo</a>
 														</li>
 														<li class="sub_a menu_li_capitulo">
 															<a href="#" class="Li_not-a-link">2º Capítulo</a>
@@ -71,7 +71,7 @@ class Template {
 															<a href="#" class="Li_not-a-link">4º Capítulo</a>
 														</li>
 														<li class="sub_a menu_li_capitulo">
-															<a href="capitulos.php?ano_5">5º Capítulo</a>
+															<a href="capitulos.php?ano_5_capitulo_5">5º Capítulo</a>
 														</li>
 													</ul>';
 										}elseif($usrLogado['perfil_id'] != 1 && $menuId[0]=='livros'){

@@ -26,7 +26,8 @@ $(document).ready(function (){
 			cap_ano = 'ano_5';
 			$('#img_teste').attr('src','img/abertura_Cab.png');
 		break;
-	} 
-	$('.cap_5').attr('href','capitulos.php?'+cap_ano);
+	}
+	$('.cap_1').attr('href','capitulos.php?'+cap_ano+"_capitulo_1");
+	$('.cap_5').attr('href','capitulos.php?'+cap_ano+"_capitulo_5");
 });
        
