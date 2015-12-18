@@ -1,0 +1,303 @@
+.box_area_admin {
+	background-color: #fff;
+	border: 2px dashed #88A80D;
+	height: 581px;
+}
+.area_btns_tabs {
+	padding: 15px;
+	border-bottom: 2px dashed #88A80D;
+}
+.area_btns_tabs::after{
+	content: '';
+	display: block;
+	width: 100%;
+	clear: both;
+}
+.lista_btns,
+.tabs_cadastro {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.btns_tabs {
+	float: right;
+}
+.btn_tab {
+	position: relative;
+    display: inline-block;
+    padding: 7px 10px 7px 25px;
+    height: 36px;
+    border: 1px dotted #C4D11F;
+    color: #C4D11F;
+    font-size: 15px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    font-weight: 500;
+    background: #fff;
+    cursor: pointer;
+    margin-right: 30px;
+}
+.btn_tab:hover,
+.btn_tab_ativo {
+	background-color: #C4D11F;
+	color: #fff;
+}
+.btn_tab:last-child{
+	margin-right: 0;
+}
+.btn_add_cadastro::before {
+	content: url(../img/bt_novoCadastro.png);
+	position: absolute;
+	left: -20px;
+	top: -3px;
+}
+.btn_add_cadastro:hover::before,
+.btn_tab_ativo[class*="btn_add_cadastro"]::before {
+	content: url(../img/bt_novoCadastro_ativo.png);
+	position: absolute;
+	left: -21px;
+	top: -4px;
+}
+.btn_update_cadastro::before {
+	content: url(../img/bt_atualizarCadastro.png);
+	position: absolute;
+	left: -20px;
+	top: -3px;
+}
+.btn_update_cadastro:hover::before,
+.btn_tab_ativo[class*="btn_update_cadastro"]::before {
+	content: url(../img/bt_atualizarCadastro_ativo.png);
+	position: absolute;
+	left: -21px;
+	top: -4px;
+}
+.btn_confirm_cadastro::before {
+	content: url(../img/bt_confirmarCadastro.png);
+	position: absolute;
+	left: -20px;
+	top: -3px;
+}
+.btn_confirm_cadastro:hover::before,
+.btn_tab_ativo[class*="btn_confirm_cadastro"]::before {
+	content: url(../img/bt_confirmarCadastro_ativo.png);
+	position: absolute;
+	left: -21px;
+	top: -4px;
+}
+.tab_cadastro {
+    position: relative;
+    padding: 15px;
+    background-color: #E9EDA6;
+    background-repeat: no-repeat;
+	background-position: center;
+    height: 167.5px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    color: #728C07;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.tab_cadastro:hover, 
+.tab_cadastro_ativo {
+	background-color: #D4E075;
+}
+.tab_cadastro_ativo::after,
+.tab_cadastro:hover::after {
+    content: url(../img/triangulo.png);
+    position: absolute;
+    top: 40px;
+    right: -20px;
+}
+.tab_cadastro_inativo, 
+.tab_cadastro_inativo:hover {
+	background-color: #F2F2F2;
+	cursor: not-allowed;
+}
+.tab_aluno {
+	background-image: url(../img/bt_aluno.png);
+}
+.tab_professor {
+	background-image: url(../img/bt_professor.png);
+}
+.tab_escola {
+	background-image: url(../img/bt_escola.png);
+}
+.tab_cadastro_inativo[class*="tab_aluno"] {
+	background-image: url(../img/bt_aluno_inativo.png);
+}
+.tab_cadastro_inativo[class*="tab_professor"] {
+	background-image: url(../img/bt_professor_inativo.png);
+}
+.tab_cadastro_inativo[class*="tab_escola"] {
+	background-image: url(../img/bt_escola_inativo.png);
+}
+
+.area_conteudo_tabs { 
+	padding: 20px 0 20px 40px;
+	height: 509px;
+}
+.conteudo_tab {
+	height: 100%;
+	overflow: hidden;
+}
+.form_divisao_titulo {
+    font-size: 18px;
+    font-weight: 500;
+    color: #728C07;
+    border-bottom: none;
+}
+.form_divisao {
+	display: block;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #CCCCCC;
+    margin-bottom: 15px;
+}
+.form_divisao:last-child {
+	border-bottom: none;
+    margin-bottom: 0;
+}
+div[class*="form_celula"] {
+	display: block;
+	float: left;
+	padding: 6px;
+	background-color: #F2F2F2;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	height: 40px;
+}
+.form_info {
+    float: left;
+    display: block;
+    margin: 5px 10px 0 5px;
+    text-transform: uppercase;
+    color: #88A80D;
+    font-weight: 500;
+    cursor: pointer;
+}
+.form_celula_g {
+	width: 100%;
+}
+.form_celula_m {
+	width: 48.3%;
+	margin-right: 30px;
+}
+.form_celula_p {
+	width: 31.09%;
+	margin-right: 30px;
+}
+.value_last {
+	margin-right: 0;
+}
+input.form_text,
+input.form_number {
+	border: 1px solid #E6E6E6;
+	border-radius: 5px;
+	height: 30px;
+	width: 100%;
+	font-size: 14px;
+	font-weight: 300;
+	padding: 6px;
+}
+span.input_container,
+span.select_container {
+	overflow: hidden;
+	display: block;
+}
+
+span.select_container select,
+span.select_container select:focus,
+span.select_container select:hover,
+span.select_container select:active {
+    background-color: #fff;
+    background-image: url(../img/seta_combobox.png);
+    background-repeat: no-repeat;
+    background-position: 99% center;
+    width: 100%;
+    padding: 3.5px 6px;
+    font-size: 14px;
+    font-weight: 300;
+    border: 1px solid #E6E6E6;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+   	appearance: none;
+}
+.form_btns_container {
+	width: 180px;
+	height: auto;
+	margin: 0 auto;
+	text-align: center;
+}
+.form_btn {
+	font-family: "Source Sans Pro";
+	font-size: 18px;
+	font-weight: 500;
+	text-transform: uppercase;
+	width: 80px;
+	height: 34px;
+	border: 1px solid #728C07;
+	color: #728C07;
+	border-radius: 3px;
+	margin-right: 15px;
+}
+.form_btn:last-child {
+	margin-right: 0;
+}
+.btn_submit {
+	background-color: #E9EDA6;
+}
+.btn_submit:hover,
+.btn_submit:active,
+.btn_submit:focus {
+	background-color: #D1CF7D;
+}
+.btn_reset {
+	background-color: #FFFFFF;
+}
+.btn_reset:hover,
+.btn_reset:active,
+.btn_reset:focus {
+	background-color: #F2F2F2;
+}
+
+/*Barra de rolagem com plugin JS */
+	.mCSB_inside > .mCSB_container {
+	   margin-right: 0px !important;
+	}
+	.mCSB_buttonUp{
+		background:url(../img/up.png) no-repeat !important;
+		background-position: -3px !important;
+	}
+
+	.mCSB_buttonDown{
+	    background:url(../img/down.png) no-repeat !important;
+		background-position: -2px !important;
+	}
+	.mCSB_scrollTools .mCSB_buttonUp, .mCSB_scrollTools .mCSB_buttonDown{
+	    opacity: 1 !important;
+	}
+	.mCSB_scrollTools .mCSB_dragger {
+	    background-color: #88A80D !important;
+	}
+	.mCSB_scrollTools .mCSB_draggerRail {
+	    background-color: #88A80D !important
+	}
+	.mCSB_scrollTools .mCSB_draggerRail {
+	    width: 100% !important;
+	    height: 100% !important;
+	    margin: 0 auto !important; 
+	    -webkit-border-radius: 0px !important;
+	    -moz-border-radius: 0px !important;
+	    border-radius: 0px !important;
+	    background-color: #F2F2F2 !important;
+	}
+	.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+	     background-color: #88A80D !important; 
+	}
+	.mCSB_container {
+		padding-right: 40px !important;
+	}
+/*Fim barra de rolagem*/

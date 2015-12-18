@@ -38,7 +38,6 @@ a, a:visited, a:focus, a:active, a:hover{
 
 textarea:focus, input:focus, select:focus, button:focus  {
     box-shadow: 0 0 0 0;
-    border: 0 none;
     outline: 0;
 } 
 #container{
