@@ -26,14 +26,32 @@ class EnderecoDAO extends DAO{
     
       public function insert($end)
      {
-        $sql  = "insert into endereco (end_logradouro,end_numero,end_complemento,end_cep,end_cidade,end_uf,end_pais,end_telefone_residencial,end_telefone_comercial,end_telefone_celular,end_email) values ";
-        $sql .= "('".$end->getend_logradouro()."','".$end->getend_numero()."',".$end->getend_complemento().",";
-    	$sql .= "'".$end->getend_cep()."','".$end->getend_cidade().",";
-        $sql .= "'".$end->getend_uf()."','".$end->getend_pais().",";
-        $sql .= "'".$end->getend_telefone_residencial()."','".$end->getend_telefone_comercial().",";
-        $sql .= "'".$end->getend_telefone_celular()."','".$end->getend_email()."')";
-		echo $sql;
-    	return $this->execute($sql);
+        $sql  = "insert into endereco (";
+        $sql .= "end_logradouro,";
+        $sql .= "end_numero,";
+        $sql .= "end_complemento,";
+        $sql .= "end_cep,";
+        $sql .= "end_cidade,";
+        $sql .= "end_uf,";
+        $sql .= "end_pais,";
+        $sql .= "end_telefone_residencial,";
+        $sql .= "end_telefone_comercial,";
+        $sql .= "end_telefone_celular,";
+        $sql .= "end_email";
+        $sql .= ") values (";
+        $sql .= "'".$end->getend_logradouro()."',";
+        $sql .= "'".$end->getend_numero()."',";
+        $sql .= "'".$end->getend_complemento()."',";
+    	$sql .= "'".$end->getend_cep()."',";
+    	$sql .= "'".$end->getend_cidade()."',";
+        $sql .= "'".$end->getend_uf()."',";
+        $sql .= "'".$end->getend_pais()."',";
+        $sql .= "'".$end->getend_telefone_residencial()."',";
+        $sql .= "'".$end->getend_telefone_comercial()."',";
+        $sql .= "'".$end->getend_telefone_celular()."',";
+        $sql .= "'".$end->getend_email()."')";
+		//echo $sql;
+    	return $this->executeAndReturnLastID($sql);
      }
      
      public function update($end)
