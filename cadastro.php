@@ -60,7 +60,8 @@ $logado = unserialize($_SESSION['USR']);
                                         <section class="area_btns_tabs">
                                             <div class="btns_tabs btns_aluno" style="display: none;">
                                                 <ul class="lista_btns lista_btns_aluno">
-                                                    <li class="btn_tab btn_aluno btn_add_cadastro btn_tab_ativo">Novo cadastro</li>
+                                                    <li class="btn_tab btn_aluno btn_confirm_cadastro btn_tab_ativo">Confirmar Cadastro</li>
+                                                    <li class="btn_tab btn_aluno btn_add_cadastro">Novo cadastro</li>
                                                     <li class="btn_tab btn_aluno btn_update_cadastro">Atualizar cadastro</li>
                                                 </ul>
                                             </div>
@@ -73,7 +74,6 @@ $logado = unserialize($_SESSION['USR']);
                                             </div>
                                             <div class="btns_tabs btns_escola" style="display: none;">
                                                 <ul class="lista_btns lista_btns_escola">
-                                                    <li class="btn_tab btn_escola btn_confirm_cadastro">Confirmar Cadastro</li>
                                                     <li class="btn_tab btn_escola btn_add_cadastro btn_tab_ativo">Novo cadastro</li>
                                                     <li class="btn_tab btn_escola btn_update_cadastro">Atualizar cadastro</li>
                                                 </ul>
@@ -94,29 +94,84 @@ $logado = unserialize($_SESSION['USR']);
                                     <div class="col-xs-12 col-md-10">
                                         <section class="area_conteudo_tabs">
                                             <div class="conteudo_tab conteudo_aluno" style="display: none;">
+                                                <section class="confirm_cadastro confirm_aluno cadastroAlunoContent" id="confirmAlunoContainer" style="display: none;">
+                                                    <h2 class="section_header cad_pend_aluno_header">Cadastros Pendentes</h2>
+                                                    <div class="accordion_cad_container cad_pend_aluno_accordion">
+                                                        <a href="#confirmAlunoCont1" class="confirmAlunoToggler" data-toggle="collapse">
+                                                            <div class="accordion_info" id="confirmAlunoInfo1">Fernanda Hernández Ruiz</div>
+                                                        </a>
+                                                        <div class="accordion_content collapse" id="confirmAlunoCont1">
+                                                            <div class="content_col_info">
+                                                                <table>
+                                                                    <tr class="content_info_row">
+                                                                    	 <td colspan="3"><span class="content_info_label">Escola:</span> <span class="content_info_txt">E.M.E.F. Deputado Januário Mantelli Neto</span></td>
+                                                                    </tr>
+                                                                    <tr class="content_info_row">
+                                                                        <td colspan="2"><span class="content_info_label">Professor:</span> <span class="content_info_txt">Cecília Soares Benevites</span></td>
+                                                                        <td><span class="content_info_label">Sala:</span> <span class="content_info_txt">3º ano B - Manhã</span></td>
+                                                                    </tr>
+                                                                </table>
+                                                                <table>
+                                                                    <tr class="content_info_row">
+                                                                    	<td><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">02/04/2009</span></td>
+                                                                    	<td><span class="content_info_label">RG:</span> <span class="content_info_txt">43.887.654-9</span></td>
+                                                                    	<td><span class="content_info_label">CPF:</span> <span class="content_info_txt">567.800.766-42</span></td>
+                                                                    </tr>
+                                                                    <tr class="content_info_row">
+                                                                    	<td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">Rua Embirussú, 56 - Vila Beatriz - São Paulo - SP</span></td>
+                                                                    	<td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03817-090</span></td>
+                                                                    </tr>
+                                                                    <tr class="content_info_row">
+                                                                    	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
+                                                                    	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                            <div class="content_col_btns">
+                                                                <button class="section_btn btn_reject_cad">Rejeitar cadastro</button>
+                                                                <button class="section_btn btn_confirm_cad">Confirmar cadastro</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
                                                 <form action="" class="form_cadastro cadastro_aluno cadastroAlunoContent" id="formCadastroAluno">
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Dados Escolares</legend>
                                                         <div class="form_celula_m">
                                                             <label for="selectEscolaAluno" class="form_info info_m">Escola</label>
                                                             <span class="select_container">
-                                                                <select name="" id="selectEscolaAluno" class="form_value form_select value_m" required>
+                                                                <select name="selectEscolaAluno" id="selectEscolaAluno" class="form_value form_select value_m" required>
                                                                     <option value="" disabled selected>Selecione a escola</option>
+                                                                    <?php
+
+                                                                        if(count($escolas)>0) {
+                                                                            foreach($escolas as $esc) {
+                                                                                echo '<option value="'.utf8_encode($esc->getesc_id()).'">'.$esc->getesc_razao_social().'</option>';
+                                                                            }
+                                                                        }
+                                                                    ?>
                                                                 </select>
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m value_last">
                                                             <label for="selectProfessorAluno" class="form_info info_m">Professor</label>
                                                             <span class="select_container">
-                                                                <select name="" id="selectProfessorAluno" class="form_value form_select value_m" required>
+                                                                <select name="selectProfessorAluno" id="selectProfessorAluno" class="form_value form_select value_m" required>
                                                                     <option value="" disabled selected>Selecione o professor</option>
+                                                                    <?php
+                                                                       if(count($professor)>0){
+                                                                           foreach($professor as $prof) {
+                                                                               echo '<option value="'.utf8_encode($prof->getUsr_id()).'">'.utf8_encode($prof->getUsr_nome()).'</option>';
+                                                                           }
+                                                                       }
+                                                                    ?>
                                                                 </select>
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="selectPeriodoAluno" class="form_info info_p">Período</label>
                                                             <span class="select_container">
-                                                                <select name="" id="selectPeriodoAluno" class="form_value form_select value_p" required>
+                                                                <select name="selectPeriodoAluno" id="selectPeriodoAluno" class="form_value form_select value_p" required>
                                                                     <option value="" disabled selected>Selecione o período</option>
                                                                 </select>
                                                             </span>
@@ -124,15 +179,22 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="selectSerieAluno" class="form_info info_p">Serie</label>
                                                             <span class="select_container">
-                                                                <select name="" id="selectSerieAluno" class="form_value form_select value_p" required>
+                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_p" required>
                                                                     <option value="" disabled selected>Selecione a série</option>
+                                                                    <?php
+                                                                    if(count($serie)>0){
+                                                                        foreach($serie as $s) {
+                                                                            echo '<option value="'.utf8_encode($s->getSri_id()).'">'.utf8_encode($s->getSri_serie()).'</option>';
+                                                                        }
+                                                                    }
+                                                                    ?>
                                                                 </select>
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputTurmaAluno" class="form_info info_p">Turma</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputTurmaAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputTurmaAluno" id="inputTurmaAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                     </fieldset>
@@ -141,55 +203,55 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_g">
                                                             <label for="inputNomeAluno" class="form_info info_g">Nome</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputNomeAluno" class="form_value form_text value_g" required />
+                                                                <input type="text" name="inputNomeAluno" id="inputNomeAluno" class="form_value form_text value_g" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputNascimentoAluno" class="form_info info_p">Nascimento</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputNascimentoAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputNascimentoAluno" id="inputNascimentoAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputRgAluno" class="form_info info_p">RG</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputRgAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputRgAluno" id="inputRgAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputCpfAluno" class="form_info info_p">CPF</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCpfAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputCpfAluno" id="inputCpfAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m">
                                                             <label for="inputRuaAluno" class="form_info info_m">Rua</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputRuaAluno" class="form_value form_text value_m" required />
+                                                                <input type="text" name="inputRuaAluno" id="inputRuaAluno" class="form_value form_text value_m" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m value_last">
                                                             <label for="inputBairroAluno" class="form_info info_m">Bairro</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputBairroAluno" class="form_value form_text value_m" required />
+                                                                <input type="text" name="inputBairroAluno" id="inputBairroAluno" class="form_value form_text value_m" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputNumCasaAluno" class="form_info info_p">Número</label>
                                                             <span class="input_container">
-                                                                <input type="number" name="" id="inputNumCasaAluno" class="form_value form_number value_p" required />
+                                                                <input type="number" name="inputNumCasaAluno" id="inputNumCasaAluno" class="form_value form_number value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputCidadeAluno" class="form_info info_p">Cidade</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCidadeAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputCidadeAluno" id="inputCidadeAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputEstadoAluno" class="form_info info_p">Estado</label>
                                                             <span class="select_container">
-                                                                <select name="" id="inputEstadoAluno" class="form_value form_select value_p" required>
+                                                                <select name="inputEstadoAluno" id="inputEstadoAluno" class="form_value form_select value_p" required>
                                                                     <option value="" disabled selected>Selecione o estado</option>
                                                                 </select>
                                                             </span>
@@ -197,19 +259,19 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="inputCepAluno" class="form_info info_p">CEP</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCepAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputCepAluno" id="inputCepAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputTelefoneAluno" class="form_info info_p">Telefone</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputTelefoneAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputTelefoneAluno" id="inputTelefoneAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputEmailAluno" class="form_info info_p">E-mail</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputEmailAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputEmailAluno" id="inputEmailAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                     </fieldset>
@@ -218,37 +280,37 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_g">
                                                             <label for="inputNomeRespAluno" class="form_info info_g">Nome</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputNomeRespAluno" class="form_value form_text value_g" required />
+                                                                <input type="text" name="inputNomeRespAluno" id="inputNomeRespAluno" class="form_value form_text value_g" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputNascRespAluno" class="form_info info_p">Nascimento</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputNascRespAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputNascRespAluno" id="inputNascRespAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputRgRespAluno" class="form_info info_p">RG</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputRgRespAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputRgRespAluno" id="inputRgRespAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputCpfRespAluno" class="form_info info_p">CPF</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCpfRespAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputCpfRespAluno" id="inputCpfRespAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m">
                                                             <label for="inputTelRespAluno" class="form_info info_m">Telefone</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputTelRespAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputTelRespAluno" id="inputTelRespAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m value_last">
                                                             <label for="inputEmailRespAluno" class="form_info info_m">E-mail</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputEmailRespAluno" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputEmailRespAluno" id="inputEmailRespAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                     </fieldset>
@@ -257,80 +319,81 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="inputUsuarioAluno" class="form_info info_p">Usuário</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputUsuarioAluno" class="form_value form_text value_p" placeholder="Insira um nome de usuário" required />
+                                                                <input type="text" name="inputUsuarioAluno" id="inputUsuarioAluno" class="form_value form_text value_p" placeholder="Insira um nome de usuário" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputSenhaAluno" class="form_info info_p">Senha</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputSenhaAluno" class="form_value form_text value_p" placeholder="Insira uma senha" required />
+                                                                <input type="text" name="inputSenhaAluno" id="inputSenhaAluno" class="form_value form_text value_p" placeholder="Insira uma senha" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputSenhaConfirmAluno" class="form_info info_p">Senha</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputSenhaConfirmAluno" class="form_value form_text value_p" placeholder="Confirme a senha" required />
+                                                                <input type="text" name="inputSenhaConfirmAluno" id="inputSenhaConfirmAluno" class="form_value form_text value_p" placeholder="Confirme a senha" required />
                                                             </span>
                                                         </div>
                                                     </fieldset>
                                                     <div class="form_btns_container">
                                                         <input type="reset" value="Limpar" class="form_btn btn_reset" />
-                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" />
+                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroAluno" />
                                                     </div>
                                                 </form>
-                                                <section class="update_cadastro update_aluno cadastroAlunoContent" id="updateAlunoContainer" style="display: none;"></section>
+                                                <section class="update_cadastro update_aluno cadastroAlunoContent" id="updateAlunoContainer" style="display: none;">
+                                                </section>
                                             </div>
                                             <div class="conteudo_tab conteudo_professor">
-                                                <section class="confirm_cadastro confirm_aluno cadastroProfContent" id="confirmProfContainer" style="display: none;"></section>
+                                                <section class="confirm_cadastro confirm_prof cadastroProfContent" id="confirmProfContainer" style="display: none;"></section>
                                                 <form action="" class="form_cadastro cadastro_prof cadastroProfContent" id="formCadastroProf">
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Dados Pessoais</legend>
                                                         <div class="form_celula_g">
                                                             <label for="inputNomeProf" class="form_info info_g">Nome</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputNomeProf" class="form_value form_text value_g" required />
+                                                                <input type="text" name="inputNomeProf" id="inputNomeProf" class="form_value form_text value_g" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputNascimentoProf" class="form_info info_p">Nascimento</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputNascimentoProf" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputNascimentoProf" id="inputNascimentoProf" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputRgProf" class="form_info info_p">RG</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputRgProf" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputRgProf" id="inputRgProf" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputCpfProf" class="form_info info_p">CPF</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCpfProf" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputCpfProf" id="inputCpfProf" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m">
                                                             <label for="inputRuaProf" class="form_info info_m">Rua</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputRuaProf" class="form_value form_text value_m" required />
+                                                                <input type="text" name="inputRuaProf" id="inputRuaProf" class="form_value form_text value_m" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m value_last">
                                                             <label for="inputBairroProf" class="form_info info_m">Bairro</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputBairroProf" class="form_value form_text value_m" required />
+                                                                <input type="text" name="inputBairroProf" id="inputBairroProf" class="form_value form_text value_m" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputNumCasaProf" class="form_info info_p">Número</label>
                                                             <span class="input_container">
-                                                                <input type="number" name="" id="inputNumCasaProf" class="form_value form_number value_p" required />
+                                                                <input type="number" name="inputNumCasaProf" id="inputNumCasaProf" class="form_value form_number value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputCidadeProf" class="form_info info_p">Cidade</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCidadeProf" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputCidadeProf" id="inputCidadeProf" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
@@ -344,19 +407,19 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="inputCepProf" class="form_info info_p">CEP</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCepProf" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputCepProf" id="inputCepProf" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputTelefoneProf" class="form_info info_p">Telefone</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputTelefoneProf" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputTelefoneProf" id="inputTelefoneProf" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputEmailProf" class="form_info info_p">E-mail</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputEmailProf" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputEmailProf" id="inputEmailProf" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                     </fieldset>
@@ -365,28 +428,28 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="inputUsuarioProf" class="form_info info_p">Usuário</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputUsuarioProf" class="form_value form_text value_p" placeholder="Insira um nome de usuário" required />
+                                                                <input type="text" name="inputUsuarioProf" id="inputUsuarioProf" class="form_value form_text value_p" placeholder="Insira um nome de usuário" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputSenhaProf" class="form_info info_p">Senha</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputSenhaProf" class="form_value form_text value_p" placeholder="Insira uma senha" required />
+                                                                <input type="text" name="inputSenhaProf" id="inputSenhaProf" class="form_value form_text value_p" placeholder="Insira uma senha" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputSenhaConfirmProf" class="form_info info_p">Senha</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputSenhaConfirmProf" class="form_value form_text value_p" placeholder="Confirme a senha" required />
+                                                                <input type="text" name="inputSenhaConfirmProf" id="inputSenhaConfirmProf" class="form_value form_text value_p" placeholder="Confirme a senha" required />
                                                             </span>
                                                         </div>
                                                     </fieldset>
                                                     <div class="form_btns_container">
                                                         <input type="reset" value="Limpar" class="form_btn btn_reset" />
-                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" />
+                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroProfessor" />
                                                     </div>
                                                 </form>
-                                                <section class="update_cadastro update_aluno cadastroProfContent" id="updateProfContainer" style="display: none;"></section>
+                                                <section class="update_cadastro update_prof cadastroProfContent" id="updateProfContainer" style="display: none;"></section>
                                             </div>
                                             <div class="conteudo_tab conteudo_escola" style="display: none;">
                                                 <form action="" class="form_cadastro cadastro_escola cadastroEscolaContent" id="formCadastroEscola">
@@ -395,43 +458,43 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_m">
                                                             <label for="inputNomeEscola" class="form_info info_m">Nome</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputNomeEscola" class="form_value form_text value_m" required />
+                                                                <input type="text" name="inputNomeEscola" id="inputNomeEscola" class="form_value form_text value_m" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m value_last">
                                                             <label for="inputCodigoEscola" class="form_info info_m">Código</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCodigoEscola" class="form_value form_text value_m" required />
+                                                                <input type="text" name="inputCodigoEscola" id="inputCodigoEscola" class="form_value form_text value_m" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m">
                                                             <label for="inputRuaEscola" class="form_info info_m">Rua</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputRuaEscola" class="form_value form_text value_m" required />
+                                                                <input type="text" name="inputRuaEscola" id="inputRuaEscola" class="form_value form_text value_m" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_m value_last">
                                                             <label for="inputBairroEscola" class="form_info info_m">Bairro</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputBairroEscola" class="form_value form_text value_m" required />
+                                                                <input type="text" name="inputBairroEscola" id="inputBairroEscola" class="form_value form_text value_m" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputNumCasaEscola" class="form_info info_p">Número</label>
                                                             <span class="input_container">
-                                                                <input type="number" name="" id="inputNumCasaEscola" class="form_value form_number value_p" required />
+                                                                <input type="number" name="inputNumCasaEscola" id="inputNumCasaEscola" class="form_value form_number value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputCidadeEscola" class="form_info info_p">Cidade</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCidadeEscola" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputCidadeEscola" id="inputCidadeEscola" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputEstadoEscola" class="form_info info_p">Estado</label>
                                                             <span class="select_container">
-                                                                <select name="" id="inputEstadoEscola" class="form_value form_select value_p" required>
+                                                                <select name="inputEstadoEscola" id="inputEstadoEscola" class="form_value form_select value_p" required>
                                                                     <option value="" disabled selected>Selecione o estado</option>
                                                                 </select>
                                                             </span>
@@ -439,19 +502,19 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="inputCepEscola" class="form_info info_p">CEP</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputCepEscola" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputCepEscola" id="inputCepEscola" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputTelefoneEscola" class="form_info info_p">Telefone</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputTelefoneEscola" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputTelefoneEscola" id="inputTelefoneEscola" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputEmailEscola" class="form_info info_p">E-mail</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputEmailEscola" class="form_value form_text value_p" required />
+                                                                <input type="text" name="inputEmailEscola" id="inputEmailEscola" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
                                                     </fieldset>
@@ -460,28 +523,28 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="inputUsuarioEscola" class="form_info info_p">Usuário</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputUsuarioEscola" class="form_value form_text value_p" placeholder="Insira um nome de usuário" required />
+                                                                <input type="text" name="inputUsuarioEscola" id="inputUsuarioEscola" class="form_value form_text value_p" placeholder="Insira um nome de usuário" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputSenhaEscola" class="form_info info_p">Senha</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputSenhaEscola" class="form_value form_text value_p" placeholder="Insira uma senha" required />
+                                                                <input type="text" name="inputSenhaEscola" id="inputSenhaEscola" class="form_value form_text value_p" placeholder="Insira uma senha" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputSenhaConfirmEscola" class="form_info info_p">Senha</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="" id="inputSenhaConfirmEscola" class="form_value form_text value_p" placeholder="Confirme a senha" required />
+                                                                <input type="text" name="inputSenhaConfirmEscola" id="inputSenhaConfirmEscola" class="form_value form_text value_p" placeholder="Confirme a senha" required />
                                                             </span>
                                                         </div>
                                                     </fieldset>
                                                     <div class="form_btns_container">
                                                         <input type="reset" value="Limpar" class="form_btn btn_reset" />
-                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" />
+                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroEscola" />
                                                     </div>
                                                 </form>
-                                                <section class="update_cadastro update_aluno cadastroProfContent" id="updateProfContainer" style="display: none;"></section>
+                                                <section class="update_cadastro update_escola cadastroProfContent" id="updateProfContainer" style="display: none;"></section>
                                             </div>
                                         </section>
                                     </div>

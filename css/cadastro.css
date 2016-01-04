@@ -142,6 +142,15 @@
 	height: 100%;
 	overflow: hidden;
 }
+.section_header {
+    font-size: 18px;
+    font-weight: 500;
+    color: #728C07;
+    border-bottom: none;
+    margin: 0 0 20px;
+}
+
+/* Novo cadastro */
 .form_divisao_titulo {
     font-size: 18px;
     font-weight: 500;
@@ -159,7 +168,7 @@
     margin-bottom: 0;
 }
 div[class*="form_celula"] {
-	display: block;
+	display: inline-block;
 	float: left;
 	padding: 6px;
 	background-color: #F2F2F2;
@@ -262,6 +271,94 @@ span.select_container select:active {
 .btn_reset:focus {
 	background-color: #F2F2F2;
 }
+/* Fim novo cadastro */
+
+/* Confirmar cadastro */
+.accordion_info {
+    background-color: #E6E6E6;
+    padding: 12px 30px;
+    border-radius: 4px;
+}
+a.confirmAlunoToggler,
+a.confirmAlunoToggler:hover,
+a.confirmAlunoToggler:active,
+a.confirmAlunoToggler:visited {
+    font-size: 18px;
+    font-weight: 700;
+    color: #808080;
+    text-decoration: none;
+}
+.accordion_content {
+    position: relative;
+    width: 95%;
+    margin: 0 auto 5px;
+    background-color: #F4F4F4;
+    padding: 15px 25px;
+    border: 1px solid #CCCCCC;
+    border-top: none;
+}
+.content_col_info {
+    display: inline-block;
+    width: 70%;
+    float: left;
+}
+.content_col_btns {
+    position: absolute;
+    right: 25px;
+    bottom: 15px;
+    text-align: right;
+    display: inline-block;
+    width: 30%;
+}
+.content_col_info table:first-child {
+    margin-bottom: 15px;
+}
+.accordion_content::after {
+    content: '';
+    display: block;
+    width: 100%;
+    clear: both;
+}
+.content_info_row > td{
+    height: 25px;
+    padding: 0 3.5px;
+}
+.content_info_label {
+    color: #808080;
+    font-size: 14px;
+}
+.form_btns_container {
+    text-align: right;
+    padding-top: 20px;
+}
+.content_info_txt {
+    color: #4D4D4D;
+    font-size: 14px;
+}
+.section_btn {
+    text-transform: uppercase;
+    font-weight: 700;
+    border: 1px solid #728C07;
+    border-radius: 4px;
+}
+.btn_reject_cad {
+    background-color: #FFF;
+    height: 25px;
+    color: #728C07;
+    padding: 2px 20px;
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    margin-bottom: 10px;
+}
+.btn_confirm_cad {
+    background-color: #E9EDA6;
+    height: 33px;
+    color: #728C07;
+    padding: 3px 20px;
+    font-size: 18px;
+    letter-spacing: 0.4px;
+}
+/* Fim confirmar cadastro */
 
 /*Barra de rolagem com plugin JS */
 	.mCSB_inside > .mCSB_container {
