@@ -25,14 +25,53 @@ class UsuarioDAO extends DAO{
         parent::__construct($da);
      }
      
+     public function insertComID(Usuario $user)
+     {
+     	$sql  = "insert into usuario (";
+     	$sql .= "usr_id,";
+     	$sql .= "usr_nome,";
+     	$sql .= "usr_data_nascimento,";
+     	$sql .= "usr_endereco,";
+     	$sql .= "usr_escola,";
+     	$sql .= "usr_data_entrada_escola,";
+     	$sql .= "usr_nse,";
+     	$sql .= "usr_perfil,";
+     	$sql .= "usr_login,";
+     	$sql .= "usr_senha";
+     	$sql .= ") values (";
+     	$sql .= "".$user->getUsr_id().",";
+     	$sql .= "'".$user->getUsr_nome()."',";
+     	$sql .= "'".$user->getUsr_data_nascimento()."',";
+     	$sql .= "'".$user->getUsr_endereco()."',";
+     	$sql .= "'".$user->getUsr_escola()."',";
+     	$sql .= "'".$user->getUsr_data_entrada_escola()."',";
+     	$sql .= "'".$user->getUsr_nse()."',";
+     	$sql .= "'".$user->getUsr_perfil()."',";
+     	$sql .= "'".$user->getUsr_login()."',";
+     	$sql .= "'".$user->getUsr_senha()."')";
+     	//echo $sql;
+     	return $this->execute($sql);
+     }
+     
      public function insert($user)
      {
-         $sql  = "insert into usuario (usr_nome,usr_data_nascimento,usr_endereco, usr_escola,usr_data_entrada_escola,usr_nse,usr_perfil,usr_login,usr_senha) values ";
-         $sql .= "('".$user->getUsr_nome()."',";
+         $sql  = "insert into usuario (";
+         $sql .= "usr_nome,";
+         $sql .= "usr_data_nascimento,";
+         $sql .= "usr_endereco,";
+         $sql .= "usr_escola,";
+         $sql .= "usr_data_entrada_escola,";
+         $sql .= "usr_nse,";
+         $sql .= "usr_perfil,";
+         $sql .= "usr_login,";
+         $sql .= "usr_senha";
+         $sql .= ") values (";
+         $sql .= "'".$user->getUsr_nome()."',";
          $sql .= "'".$user->getUsr_data_nascimento()."',";
          $sql .= "'".$user->getUsr_endereco()."',";
          $sql .= "'".$user->getUsr_escola()."',";
-         $sql .= "'".$user->getUsr_data_entrada_escola()."','".$user->getUsr_nse()."',";
+         $sql .= "'".$user->getUsr_data_entrada_escola()."',";
+         $sql .= "'".$user->getUsr_nse()."',";
          $sql .= "'".$user->getUsr_perfil()."',";
          $sql .= "'".$user->getUsr_login()."',";
          $sql .= "'".$user->getUsr_senha()."')";
@@ -133,6 +172,38 @@ class UsuarioDAO extends DAO{
         }	
     	return $lista;
      }
+
+
+    public function selectByPerfilUsuario($p){
+        $sql = "select * from usuario where usr_perfil = $p";
+        $result = $this->retrieve($sql);
+        $lista = array();
+        while ($qr = mysqli_fetch_array($result))
+        {
+            $user = new Usuario();
+            $user->setUsr_id($qr["usr_id"]);
+            $user->setUsr_nome($qr["usr_nome"]);
+            $user->setUsr_data_nascimento($qr["usr_data_nascimento"]);
+            $user->setUsr_endereco($qr["usr_endereco"]);
+            $user->setUsr_escola($qr["usr_escola"]);
+            $user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
+            $user->setUsr_nse($qr["usr_nse"]);
+            $user->setUsr_perfil($qr["usr_perfil"]);
+            $user->setUsr_login($qr["usr_login"]);
+            $user->setUsr_senha($qr["usr_senha"]);
+            array_push($lista, $user);
+        }
+        return $lista;
+    }
+
+    public function ultimoIDUsuario(){
+    	$sql = "select * from usuario order by usr_id desc limit 1";
+    	//echo $sql;
+    	$result = $this->retrieve($sql);
+    	$qr = mysqli_fetch_array($result);
+    	//echo $qr["usr_id"];
+    	return intval($qr["usr_id"]+1);
+    }
      
 	public function autenticaUsuario($usuario,$senha){
 		$sql = "select * from usuario inner join perfil ON usr_perfil = prf_id
