@@ -24,6 +24,7 @@ private $end_numero;
 private $end_complemento;
 private $end_cep;
 private $end_cidade;
+private $end_bairro;
 private $end_uf;
 private $end_pais;
 private $end_telefone_residencial;
@@ -59,6 +60,11 @@ return $this->end_numero;
 public function getend_complemento()
 {
 return $this->end_complemento;
+}
+
+public function getend_bairro()
+{
+	return $this->end_bairro;
 }
 
 public function getend_cep()
@@ -121,6 +127,11 @@ $this->end_numero =  $val;
 public function setend_complemento($val)
 {
 $this->end_complemento =  $val;
+}
+
+public function setend_bairro($val)
+{
+	$this->end_bairro =  $val;
 }
 
 public function setend_cep($val)
