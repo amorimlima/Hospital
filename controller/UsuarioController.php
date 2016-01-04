@@ -24,6 +24,10 @@ class UsuarioController {
 		$this->usuarioDAO = new UsuarioDAO(new DataAccess());
 	}
 	
+	public function insertComID($user){
+		return $this->usuarioDAO->insertComID($user);
+	}
+	
 	public function insert($user)
 	{
 		return $this->usuarioDAO->insert($user);
@@ -45,12 +49,12 @@ class UsuarioController {
 		return $user;
 	}
         
-        public function  selectbyPerfil($idescola){
-            $user = $this->usuarioDAO->selectbyPerfil($idescola);
-            return $user;
-        }
+    public function  selectbyPerfil($idescola){
+        $user = $this->usuarioDAO->selectbyPerfil($idescola);
+        return $user;
+    }
 
-                public function selectAll()
+    public function selectAll()
 	{
 		$user = $this->usuarioDAO->selectFull();
 		return $user;
@@ -60,5 +64,14 @@ class UsuarioController {
 		$user = $this->usuarioDAO->autenticaUsuario($usuario,$senha);
 		return $user;
 	}
+	public function selectByPerfilUsuario($idPerfil){
+		$user = $this->usuarioDAO->selectByPerfilUsuario($idPerfil);
+		return $user;
+	}
+	
+	public function ultimoIDUsuario(){
+		return $this->usuarioDAO->ultimoIDUsuario();
+	}
+	
 }
 ?>
