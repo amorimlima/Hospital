@@ -71,19 +71,19 @@
 	left: -21px;
 	top: -4px;
 }
-.btn_confirm_cadastro::before {
+/*.btn_update_cadastro::before {
 	content: url(../img/bt_confirmarCadastro.png);
 	position: absolute;
 	left: -20px;
 	top: -3px;
 }
-.btn_confirm_cadastro:hover::before,
-.btn_tab_ativo[class*="btn_confirm_cadastro"]::before {
+.btn_update_cadastro:hover::before,
+.btn_tab_ativo[class*="btn_update_cadastro"]::before {
 	content: url(../img/bt_confirmarCadastro_ativo.png);
 	position: absolute;
 	left: -21px;
 	top: -4px;
-}
+}*/
 .tab_cadastro {
     position: relative;
     padding: 15px;
@@ -240,7 +240,7 @@ span.select_container select:active {
 	margin: 0 auto;
 	text-align: center;
 }
-.form_btn {
+.form_btn, .generic_btn {
 	font-family: "Source Sans Pro";
 	font-size: 18px;
 	font-weight: 500;
@@ -252,7 +252,7 @@ span.select_container select:active {
 	border-radius: 3px;
 	margin-right: 15px;
 }
-.form_btn:last-child {
+.form_btn:last-child, .generic_btn:last-child {
 	margin-right: 0;
 }
 .btn_submit {
@@ -279,10 +279,16 @@ span.select_container select:active {
     padding: 12px 30px;
     border-radius: 4px;
 }
-a.confirmAlunoToggler,
-a.confirmAlunoToggler:hover,
-a.confirmAlunoToggler:active,
-a.confirmAlunoToggler:visited {
+.accordion_expanded {
+    background-color: #CCCCCC;
+}
+.accordion_cad_container {
+    margin: 0 auto 5px;
+}
+a.accordion_info_toggler,
+a.accordion_info_toggler:hover,
+a.accordion_info_toggler:active,
+a.accordion_info_toggler:visited {
     font-size: 18px;
     font-weight: 700;
     color: #808080;
@@ -291,7 +297,7 @@ a.confirmAlunoToggler:visited {
 .accordion_content {
     position: relative;
     width: 95%;
-    margin: 0 auto 5px;
+    margin: 0 auto;
     background-color: #F4F4F4;
     padding: 15px 25px;
     border: 1px solid #CCCCCC;
@@ -310,9 +316,6 @@ a.confirmAlunoToggler:visited {
     display: inline-block;
     width: 30%;
 }
-.content_col_info table:first-child {
-    margin-bottom: 15px;
-}
 .accordion_content::after {
     content: '';
     display: block;
@@ -322,6 +325,7 @@ a.confirmAlunoToggler:visited {
 .content_info_row > td{
     height: 25px;
     padding: 0 3.5px;
+    vertical-align: top;
 }
 .content_info_label {
     color: #808080;
@@ -341,7 +345,7 @@ a.confirmAlunoToggler:visited {
     border: 1px solid #728C07;
     border-radius: 4px;
 }
-.btn_reject_cad {
+.btn_del_cad {
     background-color: #FFF;
     height: 25px;
     color: #728C07;
@@ -350,7 +354,12 @@ a.confirmAlunoToggler:visited {
     letter-spacing: 0.4px;
     margin-bottom: 10px;
 }
-.btn_confirm_cad {
+.btn_del_cad:hover,
+.btn_del_cad:focus,
+.btn_del_cad:active {
+    background-color: #F2F2F2;
+}
+.btn_update_cad {
     background-color: #E9EDA6;
     height: 33px;
     color: #728C07;
@@ -358,7 +367,51 @@ a.confirmAlunoToggler:visited {
     font-size: 18px;
     letter-spacing: 0.4px;
 }
+.btn_update_cad:hover,
+.btn_update_cad:focus,
+.btn_update_cad:active {
+    background-color: #D1CF7D;
+}
 /* Fim confirmar cadastro */
+
+/* Modal Bootstrap */
+
+.modal-dialog {
+    width: 440px;
+}
+
+.modal-content {
+    padding: 30px;
+    border-color: #88A80D;
+}
+.modal-body {
+    padding: 0;
+    padding-left: 70px;
+    margin-bottom: 30px;
+}
+.text-modal p {
+    font-face: "Source Sans Pro";
+    font-weight: 700;
+    font-size: 20px;
+    color: #88A80D;
+}
+.img_alert {
+    left: 0;
+}
+.modal-footer {
+    padding: 0;
+}
+.generic_btn {
+    border-radius: 8px;
+    background-color: #fff;
+    color: #88A80D;
+    border-width: 2px;
+}
+.generic_btn:hover {
+    background-color: #F2F2F2;
+}
+
+/* Fim modal Bootstrap */
 
 /*Barra de rolagem com plugin JS */
 	.mCSB_inside > .mCSB_container {

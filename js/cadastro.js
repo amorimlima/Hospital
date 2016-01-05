@@ -2,6 +2,8 @@ var tabs = $('.tab_cadastro');
 var containers = $('.conteudo_tab');
 var btns = $('.btns_tabs');
 
+var delPerfil;
+
 $(document).ready(function() {
 	$('.conteudo_tab').mCustomScrollbar({
 		axis:"y",
@@ -9,15 +11,58 @@ $(document).ready(function() {
 			enable:true
 		}
 	});
-
-    for ( var i = 0; i < tabs.length; i++ )
-    {
-        $($(tabs).get(i)).click(function() {
-            tabNavigation(this)
-        });
-    }
+    
+    $(tabs).click(function() {
+        tabNavigation(this);
+    });
 
     tabNavigation(tabs[0]);
+    
+    $('.btn_tab').click(function() {
+        $(this).siblings().removeClass('btn_tab_ativo');
+        $(this).addClass('btn_tab_ativo');
+        
+        if ( $(this).hasClass('btn_aluno') ) {
+            if ( $(this).hasClass('btn_add_cadastro') ) {
+                $('.conteudo_aluno').find('.form_cadastro').show();
+                $('.conteudo_aluno').find('.update_cadastro').hide()
+            } else if ( $(this).hasClass('btn_update_cadastro') ) {
+                $('.conteudo_aluno').find('.form_cadastro').hide();
+                $('.conteudo_aluno').find('.update_cadastro').show()
+            }
+        } else if ( $(this).hasClass('btn_professor') ) {
+            if ( $(this).hasClass('btn_add_cadastro') ) {
+                $('.conteudo_professor').find('.form_cadastro').show();
+                $('.conteudo_professor').find('.update_cadastro').hide()
+            } else if ( $(this).hasClass('btn_update_cadastro') ) {
+                $('.conteudo_professor').find('.form_cadastro').hide();
+                $('.conteudo_professor').find('.update_cadastro').show()
+            }
+        } else if ( $(this).hasClass('btn_escola') ) {
+            if ( $(this).hasClass('btn_add_cadastro') ) {
+                $('.conteudo_escola').find('.form_cadastro').show();
+                $('.conteudo_escola').find('.update_cadastro').hide()
+            } else if ( $(this).hasClass('btn_update_cadastro') ) {
+                $('.conteudo_escola').find('.form_cadastro').hide();
+                $('.conteudo_escola').find('.update_cadastro').show()
+            }
+        }
+    });
+    
+    $('.btn_del_cad').click(function() {
+        delPerfil = this;
+        
+        $('#modalDelMsg').modal({keyboard: false, backdrop: "static"});
+    });
+    
+    $('.btn_update_cad').click(function() {
+        $('.btn_add_cadastro:visible').trigger('click');
+        console.info('Preencher os campos do formulário com os dados do usuário a ser atualizado, com exceção dos campos de senha.');
+    });
+    
+    $('.accordion_info').click(function() {
+        $(this).toggleClass('accordion_expanded');
+    });
 
 
     $("#cadastroAluno").click(function(){
@@ -193,23 +238,32 @@ $(document).ready(function() {
 
 });
 
-function tabNavigation(tabToShow)
-{
-	for ( var i = 0; i < tabs.length; i++ )
-	{
-		if ( tabs[i] == tabToShow )
-		{
+function tabNavigation(tabToShow) {
+	for ( var i = 0; i < tabs.length; i++ ) {
+		if ( tabs[i] == tabToShow ) {
 			$($(containers).get(i)).show();
 			$($(btns).get(i)).show();
 
 			$($(tabs).get(i)).addClass('tab_cadastro_ativo');
-		}
-		else
-		{
+		} else {
 			$($(containers).get(i)).hide();
 			$($(btns).get(i)).hide();
 
 			$($(tabs).get(i)).removeClass('tab_cadastro_ativo');
 		}
 	}
+}
+
+function cancelDelPerfil() {
+    delPerfil = 0;
+}
+
+function confirmDelPerfil() {
+    var btnsDel = $('.btn_del_cad');
+    
+    for ( var a = 0; a < btnsDel.length; a++ ) {
+        if (btnsDel[a] == delPerfil) {
+            $(delPerfil).parentsUntil('section').remove();
+        }
+    }
 }
