@@ -102,7 +102,7 @@ $logado = unserialize($_SESSION['USR']);
                                     </div>
                                     <div class="col-xs-12 col-md-10">
                                         <section class="area_conteudo_tabs">
-                                            <div class="conteudo_tab conteudo_aluno" style="display: none;">
+                                            <div class="conteudo_tab conteudo_aluno">
                                                 <form action="" class="form_cadastro cadastro_aluno cadastroAlunoContent" id="formCadastroAluno" style="display: none;">
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Dados Escolares</legend>
@@ -360,83 +360,7 @@ $logado = unserialize($_SESSION['USR']);
                                                                     	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
                                                                     </tr>
                                                                      <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Usuário:</span> <span class="content_info_txt">fernanda_hernandez</span></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                            <div class="content_col_btns">
-                                                                <button class="section_btn btn_del_cad">Excluir cadastro</button>
-                                                                <button class="section_btn btn_update_cad">Alterar Dados</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="accordion_cad_container update_aluno_accordion">
-                                                        <a href="#updateAlunoCont2" class="accordion_info_toggler updateAlunoToggler" data-toggle="collapse">
-                                                            <div class="accordion_info" id="updateAlunoInfo2">Fernanda Hernández Ruiz</div>
-                                                        </a>
-                                                        <div class="accordion_content collapse" id="updateAlunoCont2">
-                                                            <div class="content_col_info">
-                                                                <table>
-                                                                    <tr class="content_info_row">
-                                                                    	 <td colspan="3"><span class="content_info_label">Escola:</span> <span class="content_info_txt">E.M.E.F. Deputado Januário Mantelli Neto</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                        <td colspan="2"><span class="content_info_label">Professor:</span> <span class="content_info_txt">Cecília Soares Benevites</span></td>
-                                                                        <td><span class="content_info_label">Sala:</span> <span class="content_info_txt">3º ano B - Manhã</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">02/04/2009</span></td>
-                                                                    	<td><span class="content_info_label">RG:</span> <span class="content_info_txt">43.887.654-9</span></td>
-                                                                    	<td><span class="content_info_label">CPF:</span> <span class="content_info_txt">567.800.766-42</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">Rua Embirussú, 56 - Vila Beatriz - São Paulo - SP</span></td>
-                                                                    	<td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03817-090</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
-                                                                    	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
-                                                                    </tr>
-                                                                     <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Usuário:</span> <span class="content_info_txt">fernanda_hernandez</span></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                            <div class="content_col_btns">
-                                                                <button class="section_btn btn_del_cad">Excluir cadastro</button>
-                                                                <button class="section_btn btn_update_cad">Alterar Dados</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="accordion_cad_container update_aluno_accordion">
-                                                        <a href="#updateAlunoCont3" class="accordion_info_toggler updateAlunoToggler" data-toggle="collapse">
-                                                            <div class="accordion_info" id="updateAlunoInfo3">Fernanda Hernández Ruiz</div>
-                                                        </a>
-                                                        <div class="accordion_content collapse" id="updateAlunoCont3">
-                                                            <div class="content_col_info">
-                                                                <table>
-                                                                    <tr class="content_info_row">
-                                                                    	 <td colspan="3"><span class="content_info_label">Escola:</span> <span class="content_info_txt">E.M.E.F. Deputado Januário Mantelli Neto</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                        <td colspan="2"><span class="content_info_label">Professor:</span> <span class="content_info_txt">Cecília Soares Benevites</span></td>
-                                                                        <td><span class="content_info_label">Sala:</span> <span class="content_info_txt">3º ano B - Manhã</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">02/04/2009</span></td>
-                                                                    	<td><span class="content_info_label">RG:</span> <span class="content_info_txt">43.887.654-9</span></td>
-                                                                    	<td><span class="content_info_label">CPF:</span> <span class="content_info_txt">567.800.766-42</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">Rua Embirussú, 56 - Vila Beatriz - São Paulo - SP</span></td>
-                                                                    	<td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03817-090</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
-                                                                    	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
-                                                                    </tr>
-                                                                     <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Usuário:</span> <span class="content_info_txt">fernanda_hernandez</span></td>
+                                                                    	<td colspan="3"><span class="content_info_label">Usuário:</span> <span class="content_info_txt">fernanda_hernandez</span></td>
                                                                     </tr>
                                                                 </table>
                                                             </div>
@@ -597,79 +521,10 @@ $logado = unserialize($_SESSION['USR']);
                                                                     	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
                                                                     </tr>
                                                                     <tr class="content_info_row">
-                                                                    	<td><span class="content_info_txt">E.M.E.F. Deputado Januário Mantelli Neto - 3º série A - Manhã</span></td>
+                                                                    	<td colspan="3"><span class="content_info_txt">E.M.E.F. Deputado Januário Mantelli Neto - 3º série A - Manhã</span></td>
                                                                     </tr>
                                                                     <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Usuário</span> <span class="content_info_txt">andressa_cd</span></td>
-                                                                    </tr>
-                                                                    
-                                                                </table>
-                                                            </div>
-                                                            <div class="content_col_btns">
-                                                                <button class="section_btn btn_del_cad">Excluir cadastro</button>
-                                                                <button class="section_btn btn_update_cad">Alterar Dados</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="accordion_cad_container update_aluno_accordion">
-                                                        <a href="#updateProfCont2" class="accordion_info_toggler updateProfToggler" data-toggle="collapse">
-                                                            <div class="accordion_info" id="updateProfInfo2">Andressa de Cardoso Dias</div>
-                                                        </a>
-                                                        <div class="accordion_content collapse" id="updateProfCont2">
-                                                            <div class="content_col_info">
-                                                                <table>
-                                                                    <tr class="content_info_row">
-                                                                        <td><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">02/04/1984</span></td>
-                                                                        <td><span class="content_info_label">RG:</span> <span class="content_info_txt">23.887.654-9</span></td>
-                                                                        <td><span class="content_info_label">CPF:</span> <span class="content_info_txt">567.800.766-42</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                        <td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">Rua Embirussú, 56 - Vila Beatriz - São Paulo - SP</span></td>
-                                                                        <td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03817-090</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
-                                                                    	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_txt">E.M.E.F. Deputado Januário Mantelli Neto - 3º série A - Manhã</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Usuário</span> <span class="content_info_txt">andressa_cd</span></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                            <div class="content_col_btns">
-                                                                <button class="section_btn btn_del_cad">Excluir cadastro</button>
-                                                                <button class="section_btn btn_update_cad">Alterar Dados</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="accordion_cad_container update_aluno_accordion">
-                                                        <a href="#updateProfCont3" class="accordion_info_toggler updateProfToggler" data-toggle="collapse">
-                                                            <div class="accordion_info" id="updateProfInfo3">Andressa de Cardoso Dias</div>
-                                                        </a>
-                                                        <div class="accordion_content collapse" id="updateProfCont3">
-                                                            <div class="content_col_info">
-                                                                <table>
-                                                                    <tr class="content_info_row">
-                                                                        <td><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">02/04/1984</span></td>
-                                                                        <td><span class="content_info_label">RG:</span> <span class="content_info_txt">23.887.654-9</span></td>
-                                                                        <td><span class="content_info_label">CPF:</span> <span class="content_info_txt">567.800.766-42</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                        <td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">Rua Embirussú, 56 - Vila Beatriz - São Paulo - SP</span></td>
-                                                                        <td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03817-090</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
-                                                                    	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_txt">E.M.E.F. Deputado Januário Mantelli Neto - 3º série A - Manhã</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Usuário</span> <span class="content_info_txt">andressa_cd</span></td>
+                                                                    	<td colspan="3"><span class="content_info_label">Usuário</span> <span class="content_info_txt">andressa_cd</span></td>
                                                                     </tr>
                                                                     
                                                                 </table>
@@ -802,68 +657,10 @@ $logado = unserialize($_SESSION['USR']);
                                                                     	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
                                                                     </tr>
                                                                     <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Código:</span> <span class="content_info_txt">567</span></td>
+                                                                    	<td colspan="3"><span class="content_info_label">Código:</span> <span class="content_info_txt">567</span></td>
                                                                     </tr>
                                                                     <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Usuário:</span> <span class="content_info_txt">emef_januario</span></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                            <div class="content_col_btns">
-                                                                <button class="section_btn btn_del_cad">Excluir cadastro</button>
-                                                                <button class="section_btn btn_update_cad">Alterar Dados</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="accordion_cad_container update_aluno_accordion">
-                                                        <a href="#updateEscolaCont2" class="accordion_info_toggler updateAlunoToggler" data-toggle="collapse">
-                                                            <div class="accordion_info" id="updateEscolaInfo2">E.M.E.F. Deputado Januário Mantelli Neto </div>
-                                                        </a>
-                                                        <div class="accordion_content collapse" id="updateEscolaCont2">
-                                                            <div class="content_col_info">
-                                                                <table>
-                                                                    <tr class="content_info_row">
-                                                                        <td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">Rua Caiçara do Rio do Vento, 43 - Vila Cisper - São Paulo - SP</span></td>
-                                                                        <td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03817-090</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
-                                                                    	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Código:</span> <span class="content_info_txt">567</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Usuário:</span> <span class="content_info_txt">emef_januario</span></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                            <div class="content_col_btns">
-                                                                <button class="section_btn btn_del_cad">Excluir cadastro</button>
-                                                                <button class="section_btn btn_update_cad">Alterar Dados</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="accordion_cad_container update_aluno_accordion">
-                                                        <a href="#updateEscolaCont3" class="accordion_info_toggler updateAlunoToggler" data-toggle="collapse">
-                                                            <div class="accordion_info" id="updateEscolaInfo3">E.M.E.F. Deputado Januário Mantelli Neto </div>
-                                                        </a>
-                                                        <div class="accordion_content collapse" id="updateEscolaCont3">
-                                                            <div class="content_col_info">
-                                                                <table>
-                                                                    <tr class="content_info_row">
-                                                                        <td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">Rua Caiçara do Rio do Vento, 43 - Vila Cisper - São Paulo - SP</span></td>
-                                                                        <td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03817-090</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
-                                                                    	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Código:</span> <span class="content_info_txt">567</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Usuário:</span> <span class="content_info_txt">emef_januario</span></td>
+                                                                    	<td colspan="3"><span class="content_info_label">Usuário:</span> <span class="content_info_txt">emef_januario</span></td>
                                                                     </tr>
                                                                 </table>
                                                             </div>

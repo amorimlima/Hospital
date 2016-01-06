@@ -51,20 +51,12 @@ textarea:focus, input:focus, select:focus, button:focus  {
 /*TOPO*/
 #topo{	
 	height:133px;
-}
-
-#boxMenu{
-	float: right;
-	padding: 12px 17px 0px 0px;
-}
-#row_logout{
-	height:19px;
+    padding: 12px 49px 0;
 }
 #user_logout{
 	text-align: right;
 	float: left;
-	margin: 3px 43px 16px;
-	width: 88%;
+	width: 100%;
 }
 #user_logout_pequena{
 	float: right;
@@ -85,23 +77,46 @@ textarea:focus, input:focus, select:focus, button:focus  {
 	color : #4D4D4D;
 	color : rgb(77, 77, 77);
   	float: left;
-	width: 23px;
+	width: 31px;
 }
-/*MENU*/
+.logo_container {
+    display: block;
+    height: 96px;
+    padding: 15px 0;
+}
+.logotipo{
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+    max-width: 383px;
+    height: 100%;
+    float: none;
+    background: url(../img/logo/logo_lg.png) no-repeat;
+    background-position: left 50%;
+    background-size: 100% auto;
+}
 
-#menu{
-    min-width: 73%;
-    margin-right: -6px;
-    text-align: left;
-	float: right;
+/*MENU*/
+.menu_container_normal, .menu_container_aluno {
+    width: 100%;
+    padding: 28px 0;
 }
 #menu{
   	padding: 0px;
   	list-style: none;
+    width: auto;
+    height: 40px;
+    overflow: hidden;
+    text-align: left;
+    float: right;
 }
+.navbar-collapse {
+    padding: 0;
+} 
 #menu .mn_li{
 	padding: 0;
-	display: inline;
+	display: inline-block;
+    margin-left: 15px;
 }
 #menu .mn_li .mn_a_menu{ 
     float: left;
@@ -110,77 +125,56 @@ textarea:focus, input:focus, select:focus, button:focus  {
     font-family: Overlock;
     vertical-align: middle;
     color:#000000;
-}
-#menu a{	
     text-decoration: none;
-    float: left;
-    height: 41px;
+    background-size: 100%;
+    padding: 0;
 }
 img{
 	max-width:100%;
     height:auto;
 }
 #mn_livros{
-    background:url(../img/bt_livros_normal.png) no-repeat;    
-	background-size: 100%;
-	width:18%;
-    margin-right: 4%;
+    background:url(../img/bt_livros_normal.png) no-repeat;
+	width:111px;
 }
 #mn_livros:hover{
-	background:url(../img/bt_livros_ativo.png) no-repeat;
-	background-size: 100%;
-	width:18%;
-    margin-right: 4%;
+	background: url(../img/bt_livros_ativo.png) no-repeat;
 }
 
 #mn_exercicios{
 	background:url(../img/bt_exercicios_normal.png) no-repeat;
-	background-size: 100%;
-	width:22%;
-    margin-right: 4%;
+	width: 137px;
 }
 #mn_exercicios:hover{
 	background:url(../img/bt_exercicios_ativo.png) no-repeat;
-    background-size: 100%;
-	width:22%;
-    margin-right: 4%;
 }
-
 #mn_mensagens{
 	background:url(../img/bt_mensagens_normal.png) no-repeat;
-    background-size: 100%;
-	width:25%;
-    margin-right: 4%;
+	width: 153px;
 }
 #mn_mensagens:hover{
 	background:url(../img/bt_mensagens_ativo.png) no-repeat;
-    background-size: 100%;
-	width:25%;
-    margin-right: 4%;
-}
-#mn_forum{
-	background:url(../img/bt_forum_normal.png) no-repeat;
-    background-size: 100%;
-	width:20%;
-    margin-right: 4%;
-}
-#mn_forum:hover{
-	background:url(../img/bt_forum_ativo.png) no-repeat;
-    background-size: 100%;
-	width:20%;
-    margin-right: 4%;
 }
 #mn_galeria{
 	background:url(../img/bt_galeria_normal.png) no-repeat;
-    background-size: 100%;
-	width:20%;
-    margin-right: 4%;
+	width: 119px;
 }
 #mn_galeria:hover{
 	background:url(../img/bt_galeria_ativo.png) no-repeat;
-    background-size: 100%;
-	width:20%;
-    margin-right: 4%;
+}
+#mn_cadastro {
+    background: url(../img/bt_cadastro_normal.png) no-repeat;
+	width: 124px;
+}
+#mn_cadastro:hover {
+    background: url(../img/bt_cadastro_ativo.png) no-repeat;
+}
+#mn_forum{
+	background:url(../img/bt_forum_normal.png) no-repeat;
+	width: 120px;
+}
+#mn_forum:hover{
+	background:url(../img/bt_forum_ativo.png) no-repeat;
 }
 
 /*CONTEUDO AREA*/
@@ -674,6 +668,10 @@ img{
 		padding: 0 12px;
 		height:auto;
 	}
+    #topo {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 	/*--------------------------------*/
 	.modal-dialog {
 		width: auto;
@@ -683,6 +681,21 @@ img{
 		background-color: #fff;
 		border-radius: 15px;
 	}
+    
+	#user_logado {
+		font-size: 16px;
+		color: #4D4D4D;
+		color: rgb(77, 77, 77);
+		float: left;
+	}
+	#user_logout {
+		text-align: right;
+		float: right;
+		margin-right:15px;
+        padding: 5px 0;
+		width: 60%;
+	}
+    
 	.navbar-toggle .icon-bar{
 		display: block;
 		width: 22px;
@@ -700,9 +713,7 @@ img{
 		position: relative;
 		float: right;
 		padding: 9px 10px;
-		margin-top: -43px;
-		margin-right: 15px;
-		margin-bottom: 8px;
+		margin: 0;
 		background-color: darkgray;
 		border: 1px solid transparent;
 		border-radius: 4px;
@@ -742,30 +753,7 @@ img{
 		height: 306px;
 		border: 0;
 	}
-	
-	#user_logout_pequena{
-		margin-right: 34px;
-	}
-	#user_logado {
-		font-size: 16px;
-		color: #4D4D4D;
-		color: rgb(77, 77, 77);
-		float: left;
-	}
-	#user_logout {
-		text-align: right;
-		float: right;
-		margin: 19px 63px 16px;
-		width: 100%;
-	}
-	#logo{
-		text-align: center;
-	}
-	#boxMenu {
-		float: right;
-		padding: 12px 0 0 0 ;
-	}
-	
+    
 	/*Menu*/	
 	#mn_livros{
 		background: #7DBA31 url(../img/btn_livros.png) no-repeat;    
@@ -870,11 +858,11 @@ img{
 	.navbar-nav>li>a{
 		line-height: 0px;
 		color:#FFF;
-		color: #FFF;
 		padding: 26px 75px;
 		font-family: Overlock;
 	}
 }
+
 @media (min-width: 980px) and (max-width: 1199px){
 	#Conteudo_Area {
 		width: 100%;
@@ -901,30 +889,31 @@ img{
 		padding: 0 24px;
 		height:auto;
 	}
+    #topo {
+        height: 120px;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
 	/*--------------------------------*/
+    /* Menu */
 	#menu_container {
 		display: inline-block;
 		float: right;
 	}
-	.menu_container_aluno {
-		width: 535px;
-	}
-	.menu_container_normal {
-		width: 500px;
-	}
+    .menu_container_normal, .menu_container_aluno {
+        padding: 25px 0;
+    }
 	#menu {
-		display: block;
-		width: 100%;
-		margin-right: -28px;
 		text-align: left;
+        height: 34px;
 	}
-	#menu li {
-		width: auto;
-		height: auto;
-	}
-	.navbar-nav>li {
-    	float: none;
-	}
+    #menu .mn_li {
+        float: none;
+        height: inherit;
+    }
+    #menu .mn_li .mn_a_menu {
+        height: inherit;
+    }
 	.navbar-collapse.collapse {
 		display: block!important; 
 		height: auto!important;
@@ -982,20 +971,25 @@ img{
 		padding: 10px 0px;
 		margin: 6px 31px
 	}
-	#mn_livros, #mn_livros:hover {
+	#mn_livros {
 		width: 88px;
 	}
-	#mn_exercicios, #mn_exercicios:hover{
-		width: 118px;
+	#mn_exercicios {
+		width: 116px;
 	}
-	#mn_mensagens, #mn_mensagens:hover{
+	#mn_mensagens {
 		width: 128px;
 	}
-	#mn_forum, #mn_forum:hover, #mn_galeria, #mn_galeria:hover {
+    #mn_cadastro {
+		width: 98px;
+	}
+    #mn_galeria {
+		width: 98px;
+	}
+	#mn_forum {
 		width: 98px;
 	}
 }
-
 
 @media (min-width: 1200px){
 	.navbar-nav>li {
@@ -1062,38 +1056,11 @@ img{
 		display: inline-block;
 		float: right;
 	}
-	.menu_container_aluno {
-		width: 590px;
-	}
-	.menu_container_normal {
-		width: 564px;
-	}
-	#menu {
-		display: block;
-		width: 100%;
-		margin-right: -18px;
-		text-align: left;
-	}
-	#menu>li:last-child>a {
-		margin-right: 0;
-	}
-	#mn_livros, #mn_livros:hover {
-		width: 103px;
-	}
-	#mn_exercicios, #mn_exercicios:hover{
-		width: 127px;
-	}
-	#mn_mensagens, #mn_mensagens:hover{
-		width: 140px;
-	}
-	#mn_forum, #mn_forum:hover, #mn_galeria, #mn_galeria:hover {
-		width: 108px;
-	}
 }
+
 /* Logo */
 	@media (max-width: 479px) {
-		#logo { height: 80px; }
-		#logotipo{
+		.logotipo{
 			text-align: center;
 		    margin: 15px auto;
 		    width: 75%;
@@ -1104,10 +1071,9 @@ img{
 		    background-size: contain;
 		}
 	}
+    
 	@media (min-width: 480px) and (max-width: 767px) {
-		#logo { height: 100px; }
-		#logotipo{
-			box-sizing: border-box;
+		.logotipo{
 			text-align: center;
 			padding: 15px 0;
 			width: 100%;
@@ -1117,45 +1083,29 @@ img{
 			background: url(../img/logo/logo_md.png) no-repeat 50% 50%;
 		}
 	}
+    
 	@media (min-width: 768px) and (max-width: 991px) {
-		#logo { height: 100px; }
-		#logotipo{
-			box-sizing: border-box;
-			text-align: center;
-			padding: 15px 0;
-			width: 100%;
-			height: 100%;
-			max-height: 100px;
-			float: none;
-			background: url(../img/logo/logo_lg.png) no-repeat 50% 50%;
+		.logo_container {
+            height: 86px;
+            padding: 12px 0;
+        }
+		.logotipo{
+			background: url(../img/logo/logo_md.png) no-repeat;
+            width: 100%;
+            max-width: none;
+            background-position: 50% 50%;
+			background-size: auto 100%;
 		}
 	}
 	@media (min-width: 992px) and (max-width: 1199px) {
-		#logo { height: 100px; }
-		#logotipo{
-			box-sizing: border-box;
-			text-align: center;
-			padding: 15px 0;
-			width: 100%;
-			height: 100%;
-			max-height: 100px;
-			float: none;
-			background: url(../img/logo/logo_lg.png) no-repeat 25px 50%;
-			background-size: 90%;
-		}
-	}
-	@media (min-width: 1200px){
-		#logo { height: 100px; }
-		#logotipo{
-			box-sizing: border-box;
-			text-align: center;
-			padding: 15px 0;
-			width: 100%;
-			height: 100%;
-			max-height: 100px;
-			float: none;
-			background: url(../img/logo/logo_lg.png) no-repeat 50px 50%;
-			background-size: 88%;
+        .logo_container {
+            height: 84px;
+        }
+		.logotipo{
+			background: url(../img/logo/logo_lg.png) no-repeat;
+            background-position: 50% 50%;
+			background-size: 100% auto;
+            max-width: 315px;
 		}
 	}
 .menu_li_capitulo {

@@ -214,7 +214,6 @@ span.select_container {
 	overflow: hidden;
 	display: block;
 }
-
 span.select_container select,
 span.select_container select:focus,
 span.select_container select:hover,
@@ -273,14 +272,18 @@ span.select_container select:active {
 }
 /* Fim novo cadastro */
 
-/* Confirmar cadastro */
+/* Atualizar cadastro */
 .accordion_info {
     background-color: #E6E6E6;
     padding: 12px 30px;
     border-radius: 4px;
+    background-image: url(../img/ic_expand.png);
+    background-repeat: no-repeat;
+    background-position: center right 30px;
 }
 .accordion_expanded {
     background-color: #CCCCCC;
+    background-image: url(../img/ic_collapse.png);
 }
 .accordion_cad_container {
     margin: 0 auto 5px;
@@ -304,9 +307,12 @@ a.accordion_info_toggler:visited {
     border-top: none;
 }
 .content_col_info {
-    display: inline-block;
     width: 70%;
     float: left;
+}
+.content_col_info > table {
+    width: 100%;
+    table-layout: fixed;
 }
 .content_col_btns {
     position: absolute;
@@ -372,7 +378,7 @@ a.accordion_info_toggler:visited {
 .btn_update_cad:active {
     background-color: #D1CF7D;
 }
-/* Fim confirmar cadastro */
+/* Fim atualizar cadastro */
 
 /* Modal Bootstrap */
 
