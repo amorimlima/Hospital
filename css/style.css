@@ -106,7 +106,6 @@ textarea:focus, input:focus, select:focus, button:focus  {
   	list-style: none;
     width: auto;
     height: 40px;
-    overflow: hidden;
     text-align: left;
     float: right;
 }
@@ -114,6 +113,7 @@ textarea:focus, input:focus, select:focus, button:focus  {
     padding: 0;
 } 
 #menu .mn_li{
+    position: relative;
 	padding: 0;
 	display: inline-block;
     margin-left: 15px;

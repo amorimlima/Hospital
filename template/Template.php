@@ -87,7 +87,7 @@ class Template {
                                                   echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
                                                         <ul id="sbm_exercicios">
                                                             <li class="sub_a">
-                                                                1º Ano</a>
+                                                                <a href="livros.php?ano_1">1º Ano</a>
                                                             </li>
                                                             <li class="sub_a">
                                                                 <a href="livros.php?ano_2">2º Ano</a>
