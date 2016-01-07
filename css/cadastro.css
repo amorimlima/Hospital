@@ -1,7 +1,13 @@
 .box_area_admin {
+    position: relative;
 	background-color: #fff;
 	border: 2px dashed #88A80D;
 	height: 581px;
+}
+.topo_box_area_admin {
+    position: absolute;
+    top: -16px;
+    left: 20px;
 }
 .area_btns_tabs {
 	padding: 15px;
@@ -292,10 +298,12 @@ a.accordion_info_toggler,
 a.accordion_info_toggler:hover,
 a.accordion_info_toggler:active,
 a.accordion_info_toggler:visited {
+    display: block;
     font-size: 18px;
     font-weight: 700;
     color: #808080;
     text-decoration: none;
+    margin-top: 5px;
 }
 .accordion_content {
     position: relative;

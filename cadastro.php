@@ -62,7 +62,7 @@ $logado = unserialize($_SESSION['USR']);
                     <div id="Conteudo_Area_box_Grande">
                         <div class="box_area_admin">
                             <div class="topo_box_area_admin">
-                                <!-- Cabeçalho -->
+                                <img src="img/administracao.png" />
                             </div>
                             <main class="conteudo_box_area_admin">
                                 <!-- Conteúdo principal -->
@@ -331,44 +331,8 @@ $logado = unserialize($_SESSION['USR']);
                                                     </div>
                                                 </form>
                                                 <section class="update_cadastro update_aluno cadastroAlunoContent" id="updateAlunoContainer">
-                                                    <h2 class="section_header cad_pend_aluno_header">Atualizar Cadastro</h2>
+                                                    <h2 class="section_header update_cad_aluno_header">Atualizar Cadastro</h2>
                                                     <div class="accordion_cad_container update_aluno_accordion">
-                                                        <a href="#updateAlunoCont1" class="accordion_info_toggler updateAlunoToggler" data-toggle="collapse">
-                                                            <div class="accordion_info" id="updateAlunoInfo1">Fernanda Hernández Ruiz</div>
-                                                        </a>
-                                                        <div class="accordion_content collapse" id="updateAlunoCont1">
-                                                            <div class="content_col_info">
-                                                                <table>
-                                                                    <tr class="content_info_row">
-                                                                    	 <td colspan="3"><span class="content_info_label">Escola:</span> <span class="content_info_txt">E.M.E.F. Deputado Januário Mantelli Neto</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                        <td colspan="2"><span class="content_info_label">Professor:</span> <span class="content_info_txt">Cecília Soares Benevites</span></td>
-                                                                        <td><span class="content_info_label">Sala:</span> <span class="content_info_txt">3º ano B - Manhã</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">02/04/2009</span></td>
-                                                                    	<td><span class="content_info_label">RG:</span> <span class="content_info_txt">43.887.654-9</span></td>
-                                                                    	<td><span class="content_info_label">CPF:</span> <span class="content_info_txt">567.800.766-42</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">Rua Embirussú, 56 - Vila Beatriz - São Paulo - SP</span></td>
-                                                                    	<td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03817-090</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
-                                                                    	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
-                                                                    </tr>
-                                                                     <tr class="content_info_row">
-                                                                    	<td colspan="3"><span class="content_info_label">Usuário:</span> <span class="content_info_txt">fernanda_hernandez</span></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                            <div class="content_col_btns">
-                                                                <button class="section_btn btn_del_cad">Excluir cadastro</button>
-                                                                <button class="section_btn btn_update_cad">Alterar Dados</button>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </section>
                                             </div>
@@ -499,8 +463,8 @@ $logado = unserialize($_SESSION['USR']);
                                                     </div>
                                                 </form>
                                                 <section class="update_cadastro update_prof cadastroProfContent" id="updateProfContainer">
-                                                    <h2 class="section_header cad_pend_aluno_header">Atualizar Cadastro</h2>
-                                                    <div class="accordion_cad_container update_aluno_accordion">
+                                                    <h2 class="section_header update_cad_prof_header">Atualizar Cadastro</h2>
+                                                    <div class="accordion_cad_container update_prof_accordion">
                                                         <a href="#updateProfCont1" class="accordion_info_toggler updateProfToggler" data-toggle="collapse">
                                                             <div class="accordion_info" id="updateProfInfo1">Andressa de Cardoso Dias</div>
                                                         </a>
@@ -640,8 +604,8 @@ $logado = unserialize($_SESSION['USR']);
                                                     </div>
                                                 </form>
                                                 <section class="update_cadastro update_escola cadastroProfContent" id="updateProfContainer">
-                                                    <h2 class="section_header cad_pend_aluno_header">Atualizar Cadastro</h2>
-                                                    <div class="accordion_cad_container update_aluno_accordion">
+                                                    <h2 class="section_header update_cad_escola_header">Atualizar Cadastro</h2>
+                                                    <div class="accordion_cad_container update_escola_accordion">
                                                         <a href="#updateEscolaCont1" class="accordion_info_toggler updateAlunoToggler" data-toggle="collapse">
                                                             <div class="accordion_info" id="updateEscolaInfo1">E.M.E.F. Deputado Januário Mantelli Neto </div>
                                                         </a>
