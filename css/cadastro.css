@@ -105,7 +105,7 @@
     text-transform: uppercase;
     cursor: pointer;
 }
-.tab_cadastro:hover, 
+.tab_cadastro:hover,
 .tab_cadastro_ativo {
 	background-color: #D4E075;
 }
@@ -116,7 +116,7 @@
     top: 40px;
     right: -20px;
 }
-.tab_cadastro_inativo, 
+.tab_cadastro_inativo,
 .tab_cadastro_inativo:hover {
 	background-color: #F2F2F2;
 	cursor: not-allowed;
@@ -195,12 +195,12 @@ div[class*="form_celula"] {
 	width: 100%;
 }
 .form_celula_m {
-	width: 48.3%;
-	margin-right: 30px;
+	width: 47.5%;
+	margin-right: 5%;
 }
 .form_celula_p {
-	width: 31.09%;
-	margin-right: 30px;
+	width: 30%;
+	margin-right: 5%;
 }
 .value_last {
 	margin-right: 0;
@@ -230,7 +230,7 @@ span.select_container select:active {
     background-position: 99% center;
     width: 100%;
     padding: 3.5px 6px;
-    font-size: 14px;             
+    font-size: 14px;
     font-weight: 300;
     border: 1px solid #E6E6E6;
     border-radius: 5px;
@@ -452,14 +452,14 @@ a.accordion_info_toggler:visited {
 	.mCSB_scrollTools .mCSB_draggerRail {
 	    width: 100% !important;
 	    height: 100% !important;
-	    margin: 0 auto !important; 
+	    margin: 0 auto !important;
 	    -webkit-border-radius: 0px !important;
 	    -moz-border-radius: 0px !important;
 	    border-radius: 0px !important;
 	    background-color: #F2F2F2 !important;
 	}
 	.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-	     background-color: #88A80D !important; 
+	     background-color: #88A80D !important;
 	}
 	.mCSB_container {
 		padding-right: 40px !important;

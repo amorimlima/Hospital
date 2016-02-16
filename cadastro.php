@@ -52,13 +52,13 @@ $logado = unserialize($_SESSION['USR']);
   	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
   	<div id="container">
         <div class="row">
-			<?php 
+			<?php
             	$templateGeral->topoSite();
-            ?>            
+            ?>
         </div>
         <div id="Conteudo_Area">
         	<div class="row">
-               <div class="col-xs-12 col-md-12 col-lg-12"  id="area_geral">   
+               <div class="col-xs-12 col-md-12 col-lg-12"  id="area_geral">
                     <div id="Conteudo_Area_box_Grande">
                         <div class="box_area_admin">
                             <div class="topo_box_area_admin">
@@ -333,6 +333,50 @@ $logado = unserialize($_SESSION['USR']);
                                                 <section class="update_cadastro update_aluno cadastroAlunoContent" id="updateAlunoContainer">
                                                     <h2 class="section_header update_cad_aluno_header">Atualizar Cadastro</h2>
                                                     <div class="accordion_cad_container update_aluno_accordion">
+
+
+														<a href="#updateAlunoCont1" class="accordion_info_toggler updateAlunoToggler" data-toggle="collapse">
+												            <div class="accordion_info" id="updateAlunoInfo1">Diego de Moraes Garcia</div>
+												        </a>
+												        <div class="accordion_content collapse" id="updateAlunoCont1">
+												            <div class="content_col_info">
+																<table>
+												                    <tr class="content_info_row">
+												                         <td colspan="3"><span class="content_info_label">Escola:</span> <span class="content_info_txt">Pontifícia Universidade Católica de São Paulo</span></td>
+												                    </tr>
+												                    <tr class="content_info_row">
+												                        <td colspan="2"><span class="content_info_label">Professor:</span> <span class="content_info_txt">Eduardo Savino Gomes</span></td>
+												                        <td><span class="content_info_label">Sala:</span> <span class="content_info_txt">LAB-010</span></td>
+												                    </tr>
+												                    <tr class="content_info_row">
+												                        <td><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">07/01/1990</span></td>
+												                        <td><span class="content_info_label">RG:</span> <span class="content_info_txt">98.765.423-2</span></td>
+												                        <td><span class="content_info_label">CPF:</span> <span class="content_info_txt">345.678.901-23</span></td>
+												                    </tr>
+												                    <tr class="content_info_row">
+												                        <td colspan="2">
+												                            <span class="content_info_label">Endereço:</span>
+												                            <span class="content_info_txt">
+												                                Rua Monte Alegre, 984, Perdizes - São Paulo - SP
+												                            </span>
+												                        </td>
+												                        <td><span class="content_info_label">CEP:</span> <span class="content_info_txt">05014-901</span></td>
+												                    </tr>
+												                    <tr class="content_info_row">
+												                        <td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">(11) 4325-4343</span></td>
+												                        <td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">dugo.03@gmail.com</span></td>
+												                    </tr>
+												                    <tr class="content_info_row">
+												                        <td colspan="3"><span class="content_info_label">Usuário:</span> <span class="content_info_txt">diego_moraes</span></td>
+												                    </tr>
+												                </table>
+												            </div>
+												            <div class="content_col_btns">
+												                <button id="btnDelAluno1" class="section_btn btn_del_cad btnDelCadAluno">Excluir cadastro</button>
+												                <button id="btnUpdateAluno1" class="section_btn btn_update_cad btnUpdateCadAluno">Alterar Dados</button>
+												            </div>
+												        </div>
+
                                                     </div>
                                                 </section>
                                             </div>
@@ -465,6 +509,44 @@ $logado = unserialize($_SESSION['USR']);
                                                 <section class="update_cadastro update_prof cadastroProfContent" id="updateProfContainer">
                                                     <h2 class="section_header update_cad_prof_header">Atualizar Cadastro</h2>
                                                     <div class="accordion_cad_container update_prof_accordion">
+
+
+														<a href="#updateProfCont1" class="accordion_info_toggler updateProfToggler" data-toggle="collapse">
+												            <div class="accordion_info" id="updateProfInfo1">Andressa de Cardoso Dias</div>
+												        </a>
+												        <div class="accordion_content collapse" id="updateProfCont1">
+												            <div class="content_col_info">
+																<table>
+												                    <tr class="content_info_row">
+												                        <td><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">10/05/1977</span></td>
+												                        <td><span class="content_info_label">RG:</span> <span class="content_info_txt">12.345.678-9</span></td>
+												                        <td><span class="content_info_label">CPF:</span> <span class="content_info_txt">123.456.789-10</span></td>
+												                    </tr>
+												                    <tr class="content_info_row">
+												                        <td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">
+												                            Rua Embirussú, 56 - Vila Beatriz - SP - São Paulo</span></td>
+												                        <td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03434-034</span></td>
+												                    </tr>
+												                    <tr class="content_info_row">
+												                        <td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">(11) 3432-9174</span></td>
+												                        <td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">andressadecardoso@gmail.com</span></td>
+												                    </tr>
+												                    <tr class="content_info_row">
+												                        <td colspan="3"><span class="content_info_txt">E.M.E.F. Deputado Januário Mantelli Neto - 3º série A - Manhã</span></td>
+												                    </tr>
+												                    <tr class="content_info_row">
+												                        <td colspan="3"><span class="content_info_label">Usuário</span> <span class="content_info_txt">andressa_card</span></td>
+												                    </tr>
+												                </table>
+															</div>
+												            <div class="content_col_btns">
+												                <button id="btnDelProf1" class="section_btn btn_del_cad btnDelCadProf">Excluir cadastro</button>
+												                <button id="btnUpdateProf1" class="section_btn btn_update_cad btnUpdateCadProf">Alterar Dados</button>
+												            </div>
+												        </div>
+
+
+
                                                     </div>
                                                 </section>
                                             </div>
@@ -608,7 +690,7 @@ $logado = unserialize($_SESSION['USR']);
                                 </div>
                             </main>
                         </div>
-                        
+
                         <!-- Modal -->
                         <div class="modal fade" id="feedback_nova_mensagem" role="dialog">
                             <div class="modal-dialog modal-sm">
@@ -633,14 +715,14 @@ $logado = unserialize($_SESSION['USR']);
                                         <div class="text-modal"><p class="txt-box" id="texto_box">Tem certeza que deseja excluir este perfil?</p></div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="generic_btn" data-dismiss="modal" onclick="confirmDelPerfil()">Sim</button>
-                                        <button type="button" class="generic_btn" data-dismiss="modal" onclicl="cancelDelPerfil()">Não</button>
+                                        <button type="button" class="generic_btn" data-dismiss="modal" onclick="">Sim</button>
+                                        <button type="button" class="generic_btn" data-dismiss="modal" onclicl="">Não</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Fim do Modal -->
-                    </div>              	
+                    </div>
                 </div>
             </div>
         </div>
@@ -648,7 +730,7 @@ $logado = unserialize($_SESSION['USR']);
             <div class="row" id="rodape"></div>
         </footer>
     </div>
-	
+
 	<!--Sempre que for utilizar uma mensagem, criar uma div com a classe modalMensagem e com o display none-->
 	<div id="mensagemErroDeletar" class='modalMensagem' style="display:none">
 		<?php
