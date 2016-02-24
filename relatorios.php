@@ -63,7 +63,8 @@ $logado = unserialize($_SESSION['USR']);
                         <div class="container_conteudo_geral">
                         	<div class="row">
                         		<div class="col-sm-12 col-md-9">
-									<div class="conteudo_principal">
+                        			<span class="header"></span>
+									<div id="conteudoPrincipal" class="conteudo_principal">
 										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
 											<div id="tipoGrafico1" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
@@ -480,6 +481,117 @@ $logado = unserialize($_SESSION['USR']);
 											</div>
 										</div>
 									</div>
+									<div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
+										<h1>Liberar capítulos</h1>
+										<table id="liberarCapitulosTable" class="liberar_capitulos_table">
+											<thead>
+												<tr>
+													<th class="blank">&nbsp;</th>
+													<th>Livro 1</th>
+													<th>Livro 2</th>
+													<th>Livro 3</th>
+													<th>Livro 4</th>
+													<th>Livro 5</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="capitulo">Capítulo 1</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+												</tr>
+												<tr>
+													<td class="capitulo">Capítulo 2</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+												</tr>
+												<tr>
+													<td class="capitulo">Capítulo 3</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+													<td>
+														<span class="cap_bloqueado"></span>
+													</td>
+												</tr>
+												<tr>
+													<td class="capitulo">Capítulo 4</td>
+													<td>
+														<span class="cap_nao_liberado"></span>
+													</td>
+													<td>
+														<span class="cap_nao_liberado"></span>
+													</td>
+													<td>
+														<span class="cap_nao_liberado"></span>
+													</td>
+													<td>
+														<span class="cap_nao_liberado"></span>
+													</td>
+													<td>
+														<span class="cap_nao_liberado"></span>
+													</td>
+												</tr>
+												<tr>
+													<td class="capitulo">Capítulo 5</td>
+													<td>
+														<span class="cap_liberado"></span>
+													</td>
+													<td>
+														<span class="cap_liberado"></span>
+													</td>
+													<td>
+														<span class="cap_liberado"></span>
+													</td>
+													<td>
+														<span class="cap_liberado"></span>
+													</td>
+													<td>
+														<span class="cap_liberado"></span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<div>
+											<button id="cancelarLiberarCapitulos">Cancelar</button>
+											<button id="salvarLiberarCapitulos" class="btn_primary">Salvar</button>
+										</div>
+									</div>
 								</div>
 								<div class="col-sm-12 col-md-3">
 									<div class="conteudo_lateral">
@@ -501,6 +613,7 @@ $logado = unserialize($_SESSION['USR']);
 											<select id="filtroSala">
 												<option val="" selected>Todos</option>
 											</select>
+											<button id="liberarCapitulos">Liberar capítulos</button>
 											<button id="visualizarRelatorio">Visualizar</button>
 											<button id="baixarRelatorio" class="btn_primary">Baixar relatório</button>
 										</div>
