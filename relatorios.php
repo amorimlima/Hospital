@@ -64,13 +64,13 @@ $logado = unserialize($_SESSION['USR']);
                         	<div class="row">
                         		<div class="col-sm-12 col-md-9">
 									<div class="conteudo_principal">
-										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Comparação - Pré e Pós Avaliação (em %)</div>
+										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
-											<div>Acessos e Downloads na Galeria (em %)</div>
-											<div class="option_selected">Comparação - Pré e Pós Avaliação (em %)</div>
+											<div id="tipoGrafico1" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
+											<div id="tipoGrafico2">Comparação - Pré e Pós Avaliação (em %)</div>
 										</div>
 										<div class="listagem_perfis_graficos">
-											<div id="grafico1" class="grafico" style="display: none;">
+											<div id="grafico1" class="grafico">
 												<div class="lista_itens_grafico">
 													<div>
 														<div class="row">
@@ -226,7 +226,7 @@ $logado = unserialize($_SESSION['USR']);
 													</div>
 												 </div>
 											</div>
-											<div id="grafico2" class="grafico">
+											<div id="grafico2" class="grafico" style="display: none;">
 												<div class="lista_itens_grafico">
 													<div>
 														<div class="row">
@@ -504,7 +504,17 @@ $logado = unserialize($_SESSION['USR']);
 											<button id="visualizarRelatorio">Visualizar</button>
 											<button id="baixarRelatorio" class="btn_primary">Baixar relatório</button>
 										</div>
-										<div class="legenda_grafico"></div>
+										<div class="legenda_grafico">
+											<h2>Legenda</h2>
+											<div id="legendaGrafico1">
+												<div><img src="img/leg_graf_acessos.png" alt="Quantidade de acessos à galeria"><span>Quantidade de acessos à galeria</span></div>
+												<div><img src="img/leg_graf_downloads.png" alt="Quantidade de downloads de conteúdo"><span>Quantidade de downloads de conteúdo</span></div>
+											</div>
+											<div id="legendaGrafico2" style="display: none;">
+												<div><img src="img/leg_graf_acertos_pre.png" alt="Acertos - pré-avaliação"><span>Quantidade de acessos à galeria</span></div>
+												<div><img src="img/leg_graf_acertos_pos.png" alt="Acertos - pós-avaliação"><span>Quantidade de downloads</span></div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
