@@ -247,9 +247,9 @@
 	height: 100%;
 }
 .liberar_capitulo_container > h1 {
+	width: 90%;
 	font-size: 18px;
-	margin-top: 10px;
-	margin-bottom: 20px;
+	margin: 10px auto 15px;
 	color: #45871e;
 }
 table.liberar_capitulos_table {
