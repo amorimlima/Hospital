@@ -64,7 +64,7 @@ $logado = unserialize($_SESSION['USR']);
                         	<div class="row">
                         		<div class="col-sm-12 col-md-9">
 									<div class="conteudo_principal">
-										<div id="tipo_grafico_picker" class="tipo_grafico_picker picker_expanded">Comparação - Pré e Pós Avaliação (em %)</div>
+										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Comparação - Pré e Pós Avaliação (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
 											<div>Acessos e Downloads na Galeria (em %)</div>
 											<div class="option_selected">Comparação - Pré e Pós Avaliação (em %)</div>
@@ -456,7 +456,7 @@ $logado = unserialize($_SESSION['USR']);
 												 </div>
 											</div>
                                         </div>
-										<div class="legenda_grafico">
+										<div class="infos_grafico">
 											<img src="img/ic_voltar_g.png" class="btn_voltar"></span>
 											<div class="row">
 												<div class="col-md-4">
@@ -482,7 +482,30 @@ $logado = unserialize($_SESSION['USR']);
 									</div>
 								</div>
 								<div class="col-sm-12 col-md-3">
-									<div class="conteudo_lateral"></div>
+									<div class="conteudo_lateral">
+										<div class="form_filtros">
+											<h2>Gerar relatório</h2>
+											<label for="filtroEscola">Escola</label>
+											<select id="filtroEscola">
+												<option val="" selected>Todas</option>
+											</select>
+											<label for="filtroLivro">Livro</label>
+											<select id="filtroLivro">
+												<option val="" selected>Todos</option>
+											</select>
+											<label for="filtroCapitulo">Capítulo</label>
+											<select id="filtroCapitulo">
+												<option val="" selected>Todos</option>
+											</select>
+											<label for="filtroSala">Sala</label>
+											<select id="filtroSala">
+												<option val="" selected>Todos</option>
+											</select>
+											<button id="visualizarRelatorio">Visualizar</button>
+											<button id="baixarRelatorio" class="btn_primary">Baixar relatório</button>
+										</div>
+										<div class="legenda_grafico"></div>
+									</div>
 								</div>
 							</div>
                         </div>
