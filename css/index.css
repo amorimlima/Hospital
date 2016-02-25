@@ -1,0 +1,79 @@
+body {
+	background: linear-gradient(#fff, #fff 70%, #f7f7f4 70%, #f7f7f4 100%);
+}
+.logo-container {
+	padding: 50px 0;
+}
+.login-panel-container {
+	padding: 42px 0;
+}
+.panel {
+	border: 1px dashed #088480;
+	border-radius: 12px;
+	background-color: #d9eef2;
+}
+.panel-body {
+	padding: 25px;
+}
+.panel-body > form {
+	margin-bottom: 0;
+}
+.form-group:last-child {
+	text-align: center;
+}
+.form-group > label {
+	display: block;
+	font-size: 18px;
+	letter-spacing: .05em;
+	font-weight: 600;
+	text-align: center;
+	color: #23989e;
+}
+.form-group > .input-lg {
+	height: 35px;
+	border-radius: 0;
+	border: none;
+	box-shadow: none;
+	color: #808080;
+}
+.form-group > .btn-primary,
+.form-group > .btn-primary:active{
+	position: relative;
+	background-color: #c3d01f;
+	border: 2px dotted #fff;
+	padding: 10px 15px 10px 30px;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+	margin-left: 18px;
+	color: #fafafa;
+	outline: none;
+	box-shadow: none;
+}
+.form-group > .btn-primary:hover,
+.form-group > .btn-primary:focus {
+	background-color: #cfd169;
+}
+
+.form-group > .btn-primary::before {
+	content: url(../img/ic_login.png);
+	position: absolute;
+	left: -18px;
+	top: 0;
+}
+.link {
+	text-align: center;
+}
+.link > a,
+.link > a:visited {
+	color: #23999f;
+	font-weight: 600;
+	font-size: 14px;
+}
+.link > a:hover,
+.link > a:focus {
+	color: #4fadb2;
+}
+.pratinha {
+	height: 398px;
+	background: url(../img/pratinha.png) no-repeat center;
+}
