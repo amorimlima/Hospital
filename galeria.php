@@ -225,7 +225,7 @@ $templateGeral = new Template();
                         </div>
                         <div id="box_carregar">
                             <div id="carregarContainer">
-                                <div class="botaoCarregar"></div>
+                                <div id="botaoCarregar" class="botaoCarregar"></div>
                             </div>
                         </div>	
                     </div>

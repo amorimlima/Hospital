@@ -1,0 +1,208 @@
+/*
+
+## Folha de estilos para campos de formulario ##
+
+## Como usar ##
+- Sempre colocar os campos do formulário dentro de um elemento <form>;
+- A <div> que contém os elementos <input> e <label> deve sempre receber a classe ".formfield";
+- Sempre colocar as <div> com a classe ".formfield" dentro de elementos <fieldset>;
+- Se for necessário usar mais de um input por linha, seguir essas regras:
+	1 - Uma <div> com a classe ".formfield-g" só deve aparecer ao lado de uma <div> com a classe ".formfield-s";
+	2 - Uma <div> com a classe ".formfield-m" só deve aparecer ao lado de uma <div> com a classe ".formfield-m";
+	3 - Uma <div> com a classe ".formfield-s" só deve aparecer ao lado de uma <div> com a classe ".formfield-g" OU duas com a classe ".formfield-s";
+	4 - Caso algum campo deva permanecer soziho na linha, mas com tamanho menor que 100%, utilizar a classe ".formfield-only" na <div>;
+	5 - Utilizar as classes citadas nos itens anteriores não elimina a necessidade de utilizar a classe ".formfield" na <div>;
+- Os botões (<button>, <input type="submit"> e <input type="reset">) devem estar dentro de uma <div> com a classe ".formbtns";
+- Botões de envio (<input type="submit">) devem estar sempre a direita de todos os outros;
+- A <div> com a classe ".formbtns" deve estar dentro de um <fieldset> próprio, e este deve ser, de preferência, o último do formulário.
+
+
+## Sugestão: copiar o <form> do arquivo "template_formulario.php", na pasta "template", e usá-lo como guia. ##
+
+*/
+
+form {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+fieldset {
+	text-align: justify;
+    display: block;
+    border-bottom: 1px dashed #CCCCCC;
+    margin-bottom: 15px;
+}
+fieldset::after {
+	content: "";
+	display: inline-block;
+	width: 100%;
+	clear: both;
+}
+fieldset:last-of-type {
+	border-bottom: none;
+	margin-bottom: 0;
+}
+legend {
+	font-size: 18px;
+	font-weight: 500;
+	color: #728C07;
+	border-bottom: none;
+}
+.formfield {
+	display: inline-block;
+	width: 100%;
+	padding: 6px;
+	background-color: #F2F2F2;
+	border-radius: 5px;
+	margin-bottom: 15px;
+}
+.formfield.formfield-s {
+	width: 30%;
+}
+.formfield.formfield-m {
+	width: 47.5%;
+}
+.formfield.formfield-g {
+	width: 65%;
+}
+.formfield.formfield-only {
+	display: block;
+}
+.formfield > label {
+	float: left;
+	display: block;
+	margin: 5px 10px 0 5px;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+	color: #728C07;
+	font-weight: 600;
+	cursor: text;
+}
+.formfield > span {
+	overflow: hidden;
+	display: block;
+}
+.formfield > span > input,
+.formfield > span > select {
+	background-color: #fff;
+	color: #4D4D4D;
+	border: 1px solid #E6E6E6;
+	border-radius: 5px;
+	height: 30px;
+	width: 100%;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 6px;
+	line-height: 1em;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+}
+.formfield > span > select {
+	background-image: url(../../img/ic_drop.png);
+	background-repeat: no-repeat;
+	background-position: right 6px center;
+	cursor: pointer;
+}
+.formfield > span > textarea {
+	background-color: #fff;
+	color: #4D4D4D;
+	border: 1px solid #E6E6E6;
+	border-radius: 5px;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 6px;
+	width: 100%;
+	min-height: 70px;
+	line-height: 1em;
+	resize: none;
+}
+.formfield > span > div {
+	text-align: left;
+	background-color: #fff;
+	color: #4D4D4D;
+	border-radius: 5px;
+	height: 30px;
+	width: 100%;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 8px 6px 8px 29px;
+	line-height: 1em;
+}
+.formfield > span > div > input {
+	display: none;
+}
+.formfield > span > div > input + label {
+	position: relative;
+	margin-right: 35px;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 1em;
+	cursor: pointer;
+}
+.formfield > span > div > input + label:last-of-type {
+	margin-right: 0;
+}
+.formfield > span > div > input + label::before {
+	position: absolute;
+	left: -23px;
+	top: -2px;
+}
+.formfield > span > div > input[type="checkbox"] + label::before {
+	content: url(../../img/checkbox_form.png);
+}
+.formfield > span > div > input[type="checkbox"]:checked + label::before {
+	content: url(../../img/checkbox_form_h.png);
+}
+.formfield > span > div > input[type="radio"] + label::before {
+	content: url(../../img/radio_form.png);
+}
+.formfield > span > div > input[type="radio"]:checked + label::before {
+	content: url(../../img/radio_form_h.png);
+}
+.formbtns {
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+.formbtns > input[type="submit"],
+.formbtns > input[type="reset"],
+.formbtns > button {
+	font-family: "Source Sans Pro";
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: .05em;
+	text-transform: uppercase;
+	width: 80px;
+	height: 34px;
+	border: 1px solid #728C07;
+	color: #728C07;
+	background-color: #fff;
+	border-radius: 3px;
+	margin-right: 15px;
+}
+.formbtns > input[type="submit"]:last-child,
+.formbtns > input[type="reset"]:last-child,
+.formbtns > button:last-child {
+	margin-right: 0;
+}
+.formbtns > input:hover,
+.formbtns > input:focus,
+.formbtns > input:active,
+.formbtns > button:hover,
+.formbtns > button:focus,
+.formbtns > button:active {
+	background-color: #F2F2F2;
+}
+.formbtns > input[type="submit"] {
+	background-color: #E9EDA6;
+}
+.formbtns > input[type="submit"]:hover,
+.formbtns > input[type="submit"]:focus,
+.formbtns > input[type="submit"]:active {
+	background-color: #D1CF7D;
+}
