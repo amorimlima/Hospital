@@ -1,3 +1,4 @@
+"use strict";
 $(document).ready(function() {
 	$("#tipo_grafico_picker").click(function() {
 		$(this).toggleClass("picker_expanded");
@@ -11,14 +12,14 @@ $(document).ready(function() {
 	$(".tipo_grafico_picker_opcoes").children("div").click(function() {
 		toggleGrafico(this);
 	});
-	$(".tipo_grafico_picker_opcoes").click(function() {
-		event.stopPropagation();
-	});
-	$("#tipo_grafico_picker").click(function() {
-		event.stopPropagation();
-	});
 	$("body").click(function() {
 		$("#tipo_grafico_picker").removeClass("picker_expanded");
+	});
+	$(".tipo_grafico_picker_opcoes").click(function(event) {
+		event.stopPropagation();
+	});
+	$("#tipo_grafico_picker").click(function(event) {
+		event.stopPropagation();
 	});
 	$("#liberarCapitulos").click(function() {
 		showLiberarCapitulos();
@@ -28,6 +29,15 @@ $(document).ready(function() {
 	});
 	$("#salvarLiberarCapitulos").click(function() {
 		saveLiberarCapitulos();
+	});
+	$("#liberarCapitulosTable").find("span").click(function() {
+		if ($(this).is(".cap_nao_liberado")) {
+			$(this).addClass("cap_liberado");
+			$(this).removeClass("cap_nao_liberado");
+		} else if ($(this).is(".cap_liberado")) {
+			$(this).removeClass("cap_liberado");
+			$(this).addClass("cap_nao_liberado");
+		}
 	});
 });
 
