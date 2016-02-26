@@ -147,8 +147,8 @@ class UsuarioDAO extends DAO{
     	return $lista;
      }
 
-      public function selectFull()
-     {
+	public function selectFull()
+	{
         $sql = "select * from usuario";
     	$result = $this->retrieve($sql);
     	$lista = array();
@@ -215,6 +215,7 @@ class UsuarioDAO extends DAO{
     		$user = array(
 				'usr_id' 	=> $qr["usr_id"],
     			'usr_nome' 	=> $qr["usr_nome"],
+                'usr_escola'  => $qr["usr_escola"],
     			'prf_perfil'=> $qr["prf_perfil"],
                 'prf_id'    => $qr["prf_id"],
     			'prf_url'	=> $qr["url"],
@@ -226,6 +227,49 @@ class UsuarioDAO extends DAO{
 		return $user;
 	}
 	
+	public function buscaUsuarioByLetraNome($letraDigitada,$perfil_id,$escola){
+		
+        $sql = "select * from usuario where usr_nome like '%".$letraDigitada."%'";	
+
+        switch ($perfil_id) {
+            //Perfil Aluno
+            case 1:
+                $sql .=" AND usr_perfil IN ( 1,2 )";
+                break;
+            
+            //Perfil Professor
+            case 2:
+                $sql .=" AND usr_perfil IN ( 1,2,3 ) AND usr_escola =".$escola;
+                break;
+
+            //Perfil NEC
+            case 3:
+                $sql .=" AND usr_perfil IN ( 2,3,4 )";
+                break;
+
+            //Perfil Escola
+            case 4:
+                $sql .="";
+                break;
+        }
+
+		$result = $this->retrieve($sql);
+    	$lista = array();
+        while ($qr = mysqli_fetch_array($result))
+    	{        
+			$user = new Usuario();
+			$user->setUsr_id($qr["usr_id"]);
+			$user->setUsr_nome($qr["usr_nome"]);
+			$user->setUsr_data_nascimento($qr["usr_data_nascimento"]);
+			$user->setUsr_endereco($qr["usr_endereco"]);
+			$user->setUsr_escola($qr["usr_escola"]);
+			$user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
+			$user->setUsr_nse($qr["usr_nse"]);
+			$user->setUsr_perfil($qr["usr_perfil"]);
+			array_push($lista, $user);                
+        }
+    	return $lista;
+     }	
 
 }
 ?>

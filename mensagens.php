@@ -4,6 +4,8 @@ if(!isset($_SESSION['PATH_SYS'])){
    require_once '_loadPaths.inc.php'; 
 }
 
+
+
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateMensagens.php');
@@ -30,12 +32,7 @@ $logado = unserialize($_SESSION['USR']);
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="js/malihu.3.0.3/mCustomScrollbar.css" />
     <link rel="stylesheet" type="text/css" href="css/mensagens.css">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="js/bootstrap-select/dist/css/bootstrap-select.css">
   </head>
   <body>
   	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
@@ -113,8 +110,15 @@ $logado = unserialize($_SESSION['USR']);
                                                 <div class="campo_nova_mensagem" id="mensagem_para">
                                                     <div class="row">
                                                         <div class="col-xs-12 col-md-2 col-lg-2 nome_campo">PARA:</div>
-                                                        <div class="col-xs-12 col-md-10 col-lg-10">
-                                                            <input type="text" name="para" id="mensagem_campo_para" class="mensagem_campo">
+                                                        <div class="col-xs-12 col-md-10 col-lg-10">                 											
+                                                            <form class="navbar-form navbar-left" role="search">
+                                                                <div class="form-group">
+                                                                  <select class="selectpicker" name="para" multiple data-live-search="true" data-live-search-placeholder="Buscar" data-actions-box="true">
+                                                                    <optgroup id="caixa_nomes"> 
+                                                                    </optgroup>
+                                                                   </select>
+                                                                </div>
+                                                          </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -258,7 +262,9 @@ $logado = unserialize($_SESSION['USR']);
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
     <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
+    <script src="js/bootstrap-select/dist/js/bootstrap-select.js"></script>
     <script src="js/funcoes.js"></script>
 	<script src="js/Mensagem.js"></script>
+    
 </body>
 </html>

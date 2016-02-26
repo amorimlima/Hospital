@@ -15,7 +15,6 @@ if(isset($_POST)){
 
 	$usuarioController = new UsuarioController();
 	$user = $usuarioController->autenticaUsuario($usuario, $senha);
-
 	if($user!=null){
 		$adm = Array(
 					'nome'		=>$user['usr_nome'],
@@ -23,6 +22,7 @@ if(isset($_POST)){
 					'perfil'	=>$user['prf_perfil'],
 					'perfil_id'	=>$user['prf_id'],
 					'url'		=>$user['prf_url'],
+					'escola'	=>$user['usr_escola'],
 					'pagina'	=>utf8_encode($user['prf_pagina'])
 				);
 				

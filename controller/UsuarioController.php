@@ -59,6 +59,7 @@ class UsuarioController {
 		$user = $this->usuarioDAO->selectFull();
 		return $user;
 	}
+	
 	public function autenticaUsuario($usuario,$senha)
 	{
 		$user = $this->usuarioDAO->autenticaUsuario($usuario,$senha);
@@ -72,6 +73,12 @@ class UsuarioController {
 	public function ultimoIDUsuario(){
 		return $this->usuarioDAO->ultimoIDUsuario();
 	}
+	
+	public function buscaUsuarioByLetraNome($letraDigitada,$perfil_id,$escola)
+	{
+		$user = $this->usuarioDAO->buscaUsuarioByLetraNome($letraDigitada,$perfil_id,$escola);
+		return $user;
+	}	
 	
 }
 ?>

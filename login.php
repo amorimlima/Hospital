@@ -30,7 +30,7 @@ $(document).ready(function(){
 				});
 			}else{
 				$("#result").addClass('alert').html("Os campos são obrigatórios");
-				}
+			}
 			return false;
 		});
 		

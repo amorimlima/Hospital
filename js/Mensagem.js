@@ -7,11 +7,6 @@ $(document).ready(function(e) {
 		}
 	});
 	checkbox();
-	
-	// $('#botao_modal').click(function(){
-		// $('.modalMensagem').css('display','none');
-		// return false;
-	// });
 });
 
 function checkbox(){
@@ -366,4 +361,48 @@ function recarrega(){
 		}	
 	});	
 	return retorno;
+}
+
+var timerBusca;
+timerBusca = setTimeout(function(){}, 1)
+function buscaNomeDestinatario(){		
+	var retorno;
+	var letrasDigitadas = $('#mensagem_campo_para').val();
+	var html='';
+	var html2='';
+	clearTimeout(timerBusca)
+	timerBusca = setTimeout(function(){
+		$.ajax({
+			url:'ajax/MensagemAjax.php',
+			type:'post',
+			async: false,
+			dataType:'json',
+			data:{'acao':'listaDestinatario','letrasDigitadas':letrasDigitadas,'opcao':'letras'},
+			success:function(data){
+				for(a in data){
+					var nome = data[a].nome;
+
+					html += '<option>'+nome.trim()+'</option>';
+					
+					html2 += '<li data-original-index="'+a+'" data-optgroup="1" class="">'+						
+						'<a onclick="btn_checkbox('+data[a].usuarioId+')"  tabindex="0" style="" data-tokens="null">'+
+						'<span class="check_sel" id="'+data[a].usuarioId+'"></span>'+
+						'<span class="text">'+nome.trim()+'</span>'+
+						'</a>'+
+						'</li>';
+				}	
+			}	
+		}) 		
+
+		$('#caixa_nomes').html(html);
+		$('.inner').html(html2);
+		setTimeout(function(){
+			btn_checkbox();
+		},1000)
+
+	}, 2000);		
+}
+
+function btn_checkbox(idItem){
+	$('#'+idItem).toggleClass('selecionado');
 }

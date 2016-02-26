@@ -8,6 +8,7 @@ include_once($path['controller'].'MensagemController.php');
 include_once($path['controller'].'UsuarioController.php');
 include_once($path['beans'].'Mensagem.php');
 include_once($path['template'].'TemplateMensagens.php');
+
 $template = new TemplateMensagens();
 $mensagemController = new MensagemController();
 $usuarioController = new UsuarioController();
@@ -355,7 +356,24 @@ switch ($_POST["acao"]){
 		 
 		 break;
     }
-           
+
+	case "listaDestinatario":{
+		$letras = $_POST["letrasDigitadas"];
+		$logado = unserialize($_SESSION['USR']);
+
+		$usuarios = $usuarioController->buscaUsuarioByLetraNome($letras,$logado['perfil_id'],$logado['escola']);
+
+		foreach ($usuarios as $key => $value) {
+			$result[$key] = Array(
+				'nome'=>$value->getUsr_nome(),
+				'usuarioId'=>$value->getUsr_id()
+			);			
+		}
+   
+		echo json_encode($result);	
+		
+		break;
+	}          
 }
 
 ?> 
