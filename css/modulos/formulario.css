@@ -164,6 +164,31 @@ legend {
 .formfield > span > div > input[type="radio"]:checked + label::before {
 	content: url(../../img/radio_form_h.png);
 }
+.formfield > span > span {
+	display: none;
+}
+.formfield > span > div > label.file > input[type="button"] {
+	margin-left: -19px;
+	margin-top: -5px;
+	padding: 4px 8px;
+	font-family: "Source Sans Pro";
+	border-radius: 4px;
+	font-weight: 500;
+	border: 1px solid #728C07;
+	color: #728C07;
+	background-color: #fff;
+}
+.formfield > span > div > label.file > span {
+	margin-left: 5px;
+	font-weight: 500;
+	font-style: italic;
+	color: #808080;
+}
+.formfield > span > div > label.file > input[type="button"]:hover,
+.formfield > span > div > label.file > input[type="button"]:focus,
+.formfield > span > div > label.file > input[type="button"]:active {
+	background-color: #F2F2F2;
+}
 .formbtns {
 	display: block;
 	width: 100%;

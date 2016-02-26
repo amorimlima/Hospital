@@ -1,6 +1,6 @@
-<?php 
+<?php
 if(!isset($_SESSION['PATH_SYS'])){
-   require_once '_loadPaths.inc.php'; 
+   require_once '_loadPaths.inc.php';
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
@@ -14,13 +14,13 @@ $templateGeral = new Template();
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Galeria</title>
-        
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/style.css">        
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <link href='http://fonts.googleapis.com/css?family=Overlock:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="js/malihu.3.0.3/mCustomScrollbar.css" />
+        <link rel="stylesheet" href="css/modulos/formulario.css">
         <link rel="stylesheet" type="text/css" href="css/galeria.css">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,9 +32,9 @@ $templateGeral = new Template();
   <body>
   	<div id="container">
         <div class="row">
-           <?php 
+           <?php
 				$templateGeral->topoSite();
-			?>       
+			?>
         </div>
         <div id="Conteudo_Area">
             <div class="row">
@@ -164,7 +164,78 @@ $templateGeral = new Template();
                             </div>
                             </div>
                         </div>
-                    </div> 
+                        <div id="form_novo_arquivo" style="display: none;">
+							<div>
+								<form action="">
+									<fieldset>
+										<legend>Inserir novo arquivo na Galeria</legend>
+										<div class="formfield">
+											<label for="">Categoria</label>
+											<span>
+												<div>
+													<input type="radio" name="tipo_arquivo" id="imagem" checked/>
+													<label for="imagem">Imagem</label>
+													<input type="radio" name="tipo_arquivo" id="video" />
+													<label for="video">Vídeo</label>
+													<input type="radio" name="tipo_arquivo" id="infografico" />
+													<label for="infografico">Infográfico</label>
+													<input type="radio" name="tipo_arquivo" id="audio" />
+													<label for="audio">Áudio</label>
+													<input type="radio" name="tipo_arquivo" id="link" />
+													<label for="link">Link</label>
+													<input type="radio" name="tipo_arquivo" id="texto" />
+													<label for="texto">Texto</label>
+												</div>
+											</span>
+										</div>
+										<div class="formfield formfield-m formfield-only">
+											<label for="assunto_arquivo">Assunto</label>
+											<span>
+												<select name="assunto_arquivo" id="assunto_arquivo">
+													<option value="0" disabled selected hidden>Selecione</option>
+													<option value="1">Assunto 1</option>
+													<option value="2">Assunto 2</option>
+													<option value="3">Assunto 3</option>
+												</select>
+											</span>
+										</div>
+										<div class="formfield">
+											<label for="titulo_arquivo">Título</label>
+											<span>
+												<input type="text" name="titulo_arquivo" id="titulo_arquivo" placeholder="Digite o título de arquivo" />
+											</span>
+										</div>
+										<div class="formfield">
+											<label for="descricao_arquivo">Descrição</label>
+											<span>
+												<textarea name="descricao_arquivo" id="descricao_arquivo" placeholder="Digite a descrição do arquivo"></textarea>
+											</span>
+										</div>
+										<div class="formfield">
+											<label for="">Arquivo</label>
+											<span>
+												<span>
+													<input type="file" name="file_arquivo" id="file_arquivo">
+												</span>
+												<div>
+													<label class="file" for="file_arquivo">
+														<input type="button" data-for="file_arquivo" value="Selecionar arquivo" />
+														<span data-for="file_arquivo">Selecione um arquivo</span>
+													</label>
+												</div>
+											</span>
+										</div>
+									</fieldset>
+									<fieldset>
+										<div class="formbtns">
+											<input type="reset" value="Limpar"/>
+											<input type="submit" value="Enviar"/>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-xs-12 col-md-12 col-lg-4">
                     <div id="Conteudo_Area_box_right">
@@ -183,7 +254,7 @@ $templateGeral = new Template();
                                             <p class="txt_mv_caixa_titulo">Os riscos do cigarro</p>
                                             <p class="txt_mv_caixa_sub">Postado por Miriam Sagawa </p>
                                             <p class="txt_mv_caixa_data">03/02/2015 às 15:16</p>
-                                            
+
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -200,7 +271,7 @@ $templateGeral = new Template();
                                             <p class="txt_mv_caixa_titulo">Parques ecológicos</p>
                                             <p class="txt_mv_caixa_sub">Postado por Maria Aparecida </p>
                                             <p class="txt_mv_caixa_data">12/01/2015 às 17:34</p>
-                                         
+
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -227,7 +298,7 @@ $templateGeral = new Template();
                             <div id="carregarContainer">
                                 <div id="botaoCarregar" class="botaoCarregar"></div>
                             </div>
-                        </div>	
+                        </div>
                     </div>
                 </div>
             </div>
@@ -242,6 +313,7 @@ $templateGeral = new Template();
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
     <script src="js/funcoes.js"></script>
+    <script src="js/modulos/formulario.js"></script>
     <script src="js/Galeria.js"></script>
 </body>
 </html>

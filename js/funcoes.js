@@ -14,7 +14,7 @@ $(document).ready(function(e) {
 	}
 	$('#objeto').css('height', Math.round(total) + 'px');
 	//fim 
-	
+
 	var largura1 = $('#img_teste').width();
 	var altura2  = ( 74 * largura1) / 100;	
 	$('#img_teste').css('height', Math.round(altura2) + 'px');

@@ -146,6 +146,20 @@ $logado = unserialize($_SESSION['USR']);
                                         <input type="text" placeholder="Largura menor que 100%" />
                                     </span>
                                 </div>
+                                <div class="formfield">
+                                    <label for="">Arquivo</label>
+                                    <span>
+                                        <span>
+                                            <input type="file" name="file_arquivo" id="file_arquivo">
+                                        </span>
+                                        <div>
+                                            <label class="file" for="file_arquivo">
+                                                <input type="button" data-for="file_arquivo" value="Selecionar arquivo" />
+                                                <span data-for="file_arquivo">Selecione um arquivo</span>
+                                            </label>
+                                        </div>
+                                    </span>
+                                </div>
                         	</fieldset>
                         	<fieldset>
                         		<div class="formbtns">
