@@ -353,7 +353,9 @@ switch ($_POST["acao"]) {
 			$letras = $_POST["letrasDigitadas"];
 			$logado = unserialize($_SESSION['USR']);
 
-			$usuarios = $usuarioController->buscaUsuarioByLetraNome($letras, $logado['perfil_id'], $logado['escola']);
+			if (!empty($letras)) {
+				$usuarios = $usuarioController->buscaUsuarioByLetraNome($letras, $logado['perfil_id'], $logado['escola']);
+			}
 
 			foreach ($usuarios as $key => $value) {
 				$result[$key] = Array(

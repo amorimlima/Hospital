@@ -400,9 +400,15 @@ function buscaNomeDestinatario(){
 			btn_checkbox();
 		},1000)
 
-	}, 2000);		
+	}, 1000);		
 }
 
 function btn_checkbox(idItem){
 	$('#'+idItem).toggleClass('selecionado');
+}
+
+
+function checkEnviar(){
+	var elementos = $('.inner .selecionado');
+	console.log(elementos);
 }

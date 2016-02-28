@@ -234,12 +234,12 @@ class UsuarioDAO extends DAO{
         switch ($perfil_id) {
             //Perfil Aluno
             case 1:
-                $sql .=" AND usr_perfil IN ( 1,2 )";
+                $sql .=" AND usr_perfil IN ( 1,2 ) AND usr_escola =".$escola;
                 break;
             
             //Perfil Professor
             case 2:
-                $sql .=" AND usr_perfil IN ( 1,2,3 ) AND usr_escola =".$escola;
+                $sql .=" AND ((usr_perfil IN ( 1,2 ) AND usr_escola =".$escola.") OR usr_perfil = 3)";
                 break;
 
             //Perfil NEC
@@ -249,9 +249,11 @@ class UsuarioDAO extends DAO{
 
             //Perfil Escola
             case 4:
-                $sql .="";
+                $sql .=" AND ((usr_perfil IN (1,2) AND usr_escola = ".$escola.") OR usr_perfil IN ( 3,4 ))";
                 break;
+
         }
+
 
 		$result = $this->retrieve($sql);
     	$lista = array();
