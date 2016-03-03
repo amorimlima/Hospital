@@ -83,6 +83,7 @@ $logado = unserialize($_SESSION['USR']);
                                             </div>
                                             <div class="btns_tabs btns_escola" style="display: none;">
                                                 <ul class="lista_btns lista_btns_escola">
+                                                    <li class="btn_tab btn_escola btn_update_cadastro">Confirmar cadastro</li>
                                                     <li class="btn_tab btn_escola btn_add_cadastro">Novo cadastro</li>
                                                     <li class="btn_tab btn_escola btn_update_cadastro btn_tab_ativo">Atualizar cadastro</li>
                                                 </ul>

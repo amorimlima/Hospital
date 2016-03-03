@@ -1,14 +1,14 @@
-<?php
+ <?php
 session_start();
 if(!isset($_SESSION['PATH_SYS'])){
-   require_once '_loadPaths.inc.php'; 
+   require_once '_loadPaths.inc.php';
 }
 
 $paths = $_SESSION['PATH_SYS'];
 require_once ($paths["controller"]."UsuarioController.php");
 
 if(isset($_POST)){
-	
+
 	$usuario = str_replace("'", "",$_POST["usuario"]);
 	$senha = str_replace("'","", $_POST["senha"]);
     //$senha = md5($senha);
@@ -25,13 +25,13 @@ if(isset($_POST)){
 					'escola'	=>$user['usr_escola'],
 					'pagina'	=>utf8_encode($user['prf_pagina'])
 				);
-				
+
 		$_SESSION['USR'] = serialize($adm);
 		$result = Array('erro'=>false,'msg'=>'Logado!!','url'=>$adm['url']);
 	}else{
-		
+
 		$result = Array('erro'=>true,'msg'=>'Usuário ou Senha Inválida!!');
 	}
 
-	echo json_encode($result);	
+	echo json_encode($result);
 }
