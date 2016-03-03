@@ -75,10 +75,7 @@ function enviar(){
 				colorirDivs();
 				$("#forumPerguntaSucesso").css('display','block');
 				$("#box_pergunta").val("");
-				$("#topico option").eq(0).attr('selected','selected');
-
-
-				
+				$("#topico option").eq(0).attr('selected','selected');		
 
 			}
 		});

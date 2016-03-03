@@ -30,7 +30,7 @@ class MensagemDAO extends DAO{
      
      public function insert($mens)
      {
-         $sql  = "insert into  mensagem (msg_destinatario, msg_remetente,msg_assunto,msg_mensagem,msg_lida,msg_cx_entrada,msg_cx_enviado,msg_tipo_mensagem,msg_data,msg_proprietario,msg_anexo,destinatarios,msg_destinatario_grupo) values ";
+         $sql  = "insert into  mensagem (msg_destinatario, msg_remetente,msg_assunto,msg_mensagem,msg_lida,msg_cx_entrada,msg_cx_enviado,msg_tipo_mensagem,msg_data,msg_proprietario,msg_anexo,msg_ativo,destinatarios,msg_destinatario_grupo) values ";
          $sql .= "('".$mens->getMsg_destinatario()."','".$mens->getMsg_remetente()."',";
          $sql .= "'".$mens->getMsg_assunto()."',";
          $sql .= "'".$mens->getMsg_mensagem()."',";
@@ -41,9 +41,10 @@ class MensagemDAO extends DAO{
          $sql .= "'".$mens->getMsg_data()."',";
          $sql .= "'".$mens->getMsg_proprietario()."',";
          $sql .= "'".$mens->getMsg_anexo()."',";
+         $sql .= "'".$mens->getMsg_ativo()."',";
          $sql .= "'".$mens->getDestinatarios()."','".$mens->getMsg_destinatario_grupo()."')";
-		//echo $sql;
-    	return $this->execute($sql);
+		  //echo $sql;
+    	return $this->executeAndReturnLastID($sql);
      }
      
       public function update($mens)
@@ -59,8 +60,9 @@ class MensagemDAO extends DAO{
         $sql .= "msg_data = '".$mens->getMsg_data()."',";
         $sql .= "msg_proprietario = '".$mens->getMsg_proprietario()."',";
         $sql .= "msg_anexo = '".$mens->getMsg_anexo()."',";
+        $sql .= "msg_ativo = '".$mens->getMsg_ativo()."',";
         $sql .= "destinatarios = '".$mens->getDestinatarios()."',";
-    	$sql .= "msg_destinatario_grupo = ".$mens->getMsg_destinatario_grupo().",";
+        $sql .= "msg_destinatario_grupo = ".$mens->getMsg_destinatario_grupo().",";
         $sql .= "where  msg_id = ".$mens->getMsg_id()." limit 1";
         return $this->execute($sql);
      }
@@ -90,6 +92,7 @@ class MensagemDAO extends DAO{
                 $mens->setMsg_data($qr["msg_data"]);
                 $mens->setMsg_proprietario($qr["msg_proprietario"]);
                 $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setMsg_ativo($qr["msg_ativo"]);
                 $mens->setDestinatarios($qr["destinatarios"]);
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
                 
@@ -109,28 +112,29 @@ class MensagemDAO extends DAO{
      
         $sql = "select * from mensagem where msg_ativo = 1 and msg_remetente = ".$idmens." and msg_proprietario = ".$idmens;
         $lista = array();
-    	$result = $this->retrieve($sql);
-    	while ($qr = mysqli_fetch_array($result))
-    	{  
-               $mens = new Mensagem();
-                $mens->setMsg_id($qr["msg_id"]);
-                $mens->setMsg_destinatario($qr["msg_destinatario"]);
-                $mens->setMsg_remetente($qr["msg_remetente"]);
-                $mens->setMsg_assunto($qr["msg_assunto"]);
-                $mens->setMsg_mensagem($qr["msg_mensagem"]);
-                $mens->setMsg_lida($qr["msg_lida"]);
-                $mens->setMsg_cx_entrada($qr["msg_cx_entrada"]);
-                $mens->setMsg_cx_enviado($qr["msg_cx_enviado"]);
-                $mens->setMsg_tipo_mensagem($qr["msg_tipo_mensagem"]);
-                $mens->setMsg_data($qr["msg_data"]);
-                $mens->setMsg_proprietario($qr["msg_proprietario"]);
-                $mens->setMsg_anexo($qr["msg_anexo"]);
-                $mens->setDestinatarios($qr["destinatarios"]);
-                $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
-                array_push($lista, $mens);
+      	$result = $this->retrieve($sql);
+      	while ($qr = mysqli_fetch_array($result))
+      	{  
+                 $mens = new Mensagem();
+                  $mens->setMsg_id($qr["msg_id"]);
+                  $mens->setMsg_destinatario($qr["msg_destinatario"]);
+                  $mens->setMsg_remetente($qr["msg_remetente"]);
+                  $mens->setMsg_assunto($qr["msg_assunto"]);
+                  $mens->setMsg_mensagem($qr["msg_mensagem"]);
+                  $mens->setMsg_lida($qr["msg_lida"]);
+                  $mens->setMsg_cx_entrada($qr["msg_cx_entrada"]);
+                  $mens->setMsg_cx_enviado($qr["msg_cx_enviado"]);
+                  $mens->setMsg_tipo_mensagem($qr["msg_tipo_mensagem"]);
+                  $mens->setMsg_data($qr["msg_data"]);
+                  $mens->setMsg_proprietario($qr["msg_proprietario"]);
+                  $mens->setMsg_anexo($qr["msg_anexo"]);
+                  $mens->setMsg_ativo($qr["msg_ativo"]);
+                  $mens->setDestinatarios($qr["destinatarios"]);
+                  $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
+                  array_push($lista, $mens);
 
         } 
-    	return $lista;
+      	return $lista;
          
      }
      
@@ -156,6 +160,7 @@ class MensagemDAO extends DAO{
                 $mens->setMsg_data($qr["msg_data"]);
                 $mens->setMsg_proprietario($qr["msg_proprietario"]);
                 $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setMsg_ativo($qr["msg_ativo"]);
                 $mens->setDestinatarios($qr["destinatarios"]);
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
  
@@ -183,6 +188,7 @@ class MensagemDAO extends DAO{
                 $mens->setMsg_data($qr["msg_data"]);
                 $mens->setMsg_proprietario($qr["msg_proprietario"]);
                 $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setMsg_ativo($qr["msg_ativo"]);
                 $mens->setDestinatarios($qr["destinatarios"]);
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
                 array_push($lista, $mens);
@@ -211,6 +217,7 @@ class MensagemDAO extends DAO{
                 $mens->setMsg_data($qr["msg_data"]);
                 $mens->setMsg_proprietario($qr["msg_proprietario"]);
                 $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setMsg_ativo($qr["msg_ativo"]);
                 $mens->setDestinatarios($qr["destinatarios"]);
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
                 array_push($lista, $mens);
@@ -237,6 +244,7 @@ class MensagemDAO extends DAO{
                 $mens->setMsg_data($qr["msg_data"]);
                 $mens->setMsg_proprietario($qr["msg_proprietario"]);
                 $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setMsg_ativo($qr["msg_ativo"]);
                 $mens->setDestinatarios($qr["destinatarios"]);
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
                 array_push($lista, $mens);
@@ -263,6 +271,7 @@ class MensagemDAO extends DAO{
                 $mens->setMsg_data($qr["msg_data"]);
                 $mens->setMsg_proprietario($qr["msg_proprietario"]);
                 $mens->setMsg_anexo($qr["msg_anexo"]);
+                $mens->setMsg_ativo($qr["msg_ativo"]);
                 $mens->setDestinatarios($qr["destinatarios"]);
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
                 array_push($lista, $mens);

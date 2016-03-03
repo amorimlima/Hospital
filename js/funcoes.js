@@ -54,3 +54,8 @@ function risizeObj(){
     $('#objeto').css('height', Math.round(altura+10) + 'px');
 }
 
+function inverteData(data){
+	var dataMsg = data.split('-');
+	dataMsg = dataMsg[2]+"/"+dataMsg[1]+"/"+dataMsg[0];
+	return dataMsg;
+}

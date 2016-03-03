@@ -47,7 +47,7 @@ class TemplateMensagens {
 				$usuario = $usuarioController->select($value->getMsg_remetente());
 				
 				echo '<div id="msg_valores_'.$value->getMsg_id().'" class="recebido '.$naolida.' col1 row msg_valores_'.$value->getMsg_id().'" style="cursor: pointer">
-					  <p class="msg_check col-lg-1"><span class="check-box"></span></p>	
+					  <p class="msg_check col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
 					  <div  onclick="RecebidasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">			  
 						<p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
 						<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>

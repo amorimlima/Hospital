@@ -56,7 +56,7 @@ $logado = unserialize($_SESSION['USR']);
                                                     <div id="box_NRE">
                                                     	<div id="box_nre_dentro">
                                                             <a href="#" onclick="novo()" id="btn_msg_novo"></a>
-                                                            <a href="#" onclick="responder()" class="margin_ambas" id="btn_msg_responder"></a>
+                                                            <a href="#" onclick="responder()" class="margin_ambas inativo" id="btn_msg_responder"></a>
                                                             <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>
                                                          </div>
                                                     </div>
@@ -257,6 +257,16 @@ $logado = unserialize($_SESSION['USR']);
 			$templateGeral->mensagemRetorno('mensagens','Mensagem deletada com sucesso!','sucesso');
 		?>
 	</div>
+    <div id="mensagemSucessoEnviar" style="display:none" class='modalMensagem'>
+        <?php
+            $templateGeral->mensagemRetorno('mensagens','Mensagem enviada com sucesso!','sucesso');
+        ?>
+    </div>
+    <div id="mensagemErroEnviar" style="display:none" class='modalMensagem'>
+        <?php
+            $templateGeral->mensagemRetorno('mensagens','Erro ao enviar mensagem!','erro');
+        ?>
+    </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>

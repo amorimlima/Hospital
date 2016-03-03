@@ -33,6 +33,7 @@ private $msg_proprietario;
 private $msg_anexo;
 private $destinatarios;
 private $msg_destinatario_grupo;
+private $msg_ativo;
 
 
 
@@ -114,6 +115,10 @@ public function getMsg_destinatario_grupo()
 return $this->msg_destinatario_grupo;
 }
 
+public function getMsg_ativo()
+{
+return $this->msg_ativo;
+}
 
 
 public function setMsg_id($val)
@@ -184,6 +189,11 @@ $this->destinatarios =  $val;
 public function setMsg_destinatario_grupo($val)
 {
 $this->msg_destinatario_grupo =  $val;
+}
+
+public function setMsg_ativo($val)
+{
+$this->msg_ativo =  $val;
 }
 
 

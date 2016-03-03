@@ -14,7 +14,7 @@ $mensagemController = new MensagemController();
 $usuarioController = new UsuarioController();
 
 switch ($_POST["acao"]){
-     case "deleteMensagem":{      
+    case "deleteMensagem":{      
         $idmens = $_POST["id"];
         $mensagem = $mensagemController->selectMensagem($idmens);
 		if($mensagem->getMsg_id()!=NULL){
@@ -51,7 +51,7 @@ switch ($_POST["acao"]){
 				//$usuario = $usuarioController->select($value->getMsg_destinatario());
 				
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class="lixeira col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-					  <p class="msg_check col-lg-1"><span class="check-box"></span></p>	
+					  <p class="msg_check col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
 					  <div  onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')">			  
 						<p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).' '.$tipo.'</p>
 						<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
@@ -98,7 +98,7 @@ switch ($_POST["acao"]){
 				echo'
 				
 				<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-						  <p class="msg_nome_mobile  msg_check col-xs-1 col-md-1 col-lg-1"><span class="check-box"></span></p>
+						  <p class="msg_nome_mobile  msg_check col-xs-1 col-md-1 col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
 						  <span onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')" >
 							<div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
 								<p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$usuario->getUsr_nome().' '.$tipo.'</p>
@@ -118,17 +118,6 @@ switch ($_POST["acao"]){
         break;
     }
     
-    
-    case "responder":{
-        
-        
-        
-    }
-    
-    case "novo":{
-        
-    }    
-    
     case "listaEnviadas":{
         $idUser = $_POST["id"];
         //print_r($_REQUEST);
@@ -139,7 +128,7 @@ switch ($_POST["acao"]){
 
 				$usuario = $usuarioController->select($value->getMsg_destinatario());
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" enviado col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-						<p class="msg_check col-lg-1"><span class="check-box"></span></p>
+						<p class="msg_check col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
 						<div  onclick="EnviadasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">				  				  
 						  <p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
 						  <p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
@@ -165,12 +154,13 @@ switch ($_POST["acao"]){
                 <span class="col-xs-5 col-md-5 col-lg-5" id="titulo_ass">ASSUNTO</span>
                 <span class="col-xs-2 col-md-2 col-lg-2" id="titulo_data">DATA</span>
               </p>';
+
         if (count($mensagem)>0){ 
 			foreach ($mensagem as $value) {
 				$usuario = $usuarioController->select($value->getMsg_destinatario());              
 					
 				echo'<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile msg_valores_'.$value->getMsg_id().'"  style="cursor:pointer">
-							<p class="msg_nome_mobile  msg_check col-xs-1 col-md-1 col-lg-1"><span class="check-box"></span></p>
+							<p class="msg_nome_mobile  msg_check col-xs-1 col-md-1 col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'></span></p>
 							<span onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')">
 							  <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
 								<p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$usuario->getUsr_nome().'</p>
@@ -203,7 +193,7 @@ switch ($_POST["acao"]){
 				}				
 				
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" recebido '.$naolida.' col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-						  <p class="msg_check col-lg-1"><span class="check-box"></span></p>	
+						  <p class="msg_check col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
 						  <div onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')" > 			  
 							<p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
 							<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
@@ -239,7 +229,7 @@ switch ($_POST["acao"]){
 				}
 				$usuario = $usuarioController->select($value->getMsg_remetente());
 					echo '<div id="msg_valores_'.$value->getMsg_id().'" class=" '.$naolida.' row col1-mobile msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-								<p class="msg_nome_mobile  msg_check col-xs-1 col-md-1 col-lg-1"><span class="check-box"></span></p>
+								<p class="msg_nome_mobile  msg_check col-xs-1 col-md-1 col-lg-1"><span class="check-box id="'.$value->getMsg_id().'"></span></p>
 								<span onclick="RecebidasMobileDetalheFuncao('.$value->getMsg_id().')" >
 								  <div class="row" data-toggle="collapse" data-target="#abrir_msg_'.$value->getMsg_id().'">
 									<p class="msg_nome_mobile col-xs-3 col-md-3 col-lg-3">'.$usuario->getUsr_nome().'</p>
@@ -375,7 +365,95 @@ switch ($_POST["acao"]){
 		echo json_encode($result);	
 		
 		break;
-	}          
+	}  
+
+	case "inserirMensagem":{
+		$logado = unserialize($_SESSION['USR']);
+		$destinatarios = $_POST['destinatarios'];
+		$mensagemTxt = $_POST['mensagem'];
+		$assunto = $_POST['assunto'];
+		$destinatario = explode(',',$destinatarios);
+
+		$msgRemetente = 0;
+		$msgDestinatario = 0;
+
+		$data = date("Y-m-d");
+
+		//insere mensagem remetente
+		$mensagem = new Mensagem();
+		$mensagem->setMsg_assunto($assunto);
+		$mensagem->setMsg_cx_entrada('n');
+		$mensagem->setMsg_cx_enviado('s');
+		$mensagem->setMsg_data($data);
+		$mensagem->setMsg_proprietario($logado['id']);
+		$mensagem->setMsg_remetente($logado['id']);
+		$mensagem->setMsg_lida("s");
+		$mensagem->setMsg_ativo("1");
+		$mensagem->setMsg_mensagem($mensagemTxt);
+		$mensagem->setDestinatarios($destinatarios);
+		$msgRemetente = $mensagemController->insert($mensagem);		
+		
+		foreach ($destinatario as $i => $value) {
+
+			$mensagem = new Mensagem();
+			$mensagem->setMsg_destinatario($destinatario[$i]);
+			$mensagem->setMsg_assunto($assunto);
+			$mensagem->setMsg_cx_entrada('s');
+			$mensagem->setMsg_cx_enviado('n');
+			$mensagem->setMsg_data($data);
+			$mensagem->setMsg_proprietario($destinatario[$i]);
+			$mensagem->setMsg_remetente($logado['id']);
+			$mensagem->setMsg_lida("n");
+			$mensagem->setMsg_ativo("1");
+			$mensagem->setMsg_mensagem($mensagemTxt);
+			$mensagem->setDestinatarios($destinatarios);
+			$mensagemController->insert($mensagem);
+
+			$msgDestinatario++;
+		}
+		
+		if($msgDestinatario == count($destinatario) && $msgRemetente>0){
+			echo "OK";
+		}else{
+			echo "ERRO";
+		}
+		
+		break;
+	}   
+
+	case "responder":{      
+		$logado = unserialize($_SESSION['USR']);
+        $idmens = $_POST["id"];
+        $mensagem = $mensagemController->selectMensagem($idmens);
+		$destinatarios = explode(',',$mensagem->getDestinatarios());
+
+		$usuarioR = $usuarioController->select($mensagem->getMsg_remetente());
+		$destinatariosNomes .= $usuarioR->getUsr_nome();
+		
+		$dadosDestinatarios = [];
+		foreach ($destinatarios as $i => $value){
+			$usuario = $usuarioController->select($destinatarios[$i]);
+			$dadosDestinatarios[$i] =  Array(
+				'nome'=> $usuario->getUsr_nome(),
+				'id'=> $destinatarios[$i]
+			);
+		}
+
+		$usuarioRem = $usuarioController->select($mensagem->getMsg_remetente());
+
+		$result = Array(
+			'dataMsg'=>utf8_encode($mensagem->getMsg_data()),
+			'remetente'=>utf8_encode($mensagem->getMsg_remetente()),
+			'remetenteNome'=>utf8_encode($usuarioRem->getUsr_nome()),
+			'destinatarios'=>$dadosDestinatarios,
+			'assunto'=>utf8_encode($mensagem->getMsg_assunto()),
+			'mensagem'=>utf8_encode($mensagem->getMsg_mensagem())
+		);
+         
+        print(json_encode($result));
+
+        break;
+    }              
 }
 
 ?> 

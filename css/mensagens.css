@@ -17,7 +17,7 @@
 }
 
 #box_msg_listas{
-	height: 472px;
+	height: 465px;
     overflow: auto;
 }
 #box_msg_right_botton {
@@ -140,6 +140,12 @@
     width: 126px;
     height: 32px;
 }
+
+.inativo,.inativo:hover{
+	opacity: 0.5;
+	pointer-events: none;
+}
+
 #btn_msg_excluir{
     background:url(../img/bt_excluir_normal.png) no-repeat;
     width: 88px;
@@ -219,7 +225,7 @@
 }
 #ass_msg_resp{
 	width: 100%;
-    min-height: 139px;
+    min-height: 137px;
     padding: 10px 21px;
 	border: 0;
 	resize:0;
@@ -314,7 +320,8 @@
 	background-image: url(../img/btnAnexar.png);
 	background-repeat: no-repeat;
 	background-position: 50%;
-	background-size: 100%
+	background-size: 100%;
+	display:none;
 }
 #nova_msg_anexar:hover {
 	background-image: url(../img/btnAnexar_ativo.png);
