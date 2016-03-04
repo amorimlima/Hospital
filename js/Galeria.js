@@ -1,3 +1,4 @@
+var formulario;
 $(document).ready(function () {
     $('#select_text').click(function () {
         $('#box_select').toggle();
@@ -26,12 +27,12 @@ $(document).ready(function () {
     });
     $("#botaoCarregar").click(showFormNovoArquivo);
 
-    var formulario = new Formulario({
-            idFormulario: "form_arquivo_galeria",
-            idInputFile: "file_arquivo",
-            idBtnEnviar: "btn_enviar",
-            idBtnCancelar: "btn_cancelar",
-            aoValidar: postarPreCadastro()
+    formulario = new Formulario({
+        idFormulario: "form_arquivo_galeria",
+        idInputFile: "file_arquivo",
+        idBtnEnviar: "btn_enviar",
+        idBtnCancelar: "btn_cancelar",
+        aoValidar: function() { postarPreCadastro(); }
     });
     
     formulario.iniciar();
@@ -48,5 +49,5 @@ function showFormNovoArquivo() {
 }
 
 function postarPreCadastro () {
-    
+    console.info("Requisição para registro de interesse");
 }

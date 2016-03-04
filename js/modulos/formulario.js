@@ -6,24 +6,24 @@ function Formulario(attr) {
     this.idFormulario = attr.idFormulario;
     this.idInputFile = attr.idInputFile;
     this.idBtnEnviar = attr.idBtnEnviar;
-    this.idBtnCancelar = attr.idBtnCancelar
-    this.aoValidar = attr.aoValidar ? attr.aoValidar : function () {return false;}; 
+    this.idBtnCancelar = attr.idBtnCancelar;
+    this.aoValidar = attr.aoValidar ? attr.aoValidar : function () {return false;};
+    this.aoCancelar = attr.aoCancelar ? attr.aoCancelar : function () {return false;};
     
     this.aplicarMascaras = function () {
-        $("#" + this.idFormulario).find(".cep").mask("99999-999");
-        $("#" + this.idFormulario).find(".tel").mask("(99) 9999-9999");
-        $("#" + this.idFormulario).find(".cel").mask("(99) 99999-9999");
-        $("#" + this.idFormulario).find(".cpf").mask("999.999.999-99");
-        $("#" + this.idFormulario).find(".cnpj").mask("99.999.999/9999-99");
-        $("#" + this.idFormulario).find(".data").mask("99/99/9999");
+        $("#" + self.idFormulario).find(".cep").mask("99999-999");
+        $("#" + self.idFormulario).find(".tel").mask("(99) 9999-9999");
+        $("#" + self.idFormulario).find(".cel").mask("(99) 99999-9999");
+        $("#" + self.idFormulario).find(".cpf").mask("999.999.999-99");
+        $("#" + self.idFormulario).find(".cnpj").mask("99.999.999/9999-99");
+        $("#" + self.idFormulario).find(".data").mask("99/99/9999");
     }
 
     this.alterarArquivoSelecionado = function (button) {
         var inputId = $(button).attr("data-for");
 
-        $("#" + this.idFormulario).trigger("click");
-        $("#" + this.idFormulario).filter("span[data-for='" + this.idInputFile + "']")
-        $("span").filter("[data-for='" + inputId + "']").html("Selecione um arquivo");
+        $("#" + self.idFormulario).find("#" + self.idInputFile).filter.trigger("click");
+        $("#" + self.idFormulario).filter("span[data-for='" + self.idInputFile + "']").html("Selecione um arquivo");
     }
 
     this.alterarNomeArquivo = function () {
@@ -67,6 +67,7 @@ function Formulario(attr) {
 
         if (statusForm === 0) {
             console.info("Formulário válido");
+            self.aoValidar();
         } else {
             console.info("Formulário inválido");
             
@@ -76,6 +77,6 @@ function Formulario(attr) {
     }
     
     this.iniciar = function() {
-        $("#" + this.idBtnEnviar).click(this.validar);
+        $("#" + self.idBtnEnviar).click(self.validar);
     }
 }
