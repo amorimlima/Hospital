@@ -199,7 +199,7 @@ require_once '_loadPaths.inc.php';
 	                                </div>
 	                            </fieldset>
 	                        </form>
-						</div>
+                            </div>
                     </div>
                 </div>
             </div>

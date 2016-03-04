@@ -13,7 +13,7 @@
 	4 - Caso algum campo deva permanecer soziho na linha, mas com tamanho menor que 100%, utilizar a classe ".formfield-only" na <div>;
 	5 - Utilizar as classes citadas nos itens anteriores não elimina a necessidade de utilizar a classe ".formfield" na <div>;
 - Os botões (<button>, <input type="submit"> e <input type="reset">) devem estar dentro de uma <div> com a classe ".formbtns";
-- Botões de envio (<input type="submit">) devem estar sempre a direita de todos os outros;
+- Botões de envio (<input type="submit"> ou ".btn_primary") devem estar sempre a direita de todos os outros;
 - A <div> com a classe ".formbtns" deve estar dentro de um <fieldset> próprio, e este deve ser, de preferência, o último do formulário.
 
 
@@ -103,7 +103,8 @@ legend {
     appearance: none;
 }
 .formfield > span > input.input_faltando,
-.formfield > span > select.input_faltando {
+.formfield > span > select.input_faltando,
+.formfield > span > textarea.input_faltando{
     border-color: #e35f0f;
 }
 .formfield > span > select {
@@ -200,7 +201,7 @@ legend {
 }
 .formbtns > input[type="submit"],
 .formbtns > input[type="reset"],
-.formbtns > button {
+.formbtns > input[type="button"] {
     font-family: "Source Sans Pro";
     font-size: 16px;
     font-weight: 500;
@@ -215,7 +216,7 @@ legend {
 }
 .formbtns > input[type="submit"]:last-child,
 .formbtns > input[type="reset"]:last-child,
-.formbtns > button:last-child {
+.formbtns > input[type="button"]:last-child {
     margin-right: 0;
 }
 .formbtns > input:hover,
@@ -226,15 +227,15 @@ legend {
 .formbtns > button:active {
     background-color: #F2F2F2;
 }
-.formbtns > input[type="submit"],
-.formbtns > button.btn_primary {
+.formbtns > input[type="button"].btn_primary,
+.formbtns > input[type="submit"] {
     background-color: #E9EDA6;
 }
 .formbtns > input[type="submit"]:hover,
 .formbtns > input[type="submit"]:focus,
 .formbtns > input[type="submit"]:active,
-.formbtns > button.btn_primary:hover,
-.formbtns > button.btn_primary:focus,
-.formbtns > button.btn_primaryactive {
+.formbtns > input[type="button"].btn_primary:hover,
+.formbtns > input[type="button"].btn_primary:focus,
+.formbtns > input[type="button"].btn_primary:active {
     background-color: #D1CF7D;
 }
