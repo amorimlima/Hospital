@@ -13,6 +13,7 @@ function atribuirEventos() {
         idBtnEnviar: "enviar_pre_cadastro",
         idBtnCancelar: "cancel_pre_cadastro"
     });
+    formulario.iniciar();
 
     $("#btLogar").click(validarLogin);
     $("#enviar_pre_cadastro").click(formulario.validar)

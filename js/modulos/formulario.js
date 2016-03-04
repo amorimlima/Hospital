@@ -8,10 +8,9 @@ function Formulario(attr) {
     this.idBtnEnviar = attr.idBtnEnviar;
     this.idBtnCancelar = attr.idBtnCancelar;
     
-    this.aoValidar = attr.aoValidar ? attr.aoValidar : function () { console.warn("O formulário não executará nenhuma ação se não for passada uma função ao método \".aoValidar\"."); return false;};
+    this.aoValidar = attr.aoValidar ? attr.aoValidar : function () {return false;};
     this.aoCancelar = attr.aoCancelar ? attr.aoCancelar : function () {return false;};
     this.aoInvalidar = attr.aoInvalidar ? attr.aoInvalidar : function () {return false;};
-    this.aoCancelar = attr.aoCancelar ? attr.aoCancelar : function () {return false;};
     
     this.aplicarMascaras = function () {
         $("#" + self.idFormulario).find(".cep").mask("99999-999");
