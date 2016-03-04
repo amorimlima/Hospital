@@ -312,6 +312,7 @@ $templateGeral = new Template();
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/lib/jquery.maskedinput.js" type="text/javascript"></script>
     <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
     <script src="js/funcoes.js"></script>
     <script src="js/modulos/formulario.js"></script>

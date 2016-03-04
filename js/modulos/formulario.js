@@ -7,7 +7,10 @@ function Formulario(attr) {
     this.idInputFile = attr.idInputFile;
     this.idBtnEnviar = attr.idBtnEnviar;
     this.idBtnCancelar = attr.idBtnCancelar;
-    this.aoValidar = attr.aoValidar ? attr.aoValidar : function () {return false;};
+    
+    this.aoValidar = attr.aoValidar ? attr.aoValidar : function () { console.warn("O formulário não executará nenhuma ação se não for passada uma função ao método \".aoValidar\"."); return false;};
+    this.aoCancelar = attr.aoCancelar ? attr.aoCancelar : function () {return false;};
+    this.aoInvalidar = attr.aoInvalidar ? attr.aoInvalidar : function () {return false;};
     this.aoCancelar = attr.aoCancelar ? attr.aoCancelar : function () {return false;};
     
     this.aplicarMascaras = function () {
@@ -19,11 +22,9 @@ function Formulario(attr) {
         $("#" + self.idFormulario).find(".data").mask("99/99/9999");
     }
 
-    this.alterarArquivoSelecionado = function (button) {
-        var inputId = $(button).attr("data-for");
-
-        $("#" + self.idFormulario).find("#" + self.idInputFile).filter.trigger("click");
-        $("#" + self.idFormulario).filter("span[data-for='" + self.idInputFile + "']").html("Selecione um arquivo");
+    this.alterarArquivoSelecionado = function () {
+        $("#" + self.idFormulario).find("#" + self.idInputFile).trigger("click");
+        $("#" + self.idFormulario).filter("span[data-for=" + self.idInputFile + "]").html("Selecione um arquivo");
     }
 
     this.alterarNomeArquivo = function () {
@@ -66,17 +67,18 @@ function Formulario(attr) {
         });
 
         if (statusForm === 0) {
-            console.info("Formulário válido");
             self.aoValidar();
         } else {
-            console.info("Formulário inválido");
-            
-            $("#" + self.idFormulario).find($(".input_faltando").get(0)).focus();
-            return false;
+            $("#" + self.idFormulario).find($(".input_faltando").get(0)).focus(); 
+            self.aoInvalidar();
         }
     }
     
     this.iniciar = function() {
+        self.aplicarMascaras();
         $("#" + self.idBtnEnviar).click(self.validar);
+        $("#" + self.idInputFile).change(self.alterarNomeArquivo);
+        $("input:button[data-for=" + self.idInputFile + "]").click(self.alterarArquivoSelecionado);
+        $("#" + self.idBtnCancelar).click(self.aoCancelar);
     }
 }

@@ -59,7 +59,7 @@ require_once '_loadPaths.inc.php';
             <div class="row" id="form_pre_cadastro"  style="display: none;">
                 <div id="Conteudo_Area">
                     <div class="formulario_panel">
-						<div id="form_barra" class="form_barra">
+                            <div id="form_barra" class="form_barra">
 	                        <form action="" id="formulario_pre_cadastro">
 	                            <fieldset>
 	                                <legend>Registro de interesse de escola</legend>
@@ -193,9 +193,9 @@ require_once '_loadPaths.inc.php';
 	                            </fieldset>
 	                            <fieldset>
 	                                <div class="formbtns">
-	                                    <button id="cancel_pre_cadastro">Cancelar</button>
+	                                    <input type="button" id="cancel_pre_cadastro" value="Cancelar" />
 	                                    <input type="reset" value="Limpar"/>
-	                                    <button id="enviar_pre_cadastro" class="btn_primary" data-form="formulario_pre_cadastro">Enviar</button>
+                                            <input type="button" id="enviar_pre_cadastro" class="btn_primary" data-form="formulario_pre_cadastro" value="Enviar" />
 	                                </div>
 	                            </fieldset>
 	                        </form>

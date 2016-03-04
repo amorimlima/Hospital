@@ -8,15 +8,18 @@ function atribuirEventos() {
     $("#link_pre_cadastro").click(toggleFormPreCadastro);
     $("#cancel_pre_cadastro").click(toggleFormPreCadastro);
 
-    formulario = new Formulario("formulario_pre_cadastro", null);
-    formulario.aplicarMascaras();
+    formulario = new Formulario({
+        idFormulario: "formulario_pre_cadastro",
+        idBtnEnviar: "enviar_pre_cadastro",
+        idBtnCancelar: "cancel_pre_cadastro"
+    });
 
     $("#btLogar").click(validarLogin);
     $("#enviar_pre_cadastro").click(formulario.validar)
     $("input:radio").filter("[name=esc_tipo_escola]").change(mudarTipoEscola);
 
     /* Barra de rolagem */
-	$(".form_barra").mCustomScrollbar({ axis: "y", scrollButtons: { enable:true } });
+    $(".form_barra").mCustomScrollbar({ axis: "y", scrollButtons: { enable:true } });
 }
 
 function toggleFormPreCadastro() {
@@ -66,15 +69,15 @@ function mudarTipoEscola() {
 	var tipoEscolaHtml = new String();
 
 	if ($(radioChecked).attr("id") === "escola_publica") {
-		tipoEscolaHtml += "<option value=\"1\" selected>Municipal</option>";
-        tipoEscolaHtml += "<option value=\"2\">Estadual</option>";
-        tipoEscolaHtml += "<option value=\"3\">Federal</option>";
+            tipoEscolaHtml += "<option value=\"1\" selected>Municipal</option>";
+            tipoEscolaHtml += "<option value=\"2\">Estadual</option>";
+            tipoEscolaHtml += "<option value=\"3\">Federal</option>";
 
-		$("#administracao").html(tipoEscolaHtml);
+            $("#administracao").html(tipoEscolaHtml);
 	} else {
-		tipoEscolaHtml += "<option value=\"4\" selected>Particular</option>";
+            tipoEscolaHtml += "<option value=\"4\" selected>Particular</option>";
 
-		$("#administracao").html(tipoEscolaHtml);
+            $("#administracao").html(tipoEscolaHtml);
 	}
 }
 

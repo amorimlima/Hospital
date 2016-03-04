@@ -32,7 +32,8 @@ $(document).ready(function () {
         idInputFile: "file_arquivo",
         idBtnEnviar: "btn_enviar",
         idBtnCancelar: "btn_cancelar",
-        aoValidar: function() { postarPreCadastro(); }
+        aoValidar: function() { postarPreCadastro(); },
+        aoCancelar: function() { showFormNovoArquivo(); }
     });
     
     formulario.iniciar();
