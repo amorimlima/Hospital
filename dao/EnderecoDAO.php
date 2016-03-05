@@ -31,6 +31,7 @@ class EnderecoDAO extends DAO{
         $sql .= "end_numero,";
         $sql .= "end_complemento,";
         $sql .= "end_cep,";
+        $sql .= "end_bairro,";
         $sql .= "end_cidade,";
         $sql .= "end_uf,";
         $sql .= "end_pais,";
@@ -43,6 +44,7 @@ class EnderecoDAO extends DAO{
         $sql .= "'".$end->getend_numero()."',";
         $sql .= "'".$end->getend_complemento()."',";
     	$sql .= "'".$end->getend_cep()."',";
+    	$sql .= "'".$end->getend_bairro()."',";
     	$sql .= "'".$end->getend_cidade()."',";
         $sql .= "'".$end->getend_uf()."',";
         $sql .= "'".$end->getend_pais()."',";
@@ -60,6 +62,7 @@ class EnderecoDAO extends DAO{
     	$sql .= "end_numero = '".$end->getend_numero()."',";
     	$sql .= "end_complemento = ".$end->getend_complemento().",";
     	$sql .= "end_cep = '".$end->getend_cep()."',";
+    	$sql .= "end_bairro = '".$end->getend_bairro()."',";
     	$sql .= "end_cidade = '".$end->getend_cidade()."',";
         $sql .= "end_uf = '".$end->getend_uf()."',";
         $sql .= "end_pais = '".$end->getend_pais()."',";
@@ -89,6 +92,7 @@ class EnderecoDAO extends DAO{
                 $end->setend_numero($qr["end_numero"]);
                 $end->setend_complemento($qr["end_complemento"]);
                 $end->setend_cep($qr["end_cep"]);
+                $end->setend_cep($qr["end_bairro"]);
                 $end->setend_cidade($qr["end_cidade"]);
                 $end->setend_uf($qr["end_uf"]);
                 $end->setend_pais($qr["end_pais"]);
@@ -113,6 +117,7 @@ class EnderecoDAO extends DAO{
                 $end->setend_numero($qr["end_numero"]);
                 $end->setend_complemento($qr["end_complemento"]);
                 $end->setend_cep($qr["end_cep"]);
+                $end->setend_cep($qr["end_bairro"]);
                 $end->setend_cidade($qr["end_cidade"]);
                 $end->setend_uf($qr["end_uf"]);
                 $end->setend_pais($qr["end_pais"]);
