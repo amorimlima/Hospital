@@ -156,15 +156,27 @@ function recebidasFuncaoMobile(){
 function EnviadasDetalheFuncao(idMensagem){
 	$('#box_msg_listas').css('height','222px');
 	$('.col1').removeClass('delete');
+	var nomes='';
+	var separador ='';
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
 		dataType:'json',
 		data:{'acao':'listaEnviadasDetalhe','id':idMensagem},
 		success:function(data){
+			for(a in data.destinatarios){
+				if(a == data.destinatarios.length-1){
+					separador = '';
+				}else{
+					separador = ', ';
+				}
+				var nomeTrim = data.destinatarios[a].nome;
+				nomes += nomeTrim.trim()+separador;
+			}
+
 			$('#ass_msg_data').html(data.data);
 			$('#ass_msg_rem_nome').html(data.remetente);
-			$('#ass_msg_para_nome').html(data.destinatario);
+			$('#ass_msg_para_nome').html(nomes);
 			$('#ass_msg_resp').html(data.mensagem);	
 			$('#msg_valores_'+idMensagem).addClass('delete');
 			$('#box_msg_right_botton').show();           
@@ -212,10 +224,21 @@ function RecebidasDetalheFuncao(idMensagem){
 		data:{'acao':'listaRecebidasDetalhe','id':idMensagem},
 		success:function(data){
 			var t = recarrega();
+			var nomes = "";
+
+			for(a in data.destinatarios){
+				if(a == data.destinatarios.length-1){
+					separador = '';
+				}else{
+					separador = ', ';
+				}
+				var nomeTrim = data.destinatarios[a].nome;
+				nomes += nomeTrim.trim()+separador;
+			}
 								
 			$('#ass_msg_data').html(data.data);
-			$('#ass_msg_rem_nome').html(data.remetente);
-			$('#ass_msg_para_nome').html(data.destinatario);
+			$('#ass_msg_rem_nome').html(data.remetenteNome);
+			$('#ass_msg_para_nome').html(nomes);
 			$('#ass_msg_resp').html(data.mensagem);	
 						
 			$('#msg_valores_'+idMensagem).addClass('delete');
@@ -289,6 +312,12 @@ function novo(){
 		$("div.col-lg-8").removeClass("col-sm-9");
 		controleMobile = 1;
 	}
+	var elementos = $('.selecionado');
+	for(var i=0; i<elementos.length;i++){					
+		$('#'+elementos[i].id).removeClass('selecionado');
+	}
+	$('.filter-option').html("");
+	$('.inner').html("");
 }
 function fecharNovaMsg () {
 	$("#conteudo_mensagem").css("display", "block");

@@ -24,30 +24,30 @@ class ExercicioController {
 		$this->exercicioDAO =  new ExercicioDAO(new DataAccess());
 	}
 	
-	public function insert($exe)
+	public function insertExercicio($exe)
 	{
-		return $this->exercicioDAO->insert($exe);
+		return $this->exercicioDAO->insertExercicio($exe);
 	}
 	
-	public function update($exe)
+	public function updateExercicio($exe)
 	{
 		return $this->exercicioDAO->update($exe);
 	}
 	
-	public function delete($idexe)
+	public function deleteExercicio($idexe)
 	{
-		return $this->exercicioDAO->delete($idexe);
+		return $this->exercicioDAO->deleteExercicio($idexe);
 	}
 	
-	public function select($idexe)
+	public function selectByIdExercicio($idexe)
 	{
-		$exe = $this->exercicioDAO->select($idexe);
+		$exe = $this->exercicioDAO->selectByIdExercicio($idexe);
 		return $exe;
 	}
 	
-	public function selectAll()
+	public function selectAllExercicio()
 	{
-		$exe = $this->exercicioDAO->selectFull();
+		$exe = $this->exercicioDAO->selectAllExercicio();
 		return $exe;
 	}
 }

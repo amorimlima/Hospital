@@ -76,8 +76,8 @@ class MensagemDAO extends DAO{
      public function select($idmens)
      {
         $sql = "select * from mensagem where msg_ativo = 1 and msg_id = ".$idmens." limit 1";
-    	$result = $this->retrieve($sql);
-    	$qr = mysqli_fetch_array($result);
+    	  $result = $this->retrieve($sql);
+    	  $qr = mysqli_fetch_array($result);
 
                 $mens = new Mensagem();
                 $mens->setMsg_id($qr["msg_id"]);
@@ -146,7 +146,7 @@ class MensagemDAO extends DAO{
     public function detalhe($idmens){
         $sql = "select * from mensagem where msg_id = ".$idmens." limit 1";
         $result = $this->retrieve($sql);
-		$qr = mysqli_fetch_array($result);
+		    $qr = mysqli_fetch_array($result);
         $mens = new Mensagem();
             $mens->setMsg_id($qr["msg_id"]);
             $mens->setMsg_destinatario($qr["msg_destinatario"]);
@@ -170,8 +170,8 @@ class MensagemDAO extends DAO{
           
     public function listaRecebidos($destinatario){
          
-        $sql = "select * from mensagem where msg_ativo = 1 and msg_destinatario = ".$destinatario." and msg_proprietario = ".$destinatario;
-        $lista = array();
+      $sql = "select * from mensagem where msg_ativo = 1 and msg_destinatario = ".$destinatario." and msg_proprietario = ".$destinatario;
+      $lista = array();
     	$result = $this->retrieve($sql);
     	while ($qr = mysqli_fetch_array($result))
     	{  
@@ -200,10 +200,10 @@ class MensagemDAO extends DAO{
      public function selectFull()
      {
         $sql = "select * from mensagem msg_ativo = 1";
-    	$result = $this->retrieve($sql);
-    	$lista = array();
+    	  $result = $this->retrieve($sql);
+    	  $lista = array();
         while ($qr = mysql_fetch_array($result))
-    	{
+    	  {
                 $mens = new Mensagem();
                 $mens->setMsg_id($qr["msg_id"]);
                 $mens->setMsg_destinatario($qr["msg_destinatario"]);
@@ -222,15 +222,15 @@ class MensagemDAO extends DAO{
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
                 array_push($lista, $mens);
         }    
-    	return $lista;
+    	  return $lista;
      }
      
      public function deletadas(){
         $sql = "select * from mensagem where msg_ativo = 0";
-    	$result = $this->retrieve($sql);
-    	$lista = array();
+    	  $result = $this->retrieve($sql);
+    	  $lista = array();
         while ($qr = mysqli_fetch_array($result))
-    	{
+    	  {
                 $mens = new Mensagem();
                 $mens->setMsg_id($qr["msg_id"]);
                 $mens->setMsg_destinatario($qr["msg_destinatario"]);
@@ -249,15 +249,15 @@ class MensagemDAO extends DAO{
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
                 array_push($lista, $mens);
         }    
-    	return $lista;
+    	  return $lista;
      }
 	 
 	 public function deletadasByUsuario($idUsuario){
         $sql = "select * from mensagem where msg_ativo = 0 and msg_proprietario = ".$idUsuario;
-    	$result = $this->retrieve($sql);
-    	$lista = array();
+    	  $result = $this->retrieve($sql);
+    	  $lista = array();
         while ($qr = mysqli_fetch_array($result))
-    	{
+    	  {
                 $mens = new Mensagem();
                 $mens->setMsg_id($qr["msg_id"]);
                 $mens->setMsg_destinatario($qr["msg_destinatario"]);
@@ -276,7 +276,7 @@ class MensagemDAO extends DAO{
                 $mens->setMsg_destinatario_grupo($qr["msg_destinatario_grupo"]);
                 array_push($lista, $mens);
         }    
-    	return $lista;
+    	  return $lista;
      }
 	 
 	public function deleteDefinitivo($idmens){

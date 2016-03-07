@@ -43,17 +43,17 @@ switch ($_POST["acao"]){
 				
 				if ($value->getMsg_destinatario() == $userLogado){
 					$usuario = $usuarioController->select($value->getMsg_remetente());
-					$tipo = '(recebida)';
+					//$tipo = '(recebida)';
 				 }else{
 					$usuario = $usuarioController->select($value->getMsg_destinatario());
-					$tipo = '(enviada)';	
+					//$tipo = '(enviada)';	
 				 }
 				//$usuario = $usuarioController->select($value->getMsg_destinatario());
 				
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class="lixeira col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
 					  <p class="msg_check col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
 					  <div  onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')">			  
-						<p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).' '.$tipo.'</p>
+						<p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
 						<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
 						<p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 					  </div>
@@ -88,10 +88,8 @@ switch ($_POST["acao"]){
 				
 				if ($value->getMsg_destinatario() == $userLogado){
 						$usuario = $usuarioController->select($value->getMsg_remetente());
-						$tipo = '(recebida)';
 					 }else{
-						$usuario = $usuarioController->select($value->getMsg_destinatario());
-						$tipo = '(enviada)';	
+						$usuario = $usuarioController->select($value->getMsg_destinatario());	
 					 }
 
 					
@@ -120,17 +118,22 @@ switch ($_POST["acao"]){
     
     case "listaEnviadas":{
         $idUser = $_POST["id"];
-        //print_r($_REQUEST);
         $mensagem = $mensagemController->listaEnviadas($idUser);
 
 		if (count($mensagem)>0){
 			foreach ($mensagem as $value) {
+				$destinatarios = explode(',',$value->getDestinatarios());	
 
-				$usuario = $usuarioController->select($value->getMsg_destinatario());
+				$usuario = $usuarioController->select($destinatarios[0]);
+
+				if(count($destinatarios)>1){
+					$usrNome = $usuario->getUsr_nome()."...";
+				}
+
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" enviado col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
 						<p class="msg_check col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
 						<div  onclick="EnviadasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">				  				  
-						  <p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
+						  <p class="msg_nome col-lg-2">'.utf8_encode($usrNome).'</p>
 						  <p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
 						  <p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 						</div>
@@ -249,23 +252,29 @@ switch ($_POST["acao"]){
     }
     
     case "listaEnviadasDetalhe":{
-        
-		$idmens = $_POST["id"];
-        
-        $mensagem = $mensagemController->detalhe($idmens);
-        
+
+		$idmens = $_POST["id"];        
+        $mensagem = $mensagemController->detalhe($idmens);        
 		$logado = unserialize($_SESSION['USR']);
 		$remetente = $logado['nome'];
-		$destinatario = $usuarioController->select($mensagem->getMsg_destinatario());
+		$destinatarios = explode(',',$mensagem->getDestinatarios());		
+		$dadosDestinatarios = [];
+		foreach ($destinatarios as $i => $value){
+			$usuario = $usuarioController->select($destinatarios[$i]);
+			$dadosDestinatarios[$i] =  Array(
+				'nome'=> $usuario->getUsr_nome(),
+				'id'=> $destinatarios[$i]
+			);
+		}
 
 		$result = Array(
 			'data'=>$mensagem->getMsg_data(),
 			'remetente'=>utf8_encode($remetente),
-			'destinatario'=>utf8_encode($destinatario->getUsr_nome()),
+			'destinatarios'=>$dadosDestinatarios,
 			'mensagem'=>utf8_encode($mensagem->getMsg_mensagem())
 		);
 		
-        echo json_encode($result);
+        print(json_encode($result));
 		   
         break;
     }
@@ -324,16 +333,30 @@ switch ($_POST["acao"]){
 		
 		$remetente = $usuarioController->select($mensagem->getMsg_remetente());
 		$logado = unserialize($_SESSION['USR']);
-		$destinatario = $logado['nome'];
        
+		$destinatarios = explode(',',$mensagem->getDestinatarios());		
+		
+		$dadosDestinatarios = [];
+		foreach ($destinatarios as $i => $value){
+			$usuario = $usuarioController->select($destinatarios[$i]);
+			$dadosDestinatarios[$i] =  Array(
+				'nome'=> $usuario->getUsr_nome(),
+				'id'=> $destinatarios[$i]
+			);
+		}
+
+		$usuarioRem = $usuarioController->select($mensagem->getMsg_remetente());
+
 		$result = Array(
-			'data'=>$mensagem->getMsg_data(),
-			'remetente'=>$remetente->getUsr_nome(),
-			'destinatario'=>utf8_encode($destinatario),
+			'dataMsg'=>utf8_encode($mensagem->getMsg_data()),
+			'remetente'=>utf8_encode($mensagem->getMsg_remetente()),
+			'remetenteNome'=>utf8_encode($usuarioRem->getUsr_nome()),
+			'destinatarios'=>$dadosDestinatarios,
+			'assunto'=>utf8_encode($mensagem->getMsg_assunto()),
 			'mensagem'=>utf8_encode($mensagem->getMsg_mensagem())
 		);
-		
-		echo json_encode($result);
+         
+        print(json_encode($result));
                
         break;
     }
@@ -425,10 +448,7 @@ switch ($_POST["acao"]){
 		$logado = unserialize($_SESSION['USR']);
         $idmens = $_POST["id"];
         $mensagem = $mensagemController->selectMensagem($idmens);
-		$destinatarios = explode(',',$mensagem->getDestinatarios());
-
-		$usuarioR = $usuarioController->select($mensagem->getMsg_remetente());
-		$destinatariosNomes .= $usuarioR->getUsr_nome();
+		$destinatarios = explode(',',$mensagem->getDestinatarios());		
 		
 		$dadosDestinatarios = [];
 		foreach ($destinatarios as $i => $value){
