@@ -28,7 +28,6 @@ class UsuarioVariavelDAO extends DAO{
          $sql .= "('".$userv->getUsv_usuario()."','".$userv->getUsv_ano_letivo()."',";
          $sql .= "'".$userv->getUsv_serie()."','".$userv->getUsv_grau_instrucao()."',";
          $sql .= "'".$userv->getUsv_categoria_funcional()."','".$userv->getUsv_grupo()."')";
-		echo $sql;
     	return $this->execute($sql);
      }
      
@@ -54,7 +53,7 @@ class UsuarioVariavelDAO extends DAO{
      {
         $sql = "select * from usuario_variavel where usv_id = ".$iduserv." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $userv = new UsuarioVariavel();
                 $userv->setUsv_id($qr["usv_id"]);
@@ -73,7 +72,7 @@ class UsuarioVariavelDAO extends DAO{
         $sql = "select * from usuario_variavel";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $userv = new UsuarioVariavel();
@@ -88,6 +87,25 @@ class UsuarioVariavelDAO extends DAO{
                
         }    	
     	return $lista;
+     }
+
+     public function selectByIdUsuario($iduser)
+     {
+        $sql = "select * from usuario_variavel where usv_usuario = ".$iduser;
+        $result = $this->retrieve($sql);
+
+        $qr = mysqli_fetch_array($result);
+
+                $userv = new UsuarioVariavel();
+                $userv->setUsv_id($qr["usv_id"]);
+                $userv->setUsv_usuario($qr["usv_usuario"]);
+                $userv->setUsv_ano_letivo($qr["usv_ano_letivo"]);
+                $userv->setUsv_serie($qr["usv_serie"]);
+                $userv->setUsv_grau_instrucao($qr["usv_grau_instrucao"]);
+                $userv->setUsv_categoria_funcional($qr["usv_categoria_funcional"]);
+                $userv->setUsv_grupo($qr["usv_grupo"]);
+                    
+        return $userv;
      }
 }
 ?>

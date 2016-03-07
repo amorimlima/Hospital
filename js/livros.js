@@ -7,27 +7,30 @@ $(document).ready(function (){
 	var obj='';
 	switch (retorno[1]){
 		case 'ano_1':
-			cap_ano = 'ano_1';
+			cap_ano = 'ano=1';
 			$('#img_teste').attr('src','img/abertura_Ca.png');
 		break;
 		case 'ano_2':
-			cap_ano = 'ano_2';
+			cap_ano = 'ano=2';
 			$('#img_teste').attr('src','img/abertura_Ca.png');
 		break;
 		case 'ano_3':
-			cap_ano = 'ano_3';
+			cap_ano = 'ano=3';
 			$('#img_teste').attr('src','img/abertura_Cab.png');
 		break;
 		case 'ano_4':
-			cap_ano = 'ano_4';
+			cap_ano = 'ano=4';
 			$('#img_teste').attr('src','img/abertura_Cab.png');
 		break;
 		case 'ano_5':
-			cap_ano = 'ano_5';
+			cap_ano = 'ano=5';
 			$('#img_teste').attr('src','img/abertura_Cab.png');
 		break;
 	}
-	$('.cap_1').attr('href','capitulos.php?'+cap_ano+"_capitulo_1");
-	$('.cap_5').attr('href','capitulos.php?'+cap_ano+"_capitulo_5");
+	$('.cap_1').attr('href','capitulos.php?'+cap_ano+"&capitulo=1");
+	$('.cap_2').attr('href','capitulos.php?'+cap_ano+"&capitulo=2");
+	$('.cap_3').attr('href','capitulos.php?'+cap_ano+"&capitulo=3");
+	$('.cap_4').attr('href','capitulos.php?'+cap_ano+"&capitulo=4");
+	$('.cap_5').attr('href','capitulos.php?'+cap_ano+"&capitulo=5");
 });
        

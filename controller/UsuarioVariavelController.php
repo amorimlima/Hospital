@@ -42,11 +42,19 @@ class UsuarioVariavelController {
 		$userv = $this->usuarioVariavelDAO->select($iduserv);
 		return $userv;
 	}
+
+	public function selectByIdUsuario($iduser)
+	{
+		$userv = $this->usuarioVariavelDAO->selectByIdUsuario($iduser);
+		return $userv;
+	}
 	
 	public function selectAll()
 	{
 		$userv = $this->usuarioVariavelDAO->selectFull();
 		return $userv;
 	}
+
+	
 }
 ?>

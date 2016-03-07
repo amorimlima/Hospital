@@ -68,19 +68,19 @@ class Template {
                                                         <a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
                                                         <ul id="sbm_exercicios">
                                                             <li class="sub_a menu_li_capitulo">
-                                                                <a href="capitulos.php?capitulo_1">1º Capítulo</a>
+                                                                <a href="capitulos.php?capitulo=1">1º Capítulo</a>
                                                             </li>
                                                             <li class="sub_a menu_li_capitulo">
-                                                                <a href="capitulos.php?capitulo_2">2º Capítulo</a>
+                                                                <a href="capitulos.php?capitulo=2">2º Capítulo</a>
                                                             </li>
                                                             <li class="sub_a menu_li_capitulo">
-                                                                <a href="capitulos.php?capitulo_3">3º Capítulo</a>
+                                                                <a href="capitulos.php?capitulo=3">3º Capítulo</a>
                                                             </li>
                                                             <li class="sub_a menu_li_capitulo">
-                                                                <a href="capitulos.php?capitulo_4">4º Capítulo</a>
+                                                                <a href="capitulos.php?capitulo=4">4º Capítulo</a>
                                                             </li>
                                                             <li class="sub_a menu_li_capitulo">
-                                                                <a href="capitulos.php?capitulo_5">5º Capítulo</a>
+                                                                <a href="capitulos.php?capitulo=5">5º Capítulo</a>
                                                             </li>
                                                         </ul>';
                                             }elseif($usrLogado['perfil_id'] != 1 && $menuId[0]=='livros'){
