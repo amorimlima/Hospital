@@ -1,0 +1,17 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 04/03/2016, 14:58:09
+    Author     : MAC3
+*/
+.logo-container {
+    padding: 50px 0 30px;
+}
+#Conteudo_Area {
+    background-color: #fff;
+    border: 2px dotted #6db43b;
+    padding: 20px 30px;
+}
