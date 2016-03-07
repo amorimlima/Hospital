@@ -1,10 +1,10 @@
 <?php
-if(!isset($_SESSION['PATH_SYS'])){
-   session_start();  
+if (!isset($_SESSION['PATH_SYS'])) {
+	session_start();
 }
 
 $path = $_SESSION['PATH_SYS'];
-include_once($path['controller'].'MenuController.php');
+include_once ($path['controller'].'MenuController.php');
 
 /**
  * Description of Template
@@ -13,25 +13,28 @@ include_once($path['controller'].'MenuController.php');
  */
 class Template {
 
-    public static $path;    
+	public static $path;
 
-    function __construct() {
-        self::$path = $_SESSION['URL_SYS'];
-    }
+	function __construct() {
+		self::$path = $_SESSION['URL_SYS'];
+	}
 
-    //Topo Site	
-    public function topoSite(){
-        $menuControler = new MenuController();
+	//Topo Site
+	public function topoSite() {
+		$menuControler = new MenuController();
 		//$usuarioController = new UsuarioController();
 		if (!isset($_SESSION['USR'])) {
 			header("location:index.php");
 			die();
-		} else $usrLogado = unserialize($_SESSION['USR']);
-		$NomeUser = $usrLogado['nome'];
-		$menuLista = $menuControler->selectTipoPerfil('Botao',$usrLogado['perfil_id']);
+		} else {
+			$usrLogado = unserialize($_SESSION['USR']);
+		}
+
+		$NomeUser  = $usrLogado['nome'];
+		$menuLista = $menuControler->selectTipoPerfil('Botao', $usrLogado['perfil_id']);
 		//$usuario = $usuarioController->select();
-        echo'<div class="col-lg-12" id="topo">
-                <div class="row" id="row_logout">                    
+		echo '<div class="col-lg-12" id="topo">
+                <div class="row" id="row_logout">
                     <div class="col-xs-12">
                         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
@@ -50,21 +53,21 @@ class Template {
                         </div>
 						</div>
 					</div>
-					<div class="row">                	
+					<div class="row">
 						<div class="col-xs-12 col-md-4" id="logo">
 							<a href="'.$usrLogado['url'].'" class="logo_container">
                                 <div class="logotipo"></div>
                             </a>
-						</div>  
+						</div>
                         <div class="col-xs-12 col-md-8">
                             <nav id="bs-navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-                        	    <div id="menu_container" class="'.($usrLogado['perfil_id']==1?'menu_container_aluno':'menu_container_normal').'">
+                        	    <div id="menu_container" class="'.($usrLogado['perfil_id'] == 1?'menu_container_aluno':'menu_container_normal').'">
                                     <ul class="nav navbar-nav" id="menu">';
-                                        foreach($menuLista as $menu){
-                                            $menuId = explode(".", $menu->getBtn_menu());
-                                            echo '<li class="mn_li" id="mn_livros_sub">';
-                                            if ($usrLogado['perfil_id'] == 1 && $menuId[0]=='exercicios'){
-                                                    echo'
+		foreach ($menuLista as $menu) {
+			$menuId = explode(".", $menu->getBtn_menu());
+			echo '<li class="mn_li" id="mn_livros_sub">';
+			if ($usrLogado['perfil_id'] == 1 && $menuId[0] == 'exercicios') {
+				echo '
                                                         <a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
                                                         <ul id="sbm_exercicios">
                                                             <li class="sub_a menu_li_capitulo">
@@ -83,8 +86,8 @@ class Template {
                                                                 <a href="capitulos.php?capitulo_5">5º Capítulo</a>
                                                             </li>
                                                         </ul>';
-                                            }elseif($usrLogado['perfil_id'] != 1 && $menuId[0]=='livros'){
-                                                  echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
+			} elseif ($usrLogado['perfil_id'] != 1 && $menuId[0] == 'livros') {
+				echo '<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
                                                         <ul id="sbm_exercicios">
                                                             <li class="sub_a">
                                                                 <a href="livros.php?ano_1">1º Ano</a>
@@ -102,51 +105,51 @@ class Template {
                                                                 <a href="livros.php?ano_5">5º Ano</a>
                                                             </li>
                                                         </ul>';
-                                            }else{
-                                                 echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
-                                            }
-                                            echo'</li>';
-                                        }                
-                                    echo'</ul>
+			} else {
+				echo '<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
+			}
+			echo '</li>';
+		}
+		echo '</ul>
 	            				</div>
 							</nav>
-                        </div>               
+                        </div>
 					</div>
 			   </div>';
-    }
+	}
 	/*
-		$paginaMensagem => AQUI VAI O NOME DA PÁGINA ONDE VAI APARECER A MENSAGEM
-		$textoMensagem  => TEXTO QUE VAI APARECER NA MENSAGEM
-		$tipoMensagem	=> ÍCONE QUE VAI APARECER NA MENSAGEM(ERRO, ALERTA OU SUCESSO)
-	*/
-	public function mensagemRetorno($paginaMensagem,$textoMensagem,$tipoMensagem){
-        switch($paginaMensagem){
+	$paginaMensagem => AQUI VAI O NOME DA PÁGINA ONDE VAI APARECER A MENSAGEM
+	$textoMensagem  => TEXTO QUE VAI APARECER NA MENSAGEM
+	$tipoMensagem	=> ÍCONE QUE VAI APARECER NA MENSAGEM(ERRO, ALERTA OU SUCESSO)
+	 */
+	public function mensagemRetorno($paginaMensagem, $textoMensagem, $tipoMensagem) {
+		switch ($paginaMensagem) {
 			case 'mensagens':{
-				$corBorda = 'borda_azul';
-				$corTexto = 'txt_azul';
-				$corBotao = 'btn_azul';
-				break;
-			}
+					$corBorda = 'borda_azul';
+					$corTexto = 'txt_azul';
+					$corBotao = 'btn_azul';
+					break;
+				}
 			case 'forum':{
-				$corBorda = 'borda_vermelho';
-				$corTexto = 'txt_vermelho';
-				$corBotao = 'btn_vermelho';
-				break;
-			}
+					$corBorda = 'borda_vermelho';
+					$corTexto = 'txt_vermelho';
+					$corBotao = 'btn_vermelho';
+					break;
+				}
 			case 'galeria':{
-				$corBorda = 'borda_laranja';
-				$corTexto = 'txt_laranja';
-				$corBotao = 'btn_laranja';
-				break;
-			}
+					$corBorda = 'borda_laranja';
+					$corTexto = 'txt_laranja';
+					$corBotao = 'btn_laranja';
+					break;
+				}
 			case 'livros':{
-				$corBorda = 'borda_verde';
-				$corTexto = 'txt_verde';
-				$corBotao = 'btn_verde';
-				break;
-			}		
+					$corBorda = 'borda_verde';
+					$corTexto = 'txt_verde';
+					$corBotao = 'btn_verde';
+					break;
+				}
 		}
-            
+
 		echo '<div class="modal fade exibirMsg in" id="myModal" role="dialog">
 				<div class="modal-dialog modal-sm">
 					<div class="'.$corBorda.'">

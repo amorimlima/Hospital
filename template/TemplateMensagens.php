@@ -10,7 +10,6 @@ include_once($path['controller'].'MensagemController.php');
 include_once($path['controller'].'UsuarioController.php');
 
 $path = $_SESSION['PATH_SYS'];
-
 /**
  * Description of Template
  *
@@ -27,15 +26,15 @@ class TemplateMensagens {
 	}
 	
 	public function recebidos(){
+		$logado = unserialize($_SESSION['USR']);
 		$mensagem = new MensagemController();
-		return $mensagem->count(20);       
+		return $mensagem->count($logado['id']);       
 	}
 	
 	public function mensagensRecebidas($destinatario){
         $mensagemController = new MensagemController();
 		$usuarioController = new UsuarioController();
 	   	$mensagem = $mensagemController->listaRecebidos($destinatario);
-		
 
 		if (count($mensagem)>0){
 			foreach ($mensagem as $value) {
