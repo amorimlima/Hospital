@@ -49,5 +49,10 @@ class EnderecoController {
 		$end = $this->enderecoDAO->selectFull();
 		return $end;
 	}
+	public function verificaEmail($email)
+	{
+		$end = $this->enderecoDAO->verificaEmail($email);
+		return $end;
+	}
 }
 ?>
