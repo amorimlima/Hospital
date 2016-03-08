@@ -10,11 +10,6 @@ include_once($path['dao'].'EscolaDAO.php');
  * and open the template in the editor.
  */
 
-/**
- * Description of EscolaController
- *
- * @author Kevyn
- */
 class EscolaController {
     //put your code here
     private $escolaDAO;
@@ -48,6 +43,9 @@ class EscolaController {
 	{
 		$esc = $this->escolaDAO->selectFull();
 		return $esc;
+	}
+	public function verificaCnpj($cnpj) {
+		return $this->escolaDAO->verificaCnpj($cnpj);
 	}
 }
 ?>
