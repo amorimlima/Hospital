@@ -17,6 +17,7 @@ function Formulario(attr) {
         $("#" + self.idFormulario).find(".tel").mask("(99) 9999-9999");
         $("#" + self.idFormulario).find(".cel").mask("(99) 99999-9999");
         $("#" + self.idFormulario).find(".cpf").mask("999.999.999-99");
+        $("#" + self.idFormulario).find(".rg").mask("99.999.999-9");
         $("#" + self.idFormulario).find(".cnpj").mask("99.999.999/9999-99");
         $("#" + self.idFormulario).find(".data").mask("99/99/9999");
     }
@@ -39,6 +40,15 @@ function Formulario(attr) {
         var statusForm = 0;
 
         $("#" + self.idFormulario).find("input:text").each(function() {
+            if ($(this).val() === "") {
+                $(this).addClass("input_faltando");
+                statusForm = 1;
+            } else {
+                $(this).removeClass("input_faltando");
+            }
+        });
+        
+        $("#" + self.idFormulario).find("input[type=number]").each(function() {
             if ($(this).val() === "") {
                 $(this).addClass("input_faltando");
                 statusForm = 1;

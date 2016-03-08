@@ -59,7 +59,7 @@ require_once '_loadPaths.inc.php';
             <div class="row" id="form_pre_cadastro"  style="display: none;">
                 <div id="Conteudo_Area">
                     <div class="formulario_panel">
-                            <div id="form_barra" class="form_barra">
+                        <div id="form_barra" class="form_barra">
 	                        <form action="" id="formulario_pre_cadastro">
 	                            <fieldset>
 	                                <legend>Registro de interesse de escola</legend>
@@ -199,7 +199,7 @@ require_once '_loadPaths.inc.php';
 	                                </div>
 	                            </fieldset>
 	                        </form>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

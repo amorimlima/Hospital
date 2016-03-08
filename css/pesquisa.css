@@ -1,17 +1,227 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 04/03/2016, 14:58:09
-    Author     : MAC3
-*/
-.logo-container {
-    padding: 50px 0 30px;
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700,700italic);
+
+* {
+	box-sizing: border-box;
+	font-family: 'Source Sans Pro', sans-serif;
 }
-#Conteudo_Area {
+.area_conteudo {
+	padding: 50px;
+}
+.form_container {
+	background-color: #fff;
+	border: 2px dotted #728C07;
+	padding: 30px;
+}
+
+form {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+fieldset {
+    text-align: justify;
+    display: block;
+    border-bottom: 1px dashed #CCCCCC;
+    margin-bottom: 15px;
+}
+fieldset::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    clear: both;
+}
+fieldset:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+legend {
+    font-size: 18px;
+    font-weight: 500;
+    color: #728C07;
+    border-bottom: none;
+}
+.formfield {
+    display: inline-block;
+    width: 100%;
+    padding: 6px;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.formfield.formfield-s {
+    width: 30%;
+}
+.formfield.formfield-m {
+    width: 47.5%;
+}
+.formfield.formfield-g {
+    width: 65%;
+}
+.formfield > label {
+    display: block;
+    width: 100%;
+    margin: 5px 10px 0 5px;
+    color: #728C07;
+    font-weight: 500;
+    cursor: text;
+}
+.formfield > span {
+    display: block;
+}
+.formfield > span > input,
+.formfield > span > select {
     background-color: #fff;
-    border: 2px dotted #6db43b;
-    padding: 20px 30px;
+    color: #4D4D4D;
+    border: 1px solid #E6E6E6;
+    border-radius: 5px;
+    height: 30px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px;
+    line-height: 1em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+.formfield > span > input.input_faltando,
+.formfield > span > select.input_faltando,
+.formfield > span > textarea.input_faltando{
+    border-color: #e35f0f;
+}
+.formfield > span > select {
+    background-image: url(../img/ic_drop.png);
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    cursor: pointer;
+}
+.formfield > span > textarea {
+    background-color: #fff;
+    color: #4D4D4D;
+    border: 1px solid #E6E6E6;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px;
+    width: 100%;
+    min-height: 70px;
+    line-height: 1em;
+    resize: none;
+}
+.formfield > span > div {
+    text-align: left;
+    background-color: #fff;
+    color: #4D4D4D;
+    border-radius: 5px;
+    min-height: 30px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 6px 8px 29px;
+    line-height: 1em;
+}
+.formfield > span > div > input {
+    display: none;
+}
+.formfield > span > div > input + label {
+    position: relative;
+    margin-right: 35px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1em;
+    cursor: pointer;
+}
+.formfield > span > div > input + label:last-of-type {
+    margin-right: 0;
+}
+.formfield > span > div > input + label::before {
+    position: absolute;
+    left: -23px;
+    top: -2px;
+}
+.formfield > span > div > input[type="checkbox"] + label::before {
+    content: url(../img/checkbox_form.png);
+}
+.formfield > span > div > input[type="checkbox"]:checked + label::before {
+    content: url(../img/checkbox_form_h.png);
+}
+.formfield > span > div > input[type="radio"] + label::before {
+    content: url(../img/radio_form.png);
+}
+.formfield > span > div > input[type="radio"]:checked + label::before {
+    content: url(../img/radio_form_h.png);
+}
+.formfield > span > span {
+    display: none;
+}
+.formfield > span > div > label.file > input[type="button"] {
+    margin-left: -19px;
+    margin-top: -5px;
+    padding: 4px 8px;
+    font-family: "Source Sans Pro";
+    border-radius: 4px;
+    font-weight: 500;
+    border: 1px solid #728C07;
+    color: #728C07;
+    background-color: #fff;
+}
+.formfield > span > div > label.file > span {
+    margin-left: 5px;
+    font-weight: 500;
+    font-style: italic;
+    color: #808080;
+}
+.formfield > span > div > label.file > input[type="button"]:hover,
+.formfield > span > div > label.file > input[type="button"]:focus,
+.formfield > span > div > label.file > input[type="button"]:active {
+    background-color: #F2F2F2;
+}
+.formbtns {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.formbtns > input[type="submit"],
+.formbtns > input[type="reset"],
+.formbtns > input[type="button"] {
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    height: 34px;
+    border: 1px solid #728C07;
+    color: #728C07;
+    background-color: #fff;
+    border-radius: 3px;
+    margin-right: 15px;
+}
+.formbtns > input[type="submit"]:last-child,
+.formbtns > input[type="reset"]:last-child,
+.formbtns > input[type="button"]:last-child {
+    margin-right: 0;
+}
+.formbtns > input:hover,
+.formbtns > input:focus,
+.formbtns > input:active,
+.formbtns > button:hover,
+.formbtns > button:focus,
+.formbtns > button:active {
+    background-color: #F2F2F2;
+}
+.formbtns > input[type="button"].btn_primary,
+.formbtns > input[type="submit"] {
+    background-color: #E9EDA6;
+}
+.formbtns > input[type="submit"]:hover,
+.formbtns > input[type="submit"]:focus,
+.formbtns > input[type="submit"]:active,
+.formbtns > input[type="button"].btn_primary:hover,
+.formbtns > input[type="button"].btn_primary:focus,
+.formbtns > input[type="button"].btn_primary:active {
+    background-color: #D1CF7D;
 }
