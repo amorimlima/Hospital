@@ -3,7 +3,7 @@ if(!isset($_SESSION['PATH_SYS'])){
    session_start();  
 }
 $path = $_SESSION['PATH_SYS'];
-include_once($path['dao'].'UsuarioDAO.php');
+include_once($path['dao'].'UsuarioDAO.php'); 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
