@@ -80,5 +80,20 @@ class UsuarioController {
 		return $user;
 	}	
 	
+	public function verificaLogin($login)
+	{
+		return $this->usuarioDAO->verificaLogin($login);
+	}
+	
+	public function verificaCpf($cpf)
+	{
+		return $this->usuarioDAO->verificaCpf($cpf);
+	}
+	
+	public function buscaProfessorByEscolaAndSerie($idEscola,$idSerie)
+	{
+		$user = $this->usuarioDAO->buscaProfessorByEscolaAndSerie($idEscola,$idSerie);
+		return $user;
+	}
 }
 ?>
