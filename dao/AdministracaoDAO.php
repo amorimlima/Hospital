@@ -21,15 +21,15 @@ class AdministracaoDAO extends DAO{
      public function insert($adm)
      {
          $sql  = "insert into administracao (adm_administracao) values ";
-         $sql .= "('".$adm->getDmn_administracao()."')";
+         $sql .= "('".$adm->getadm_administracao()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
      
      public function update($adm)
      {
-         $sql  = "update administracao set adm_administracao = '".$adm->getDmn_administracao()."'";
-         $sql .= "where adm_id = ".$adm->getgetDmn_id()." limit 1";
+         $sql  = "update administracao set adm_administracao = '".$adm->getadm_administracao()."'";
+         $sql .= "where adm_id = ".$adm->getadm_id()." limit 1";
          return $this->execute($sql);
      } 
      
@@ -43,11 +43,11 @@ class AdministracaoDAO extends DAO{
      {
         $sql = "select * from administracao where adm_id = ".$idadm." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $adm = new Administracao();
-	    	$adm->setDmn_id($qr["adm_id"]);
-	    	$adm->setDmn_administracao($qr["adm_administracao"]);
+	    	$adm->setadm_id($qr["adm_id"]);
+	    	$adm->setadm_administracao($qr["adm_administracao"]);
 	    	    	
     	return $adm;
      }
@@ -58,11 +58,11 @@ class AdministracaoDAO extends DAO{
         $sql = "select * from administracao";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $adm = new Administracao();
-	    	$adm->setDmn_id($qr["adm_id"]);
-	    	$adm->setDmn_administracao($qr["adm_administracao"]);
+	    	$adm->setadm_id($qr["adm_id"]);
+	    	$adm->setadm_administracao($qr["adm_administracao"]);
                 array_push($lista, $adm);   
         }
     	return $lista;
