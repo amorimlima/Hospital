@@ -20,7 +20,7 @@ class AnoLetivo
 { 
 private $ano_id;
 
-private $ano;
+private $ano_ano;
 
 
 
@@ -32,26 +32,26 @@ public function AnoLetivo()
 
 
 
-public function getNlt_id()
+public function getAno_id()
 {
 return $this->ano_id;
 }
 
-public function getAno()
+public function getAno_ano()
 {
-return $this->ano;
+return $this->ano_ano;
 }
 
 
 
-public function setNlt_id($val)
+public function setAno_id($val)
 {
-$this->$ano_id =  $val;
+$this->ano_id =  $val;
 }
 
-public function setAno($val)
+public function setAno_ano($val)
 {
-$this->ano =  $val;
+$this->ano_ano =  $val;
 }
 
 
