@@ -10,7 +10,6 @@ include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
 include_once($path['beans'].'LiberarCapitulo.php');
 
-
 /**
 * Description of LiberarCapituloDAO
 *
@@ -22,7 +21,6 @@ class LiberarCapituloDAO extends DAO{
     public function  __construct($da) {
         parent::__construct($da);
      }
-
 
     // **********************
     // INSERT
@@ -106,7 +104,9 @@ class LiberarCapituloDAO extends DAO{
 
     function selectByIdEscola($idEscola)
     {
-        $sql = "select * from liberar_capitulo where lbr_escola =".$idEscola;
+        $sql = "select * from liberar_capitulo";
+        die($sql);
+
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
