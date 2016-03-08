@@ -27,9 +27,9 @@ class GrupoDAO extends DAO{
      public function insert($gru)
      {
          $sql  = "insert into grupo (grp_grupo,grp_escola,grp_professor) values ";
-         $sql .= "('".$gru->getGrp_grupo()."','";
+         $sql .= "('".$gru->getGrp_grupo()."',";
          $sql .= "'".$gru->getGrp_escola()."','".$gru->getGrp_professor()."')";
-		echo $sql;
+		//echo $sql;
     	return $this->execute($sql);
      }
      
@@ -52,7 +52,7 @@ class GrupoDAO extends DAO{
      {
         $sql = "select * from grupo where grp_id = ".$idgru." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $gru = new Grupo();
                 $gru->setGrp_id($qr["grp_id"]);
@@ -69,7 +69,7 @@ class GrupoDAO extends DAO{
         $sql = "select * from grupo";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $gru = new Grupo();
