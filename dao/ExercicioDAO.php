@@ -113,13 +113,16 @@ class ExercicioDAO extends DAO{
 
 
 
-     function selectAllExercicioBySerieCapituloLiberado($serie, $idEscola, $capitulo)
+    function selectAllExercicioBySerieCapituloLiberado($serie, $idEscola, $capitulo)
     {
         $sql  = "select * from exercicio ex ";
         $sql .= "join liberar_capitulo lbr  on lbr.lbr_capitulo = ex.exe_capitulo ";
         $sql .= "Where ex.exe_serie = ".$serie." and lbr.lbr_escola = ".$idEscola." and ex.exe_capitulo = ".$capitulo;
+        $sql .- " order by ex.exe_ordem asc";
+
 
         //echo $sql;
+        //echo "<br>";
 
         $lista = array();
         $result = $this->retrieve($sql);

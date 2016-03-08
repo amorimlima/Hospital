@@ -46,6 +46,7 @@
 
 			foreach ($exercicios as $key => $value){
 				print($value->getExe_nome());
+				echo '<br>';
 			}
 			
 		}

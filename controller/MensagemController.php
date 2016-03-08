@@ -4,8 +4,6 @@ if(!isset($_SESSION['PATH_SYS'])){
    session_start();  
 }
 
-//session_start();
-
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'MensagemDAO.php');
 /*
@@ -17,7 +15,7 @@ include_once($path['dao'].'MensagemDAO.php');
 /**
  * Description of MensagemController
  *
- * @author Kevyn
+ * @author Ana Carolina
  */
 class MensagemController {
     //put your code here
@@ -89,7 +87,8 @@ class MensagemController {
 		$mens = $this->mensagemDAO->selectFull();
 		return $mens;
 	}
-		public function deleteDefinitivo($idmens)
+	
+	public function deleteDefinitivo($idmens)
 	{
 		$mens = $this->mensagemDAO->deleteDefinitivo($idmens);
 		return $mens;

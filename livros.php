@@ -4,7 +4,9 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
+include_once($path['template'].'TemplateLivros.php');
 $templateGeral = new Template();
+$templateLivros = new TemplateLivros();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -44,6 +46,7 @@ $templateGeral = new Template();
                         </a>
                     </div>
                 </div>
+                <?php $templateLivros->listaCapitulosLiberados(); ?>
                 <div class="col-xs-12 col-md-12 col-lg-4">
                 	<div id="Conteudo_Area_box_right">
                         <div id="btn_exercicio">
