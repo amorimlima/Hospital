@@ -48,11 +48,11 @@ class GrauInstrucaoDAO extends DAO{
      {
         $sql = "select * from grau_instrucao where grt_id = ".$gra_id." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
         
                 $gra = new GrauInstrucao();
                 $gra->setGrt_id($qr["grt_id"]);
-                $gra->setGrt_instrucao($qr["grau_instrucao"]);
+                $gra->setGrt_instrucao($qr["grt_instrucao"]);
                  	
     	return $gra;
      }
@@ -62,11 +62,11 @@ class GrauInstrucaoDAO extends DAO{
         $sql = "select * from grau_instrucao";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $gra = new GrauInstrucao();
                 $gra->setGrt_id($qr["grt_id"]);
-                $gra->setGrt_instrucao($qr["grau_instrucao"]);
+                $gra->setGrt_instrucao($qr["grt_instrucao"]);
                 array_push($lista, $gra);
         }       	
     	return $lista;
