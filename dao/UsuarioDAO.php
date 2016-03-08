@@ -139,7 +139,7 @@ class UsuarioDAO extends DAO{
         $sql = "select * from usuario where usr_perfil <> 6 and usr_escola = ".$idescola."";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $user = new Usuario();

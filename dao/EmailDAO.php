@@ -52,7 +52,7 @@ class EmailDAO extends DAO{
      {
         $sql = "select * from email where email_id = ".$ideml." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $eml = new Email();
                 $eml->setMl_id($qr["email_id"]);
@@ -69,7 +69,7 @@ class EmailDAO extends DAO{
         $sql = "select * from email";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $eml = new Email();
                 $eml->setMl_id($qr["email_id"]);

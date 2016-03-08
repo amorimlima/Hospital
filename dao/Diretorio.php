@@ -63,7 +63,7 @@
                 {
                     $sql = "select * from diretorio where drt_id = ". $iddiretorio."limit 1 ";
                     $result = $this->retrieve($sql);
-                    $qr = mysql_fetch_array($result);
+                    $qr = mysqli_fetch_array($result);
                     $diretorio= new Diretorio();
                     $diretorio->setDrt_id($qr[drt_id]);
 $diretorio->setDrt_nome($qr[drt_nome]);
@@ -81,7 +81,7 @@ $diretorio->setDrt_descricao($qr[drt_descricao]);
                     $sql = "select * from diretorio ";
                     $lista = array();
                     $result = $this->retrieve($sql);
-                    while ($qr = mysql_fetch_array($result)){
+                    while ($qr = mysqli_fetch_array($result)){
                     $diretorio= new Diretorio();
                     $diretorio->setDrt_id($qr[drt_id]);
 $diretorio->setDrt_nome($qr[drt_nome]);

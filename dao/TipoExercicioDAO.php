@@ -48,7 +48,7 @@ class TipoExercicioDAO extends DAO{
      {
         $sql = "select * from tipo_exercicio where txr_id = ".$idtiex." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $tiex = new TipoExercicio();
                 $tiex->setTxr_id($qr["txr_id"]);
@@ -63,7 +63,7 @@ class TipoExercicioDAO extends DAO{
         $sql = "select * from tipo_exercicio";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $tiex = new TipoExercicio();

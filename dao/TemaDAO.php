@@ -51,7 +51,7 @@ class TemaDAO {
      {
         $sql = "select * from tema where tm_id = ".$idtem." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $tem = new Tema();
                 $tem->setTm_id($qr["tm_id"]);
@@ -67,7 +67,7 @@ class TemaDAO {
         $sql = "select * from tema";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $tem = new Tema();
                 $tem->setTm_id($qr["tm_id"]);

@@ -202,7 +202,7 @@ class MensagemDAO extends DAO{
         $sql = "select * from mensagem msg_ativo = 1";
     	  $result = $this->retrieve($sql);
     	  $lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	  {
                 $mens = new Mensagem();
                 $mens->setMsg_id($qr["msg_id"]);

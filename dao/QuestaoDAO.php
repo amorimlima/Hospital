@@ -52,7 +52,7 @@ class QuestaoDAO extends DAO{
      {
         $sql = "select * from questao where qst_id = ".$idques." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $ques = new Questao();
                 $ques->setQst_id($qr["qst_id"]);
@@ -69,7 +69,7 @@ class QuestaoDAO extends DAO{
         $sql = "select * from questao";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $ques = new Questao();

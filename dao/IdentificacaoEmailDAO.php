@@ -48,7 +48,7 @@ class IdentificacaoEmailDAO {
      {
         $sql = "select * from identificacao_email where idn_id = ".$idide." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $ide = new IdentificacaoEmail();
                 $ide->setidn_id($qr["idn_id"]);
@@ -63,7 +63,7 @@ class IdentificacaoEmailDAO {
         $sql = "select * from identificacao_email";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $ide = new IdentificacaoEmail();

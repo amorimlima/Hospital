@@ -48,7 +48,7 @@ class TipoEmailDAO {
      {
         $sql = "select * from tipo_email where tml_id = ".$idtie." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
         
                 $tie = new TipoEmail();
                 $tie->setTml_id($qr["tml_id"]);
@@ -62,7 +62,7 @@ class TipoEmailDAO {
         $sql = "select * from tipo_email";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $tie = new TipoEmail();
                 $tie->setTml_id($qr["tml_id"]);

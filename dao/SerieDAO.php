@@ -48,7 +48,7 @@ class SerieDAO extends DAO{
      {
         $sql = "select * from serie where sri_id = ".$idser." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $ser = new Serie();
                 $ser->setSri_id($qr["sri_id"]);

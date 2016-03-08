@@ -49,7 +49,7 @@ class CategoriaDAO extends DAO{
     {
     	$sql = "select * from categorias where idCategoria = ".$idCategoria." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
 	    	$categoria = new Categoria();
 	    	$categoria->setIdCategoria($qr["idCategoria"]);
@@ -67,7 +67,7 @@ class CategoriaDAO extends DAO{
     	$sql = "select * from categorias where cidadeCategoria = ".$idCidade." and categoria = '".$categoria."'";
     	$lista = array();
     	$result = $this->retrieve($sql);
-    	while ($qr = mysql_fetch_array($result))
+    	while ($qr = mysqli_fetch_array($result))
     	{    		
     		$categoria = new Categoria();
     		$categoria->setIdCategoria($qr["idCategoria"]);
@@ -86,7 +86,7 @@ class CategoriaDAO extends DAO{
     	$sql = "select * from categorias where categoria = '".$categoria."' order by rand() limit 10";
     	$lista = array();
     	$result = $this->retrieve($sql);
-    	while ($qr = mysql_fetch_array($result))
+    	while ($qr = mysqli_fetch_array($result))
     	{    		
     		$categoria = new Categoria();
     		$categoria->setIdCategoria($qr["idCategoria"]);

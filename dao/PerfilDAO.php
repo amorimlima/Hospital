@@ -52,7 +52,7 @@ class PerfilDAO extends DAO{
      {
         $sql = "select * from perfil where prf_id = ".$idprf." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $prf = new Perfil();
                 $prf->setPrf_id($qr["prf_id"]);
@@ -68,7 +68,7 @@ class PerfilDAO extends DAO{
         $sql = "select * from perfil";
     	$result = $this->retrieve($sql);
         $lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $prf = new Perfil();
                 $prf->setPrf_id($qr["prf_id"]);

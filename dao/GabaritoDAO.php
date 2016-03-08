@@ -52,7 +52,7 @@ class GabaritoDAO extends DAO{
      {
         $sql = "select * from gabarito where gbt_id = ".$idgab." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $gab = new Gabarito();
                 $gab->setGbt_id($qr["gbt_id"]);
@@ -69,7 +69,7 @@ class GabaritoDAO extends DAO{
         $sql = "select * from gabarito";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $gab = new Gabarito();

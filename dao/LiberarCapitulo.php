@@ -63,7 +63,7 @@
                 {
                     $sql = "select * from liberar_capitulo where lbr_id = ". $idliberarcapitulo."limit 1 ";
                     $result = $this->retrieve($sql);
-                    $qr = mysql_fetch_array($result);
+                    $qr = mysqli_fetch_array($result);
                     $liberarcapitulo= new LiberarCapitulo();
                     $liberarcapitulo->setLbr_id($qr[lbr_id]);
 $liberarcapitulo->setLbr_escola($qr[lbr_escola]);
@@ -82,7 +82,7 @@ $liberarcapitulo->setLbr_status($qr[lbr_status]);
                     $sql = "select * from liberar_capitulo ";
                     $lista = array();
                     $result = $this->retrieve($sql);
-                    while ($qr = mysql_fetch_array($result)){
+                    while ($qr = mysqli_fetch_array($result)){
                     $liberarcapitulo= new LiberarCapitulo();
                     $liberarcapitulo->setLbr_id($qr[lbr_id]);
 $liberarcapitulo->setLbr_escola($qr[lbr_escola]);

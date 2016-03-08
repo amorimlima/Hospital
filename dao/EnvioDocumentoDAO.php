@@ -56,7 +56,7 @@ class EnvioDocumentoDAO extends DAO{
      {
         $sql = "select * from envio_documentos where idEnvioDocumento = ".$idenv." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $env = new EnvioDocumento();
                 $env->setEnv_id($qr["idEnvioDocumento"]);
@@ -87,7 +87,7 @@ class EnvioDocumentoDAO extends DAO{
         $sql = "select * from envio_documentos where visto = 0 and idDestinatario = ".$idenv." ";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $env = new EnvioDocumento();
                 $env->setEnv_id($qr["idEnvioDocumento"]);
@@ -106,7 +106,7 @@ class EnvioDocumentoDAO extends DAO{
         $sql = "select * from envio_documentos";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $env = new EnvioDocumento();
                 $env->setEnv_id($qr["idEnvioDocumento"]);

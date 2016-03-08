@@ -84,7 +84,7 @@ class EnderecoDAO extends DAO{
     {
     	$sql = "select * from endereco where end_id = ".$idend." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $end = new Endereco();
                 $end->setend_id($qr["end_id"]);
@@ -109,7 +109,7 @@ class EnderecoDAO extends DAO{
         $sql = "select * from endereco";
     	$result = $this->retrieve($sql);
         $lista = array();
-    	while ($qr = mysql_fetch_array($result))
+    	while ($qr = mysqli_fetch_array($result))
     	{ 
                 $end = new Endereco();
                 $end->setend_id($qr["end_id"]);

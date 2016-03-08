@@ -64,7 +64,7 @@ class CalendarioDAO extends DAO{
      {
         $sql = "select * from calendario where cld_id = ".$idcal." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
         
                 
                 $cal = new Calendario();
@@ -87,7 +87,7 @@ class CalendarioDAO extends DAO{
         $sql = "select * from calendario";
     	$result = $this->retrieve($sql);
         $lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{  
                 $cal = new Calendario();
                 $cal->setCld_id($qr["cld_id"]);

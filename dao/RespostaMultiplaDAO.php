@@ -51,7 +51,7 @@ class RespostaMultiplaDAO extends DAO{
      {
         $sql = "select * from resposta_multipla where rspm_id = ".$idrem." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $rem = new RespostaMultipla();
                 $rem->setRspm_id($qr["rspm_id"]);
@@ -68,7 +68,7 @@ class RespostaMultiplaDAO extends DAO{
         $sql = "select * from resposta_multipla";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $rem = new RespostaMultipla();

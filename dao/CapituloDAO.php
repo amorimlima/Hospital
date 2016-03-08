@@ -48,7 +48,7 @@ class CapituloDAO extends DAO{
      {
         $sql = "select * from capitulo where cpt_id = ".$idcap." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $cap = new Capitulo();
                 $cap->setCpt_capitulo($qr["cpt_capitulo"]);
@@ -62,7 +62,7 @@ class CapituloDAO extends DAO{
         $sql = "select * from capitulo";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $cap = new Capitulo();
                 $cap->setCpt_capitulo($qr["cpt_capitulo"]);

@@ -53,7 +53,7 @@ class RespostaTxtDAO extends DAO{
      {
         $sql = "select * from resposta_txt where rspt_id = ".$idret." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $ret = new RespostaTxt();
                 $ret->setRspt_id($qr["rspt_id"]);
@@ -71,7 +71,7 @@ class RespostaTxtDAO extends DAO{
         $sql = "select * from resposta_txt";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $ret = new RespostaTxt();

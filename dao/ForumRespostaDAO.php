@@ -55,7 +55,7 @@ class ForumRespostaDAO extends DAO{
      {
         $sql = "select * from forum_resposta where frr_id = ".$idfor." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $for = new ForumResposta();
                 $for->setFrr_id($qr["frr_id"]);
@@ -74,7 +74,7 @@ class ForumRespostaDAO extends DAO{
         $sql = "select * from forum_resposta";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $for = new ForumResposta();

@@ -55,7 +55,7 @@ class EscolaDAO extends DAO{
     {
         $sql = "select * from escola where esc_id = ".$idesc." ";
         $result = $this->retrieve($sql);
-        $qr = mysql_fetch_array($result);
+        $qr = mysqli_fetch_array($result);
 
         $esc = new Escola();
         $esc->setesc_id($qr["esc_id"]);

@@ -50,7 +50,7 @@ class GrupoMensagemDAO extends DAO{
      {
         $sql = "select * from grupo_mensagem where gms_id = ".$idgru." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $grm = new GrupoMensagem();
                 $grm->setGms_id($qr["gms_id"]);
@@ -66,7 +66,7 @@ class GrupoMensagemDAO extends DAO{
         $sql = "select * from grupo_mensagem";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $grm = new GrupoMensagem();

@@ -49,7 +49,7 @@ class TipoEventoDAO {
      {
         $sql = "select * from tipo_evento where tpv_id = ".$idtiev." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $tiev = new TipoEvento();
                 $tiev->setTpv_id($qr["tpv_id"]);
@@ -63,7 +63,7 @@ class TipoEventoDAO {
         $sql = "select * from tipo_evento";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $tiev = new TipoEvento();

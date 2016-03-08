@@ -51,7 +51,7 @@ class UsuarioGrupoMensagemDAO extends DAO{
      {
         $sql = "select * from usuario_grupo_mensagem where ugm_id = ".$idugm." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $ugm = new UsuarioGrupoMensagem();
                 $ugm->setugm_id($qr["ugm_id"]);
@@ -67,7 +67,7 @@ class UsuarioGrupoMensagemDAO extends DAO{
         $sql = "select * from usuario_grupo_mensagem";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $ugm = new UsuarioGrupoMensagem();
