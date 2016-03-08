@@ -129,5 +129,13 @@ class EnderecoDAO extends DAO{
         }	
     	return $lista;
     }
+    
+	public function verificaEmail($email)
+    {
+        $sql = "select count(*) as total from endereco where end_email = '$email'";
+    	$result = $this->retrieve($sql);
+		$qr = mysqli_fetch_array($result);
+		return $qr["total"];	
+    }
 }
 ?>
