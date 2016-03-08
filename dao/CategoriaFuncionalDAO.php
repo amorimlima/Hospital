@@ -49,7 +49,7 @@ class CategoriaFuncionalDAO extends DAO{
      {
         $sql = "select * from categoria_funcional where ctf_id = ".$idcat." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $cat = new CategoriaFuncional();
                 $cat->setCtf_categoria($qr["ctf_categoria"]);
@@ -63,14 +63,14 @@ class CategoriaFuncionalDAO extends DAO{
         $sql = "select * from categoria_funcional";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
                 $cat = new CategoriaFuncional();
                 $cat->setCtf_categoria($qr["ctf_categoria"]);
                 $cat->setCtf_id($qr["ctf_id"]);
                 array_push($lista, $cat); 
         }
-    	return $cat;
+    	return $lista;
          
      }
 }
