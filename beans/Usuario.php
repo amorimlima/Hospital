@@ -29,7 +29,8 @@ private $usr_nse;
 private $usr_perfil;
 private $usr_login;
 private $usr_senha;
-
+private $usr_cpf;
+private $usr_rg;
 
 
 public function Usuario()
@@ -90,6 +91,15 @@ public function getUsr_senha()
 return $this->usr_senha;
 }
 
+public function getUsr_rg()
+{
+return $this->usr_rg;
+}
+public function getUsr_cpf()
+{
+return $this->usr_cpf;
+}
+
 
 public function setUsr_id($val)
 {
@@ -137,6 +147,14 @@ $this->usr_login =  $val;
 public function setUsr_senha($val)
 {
 $this->usr_senha =  $val;
+}
+public function setUsr_rg($val)
+{
+$this->usr_rg =  $val;
+}
+public function setUsr_cpf($val)
+{
+$this->usr_cpf =  $val;
 }
 
 } 
