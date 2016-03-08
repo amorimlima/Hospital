@@ -28,14 +28,14 @@ class AnoLetivoDAO extends DAO {
        public function insert($ano)
      {
          $sql  = "insert into ano_letivo (ano_ano) values ";
-         $sql .= "('".$ano->getAno()."')";
+         $sql .= "('".$ano->getAno_ano()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
      
      public function update($ano)
      {
-         $sql  = "update ano_letivo set ano_ano = '".$ano->getAno()."'";
+         $sql  = "update ano_letivo set ano_ano = '".$ano->getAno_ano()."'";
          $sql .= "where ano_id = ".$ano->getNlt_id()." limit 1";
          return $this->execute($sql);
      } 
@@ -50,11 +50,11 @@ class AnoLetivoDAO extends DAO {
      {
         $sql = "select * from ano_letivo where ano_id = ".$idano." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
         
                 $ano = new AnoLetivo();
-	    	$ano->setNlt_id($qr["ano_id"]);
-	    	$ano->setAno($qr["ano_ano"]);
+	    	$ano->setAno_id($qr["ano_id"]);
+	    	$ano->setAno_ano($qr["ano_ano"]);
 	    	    	
     	return $ano;
      }
@@ -64,12 +64,11 @@ class AnoLetivoDAO extends DAO {
         $sql = "select * from ano_letivo";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
-        
-                $ano = new AnoLetivo();
-	    	$ano->setNlt_id($qr["ano_id"]);
-	    	$ano->setAno($qr["ano_ano"]);
+            $ano = new AnoLetivo();
+	    	$ano->setAno_id($qr["ano_id"]);
+	    	$ano->setAno_ano($qr["ano_ano"]);
 	    	array_push($lista, $ano);      	
         }
     	return $lista;
