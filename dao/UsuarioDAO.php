@@ -36,6 +36,8 @@ class UsuarioDAO extends DAO{
      	$sql .= "usr_data_entrada_escola,";
      	$sql .= "usr_nse,";
      	$sql .= "usr_perfil,";
+     	$sql .= "rg,";
+     	$sql .= "usr_cpf,";
      	$sql .= "usr_login,";
      	$sql .= "usr_senha";
      	$sql .= ") values (";
@@ -47,6 +49,8 @@ class UsuarioDAO extends DAO{
      	$sql .= "'".$user->getUsr_data_entrada_escola()."',";
      	$sql .= "'".$user->getUsr_nse()."',";
      	$sql .= "'".$user->getUsr_perfil()."',";
+     	$sql .= "'".$user->getUsr_rg()."',";
+     	$sql .= "'".$user->getUsr_cpf()."',";
      	$sql .= "'".$user->getUsr_login()."',";
      	$sql .= "'".$user->getUsr_senha()."')";
      	//echo $sql;
@@ -63,6 +67,8 @@ class UsuarioDAO extends DAO{
          $sql .= "usr_data_entrada_escola,";
          $sql .= "usr_nse,";
          $sql .= "usr_perfil,";
+         $sql .= "usr_rg,";
+         $sql .= "usr_cpf,";
          $sql .= "usr_login,";
          $sql .= "usr_senha";
          $sql .= ") values (";
@@ -73,6 +79,8 @@ class UsuarioDAO extends DAO{
          $sql .= "'".$user->getUsr_data_entrada_escola()."',";
          $sql .= "'".$user->getUsr_nse()."',";
          $sql .= "'".$user->getUsr_perfil()."',";
+         $sql .= "'".$user->getUsr_rg()."',";
+         $sql .= "'".$user->getUsr_cpf()."',";
          $sql .= "'".$user->getUsr_login()."',";
          $sql .= "'".$user->getUsr_senha()."')";
 		//echo $sql;
@@ -88,6 +96,8 @@ class UsuarioDAO extends DAO{
         $sql .= "usr_data_entrada_escola = '".$user->getUsr_data_entrada_escola()."',";
         $sql .= "usr_nse = ".$user->getUsr_nse().",";
         $sql .= "usr_perfil = ".$user->getUsr_perfil().",";
+        $sql .= "usr_rg = ".$user->getUsr_rg().",";
+        $sql .= "usr_cpf = ".$user->getUsr_cpf().",";
         $sql .= "usr_login = ".$user->getUsr_login().",";
         $sql .= "usr_senha = ".$user->getUsr_senha();
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
@@ -116,6 +126,8 @@ class UsuarioDAO extends DAO{
                 $user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
                 $user->setUsr_nse($qr["usr_nse"]);
                 $user->setUsr_perfil($qr["usr_perfil"]);
+                $user->setUsr_rg($qr["usr_rg"]);
+                $user->setUsr_cpf($qr["usr_cpf"]);
                 //$user->setUsr_login($qr["usr_login"]);
             	//$user->setUsr_senha($qr["usr_senha"]);
                 
@@ -139,6 +151,8 @@ class UsuarioDAO extends DAO{
                 $user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
                 $user->setUsr_nse($qr["usr_nse"]);
                 $user->setUsr_perfil($qr["usr_perfil"]);
+                $user->setUsr_rg($qr["usr_rg"]);
+                $user->setUsr_cpf($qr["usr_cpf"]);
                 $user->setUsr_login($qr["usr_login"]);
             	$user->setUsr_senha($qr["usr_senha"]);
                 array_push($lista, $user);
@@ -165,6 +179,8 @@ class UsuarioDAO extends DAO{
                 $user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
                 $user->setUsr_nse($qr["usr_nse"]);
                 $user->setUsr_perfil($qr["usr_perfil"]);
+                $user->setUsr_rg($qr["usr_rg"]);
+                $user->setUsr_cpf($qr["usr_cpf"]);
                 $user->setUsr_login($qr["usr_login"]);
             	$user->setUsr_senha($qr["usr_senha"]);
                 array_push($lista, $user);
@@ -189,6 +205,8 @@ class UsuarioDAO extends DAO{
             $user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
             $user->setUsr_nse($qr["usr_nse"]);
             $user->setUsr_perfil($qr["usr_perfil"]);
+            $user->setUsr_rg($qr["usr_rg"]);
+            $user->setUsr_cpf($qr["usr_cpf"]);
             $user->setUsr_login($qr["usr_login"]);
             $user->setUsr_senha($qr["usr_senha"]);
             array_push($lista, $user);
@@ -268,10 +286,51 @@ class UsuarioDAO extends DAO{
 			$user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
 			$user->setUsr_nse($qr["usr_nse"]);
 			$user->setUsr_perfil($qr["usr_perfil"]);
+			$user->setUsr_rg($qr["usr_rg"]);
+			$user->setUsr_cpf($qr["usr_cpf"]);
 			array_push($lista, $user);                
         }
     	return $lista;
      }	
+	
+    public function verificaLogin($login)
+    {
+        $sql = "select count(*) as total from usuario where usr_login = '$login'";
+    	$result = $this->retrieve($sql);
+		$qr = mysqli_fetch_array($result);
+		return $qr["total"];	
+    }
+ 
+	public function verificaCpf($cpf)
+    {
+        $sql = "select count(*) as total from usuario where usr_cpf = '$cpf'";
+    	$result = $this->retrieve($sql);
+		$qr = mysqli_fetch_array($result);
+		return $qr["total"];	
+    }
+    
+    public function buscaProfessorByEscolaAndSerie($idEscola, $idSerie){
+    	
+		$sql = "SELECT u.usr_id, u.usr_nome, g.grp_id 
+					FROM usuario_variavel as uv inner join 
+						(usuario as u inner join grupo as g on u.usr_id = g.grp_professor) 
+							on u.usr_id = usv_usuario 
+					WHERE u.usr_perfil = 2 and uv.usv_serie = $idSerie and  g.grp_escola = $idEscola";
 
+		echo $sql;
+		
+    	$result = $this->retrieve($sql);
+    	$lista = array();
+        while ($qr = mysqli_fetch_array($result)){
+      
+			$user = array(
+						'idUsuario' => $qr["usr_id"],
+						'nome'		=> $qr['usr_nome'],
+						'idGrupo'	=> $qr['grp_id']
+					);
+            array_push($lista, $user);
+        }  
+		return $lista;
+	}
 }
 ?>
