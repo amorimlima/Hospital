@@ -17,7 +17,7 @@ include_once($path['beans'].'TipoEscola.php');
  *
  * @author Kevyn
  */
-class TipoEscolaDAO {
+class TipoEscolaDAO extends DAO{
     //put your code here
     
     public function  __construct($da) {
@@ -49,7 +49,7 @@ class TipoEscolaDAO {
      {
         $sql = "select * from tipo_escola where tps_id = ".$idtie." ";
     	$result = $this->retrieve($sql);
-    	$qr = mysql_fetch_array($result);
+    	$qr = mysqli_fetch_array($result);
 
                 $tie = new TipoEscola();
                 $tie->setTps_id($qr["tps_id"]);
@@ -63,7 +63,7 @@ class TipoEscolaDAO {
         $sql = "select * from tipo_escola";
     	$result = $this->retrieve($sql);
     	$lista = array();
-        while ($qr = mysql_fetch_array($result))
+        while ($qr = mysqli_fetch_array($result))
     	{
 
                 $tie = new TipoEscola();
