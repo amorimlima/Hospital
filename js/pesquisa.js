@@ -6,11 +6,76 @@ $(document).ready(atribuirEventos);
 
 function atribuirEventos() {
     formulario = new Formulario({
-        idFormulario: "formulario_pre_cadastro",
+        idFormulario: "pesquisa_escola",
         idInputFile: null,
-        idBtnEnviar: "enviar_pre_cadastro",
-        idBtnCancelar: "cancel_pre_cadastro",
-        aoValidar: function() { alert("Bom"); },
-        aoInvalidar: function() { alert("Mal"); }
+        idBtnEnviar: "enviar_pesquisa_escola",
+        idBtnCancelar: null,
+        aoValidar: function() { enviarFormulario(); },
+        aoInvalidar: function() { alert("Deu ruim"); }
     });
+    formulario.iniciar();
+
+    $("#tipo_outro").change(function() {
+    	if ($(this).is(":checked"))
+			$("#tipo_outro_especificacao").prop('disabled', false);
+    	else
+    		$("#tipo_outro_especificacao").prop('disabled', true);
+    });
+
+    $("#ideb_nao_sabe").change(function() {
+    	if ($(this).is(":checked"))
+    		$("#ideb").prop("disabled", true);
+    	else
+    		$("#ideb").prop("disabled", false);
+    });
+
+    $("#projetos_anteriores_null").change(function(){
+    	if ($(this).is(":checked"))
+    		$("#projetos_anteriores").prop("disabled", true);
+    	else
+    		$("#projetos_anteriores").prop("disabled", false);
+    });
+
+    $("input[name=sala_info]").change(function(){
+    	if ($("#sala_info_nao").is(":checked")) {
+    		$("#acesso_internet_nao").prop("disabled", true);
+    		$("#acesso_internet_sim").prop("disabled", true);
+    		$("#acesso_internet_nao").prop("checked", false);
+    		$("#acesso_internet_sim").prop("checked", false);
+    	} else {
+    		$("#acesso_internet_nao").prop("disabled", false);
+    		$("#acesso_internet_sim").prop("disabled", false);
+    	}
+    });
+    $("input[name=atividades_familia]").change(function(){
+    	if ($("#atividades_familia_nao").is(":checked"))
+    		$("#atividades_familiares").prop("disabled", true);
+    	else
+    		$("#atividades_familiares").prop("disabled", false);
+    });
+}
+
+function enviarFormulario() {
+	var form = $("#pesquisa_escola").serialize();
+	// var etapa1 = form.split("&");
+	// var str = "{";
+
+	// $(etapa1).each(function(index) {
+	// 	var a = this.split("=");
+	// 	str += "\""+a[0]+"\": \""+a[1]+"\"" + (index === etapa1.length-1 ? "" : ",");
+	// });
+
+	// str += "}";
+
+	$.ajax({
+		url: "pesquisa_pdf.php?"+form,
+		type: "GET",
+		data: form,
+		success: function() {
+			console.log(form);
+		},
+		error: function() {
+			console.log("Aff");
+		}
+	})
 }

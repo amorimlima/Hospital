@@ -2,16 +2,16 @@
 
 function Formulario(attr) {
     var self = this;
-    
+
     this.idFormulario = attr.idFormulario;
     this.idInputFile = attr.idInputFile;
     this.idBtnEnviar = attr.idBtnEnviar;
     this.idBtnCancelar = attr.idBtnCancelar;
-    
+
     this.aoValidar = attr.aoValidar ? attr.aoValidar : function () {return false;};
     this.aoCancelar = attr.aoCancelar ? attr.aoCancelar : function () {return false;};
     this.aoInvalidar = attr.aoInvalidar ? attr.aoInvalidar : function () {return false;};
-    
+
     this.aplicarMascaras = function () {
         $("#" + self.idFormulario).find(".cep").mask("99999-999");
         $("#" + self.idFormulario).find(".tel").mask("(99) 9999-9999");
@@ -39,16 +39,7 @@ function Formulario(attr) {
     this.validar = function () {
         var statusForm = 0;
 
-        $("#" + self.idFormulario).find("input:text").each(function() {
-            if ($(this).val() === "") {
-                $(this).addClass("input_faltando");
-                statusForm = 1;
-            } else {
-                $(this).removeClass("input_faltando");
-            }
-        });
-        
-        $("#" + self.idFormulario).find("input[type=number]").each(function() {
+        $("#" + self.idFormulario).find("input:text").not(":disabled").each(function() {
             if ($(this).val() === "") {
                 $(this).addClass("input_faltando");
                 statusForm = 1;
@@ -57,7 +48,16 @@ function Formulario(attr) {
             }
         });
 
-        $("#" + self.idFormulario).find("select").each(function() {
+        $("#" + self.idFormulario).find("input[type=number]").not(":disabled").each(function() {
+            if ($(this).val() === "") {
+                $(this).addClass("input_faltando");
+                statusForm = 1;
+            } else {
+                $(this).removeClass("input_faltando");
+            }
+        });
+
+        $("#" + self.idFormulario).find("select").not(":disabled").each(function() {
             if ($(this).find(":selected").val() === "0" || $(this).find(":selected").val() === "") {
                 $(this).addClass("input_faltando");
                 statusForm = 1;
@@ -65,8 +65,8 @@ function Formulario(attr) {
                 $(this).removeClass("input_faltando");
             }
         });
-        
-        $("#" + self.idFormulario).find("textarea").each(function() {
+
+        $("#" + self.idFormulario).find("textarea").not(":disabled").each(function() {
             if ($(this).val() === "") {
                 $(this).addClass("input_faltando");
                 statusForm = 1;
@@ -78,11 +78,11 @@ function Formulario(attr) {
         if (statusForm === 0) {
             self.aoValidar();
         } else {
-            $("#" + self.idFormulario).find($(".input_faltando").get(0)).focus(); 
+            $("#" + self.idFormulario).find($(".input_faltando").get(0)).focus();
             self.aoInvalidar();
         }
     }
-    
+
     this.iniciar = function() {
         self.aplicarMascaras();
         $("#" + self.idBtnEnviar).click(self.validar);

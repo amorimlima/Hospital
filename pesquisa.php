@@ -1,10 +1,9 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<title>Crianças como Parceiras | Hospital do Câncer de Barretos</title>
 
-		<!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" /> -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
 		<link href="css/pesquisa.css" rel="stylesheet" />
@@ -14,8 +13,9 @@
 			<div class="logo_container">
 				<img src="img/logo/logo_sm.png">
 			</div>
-			<div class="form_container">
-				<form action="" id="pesquisa_escola">
+			<div class="container_geral">
+				<div class="form_container">
+					<form action="" id="pesquisa_escola">
 					<fieldset>
 						<legend>Identidade da Unidade de Ensino</legend>
 						<div class="formfield">
@@ -40,7 +40,7 @@
 	            			</span>
 	            			<label for="tipo_outro_especificacao">Qual(is)?</label>
 							<span>
-								<textarea id="tipo_outro_especificacao" name="esc_razao_social" placeholder="Liste aqui os tipos de estabelecimento de sua escola"></textarea>
+								<textarea id="tipo_outro_especificacao" name="tipo_outro_especificacao" placeholder="Liste aqui os tipos de estabelecimento de sua escola" disabled></textarea>
 							</span>
 	        			</div>
 						<div class="formfield">
@@ -114,15 +114,15 @@
 							<label for="">a) Participam das reuniões de pais</label>
 							<span>
 								<div>
-									<input type="radio" name="reuniao_de_pais" value="1" checked id="reuniao_de_pais_1">
+									<input type="radio" name="reuniao_de_pais" value="Mais de 75%" checked id="reuniao_de_pais_1">
 									<label for="reuniao_de_pais_1">Mais de 75%</label>
-									<input type="radio" name="reuniao_de_pais" value="2" id="reuniao_de_pais_2">
+									<input type="radio" name="reuniao_de_pais" value="Entre 50% e 75%" id="reuniao_de_pais_2">
 									<label for="reuniao_de_pais_2">Entre 50% e 75%</label>
-									<input type="radio" name="reuniao_de_pais" value="3" id="reuniao_de_pais_3">
+									<input type="radio" name="reuniao_de_pais" value="Entre 25% e 75%" id="reuniao_de_pais_3">
 									<label for="reuniao_de_pais_3">Entre 25% e 50%</label>
-									<input type="radio" name="reuniao_de_pais" value="4" id="reuniao_de_pais_4">
+									<input type="radio" name="reuniao_de_pais" value="Menos de 25%" id="reuniao_de_pais_4">
 									<label for="reuniao_de_pais_4">Menos de 25%</label>
-									<input type="radio" name="reuniao_de_pais" value="5" id="reuniao_de_pais_null">
+									<input type="radio" name="reuniao_de_pais" value="Não sabe" id="reuniao_de_pais_null">
 									<label for="reuniao_de_pais_null">Não sei responder</label>
 								</div>
 							</span>
@@ -131,15 +131,15 @@
 							<label for="">b) Procuram pelos professores para se informar sobre o desenvolvimento dos filhos</label>
 							<span>
 								<div>
-									<input type="radio" name="procura_professor" value="1" checked id="procura_professor_1">
+									<input type="radio" name="procura_professor" value="Mais de 75%" checked id="procura_professor_1">
 									<label for="procura_professor_1">Mais de 75%</label>
-									<input type="radio" name="procura_professor" value="2" id="procura_professor_2">
+									<input type="radio" name="procura_professor" value="Entre 50% e 75%" id="procura_professor_2">
 									<label for="procura_professor_2">Entre 50% e 75%</label>
-									<input type="radio" name="procura_professor" value="3" id="procura_professor_3">
+									<input type="radio" name="procura_professor" value="Entre 25% e 75%" id="procura_professor_3">
 									<label for="procura_professor_3">Entre 25% e 50%</label>
-									<input type="radio" name="procura_professor" value="4" id="procura_professor_4">
+									<input type="radio" name="procura_professor" value="Menos de 25%" id="procura_professor_4">
 									<label for="procura_professor_4">Menos de 25%</label>
-									<input type="radio" name="procura_professor" value="5" id="procura_professor_null">
+									<input type="radio" name="procura_professor" value="Não sabe" id="procura_professor_null">
 									<label for="procura_professor_null">Não sei responder</label>
 								</div>
 							</span>
@@ -148,15 +148,15 @@
 							<label for="">c) Propiciam aos alunos que tenham acesso a atividades extracurriculares e de enriquecimento cultural (ida a museus, cinema, etc.) propostas pela escola</label>
 							<span>
 								<div>
-									<input type="radio" name="atividades_extra" value="1" checked id="atividades_extra_1">
+									<input type="radio" name="atividades_extra" value="Mais de 75%" checked id="atividades_extra_1">
 									<label for="atividades_extra_1">Mais de 75%</label>
-									<input type="radio" name="atividades_extra" value="2" id="atividades_extra_2">
+									<input type="radio" name="atividades_extra" value="Entre 50% e 75%" id="atividades_extra_2">
 									<label for="atividades_extra_2">Entre 50% e 75%</label>
-									<input type="radio" name="atividades_extra" value="3" id="atividades_extra_3">
+									<input type="radio" name="atividades_extra" value="Entre 25% e 75%" id="atividades_extra_3">
 									<label for="atividades_extra_3">Entre 25% e 50%</label>
-									<input type="radio" name="atividades_extra" value="4" id="atividades_extra_4">
+									<input type="radio" name="atividades_extra" value="Menos de 25%" id="atividades_extra_4">
 									<label for="atividades_extra_4">Menos de 25%</label>
-									<input type="radio" name="atividades_extra" value="5" id="atividades_extra_null">
+									<input type="radio" name="atividades_extra" value="Não sabe" id="atividades_extra_null">
 									<label for="atividades_extra_null">Não sei responder</label>
 								</div>
 							</span>
@@ -165,16 +165,16 @@
 							<label for="">d) Propiciam aos filhos que participem de atividades de reforço ou recuperação propostas pela escola</label>
 							<span>
 								<div>
-									<input type="radio" name="reforço_rec" value="1" checked id="reforço_rec_1">
-									<label for="reforço_rec_1">Mais de 75%</label>
-									<input type="radio" name="reforço_rec" value="2" id="reforço_rec_2">
-									<label for="reforço_rec_2">Entre 50% e 75%</label>
-									<input type="radio" name="reforço_rec" value="3" id="reforço_rec_3">
-									<label for="reforço_rec_3">Entre 25% e 50%</label>
-									<input type="radio" name="reforço_rec" value="4" id="reforço_rec_4">
-									<label for="reforço_rec_4">Menos de 25%</label>
-									<input type="radio" name="reforço_rec" value="5" id="reforço_rec_null">
-									<label for="reforço_rec_null">Não sei responder</label>
+									<input type="radio" name="reforco_rec" value="Mais de 75%" checked id="reforco_rec_1">
+									<label for="reforco_rec_1">Mais de 75%</label>
+									<input type="radio" name="reforco_rec" value="Entre 50% e 75%" id="reforco_rec_2">
+									<label for="reforco_rec_2">Entre 50% e 75%</label>
+									<input type="radio" name="reforco_rec" value="Entre 25% e 75%" id="reforco_rec_3">
+									<label for="reforco_rec_3">Entre 25% e 50%</label>
+									<input type="radio" name="reforco_rec" value="Menos de 25%" id="reforco_rec_4">
+									<label for="reforco_rec_4">Menos de 25%</label>
+									<input type="radio" name="reforco_rec" value="Não sabe" id="reforco_rec_null">
+									<label for="reforco_rec_null">Não sei responder</label>
 								</div>
 							</span>
 						</div>
@@ -182,15 +182,15 @@
 							<label for="">e) Propiciam aos filhos que tenham acesso a recursos básicos necessários ao bom rendimento escolar (óculos, merenda, aparelhos auditivos e/ou ortopédicos, etc.)</label>
 							<span>
 								<div>
-									<input type="radio" name="recursos_basicos" value="1" checked id="recursos_basicos_1">
+									<input type="radio" name="recursos_basicos" value="Mais de 75%" checked id="recursos_basicos_1">
 									<label for="recursos_basicos_1">Mais de 75%</label>
-									<input type="radio" name="recursos_basicos" value="2" id="recursos_basicos_2">
+									<input type="radio" name="recursos_basicos" value="Entre 50% e 75%" id="recursos_basicos_2">
 									<label for="recursos_basicos_2">Entre 50% e 75%</label>
-									<input type="radio" name="recursos_basicos" value="3" id="recursos_basicos_3">
+									<input type="radio" name="recursos_basicos" value="Entre 25% e 75%" id="recursos_basicos_3">
 									<label for="recursos_basicos_3">Entre 25% e 50%</label>
-									<input type="radio" name="recursos_basicos" value="4" id="recursos_basicos_4">
+									<input type="radio" name="recursos_basicos" value="Menos de 25%" id="recursos_basicos_4">
 									<label for="recursos_basicos_4">Menos de 25%</label>
-									<input type="radio" name="recursos_basicos" value="5" id="recursos_basicos_null">
+									<input type="radio" name="recursos_basicos" value="Não sabe" id="recursos_basicos_null">
 									<label for="recursos_basicos_null">Não sei responder</label>
 								</div>
 							</span>
@@ -199,15 +199,15 @@
 							<label for="">f) Participam ativamente das atividades recreativas propostas na escola</label>
 							<span>
 								<div>
-									<input type="radio" name="atividades_recreativas" value="1" checked id="atividades_recreativas_1">
+									<input type="radio" name="atividades_recreativas" value="Mais de 75%" checked id="atividades_recreativas_1">
 									<label for="atividades_recreativas_1">Mais de 75%</label>
-									<input type="radio" name="atividades_recreativas" value="2" id="atividades_recreativas_2">
+									<input type="radio" name="atividades_recreativas" value="Entre 50% e 75%" id="atividades_recreativas_2">
 									<label for="atividades_recreativas_2">Entre 50% e 75%</label>
-									<input type="radio" name="atividades_recreativas" value="3" id="atividades_recreativas_3">
+									<input type="radio" name="atividades_recreativas" value="Entre 25% e 75%" id="atividades_recreativas_3">
 									<label for="atividades_recreativas_3">Entre 25% e 50%</label>
-									<input type="radio" name="atividades_recreativas" value="4" id="atividades_recreativas_4">
+									<input type="radio" name="atividades_recreativas" value="Menos de 25%" id="atividades_recreativas_4">
 									<label for="atividades_recreativas_4">Menos de 25%</label>
-									<input type="radio" name="atividades_recreativas" value="5" id="atividades_recreativas_null">
+									<input type="radio" name="atividades_recreativas" value="Não sabe" id="atividades_recreativas_null">
 									<label for="atividades_recreativas_null">Não sei responder</label>
 								</div>
 							</span>
@@ -216,15 +216,15 @@
 							<label for="">g) Participam ativamente de canais de comunicação e decisão estabelecidos com a escola (Conselho da Escola, Organização de pais e mestres, etc.)</label>
 							<span>
 								<div>
-									<input type="radio" name="canais_comunicacao" value="1" checked id="canais_comunicacao_1">
+									<input type="radio" name="canais_comunicacao" value="Mais de 75%" checked id="canais_comunicacao_1">
 									<label for="canais_comunicacao_1">Mais de 75%</label>
-									<input type="radio" name="canais_comunicacao" value="2" id="canais_comunicacao_2">
+									<input type="radio" name="canais_comunicacao" value="Entre 50% e 75%" id="canais_comunicacao_2">
 									<label for="canais_comunicacao_2">Entre 50% e 75%</label>
-									<input type="radio" name="canais_comunicacao" value="3" id="canais_comunicacao_3">
+									<input type="radio" name="canais_comunicacao" value="Entre 25% e 75%" id="canais_comunicacao_3">
 									<label for="canais_comunicacao_3">Entre 25% e 50%</label>
-									<input type="radio" name="canais_comunicacao" value="4" id="canais_comunicacao_4">
+									<input type="radio" name="canais_comunicacao" value="Menos de 25%" id="canais_comunicacao_4">
 									<label for="canais_comunicacao_4">Menos de 25%</label>
-									<input type="radio" name="canais_comunicacao" value="5" id="canais_comunicacao_null">
+									<input type="radio" name="canais_comunicacao" value="Não sabe" id="canais_comunicacao_null">
 									<label for="canais_comunicacao_null">Não sei responder</label>
 								</div>
 							</span>
@@ -233,15 +233,15 @@
 							<label for="">h) Auxiliam os filhos na realização das lições de casa</label>
 							<span>
 								<div>
-									<input type="radio" name="auxilia_filhos" value="1" checked id="auxilia_filhos_1">
+									<input type="radio" name="auxilia_filhos" value="Mais de 75%" checked id="auxilia_filhos_1">
 									<label for="auxilia_filhos_1">Mais de 75%</label>
-									<input type="radio" name="auxilia_filhos" value="2" id="auxilia_filhos_2">
+									<input type="radio" name="auxilia_filhos" value="Entre 50% e 75%" id="auxilia_filhos_2">
 									<label for="auxilia_filhos_2">Entre 50% e 75%</label>
-									<input type="radio" name="auxilia_filhos" value="3" id="auxilia_filhos_3">
+									<input type="radio" name="auxilia_filhos" value="Entre 25% e 75%" id="auxilia_filhos_3">
 									<label for="auxilia_filhos_3">Entre 25% e 50%</label>
-									<input type="radio" name="auxilia_filhos" value="4" id="auxilia_filhos_4">
+									<input type="radio" name="auxilia_filhos" value="Menos de 25%" id="auxilia_filhos_4">
 									<label for="auxilia_filhos_4">Menos de 25%</label>
-									<input type="radio" name="auxilia_filhos" value="5" id="auxilia_filhos_null">
+									<input type="radio" name="auxilia_filhos" value="Não sabe" id="auxilia_filhos_null">
 									<label for="auxilia_filhos_null">Não sei responder</label>
 								</div>
 							</span>
@@ -250,15 +250,15 @@
 							<label for="">i) Acompanham os conteúdos curriculares trabalhados em sala de aula para poder ajudar os filhos nos estudos</label>
 							<span>
 								<div>
-									<input type="radio" name="acompanha_curriculo" value="1" checked id="acompanha_curriculo_1">
+									<input type="radio" name="acompanha_curriculo" value="Mais de 75%" checked id="acompanha_curriculo_1">
 									<label for="acompanha_curriculo_1">Mais de 75%</label>
-									<input type="radio" name="acompanha_curriculo" value="2" id="acompanha_curriculo_2">
+									<input type="radio" name="acompanha_curriculo" value="Entre 50% e 75%" id="acompanha_curriculo_2">
 									<label for="acompanha_curriculo_2">Entre 50% e 75%</label>
-									<input type="radio" name="acompanha_curriculo" value="3" id="acompanha_curriculo_3">
+									<input type="radio" name="acompanha_curriculo" value="Entre 25% e 75%" id="acompanha_curriculo_3">
 									<label for="acompanha_curriculo_3">Entre 25% e 50%</label>
-									<input type="radio" name="acompanha_curriculo" value="4" id="acompanha_curriculo_4">
+									<input type="radio" name="acompanha_curriculo" value="Menos de 25%" id="acompanha_curriculo_4">
 									<label for="acompanha_curriculo_4">Menos de 25%</label>
-									<input type="radio" name="acompanha_curriculo" value="5" id="acompanha_curriculo_null">
+									<input type="radio" name="acompanha_curriculo" value="Não sabe" id="acompanha_curriculo_null">
 									<label for="acompanha_curriculo_null">Não sei responder</label>
 								</div>
 							</span>
@@ -291,91 +291,91 @@
 	        			<div class="formfield formfield-s">
 	        				<label for="total_alunos_1ano">Total de alunos do 1º ano</label>
 	            			<span>
-								<input id="total_alunos_1ano" name="total_alunos_1ano" min="0" type="number" />
+								<input id="total_alunos_1ano" name="total_alunos_1ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_alunos_part_1ano">Total de alunos participantes do 1º ano</label>
 	            			<span>
-								<input id="total_alunos_part_1ano" name="total_alunos_part_1ano" min="0" type="number" />
+								<input id="total_alunos_part_1ano" name="total_alunos_part_1ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_1ano">Total de salas do 1º ano</label>
 	            			<span>
-								<input id="total_salas_1ano" name="total_salas_1ano" min="0" type="number" />
+								<input id="total_salas_1ano" name="total_salas_1ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_part_1ano">Total de salas participantes do 1º ano</label>
 	            			<span>
-								<input id="total_salas_part_1ano" name="total_salas_part_1ano" min="0" type="number" />
+								<input id="total_salas_part_1ano" name="total_salas_part_1ano" min="0" value="0" type="number" />
 							</span>
 	        			</div>
 	        			<div class="formfield formfield-s">
 	        				<label for="total_alunos_2ano">Total de alunos do 2º ano</label>
 	            			<span>
-								<input id="total_alunos_2ano" name="total_alunos_2ano" min="0" type="number" />
+								<input id="total_alunos_2ano" name="total_alunos_2ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_alunos_part_2ano">Total de alunos participantes do 2º ano</label>
 	            			<span>
-								<input id="total_alunos_part_2ano" name="total_alunos_part_2ano" min="0" type="number" />
+								<input id="total_alunos_part_2ano" name="total_alunos_part_2ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_2ano">Total de salas do 2º ano</label>
 	            			<span>
-								<input id="total_salas_2ano" name="total_salas_2ano" min="0" type="number" />
+								<input id="total_salas_2ano" name="total_salas_2ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_part_2ano">Total de salas participantes do 2º ano</label>
 	            			<span>
-								<input id="total_salas_part_2ano" name="total_salas_part_2ano" min="0" type="number" />
+								<input id="total_salas_part_2ano" name="total_salas_part_2ano" min="0" value="0" type="number" />
 							</span>
 	        			</div>
 	        			<div class="formfield formfield-s">
 	        				<label for="total_alunos_3ano">Total de alunos do 3º ano</label>
 	            			<span>
-								<input id="total_alunos_3ano" name="total_alunos_3ano" min="0" type="number" />
+								<input id="total_alunos_3ano" name="total_alunos_3ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_alunos_part_3ano">Total de alunos participantes do 3º ano</label>
 	            			<span>
-								<input id="total_alunos_part_3ano" name="total_alunos_part_3ano" min="0" type="number" />
+								<input id="total_alunos_part_3ano" name="total_alunos_part_3ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_3ano">Total de salas do 3º ano</label>
 	            			<span>
-								<input id="total_salas_3ano" name="total_salas_3ano" min="0" type="number" />
+								<input id="total_salas_3ano" name="total_salas_3ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_part_3ano">Total de salas participantes do 3º ano</label>
 	            			<span>
-								<input id="total_salas_part_3ano" name="total_salas_part_3ano" min="0" type="number" />
+								<input id="total_salas_part_3ano" name="total_salas_part_3ano" min="0" value="0" type="number" />
 							</span>
 	        			</div>
 	        			<div class="formfield formfield-s">
 	        				<label for="total_alunos_4ano">Total de alunos do 4º ano</label>
 	            			<span>
-								<input id="total_alunos_4ano" name="total_alunos_4ano" min="0" type="number" />
+								<input id="total_alunos_4ano" name="total_alunos_4ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_alunos_part_4ano">Total de alunos participantes do 4º ano</label>
 	            			<span>
-								<input id="total_alunos_part_4ano" name="total_alunos_part_4ano" min="0" type="number" />
+								<input id="total_alunos_part_4ano" name="total_alunos_part_4ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_4ano">Total de salas do 4º ano</label>
 	            			<span>
-								<input id="total_salas_4ano" name="total_salas_4ano" min="0" type="number" />
+								<input id="total_salas_4ano" name="total_salas_4ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_part_4ano">Total de salas participantes do 4º ano</label>
 	            			<span>
-								<input id="total_salas_part_4ano" name="total_salas_part_4ano" min="0" type="number" />
+								<input id="total_salas_part_4ano" name="total_salas_part_4ano" min="0" value="0" type="number" />
 							</span>
 	        			</div>
 	        			<div class="formfield formfield-s">
 	        				<label for="total_alunos_5ano">Total de alunos do 5º ano</label>
 	            			<span>
-								<input id="total_alunos_5ano" name="total_alunos_5ano" min="0" type="number" />
+								<input id="total_alunos_5ano" name="total_alunos_5ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_alunos_part_5ano">Total de alunos participantes do 5º ano</label>
 	            			<span>
-								<input id="total_alunos_part_5ano" name="total_alunos_part_5ano" min="0" type="number" />
+								<input id="total_alunos_part_5ano" name="total_alunos_part_5ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_5ano">Total de salas do 5º ano</label>
 	            			<span>
-								<input id="total_salas_5ano" name="total_salas_5ano" min="0" type="number" />
+								<input id="total_salas_5ano" name="total_salas_5ano" min="0" value="0" type="number" />
 							</span>
 							<label for="total_salas_part_5ano">Total de salas participantes do 5º ano</label>
 	            			<span>
-								<input id="total_salas_part_5ano" name="total_salas_part_5ano" min="0" type="number" />
+								<input id="total_salas_part_5ano" name="total_salas_part_5ano" min="0" value="0" type="number" />
 							</span>
 	        			</div>
 						<div style="visibility: hidden; display: inline-block; width: 30%;"></div>
@@ -383,10 +383,11 @@
 					<fieldset>
 						<div class="formbtns">
 							<input type="reset" value="Limpar"/>
-							<input type="button" id="enviar_pre_cadastro" class="btn_primary" data-form="formulario_pre_cadastro" value="Enviar" />
+							<input type="button" id="enviar_pesquisa_escola" class="btn_primary" data-form="formulario_pre_cadastro" value="Enviar" />
 						</div>
 					</fieldset>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 	</body>

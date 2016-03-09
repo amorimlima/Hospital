@@ -7,6 +7,10 @@
 .area_conteudo {
 	padding: 50px;
 }
+.container_geral {
+	background-color: #F7F7F5;
+	padding: 30px 50px;
+}
 .form_container {
 	background-color: #fff;
 	border: 2px dotted #728C07;
@@ -37,6 +41,7 @@ fieldset:last-of-type {
     margin-bottom: 0;
 }
 legend {
+	text-align: left;
     font-size: 18px;
     font-weight: 500;
     color: #728C07;
@@ -60,6 +65,7 @@ legend {
     width: 65%;
 }
 .formfield > label {
+	text-align: left;
     display: block;
     width: 100%;
     margin: 5px 10px 0 5px;
@@ -112,6 +118,12 @@ legend {
     line-height: 1em;
     resize: none;
 }
+.formfield > span > input:disabled,
+.formfield > span > select:disabled,
+.formfield > span > textarea:disabled {
+	background-color: #f9f9f9;
+}
+
 .formfield > span > div {
     text-align: left;
     background-color: #fff;
@@ -134,6 +146,12 @@ legend {
     font-size: 14px;
     line-height: 1em;
     cursor: pointer;
+    -webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .formfield > span > div > input + label:last-of-type {
     margin-right: 0;
@@ -157,6 +175,10 @@ legend {
 }
 .formfield > span > span {
     display: none;
+}
+.formfield > span > div > input[type="radio"]:disabled + label {
+	color: #ccc;
+	pointer-events: none;
 }
 .formfield > span > div > label.file > input[type="button"] {
     margin-left: -19px;
@@ -224,4 +246,34 @@ legend {
 .formbtns > input[type="button"].btn_primary:focus,
 .formbtns > input[type="button"].btn_primary:active {
     background-color: #D1CF7D;
+}
+
+@media (max-width: 1024px) {
+	.logo_container {
+		text-align: center;
+	}
+	.area_conteudo {
+		padding: 30px 0 0;
+	}
+	.container_geral {
+		background-color: #F7F7F5;
+		padding: 20px;
+	}
+	.form_container {
+		background-color: #fff;
+		border: 2px dotted #728C07;
+		padding: 10px;
+	}
+	.formfield > span > div > input + label {
+		display: block;
+		margin-bottom: 10px;
+	}
+	.formfield > span > div > input + label:last-of-type {
+		margin-bottom: 0;
+	}
+	.formfield.formfield-s,
+	.formfield.formfield-m,
+	.formfield.formfield-g {
+		width: 100%;
+	}
 }
