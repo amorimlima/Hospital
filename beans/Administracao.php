@@ -32,24 +32,24 @@ public function Administracao()
 
 
 
-public function getDmn_id()
+public function getadm_id()
 {
 return $this->adm_id;
 }
 
-public function getDmn_administracao()
+public function getadm_administracao()
 {
 return $this->adm_administracao;
 }
 
 
 
-public function setDmn_id($val)
+public function setadm_id($val)
 {
 $this->adm_id =  $val;
 }
 
-public function setDmn_administracao($val)
+public function setadm_administracao($val)
 {
 $this->adm_administracao =  $val;
 }
@@ -58,4 +58,3 @@ $this->adm_administracao =  $val;
 } 
 
 ?>
-
