@@ -5,8 +5,7 @@
 	}
 
 	$path = $_SESSION['PATH_SYS'];
-
-	include_once($path['dao'].'ExercicioDAO.php');
+	include_once($path['dao'].'LiberarCapituloDAO.php');
 	include_once($path['controller'].'LiberarCapituloController.php');
 
 	/**
@@ -24,17 +23,35 @@
 			self::$path = $_SESSION['URL_SYS'];
 		}
 	        
-		public function listaCapitulosLiberados()
-		{	
-			$logado = unserialize($_SESSION['USR']);
+		public function listaCapitulosLiberados() {
+			$logado                    = unserialize($_SESSION['USR']);
 			$liberarCapituloController = new liberarCapituloController();
-			$capitulos = $liberarCapituloController->selectByIdEscola($logado['escola']);
 
-			foreach ($capitulos as $key => $value){
-				print($value->getLbr_capitulo());
-				echo '<br>';
+			$capitulos = $liberarCapituloController->listaCapLebaradosPraEscola($logado['escola']);
+
+			$capClass = Array();
+			foreach ($capitulos as $i => $value) {
+				if ($value->getLbr_status() == 1) {
+					$capClass[$i] = $value->getLbr_capitulo();
+				}
 			}
-			
+
+			echo '<p class="tema">
+	                	<a class="cap_1 '.(in_array('1', $capClass) ? "" : "inativo").'"><img src="img/cap_1.png"></a>
+	                </p>
+	                <p class="tema">
+	                	<a class="cap_2 '.(in_array('2', $capClass) ? "" : "inativo").'"><img src="img/cap_2.png"></a>
+	                </p>
+	                <p class="tema">
+	                	<a class="cap_3 '.(in_array('3', $capClass) ? "" : "inativo").'"><img src="img/cap_3.png"></a>
+	                </p>
+	                <p class="tema">
+	                	<a class="cap_4 '.(in_array('4', $capClass) ? "" : "inativo").'"><img src="img/cap_4.png"></a>
+	                </p>
+	                <p class="tema">
+	                	<a class="cap_5 '.(in_array('5', $capClass) ? "" : "inativo").'"><img src="img/cap_5.png"></a>
+	                </p>';
+
 		}
 	}
 ?>

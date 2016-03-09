@@ -31,17 +31,17 @@
     
         public function getDrt_id()
         {
-        return $this->drt_id;
+            return $this->drt_id;
         }
         
         public function getDrt_nome()
         {
-        return $this->drt_nome;
+            return $this->drt_nome;
         }
         
         public function getDrt_descricao()
         {
-        return $this->drt_descricao;
+            return $this->drt_descricao;
         }
         
 

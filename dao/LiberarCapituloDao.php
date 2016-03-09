@@ -1,4 +1,3 @@
-
 <?php
 
 if(!isset($_SESSION['PATH_SYS'])){
@@ -20,7 +19,7 @@ class LiberarCapituloDAO extends DAO{
 
     public function  __construct($da) {
         parent::__construct($da);
-     }
+    }
 
     // **********************
     // INSERT
@@ -47,16 +46,16 @@ class LiberarCapituloDAO extends DAO{
     // SELECT BY ID
     // **********************
 
-    function selectByIdLiberarCapitulo($idliberarcapitulo)
+    public function selectByIdLiberarCapitulo($idliberarcapitulo)
     {
         $sql = "select * from liberar_capitulo where lbr_id = ". $idliberarcapitulo."limit 1 ";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
         $liberarcapitulo= new LiberarCapitulo();
-        $liberarcapitulo->setLbr_id($qr[lbr_id]);
-        $liberarcapitulo->setLbr_escola($qr[lbr_escola]);
-        $liberarcapitulo->setLbr_capitulo($qr[lbr_capitulo]);
-        $liberarcapitulo->setLbr_status($qr[lbr_status]);
+        $liberarcapitulo->setLbr_id($qr["lbr_id"]);
+        $liberarcapitulo->setLbr_escola($qr["lbr_escola"]);
+        $liberarcapitulo->setLbr_capitulo($qr["lbr_capitulo"]);
+        $liberarcapitulo->setLbr_status($qr["lbr_status"]);
 
         return $liberarcapitulo;
     }
@@ -65,17 +64,17 @@ class LiberarCapituloDAO extends DAO{
     // SELECT ALL
     // **********************
 
-    function selectAll()
+    public function selectAll()
     {
         $sql = "select * from liberar_capitulo ";
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
             $liberarcapitulo= new LiberarCapitulo();
-            $liberarcapitulo->setLbr_id($qr[lbr_id]);
-            $liberarcapitulo->setLbr_escola($qr[lbr_escola]);
-            $liberarcapitulo->setLbr_capitulo($qr[lbr_capitulo]);
-            $liberarcapitulo->setLbr_status($qr[lbr_status]);
+            $liberarcapitulo->setLbr_id($qr["lbr_id"]);
+            $liberarcapitulo->setLbr_escola($qr["lbr_escola"]);
+            $liberarcapitulo->setLbr_capitulo($qr["lbr_capitulo"]);
+            $liberarcapitulo->setLbr_status($qr["lbr_status"]);
 
             array_push($lista,$liberarcapitulo);
         };
@@ -86,7 +85,7 @@ class LiberarCapituloDAO extends DAO{
     // UPDATE
     // **********************
 
-    function updateLiberarCapitulo($idliberarcapitulo)
+    public function updateLiberarCapitulo($idliberarcapitulo)
     {
         $sql = "update liberar_capitulo set ";
         $sql .= "lbr_escola = '".$liberarcapitulo->getLbr_escola()."',";
@@ -95,30 +94,29 @@ class LiberarCapituloDAO extends DAO{
 
         $sql .= "where $idliberarcapitulo = '".$liberarcapitulo->getLbr_id()."'";
         return $this->execute($sql);
-        }
-    }
+    }    
 
     // **********************
     // SELECT BY ID da ESCOLA
     // **********************
 
-    function selectByIdEscola($idEscola)
+    public function selectByIdEscola($idEscola)
     {
-        $sql = "select * from liberar_capitulo";
-        die($sql);
+        $sql = "select * from liberar_capitulo where lbr_escola = ".$idEscola;
 
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
+
             $liberarcapitulo= new LiberarCapitulo();
-            $liberarcapitulo->setLbr_id($qr[lbr_id]);
-            $liberarcapitulo->setLbr_escola($qr[lbr_escola]);
-            $liberarcapitulo->setLbr_capitulo($qr[lbr_capitulo]);
-            $liberarcapitulo->setLbr_status($qr[lbr_status]);
+            $liberarcapitulo->setLbr_id($qr["lbr_id"]);
+            $liberarcapitulo->setLbr_escola($qr["lbr_escola"]);
+            $liberarcapitulo->setLbr_capitulo($qr["lbr_capitulo"]);
+            $liberarcapitulo->setLbr_status($qr["lbr_status"]);
 
             array_push($lista,$liberarcapitulo);
         };
         return $lista;
     }
-
+}
 ?>

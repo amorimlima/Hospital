@@ -255,6 +255,10 @@ img{
 #aba_data{
 	float:left;
 }
+#sbm_exercicios .inativoL{
+	border: 1px solid #f2f2f2 !important;;
+	pointer-events:none;
+}
 
 /* MODAL: ALERTA DE MENSAGENS */
 .exibirMsg{
@@ -604,7 +608,8 @@ img{
    	 	margin-bottom: 2px;
 	}
 	#sbm_exercicios{
-		width: 100% !important;
+		width: 107px;
+    	height: 145px;
 	}	
 	#sbm_exercicios .sub_a{
 		list-style: none;
@@ -617,6 +622,18 @@ img{
 		border-bottom: 2px solid #ffffff;
 		
 	}
+
+	#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
+	    width: 106px;
+        height: 145px;
+		display: block;
+		border-left: 1px dotted #7cb931;
+		position: absolute;
+		z-index: 9999;
+		padding: 10px 0px;
+		margin: 6px 31px
+	}
+
 	#sbm_exercicios .sub_a a{
 		color: #7DBA31;
 		font-size:20px;
@@ -628,9 +645,8 @@ img{
 	.mn_a_menu{
 		float: none !important;
 	}
-	#sbm_exercicios{
-     	
-    	top: 30px; 
+	#sbm_exercicios{     	
+    	top: 35px; 
 		display:none;
 	}
 	.navbar-nav>li>a{
@@ -826,7 +842,8 @@ img{
    	 	margin-bottom: 2px;
 	}
 	#sbm_exercicios{
-		width: 100% !important;
+		width: 107px;
+    	height: 145px;
 	}	
 	#sbm_exercicios .sub_a{
 		list-style: none;
@@ -956,7 +973,7 @@ img{
 
 	#sbm_exercicios{
 		position:absolute; 
-		top: 30px; 
+		top: 35px; 
 		border-left: 1px dotted #7cb931; 
 		display:none;
 	}
@@ -1037,14 +1054,17 @@ img{
 
 	#sbm_exercicios{
 		position:absolute; 
-		top: 30px; 
-		border-left: 1px dotted #7cb931; 
+		top: 35px; 
+		border: 1px dotted #7cb931; 
+		border-top:0;
 		display:none;
+		background: #fff;
 	}
+
 	
 	#mn_livros_sub:hover #sbm_exercicios, #mn_livros_sub.over #sbm_exercicios{
-		width: 78px;
-		height: 130px;
+	    width: 106px;
+        height: 145px;
 		display: block;
 		border-left: 1px dotted #7cb931;
 		position: absolute;

@@ -36,7 +36,7 @@ $templateCapitulo = new TemplateCapitulos();
                 <div class="col-xs-12 col-md-12 col-lg-8">
                		<div  id="Conteudo_Area_box_left">
                         <a href="#">
-                            <iframe id="objeto" src="" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>  	
+                           <?php $templateCapitulo->listaExercicios("ok"); ?>	
                         </a>
                     </div>
                 </div>
@@ -46,13 +46,12 @@ $templateCapitulo = new TemplateCapitulos();
                         	<div id="btn_exercicio_5_parabens"></div>
                             <div id="btn_exercicio_5_parabens_brilho"></div>
                             <div id="caminho">
-                                <div class="row">
-                                    <?php $templateCapitulo->listaExercicios(); ?>
+                                <div class="row">                                    
                                     <div class="linha" id="linha_atividade">
                                         
                                     </div>
-                                    <div class="linha linha_atividade1">
-                                        <span id="HCB_1o_5cap/2_Avaliacao_Inicial_pt2" class="tema obj_icone obj_icone20_1"></span>
+                                    <div class="linha_atividade">
+                                        <?php $templateCapitulo->listaExercicios("n_ok"); ?>
                                     </div>
                                 </div>
                             </div>                           
@@ -69,5 +68,6 @@ $templateCapitulo = new TemplateCapitulos();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/funcoes.js"></script>
+    <script src="js/Capitulos.js"></script>
   </body>
 </html>

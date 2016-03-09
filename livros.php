@@ -46,25 +46,11 @@ $templateLivros = new TemplateLivros();
                         </a>
                     </div>
                 </div>
-                <?php $templateLivros->listaCapitulosLiberados(); ?>
+                
                 <div class="col-xs-12 col-md-12 col-lg-4">
                 	<div id="Conteudo_Area_box_right">
                         <div id="btn_exercicio">
-                        	<p class="tema">
-                            	<a class="cap_1"><img src="img/cap_1.png"></a>
-                            </p>
-                            <p class="tema">
-                            	<a class="cap_2"><img src="img/cap_2.png"></a>
-                            </p>
-                            <p class="tema">
-                            	<a class="cap_3"><img src="img/cap_3.png"></a>
-                            </p>
-                            <p class="tema">
-                            	<a class="cap_4"><img src="img/cap_4.png"></a>
-                            </p>
-                            <p class="tema">
-                            	<a class="cap_5"><img src="img/cap_5.png"></a>
-                            </p>
+                        	<?php $templateLivros->listaCapitulosLiberados(); ?>
                         </div>
                     </div>
                 </div>

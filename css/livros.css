@@ -69,3 +69,8 @@ input.tabs:checked + label + div {
 #objeto{
 	display:none;
 }
+
+.inativo{
+	opacity: 0.4;
+	pointer-events:none;
+}

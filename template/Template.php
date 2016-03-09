@@ -5,6 +5,8 @@ if(!isset($_SESSION['PATH_SYS'])){
 
 $path = $_SESSION['PATH_SYS'];
 include_once($path['controller'].'MenuController.php');
+include_once($path['controller'].'UsuarioVariavelController.php');
+include_once($path['controller'].'ExercicioController.php');
 
 /**
  * Description of Template
@@ -64,25 +66,41 @@ class Template {
                                             $menuId = explode(".", $menu->getBtn_menu());
                                             echo '<li class="mn_li" id="mn_livros_sub">';
                                             if ($usrLogado['perfil_id'] == 1 && $menuId[0]=='exercicios'){
-                                                    echo'
-                                                        <a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
+
+                                                $usuarioVariavelController = new UsuarioVariavelController();   
+                                                $exercicioController = new ExercicioController();
+
+                                                $logado = unserialize($_SESSION['USR']);
+                                                $userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
+                                                $exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(), $logado['escola'],"");        
+                                                $capitulos = Array();
+                                                
+                                                foreach ($exercicios as $i => $value){
+                                                    if(!in_array($value->getExe_capitulo(),$capitulos)){
+                                                        $capitulos[$i] = $value->getExe_capitulo();
+                                                    }
+                                                }
+
+                                                echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
                                                         <ul id="sbm_exercicios">
-                                                            <li class="sub_a menu_li_capitulo">
+                                                            <li class="sub_a menu_li_capitulo '.(in_array('1', $capitulos) ? "" : "inativoL").'">
                                                                 <a href="capitulos.php?capitulo=1">1º Capítulo</a>
                                                             </li>
-                                                            <li class="sub_a menu_li_capitulo">
+                                                            <li class="sub_a menu_li_capitulo '.(in_array('2', $capitulos) ? "" : "inativoL").'">
                                                                 <a href="capitulos.php?capitulo=2">2º Capítulo</a>
                                                             </li>
-                                                            <li class="sub_a menu_li_capitulo">
+                                                            <li class="sub_a menu_li_capitulo '.(in_array('3', $capitulos) ? "" : "inativoL").'">
                                                                 <a href="capitulos.php?capitulo=3">3º Capítulo</a>
                                                             </li>
-                                                            <li class="sub_a menu_li_capitulo">
+                                                            <li class="sub_a menu_li_capitulo '.(in_array('4', $capitulos) ? "" : "inativoL").'">
                                                                 <a href="capitulos.php?capitulo=4">4º Capítulo</a>
                                                             </li>
-                                                            <li class="sub_a menu_li_capitulo">
+                                                            <li class="sub_a menu_li_capitulo '.(in_array('5', $capitulos) ? "" : "inativoL").'">
                                                                 <a href="capitulos.php?capitulo=5">5º Capítulo</a>
                                                             </li>
                                                         </ul>';
+
+
                                             }elseif($usrLogado['perfil_id'] != 1 && $menuId[0]=='livros'){
                                                   echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
                                                         <ul id="sbm_exercicios">

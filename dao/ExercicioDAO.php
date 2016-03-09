@@ -117,28 +117,33 @@ class ExercicioDAO extends DAO{
     {
         $sql  = "select * from exercicio ex ";
         $sql .= "join liberar_capitulo lbr  on lbr.lbr_capitulo = ex.exe_capitulo ";
-        $sql .= "Where ex.exe_serie = ".$serie." and lbr.lbr_escola = ".$idEscola." and ex.exe_capitulo = ".$capitulo;
-        $sql .- " order by ex.exe_ordem asc";
-
+        $sql .= "join diretorio dir on dir.drt_id = ex.exe_diretorio ";
+        $sql .= "Where ex.exe_serie = ".$serie." and lbr.lbr_escola = ".$idEscola;
+        if($capitulo){
+            $sql .=" and ex.exe_capitulo = ".$capitulo;
+        }
+        $sql .= " order by ex.exe_ordem asc";
 
         //echo $sql;
         //echo "<br>";
 
         $lista = array();
         $result = $this->retrieve($sql);
-
-        while ($qr = mysqli_fetch_array($result)){
-            $exercicio= new Exercicio();
-            $exercicio->setExe_id($qr[exe_id]);
-            $exercicio->setExe_nome($qr[exe_nome]);
-            $exercicio->setExe_diretorio($qr[exe_diretorio]);
-            $exercicio->setExe_tipo($qr[exe_tipo]);
-            $exercicio->setExe_serie($qr[exe_serie]);
-            $exercicio->setExe_tema($qr[exe_tema]);
-            $exercicio->setExe_capitulo($qr[exe_capitulo]);
-            $exercicio->setExe_ordem($qr[exe_ordem]);
-
-            array_push($lista,$exercicio);
+        while ($qr = mysqli_fetch_array($result)){           
+            $exercicio = Array(
+                'exe_id'       => $qr["exe_id"],
+                'exe_nome'     => $qr["exe_nome"],
+                'exe_diretorio'=> $qr["exe_diretorio"],
+                'exe_tipo'     => $qr["exe_tipo"],
+                'exe_serie'    => $qr["exe_serie"],
+                'exe_tema'     => $qr["exe_tema"],
+                'exe_capitulo' => $qr["exe_capitulo"],
+                'exe_ordem'    => $qr["exe_ordem"],
+                'drt_id'       => $qr["drt_id"],
+                'drt_nome'     => $qr["drt_nome"],
+                'drt_descricao'=> $qr["drt_descricao"]
+            );
+            array_push($lista, $exercicio);
         };
         return $lista;
     }
