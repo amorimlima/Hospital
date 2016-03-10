@@ -7,9 +7,9 @@ use Dompdf\Dompdf;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
-$html = file_get_contents('pesquisa.php');
+//$html = file_get_contents('pesquisa.php?'.$data;);
 
-$dompdf->loadHtml($html);
+$dompdf->loadHtml("<html>".$_GET["html"]."</html>");
 
 // (Optional) Setup the paper size and orientation
 $dompdf->setPaper('A4', 'portrait');

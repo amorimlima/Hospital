@@ -2,3 +2,60 @@
 	font-size: 12px;
 	font-family: Helvetica, Arial, sans-serif;
 }
+
+.identidade_unidade_ensino {
+	padding: 20px;
+}
+.identidade_unidade_ensino > h1 {
+	font-size: 20px;
+	margin-top: 0;
+	margin-bottom: 20px;
+	color: #404040;
+}
+.identidade_unidade_ensino > div > h2 {
+	font-size: 18px;
+	color: #666;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.info_content {
+	padding: 20px;
+	padding-top: 0;
+	border-bottom: 1px solid #ccc;
+}
+.info_content > h2 {
+	font-size: 20px;
+}
+.info_content > ul {
+	padding-left: 15px;
+}
+.info_content > ul > li {
+	font-size: 14px;
+	color: #666;
+}
+.info_content > div {
+	margin-bottom: 10px;
+}
+.info_content > div > span {
+	color: #999;
+}
+.info_content > div > div:nth-child(1) {
+	color: #999;
+}
+.info_content > div > div:nth-child(2) {
+	font-size: 14px;
+	color: #444;
+}
+.info_content > div > div:nth-child(3) {
+	margin-top: 10px;
+	font-size: 14px;
+}
+.info_content > section {
+	margin-bottom: 10px;
+}
+.info_content > section > div {
+	margin-bottom: 4px;
+}
+.info_content > section > div > span {
+	color: #999;
+}
