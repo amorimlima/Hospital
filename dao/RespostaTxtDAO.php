@@ -26,10 +26,10 @@ class RespostaTxtDAO extends DAO{
      
      public function insert($ret)
      {
-         $sql  = "insert into resposta_txt (rspt_usuario,rspt_exercicio,rspt_questao,rspt_resposta) values ";
-         $sql .= "('".$ret->getRspt_usuario()."','".$ret->getRspt_exercicio()."',";
-         $sql .= "'".$ret->getRspt_questao()."','".$ret->getRspt_resposta()."')";
-		echo $sql;
+        $sql  = "insert into resposta_txt (rspt_usuario,rspt_exercicio,rspt_questao,rspt_resposta) values ";
+        $sql .= "(".$ret->getRspt_usuario().",".$ret->getRspt_exercicio().",";
+        $sql .= "".$ret->getRspt_questao().",'".$ret->getRspt_resposta()."')";
+        echo $sql;
     	return $this->execute($sql);
      }
      

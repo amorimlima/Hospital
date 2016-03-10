@@ -15,7 +15,7 @@ $templateCapitulo = new TemplateCapitulos();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Home</title>
+    <title>Capitulos</title>
 
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -35,21 +35,30 @@ $templateGeral->topoSite();
                 <div class="col-xs-12 col-md-12 col-lg-8">
                		<div  id="Conteudo_Area_box_left">
                         <a href="#">
-<?php $templateCapitulo->listaExercicios("ok");?></a>
+<?=$templateCapitulo->listaExercicios("ok")?></a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-12 col-lg-4">
                 	<div id="Conteudo_Area_box_right">
-                        <div id="btn_exercicio">
-                        	<div id="btn_exercicio_5_parabens"></div>
-                            <div id="btn_exercicio_5_parabens_brilho"></div>
+<?php $cssMapa = $templateCapitulo->listaFundo();?>
+                        <div <?=$cssMapa['idFundo']?> >
+                        	<div <?=$cssMapa['parabens']?> ></div>
+                            <div <?=$cssMapa['parabens_brilho']?>></div>
                             <div id="caminho">
                                 <div class="row">
                                     <div class="linha" id="linha_atividade">
 
                                     </div>
                                     <div class="linha_atividade">
-<?php $templateCapitulo->listaExercicios("n_ok");?>
+<?php
+$retorno = $templateCapitulo->listaExercicios("n_ok");
+if ($retorno == "erro") {
+	$templateGeral->mensagemRetorno('exercicios', 'Este capitulo não está liberado!', 'erro');
+} else {
+	$templateCapitulo->listaExercicios("n_ok");
+}
+
+?>
                                     </div>
                                 </div>
                             </div>

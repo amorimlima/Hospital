@@ -10,7 +10,7 @@ function getUsuario(){
 	
 	$(function(){
 		$.ajax({
-			url:'../acoes.php',
+			url:'../../../acoes.php',
 			type:'post',
 			dataType:'json',
 			data:{
@@ -42,7 +42,7 @@ function getExercicio(parametro){
 function registraOpcaoResposta(exercicio,resposta,questao){
 	$(function(){
 	$.ajax({
-		url:'../acoes.php',
+		url:'../../../acoes.php',
 		type:'post',
 		dataType:'json',
 		data:{
@@ -52,7 +52,7 @@ function registraOpcaoResposta(exercicio,resposta,questao){
 			'questao':questao},
 		success:function(data){
 			if(data.erro){
-			alert("Ocorreu um erro em executar ação  do Exercício.");	
+				alert("Ocorreu um erro em executar ação  do Exercício.");	
 			}
 		}
 	});
@@ -62,7 +62,7 @@ function registraOpcaoResposta(exercicio,resposta,questao){
 function acaoExercicio(exercicio,tipoAcao){
 	$(function(){
 	$.ajax({
-		url:'../acoes.php',
+		url:'../../../acoes.php',
 		type:'post',
 		dataType:'json',
 		data:{
@@ -80,7 +80,7 @@ function acaoExercicio(exercicio,tipoAcao){
 function iniciaParticipacaoExercicio(exercicio){
 	$(function(){
 	$.ajax({
-		url:'../acoes.php',
+		url:'../../../acoes.php',
 		type:'post',
 		dataType:'json',
 		data:{
@@ -97,7 +97,7 @@ function iniciaParticipacaoExercicio(exercicio){
 function finalizaParticipacaoExercicio(exercicio){
 	$(function(){
 	$.ajax({
-		url:'../acoes.php',
+		url:'../../../acoes.php',
 		type:'post',
 		dataType:'json',
 		data:{
@@ -115,7 +115,7 @@ function finalizaParticipacaoExercicio(exercicio){
 function liberaExercicio(){
 	$(function(){
 	$.ajax({
-		url:'../acoes.php',
+		url:'../../../acoes.php',
 		type:'post',
 		dataType:'json',
 		data:{

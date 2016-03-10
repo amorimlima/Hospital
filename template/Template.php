@@ -76,8 +76,8 @@ class Template {
                                                 $capitulos = Array();
                                                 
                                                 foreach ($exercicios as $i => $value){
-                                                    if(!in_array($value->getExe_capitulo(),$capitulos)){
-                                                        $capitulos[$i] = $value->getExe_capitulo();
+                                                    if(!in_array($value['exe_capitulo'],$capitulos)){
+                                                        $capitulos[$i] = $value['exe_capitulo'];
                                                     }
                                                 }
 
@@ -162,7 +162,14 @@ class Template {
 				$corTexto = 'txt_verde';
 				$corBotao = 'btn_verde';
 				break;
-			}		
+			}
+            case 'exercicios':{
+                $corBorda = 'borda_verde';
+                $corTexto = 'txt_verde';
+                $corBotao = 'btn_verde';
+                $onClick = 'onclick="redireciona(\'areaAluno.php\')"';
+                break;
+            }   		
 		}
             
 		echo '<div class="modal fade exibirMsg in" id="myModal" role="dialog">
@@ -177,7 +184,7 @@ class Template {
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn '.$corBotao.' botao_modal" >OK</button>
+							<button type="button" class="btn '.$corBotao.' botao_modal" '.$onClick.'>OK</button>
 						</div>
 					</div>
 				</div>

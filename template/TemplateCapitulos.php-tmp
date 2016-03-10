@@ -37,20 +37,87 @@ class TemplateCapitulos {
 
 		if ($logado['perfil'] == "Aluno") {
 			$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(), $logado['escola'], $capitulo);
+			if (!empty($exercicios)) {
+				$bool = true;
+			} else {
+				$bool = false;
+			}
 		} else {
 			$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($ano, $logado['escola'], $capitulo);
+			if (!empty($exercicios)) {
+				$bool = true;
+			} else {
+				$bool = false;
+			}
 		}
 
-		foreach ($exercicios as $i => $value) {
-			if ($introducao == 'ok' && $value['exe_ordem'] == 1) {
-				echo '<iframe id="objeto" src="Objetos/'.$value['drt_nome'].$value['exe_nome'].'/index.html" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>';
-			}
+		if ($bool == true) {
+			foreach ($exercicios as $i => $value) {
+				if ($introducao == 'ok' && $value['exe_ordem'] == 1) {
+					echo '<iframe id="objeto" src="Objetos/'.$value['drt_nome'].$value['exe_nome'].'/index.html" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>';
+				}
 
-			if ($introducao == 'n_ok') {
-				echo '<span id="obj_'.$i.'" url="'.$value['drt_nome'].$value['exe_ordem'].'_'.$value['exe_nome'].'" qtd="'.count($exercicios).'" class="tema obj_icone obj_icone'.count($exercicios).'_'.(++$i).'"></span>';
+				if ($introducao == 'n_ok') {
+					echo '<span id="obj_'.$i.'" url="'.$value['drt_nome'].$value['exe_ordem'].'_'.$value['exe_nome'].'" qtd="'.count($exercicios).'" class="tema obj_icone obj_icone'.count($exercicios).'_'.(++$i).'"></span>';
+				}
 			}
+		} else {
+			return $erro = "erro";
 		}
 	}
 
+	public function listaFundo() {
+		switch ($_GET['capitulo']) {
+			case '1':
+				$cssMapa = Array(
+					'idFundo'         => 'id="btn_exercicio_1"',
+					'parabens'        => 'id="btn_exercicio_1_parabens"',
+					'parabens_brilho' => 'id="btn_exercicio_1_parabens_brilho"'
+				);
+
+				return $cssMapa;
+				break;
+
+			case '2':
+				$cssMapa = Array(
+					'idFundo'         => 'id="btn_exercicio_2"',
+					'parabens'        => 'id="btn_exercicio_2_parabens"',
+					'parabens_brilho' => 'id="btn_exercicio_2_parabens_brilho"'
+				);
+
+				return $cssMapa;
+				break;
+
+			case '3':
+				$cssMapa = Array(
+					'idFundo'         => 'id="btn_exercicio_3"',
+					'parabens'        => 'id="btn_exercicio_3_parabens"',
+					'parabens_brilho' => 'id="btn_exercicio_3_parabens_brilho"'
+				);
+
+				return $cssMapa;
+				break;
+
+			case '4':
+				$cssMapa = Array(
+					'idFundo'         => 'id="btn_exercicio_4"',
+					'parabens'        => 'id="btn_exercicio_4_parabens"',
+					'parabens_brilho' => 'id="btn_exercicio_4_parabens_brilho"'
+				);
+
+				return $cssMapa;
+				break;
+
+			case '5':
+				$cssMapa = Array(
+					'idFundo'         => 'id="btn_exercicio_5"',
+					'parabens'        => 'id="btn_exercicio_5_parabens"',
+					'parabens_brilho' => 'id="btn_exercicio_5_parabens_brilho"'
+				);
+
+				return $cssMapa;
+				break;
+		}
+	}
 }
 ?>

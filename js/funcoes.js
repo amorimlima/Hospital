@@ -48,6 +48,10 @@ $(document).ready(function(e) {
 	});
 });
 
+function redireciona(pagina){
+	window.location= pagina;
+}
+
 function risizeObj(){
 	var largura = $('#objeto').width();
     var altura  = ( 74 * largura ) / 100;	

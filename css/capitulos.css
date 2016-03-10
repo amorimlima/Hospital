@@ -1,8 +1,101 @@
+/*CAPITULO 1*/
+#btn_exercicio_1{
+    background:url(../img/5_fundo.png) no-repeat;
+    height:100%;
+}
 
-#btn_exercicio{
+#btn_exercicio_1_parabens{
+    position: absolute;
+    width: 100%;
+    z-index:1;
+    background:url(../img/5_parabens.png) no-repeat;
+    height:100%;
+}
+#btn_exercicio_1_parabens_brilho{
+    position: absolute;
+    width: 100%;
+    z-index:2;
+    background:url(../img/5_parabens_comp.png) no-repeat;
+    height:100%;
+    display:none;
+}
+/*FIM CAPITULO 1*/
+
+/*CAPITULO 2*/
+#btn_exercicio_2{
+    background:url(../img/5_fundo.png) no-repeat;
+    height:100%;
+}
+
+#btn_exercicio_2_parabens{
+    position: absolute;
+    width: 100%;
+    z-index:1;
+    background:url(../img/5_parabens.png) no-repeat;
+    height:100%;
+}
+#btn_exercicio_2_parabens_brilho{
+    position: absolute;
+    width: 100%;
+    z-index:2;
+    background:url(../img/5_parabens_comp.png) no-repeat;
+    height:100%;
+    display:none;
+}
+/*FIM CAPITULO 2*/
+
+/*CAPITULO 3*/
+#btn_exercicio_3{
+    background:url(../img/5_fundo.png) no-repeat;
+    height:100%;
+}
+
+#btn_exercicio_3_parabens{
+    position: absolute;
+    width: 100%;
+    z-index:1;
+    background:url(../img/5_parabens.png) no-repeat;
+    height:100%;
+}
+#btn_exercicio_3_parabens_brilho{
+    position: absolute;
+    width: 100%;
+    z-index:2;
+    background:url(../img/5_parabens_comp.png) no-repeat;
+    height:100%;
+    display:none;
+}
+/*FIM CAPITULO 3*/
+
+/*CAPITULO 4*/
+#btn_exercicio_4{
+    background:url(../img/5_fundo.png) no-repeat;
+    height:100%;
+}
+
+#btn_exercicio_4_parabens{
+    position: absolute;
+    width: 100%;
+    z-index:1;
+    background:url(../img/5_parabens.png) no-repeat;
+    height:100%;
+}
+#btn_exercicio_4_parabens_brilho{
+    position: absolute;
+    width: 100%;
+    z-index:2;
+    background:url(../img/5_parabens_comp.png) no-repeat;
+    height:100%;
+    display:none;
+}
+/*FIM CAPITULO 4*/
+
+/*CAPITULO 5*/
+#btn_exercicio_5{
 	background:url(../img/5_fundo.png) no-repeat;
 	height:100%;
 }
+
 #btn_exercicio_5_parabens{
 	position: absolute;
 	width: 100%;
@@ -18,6 +111,8 @@
 	height:100%;
 	display:none;
 }
+/*FIM CAPITULO 5*/
+
 #caminho{
 	position: absolute;
 	width: 389px;

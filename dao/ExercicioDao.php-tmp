@@ -47,7 +47,8 @@ class ExercicioDAO extends DAO {
 	// **********************
 
 	function selectByIdExercicio($idexercicio) {
-		$sql       = "select * from exercicio where exe_id = ".$idexercicio."limit 1 ";
+		$sql = "select * from exercicio where exe_id = ".$idexercicio." limit 1 ";
+
 		$result    = $this->retrieve($sql);
 		$qr        = mysqli_fetch_array($result);
 		$exercicio = new Exercicio();

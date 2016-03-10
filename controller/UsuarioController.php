@@ -1,7 +1,5 @@
 <?php
-if(!isset($_SESSION['PATH_SYS'])){
-   session_start();  
-}
+
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'UsuarioDAO.php'); 
 /*

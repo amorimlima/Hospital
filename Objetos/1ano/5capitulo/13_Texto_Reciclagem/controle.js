@@ -10,7 +10,7 @@ function getUsuario(){
 	
 	$(function(){
 		$.ajax({
-			url:'../acoes.php',
+			url:'../../../acoes.php',
 			type:'post',
 			dataType:'json',
 			data:{
@@ -20,7 +20,7 @@ function getUsuario(){
 				if(!data.erro){
 					//console.log(data.usuario);
 					usuarioLogado = data.usuario;
-					console.log("Usuario: "+usuarioLogado);
+					//console.log("Usuario: "+usuarioLogado);
 				}
 			}
 		});
@@ -34,35 +34,35 @@ function getExercicio(parametro){
 	tempo = convertTotalSeconds(startDate);
 	//console.log("Usuario: "+getUsuario());
 	//usuarioLogado = getUsuario();
-	console.log("Tempo: "+tempo);
-	console.log("Exercicio: "+exercicioAtual);
+	//console.log("Tempo: "+tempo);
+	//console.log("Exercicio: "+exercicioAtual);
 	//console.log("Usuario: "+usuarioLogado);
 }
 
 function registraOpcaoResposta(exercicio,resposta,questao){
-	$(function(){
-	$.ajax({
-		url:'../acoes.php',
-		type:'post',
-		dataType:'json',
-		data:{
-			'acao':'registraOpcaoResposta',
-			'exercicio':exercicio,
-			'resposta':resposta,
-			'questao':questao},
-		success:function(data){
-			if(data.erro){
-			alert("Ocorreu um erro em executar ação  do Exercício.");	
+	$(function(){		
+		$.ajax({
+			url:'../../../acoes.php',
+			type:'post',
+			dataType:'json',
+			data:{
+				'acao':'registraOpcaoResposta',
+				'exercicio':exercicio,
+				'resposta':resposta,
+				'questao':questao},
+			success:function(data){
+				if(data.erro){
+					alert("Ocorreu um erro em executar ação  do Exercício.");	
+				}
 			}
-		}
-	});
+		});
 	});
 }
 
 function acaoExercicio(exercicio,tipoAcao){
 	$(function(){
 	$.ajax({
-		url:'../acoes.php',
+		url:'../../../acoes.php',
 		type:'post',
 		dataType:'json',
 		data:{
@@ -80,7 +80,7 @@ function acaoExercicio(exercicio,tipoAcao){
 function iniciaParticipacaoExercicio(exercicio){
 	$(function(){
 	$.ajax({
-		url:'../acoes.php',
+		url:'../../../acoes.php',
 		type:'post',
 		dataType:'json',
 		data:{
@@ -96,26 +96,26 @@ function iniciaParticipacaoExercicio(exercicio){
 }
 function finalizaParticipacaoExercicio(exercicio){
 	$(function(){
-	$.ajax({
-		url:'../acoes.php',
-		type:'post',
-		dataType:'json',
-		data:{
-			'acao':'finalizaExercicio',
-			'exercicio':exercicio},
-		success:function(data){
-			if(data.erro){
-			alert("Ocorreu um erro em executar ação  do Exercício.");	
+		$.ajax({
+			url:'../../../acoes.php',
+			type:'post',
+			dataType:'json',
+			data:{
+				'acao':'finalizaExercicio',
+				'exercicio':exercicio},
+			success:function(data){
+				if(data.erro){
+				alert("Ocorreu um erro em executar ação  do Exercício.");	
+				}
 			}
-		}
-	});
+		});
 	});
 }
 
 function liberaExercicio(){
 	$(function(){
 	$.ajax({
-		url:'../acoes.php',
+		url:'../../../acoes.php',
 		type:'post',
 		dataType:'json',
 		data:{

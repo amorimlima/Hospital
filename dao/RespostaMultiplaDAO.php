@@ -15,7 +15,7 @@ include_once($path['beans'].'RespostaMultipla.php');
 /**
  * Description of RespostaMultiplaDAO
  *
- * @author Kevyn
+ * @author Ana Carolina
  */
 class RespostaMultiplaDAO extends DAO{
     //put your code here
@@ -25,10 +25,10 @@ class RespostaMultiplaDAO extends DAO{
      
      public function insert($rem)
      {
-         $sql  = "insert into resposta_multipla (rspm_aluno, rspm_questao, rspm_resposta) values ";
-         $sql .= "('".$rem->getRspm_aluno()."','";
-         $sql .= "'".$rem->getRspm_questao()."','".$rem->getRspm_resposta()."')";
-		echo $sql;
+        $sql  = "insert into resposta_multipla (rspm_aluno, rspm_questao, rspm_resposta) values ";
+        $sql .= "(".$rem->getRspm_aluno().",";
+        $sql .= "'".$rem->getRspm_questao()."','".$rem->getRspm_resposta()."')";
+        echo $sql;
     	return $this->execute($sql);
      }
     
@@ -43,7 +43,7 @@ class RespostaMultiplaDAO extends DAO{
      
      public function delete($idrem)
      {
-         $sql = "delete from resposta_multipla where rspm_id = ".$idrem."";
+        $sql = "delete from resposta_multipla where rspm_id = ".$idrem."";
     	return $this->execute($sql); 
      }
      
@@ -53,11 +53,11 @@ class RespostaMultiplaDAO extends DAO{
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
 
-                $rem = new RespostaMultipla();
-                $rem->setRspm_id($qr["rspm_id"]);
-                $rem->setRspm_aluno($qr["rspm_aluno"]);
-                $rem->setRspm_questao($qr["rspm_questao"]);
-                $rem->setRspm_resposta($qr["rspm_resposta"]);
+            $rem = new RespostaMultipla();
+            $rem->setRspm_id($qr["rspm_id"]);
+            $rem->setRspm_aluno($qr["rspm_aluno"]);
+            $rem->setRspm_questao($qr["rspm_questao"]);
+            $rem->setRspm_resposta($qr["rspm_resposta"]);
                
     	
     	return $rem;
@@ -70,13 +70,12 @@ class RespostaMultiplaDAO extends DAO{
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
     	{
-
-                $rem = new RespostaMultipla();
-                $rem->setRspm_id($qr["rspm_id"]);
-                $rem->setRspm_aluno($qr["rspm_aluno"]);
-                $rem->setRspm_questao($qr["rspm_questao"]);
-                $rem->setRspm_resposta($qr["rspm_resposta"]);
-               array_push($lista, $rem);
+            $rem = new RespostaMultipla();
+            $rem->setRspm_id($qr["rspm_id"]);
+            $rem->setRspm_aluno($qr["rspm_aluno"]);
+            $rem->setRspm_questao($qr["rspm_questao"]);
+            $rem->setRspm_resposta($qr["rspm_resposta"]);
+            array_push($lista, $rem);
         }
     	return $lista;
      }
