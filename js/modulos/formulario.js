@@ -37,10 +37,11 @@ function Formulario(attr) {
     }
 
     this.validar = function () {
+
         var statusForm = 0;
 
-        $("#" + self.idFormulario).find("input:text").not(":disabled").each(function() {
-            if ($(this).val() === "") {
+        $("#" + self.idFormulario).find(".obrigatorio").not(":disabled").each(function() {
+            if (($(this).val() === "") || ($(this).val() === null)) {
                 $(this).addClass("input_faltando");
                 statusForm = 1;
             } else {
@@ -48,32 +49,35 @@ function Formulario(attr) {
             }
         });
 
-        $("#" + self.idFormulario).find("input[type=number]").not(":disabled").each(function() {
-            if ($(this).val() === "") {
-                $(this).addClass("input_faltando");
-                statusForm = 1;
-            } else {
-                $(this).removeClass("input_faltando");
-            }
-        });
+//        $("#" + self.idFormulario).find("input[type=number]").not(":disabled").each(function() {
+//        	//console.log($(this).attr('id'));
+//            if ($(this).val() === "") {
+//                $(this).addClass("input_faltando");
+//                statusForm = 1;
+//            } else {
+//                $(this).removeClass("input_faltando");
+//            }
+//        });
 
-        $("#" + self.idFormulario).find("select").not(":disabled").each(function() {
-            if ($(this).find(":selected").val() === "0" || $(this).find(":selected").val() === "") {
-                $(this).addClass("input_faltando");
-                statusForm = 1;
-            } else {
-                $(this).removeClass("input_faltando");
-            }
-        });
-
-        $("#" + self.idFormulario).find("textarea").not(":disabled").each(function() {
-            if ($(this).val() === "") {
-                $(this).addClass("input_faltando");
-                statusForm = 1;
-            } else {
-                $(this).removeClass("input_faltando");
-            }
-        });
+//        $("#" + self.idFormulario).find("select").not(":disabled").each(function() {
+        	//console.log($(this).attr('id'));
+//            if ($(this).find(":selected").val() === "0" || $(this).find(":selected").val() === "") {
+//                $(this).addClass("input_faltando");
+//                statusForm = 1;
+//            } else {
+//                $(this).removeClass("input_faltando");
+//            }
+//        });
+//
+//        $("#" + self.idFormulario+" .obrigatorio").find("textarea").not(":disabled").each(function() {
+//        	
+//            if ($(this).val() === "") {
+//                $(this).addClass("input_faltando");
+//                statusForm = 1;
+//            } else {
+//                $(this).removeClass("input_faltando");
+//            }
+//        });
 
         if (statusForm === 0) {
             self.aoValidar();
