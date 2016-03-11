@@ -66,9 +66,10 @@ $logado = unserialize($_SESSION['USR']);
                                                 <div class="col-xs-12 col-md-12 col-lg-12">
                                                     <div id="tbl_msg">
                                                         <p id="linha_titulos" class="row">
-                                                            <span id="titulo_rem" class="col-lg-3 font-SSP">REMETENTE</span>
-                                                            <span id="titulo_ass" class="col-lg-7 font-SSP">ASSUNTO</span>
-                                                            <span id="titulo_data" class="col-lg-2 font-SSP">DATA</span>
+                                                            <span id="titulo_esp" class="col-md-1"></span>
+                                                            <span id="titulo_rem" class="col-md-2 font-SSP">REMETENTE</span>
+                                                            <span id="titulo_ass" class="col-md-7 font-SSP">ASSUNTO</span>
+                                                            <span id="titulo_data" class="col-md-2 font-SSP">DATA</span>
                                                         </p>
                                                         <div id="box_msg_listas">
                                                         	<div id="box_recebe_msg">

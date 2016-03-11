@@ -259,6 +259,9 @@ img{
 	border: 1px solid #f2f2f2 !important;;
 	pointer-events:none;
 }
+#sbm_exercicios .inativoL > a {
+	color: #ccc !important;
+}
 
 /* MODAL: ALERTA DE MENSAGENS */
 .exibirMsg{

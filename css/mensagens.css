@@ -169,12 +169,12 @@
 #titulo_rem{
     color: #1C7B7F;
     font-size: 16px;
-    padding: 2px 82px 2px 55px;
+    padding: 2px 0;
 }
 #titulo_ass{
     color:#1C7B7F;
     font-size: 16px;
-    padding: 2px 412px 2px 0;
+    padding: 2px 0;
 }
 #titulo_data{
     color:#1C7B7F;
@@ -201,6 +201,7 @@
 .msg_check{
 	padding: 8px 0 0 32px;
     width: 7.333333%;
+    float: left;
 }
 .msg_nome{
     float: left;

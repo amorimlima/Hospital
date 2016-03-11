@@ -51,11 +51,11 @@ switch ($_POST["acao"]){
 				//$usuario = $usuarioController->select($value->getMsg_destinatario());
 				
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class="lixeira col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-					  <p class="msg_check col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
+					  <p class="msg_check col-md-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
 					  <div  onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')">			  
-						<p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
-						<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
-						<p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
+						<p class="msg_nome col-md-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
+						<p class="msg_assunto col-md-7">'.utf8_encode($value->getMsg_assunto()).'</p>
+						<p class="msg_data col-md-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 					  </div>
 				</div>';
 			}
@@ -72,10 +72,10 @@ switch ($_POST["acao"]){
 		$userLogado = $logado['id'];
 
         echo '<p class="row" id="linha_titulos">
-				<span class="col-xs-1 col-md-1 col-lg-1" id="titulo_rem"></span>
-                <span class="col-xs-3 col-md-3 col-lg-3" id="titulo_rem">USUÁRIO</span>
-                <span class="col-xs-5 col-md-5 col-lg-5" id="titulo_ass">ASSUNTO</span>
-                <span class="col-xs-2 col-md-2 col-lg-2" id="titulo_data">DATA</span>
+				<span class="col-xs-1 col-md-1" id="titulo_rem"></span>
+                <span class="col-xs-3 col-md-2" id="titulo_rem">USUÁRIO</span>
+                <span class="col-xs-5 col-md-7" id="titulo_ass">ASSUNTO</span>
+                <span class="col-xs-2 col-md-2" id="titulo_data">DATA</span>
               </p>';
 
 		if (count($mensagem)>0){
@@ -131,11 +131,11 @@ switch ($_POST["acao"]){
 				}
 
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" enviado col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-						<p class="msg_check col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
+						<p class="msg_check col-md-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
 						<div  onclick="EnviadasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">				  				  
-						  <p class="msg_nome col-lg-2">'.utf8_encode($usrNome).'</p>
-						  <p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
-						  <p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
+						  <p class="msg_nome col-md-2">'.utf8_encode($usrNome).'</p>
+						  <p class="msg_assunto col-md-7">'.utf8_encode($value->getMsg_assunto()).'</p>
+						  <p class="msg_data col-md-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 						</div>
 					</div>';		
 			}               
@@ -152,10 +152,10 @@ switch ($_POST["acao"]){
         $mensagem = $mensagemController->listaEnviadas($idmens);
 
          echo '<p class="row" id="linha_titulos">
-				<span class="col-xs-1 col-md-1 col-lg-1" id="titulo_rem"></span>
-                <span class="col-xs-3 col-md-3 col-lg-3" id="titulo_rem">DESTINATÁRIO</span>
-                <span class="col-xs-5 col-md-5 col-lg-5" id="titulo_ass">ASSUNTO</span>
-                <span class="col-xs-2 col-md-2 col-lg-2" id="titulo_data">DATA</span>
+				<span class="col-xs-1 col-md-1" id="titulo_rem"></span>
+                <span class="col-xs-3 col-md-2" id="titulo_rem">DESTINATÁRIO</span>
+                <span class="col-xs-5 col-md-7" id="titulo_ass">ASSUNTO</span>
+                <span class="col-xs-2 col-md-2" id="titulo_data">DATA</span>
               </p>';
 
         if (count($mensagem)>0){ 
@@ -196,11 +196,11 @@ switch ($_POST["acao"]){
 				}				
 				
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" recebido '.$naolida.' col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-						  <p class="msg_check col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
+						  <p class="msg_check col-md-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
 						  <div onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')" > 			  
-							<p class="msg_nome col-lg-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
-							<p class="msg_assunto col-lg-7">'.utf8_encode($value->getMsg_assunto()).'</p>
-							<p class="msg_data col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
+							<p class="msg_nome col-md-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
+							<p class="msg_assunto col-md-7">'.utf8_encode($value->getMsg_assunto()).'</p>
+							<p class="msg_data col-md-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 						 </div>
 					  </div>';			
 			}
@@ -217,10 +217,10 @@ switch ($_POST["acao"]){
         $mensagem = $mensagemController->listaRecebidos($idmens);
 
         echo '<p class="row" id="linha_titulos">
-				<span class="col-xs-1 col-md-1 col-lg-1" id="titulo_rem"></span>
-                <span class="col-xs-3 col-md-3 col-lg-3" id="titulo_rem">REMETENTE</span>
-                <span class="col-xs-5 col-md-5 col-lg-5" id="titulo_ass">ASSUNTO</span>
-                <span class="col-xs-2 col-md-2 col-lg-2" id="titulo_data">DATA</span>
+				<span class="col-xs-1 col-md-1" id="titulo_rem"></span>
+                <span class="col-xs-3 col-md-2" id="titulo_rem">REMETENTE</span>
+                <span class="col-xs-5 col-md-7" id="titulo_ass">ASSUNTO</span>
+                <span class="col-xs-2 col-md-2" id="titulo_data">DATA</span>
               </p>';
 
 		if (count($mensagem)>0){
