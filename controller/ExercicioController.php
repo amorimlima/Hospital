@@ -57,5 +57,12 @@ class ExercicioController {
 		return $exe;
 	}
 
+	public function selectExercicioProntos($exeTipo, $idExercicio, $idUsuario)
+	{
+		$exe = $this->exercicioDAO->selectExercicioProntos($exeTipo, $idExercicio, $idUsuario);
+		return $exe;
+	}
+	
+
 }
 ?>

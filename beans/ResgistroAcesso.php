@@ -33,8 +33,6 @@ public function ResgistroAcesso()
 }
 
 
-
-
 public function getRgc_id()
 {
 return $this->rgc_id;

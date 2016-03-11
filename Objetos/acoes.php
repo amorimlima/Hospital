@@ -51,7 +51,6 @@ switch ($_REQUEST["acao"]){
 	}
 		
 	case "iniciaExercicio":{
-		die();
 		if(!$_SESSION["EXERCICIO_ATUAL"]){
 			$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_SESSION["EXERCICIO_ATUAL"]);
 		}else{

@@ -3,6 +3,7 @@ $(document).ready(function (){
 	var contador = 0;
 	var qtd_total_obj = 
 
+	verificaExercicio();
 
 	$('.tema').click(function(){
 		var classe = $(this).attr('class');		
@@ -29,6 +30,25 @@ $(document).ready(function (){
 
 	});
 });
+
+function verificaExercicio(){
+	var url   = window.location.search.replace("?", "");
+	var items = url.split("=");
+	var capitulo = items[1];
+    $.ajax({
+        url: "ajax/ExerciciosAjax.php",
+        type: "post",
+        dataType: "json",
+        data: {
+            'acao': "verificaExercicio",
+            'capitulo': capitulo
+        },
+        success: function (data)
+        {
+ 			console.log(data);
+        }
+    })
+}
 
 function objectLength (object) {
 	var key, count = 0;

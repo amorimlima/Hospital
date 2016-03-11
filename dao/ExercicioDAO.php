@@ -10,6 +10,7 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
 include_once($path['beans'].'Exercicio.php');
+include_once($path['beans'].'ResgistroAcesso.php');
 
 /**
 * Description of ExercicioDAO
@@ -125,9 +126,6 @@ class ExercicioDAO extends DAO{
         }
         $sql .= " order by ex.exe_ordem asc";
 
-        //echo $sql;
-        //echo "<br>";
-
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){           
@@ -147,6 +145,35 @@ class ExercicioDAO extends DAO{
             array_push($lista, $exercicio);
         };
         return $lista;
+    }
+
+
+
+    function selectExercicioProntos($exeTipo, $idExercicio, $idUsuario)
+    {        
+        switch ($exeTipo) {
+            case 1:
+            case 3:
+                $sql  = "select * from registro_acesso where rgc_exercicio=".$idExercicio." and rgc_usuario=".$idUsuario;
+                
+                $result = $this->retrieve($sql);
+                
+                $qr = mysqli_fetch_array($result);
+                if(isset($qr['rgc_id'])){
+                    $registro = new ResgistroAcesso();
+                    $registro->setRgc_id($qr['rgc_id']);
+                    $registro->setRgc_usuario($qr['rgc_usuario']);
+                    $registro->setRgc_exercicio($qr['rgc_exercicio']);
+                    $registro->setRgc_inicio($qr['rgc_inicio']);
+                    $registro->setRgc_fim($qr['rgc_fim']);                
+                    return $registro;
+
+                }else{
+                    return false;
+                }
+            break;
+        }
+        
     }
 }
 ?>
