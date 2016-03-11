@@ -1,5 +1,7 @@
 <?php
-session_start();
+if(!isset($_SESSION['PATH_SYS'])){
+   require_once '_loadPaths.inc.php'; 
+}
 $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
