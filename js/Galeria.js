@@ -1,6 +1,5 @@
 var formulario;
 $(document).ready(function () {
-    carregarGaleria();
     criarDropDown();
     atribuirBarrasDeRolagem();
     $("#botaoCarregar").click(showFormNovoArquivo);
@@ -15,34 +14,34 @@ $(document).ready(function () {
     });
     
     formulario.iniciar();
+    carregarGaleria();
 });
 
 function carregarGaleria () {
     $.ajax({
-        url:'ajax/GaleriaAjax.php',
-        type:'get',
-        data:{
-            'acao':'listaMaisRecentes',
-        },
-        dataType: 'json',
-        success:function(galerias)
-        {
-            console.log(galerias);
+        url: "ajax/GaleriaAjax.php",
+        type: "GET",
+        data: {"acao":"listaMaisRecentes"},
+        dataType: "json",
+        success:function(galerias) {
             var htmlCentral = '';
             for(var i = 0; i < galerias.length; i++)
             {
                 htmlCentral +=  '<div class="gal_caixa">';
                 htmlCentral +=      '<div class="gal_dados">';
-                htmlCentral +=          '<a href="'+galerias.arquivo+'"><div class="gal_'+galerias.+'_icon"></div></a>';
-                htmlCentral +=          '<div gal_categoria>'+/*categoria*/+'</div>';
+                htmlCentral +=          '<a href="'+galerias[i].arquivo+'"><div class="gal_'+galerias[i]+'_icon"></div></a>';
+                htmlCentral +=          '<div gal_categoria>'+galerias[i].categoria.categoria+'</div>';
                 htmlCentral +=      '</div>';
                 htmlCentral +=      '<div class="gal_caixa_texto">'
-                htmlCentral +=          '<a href="'+galerias.arquivo+'"><div class="gal_caixa_texto_titulo">'+galerias.nome+"</div></a>";
-                htmlCentral +=          '<div class="gal_caixa_texto_sub">'+galerias.data+"</div>";
-                htmlCentral +=          '<div class="gal_caixa_texto_corpo">'+galerias.descricao+"</div>";
+                htmlCentral +=          '<a href="'+galerias[i].arquivo+'"><div class="gal_caixa_texto_titulo">'+galerias[i].nome+"</div></a>";
+                htmlCentral +=          '<div class="gal_caixa_texto_sub">'+galerias[i].data+"</div>";
+                htmlCentral +=          '<div class="gal_caixa_texto_corpo">'+galerias[i].descricao+"</div>";
                 htmlCentral +=      '</div>';
                 htmlCentral +=  '</div>';
             }
+        },
+        error: function(error) {
+            console.error("Erro: \n" + error.responseText);
         }
     });
 }
