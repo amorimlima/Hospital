@@ -459,6 +459,7 @@ $(document).ready(function() {
     	var loginEscola = $("#inputUsuarioEscola").val();
     	var senhaEscola = $("#inputSenhaEscola").val();
     	
+    	
     	$.ajax({
     		url:'ajax/cadastroAjax.php',
     		type:'post',
@@ -466,6 +467,7 @@ $(document).ready(function() {
     		data:{
     			'acao':'cadastraEscola',
     			'perfil': '4',
+    			'status': '1',
     			'nomeEscola':nomeEscola,
     			'razao':razao,
     			'cnpj':cnpj,
@@ -483,7 +485,11 @@ $(document).ready(function() {
     			'telefoneEscola':telefoneEscola,
     			'emailEscola':emailEscola,
     			'loginEscola':loginEscola,
-    			'senhaEscola':senhaEscola
+    			'senhaEscola':senhaEscola,
+    			'nomeDiretor':'',
+    			'emailDiretor':'',
+    			'nomeCoordenador':'',
+    			'emailCoordenador':''
     		},
     		success:function(retorno){
     			if (retorno.erro == false) {
