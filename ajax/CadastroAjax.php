@@ -108,6 +108,8 @@ switch ($_POST["acao"]) {
     
     case "cadastraEscola":{
     	
+    	//print_r($_POST);
+    	
     	$result = '';
     	$escolaController = new EscolaController();
      	$enderecoController = new EnderecoController();
@@ -119,11 +121,13 @@ switch ($_POST["acao"]) {
         }else if ($enderecoController->verificaEmail($_POST['emailEscola']) > 0){
         	$result = Array('erro'=>true,'msg'=>'Email já cadastrado!');
         
-        }else if ($usuarioController->verificaLogin($_POST["loginEscola"])){
+		        	//Login será vazio se estiver fazendo um pré-cadastro
+        }else if (($_POST["loginEscola"] != '') && ($usuarioController->verificaLogin($_POST["loginEscola"]))){
         	$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
-        } 
+        }
         
         if ($result == ''){
+        	
 	    	$endereco = new Endereco();
 	    	$endereco->setend_logradouro(utf8_decode($_POST["enderecoEscola"]));
 	    	$endereco->setend_numero($_POST["numeroEnderecoEscola"]);
@@ -150,8 +154,12 @@ switch ($_POST["acao"]) {
 	    		$escola->setesc_nome(utf8_decode($_POST['nomeEscola']));
 	    		$escola->setesc_razao_social(utf8_decode($_POST['razao']));
 	    		$escola->setesc_tipo_escola($_POST['tipoEscola']);
-	    		$escola->setesc_status(1);
+	    		$escola->setesc_status($_POST['status']);
 	    		$escola->setesc_codigo($_POST['codigoEscola']);
+	    		$escola->setEsc_nome_diretor($_POST['nomeDiretor']);
+	    		$escola->setEsc_email_diretor($_POST['emailDiretor']);
+	    		$escola->setEsc_nome_coordenador($_POST['nomeCoordenador']);
+	    		$escola->setEsc_email_coordenador($_POST['emailCoordenador']);
 				$idEscola = $escolaController->insert($escola);
 				
 				$usuario = new Usuario();
