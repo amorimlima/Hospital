@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['PATH_SYS'])){
-   session_start();  
+   session_start();
 }
 
 $path = $_SESSION['PATH_SYS'];
@@ -15,13 +15,13 @@ include_once($path['controller'].'ExercicioController.php');
  */
 class Template {
 
-    public static $path;    
+    public static $path;
 
     function __construct() {
         self::$path = $_SESSION['URL_SYS'];
     }
 
-    //Topo Site	
+    //Topo Site
     public function topoSite(){
         $menuControler = new MenuController();
 		//$usuarioController = new UsuarioController();
@@ -33,7 +33,7 @@ class Template {
 		$menuLista = $menuControler->selectTipoPerfil('Botao',$usrLogado['perfil_id']);
 		//$usuario = $usuarioController->select();
         echo'<div class="col-lg-12" id="topo">
-                <div class="row" id="row_logout">                    
+                <div class="row" id="row_logout">
                     <div class="col-xs-12">
                         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
                             <span class="sr-only">Toggle navigation</span>
@@ -52,12 +52,12 @@ class Template {
                         </div>
 						</div>
 					</div>
-					<div class="row">                	
+					<div class="row">
 						<div class="col-xs-12 col-md-4" id="logo">
 							<a href="'.$usrLogado['url'].'" class="logo_container">
                                 <div class="logotipo"></div>
                             </a>
-						</div>  
+						</div>
                         <div class="col-xs-12 col-md-8">
                             <nav id="bs-navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
                         	    <div id="menu_container" class="'.($usrLogado['perfil_id']==1?'menu_container_aluno':'menu_container_normal').'">
@@ -67,14 +67,14 @@ class Template {
                                             echo '<li class="mn_li" id="mn_livros_sub">';
                                             if ($usrLogado['perfil_id'] == 1 && $menuId[0]=='exercicios'){
 
-                                                $usuarioVariavelController = new UsuarioVariavelController();   
+                                                $usuarioVariavelController = new UsuarioVariavelController();
                                                 $exercicioController = new ExercicioController();
 
                                                 $logado = unserialize($_SESSION['USR']);
                                                 $userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
-                                                $exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(), $logado['escola'],"");        
+                                                $exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(), $logado['escola'],"");
                                                 $capitulos = Array();
-                                                
+
                                                 foreach ($exercicios as $i => $value){
                                                     if(!in_array($value['exe_capitulo'],$capitulos)){
                                                         $capitulos[$i] = $value['exe_capitulo'];
@@ -103,7 +103,7 @@ class Template {
 
                                             }elseif($usrLogado['perfil_id'] != 1 && $menuId[0]=='livros'){
                                                   echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
-                                                        <ul id="sbm_exercicios">
+                                                        <ul id="sbm_exercicios" style="width: 85px; margin: 6px 19px;">
                                                             <li class="sub_a">
                                                                 <a href="livros.php?ano_1">1º Ano</a>
                                                             </li>
@@ -124,11 +124,11 @@ class Template {
                                                  echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
                                             }
                                             echo'</li>';
-                                        }                
+                                        }
                                     echo'</ul>
 	            				</div>
 							</nav>
-                        </div>               
+                        </div>
 					</div>
 			   </div>';
     }
@@ -169,9 +169,9 @@ class Template {
                 $corBotao = 'btn_verde';
                 $onClick = 'onclick="redireciona(\'areaAluno.php\')"';
                 break;
-            }   		
+            }
 		}
-            
+
 		echo '<div class="modal fade exibirMsg in" id="myModal" role="dialog">
 				<div class="modal-dialog modal-sm">
 					<div class="'.$corBorda.'">

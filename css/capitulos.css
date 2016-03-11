@@ -1,6 +1,6 @@
 /*CAPITULO 1*/
 #btn_exercicio_1{
-    background:url(../img/5_fundo.png) no-repeat;
+    background:url(../img/1_fundo.png) no-repeat;
     height:100%;
 }
 
@@ -8,14 +8,14 @@
     position: absolute;
     width: 100%;
     z-index:1;
-    background:url(../img/5_parabens.png) no-repeat;
+    background:url(../img/1_fundo.png) no-repeat;
     height:100%;
 }
 #btn_exercicio_1_parabens_brilho{
     position: absolute;
     width: 100%;
     z-index:2;
-    background:url(../img/5_parabens_comp.png) no-repeat;
+    background:url(../img/1_parabens_comp.png) no-repeat;
     height:100%;
     display:none;
 }
@@ -23,7 +23,7 @@
 
 /*CAPITULO 2*/
 #btn_exercicio_2{
-    background:url(../img/5_fundo.png) no-repeat;
+    background:url(../img/2_fundo.png) no-repeat;
     height:100%;
 }
 
@@ -31,14 +31,14 @@
     position: absolute;
     width: 100%;
     z-index:1;
-    background:url(../img/5_parabens.png) no-repeat;
+    background:url(../img/2_fundo.png) no-repeat;
     height:100%;
 }
 #btn_exercicio_2_parabens_brilho{
     position: absolute;
     width: 100%;
     z-index:2;
-    background:url(../img/5_parabens_comp.png) no-repeat;
+    background:url(../img/2_parabens_comp.png) no-repeat;
     height:100%;
     display:none;
 }
@@ -46,7 +46,7 @@
 
 /*CAPITULO 3*/
 #btn_exercicio_3{
-    background:url(../img/5_fundo.png) no-repeat;
+    background:url(../img/3_fundo.png) no-repeat;
     height:100%;
 }
 
@@ -54,14 +54,14 @@
     position: absolute;
     width: 100%;
     z-index:1;
-    background:url(../img/5_parabens.png) no-repeat;
+    background:url(../img/3_fundo.png) no-repeat;
     height:100%;
 }
 #btn_exercicio_3_parabens_brilho{
     position: absolute;
     width: 100%;
     z-index:2;
-    background:url(../img/5_parabens_comp.png) no-repeat;
+    background:url(../img/3_parabens_comp.png) no-repeat;
     height:100%;
     display:none;
 }
@@ -69,7 +69,7 @@
 
 /*CAPITULO 4*/
 #btn_exercicio_4{
-    background:url(../img/5_fundo.png) no-repeat;
+    background:url(../img/4_fundo.png) no-repeat;
     height:100%;
 }
 
@@ -77,14 +77,14 @@
     position: absolute;
     width: 100%;
     z-index:1;
-    background:url(../img/5_parabens.png) no-repeat;
+    background:url(../img/4_fundo.png) no-repeat;
     height:100%;
 }
 #btn_exercicio_4_parabens_brilho{
     position: absolute;
     width: 100%;
     z-index:2;
-    background:url(../img/5_parabens_comp.png) no-repeat;
+    background:url(../img/4_parabens_comp.png) no-repeat;
     height:100%;
     display:none;
 }
@@ -100,7 +100,7 @@
 	position: absolute;
 	width: 100%;
 	z-index:1;
-	background:url(../img/5_parabens.png) no-repeat;
+	background:url(../img/5_fundo.png) no-repeat;
 	height:100%;
 }
 #btn_exercicio_5_parabens_brilho{
@@ -152,7 +152,7 @@
 }
 
 /*Objetos com 14 atividades*/
-.obj_icone14_1{   
+.obj_icone14_1{
 	bottom: 120px;
 	left: 65px;
 }
