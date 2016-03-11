@@ -1,30 +1,8 @@
 var formulario;
 $(document).ready(function () {
-    $('#select_text').click(function () {
-        $('#box_select').toggle();
-    });
-
-    $('.selecionado').click(function () {
-        var selecionado = $(this).text();
-        var id_selecionado = $(this).attr('id');
-        $('#select_text').val(selecionado);
-        $('#box_select').hide();
-    });
-
-    //Barra de rolagem personalizada
-    $("#box_left_resultados_container").mCustomScrollbar({
-        axis: "y",
-        scrollButtons: {
-            enable: true
-        }
-    });
-    //Barra de rolagem personalizada - box galeria
-    $("#box_select").mCustomScrollbar({
-        axis: "y",
-        scrollButtons: {
-            enable: true
-        }
-    });
+    carregarGaleria();
+    criarDropDown();
+    atribuirBarrasDeRolagem();
     $("#botaoCarregar").click(showFormNovoArquivo);
 
     formulario = new Formulario({
@@ -38,6 +16,81 @@ $(document).ready(function () {
     
     formulario.iniciar();
 });
+
+function carregarGaleria () {
+    $.ajax({
+        url:'ajax/GaleriaAjax.php',
+        type:'get',
+        data:{
+            'acao':'listaMaisRecentes',
+        },
+        dataType: 'json',
+        success:function(galerias)
+        {
+            console.log(galerias);
+            var htmlCentral = '';
+            for(var i = 0; i < galerias.length; i++)
+            {
+                htmlCentral +=  '<div class="gal_caixa">';
+                htmlCentral +=      '<div class="gal_dados">';
+                htmlCentral +=          '<a href="'+galerias.arquivo+'"><div class="gal_'+galerias.+'_icon"></div></a>';
+                htmlCentral +=          '<div gal_categoria>'+/*categoria*/+'</div>';
+                htmlCentral +=      '</div>';
+                htmlCentral +=      '<div class="gal_caixa_texto">'
+                htmlCentral +=          '<a href="'+galerias.arquivo+'"><div class="gal_caixa_texto_titulo">'+galerias.nome+"</div></a>";
+                htmlCentral +=          '<div class="gal_caixa_texto_sub">'+galerias.data+"</div>";
+                htmlCentral +=          '<div class="gal_caixa_texto_corpo">'+galerias.descricao+"</div>";
+                htmlCentral +=      '</div>';
+                htmlCentral +=  '</div>';
+            }
+        }
+    });
+}
+
+function criarDropDown () {
+    //Carregar categorias
+    abrirSelectCateoria();
+    atribuirClickSelect();
+}
+
+function atribuirClickSelect () {
+    $('.selecionado').click(function(){
+       var selecionado = $(this).text();
+       var id_selecionado = $(this).attr('id');
+       $('#select_text').val(selecionado);
+       $('#box_select').hide();
+       //TODO: fazer requisição por itens do tipo selecionado
+    });
+}
+
+function abrirSelectCateoria () {
+    $('#select_text').click(function(){
+       $('#box_select').toggle();
+    });
+}
+
+function atribuirBarrasDeRolagem () {
+    atribuirBarraConteudoCentral();
+    atribuirBarraMenuCategorias();
+}
+
+function atribuirBarraConteudoCentral () {
+    $("#box_left_resultados_container").mCustomScrollbar({
+        axis:"y",
+        scrollButtons:{
+            enable:true
+        }
+    });
+}
+
+function atribuirBarraMenuCategorias () {
+    $("#box_select").mCustomScrollbar({
+        axis:"y",
+        scrollButtons:{
+          enable:true
+        }
+    });
+}
 
 function showFormNovoArquivo() {
     if ($("#form_novo_arquivo").is(":hidden")) {
