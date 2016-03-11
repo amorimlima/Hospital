@@ -1,5 +1,21 @@
 <?php
-require_once '_loadPaths.inc.php';
+if(!isset($_SESSION['PATH_SYS'])){
+   require_once '_loadPaths.inc.php'; 
+}
+
+$path = $_SESSION['PATH_SYS'];
+
+include_once($path['controller'].'AdministracaoController.php');
+include_once($path['template'].'Template.php');
+
+$templateGeral = new Template();
+$AdmController = new AdministracaoController();
+
+
+$adms = $AdmController->selectAll();
+//echo "<pre>";
+//print_r($adms);
+//echo "</pre>";
 ?>
 <html>
     <head>
@@ -66,19 +82,19 @@ require_once '_loadPaths.inc.php';
 	                                <div class="formfield">
 	                                    <label for="nome_escola">Nome da escola</label>
 	                                    <span>
-	                                        <input id="nome_escola" name="esc_escola" type="text" placeholder="Digite o nome de sua escola" />
+	                                        <input id="nome_escola" name="esc_escola" type="text" placeholder="Digite o nome de sua escola" class="obrigatorio" msgVazio="O campo nome é obrigatório"/>
 	                                    </span>
 	                                </div>
 	                                <div class="formfield">
 	                                    <label for="razao_social">Razão social</label>
 	                                    <span>
-	                                        <input id="razao_social" name="esc_razao_social" type="text" placeholder="Digite a razão social de sua escola" />
+	                                        <input id="razao_social" name="esc_razao_social" type="text" placeholder="Digite a razão social de sua escola" class="obrigatorio" msgVazio="O razão social nome é obrigatório"/>
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-s">
 	                                    <label for="cnpj">CNPJ</label>
 	                                    <span>
-	                                        <input class="cnpj" id="cnpj" name="esc_cnpj" type="text" placeholder="00.000.000/0000-00"/>
+	                                        <input class="cnpj obrigatorio" id="cnpj" name="esc_cnpj" type="text" placeholder="00.000.000/0000-00" msgVazio="O campo CNPJ é obrigatório">
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-s">
@@ -96,28 +112,32 @@ require_once '_loadPaths.inc.php';
 	                                    <label for="administracao">Administração</label>
 	                                    <span>
 	                                        <select id="administracao" name="esc_administracao">
-	                                            <option value="1" selected>Municipal</option>
-	                                            <option value="2">Estadual</option>
-	                                            <option value="3">Federal</option>
+	                                            <?php 
+                                                     if(count($adms)>0) {
+                                                     	foreach($adms as $a) {
+                                                        	echo '<option value="'.$a->getadm_id().'">'.utf8_encode($a->getadm_administracao()).'</option>';
+                                                        }
+                                                      }
+                                                ?>
 	                                        </select>
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-s">
 	                                    <label for="cep">CEP</label>
 	                                    <span>
-	                                        <input class="cep" id="cep" name="end_cep" type="text" placeholder="00000-000"/>
+	                                        <input class="cep obrigatorio" id="cep" name="end_cep" type="text" placeholder="00000-000" msgVazio="O campo CEP é obrigatório" />
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-g">
 	                                    <label for="logradouro">Logradouro</label>
 	                                    <span>
-	                                        <input id="logradouro" name="end_logradouro" type="text"/>
+	                                        <input id="logradouro" name="end_logradouro" type="text" class="obrigatorio" msgVazio="O campo logradouro é obrigatório"/>
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-s">
 	                                    <label for="numero">Número</label>
 	                                    <span>
-	                                        <input id="numero" name="end_numero" type="number" min="1" />
+	                                        <input id="numero" name="end_numero" type="text" min="1" class="obrigatorio" msgVazio="O campo número é obrigatório"/>
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-s">
@@ -129,37 +149,35 @@ require_once '_loadPaths.inc.php';
 	                                <div class="formfield formfield-s">
 	                                    <label for="bairro">Bairro</label>
 	                                    <span>
-	                                        <input id="bairro" name="end_bairro" type="text"/>
+	                                        <input id="bairro" name="end_bairro" type="text" class="obrigatorio" msgVazio="O campo bairro é obrigatório"/>
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-m">
 	                                    <label for="estado">Estado</label>
 	                                    <span>
-	                                        <select id="estado" name="end_uf">
-	                                            <option value="0" selected disabled hidden>Selecione um estado</option>
-	                                            <option value="1">Estado 1</option>
+	                                        <select id="estado" name="end_uf" class="obrigatorio" msgVazio="O campo estado é obrigatório">
+	                                            
 	                                        </select>
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-m">
 	                                    <label for="cidade">Cidade</label>
 	                                    <span>
-	                                        <select id="cidade" name="end_cidade">
-	                                            <option value="0" selected disabled hidden>Selecine uma cidade</option>
-	                                            <option value="1">Cidade 1</option>
+	                                        <select id="cidade" name="end_cidade" class="obrigatorio">
+	                                            <option value="0" selected disabled hidden>Selecine em estado primeiro</option>
 	                                        </select>
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-g">
 	                                    <label for="email">E-Mail</label>
 	                                    <span>
-	                                        <input id="email" name="end_email" type="text" placeholder="exemplo@escola.br"/>
+	                                        <input id="email" name="end_email" type="text" placeholder="exemplo@escola.br" class="obrigatorio" msgVazio="O campo email é obrigatório"/>
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-s">
 	                                    <label for="tel_comercial">Tel. Comercial</label>
 	                                    <span>
-	                                        <input class="tel" id="tel_comercial" name="end_telefone_comercial" type="text" placeholder="(DDD) 0000-0000" />
+	                                        <input class="tel obrigatorio" id="tel_comercial" name="end_telefone_comercial" type="text" placeholder="(DDD) 0000-0000" msgVazio="O campo telefone é obrigatório"/>
 	                                    </span>
 	                                </div>
 	                            </fieldset>
@@ -204,6 +222,17 @@ require_once '_loadPaths.inc.php';
                 </div>
             </div>
         </div>
+        
+        <div id="mensagemCampoVazio" class='modalMensagem' style="display:none">
+			<?php
+				$templateGeral->mensagemRetorno('mensagens','<span id="textoMensagemVazio"></span>','erro');
+			?>
+		</div>
+		<div id="mensagemSucessoCadastro" style="display:none" class='modalMensagem'>
+			<?php
+				$templateGeral->mensagemRetorno('mensagens','Solicitação de cadastrado feita com sucesso!','sucesso');
+			?>
+		</div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -215,5 +244,6 @@ require_once '_loadPaths.inc.php';
     <script type="text/javascript" src="js/lib/jquery.maskedinput.js"></script>
     <script type="text/javascript" src="js/modulos/formulario.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-
+    <script src="js/EstadoCidade.js"></script>
+	<script src="js/funcoes.js"></script>
 </html>
