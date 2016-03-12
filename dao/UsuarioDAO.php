@@ -113,7 +113,8 @@ class UsuarioDAO extends DAO{
      
      public function select($iduser)
      {
-        $sql = "select * from usuario where usr_id = ".$iduser." ";
+        $sql = "select * from usuario where usr_id = ".$iduser;
+        //echo $sql;
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
         
