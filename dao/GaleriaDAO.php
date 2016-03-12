@@ -166,10 +166,6 @@ class GaleriaDAO extends DAO{
             $glr->setGlr_arquivo($qr["glr_arquivo"]);
             $glr->setGlr_descricao($qr["glr_descricao"]);
             $glr->setGlr_data($qr["glr_data"]);
-            $glr->setGlr_categoria(new Categoria_Galeria());
-            $glr->getGlr_categoria()->setCtg_id($qr["ctg_id"]);
-            $glr->getGlr_categoria()->setCtg_categoria($qr["ctg_categoria"]);
-            $glr->setGlr_visualizacoes($qr["glr_visualizacoes"]);
             array_push($lista, $glr);
         }
 
