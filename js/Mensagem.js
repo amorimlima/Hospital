@@ -7,6 +7,21 @@ $(document).ready(function(e) {
 		}
 	});
 	checkbox();
+	
+	$('#mensagemSucessoEnviar div div div .modal-footer .btn').click(function(){
+		
+		$('#mensagem_campo_assunto').val("");
+		$('#mensagem_campo_conteudo').val("")
+		var elementos = $('.selecionado');
+		for(var i=0; i<elementos.length;i++){					
+			$('#'+elementos[i].id).removeClass('selecionado');
+		}
+		$('.filter-option').html("");
+		$('.inner').html("");
+		recebidasFuncao();
+		
+		return false;
+	})
 });
 
 function checkbox(){
@@ -378,18 +393,23 @@ function buscaNomeDestinatario(){
 			dataType:'json',
 			data:{'acao':'listaDestinatario','letrasDigitadas':letrasDigitadas,'opcao':'letras'},
 			success:function(data){
-				for(a in data){
-					var nome = data[a].nome;
-
-					html += '<option>'+nome.trim()+'</option>';
-					
-					html2 += '<li data-original-index="'+a+'" data-optgroup="1" class="">'+						
-						'<a onclick="btn_checkbox('+data[a].usuarioId+')"  tabindex="0" style="" data-tokens="null">'+
-						'<span class="check_sel" id="'+data[a].usuarioId+'"></span>'+
-						'<span class="text">'+nome.trim()+'</span>'+
-						'</a>'+
-						'</li>';
-				}	
+				console.log(data.length);
+				if (data.length > 0){
+					for(a in data){
+						var nome = data[a].nome;
+	
+						html += '<option>'+nome.trim()+'</option>';
+						
+						html2 += '<li data-original-index="'+a+'" data-optgroup="1" class="">'+						
+							'<a onclick="btn_checkbox('+data[a].usuarioId+')"  tabindex="0" style="" data-tokens="null">'+
+							'<span class="check_sel" id="'+data[a].usuarioId+'"></span>'+
+							'<span class="text">'+nome.trim()+'</span>'+
+							'</a>'+
+							'</li>';
+					}
+				}else{
+					html += 'Nenhum registro encontrado.';
+				}
 			}	
 		}) 		
 
@@ -408,9 +428,16 @@ function btn_checkbox(idItem){
 
 
 function checkEnviar(){
+	
 	var elementos = $('.selecionado');
 	var assunto = $('#mensagem_campo_assunto').val();
 	var mensagem = $('#mensagem_campo_conteudo').val();
+	
+	if ((mensagem == '') || (assunto == '') || elementos == ''){
+		$('#mensagemErroVazio').css('display','block');
+		return false;
+	}
+	
 	var valores = "";
 	var separador ="";
 	for(var i=0; i<elementos.length;i++){
@@ -426,21 +453,14 @@ function checkEnviar(){
 		url: 'ajax/MensagemAjax.php',
 		type: 'post',
 		data: "acao=inserirMensagem&mensagem="+mensagem+"&assunto="+assunto+"&destinatarios="+valores,
-		success: function (data){			
-			if(data === "OK"){
+		success: function (data){	
+			//console.log(data);
+			if(data == true){
 				$('#mensagemSucessoEnviar').css('display','block');
-				$('#mensagem_campo_assunto').val("");
-				$('#mensagem_campo_conteudo').val("");				
-			}else if(data === "ERRO"){
+			}else{
 				$('#mensagemErroEnviar').css('display','block');
 			}
-			var elementos = $('.selecionado');
-			for(var i=0; i<elementos.length;i++){					
-				$('#'+elementos[i].id).removeClass('selecionado');
-			}
-			$('.filter-option').html("");
-			$('.inner').html("");
-			recebidasFuncao();
+
 		}
 	});	
 }
