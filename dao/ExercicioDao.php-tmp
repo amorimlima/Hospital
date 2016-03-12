@@ -138,6 +138,35 @@ class ExercicioDAO extends DAO {
 		return $lista;
 	}
 
+	function selectAllExercicioBySerieCapitulo($serie, $capitulo) {
+		$sql = "select * from exercicio ex ";
+		$sql .= "join diretorio dir on dir.drt_id = ex.exe_diretorio ";
+		$sql .= "Where ex.exe_serie = ".$serie;
+		if ($capitulo) {
+			$sql .= " and ex.exe_capitulo = ".$capitulo;
+		}
+		$sql .= " order by ex.exe_ordem asc";
+		$lista  = array();
+		$result = $this->retrieve($sql);
+		while ($qr = mysqli_fetch_array($result)) {
+			$exercicio = Array(
+				'exe_id'        => $qr["exe_id"],
+				'exe_nome'      => $qr["exe_nome"],
+				'exe_diretorio' => $qr["exe_diretorio"],
+				'exe_tipo'      => $qr["exe_tipo"],
+				'exe_serie'     => $qr["exe_serie"],
+				'exe_tema'      => $qr["exe_tema"],
+				'exe_capitulo'  => $qr["exe_capitulo"],
+				'exe_ordem'     => $qr["exe_ordem"],
+				'drt_id'        => $qr["drt_id"],
+				'drt_nome'      => $qr["drt_nome"],
+				'drt_descricao' => $qr["drt_descricao"]
+			);
+			array_push($lista, $exercicio);
+		};
+		return $lista;
+	}
+
 	function selectExercicioProntosRegistroAcesso($idExercicio, $idUsuario) {
 		$sql    = "select * from registro_acesso where rgc_exercicio=".$idExercicio." and rgc_usuario=".$idUsuario;
 		$result = $this->retrieve($sql);

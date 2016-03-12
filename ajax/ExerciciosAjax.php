@@ -19,76 +19,78 @@ switch ($_POST["acao"]){
 		$logado = unserialize($_SESSION['USR']);
 		$capitulo = $_POST['capitulo'];
 		$userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
-		$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(),$logado['escola'],$capitulo);
-		$lista = array();		
-		foreach ($exercicios as $key => $value) {
-			$result = '';
-			if($value['exe_tipo']==1 || $value['exe_tipo']==3){
-				$exercicioVerProntoAcesso = $exercicioController->selectExercicioProntosRegistroAcesso($value['exe_id'], $logado['id']);
-				if($exercicioVerProntoAcesso){
-					if(	$exercicioVerProntoAcesso->getRgc_id() &&
-						$exercicioVerProntoAcesso->getRgc_inicio() != null && 
-						$exercicioVerProntoAcesso->getRgc_inicio()!= "00:00:00" && 
-						$exercicioVerProntoAcesso->getRgc_fim() != null && 
-						$exercicioVerProntoAcesso->getRgc_fim()!= "00:00:00"){
-								$result = Array(
-									'id_exercicio'=>utf8_encode($exercicioVerProntoAcesso->getRgc_exercicio()),
-									'completo'=> "S"
-								);	
+
+		if($logado['perfil'] == "Aluno"){
+			$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(),$logado['escola'],$capitulo);
+			$lista = array();		
+			foreach ($exercicios as $key => $value) {
+				$result = '';
+				$numQuestao = 0;
+				if($value['exe_tipo']==1 || $value['exe_tipo']==3){
+					$exercicioVerProntoAcesso = $exercicioController->selectExercicioProntosRegistroAcesso($value['exe_id'], $logado['id']);
+					if($exercicioVerProntoAcesso){
+						if(	$exercicioVerProntoAcesso->getRgc_id() &&
+							$exercicioVerProntoAcesso->getRgc_inicio() != null && 
+							$exercicioVerProntoAcesso->getRgc_inicio()!= "00:00:00" && 
+							$exercicioVerProntoAcesso->getRgc_fim() != null && 
+							$exercicioVerProntoAcesso->getRgc_fim()!= "00:00:00"){
+									$result = Array(
+										'id_exercicio'=>utf8_encode($exercicioVerProntoAcesso->getRgc_exercicio()),
+										'completo'=> "S"
+									);	
+						}else{
+							$result = Array(
+								'id_exercicio'=>utf8_encode($exercicioVerProntoAcesso->getRgc_exercicio()),
+								'completo'=> "N"
+							);
+						}
+					}
+					else{
+						$result = Array(
+							'id_exercicio'=>utf8_encode($value['exe_id']),
+							'completo'=> "N"
+						);
+					}				
+				}
+
+				if($value['exe_tipo']==2){
+					$exercicioVerProntoMultipla = $exercicioController->selectExercicioProntoMultipla($value['exe_id'], $logado['id']);
+					$numQuestao = $exercicioController->selectCountExercicioNumQuestoes($value['exe_id']);
+
+					if(($numQuestao != 0) && ($numQuestao == $exercicioVerProntoMultipla)){
+						$result = Array(
+							'id_exercicio'=>$value['exe_id'],
+							'completo'=> "S"
+						);
 					}else{
 						$result = Array(
-							'id_exercicio'=>utf8_encode($exercicioVerProntoAcesso->getRgc_exercicio()),
+							'id_exercicio'=>$value['exe_id'],
 							'completo'=> "N"
 						);
 					}
 				}
-				else{
-					$result = Array(
-						'id_exercicio'=>utf8_encode($value['exe_id']),
-						'completo'=> "N"
-					);
-				}				
-			}
 
-			if($value['exe_tipo']==2){
-				$exercicioVerProntoMultipla = $exercicioController->selectExercicioProntoMultipla($value['exe_id'], $logado['id']);
-				$numQuestao = $exercicioController->selectCountExercicioNumQuestoes($value['exe_id']);
-				if($numQuestao == $exercicioVerProntoMultipla){
-					$result = Array(
-						'id_exercicio'=>$value['exe_id'],
-						'completo'=> "S"
-					);
-				}else{
-					$result = Array(
-						'id_exercicio'=>$value['exe_id'],
-						'completo'=> "N"
-					);
+				if($value['exe_tipo']==4){
+					$exercicioVerProntoEscrita = $exercicioController->selectExercicioProntoEscrita($value['exe_id'], $logado['id']);
+					$numQuestao = $exercicioController->selectCountExercicioNumQuestoes($value['exe_id']);
+
+					if(($numQuestao != 0) && ($numQuestao == $exercicioVerProntoEscrita)){
+						$result = Array(
+							'id_exercicio'=>$value['exe_id'],
+							'completo'=> "S"
+						);
+					}else{
+						$result = Array(
+							'id_exercicio'=>$value['exe_id'],
+							'completo'=> "N"
+						);
+					}
 				}
+				array_push($lista, $result);
 			}
-
-
-			if($value['exe_tipo']==4){
-				$exercicioVerProntoEscrita = $exercicioController->selectExercicioProntoEscrita($value['exe_id'], $logado['id']);
-				$numQuestao = $exercicioController->selectCountExercicioNumQuestoes($value['exe_id']);
-				if($numQuestao == $exercicioVerProntoEscrita){
-					$result = Array(
-						'id_exercicio'=>$value['exe_id'],
-						'completo'=> "S"
-					);
-				}else{
-					$result = Array(
-						'id_exercicio'=>$value['exe_id'],
-						'completo'=> "N"
-					);
-				}
-			}
-
-			array_push($lista, $result);
-
+			
+			print_r(json_encode($lista));
 		}
-		
-		print_r(json_encode($lista));
-
 		break;
 	}
 }

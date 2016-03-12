@@ -50,6 +50,11 @@ class ExercicioController {
 		return $exe;
 	}
 
+	public function selectAllExercicioBySerieCapitulo($serie, $capitulo) {
+		$exe = $this->exercicioDAO->selectAllExercicioBySerieCapitulo($serie, $capitulo);
+		return $exe;
+	}
+
 	public function selectExercicioProntosRegistroAcesso($idExercicio, $idUsuario) {
 		$exe = $this->exercicioDAO->selectExercicioProntosRegistroAcesso($idExercicio, $idUsuario);
 		return $exe;

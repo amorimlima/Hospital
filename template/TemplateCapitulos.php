@@ -43,7 +43,7 @@
 				}else{
 					$bool = false;
 				}
-			}else{
+			}else if(($logado['perfil'] == "Unidade Escolar") || ($logado['perfil'] == "Professor")){
 				$ano = $_GET['ano'];
 				$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($ano, $logado['escola'],  $capitulo);
 				if(!empty($exercicios)){
@@ -51,6 +51,10 @@
 				}else{
 					$bool = false;
 				}
+			}else{
+				$ano = $_GET['ano'];
+				$exercicios = $exercicioController->selectAllExercicioBySerieCapitulo($ano, $capitulo);
+				$bool = true;
 			}
 
 			if($bool == true){
