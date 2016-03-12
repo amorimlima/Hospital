@@ -122,13 +122,15 @@ switch ($_POST["acao"]){
 
 		if (count($mensagem)>0){
 			foreach ($mensagem as $value) {
+
+				if ($value->getDestinatarios() != ''){
 				$destinatarios = explode(',',$value->getDestinatarios());	
 
 				$usuario = $usuarioController->select($destinatarios[0]);
 
 				if(count($destinatarios)>1){
 					$usrNome = $usuario->getUsr_nome()."...";
-				}
+				}else $usrNome = $usuario->getUsr_nome();
 
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" enviado col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
 						<p class="msg_check col-md-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
@@ -137,7 +139,8 @@ switch ($_POST["acao"]){
 						  <p class="msg_assunto col-md-7">'.utf8_encode($value->getMsg_assunto()).'</p>
 						  <p class="msg_data col-md-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 						</div>
-					</div>';		
+					</div>';
+				}		
 			}               
 		}else {
 			echo '<div class="alert alert-warning" role="alert"><strong>Nenhuma mensagem enviada.</strong></div>';
@@ -258,7 +261,7 @@ switch ($_POST["acao"]){
 		$logado = unserialize($_SESSION['USR']);
 		$remetente = $logado['nome'];
 		$destinatarios = explode(',',$mensagem->getDestinatarios());		
-		$dadosDestinatarios = [];
+		$dadosDestinatarios = array();
 		foreach ($destinatarios as $i => $value){
 			$usuario = $usuarioController->select($destinatarios[$i]);
 			$dadosDestinatarios[$i] =  Array(
@@ -336,7 +339,7 @@ switch ($_POST["acao"]){
        
 		$destinatarios = explode(',',$mensagem->getDestinatarios());		
 		
-		$dadosDestinatarios = [];
+		$dadosDestinatarios = array();
 		foreach ($destinatarios as $i => $value){
 			$usuario = $usuarioController->select($destinatarios[$i]);
 			$dadosDestinatarios[$i] =  Array(
@@ -378,6 +381,7 @@ switch ($_POST["acao"]){
 			$usuarios = $usuarioController->buscaUsuarioByLetraNome($letras,$logado['perfil_id'],$logado['escola']);
 		}		
 
+		$result = array();
 		foreach ($usuarios as $key => $value) {
 			$result[$key] = Array(
 				'nome'=>$value->getUsr_nome(),
@@ -435,10 +439,14 @@ switch ($_POST["acao"]){
 			$msgDestinatario++;
 		}
 		
+		//print_r('$msgDestinatario '.$msgDestinatario);
+		//print_r('count($destinatario) '.count($destinatario));
+		//print_r('$msgRemetente '.$msgRemetente);
+		
 		if($msgDestinatario == count($destinatario) && $msgRemetente>0){
-			echo "OK";
+			echo true;
 		}else{
-			echo "ERRO";
+			echo false;
 		}
 		
 		break;
@@ -450,7 +458,7 @@ switch ($_POST["acao"]){
         $mensagem = $mensagemController->selectMensagem($idmens);
 		$destinatarios = explode(',',$mensagem->getDestinatarios());		
 		
-		$dadosDestinatarios = [];
+		$dadosDestinatarios = array();
 		foreach ($destinatarios as $i => $value){
 			$usuario = $usuarioController->select($destinatarios[$i]);
 			$dadosDestinatarios[$i] =  Array(
