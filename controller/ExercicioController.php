@@ -57,12 +57,28 @@ class ExercicioController {
 		return $exe;
 	}
 
-	public function selectExercicioProntos($exeTipo, $idExercicio, $idUsuario)
+	public function selectExercicioProntosRegistroAcesso($idExercicio, $idUsuario)
 	{
-		$exe = $this->exercicioDAO->selectExercicioProntos($exeTipo, $idExercicio, $idUsuario);
+		$exe = $this->exercicioDAO->selectExercicioProntosRegistroAcesso($idExercicio, $idUsuario);
 		return $exe;
 	}
 	
+	public function selectExercicioProntoMultipla($idExercicio, $idUsuario)
+	{
+		$exe = $this->exercicioDAO->selectExercicioProntoMultipla($idExercicio, $idUsuario);
+		return $exe;
+	}
 
+	public function selectExercicioProntoEscrita($idExercicio, $idUsuario)
+	{
+		$exe = $this->exercicioDAO->selectExercicioProntoEscrita($idExercicio, $idUsuario);
+		return $exe;
+	}
+
+	public function selectCountExercicioNumQuestoes($exercicio)
+	{
+		$exe = $this->exercicioDAO->selectCountExercicioNumQuestoes($exercicio);
+		return $exe;
+	}		
 }
 ?>

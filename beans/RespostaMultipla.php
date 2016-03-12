@@ -20,7 +20,8 @@ class RespostaMultipla
 { 
 private $rspm_id;
 
-private $rspm_aluno;
+private $rspm_usuario;
+private $rspm_exercicio;
 private $rspm_questao;
 private $rspm_resposta;
 
@@ -39,9 +40,14 @@ public function getRspm_id()
 return $this->rspm_id;
 }
 
-public function getRspm_aluno()
+public function getRspm_usuario()
 {
-return $this->rspm_aluno;
+return $this->rspm_usuario;
+}
+
+public function getRspm_exercicio()
+{
+return $this->rspm_exercicio;
 }
 
 public function getRspm_questao()
@@ -61,9 +67,13 @@ public function setRspm_id($val)
 $this->rspm_id =  $val;
 }
 
-public function setRspm_aluno($val)
+public function setRspm_usuario($val)
 {
-$this->rspm_aluno =  $val;
+$this->rspm_usuario =  $val;
+}
+public function setRspm_exercicio($val)
+{
+$this->rspm_exercicio =  $val;
 }
 
 public function setRspm_questao($val)

@@ -25,8 +25,8 @@ class RespostaMultiplaDAO extends DAO{
      
      public function insert($rem)
      {
-        $sql  = "insert into resposta_multipla (rspm_aluno, rspm_questao, rspm_resposta) values ";
-        $sql .= "(".$rem->getRspm_aluno().",";
+        $sql  = "insert into resposta_multipla (rspm_usuario, rspm_exercicio, rspm_questao, rspm_resposta) values ";
+        $sql .= "(".$rem->getRspm_usuario().",".$rem->getRspm_exercicio().",";
         $sql .= "'".$rem->getRspm_questao()."','".$rem->getRspm_resposta()."')";
         echo $sql;
     	return $this->execute($sql);
@@ -34,8 +34,9 @@ class RespostaMultiplaDAO extends DAO{
     
      public function update($rem)
      {
-        $sql  = "update resposta_multipla set rspm_aluno = '".$rem->getRspm_aluno()."',";
-    	$sql .= "rspm_questao = '".$rem->getRspm_questao()."',";
+        $sql  = "update resposta_multipla set rspm_usuario = '".$rem->getRspm_usuario()."',";
+    	$sql .= "rspm_exercicio = '".$rem->getRspm_exercicio()."',";
+        $sql .= "rspm_questao = '".$rem->getRspm_questao()."',";
     	$sql .= "rspm_resposta = '".$rem->getRspm_resposta()."',";
         $sql .= "where  rspm_id = ".$rem->getRspm_id()." limit 1";
         return $this->execute($sql);
@@ -55,7 +56,8 @@ class RespostaMultiplaDAO extends DAO{
 
             $rem = new RespostaMultipla();
             $rem->setRspm_id($qr["rspm_id"]);
-            $rem->setRspm_aluno($qr["rspm_aluno"]);
+            $rem->setRspm_usuario($qr["rspm_usuario"]);
+            $rem->setRspm_exercicio($qr["rspm_exercicio"]);
             $rem->setRspm_questao($qr["rspm_questao"]);
             $rem->setRspm_resposta($qr["rspm_resposta"]);
                
@@ -72,7 +74,8 @@ class RespostaMultiplaDAO extends DAO{
     	{
             $rem = new RespostaMultipla();
             $rem->setRspm_id($qr["rspm_id"]);
-            $rem->setRspm_aluno($qr["rspm_aluno"]);
+            $rem->setRspm_usuario($qr["rspm_usuario"]);
+            $rem->setRspm_exercicio($qr["rspm_exercicio"]);
             $rem->setRspm_questao($qr["rspm_questao"]);
             $rem->setRspm_resposta($qr["rspm_resposta"]);
             array_push($lista, $rem);

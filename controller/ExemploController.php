@@ -45,6 +45,6 @@ class ExemploController {
 	{
 		$exemplo = $this->exemploDAO->selectAllExemplo($exemplo);
 		return $exemplo;
-	}
+	}	
 }
 ?>

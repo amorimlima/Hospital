@@ -59,7 +59,6 @@ $templateCapitulo = new TemplateCapitulos();
                                             }else{
                                                 $templateCapitulo->listaExercicios("n_ok");
                                             }
-
                                         ?>
                                     </div>
                                 </div>
