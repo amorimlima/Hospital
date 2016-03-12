@@ -1,4 +1,5 @@
 $(document).ready(function (){
+	posicionarBolinhas();	
 
 	var contador = 0;
 	var qtd_total_obj = 
@@ -45,9 +46,22 @@ function verificaExercicio(){
         },
         success: function (data)
         {
- 			console.log(data);
+        	console.log(data);
+        	var capituloCompleto = true;
+        	for(var i = 0; i < data.length; i++){
+        		if(data[i].completo === "N"){
+        			$('#obj_'+data[i].id_exercicio).css('background', 'url(img/circulo_avancar_cap_'+capitulo+'.png) no-repeat');
+        			capituloCompleto = false;
+        		}else{
+        			$('#obj_'+data[i].id_exercicio).css('background', 'url(img/circulo_parabens.png) no-repeat');
+        		}
+        			
+        	}
+        	if (capituloCompleto){
+        		$('#btn_exercicio_'+capitulo+'_parabens_brilho').css("display", "block");
+        	}
         }
-    })
+    });
 }
 
 function objectLength (object) {
@@ -58,4 +72,17 @@ function objectLength (object) {
 	    count++;
 
 	return count;
+}
+
+function posicionarBolinhas () {
+	var url   = window.location.search.replace("?", "");
+	var items = url.split("=");
+	var capitulo = items[1];
+	var curvaExercicios = new Curva(parseInt(capitulo));
+
+	for (var i = 0; i < $(".obj_icone").length; i++){
+		var pos = curvaExercicios.getRelativePosition(i*1/($(".obj_icone").length-1));
+		$(".obj_icone")[i].style.left = pos[0] + "px";
+		$(".obj_icone")[i].style.bottom = pos[1] + "px";
+	}
 }

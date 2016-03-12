@@ -48,16 +48,13 @@ $templateCapitulo = new TemplateCapitulos();
                             <div <?=$cssMapa['parabens_brilho']?> ></div>
                             <div id="caminho">
                                 <div class="row">                                    
-                                    <div class="linha" id="linha_atividade">
-                                        
-                                    </div>
                                     <div class="linha_atividade">
                                         <?php 
                                             $retorno = $templateCapitulo->listaExercicios("n_ok");
                                             if($retorno == "erro"){
                                                 $templateGeral->mensagemRetorno('exercicios','Este capitulo não está liberado!','erro');
                                             }else{
-                                                $templateCapitulo->listaExercicios("n_ok");
+                                                $retorno;
                                             }
                                         ?>
                                     </div>
@@ -76,6 +73,7 @@ $templateCapitulo = new TemplateCapitulos();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/funcoes.js"></script>
+    <script src="js/parametrizacaoCaminhos.js"></script>
     <script src="js/Capitulos.js"></script>
   </body>
 </html>

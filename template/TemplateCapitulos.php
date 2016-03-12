@@ -34,7 +34,6 @@
 
 			$logado = unserialize($_SESSION['USR']);
 			$capitulo = $_GET['capitulo'];
-			$ano = $_GET['ano'];
 			$userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
 
 			if($logado['perfil'] == "Aluno"){
@@ -45,6 +44,7 @@
 					$bool = false;
 				}
 			}else{
+				$ano = $_GET['ano'];
 				$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($ano, $logado['escola'],  $capitulo);
 				if(!empty($exercicios)){
 					$bool = true;
@@ -60,7 +60,7 @@
 					}
 
 					if($introducao=='n_ok'){
-						echo '<span id="obj_'.$i.'" url="'.$value['drt_nome'].$value['exe_ordem'].'_'.$value['exe_nome'].'" qtd="'.count($exercicios).'" class="tema obj_icone obj_icone'.count($exercicios).'_'.(++$i).'"></span>';
+						echo '<span id="obj_'.$value['exe_id'].'" url="'.$value['drt_nome'].$value['exe_ordem'].'_'.$value['exe_nome'].'" class="tema obj_icone"></span>';
 					}
 				}
 			}else{
