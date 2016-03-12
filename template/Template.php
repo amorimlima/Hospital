@@ -143,24 +143,28 @@ class Template {
 				$corBorda = 'borda_azul';
 				$corTexto = 'txt_azul';
 				$corBotao = 'btn_azul';
+				$onClick = '';
 				break;
 			}
 			case 'forum':{
 				$corBorda = 'borda_vermelho';
 				$corTexto = 'txt_vermelho';
 				$corBotao = 'btn_vermelho';
+				$onClick = '';
 				break;
 			}
 			case 'galeria':{
 				$corBorda = 'borda_laranja';
 				$corTexto = 'txt_laranja';
 				$corBotao = 'btn_laranja';
+				$onClick = '';
 				break;
 			}
 			case 'livros':{
 				$corBorda = 'borda_verde';
 				$corTexto = 'txt_verde';
 				$corBotao = 'btn_verde';
+				$onClick = '';
 				break;
 			}
             case 'exercicios':{
