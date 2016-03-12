@@ -101,7 +101,7 @@ $logado = unserialize($_SESSION['USR']);
                                         <div id="nova_mensagem">
                                             <!-- área de botões -->
                                             <div id="nova_mensagem_topo">
-                                                <div class="nova_mensagem_btns" id="nova_msg_enviar" onclick="checkEnviar()" data-toggle="modal" data-target="#feedback_nova_mensagem"></div>
+                                                <div class="nova_mensagem_btns" id="nova_msg_enviar" onclick="checkEnviar()" data-toggle="modal"></div>
                                                 <div class="nova_mensagem_btns" id="nova_msg_anexar"></div>
                                                 <button type="button" class="close" onclick="fecharNovaMsg()" id="bt_fechar_nova_msg">&times;</button>
                                             </div>
@@ -222,7 +222,7 @@ $logado = unserialize($_SESSION['USR']);
                                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Small Modal</button> -->
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="feedback_nova_mensagem" role="dialog">
+                                <!-- <div class="modal fade" id="feedback_nova_mensagem" role="dialog">
                                 <div class="modal-dialog modal-sm">
                                     <div class="modal-content">
                                     <div class="modal-body">
@@ -236,7 +236,7 @@ $logado = unserialize($_SESSION['USR']);
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <!-- Fim do Modal -->
                     </div>              	
                 </div>
@@ -266,6 +266,11 @@ $logado = unserialize($_SESSION['USR']);
     <div id="mensagemErroEnviar" style="display:none" class='modalMensagem'>
         <?php
             $templateGeral->mensagemRetorno('mensagens','Erro ao enviar mensagem!','erro');
+        ?>
+    </div>
+    <div id="mensagemErroVazio" style="display:none" class='modalMensagem'>
+        <?php
+            $templateGeral->mensagemRetorno('mensagens','Todos os campos devem ser preenchidos!','erro');
         ?>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
