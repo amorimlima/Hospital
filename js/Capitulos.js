@@ -2,30 +2,24 @@ $(document).ready(function (){
 	posicionarBolinhas();	
 
 	var contador = 0;
-	var qtd_total_obj = 
-
 	verificaExercicio();
 
-	$('.tema').click(function(){
-		var classe = $(this).attr('class');		
-		classe = classe.split(" ");
-		$('.'+classe[2]).addClass('obj_icone_ativo');	
+	$('.tema').click(function(){	
 		
-		var id = $(this).attr('id');
 		var idTema = $(this).attr('url');
-		var qtd_total_obj = $('#'+id).attr('qtd');
+		$('#objeto').attr('src','Objetos/'+idTema+'/index.html').css({'display':'block'});
 
-		contador ++;
-		if(contador==qtd_total_obj){
-			$('#btn_exercicio_5_parabens').css('display','none');
-			$('#btn_exercicio_5_parabens_brilho').css('display','block');
+		var url   = window.location.search.replace("?", "");
+		var items = url.split("=");
+		var capitulo = parseInt(items[1]);
+		if(items[0] == 'ano'){
+			items = url.split("&");
+			capitulo = items[1].split("=")[1];
+			$('.tema').css('background', 'url(img/circulo_avancar_cap_'+capitulo+'.png) no-repeat');
 		}
 
-		
-		$('#img_teste').css('display','none'); 
-		$('#objeto').attr('src','Objetos/'+idTema+'/index.html').css({'display':'block'}); 
+    	$(this).css('background', 'url(img/circulo_parabens.png) no-repeat');
 
-		console.log(idTema);
 
 		risizeObj();
 
@@ -35,33 +29,41 @@ $(document).ready(function (){
 function verificaExercicio(){
 	var url   = window.location.search.replace("?", "");
 	var items = url.split("=");
-	var capitulo = items[1];
-    $.ajax({
-        url: "ajax/ExerciciosAjax.php",
-        type: "post",
-        dataType: "json",
-        data: {
-            'acao': "verificaExercicio",
-            'capitulo': capitulo
-        },
-        success: function (data)
-        {
-        	console.log(data);
-        	var capituloCompleto = true;
-        	for(var i = 0; i < data.length; i++){
-        		if(data[i].completo === "N"){
-        			$('#obj_'+data[i].id_exercicio).css('background', 'url(img/circulo_avancar_cap_'+capitulo+'.png) no-repeat');
-        			capituloCompleto = false;
-        		}else{
-        			$('#obj_'+data[i].id_exercicio).css('background', 'url(img/circulo_parabens.png) no-repeat');
-        		}
-        			
-        	}
-        	if (capituloCompleto){
-        		$('#btn_exercicio_'+capitulo+'_parabens_brilho').css("display", "block");
-        	}
-        }
-    });
+	var capitulo = parseInt(items[1]);
+	if(items[0] != 'ano')
+	{
+		$.ajax({
+    	    url: "ajax/ExerciciosAjax.php",
+    	    type: "post",
+    	    dataType: "json",
+    	    data: {
+    	        'acao': "verificaExercicio",
+    	        'capitulo': capitulo
+    	    },
+    	    success: function (data)
+    	    {
+    	    	var capituloCompleto = true;
+    	    	for(var i = 0; i < data.length; i++){
+    	    		if(data[i].completo === "N"){
+    	    			$('#obj_'+data[i].id_exercicio).css('background', 'url(img/circulo_avancar_cap_'+capitulo+'.png) no-repeat');
+    	    			capituloCompleto = false;
+    	    		}else{
+    	    			$('#obj_'+data[i].id_exercicio).css('background', 'url(img/circulo_parabens.png) no-repeat');
+    	    		}
+    	    			
+    	    	}
+    	    	if (capituloCompleto){
+    	    		$('#btn_exercicio_'+capitulo+'_parabens_brilho').css("display", "block");
+    	    	}
+    	    }
+    	});
+	}
+	else
+	{
+		var items = url.split("&");
+		var capitulo = items[1].split("=")[1];
+		$('.obj_icone').css('background', 'url(img/circulo_avancar_cap_'+capitulo+'.png) no-repeat');
+	}
 }
 
 function objectLength (object) {
@@ -77,7 +79,11 @@ function objectLength (object) {
 function posicionarBolinhas () {
 	var url   = window.location.search.replace("?", "");
 	var items = url.split("=");
-	var capitulo = items[1];
+	var capitulo = parseInt(items[1]);
+	if(items[0] == 'ano'){
+		items = url.split("&");
+		capitulo = items[1].split("=")[1];
+	}
 	var curvaExercicios = new Curva(parseInt(capitulo));
 
 	for (var i = 0; i < $(".obj_icone").length; i++){
