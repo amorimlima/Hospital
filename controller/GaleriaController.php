@@ -31,7 +31,9 @@ class GaleriaController {
 	
 	public function update($glr)
 	{
-		return $this->galeriaDAO->update($glr);
+		$result = $this->galeriaDAO->update($glr);
+		print_r($result);
+		return $result;
 	}
 	
 	public function delete($idglr)
@@ -57,9 +59,21 @@ class GaleriaController {
 		return $glr;
 	}
 
+	public function selectMaisVistos()
+	{
+		$glr = $this->galeriaDAO->selectMaisVistos();
+		return $glr;
+	}
+
 	public function selectNome($nomeGaleria)
 	{
 		$glr = $this->galeriaDAO->selectNome($nomeGaleria);
+		return $glr;
+	}
+
+	public function selectCategoria($categoria)
+	{
+		$glr = $this->galeriaDAO->selectCategoria($categoria);
 		return $glr;
 	}
 }

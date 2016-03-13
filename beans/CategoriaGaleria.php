@@ -2,7 +2,7 @@
 /*
 *
 * -------------------------------------------------------
-* CLASSNAME:        Categoria_Galeria
+* CLASSNAME:        CategoriaGaleria
 * GENERATION DATE:  11.03.2016
 * FOR MYSQL TABLE:  categoria_galeria
 * FOR MYSQL DB:     casar
@@ -13,12 +13,13 @@
 *
 */
 
-class Categoria_Galeria
+class CategoriaGaleria
 {
 	private $ctg_id;
-	private $ctg_galeria;
+	private $ctg_categoria;
+	private $ctg_classe;
 
-	public function Categoria_Galeria()
+	public function CategoriaGaleria()
 	{
 
 	}
@@ -33,6 +34,11 @@ class Categoria_Galeria
 		return $this->ctg_categoria;
 	}
 
+	public function getCtg_classe()
+	{
+		return $this->ctg_classe;
+	}
+
 
 	public function setCtg_id($val)
 	{
@@ -42,6 +48,11 @@ class Categoria_Galeria
 	public function setCtg_categoria($val)
 	{
 		$this->ctg_categoria = $val;
+	}
+
+	public function setCtg_classe($val)
+	{
+		$this->ctg_classe = $val;
 	}
 
 }

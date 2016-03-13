@@ -135,7 +135,8 @@
         cursor: pointer;
         border: 1px solid #FED488;
         font-family: Source Sans Pro;
-        font-size : 12px; 
+        font-size : 12px;
+        padding: 5px;
         padding-left: 10px;
         padding-right: 42px;
     }
@@ -152,7 +153,7 @@
         font-weight: 400;
         margin: 30px 0 16px;
     }
-    .gal_caixa1, .gal_caixa2 {
+    .gal_caixa{
         width: 100%;
         height: auto;
         background-color: rgb(255,252,246);
@@ -160,14 +161,14 @@
         margin-left: auto;
         margin-right: auto; 
     }
-    .gal_video {display: none;}
-    .gal_video_icon {
+    .gal_dados {display: none;}
+    .gal_Video_icon {
         display: none;
         background:url(../img/video.png) no-repeat;
         height: 58px;
         background-position: 50%;
     }
-    .gal_video_texto {
+    .gal_categoria {
         width: 90%;
         height: 15px;
         background: #FDFDF7;
@@ -251,7 +252,8 @@
         cursor: pointer;
         border: 1px solid #FED488;
         font-family: Source Sans Pro;
-        font-size : 12px; 
+        font-size : 12px;
+        padding: 5px;
         padding-left: 10px;
         padding-right: 42px;
     }
@@ -268,7 +270,7 @@
         font-weight: 400;
         margin: 30px 0 16px;
     }
-    .gal_caixa1, .gal_caixa2 {
+    .gal_caixa {
         width: 100%;
         height: 100px;
         background-color: rgb(255,252,246);
@@ -276,7 +278,7 @@
         margin-left: auto;
         margin-right: auto; 
     }
-    .gal_video {
+    .gal_dados {
         /*background: #F7F8E5;*/
         display: inline-block;
         float: left;
@@ -285,12 +287,12 @@
         height: 80px;
         margin-left: 10px;
     }
-    .gal_video_icon {
+    .gal_Video_icon {
         background:url(../img/video.png) no-repeat;
         height: 58px;
         background-position: 50%;
     }
-    .gal_video_texto {
+    .gal_categoria {
         width: 80%;
         height: 15px;
         background: #FDFDF7;
@@ -379,7 +381,8 @@
         cursor: pointer;
         border: 1px solid #FED488;
         font-family: Source Sans Pro;
-        font-size : 12px; 
+        font-size : 12px;
+        padding: 5px; 
         padding-left: 10px;
         padding-right: 42px;
     }
@@ -396,7 +399,7 @@
         font-weight: 400;
         margin: 30px 0 16px;
     }
-    .gal_caixa1, .gal_caixa2 {
+    .gal_caixa {
         width: 100%;
         height: 100px;
         background-color: rgb(255,252,246);
@@ -404,7 +407,7 @@
         margin-left: auto;
         margin-right: auto; 
     }
-    .gal_video {
+     .gal_dados{
         /*background: #F7F8E5;*/
         display: inline-block;
         float: left;
@@ -413,12 +416,12 @@
         height: 80px;
         margin-left: 10px;
     }
-    .gal_video_icon {
+    .gal_Video_icon {
         background:url(../img/video.png) no-repeat;
         height: 58px;
         background-position: 50%;
     }
-    .gal_video_texto {
+    .gal_categoria {
         width: 80%;
         height: 15px;
         background: #FDFDF7;
@@ -507,7 +510,8 @@
         cursor: pointer;
         border: 1px solid #FED488;
         font-family: Source Sans Pro;
-        font-size : 12px; 
+        font-size : 12px;
+        padding: 5px;
         padding-left: 10px;
         padding-right: 42px;
     }
@@ -524,7 +528,7 @@
         font-weight: 400;
         margin: 30px 0 16px;
     }
-    .gal_caixa1, .gal_caixa2 {
+    .gal_caixa {
         width: 100%;
         height: 100px;
         background-color: rgb(255,252,246);
@@ -532,7 +536,7 @@
         margin-left: auto;
         margin-right: auto; 
     }
-    .gal_video {
+    .gal_dados {
         /*background: #F7F8E5;*/
         display: inline-block;
         float: left;
@@ -541,12 +545,12 @@
         height: 80px;
         margin-left: 10px;
     }
-    .gal_video_icon {
+    .gal_Video_icon {
         background:url(../img/video.png) no-repeat;
         height: 58px;
         background-position: 50%;
     }
-    .gal_video_texto {
+    .gal_categoria {
         width: 80%;
         height: 15px;
         background: #FDFDF7;
@@ -615,29 +619,29 @@
             width: 100%;
             height: auto;
         }
-        .mv_video{
+        .mv_Video{
             background:#F7F8E5;
             height: 100%;
         }
-        .icon_video{
+        .icon_Video{
             background:url(../img/video.png) no-repeat;
             height: 58px;
             background-position: 50%;
         }
-        .mv_foto{
+        .mv_Foto{
             background:#FFF4E3;
             height: 100%;
         }
-        .icon_foto{
+        .icon_Foto{
             background:url(../img/photo.png) no-repeat;
             height: 58px;
             background-position: 50%;
         }
-        .mv_jogo{
+        .mv_Jogo{
             background:#E9F4F5;
             height: 100%;
         }
-        .icon_jogo{
+        .icon_Jogo{
             background:url(../img/game.png) no-repeat;
             height: 58px;
             background-position: 50%;
@@ -651,10 +655,10 @@
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 10px;
-            font-size: 80%;
+            font-size: 100%;
             line-height: 1.2;
             color: #4D4D4D;
-            padding: 2px;
+            padding: 6px;
         }
         .txt_mv_caixa {
             display: block;
@@ -708,7 +712,7 @@
             width: 100px;
             height: 100px;
         }
-        .mv_video{
+        .mv_Video{
             background:#F7F8E5;
             width: 100px;
             height: 100%;
@@ -718,22 +722,22 @@
             height: 58px;
             background-position: 26px;
         }
-        .mv_foto{
+        .mv_Foto{
             background:#FFF4E3;
             width: 100px;
             height: 100%;
         }
-        .icon_foto{
+        .icon_Foto{
             background:url(../img/photo.png) no-repeat;
             height: 58px;
             background-position: 26px;
         }
-        .mv_jogo{
+        .mv_Jogo{
             background:#E9F4F5;
             width: 100px;
             height: 100%;
         }
-        .icon_jogo{
+        .icon_Jogo{
             background:url(../img/game.png) no-repeat;
             height: 58px;
             background-position: 26px;
@@ -745,10 +749,10 @@
             background: #FDFDF7;
             text-align: center;
             margin-left: 5px;
-            font-size: 80%;
+            font-size: 100%;
             line-height: 1.2;
             color: #4D4D4D;
-            padding: 2px;
+            padding: 6px;
         }
         .txt_mv_caixa {
             display: inline-block;
@@ -818,32 +822,32 @@
         width: 100px;
         height: 100px;
     }
-    .mv_video{
+    .mv_Video{
         background:#F7F8E5;
         width: 100px;
         height: 100%;
     }
-    .icon_video{
+    .icon_Video{
         background:url(../img/video.png) no-repeat;
         height: 58px;
         background-position: 26px;
     }
-    .mv_foto{
+    .mv_Foto{
         background:#FFF4E3;
         width: 100px;
         height: 100%;
     }
-    .icon_foto{
+    .icon_Foto{
         background:url(../img/photo.png) no-repeat;
         height: 58px;
         background-position: 26px;
     }
-    .mv_jogo{
+    .mv_Jogo{
         background:#E9F4F5;
         width: 100px;
         height: 100%;
     }
-    .icon_jogo{
+    .icon_Jogo{
         background:url(../img/game.png) no-repeat;
         height: 58px;
         background-position: 26px;
@@ -855,10 +859,10 @@
         background: #FDFDF7;
         text-align: center;
         margin-left: 5px;
-        font-size: 80%;
+        font-size: 100%;
         line-height: 1.2;
         color: #4D4D4D;
-        padding: 2px;
+        padding: 6px;
     }
     .txt_mv_caixa {
         display: inline-block;
@@ -940,32 +944,32 @@
         width: 100px;
         height: 100px;
     }
-    .mv_video{
+    .mv_Video{
         background:#F7F8E5;
         width: 100px;
         height: 100%;
     }
-    .icon_video{
+    .icon_Video{
         background:url(../img/video.png) no-repeat;
         height: 58px;
         background-position: 26px;
     }
-    .mv_foto{
+    .mv_Foto{
         background:#FFF4E3;
         width: 100px;
         height: 100%;
     }
-    .icon_foto{
+    .icon_Foto{
         background:url(../img/photo.png) no-repeat;
         height: 58px;
         background-position: 26px;
     }
-    .mv_jogo{
+    .mv_Jogo{
         background:#E9F4F5;
         width: 100px;
         height: 100%;
     }
-    .icon_jogo{
+    .icon_Jogo{
         background:url(../img/game.png) no-repeat;
         height: 58px;
         background-position: 26px;
@@ -977,10 +981,10 @@
         background: #FDFDF7;
         text-align: center;
         margin-left: 5px;
-        font-size: 80%;
+        font-size: 100%;
         line-height: 1.2;
         color: #4D4D4D;
-        padding: 2px;
+        padding: 6px;
     }
     .txt_mv_caixa {
         display: inline-block;
@@ -1057,32 +1061,32 @@
         width: 100px;
         height: 100px;
     }
-    .mv_video{
+    .mv_Video{
         background:#F7F8E5;
         width: 100px;
         height: 100%;
     }
-    .icon_video{
+    .icon_Video{
         background:url(../img/video.png) no-repeat;
         height: 58px;
         background-position: 26px;
     }
-    .mv_foto{
+    .mv_Foto{
         background:#FFF4E3;
         width: 100px;
         height: 100%;
     }
-    .icon_foto{
+    .icon_Foto{
         background:url(../img/photo.png) no-repeat;
         height: 58px;
         background-position: 26px;
     }
-    .mv_jogo{
+    .mv_Jogo{
         background:#E9F4F5;
         width: 100px;
         height: 100%;
     }
-    .icon_jogo{
+    .icon_Jogo{
         background:url(../img/game.png) no-repeat;
         height: 58px;
         background-position: 26px;
@@ -1094,10 +1098,10 @@
         background: #FDFDF7;
         text-align: center;
         margin-left: 5px;
-        font-size: 80%;
+        font-size: 100%;
         line-height: 1.2;
         color: #4D4D4D;
-        padding: 2px;
+        padding: 6px;
     }
     .txt_mv_caixa {
         display: inline-block;

@@ -23,11 +23,8 @@ class TemplateGaleria{
 	{
 		self::$path = $_SESSION['URL_SYS'];
 	}
-        
-   public function Teste()
-   {
-		
-   }
- 
+
+
+	
 }
 ?>

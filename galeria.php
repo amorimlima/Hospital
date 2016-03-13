@@ -47,13 +47,8 @@ $templateGeral = new Template();
                                         <div id="box_cat">
                                             <p id="box_right_1_box_titulo_1" class="titulo">CATEGORIA</p>
                                             <div class="box_right_1_box_select">
-                                                <input type="text" id="select_text">
+                                                <div id="select_text"></div>
                                                 <div id="box_select">
-                                                    <span id="1" class="selecionado">Vídeo</span>
-                                                    <span id="2" class="selecionado">Hiperlink</span>
-                                                    <span id="3" class="selecionado">PDF</span>
-                                                    <span id="4" class="selecionado">Audio</span>
-                                                    <span id="5" class="selecionado">Foto</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -70,97 +65,6 @@ $templateGeral = new Template();
                                 <div class="box_left_gal_results">
                                     <p id="box_left_box_titulo_results" class="titulo">RESULTADOS DA PESQUISA</p>
                                     <div id="box_left_resultados_container">
-                                        <div class="gal_caixa1">
-                                            <div class="gal_video">
-                                                <div class="gal_video_icon"></div>
-                                                <div class="gal_video_texto">VIDEO</div>
-                                            </div>
-                                            <div class="gal_caixa_texto">
-                                                <div class="gal_caixa_texto_titulo">Os riscos do tabagismo</div>
-                                                <div class="gal_caixa_texto_sub">Postado por Isabela Oliveira dia 15/04/2015 às 21:16</div>
-                                                <div class="gal_caixa_texto_corpo">O documentário gravado por aluno de Medicina da Unisaúde apresenta as consequências do tabagismo para o corpo do homem e os riscos diretos envolvidos nessa prática.</div>
-                                            </div>
-                                        </div>
-                                        <div class="gal_caixa2">
-                                            <div class="gal_video">
-                                                <div class="gal_video_icon"></div>
-                                                <div class="gal_video_texto">VIDEO</div>
-                                            </div>
-                                            <div class="gal_caixa_texto">
-                                                <div class="gal_caixa_texto_titulo">O que é ser fumante passivo?</div>
-                                                <div class="gal_caixa_texto_sub">Postado por Vitor Velasques dia 10/04/2015 às 17:34</div>
-                                                <div class="gal_caixa_texto_corpo">Reportagem da TV Saúde sobre as consequências de conviver com um fumante.</div>
-                                            </div>
-                                        </div>
-                                        <div class="gal_caixa1">
-                                            <div class="gal_video">
-                                                <div class="gal_video_icon"></div>
-                                                <div class="gal_video_texto">VIDEO</div>
-                                            </div>
-                                            <div class="gal_caixa_texto">
-                                                <div class="gal_caixa_texto_titulo">Qual a relação entre câncer de pulmão e o tabagismo?</div>
-                                                <div class="gal_caixa_texto_sub">Postado por Mateus Salgado dia 01/04/2015 às 13:49</div>
-                                                <div class="gal_caixa_texto_corpo">Entenda os perigos da prática do tabagismo e dos riscos que o fumante se expõe.</div>
-                                            </div>
-                                        </div>
-                                        <div class="gal_caixa2">
-                                            <div class="gal_video">
-                                                <div class="gal_video_icon"></div>
-                                                <div class="gal_video_texto">VIDEO</div>
-                                            </div>
-                                            <div class="gal_caixa_texto">
-                                                <div class="gal_caixa_texto_titulo">Campanha do Ministério da Saúde sobre Tabagismo</div>
-                                                <div class="gal_caixa_texto_sub">Postado por Mateus Salgado dia 01/04/2015 às 13:49</div>
-                                                <div class="gal_caixa_texto_corpo">Vídeo para conscientização da população sobre o tabagismo veiculada em 2008.</div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Daqui para baixo, só teste -->
-
-                                        <div class="gal_caixa1">
-                                            <div class="gal_video">
-                                                <div class="gal_video_icon"></div>
-                                                <div class="gal_video_texto">VIDEO</div>
-                                            </div>
-                                            <div class="gal_caixa_texto">
-                                                <div class="gal_caixa_texto_titulo">Os riscos do tabagismo</div>
-                                                <div class="gal_caixa_texto_sub">Postado por Isabela Oliveira dia 15/04/2015 às 21:16</div>
-                                                <div class="gal_caixa_texto_corpo">O documentário gravado por aluno de Medicina da Unisaúde apresenta as consequências do tabagismo para o corpo do homem e os riscos diretos envolvidos nessa prática.</div>
-                                            </div>
-                                        </div>
-                                        <div class="gal_caixa2">
-                                            <div class="gal_video">
-                                                <div class="gal_video_icon"></div>
-                                                <div class="gal_video_texto">VIDEO</div>
-                                            </div>
-                                            <div class="gal_caixa_texto">
-                                                <div class="gal_caixa_texto_titulo">O que é ser fumante passivo?</div>
-                                                <div class="gal_caixa_texto_sub">Postado por Vitor Velasques dia 10/04/2015 às 17:34</div>
-                                                <div class="gal_caixa_texto_corpo">Reportagem da TV Saúde sobre as consequências de conviver com um fumante.</div>
-                                            </div>
-                                        </div>
-                                        <div class="gal_caixa1">
-                                            <div class="gal_video">
-                                                <div class="gal_video_icon"></div>
-                                                <div class="gal_video_texto">VIDEO</div>
-                                            </div>
-                                            <div class="gal_caixa_texto">
-                                                <div class="gal_caixa_texto_titulo">Qual a relação entre câncer de pulmão e o tabagismo?</div>
-                                                <div class="gal_caixa_texto_sub">Postado por Mateus Salgado dia 01/04/2015 às 13:49</div>
-                                                <div class="gal_caixa_texto_corpo">Entenda os perigos da prática do tabagismo e dos riscos que o fumante se expõe.</div>
-                                            </div>
-                                        </div>
-                                        <div class="gal_caixa2">
-                                            <div class="gal_video">
-                                                <div class="gal_video_icon"></div>
-                                                <div class="gal_video_texto">VIDEO</div>
-                                            </div>
-                                            <div class="gal_caixa_texto">
-                                                <div class="gal_caixa_texto_titulo">Campanha do Ministério da Saúde sobre Tabagismo</div>
-                                                <div class="gal_caixa_texto_sub">Postado por Mateus Salgado dia 01/04/2015 às 13:49</div>
-                                                <div class="gal_caixa_texto_corpo">Vídeo para conscientização da população sobre o tabagismo veiculada em 2008.</div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +76,7 @@ $templateGeral = new Template();
                                             <div class="formfield">
                                                 <label for="">Categoria</label>
                                                 <span>
-                                                    <div>
+                                                    <div id="categoriaPost">
                                                         <input type="radio" name="tipo_arquivo" id="imagem" checked/>
                                                         <label for="imagem">Imagem</label>
                                                         <input type="radio" name="tipo_arquivo" id="video" />
@@ -186,17 +90,6 @@ $templateGeral = new Template();
                                                         <input type="radio" name="tipo_arquivo" id="texto" />
                                                         <label for="texto">Texto</label>
                                                     </div>
-                                                </span>
-                                            </div>
-                                            <div class="formfield formfield-m formfield-only">
-                                                <label for="assunto_arquivo">Assunto</label>
-                                                <span>
-                                                    <select name="assunto_arquivo" id="assunto_arquivo">
-                                                        <option value="0" disabled selected hidden>Selecione</option>
-                                                        <option value="1">Assunto 1</option>
-                                                        <option value="2">Assunto 2</option>
-                                                        <option value="3">Assunto 3</option>
-                                                    </select>
                                                 </span>
                                             </div>
                                             <div class="formfield">
@@ -243,23 +136,6 @@ $templateGeral = new Template();
                             <div id="box_mais_vistos">
                                 <p id="topo_mais_vistos"></p>
                                 <div id="container_mv_box">
-                                    <div class="">
-                                        <div class="mv_caixa">
-                                            <div class="mv_caixa_icon">
-                                                <div class="mv_video">
-                                                    <div class="icon_video"></div>
-                                                    <div class="icon_texto">Os riscos do cigarro</div>
-                                                </div>
-                                            </div>
-                                            <div class="txt_mv_caixa">
-                                                <p class="txt_mv_caixa_titulo">Os riscos do cigarro</p>
-                                                <p class="txt_mv_caixa_sub">Postado por Miriam Sagawa </p>
-                                                <p class="txt_mv_caixa_data">03/02/2015 às 15:16</p>
-
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    </div>
                                     <div class="row">
                                         <div class="mv_caixa">
                                             <div class="mv_caixa_icon">
