@@ -48,7 +48,7 @@ $logado = unserialize($_SESSION['USR']);
                     <div id="Conteudo_Area_box_Grande">
                             <div id="box_msg_geral">                        	
                                 <div class="row">             					
-                   					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-8 pull-right">
+                   					<div class="col-xs-12 col-sm-9 col-md-10 pull-right">
                                         <!-- Conteudo mensagem-->
                                         <div id="conteudo_mensagem">
                                             <div class="row" id="ln_NRE">
@@ -142,7 +142,7 @@ $logado = unserialize($_SESSION['USR']);
                                             </div>
                                         </div>
                                     </div>                                
-                                    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-4 pull-left" id="box_msg_left">   
+                                    <div class="col-xs-12 col-sm-3 col-md-2 pull-left" id="box_msg_left">   
                                         <!--Menu geral-->
                                         <div id="mn_geral">
                                             <div id="btn_recebidos" onclick="recebidasFuncao()" class="btn_msg btn_msg_ativo">

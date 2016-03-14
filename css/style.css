@@ -14,13 +14,13 @@ body {
 	font-family : Source Sans Pro;
     font-size: 14px;
     line-height: none;
-    color: #000000;
+    color: #666;
     background-color: #fff;
 }
 p,a{
 	margin: 0;
 	padding: 0;
-	color:#000000;
+	color:#666;
 }
 .overlock{
 	font-family: Overlock !important;

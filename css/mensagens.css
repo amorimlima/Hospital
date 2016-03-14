@@ -34,42 +34,27 @@
 	cursor: pointer;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 980px) {
+    .btn_msg {
+        padding: 48px 0;
+    }
 	.btn_msg div{
-		display: inline-block;
-    	height: 100%;
-    	line-height: 193px;
+        margin: 0 auto;
+        text-align: center;
+		display: block;
     	font-family: Overlock;
     	font-weight: bold;
     	font-size: 14px;
     	color: #1C7B7F;
     	width: 68px;
 	}
+    .btn_msg div:nth-child(2) {
+        margin-top: 20px;
+        width: auto;
+    }
 	.box_img{
+        display: block;
 		width: 68px;
-    	margin-left: 52px;
-	}
-}
-
-@media (min-width: 980px) and (max-width: 1199px) {
-	.btn_msg div{
-	    padding-top: 30px;
-	    width: 100%;
-	    height: auto;
-	    font-family: Overlock;
-	    font-weight: bold;
-	    font-size: 14px;
-	    color: #1C7B7F;
-	}
-	.btn_msg div img {
-		display: block;
-		margin: 0 auto;
-	}
-	.btn_msg .box_text {width: 100%; text-align: center;}
-	.box_img{
-		display: block;
-		width: 100%;
-	    margin: 0 auto;
 	}
 }
 
@@ -229,7 +214,7 @@
     min-height: 137px;
     padding: 10px 21px;
 	border: 0;
-	resize:0;
+	resize: none;
 }
 #ass_linha{
     background: #E5F5F6;
