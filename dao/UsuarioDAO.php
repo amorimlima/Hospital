@@ -39,7 +39,8 @@ class UsuarioDAO extends DAO{
      	$sql .= "rg,";
      	$sql .= "usr_cpf,";
      	$sql .= "usr_login,";
-     	$sql .= "usr_senha";
+     	$sql .= "usr_senha,";
+     	$sql .= "usr_imagem";
      	$sql .= ") values (";
      	$sql .= "".$user->getUsr_id().",";
      	$sql .= "'".$user->getUsr_nome()."',";
@@ -52,7 +53,8 @@ class UsuarioDAO extends DAO{
      	$sql .= "'".$user->getUsr_rg()."',";
      	$sql .= "'".$user->getUsr_cpf()."',";
      	$sql .= "'".$user->getUsr_login()."',";
-     	$sql .= "'".$user->getUsr_senha()."')";
+     	$sql .= "'".$user->getUsr_senha()."',";
+     	$sql .= "'".$user->getUsr_imagem()."')";
      	//echo $sql;
      	return $this->execute($sql);
      }
@@ -70,7 +72,8 @@ class UsuarioDAO extends DAO{
          $sql .= "usr_rg,";
          $sql .= "usr_cpf,";
          $sql .= "usr_login,";
-         $sql .= "usr_senha";
+         $sql .= "usr_senha,";
+         $sql .= "usr_imagem";
          $sql .= ") values (";
          $sql .= "'".$user->getUsr_nome()."',";
          $sql .= "'".$user->getUsr_data_nascimento()."',";
@@ -82,9 +85,10 @@ class UsuarioDAO extends DAO{
          $sql .= "'".$user->getUsr_rg()."',";
          $sql .= "'".$user->getUsr_cpf()."',";
          $sql .= "'".$user->getUsr_login()."',";
-         $sql .= "'".$user->getUsr_senha()."')";
+         $sql .= "'".$user->getUsr_senha()."',";
+         $sql .= "'".$user->getUsr_imagem()."')";
 		//echo $sql;
-    	return $this->execute($sql);
+    	return $this->executeAndReturnLastID($sql);
      }
      
      public function update($user)
@@ -99,7 +103,8 @@ class UsuarioDAO extends DAO{
         $sql .= "usr_rg = ".$user->getUsr_rg().",";
         $sql .= "usr_cpf = ".$user->getUsr_cpf().",";
         $sql .= "usr_login = ".$user->getUsr_login().",";
-        $sql .= "usr_senha = ".$user->getUsr_senha();
+        $sql .= "usr_senha = ".$user->getUsr_senha().",";
+        $sql .= "usr_imagem = ".$user->getUsr_imagem();
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
         
         return $this->execute($sql);
@@ -129,6 +134,7 @@ class UsuarioDAO extends DAO{
                 $user->setUsr_perfil($qr["usr_perfil"]);
                 $user->setUsr_rg($qr["usr_rg"]);
                 $user->setUsr_cpf($qr["usr_cpf"]);
+                $user->setUsr_imagem($qr["usr_imagem"]);
                 //$user->setUsr_login($qr["usr_login"]);
             	//$user->setUsr_senha($qr["usr_senha"]);
                 
@@ -156,6 +162,7 @@ class UsuarioDAO extends DAO{
                 $user->setUsr_cpf($qr["usr_cpf"]);
                 $user->setUsr_login($qr["usr_login"]);
             	$user->setUsr_senha($qr["usr_senha"]);
+            	$user->setUsr_imagem($qr["usr_imagem"]);
                 array_push($lista, $user);
                 
         }	
@@ -184,6 +191,7 @@ class UsuarioDAO extends DAO{
                 $user->setUsr_cpf($qr["usr_cpf"]);
                 $user->setUsr_login($qr["usr_login"]);
             	$user->setUsr_senha($qr["usr_senha"]);
+            	$user->setUsr_imagem($qr["usr_imagem"]);
                 array_push($lista, $user);
                 
         }	
@@ -210,6 +218,7 @@ class UsuarioDAO extends DAO{
             $user->setUsr_cpf($qr["usr_cpf"]);
             $user->setUsr_login($qr["usr_login"]);
             $user->setUsr_senha($qr["usr_senha"]);
+            $user->setUsr_imagem($qr["usr_imagem"]);
             array_push($lista, $user);
         }
         return $lista;
@@ -238,7 +247,8 @@ class UsuarioDAO extends DAO{
     			'prf_perfil'=> $qr["prf_perfil"],
                 'prf_id'    => $qr["prf_id"],
     			'prf_url'	=> $qr["url"],
-    			'prf_pagina'=> $qr["pagina"]
+    			'prf_pagina'=> $qr["pagina"],
+    			'usr_imagem'=> $qr["usr_imagem"]
 			);
 		}
 		
@@ -289,6 +299,7 @@ class UsuarioDAO extends DAO{
 			$user->setUsr_perfil($qr["usr_perfil"]);
 			$user->setUsr_rg($qr["usr_rg"]);
 			$user->setUsr_cpf($qr["usr_cpf"]);
+			$user->setUsr_imagem($qr["usr_imagem"]);
 			array_push($lista, $user);                
         }
     	return $lista;
@@ -333,5 +344,33 @@ class UsuarioDAO extends DAO{
         }  
 		return $lista;
 	}
+
+	public function buscaFotoByIdUsuario($id)
+     {
+        $sql = "select usr_imagem from usuario where usr_id = ".$id;
+        //echo $sql;
+    	$result = $this->retrieve($sql);
+    	$qr = mysqli_fetch_array($result);
+    	
+    	return $qr["usr_imagem"];
+        
+//                $user = new Usuario();
+//                $user->setUsr_id($qr["usr_id"]);
+//                $user->setUsr_nome($qr["usr_nome"]);
+//                $user->setUsr_data_nascimento($qr["usr_data_nascimento"]);
+//                $user->setUsr_endereco($qr["usr_endereco"]);
+//                $user->setUsr_escola($qr["usr_escola"]);
+//                $user->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
+//                $user->setUsr_nse($qr["usr_nse"]);
+//                $user->setUsr_perfil($qr["usr_perfil"]);
+//                $user->setUsr_rg($qr["usr_rg"]);
+//                $user->setUsr_cpf($qr["usr_cpf"]);
+//                $user->setUsr_imagem($qr["usr_imagem"]);
+//                //$user->setUsr_login($qr["usr_login"]);
+//            	//$user->setUsr_senha($qr["usr_senha"]);
+//                
+//              	
+//    	return $user;
+     }
 }
 ?>
