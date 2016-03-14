@@ -41,7 +41,8 @@ switch ($_REQUEST["acao"]){
 			if($exercicio->getExe_tipo() == 2){
 
 				$respostaMultipla = new RespostaMultipla();
-				$respostaMultipla->setRspm_aluno($usuario);
+				$respostaMultipla->setRspm_usuario($usuario);
+				$respostaMultipla->setRspm_exercicio($_REQUEST["exercicio"]);
 				$respostaMultipla->setRspm_questao($_REQUEST["questao"]);
 				$respostaMultipla->setRspm_resposta($_REQUEST["resposta"]);
 				$respostaMultiplaController->insert($respostaMultipla);
