@@ -30,6 +30,7 @@ function atribuirEventos() {
     
     $("#enviar_pre_cadastro").click(function(){
     	
+    	$(".input_faltando").removeClass("input_faltando");
     	
     	var erro = false;
     	$('.obrigatorio').each(function(){
@@ -62,13 +63,13 @@ function atribuirEventos() {
         	$("#mensagemCampoVazio").show();
         	return false;
         }
-        if(validaEmail($("#email_diretor").val()) == false){
+        if(($("#email_diretor").val() != '') && (validaEmail($("#email_diretor").val()) == false)){
         	$("#email_diretor").addClass("input_faltando");
         	$("#textoMensagemVazio").text('Email do diretor inválido!');
         	$("#mensagemCampoVazio").show();
         	return false;
         }
-        if(validaEmail($("#email_coordenador").val()) == false){
+        if(($("#email_coordenador").val() != '') && (validaEmail($("#email_coordenador").val())) == false){
         	$("#email_coordenador").addClass("input_faltando");
         	$("#textoMensagemVazio").text('Email do coordenador inválido!');
         	$("#mensagemCampoVazio").show();
@@ -106,6 +107,7 @@ function atribuirEventos() {
         		data:{
         			'acao':'cadastraEscola',
         			'perfil': '4',
+        			'preCadastro':true,
         			'status': '0',
         			'nomeEscola':nomeEscola,
         			'razao':razao,
@@ -128,7 +130,8 @@ function atribuirEventos() {
         			'nomeDiretor':nomeDiretor,
         			'emailDiretor':emailDiretor,
         			'nomeCoordenador':nomeCoordenador,
-        			'emailCoordenador':emailCoordenador
+        			'emailCoordenador':emailCoordenador,
+        			'imagem':''
         		},
         		success:function(retorno){
         			if (retorno.erro == false) {
