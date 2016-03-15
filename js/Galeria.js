@@ -98,12 +98,14 @@ function carregarCategorias () {
             htmlCategoriasRadio = "";
             for(var i = 0; i < categorias.length; i++){
                 htmlCategorias += '<span id="cat_'+categorias[i].id+'" class="opcoesCategorias">'+categorias[i].categoria+'</span>'
-                htmlCategoriasRadio += '<input type="radio" name="tipo_arquivo" id="cat_upload_'+categorias[i].id+'"/>';
-                htmlCategoriasRadio += '<label for="cat_upload_'+categorias[i].id+'">'+categorias[i].categoria+'</label>'
+                htmlCategoriasRadio += '<input type="radio" name="cat_arquivo" id="cat_upload_'+categorias[i].id+'"/>';
+                htmlCategoriasRadio += '<label for="cat_upload_'+categorias[i].id+'">'+categorias[i].categoria+'</label>';
             }
             $('#mCSB_2_container').html(htmlCategorias);
             $('#categoriaPost').html(htmlCategoriasRadio);
             atribuirClickSelect();
+        }, complete: function() {
+            trocarCategoriaArquivo();
         }
     });
 }
@@ -227,7 +229,7 @@ function contagemVisualizacoes (id) {
     });
     console.log(d);
     return d;
-}
+};
 
 
 function criarFormulario () {
@@ -241,19 +243,47 @@ function criarFormulario () {
         aoValidar: function() { postarPreCadastro(); },
         aoCancelar: function() { showFormNovoArquivo(); }
     });
-}
+};
 
 function showFormNovoArquivo() {
-    if ($
-        ("#form_novo_arquivo").is(":hidden")) {
+    if ($("#form_novo_arquivo").is(":hidden")) {
         $("#form_novo_arquivo").show();
         $("#box_galeria").hide();
     } else {
         $("#form_novo_arquivo").hide();
         $("#box_galeria").show();
     }
-}
+};
 
 function postarPreCadastro () {
     console.info("Requisição para registro de interesse");
-}
+};
+
+function trocarCategoriaArquivo() {
+    $("input[name=cat_arquivo]").change(function() {
+        if ($("#cat_upload_1").is(":checked")) {
+            $("#tipoDeAruivo").parentsUntil("fieldset").show();
+            $("#tipo_arquivo_link").trigger("click");
+        } else if ($("#cat_upload_2").is(":checked")) {
+            $("#tipoDeAruivo").parentsUntil("fieldset").show();
+            $("#tipo_arquivo_link").trigger("click");
+        } else if ($("#cat_upload_3").is(":checked")) {
+            $("#tipoDeAruivo").parentsUntil("fieldset").hide();
+            $("#tipo_arquivo_link").trigger("click");
+        }
+    });
+    $("input[name=tipo_arquivo").change(function() {
+        if ($("#tipo_arquivo_link").is(":checked")) {
+            $("#link_arquivo").removeClass("nao_enviar");
+            $("#link_arquivo").parentsUntil("fieldset").show();
+            $("#file_arquivo").addClass("nao_enviar");
+            $("input[data-for=file_arquivo]").parentsUntil("fieldset").hide();
+        } else if ($("#tipo_arquivo_arquivo").is(":checked")) {
+            $("#link_arquivo").addClass("nao_enviar");
+            $("#link_arquivo").parentsUntil("fieldset").hide();
+            $("#file_arquivo").removeClass("nao_enviar");
+            $("input[data-for=file_arquivo]").parentsUntil("fieldset").show();
+        }
+    });
+    $("#cat_upload_1").trigger("click");
+};
