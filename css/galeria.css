@@ -90,6 +90,7 @@
     padding: 20px 18px 18px;
 }
 
+.upload, .uploadArquivo, .hiperlinkArquivo{display: none;}
 
 /* Variaveis */
 /* Left Column */

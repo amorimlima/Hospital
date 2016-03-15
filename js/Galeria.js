@@ -3,11 +3,10 @@ $(document).ready(function () {
     criarDropDown();
     atribuirBarrasDeRolagem();
     atribuirPesquisa();
-    criarFormulario();    
+    criarFormulario();   
     formulario.iniciar();
     carregarGaleria();
     carregarMaisVistos();
-    atribuirContagem();
 });
 
 function carregarGaleria () {
@@ -96,10 +95,14 @@ function carregarCategorias () {
         dataType: "json",
         success:function(categorias){
             htmlCategorias = "";
+            htmlCategoriasRadio = "";
             for(var i = 0; i < categorias.length; i++){
                 htmlCategorias += '<span id="cat_'+categorias[i].id+'" class="opcoesCategorias">'+categorias[i].categoria+'</span>'
+                htmlCategoriasRadio += '<input type="radio" name="tipo_arquivo" id="cat_upload_'+categorias[i].id+'"/>';
+                htmlCategoriasRadio += '<label for="cat_upload_'+categorias[i].id+'">'+categorias[i].categoria+'</label>'
             }
             $('#mCSB_2_container').html(htmlCategorias);
+            $('#categoriaPost').html(htmlCategoriasRadio);
             atribuirClickSelect();
         }
     });

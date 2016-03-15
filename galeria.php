@@ -70,25 +70,14 @@ $templateGeral = new Template();
                             </div>
                             <div id="form_novo_arquivo" style="display: none;">
                                 <div>
-                                    <form id="form_arquivo_galeria">
+                                    <form id="form_arquivo_galeria" action="ajax/GaleriaAjax.php" method="post" enctype="multipart/form-data">
                                         <fieldset>
+                                            <input type="hidden" name="acao" value="teste"/>
                                             <legend>Inserir novo arquivo na Galeria</legend>
                                             <div class="formfield">
                                                 <label for="">Categoria</label>
                                                 <span>
                                                     <div id="categoriaPost">
-                                                        <input type="radio" name="tipo_arquivo" id="imagem" checked/>
-                                                        <label for="imagem">Imagem</label>
-                                                        <input type="radio" name="tipo_arquivo" id="video" />
-                                                        <label for="video">Vídeo</label>
-                                                        <input type="radio" name="tipo_arquivo" id="infografico" />
-                                                        <label for="infografico">Infográfico</label>
-                                                        <input type="radio" name="tipo_arquivo" id="audio" />
-                                                        <label for="audio">Áudio</label>
-                                                        <input type="radio" name="tipo_arquivo" id="link" />
-                                                        <label for="link">Link</label>
-                                                        <input type="radio" name="tipo_arquivo" id="texto" />
-                                                        <label for="texto">Texto</label>
                                                     </div>
                                                 </span>
                                             </div>
@@ -123,7 +112,7 @@ $templateGeral = new Template();
                                             <div class="formbtns">
                                                 <input type="button" id="btn_cancelar" value="Cancelar"/>
                                                 <input type="reset" value="Limpar"/>
-                                                <input type="button" id="btn_enviar" class="btn_primary" value="Enviar"/>
+                                                <input type="submit" id="btn_enviar" class="btn_primary" value="Enviar"/>
                                             </div>
                                         </fieldset>
                                     </form>
