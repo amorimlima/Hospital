@@ -114,7 +114,7 @@ $logado = unserialize($_SESSION['USR']);
                                             <div class="btns_tabs btns_aluno">
                                                 <ul class="lista_btns lista_btns_aluno">
                                                     <li class="btn_tab btn_aluno btn_add_cadastro">Novo cadastro</li>
-                                                    <li class="btn_tab btn_aluno btn_update_cadastro btn_tab_ativo">Atualizar cadastro</li>
+                                                    <li class="btn_tab btn_aluno btn_update_cadastro btn_tab_ativo" id="update_cadastro">Atualizar cadastro</li>
                                                 </ul>
                                             </div>
                                             <div class="btns_tabs btns_professor" style="display: none;">
@@ -303,6 +303,20 @@ s                                                                 </select>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputEmailAluno" id="inputEmailAluno" class="form_value form_text value_p" required />
                                                             </span>
+                                                        </div>
+                                                        <div class="form_celula_g">
+                                                            <label for="cadastroImagem" class="form_info info_p">Foto</label>
+                                                           
+                                                             <span class="input_container spanImagem" id="spanImagemAluno">
+                                                             
+                                                             	<div id="cadastroImagemUpload">
+		                                                        	<div id="cadastroImagem" class="divImagem"></div>
+			
+																	<div id="car"></div>
+																    <br><div id="imgUp" style="position:absolute"><img src="" width="150" height="150"/><br/></div>
+																    <input name="imagem" type="hidden" id="imagem" value=""></td>
+															    </div>
+															</span>
                                                         </div>
                                                     </fieldset>
                                                     <!--<fieldset class="form_divisao">
@@ -519,6 +533,10 @@ s                                                                 </select>
                                                                 <input type="text" name="inputEmailProf" id="inputEmailProf" class="form_value form_text value_g  obrigatorioProf" required msgVazio="O campo email é obrigatório"/>
                                                             </span>
                                                         </div>
+                                                        <div class="form_celula_g">
+                                                            <label for="cadastroImagem" class="form_info info_p">Foto</label>
+                                                            <span class="input_container spanImagem" id="spanImagemProfessor"></span>
+                                                        </div>
                                                     </fieldset>
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Acesso</legend>
@@ -672,6 +690,10 @@ s                                                                 </select>
                                                                 <input type="text" name="inputEmailEscola" id="inputEmailEscola" class="form_value form_text value_g obrigatorioEscola" msgVazio="O campo email é obrigatório" required />
                                                             </span>
                                                         </div>
+                                                        <div class="form_celula_g">
+                                                            <label for="cadastroImagem" class="form_info info_p">Foto</label>
+                                                            <span class="input_container spanImagem" id="spanImagemEscola"></span>
+                                                        </div>
                                                     </fieldset>
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Acesso</legend>
@@ -794,7 +816,13 @@ s                                                                 </select>
 			$templateGeral->mensagemRetorno('mensagens','Erro ao cadastrar!','erro');
 		?>
 	</div>
-	
+	</div>
+		<div id="mensagemErroImagem" style="display:none" class='modalMensagem'>
+		<?php
+			$templateGeral->mensagemRetorno('mensagens','<span id="textoMensagemImagem"></span>','erro');
+		?>
+	</div>	
+      
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -804,5 +832,7 @@ s                                                                 </select>
     <script src="js/EstadoCidade.js"></script>
     <script src="js/funcoes.js"></script>
 	<script src="js/cadastro.js"></script>
+	<script src="js/goMobileUpload.js"></script>
+	
 </body>
 </html>

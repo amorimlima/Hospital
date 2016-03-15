@@ -3,28 +3,30 @@
 var tabs = $('.tab_cadastro');
 var containers = $('.conteudo_tab');
 var btns = $('.btns_tabs');
+var primeiroAcesso = true;
 
-var perfisAlunos = [
-    {id: 34, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},
-    {id: 35, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},
-    {id: 36, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},
-    {id: 37, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'}
-];
-
-var perfisProf = [
-    {id: 10, nome: 'Andressa de Cardoso Dias', nascimento: '02/04/1984', rg: '23.887.654-9', cpf: '567.800.766-42', rua: 'Rua Embirussú', numero: '56', complemento: '', cep: '03817-090', bairro: 'Vila Beatriz', estado: 'São Paulo', cidade: 'SP', telResidencial: '+55 (11) 96543-9876', telComercial: '', telCelular: '', email: 'nanda_hr@outlook.com', escola: 'E.M.E.F. Deputado Januário Mantelli Neto', sala: '3º série A', periodo: 'Manhã', usuario: 'andressa_cd'},
-    {id: 11, nome: 'Andressa de Cardoso Dias', nascimento: '02/04/1984', rg: '23.887.654-9', cpf: '567.800.766-42', rua: 'Rua Embirussú', numero: '56', complemento: '', cep: '03817-090', bairro: 'Vila Beatriz', estado: 'São Paulo', cidade: 'SP', telResidencial: '+55 (11) 96543-9876', telComercial: '', telCelular: '', email: 'nanda_hr@outlook.com', escola: 'E.M.E.F. Deputado Januário Mantelli Neto', sala: '3º série A', periodo: 'Manhã', usuario: 'andressa_cd'},
-    {id: 12, nome: 'Andressa de Cardoso Dias', nascimento: '02/04/1984', rg: '23.887.654-9', cpf: '567.800.766-42', rua: 'Rua Embirussú', numero: '56', complemento: '', cep: '03817-090', bairro: 'Vila Beatriz', estado: 'São Paulo', cidade: 'SP', telResidencial: '+55 (11) 96543-9876', telComercial: '', telCelular: '', email: 'nanda_hr@outlook.com', escola: 'E.M.E.F. Deputado Januário Mantelli Neto', sala: '3º série A', periodo: 'Manhã', usuario: 'andressa_cd'},
-    {id: 13, nome: 'Andressa de Cardoso Dias', nascimento: '02/04/1984', rg: '23.887.654-9', cpf: '567.800.766-42', rua: 'Rua Embirussú', numero: '56', complemento: '', cep: '03817-090', bairro: 'Vila Beatriz', estado: 'São Paulo', cidade: 'SP', telResidencial: '+55 (11) 96543-9876', telComercial: '', telCelular: '', email: 'nanda_hr@outlook.com', escola: 'E.M.E.F. Deputado Januário Mantelli Neto', sala: '3º série A', periodo: 'Manhã', usuario: 'andressa_cd'}
-];
-
-var perfisAlunosGerados = new Array();
-var perfisProfsGerados = new Array();
+//var perfisAlunos = [
+//    {id: 34, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},//    {id: 35, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},
+//    {id: 36, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},
+//    {id: 37, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'}
+//];
+//
+//var perfisProf = [
+//    {id: 10, nome: 'Andressa de Cardoso Dias', nascimento: '02/04/1984', rg: '23.887.654-9', cpf: '567.800.766-42', rua: 'Rua Embirussú', numero: '56', complemento: '', cep: '03817-090', bairro: 'Vila Beatriz', estado: 'São Paulo', cidade: 'SP', telResidencial: '+55 (11) 96543-9876', telComercial: '', telCelular: '', email: 'nanda_hr@outlook.com', escola: 'E.M.E.F. Deputado Januário Mantelli Neto', sala: '3º série A', periodo: 'Manhã', usuario: 'andressa_cd'},
+//    {id: 11, nome: 'Andressa de Cardoso Dias', nascimento: '02/04/1984', rg: '23.887.654-9', cpf: '567.800.766-42', rua: 'Rua Embirussú', numero: '56', complemento: '', cep: '03817-090', bairro: 'Vila Beatriz', estado: 'São Paulo', cidade: 'SP', telResidencial: '+55 (11) 96543-9876', telComercial: '', telCelular: '', email: 'nanda_hr@outlook.com', escola: 'E.M.E.F. Deputado Januário Mantelli Neto', sala: '3º série A', periodo: 'Manhã', usuario: 'andressa_cd'},
+//    {id: 12, nome: 'Andressa de Cardoso Dias', nascimento: '02/04/1984', rg: '23.887.654-9', cpf: '567.800.766-42', rua: 'Rua Embirussú', numero: '56', complemento: '', cep: '03817-090', bairro: 'Vila Beatriz', estado: 'São Paulo', cidade: 'SP', telResidencial: '+55 (11) 96543-9876', telComercial: '', telCelular: '', email: 'nanda_hr@outlook.com', escola: 'E.M.E.F. Deputado Januário Mantelli Neto', sala: '3º série A', periodo: 'Manhã', usuario: 'andressa_cd'},
+//    {id: 13, nome: 'Andressa de Cardoso Dias', nascimento: '02/04/1984', rg: '23.887.654-9', cpf: '567.800.766-42', rua: 'Rua Embirussú', numero: '56', complemento: '', cep: '03817-090', bairro: 'Vila Beatriz', estado: 'São Paulo', cidade: 'SP', telResidencial: '+55 (11) 96543-9876', telComercial: '', telCelular: '', email: 'nanda_hr@outlook.com', escola: 'E.M.E.F. Deputado Januário Mantelli Neto', sala: '3º série A', periodo: 'Manhã', usuario: 'andressa_cd'}
+//];
+//
+//var perfisAlunosGerados = new Array();
+//var perfisProfsGerados = new Array();
 
 var delPerfilId = '0';
 var blah;
 
 $(document).ready(function() {
+	
+	$('#update_cadastro').trigger('click');
 	
 	$('.conteudo_tab').mCustomScrollbar({
 		axis:"y",
@@ -47,27 +49,30 @@ $(document).ready(function() {
         toggleActive: true
     });
     
-    //Criar objetos da classe Perfil Aluno e colocar no acordeon
-    for ( var a in perfisAlunos ) { 
-        perfisAlunosGerados[a] =
-            new PerfilAluno(perfisAlunos[a].id, perfisAlunos[a].nome, perfisAlunos[a].escola, perfisAlunos[a].professor, perfisAlunos[a].sala, perfisAlunos[a].periodo, perfisAlunos[a].nascimento, perfisAlunos[a].rg, perfisAlunos[a].cpf,
-                            perfisAlunos[a].rua, perfisAlunos[a].numero, perfisAlunos[a].complemento, perfisAlunos[a].cep, perfisAlunos[a].bairro, perfisAlunos[a].estado, perfisAlunos[a].cidade, perfisAlunos[a].telResidencial,
-                            perfisAlunos[a].telCelular, perfisAlunos[a].telComercial, perfisAlunos[a].email, perfisAlunos[a].usuario);
-
-        var outerHTML = perfisAlunosGerados[a].gerarHTML();
-        $('.update_aluno_accordion').append(outerHTML);
-    }
-
-    //Criar objetos da classe Perfil Professor e colocar no acordeon
-    for ( var a in perfisProf ) { 
-        perfisProfsGerados[a] =
-            new PerfilProfessor(perfisProf[a].id, perfisProf[a].nome, perfisProf[a].nascimento, perfisProf[a].rg, perfisProf[a].cpf, perfisProf[a].rua, perfisProf[a].numero, perfisProf[a].complemento, perfisProf[a].cep, perfisProf[a].bairro,
-                            perfisProf[a].estado, perfisProf[a].cidade, perfisProf[a].telResidencial, perfisProf[a].telComercial, perfisProf[a].telCelular, perfisProf[a].email, perfisProf[a].escola, perfisProf[a].sala,
-                            perfisProf[a].periodo, perfisProf[a].usuario);
-                                          
-        var outerHTML = perfisProfsGerados[a].gerarHTML();
-        $('.update_prof_accordion').append(outerHTML);
-    }
+    listarAlunos();
+    //Criar objetos da classe Perfil Aluno e colocar no acordeon.
+    
+    
+//    for ( var a in perfisAlunos ) { 
+//        perfisAlunosGerados[a] =
+//            new PerfilAluno(perfisAlunos[a].id, perfisAlunos[a].nome, perfisAlunos[a].escola, perfisAlunos[a].professor, perfisAlunos[a].sala, perfisAlunos[a].periodo, perfisAlunos[a].nascimento, perfisAlunos[a].rg, perfisAlunos[a].cpf,
+//                            perfisAlunos[a].rua, perfisAlunos[a].numero, perfisAlunos[a].complemento, perfisAlunos[a].cep, perfisAlunos[a].bairro, perfisAlunos[a].estado, perfisAlunos[a].cidade, perfisAlunos[a].telResidencial,
+//                            perfisAlunos[a].telCelular, perfisAlunos[a].telComercial, perfisAlunos[a].email, perfisAlunos[a].usuario);
+//
+//        var outerHTML = perfisAlunosGerados[a].gerarHTML();
+//        $('.update_aluno_accordion').append(outerHTML);
+//    }
+//
+//    //Criar objetos da classe Perfil Professor e colocar no acordeon
+//    for ( var a in perfisProf ) { 
+//        perfisProfsGerados[a] =
+//            new PerfilProfessor(perfisProf[a].id, perfisProf[a].nome, perfisProf[a].nascimento, perfisProf[a].rg, perfisProf[a].cpf, perfisProf[a].rua, perfisProf[a].numero, perfisProf[a].complemento, perfisProf[a].cep, perfisProf[a].bairro,
+//                            perfisProf[a].estado, perfisProf[a].cidade, perfisProf[a].telResidencial, perfisProf[a].telComercial, perfisProf[a].telCelular, perfisProf[a].email, perfisProf[a].escola, perfisProf[a].sala,
+//                            perfisProf[a].periodo, perfisProf[a].usuario);
+//                                          
+//        var outerHTML = perfisProfsGerados[a].gerarHTML();
+//        $('.update_prof_accordion').append(outerHTML);
+//    }
     
     $('.btn_tab').click(function() {
         $(this).siblings().removeClass('btn_tab_ativo');
@@ -75,16 +80,34 @@ $(document).ready(function() {
         
         if ( $(this).hasClass('btn_aluno') ) {
             if ( $(this).hasClass('btn_add_cadastro') ) {
-                $('.conteudo_aluno').find('.form_cadastro').show();
-                $('.conteudo_aluno').find('.update_cadastro').hide()
+            	$('.conteudo_aluno').find('.form_cadastro').show();
+                $('.conteudo_aluno').find('.update_cadastro').hide();
+                
+                $('#cadastroImagemUpload').appendTo("#spanImagemAluno");
+                
             } else if ( $(this).hasClass('btn_update_cadastro') ) {
                 $('.conteudo_aluno').find('.form_cadastro').hide();
+
+                listarAlunos();
+//                for ( var a in perfisAlunos ) { 
+//		              perfisAlunosGerados[a] =
+//		                  new PerfilAluno(perfisAlunos[a].id, perfisAlunos[a].nome, perfisAlunos[a].escola, perfisAlunos[a].professor, perfisAlunos[a].sala, perfisAlunos[a].periodo, perfisAlunos[a].nascimento, perfisAlunos[a].rg, perfisAlunos[a].cpf,
+//		                                  perfisAlunos[a].rua, perfisAlunos[a].numero, perfisAlunos[a].complemento, perfisAlunos[a].cep, perfisAlunos[a].bairro, perfisAlunos[a].estado, perfisAlunos[a].cidade, perfisAlunos[a].telResidencial,
+//		                                  perfisAlunos[a].telCelular, perfisAlunos[a].telComercial, perfisAlunos[a].email, perfisAlunos[a].usuario);
+//		      
+//		              var outerHTML = perfisAlunosGerados[a].gerarHTML();
+//		              $('.update_aluno_accordion').append(outerHTML);
+//		        }
+                
                 $('.conteudo_aluno').find('.update_cadastro').show()
             }
         } else if ( $(this).hasClass('btn_professor') ) {
             if ( $(this).hasClass('btn_add_cadastro') ) {
                 $('.conteudo_professor').find('.form_cadastro').show();
-                $('.conteudo_professor').find('.update_cadastro').hide()
+                $('.conteudo_professor').find('.update_cadastro').hide();
+                
+                $('#cadastroImagemUpload').appendTo("#spanImagemProfessor");
+                
             } else if ( $(this).hasClass('btn_update_cadastro') ) {
                 $('.conteudo_professor').find('.form_cadastro').hide();
                 $('.conteudo_professor').find('.update_cadastro').show()
@@ -92,7 +115,8 @@ $(document).ready(function() {
         } else if ( $(this).hasClass('btn_escola') ) {
             if ( $(this).hasClass('btn_add_cadastro') ) {
                 $('.conteudo_escola').find('.form_cadastro').show();
-                $('.conteudo_escola').find('.update_cadastro').hide()
+                $('.conteudo_escola').find('.update_cadastro').hide();
+                $('#cadastroImagemUpload').appendTo("#spanImagemEscola");
             } else if ( $(this).hasClass('btn_update_cadastro') ) {
                 $('.conteudo_escola').find('.form_cadastro').hide();
                 $('.conteudo_escola').find('.update_cadastro').show()
@@ -190,12 +214,14 @@ $(document).ready(function() {
     		$('#inputSenhaAluno').focus();
 			return false;    		
     	}
-    	
+
     	//dados da tabela usuário
     	var nome = $("#inputNomeAluno").val();
-    	var escolaGrupo = $("#selectProfessorAluno").val().split('_');
-    	var escola = escolaGrupo[0];
-    	var grupo = escolaGrupo[1];
+    	//var escolaGrupo = $("#selectProfessorAluno").val().split('_');
+    	//var escola = escolaGrupo[0];
+    	//var grupo = escolaGrupo[1];
+    	var escola = '';
+    	var grupo = '';
     	
     	var professor = $("#selectProfessorAluno").val();
         var periodo = $("#selectPeriodoAluno").val();
@@ -221,6 +247,7 @@ $(document).ready(function() {
         var email = $("#inputEmailAluno").val();
         var login = $("#inputUsuarioAluno").val();
         var senha = $("#inputSenhaAluno").val();
+        var imagem = $("#imagem").val();
 
         $.ajax({
             url:'ajax/cadastroAjax.php',
@@ -253,6 +280,7 @@ $(document).ready(function() {
                 'telComercial': telComercial,
                 'email': email,
                 'nse':'',
+                'imagem':imagem,
                 'login':login,
                 'senha':senha
             },
@@ -346,6 +374,7 @@ $(document).ready(function() {
     	var grauInstrucao = $("#selectGrauProf").val();
     	var categoria = $("#selectCategoriaProf").val();
     	var serie = $("#selectSerieProf").val();
+    	var imagem = $("#imagem").val();
     	
     	$.ajax({
         	url:'ajax/cadastroAjax.php',
@@ -375,8 +404,9 @@ $(document).ready(function() {
         		'celular':celular,
         		'nse':'',
         		'email':emailProfessor,
-        		'login':loginProfessor,
         		'escola':'',
+        		'imagem':imagem,
+        		'login':loginProfessor,
         		'senha':senhaProfessor},
         	success:function(retorno){
         		if (retorno.erro == false) {
@@ -400,45 +430,45 @@ $(document).ready(function() {
     //Cadastro daescola.
     $("#cadastroEscola").click(function(){
 
-    	$('.obrigatorioEscola').each(function(){
-    		if ($(this).val() == '' || $(this).val() == null ){
-    			$("#textoMensagemVazio").text($(this).attr('msgVazio'));
-	        	$("#mensagemCampoVazio").show();
-	        	$(this).focus();
-	        	return false;
-    		} 
-    	})
-    	
-    	//Se a div de erro está visivel para aqui.
-    	if ($("#mensagemCampoVazio").is(':visible')) return false;
-    	
-    	if (validaCNPJ($("#inputCnpjEscola").val()) == false){
-    		$("#textoMensagemVazio").text('CNPJ inválido!');
-    		$("#mensagemCampoVazio").show();
-    		$("#inputCpfAluno").focus();
-    		return false;
-    	}
-    	
-    	if ($("#inputCepEscola").val().length < 10){
-    		$("#textoMensagemVazio").text('CEP inválido!');
-    		$("#mensagemCampoVazio").show();
-    		$("#inputCepAluno").focus();
-    		return false;
-    	}
-    	
-    	if(validaEmail($("#inputEmailEscola").val()) == false){
-    		$("#textoMensagemVazio").text('Email inválido!');
-    		$("#mensagemCampoVazio").show();
-    		$("#inputEmailAluno").focus();
-    		return false;    		
-    	}
-    	
-    	if ($('#inputSenhaEscola').val() != $('#inputSenhaConfirmEscola').val()){
-			$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
-    		$("#mensagemCampoVazio").show();
-    		$('#inputSenhaAluno').focus();
-			return false;    		
-    	}
+//    	$('.obrigatorioEscola').each(function(){
+//    		if ($(this).val() == '' || $(this).val() == null ){
+//    			$("#textoMensagemVazio").text($(this).attr('msgVazio'));
+//	        	$("#mensagemCampoVazio").show();
+//	        	$(this).focus();
+//	        	return false;
+//    		} 
+//    	})
+//    	
+//    	//Se a div de erro está visivel para aqui.
+//    	if ($("#mensagemCampoVazio").is(':visible')) return false;
+//    	
+//    	if (validaCNPJ($("#inputCnpjEscola").val()) == false){
+//    		$("#textoMensagemVazio").text('CNPJ inválido!');
+//    		$("#mensagemCampoVazio").show();
+//    		$("#inputCpfAluno").focus();
+//    		return false;
+//    	}
+//    	
+//    	if ($("#inputCepEscola").val().length < 10){
+//    		$("#textoMensagemVazio").text('CEP inválido!');
+//    		$("#mensagemCampoVazio").show();
+//    		$("#inputCepAluno").focus();
+//    		return false;
+//    	}
+//    	
+//    	if(validaEmail($("#inputEmailEscola").val()) == false){
+//    		$("#textoMensagemVazio").text('Email inválido!');
+//    		$("#mensagemCampoVazio").show();
+//    		$("#inputEmailAluno").focus();
+//    		return false;    		
+//    	}
+//    	
+//    	if ($('#inputSenhaEscola').val() != $('#inputSenhaConfirmEscola').val()){
+//			$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
+//    		$("#mensagemCampoVazio").show();
+//    		$('#inputSenhaAluno').focus();
+//			return false;    		
+//    	}
 
     	var nomeEscola = $("#inputNomeEscola").val();
     	var razao = $("#inputRazaoEscola").val();
@@ -458,6 +488,7 @@ $(document).ready(function() {
     	var emailEscola = $("#inputEmailEscola").val();
     	var loginEscola = $("#inputUsuarioEscola").val();
     	var senhaEscola = $("#inputSenhaEscola").val();
+    	var imagem = $("#imagem").val();
     	
     	
     	$.ajax({
@@ -489,7 +520,8 @@ $(document).ready(function() {
     			'nomeDiretor':'',
     			'emailDiretor':'',
     			'nomeCoordenador':'',
-    			'emailCoordenador':''
+    			'emailCoordenador':'',
+    			'imagem':imagem
     		},
     		success:function(retorno){
     			if (retorno.erro == false) {
@@ -511,7 +543,10 @@ $(document).ready(function() {
     	return false;
     });
     
-    
+	$("#cadastroImagem").goMobileUpload({
+		script : "ajax/cadastroAjax.php"
+	});
+	
 }); //Fim
 
 //Classe Perfil Aluno
@@ -727,11 +762,23 @@ function PerfilEscola() {
 }
 
 function tabNavigation(tabToShow) {
+	
+	//Reseta a imagem se não for a primeira vez
+    if (primeiroAcesso == true){
+    	primeiroAcesso = false;
+    }else{
+    	limparInputArquivo();
+    }
+	
 	for ( var i = 0; i < tabs.length; i++ ) {
 		if ( tabs[i] == tabToShow ) {
 			$($(containers).get(i)).show();
 			$($(btns).get(i)).show();
-
+			
+			//Joga o html da imagem no local certo
+			var idDiv = $('.spanImagem').eq(i).attr('id');
+			$('#cadastroImagemUpload').appendTo("#"+idDiv);
+			
 			$($(tabs).get(i)).addClass('tab_cadastro_ativo');
 		} else {
 			$($(containers).get(i)).hide();
@@ -802,4 +849,47 @@ function listarEscolas(){
         }
     });
 	return false;
+}
+
+function limparInputArquivo(){
+	
+	$("#imgUp").hide();
+	$("#loading").hide();
+	document.getElementById("arquivo").value = "";
+	$("#cadastroImagem form").show();
+	$("#cadastroImagem").show();
+	return false;
+}
+
+function listarAlunos(){
+	
+	$.ajax({
+        url:'ajax/cadastroAjax.php',
+        type:'post',
+        dataType:'json',
+        data: {
+            'acao': 'listaUsuariosCompleto',
+            'perfil': '1'
+        },
+        success:function(retorno){
+        	
+        }
+    });
+    
+    //var perfilAlunos = $usuarioController->buscaUsuarioCompletoByPerfil(1);
+    
+  //var perfisAlunos = [
+//  {id: 34, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},//    {id: 35, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},
+//  {id: 36, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},
+//  {id: 37, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'}
+//];
+//	for ( var a in perfisAlunos ) { 
+//      perfisAlunosGerados[a] =
+//          new PerfilAluno(perfisAlunos[a].id, perfisAlunos[a].nome, perfisAlunos[a].escola, perfisAlunos[a].professor, perfisAlunos[a].sala, perfisAlunos[a].periodo, perfisAlunos[a].nascimento, perfisAlunos[a].rg, perfisAlunos[a].cpf,
+//                          perfisAlunos[a].rua, perfisAlunos[a].numero, perfisAlunos[a].complemento, perfisAlunos[a].cep, perfisAlunos[a].bairro, perfisAlunos[a].estado, perfisAlunos[a].cidade, perfisAlunos[a].telResidencial,
+//                          perfisAlunos[a].telCelular, perfisAlunos[a].telComercial, perfisAlunos[a].email, perfisAlunos[a].usuario);
+//
+//      var outerHTML = perfisAlunosGerados[a].gerarHTML();
+//      $('.update_aluno_accordion').append(outerHTML);
+//  }
 }

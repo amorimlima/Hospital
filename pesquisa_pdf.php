@@ -89,7 +89,7 @@ foreach ($info_salas as $ano => $vetor) {
 							<div class="tipo_unidade_ensino">
 								<h2>Tipo de estabelecimento</h2>
 								<div class="info_content">
-									<?
+									<?php
 									echo "<ul>";
 									foreach ($tipo_escola as $tipo) {
 										echo "<li>" . $tipo . "</li>";
@@ -113,7 +113,7 @@ foreach ($info_salas as $ano => $vetor) {
 							<div class="comunidade_escolar">
 								<h2>Sobre a comunidade escolar</h2>
 								<div class="info_content">
-									<?
+									<?php
 									echo "<div>";
 									echo "<div>A escola possui atividades para aumentar o envolvimeno da família?</div> <div>" . ($_GET["atividades_familia"] == 1 ? "Sim" : "Não") . "</div>";
 									if ($_GET["atividades_familia"] == 1) {
@@ -126,7 +126,7 @@ foreach ($info_salas as $ano => $vetor) {
 								</div>
 								<h2>Dados sobre os pais/responsáveis</h2>
 								<div class="info_content">
-									<?
+									<?php
 									foreach ($dados_pais as $dado => $valor) {
 										echo "<div>";
 										echo "<div>" . $dado . ":</div> <div>" . $valor . "</div>";
@@ -136,7 +136,7 @@ foreach ($info_salas as $ano => $vetor) {
 								</div>
 								<h2>Sobre o Projeto</h2>
 								<div class="info_content">
-									<?
+									<?php
 									foreach ($sobre_projeto as $dado => $valor) {
 										echo "<div>";
 										echo "<div>" . $dado . ":</div> <div>" . $valor . "</div>";
@@ -146,7 +146,7 @@ foreach ($info_salas as $ano => $vetor) {
 								</div>
 								<h2>Alunos e salas</h2>
 								<div class="info_content">
-									<?
+									<?php
 									$num_ano = 1;
 
 									foreach ($info_salas as $ano) {
@@ -178,9 +178,7 @@ foreach ($info_salas as $ano => $vetor) {
 	<script>
 		$(document).ready(function () {
 			var html = $("html").html();
-
 			window.open("gerarPDF.php?html=" + html, "_blank");
-
 			window.close();
 		});
 	</script>

@@ -4,7 +4,6 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 
 $path = $_SESSION['PATH_SYS'];
-
 include_once($path['controller'].'AdministracaoController.php');
 include_once($path['template'].'Template.php');
 
