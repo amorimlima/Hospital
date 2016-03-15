@@ -93,5 +93,11 @@ class UsuarioController {
 		$user = $this->usuarioDAO->buscaProfessorByEscolaAndSerie($idEscola,$idSerie);
 		return $user;
 	}
+	public function buscaFotoByIdUsuario($id)
+	{
+		$user = $this->usuarioDAO->buscaFotoByIdUsuario($id);
+		return $user;
+	}
+	
 }
 ?>

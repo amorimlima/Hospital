@@ -91,9 +91,14 @@ switch ($_POST["acao"]){
 		
 	  	//$data = str_replace(' ',' às ',$resp->getFrq_data());
 		$data = $dataFuncao->dataTimeBRExibicao($resp->getFrq_data());
+		
+		if (file_exists("imgp/".$usuario->getUsr_imagem())){
+			$foto = $usuario->getUsr_imagem();
+		}else $foto = 'default.png';
+						
 	  	$html ='<div id="box_topico" class="row">
                  <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                 	<img src="imgp/foto_aluno.png">
+                 	<img src="imgp/'.$foto.'">
                  </p>
               <div class="col-xs-11 col-md-11 col-lg-11">
               	 <p class="dados_aluno">
@@ -118,9 +123,13 @@ switch ($_POST["acao"]){
 	  			//$dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
 	  			$dataResposta = $dataFuncao->dataTimeBRExibicao($r->getFrr_data());
 	  			
+	  			if (file_exists("imgp/".$usuarioResposta->getUsr_imagem())){
+					$foto = $usuarioResposta->getUsr_imagem();
+				}else $foto = 'default.png';
+	  			
 		  		$html .= '<div class="box_topico_resp '.$marginRight.'">
 	                                <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-	                                    <img src="imgp/foto_aluno2.png">
+	                                    <img src="imgp/"'.$foto.'">
 	                                 </p>
 	                                <div class="col-xs-11 col-md-11 col-lg-11">
 	                                    <div class="dados_aluno">
@@ -128,17 +137,24 @@ switch ($_POST["acao"]){
 	                                        <span class="aluno_data">Postado dia '.$dataResposta.'</span>
 	                                    </div>
 	                                    <div>  
-	                                        <p class="resp_aluno">'.utf8_encode($r->getFrr_resposta()).'</p>
+	                                        <p class="resp_aluno">'.$r->getFrr_resposta().'</p>
 	                                    </div> 
 	                                </div>
 	                                <div style="clear:both"></div> 
 	                            </div>';
 	  		}
 	  	}
+	  	
+	  	if (file_exists("imgp/".$usuarioResposta->getUsr_imagem())){
+			$foto = $usuarioResposta->getUsr_imagem();
+		}else{
+			$foto = 'default.png';
+		}
+		
 	  	$html .= ' <button id="btn_responder" class="btn_form btn_form_forum '.$marginRight.'">RESPONDER</button>
                              <div id="campo_resp">
                             	<p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                                	<img src="imgp/foto_aluno3.png">
+                                	<img src="imgp/'.$foto.'">
                             	</p>
                             	<div class="col-xs-11 col-md-11 col-lg-11">
                                     <div class="dados_aluno">
@@ -243,12 +259,14 @@ switch ($_POST["acao"]){
 		$user = $userController->select($usuario);
 		
 
-			
+		if (file_exists("imgp/".$user->getUsr_imagem())){
+			$foto = $user->getUsr_imagem();
+		}else $foto = 'default.png';
 				
 		//$html  = '<a href="forumResposta.php?resp='.$id.'"><div class="perg_box '.$caixaGrande.' row">
 		echo '<a href="forumResposta.php?resp='.$id.'" id="caixaQuestao'.$id.'"><div id="perg_box'.$id.'" class="perg_box row">
 						<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
-							<p class="foto_aluno"><img src="imgp/foto_aluno.png"></p>
+							<p class="foto_aluno"><img src="imgp/'.$foto.'"></p>
 							<p class="perg_aluno questaoTexto" id="'.$id.'">'.$texto.'</p>
 							<p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
 							<p class="post_data">Postado dia '.$dataFuncao->dataTimeBRExibicao($data).'</p>

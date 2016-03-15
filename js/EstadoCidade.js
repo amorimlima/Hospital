@@ -13,7 +13,7 @@ function listarEstadoCidade(id){	//Recebe o id do select
 				HtmlContentEstados += "<option value='"+data['estados'][f].sigla+"'>"+data['estados'][f].nome+"</option>";
 			}
 		});
-	$("#"+id).html('<option value="" disabled selected>Selecione o estado</option>'+HtmlContentEstados);;
+	$("#"+id).html('<option value="" disabled selected>Selecione o estado</option>'+HtmlContentEstados);
 }
 
 function selectCidade(idEstado,idCidade){

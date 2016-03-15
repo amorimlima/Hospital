@@ -12,13 +12,15 @@ include_once($path['beans'].'UsuarioVariavel.php');
 include_once($path['beans'].'Escola.php');
 include_once($path['beans'].'Endereco.php');
 include_once($path['beans'].'Grupo.php');
+//require_once ($paths["funcao"]."Thumbs.php");
 
 include_once($path['funcao'].'DatasFuncao.php');
+include_once($path['funcao'].'Thumbs.php');
 
-switch ($_POST["acao"]) {
+switch ($_REQUEST["acao"]) {
     case "novoUsuario":{
 
-	  	$result = '';
+    	$result = '';
        	$enderecoController = new EnderecoController();
 		$usuarioController = new UsuarioController();
 		
@@ -64,8 +66,19 @@ switch ($_POST["acao"]) {
 		        $usuario->setUsr_nse($_POST['nse']);
 		        $usuario->setUsr_escola($_POST['escola']);
 		        $usuario->setUsr_perfil($_POST['perfil']);
-	
+				$usuario->setUsr_imagem($_POST['imagem']);
+				
 		        if ($idUsuario = $usuarioController->insert($usuario)){
+		        	
+		        		if ($_POST['imagem'] != ''){
+				        	$imag = getimagesize("../temporaria/".$_POST["imagem"]);
+							//$xp = $imag[0];
+							//$yp = $imag[1];
+							//$ix = 350;
+							//$iy = ($ix * $y) / $x;
+						   	gerar_tumbs_real(100,100,100,"../temporaria/".$_POST["imagem"],"../imgm/".$_POST["imagem"]);
+						   	gerar_tumbs_real(65,65,100,"../temporaria/".$_POST["imagem"],"../imgp/".$_POST["imagem"]);
+				        }
 			        
 			        	$usuarioVarController = new UsuarioVariavelController();
 			        	$usuarioVar = new UsuarioVariavel();
@@ -78,11 +91,10 @@ switch ($_POST["acao"]) {
 			        	$usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
 			        	$usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
 			        	
-			        	//print_r($usuarioVar);
 			        	$usuarioVarController->insert($usuarioVar);
 			        	
 		        	if ($_POST['perfil'] == 2){
-		        		print_r($_SESSION['USR']);
+
 		        		$u = unserialize($_SESSION['USR']);
 						$escola = $u['escola'];
 						
@@ -98,9 +110,9 @@ switch ($_POST["acao"]) {
 		        	
 		        	$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 		        	
-		        }else $result = Array('erro'=>true,'msg'=>'Erro ao cadastrar!');
+		        }else $result = Array('erro'=>true,'msg'=>'Erro ao cadastrar usuário!');
 		        	
-	    	}else $result = Array('erro'=>true,'msg'=>'Erro ao cadastrar!');
+	    	}else $result = Array('erro'=>true,'msg'=>'Erro ao cadastrar endereço!');
        	}
     	echo json_encode($result);
         break;
@@ -115,16 +127,16 @@ switch ($_POST["acao"]) {
      	$enderecoController = new EnderecoController();
      	$usuarioController = new UsuarioController();
      	
-       	if ($escolaController->verificaCnpj($_POST['cnpj']) > 0){
-        	$result = Array('erro'=>true,'msg'=>'CNPJ já cadastrado!');
-        	
-        }else if ($enderecoController->verificaEmail($_POST['emailEscola']) > 0){
-        	$result = Array('erro'=>true,'msg'=>'Email já cadastrado!');
-        
-		        	//Login será vazio se estiver fazendo um pré-cadastro
-        }else if (($_POST["loginEscola"] != '') && ($usuarioController->verificaLogin($_POST["loginEscola"]))){
-        	$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
-        }
+//       	if ($escolaController->verificaCnpj($_POST['cnpj']) > 0){
+//        	$result = Array('erro'=>true,'msg'=>'CNPJ já cadastrado!');
+//        	
+//        }else if ($enderecoController->verificaEmail($_POST['emailEscola']) > 0){
+//        	$result = Array('erro'=>true,'msg'=>'Email já cadastrado!');
+//        
+//		        	//Login será vazio se estiver fazendo um pré-cadastro
+//        }else if (($_POST["loginEscola"] != '') && ($usuarioController->verificaLogin($_POST["loginEscola"]))){
+//        	$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
+//        }
         
         if ($result == ''){
         	
@@ -172,7 +184,18 @@ switch ($_POST["acao"]) {
 	    		$usuario->setUsr_senha($_POST["senhaEscola"]);
 	    		$usuario->setUsr_data_entrada_escola(date("Y-m-d"));
 	    		$usuario->setUsr_nse($_POST['nse']);
+	    		$usuario->setUsr_imagem($_POST['imagem']);
 	    		
+	    		if ($_POST['imagem'] != ''){
+				    $imag = getimagesize("../temporaria/".$_POST["imagem"]);
+					//$xp = $imag[0];
+					
+					//$ix = 350;
+					//$iy = ($ix * $y) / $x;
+					gerar_tumbs_real(100,100,100,"../temporaria/".$_POST["imagem"],"../imgm/".$_POST["imagem"]);
+					gerar_tumbs_real(65,65,100,"../temporaria/".$_POST["imagem"],"../imgp/".$_POST["imagem"]);
+				}
+				        
 	    		if($usuarioController->insert($usuario)){
 	    			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 	    		}else{
@@ -210,12 +233,43 @@ switch ($_POST["acao"]) {
 
     	$html .= '<option value="" disabled selected>Selecione a escola</option>';
     	foreach ($escolas as $esc){
+    		print_r($esc);
     		$html .= '<option value="'.$esc->getesc_id().'_'.$p['idGrupo'].'">'.utf8_encode($esc->getesc_razao_social()).'</option>';
     	}
     	
     	echo $html;
     	break;
     }
+    
+	case "selecImagem":{
+		//$nome = $_GET['nomeInput'];
+		$nome = 'arquivo';
+		$permitido = array('image/jpg','image/jpeg','image/pjpeg');
+		if($_FILES[$nome]["name"]){
+			if(in_array($_FILES[$nome]["type"], $permitido)){
+				if($_FILES[$nome]["size"] < 1048576){
+					$nomeImg = "_".md5(uniqid(rand(),true)).".jpg";
+					$diretorio = "../temporaria/".$nomeImg;
+					$arquivo_temporario = $_FILES[$nome]["tmp_name"];
+					if(move_uploaded_file($arquivo_temporario,$diretorio)){
+						$retorno = Array('erro'=>'0','msg'=>'','img'=>$nomeImg);
+					}else{
+						$retorno = Array('erro'=>'1','msg'=>'Erro ao fazer Upload da imagem!!!','img' =>'');
+					}
+	
+				}else{
+					$retorno = Array('erro'=>'1','msg' => 'Erro: O limite da imagem é de até 1MB !!!','img' =>'');
+				}
+			}else{
+				$retorno = Array('erro'=>'1','msg'=>'Atenção: Somente Imagem JPG !!!','img' =>'');
+			}
+	
+		}else{
+			$retorno = Array('erro'=>'1','msg'=>'Atenção: Escolha um arquivo !!!','img' =>'');
+		}
+		echo json_encode($retorno);
+		break;
+	}
 }
 
 ?>

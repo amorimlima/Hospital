@@ -120,11 +120,14 @@ class TemplateForumResposta{
 		$respostas = $respostasController->selectByQuestao($resp->getFrq_id());
 		
 	  	$data = $dataFuncao->dataTimeBRExibicao($resp->getFrq_data());
-	
+
+	  	if (file_exists("imgp/".$usuario->getUsr_imagem())){
+			$foto = $usuario->getUsr_imagem();
+		}else $foto = 'default.png';
 		
 		$html ='<div id="box_topico" class="row">
                  <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                 	<img src="imgp/foto_aluno.png">
+                 	<img src="imgp/'.$foto.'">
                  </p>
               <div class="col-xs-11 col-md-11 col-lg-11">
               	 <p class="dados_aluno">
@@ -148,10 +151,17 @@ class TemplateForumResposta{
 
                             $usuarioResposta = $userController->select($r->getFrr_usuario());	  
                             $dataResposta = $dataFuncao->dataTimeBRExibicao($r->getFrr_data());
+                            
+                    			
+                            if (file_exists("imgp/".$usuarioResposta->getUsr_imagem())){
+                    			$foto = $usuarioResposta->getUsr_imagem();
+							}else{
+								$foto = 'default.png';
+							}
 
                             $html .= '<div class="box_topico_resp '.$marginRight.'">
                                     <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                                        <img src="imgp/foto_aluno2.png">
+                                        <img src="imgp/'.$foto.'">
                                     </p>
                                     <div class="col-xs-11 col-md-11 col-lg-11">
                                         <div class="dados_aluno">
@@ -159,7 +169,7 @@ class TemplateForumResposta{
                                             <span class="aluno_data">Postado dia '.$dataResposta.'</span>
                                         </div>
                                         <div>  
-                                            <p class="resp_aluno">'.utf8_encode($r->getFrr_resposta()).'</p>
+                                            <p class="resp_aluno">'.$r->getFrr_resposta().'</p>
                                         </div> 
                                     </div>
                                     <div style="clear:both"></div> 
@@ -167,11 +177,11 @@ class TemplateForumResposta{
                     }
         
                 }
-                    
+                 
 	  	            $html .= ' <button id="btn_responder" class="btn_form btn_form_forum '.$marginRight.'">RESPONDER</button>
                          <div id="campo_resp" class="margin_right">
                             <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                                    <img src="imgp/foto_aluno3.png">
+                                    <img src="imgp/'.$userController->buscaFotoByIdUsuario($logado['id']).'">
                             </p>
                             <div class="col-xs-11 col-md-11 col-lg-11">
                                 <div class="dados_aluno">
