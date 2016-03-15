@@ -77,14 +77,14 @@
 	left: -21px;
 	top: -4px;
 }
-.btn_update_cadastro::before {
+.btn_confirm_cadastro::before {
 	content: url(../img/bt_confirmarCadastro.png);
 	position: absolute;
 	left: -20px;
 	top: -3px;
 }
-.btn_update_cadastro:hover::before,
-.btn_tab_ativo[class*="btn_update_cadastro"]::before {
+.btn_confirm_cadastro:hover::before,
+.btn_tab_ativo[class*="btn_confirm_cadastro"]::before {
 	content: url(../img/bt_confirmarCadastro_ativo.png);
 	position: absolute;
 	left: -21px;
@@ -359,7 +359,8 @@ a.accordion_info_toggler:visited {
     border: 1px solid #728C07;
     border-radius: 4px;
 }
-.btn_del_cad {
+.btn_del_cad,
+.btn_reject_cad {
     background-color: #FFF;
     height: 25px;
     color: #728C07;
@@ -370,10 +371,14 @@ a.accordion_info_toggler:visited {
 }
 .btn_del_cad:hover,
 .btn_del_cad:focus,
-.btn_del_cad:active {
+.btn_del_cad:active,
+.btn_reject_cad:hover,
+.btn_reject_cad:focus,
+.btn_reject_cad:active {
     background-color: #F2F2F2;
 }
-.btn_update_cad {
+.btn_update_cad,
+.btn_confirm_cad {
     background-color: #E9EDA6;
     height: 33px;
     color: #728C07;
@@ -383,7 +388,10 @@ a.accordion_info_toggler:visited {
 }
 .btn_update_cad:hover,
 .btn_update_cad:focus,
-.btn_update_cad:active {
+.btn_update_cad:active,
+.btn_confirm_cad:hover,
+.btn_confirm_cad:focus,
+.btn_confirm_cad:active {
     background-color: #D1CF7D;
 }
 /* Fim atualizar cadastro */

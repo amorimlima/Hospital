@@ -31,6 +31,7 @@ private $usr_login;
 private $usr_senha;
 private $usr_cpf;
 private $usr_rg;
+private $usr_imagem;
 
 
 public function Usuario()
@@ -99,6 +100,10 @@ public function getUsr_cpf()
 {
 return $this->usr_cpf;
 }
+public function getUsr_imagem()
+{
+return $this->usr_imagem;
+}
 
 
 public function setUsr_id($val)
@@ -156,7 +161,10 @@ public function setUsr_cpf($val)
 {
 $this->usr_cpf =  $val;
 }
-
+public function setUsr_imagem($val)
+{
+$this->usr_imagem =  $val;
+}
 } 
 
 ?>
