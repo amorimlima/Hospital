@@ -153,5 +153,26 @@ switch ($_REQUEST["acao"]) {
         
         break;
     }
+    case 'teste':{
+        $categoria = explode("_", $_REQUEST['tipo_arquivo'])[2];
+        $titulo = $_REQUEST['titulo_arquivo'];
+        $descricao = $_REQUEST['descricao_arquivo'];
+        $data = getdate();
+        $visualizacoes = 0;
+        $galeria = new Galeria();
+        $galeria->setGlr_categoria($categoria);
+        $galeria->setGlr_titulo($titulo);
+        $galeria->setGlr_descricao($descricao);
+        if ($_REQUEST['file_arquivo'])
+        {
+            $arquivo = $_REQUEST['file_arquivo'];
+        }
+        else
+        {
+            $nomeImage = "_".md5(uniqid(rand(),true)).$_FILES['file_arquivo']['type'];
+            print_r($_FILES['file_arquivo']);
+        }
+        break;
+    }
 }
 ?>
