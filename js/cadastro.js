@@ -731,7 +731,8 @@ function removerItemPreCadastro(id) {
 	//Remove da listagem a escola cujo cadastro acabou de ser confirmado
 	$("#updateEscolaCont"+id).remove();
 	$("#updateEscolaInfo"+id).parent("a").remove();
-}
+};
+
 function rejectPreCadastro(action, id) {
 	"use strict";
 
@@ -752,16 +753,18 @@ function rejectPreCadastro(action, id) {
 	});
 
 	unbindBotoesModalRejeitar();
-} 
+};
+
 function confirmRejeitarCadastro(action, id) {
 	$("#mensagemConfirmRejectCad").find("button[data-confirma=sim]").attr("onclick", "rejectPreCadastro('"+action+"','"+id+"')");
 	$("#mensagemConfirmRejectCad").find("button[data-confirma=nao]").attr("onclick", "unbindBotoesModalRejeitar()");
 	$("#mensagemConfirmRejectCad").show();
-}
+};
+
 function unbindBotoesModalRejeitar() {
 	$("#mensagemConfirmRejectCad").find("button[data-confirma=sim]").attr("onclick", "");
 	$("#mensagemConfirmRejectCad").find("button[data-confirma=nao]").attr("onclick", "");
-}
+};
 
 /* ================================================ */
 function atribuirEventosPreCadastro() {
