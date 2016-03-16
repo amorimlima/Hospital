@@ -26,15 +26,13 @@ class GaleriaDAO extends DAO{
 
      public function insert($glr)
      {
-         $sql  = "insert into galeria (glr_nome, glr_arquivo, glr_descricao, glr_aluno,glr_professor, glr_escola, glr_categoria, glr_visualizacoes) values ";
-         $sql .= "('".$glr->getGlr_nome()."'),'";
-         $sql .= "('".$glr->getGlr_arquivo()."'),'";
-         $sql .= "('".$glr->getGlr_descricao()."'),'";
-         $sql .= "('".$glr->getGlr_aluno()."'),'";
-         $sql .= "('".$glr->getGlr_professor()."'),'";
-         $sql .= "('".$glr->getGlr_escola()."'),'";
-         $sql .= "('".$glr->getGlr_categoria()."'),";
-         $sql .= "('".$glr->getGlr_visualizacoes()."')";
+         $sql  = "insert into galeria (glr_nome, glr_arquivo, glr_descricao, glr_data, glr_categoria, glr_visualizacoes) values ";
+         $sql .= "('".$glr->getGlr_nome()."', ";
+         $sql .= "'".$glr->getGlr_arquivo()."', ";
+         $sql .= "'".$glr->getGlr_descricao()."', ";
+         $sql .= "'".$glr->getGlr_data()."', ";
+         $sql .= "'".$glr->getGlr_categoria()."',";
+         $sql .= "'".$glr->getGlr_visualizacoes()."')";
 		echo $sql;
     	return $this->execute($sql);
      }
@@ -115,7 +113,7 @@ class GaleriaDAO extends DAO{
             $glr->setGlr_categoria(new CategoriaGaleria());
             $glr->getGlr_categoria()->setCtg_id($qr["ctg_id"]);
             $glr->getGlr_categoria()->setCtg_categoria($qr["ctg_categoria"]);
-            $glr->getGlr_categoria()->setGtg_classe($qr["ctg_classe"]);
+            $glr->getGlr_categoria()->setCtg_classe($qr["ctg_classe"]);
             $glr->setGlr_visualizacoes($qr["glr_visualizacoes"]);
             array_push($lista, $glr);
     	}
@@ -125,7 +123,10 @@ class GaleriaDAO extends DAO{
 
      public function selectCategoria($categoria)
      {
-        $sql = "select * from  `galeria` where  `glr_categoria` = ".$categoria." ";
+        $sql = "SELECT *";
+        $sql .= "FROM galeria glr ";
+        $sql .= "JOIN categorias_galeria ctg ON ctg.ctg_id = glr.glr_categoria ";
+        $sql .= "WHERE glr.glr_categoria = ".$categoria;
         $result = $this->retrieve($sql);
         $lista = array();
         while ($qr = mysqli_fetch_array($result))
@@ -136,7 +137,10 @@ class GaleriaDAO extends DAO{
             $glr->setGlr_arquivo($qr["glr_arquivo"]);
             $glr->setGlr_descricao($qr["glr_descricao"]);
             $glr->setGlr_data($qr["glr_data"]);            
-            $glr->setGlr_categoria($qr["glr_categoria"]);
+            $glr->setGlr_categoria(new CategoriaGaleria());
+            $glr->getGlr_categoria()->setCtg_id($qr["ctg_id"]);
+            $glr->getGlr_categoria()->setCtg_categoria($qr["ctg_categoria"]);
+            $glr->getGlr_categoria()->setCtg_classe($qr["ctg_classe"]);
             $glr->setGlr_visualizacoes($qr["glr_visualizacoes"]);
             array_push($lista, $glr);
         }

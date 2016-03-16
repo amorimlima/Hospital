@@ -98,9 +98,9 @@ $templateGeral = new Template();
 												<span>
 													<div id="tipoDeAruivo">
 
-														<input type="radio" name="tipo_arquivo" id="tipo_arquivo_link"/>
+														<input type="radio" name="tipo_arquivo" value="0" id="tipo_arquivo_link"/>
 														<label for="tipo_arquivo_link">Link</label>
-														<input type="radio" name="tipo_arquivo" id="tipo_arquivo_arquivo"/>
+														<input type="radio" name="tipo_arquivo" value="1" id="tipo_arquivo_arquivo"/>
 														<label for="tipo_arquivo_arquivo">Arquivo</label>
 														
 													</div>
@@ -131,7 +131,7 @@ $templateGeral = new Template();
 											<div class="formbtns">
 												<input type="button" id="btn_cancelar" value="Cancelar"/>
 												<input type="reset" value="Limpar"/>
-												<input type="submit" id="btn_enviar" class="btn_primary" value="Enviar"/>
+												<input type="button" id="btn_enviar" class="btn_primary" value="Enviar"/>
 											</div>
 										</fieldset>
 									</form>
@@ -185,6 +185,24 @@ $templateGeral = new Template();
 								</div>
 							</div>
 						</div>
+                        <div class="modal fade in" id="myModal" role="dialog" style="display: none;">
+                            <div class="modal-dialog modal-sm">
+                                <div class="borda_laranja">
+                                    <div class="modal-body">
+                                        <div id="tipoMensagem"></div>
+                                        <div class="modal-body-container">
+                                            <div class="text-modal">
+                                                <p class="txt_laranja" id="modalTexto"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" data-dismiss="modal" class="btn btn_laranja botao_modal">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-backdrop fade in" style="display: none;"></div>';
 					</div>
 				</div>
 			</div>
@@ -201,5 +219,18 @@ $templateGeral = new Template();
 	<script src="js/funcoes.js"></script>
 	<script src="js/modulos/formulario.js"></script>
 	<script src="js/Galeria.js"></script>
+	<?php
+
+            if (isset($_SESSION['cadastro']) && $_SESSION['cadastro'] == 'ok')
+                echo 	'<script>
+            				$(document).ready(function () {
+            					$("#tipoMensagem").removeClass();
+        						$("#tipoMensagem").addClass("sucesso");
+       							$("#modalTexto").html("Arquivo adicionado com sucesso!");
+       							showModal();
+            				});
+            			</script>';
+            $_SESSION['cadastro'] = '';
+        ?>
 </body>
 </html>

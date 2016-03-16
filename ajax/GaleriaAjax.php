@@ -95,9 +95,9 @@ switch ($_REQUEST["acao"]) {
                 "descricao" => utf8_encode($value->getGlr_descricao()),
                 "data" => utf8_encode($value->getGlr_data()),
                 'categoria' => Array(
-                    'id' => utf8_encode($galeria[$key]->getGlr_categoria()->getCtg_id()),
-                    'categoria' => utf8_encode($galeria[$key]->getGlr_categoria()->getCtg_categoria()),
-                    'classe' => utf8_encode($galeria[$key]->getGlr_categoria()->getCtg_classe())),
+                    'id' => utf8_encode($value->getGlr_categoria()->getCtg_id()),
+                    'categoria' => utf8_encode($value->getGlr_categoria()->getCtg_categoria()),
+                    'classe' => utf8_encode($value->getGlr_categoria()->getCtg_classe())),
                 "visualizacoes" => utf8_encode($value->getGlr_visualizacoes())
             );
             array_push($lista, $result);
@@ -154,24 +154,32 @@ switch ($_REQUEST["acao"]) {
         break;
     }
     case 'teste':{
-        $categoria = explode("_", $_REQUEST['tipo_arquivo'])[2];
+        $categoria = $_REQUEST['cat_arquivo'];
         $titulo = $_REQUEST['titulo_arquivo'];
         $descricao = $_REQUEST['descricao_arquivo'];
-        $data = getdate();
-        $visualizacoes = 0;
+        $data = date('Y-m-d h:i', time());
         $galeria = new Galeria();
         $galeria->setGlr_categoria($categoria);
-        $galeria->setGlr_titulo($titulo);
+        $galeria->setGlr_nome($titulo);
         $galeria->setGlr_descricao($descricao);
-        if ($_REQUEST['file_arquivo'])
+        $galeria->setGlr_data($data);
+        if ($_REQUEST['tipo_arquivo'] == 0)
         {
-            $arquivo = $_REQUEST['file_arquivo'];
+            $arquivo = $_REQUEST['link_arquivo'];
         }
         else
         {
-            $nomeImage = "_".md5(uniqid(rand(),true)).$_FILES['file_arquivo']['type'];
-            print_r($_FILES['file_arquivo']);
+            $nomeImage = "_".md5(uniqid(rand(),true)).'.'.pathinfo($_FILES['file_arquivo']['name'], PATHINFO_EXTENSION);
+            $local = "C:\\Users\\murano\\Desktop\\Teste\\";
+            $arquivo_temporario = $_FILES["file_arquivo"]["tmp_name"];
+            move_uploaded_file($arquivo_temporario, $local.$nomeImage);
+            $arquivo = $local.$nomeImage;
         }
+        $galeria->setGlr_arquivo($arquivo);
+        $galeria->setGlr_visualizacoes(0);
+        $galeriaController->insert($galeria);
+        $_SESSION['cadastro'] = "ok";
+        header("Location:".$_LOAD_URL_SYS['BASE_URL']."galeria.php?");
         break;
     }
 }

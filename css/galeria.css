@@ -92,6 +92,11 @@
 
 .upload, .uploadArquivo, .hiperlinkArquivo{display: none;}
 
+.gal_caixa_texto_titulo:hover, .gal_caixa_texto_titulo:active, .gal_caixa_texto_titulo:focus,
+.txt_mv_caixa_titulo:hover, .txt_mv_caixa_titulo:active, .txt_mv_caixa_titulo:focus{
+    text-decoration: none;
+}
+
 /* Variaveis */
 /* Left Column */
 @media (max-width: 767px) {
@@ -166,6 +171,30 @@
     .gal_Video_icon {
         display: none;
         background:url(../img/video.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
+    .gal_Foto_icon {
+        display: none;
+        background:url(../img/photo.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
+    .gal_Jogo_icon {
+        display: none;
+        background:url(../img/game.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
+    .gal_Foto_icon {
+        display: none;
+        background:url(../img/photo.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
+    .gal_Jogo_icon {
+        display: none;
+        background:url(../img/game.png) no-repeat;
         height: 58px;
         background-position: 50%;
     }
@@ -290,6 +319,16 @@
     }
     .gal_Video_icon {
         background:url(../img/video.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
+    .gal_Foto_icon {
+        background:url(../img/photo.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
+    .gal_Jogo_icon {
+        background:url(../img/game.png) no-repeat;
         height: 58px;
         background-position: 50%;
     }
@@ -422,6 +461,16 @@
         height: 58px;
         background-position: 50%;
     }
+    .gal_Foto_icon {
+        background:url(../img/photo.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
+    .gal_Jogo_icon {
+        background:url(../img/game.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
     .gal_categoria {
         width: 80%;
         height: 15px;
@@ -548,6 +597,16 @@
     }
     .gal_Video_icon {
         background:url(../img/video.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
+    .gal_Foto_icon {
+        background:url(../img/photo.png) no-repeat;
+        height: 58px;
+        background-position: 50%;
+    }
+    .gal_Jogo_icon {
+        background:url(../img/game.png) no-repeat;
         height: 58px;
         background-position: 50%;
     }

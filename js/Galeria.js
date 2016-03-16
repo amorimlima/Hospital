@@ -7,6 +7,12 @@ $(document).ready(function () {
     formulario.iniciar();
     carregarGaleria();
     carregarMaisVistos();
+    $('body').click(function() {
+        $('#box_select').hide();
+    });
+    $('.botao_modal').click(function(){
+        hideModal();
+    });
 });
 
 function carregarGaleria () {
@@ -82,8 +88,9 @@ function atribuirClickSelect () {
 }
 
 function abrirSelectCateoria () {
-    $('#select_text').click(function(){
+    $('#select_text').click(function(e){
        $('#box_select').toggle();
+       e.stopPropagation();
     });
 }
 
@@ -98,7 +105,7 @@ function carregarCategorias () {
             htmlCategoriasRadio = "";
             for(var i = 0; i < categorias.length; i++){
                 htmlCategorias += '<span id="cat_'+categorias[i].id+'" class="opcoesCategorias">'+categorias[i].categoria+'</span>'
-                htmlCategoriasRadio += '<input type="radio" name="cat_arquivo" id="cat_upload_'+categorias[i].id+'"/>';
+                htmlCategoriasRadio += '<input type="radio" name="cat_arquivo" value="'+categorias[i].id+'" id="cat_upload_'+categorias[i].id+'"/>';
                 htmlCategoriasRadio += '<label for="cat_upload_'+categorias[i].id+'">'+categorias[i].categoria+'</label>';
             }
             $('#mCSB_2_container').html(htmlCategorias);
@@ -256,17 +263,67 @@ function showFormNovoArquivo() {
 };
 
 function postarPreCadastro () {
-    console.info("Requisição para registro de interesse");
+    if(cadastroCompleto())
+    {
+        $('#form_arquivo_galeria')[0].submit();
+    }
+    else
+    {
+        showModal();
+    }
+
 };
+
+function cadastroCompleto () {
+    if ($('#titulo_arquivo').val() == "")
+    {
+        $('#tipoMensagem').removeClass();
+        $('#tipoMensagem').addClass("erro");
+        $("#modalTexto").html('É necessário fornecer um nome ao arquivo!');
+        return false;
+    }
+
+    else if ($('#descricao_arquivo').val() == "")
+    {
+        $('#tipoMensagem').removeClass();
+        $('#tipoMensagem').addClass("erro");
+        $("#modalTexto").html('É necessário fornecer uma descricao ao arquivo!');
+        return false;
+    }
+
+    else if ($('#link_arquivo').val() == ""  && $('#file_arquivo').val() == "")
+    {
+        $('#tipoMensagem').removeClass();
+        $('#tipoMensagem').addClass("erro");
+        $("#modalTexto").html('É necessário selecionar um arquivo!');
+        return false;
+    }
+
+    else
+        return true;
+
+}
+
+function showModal () {
+    $('.modal-backdrop').show();
+    $('.modal').show();
+}
+
+function hideModal(){
+    $('.modal-backdrop').hide();
+    $('.modal').hide();
+}
 
 function trocarCategoriaArquivo() {
     $("input[name=cat_arquivo]").change(function() {
         if ($("#cat_upload_1").is(":checked")) {
             $("#tipoDeAruivo").parentsUntil("fieldset").show();
             $("#tipo_arquivo_link").trigger("click");
+            $("#file_arquivo").attr("accept", "video/*");
         } else if ($("#cat_upload_2").is(":checked")) {
             $("#tipoDeAruivo").parentsUntil("fieldset").show();
             $("#tipo_arquivo_link").trigger("click");
+            $("#file_arquivo").attr("accept", "image/*");
         } else if ($("#cat_upload_3").is(":checked")) {
             $("#tipoDeAruivo").parentsUntil("fieldset").hide();
             $("#tipo_arquivo_link").trigger("click");
