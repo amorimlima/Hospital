@@ -190,14 +190,15 @@ switch ($_REQUEST["acao"]) {
 	    		
 	    		if ($_POST['imagem'] != ''){
 				    $imag = getimagesize("../temporaria/".$_POST["imagem"]);
-					//$xp = $imag[0];
-					
+					//$xp = $imag[0];					
 					//$ix = 350;
 					//$iy = ($ix * $y) / $x;
 					gerar_tumbs_real(100,100,100,"../temporaria/".$_POST["imagem"],"../imgm/".$_POST["imagem"]);
 					gerar_tumbs_real(65,65,100,"../temporaria/".$_POST["imagem"],"../imgp/".$_POST["imagem"]);
 				}
-				        
+				if (isset($_POST['preCadastro'])){
+					$_SESSION['idEscolaPre'] = $idEscola;
+			    }        
 	    		if($usuarioController->insert($usuario)){
 	    			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 	    		}else{
