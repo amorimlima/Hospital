@@ -8,6 +8,8 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 
 $path = $_SESSION['PATH_SYS'];
+include_once($path['controller'].'EnvioDocumentoController.php');
+$envioDocumentoControler = new EnvioDocumentoController();
 
 // reference the Dompdf namespace
 use Dompdf\Dompdf;
@@ -29,17 +31,21 @@ $arquivo = $dompdf->output("arquivo.pdf", array("Attachment" => true));
 
 $rand = rand(1,100);
 $nomeCrip = md5("arquivo".$rand);
-file_put_contents($path['arquivos'].$nomeCrip.'.pdf',$arquivo);
 
-echo '
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			var html = $("html").html();
-			window.open("gerarPDF.php?html=" + html, "_blank");
-			window.close();
-		});
-	</script>';
+if($arquivo){
+
+	$env = new EnvioDocumento();
+    $env->setEnv_idEscola(1);
+    $env->setEnv_idRemetente(1);
+    $env->setEnv_idDestinatario(4);
+    $env->setEnv_url($nomeCrip.'pdf');
+    $env->setVisto(0);
+
+	$envioDocumentoControler->insert($env);
+	file_put_contents($path['arquivos'].$nomeCrip.'.pdf',$arquivo);
+}
+
+echo '<script type="text/javascript">window.close();</script>';
+
 
 ?>

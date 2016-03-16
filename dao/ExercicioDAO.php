@@ -218,5 +218,12 @@ class ExercicioDAO extends DAO{
         return $qr;
     }
 
+    function selectCountExercicioNumGabarito($exercicio){
+        $sql  = "select * from gabarito where gbt_questao = ".$exercicio;
+        $result = $this->retrieve($sql);
+        $qr = mysqli_num_rows($result);
+        return $qr;
+    }
+
 }
 ?>

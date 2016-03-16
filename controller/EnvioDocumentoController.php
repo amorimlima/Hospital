@@ -15,7 +15,7 @@ include_once($path['dao'].'EnvioDocumentoDAO.php');
 /**
  * Description of EmailController
  *
- * @author Kevyn
+ * @author Carol
  */
 
 class EnvioDocumentoController {

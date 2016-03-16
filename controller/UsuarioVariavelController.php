@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['PATH_SYS'])){
-   require_once '_loadPaths.inc.php'; 
+	session_start();
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'UsuarioVariavelDAO.php');

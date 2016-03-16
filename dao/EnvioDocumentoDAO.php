@@ -27,10 +27,10 @@ class EnvioDocumentoDAO extends DAO{
     
       public function insert($env)
      {
-         $sql  = "insert into envio_documentos (idEscolas,idRemetente,idDestinatario,url,visto) values ";
-         $sql .= "(".$env->getEnv_idEscola().",";
-         $sql .= "".$env->getEnv_idRemetente().",".$env->getEnv_idDestinatario().",";
-         $sql .= "'".$env->getEnv_url()."','".$env->getVisto()."')";
+        $sql  = "insert into envio_documentos (idEscolas,idRemetente,idDestinatario,url,visto) values ";
+        $sql .= "(".$env->getEnv_idEscola().",";
+        $sql .= "".$env->getEnv_idRemetente().",".$env->getEnv_idDestinatario().",";
+        $sql .= "'".$env->getEnv_url()."','".$env->getVisto()."')";
 		echo $sql;
     	return $this->execute($sql);
      }

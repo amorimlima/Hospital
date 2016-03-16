@@ -85,6 +85,11 @@ class ExercicioController {
 	{
 		$exe = $this->exercicioDAO->selectCountExercicioNumQuestoes($exercicio);
 		return $exe;
+	}	
+
+	public function selectCountExercicioNumGabarito($exercicio)
+	{
+		$exe = $this->exercicioDAO->selectCountExercicioNumGabarito($exercicio);
 	}		
 }
 ?>

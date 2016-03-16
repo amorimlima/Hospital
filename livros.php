@@ -2,7 +2,9 @@
 if(!isset($_SESSION['PATH_SYS'])){
    require_once '_loadPaths.inc.php'; 
 }
+
 $path = $_SESSION['PATH_SYS'];
+
 include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateLivros.php');
 $templateGeral = new Template();
