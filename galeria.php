@@ -163,18 +163,6 @@ $templateGeral = new Template();
 									</div>
 									<div class="">
 										<div class="mv_caixa">
-											<div class="mv_caixa_icon">
-												<div class="mv_jogo">
-													<div class="icon_jogo"></div>
-													<div class="icon_texto">Reciclagem - O Jogo</div>
-												</div>
-											</div>
-											<div class="txt_mv_caixa">
-												<p class="txt_mv_caixa_titulo">Reciclagem - O Jogo</p>
-												<p class="txt_mv_caixa_sub">Postado por Mateus Salgado </p>
-												<p class="txt_mv_caixa_data">26/04/2015 às 13:49</p>
-											</div>
-											<div class="clear"></div>
 										</div>
 									</div>
 								</div>

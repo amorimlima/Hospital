@@ -170,8 +170,8 @@ switch ($_REQUEST["acao"]) {
         else
         {
             $nomeImage = "_".md5(uniqid(rand(),true)).'.'.pathinfo($_FILES['file_arquivo']['name'], PATHINFO_EXTENSION);
-            $local = "C:\\Users\\murano\\Desktop\\Teste\\";
             $arquivo_temporario = $_FILES["file_arquivo"]["tmp_name"];
+            $local = $path['arquivos_galeria'];
             move_uploaded_file($arquivo_temporario, $local.$nomeImage);
             $arquivo = $local.$nomeImage;
         }
