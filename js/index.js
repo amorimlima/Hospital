@@ -5,6 +5,12 @@ var formulario;
 $(document).ready(atribuirEventos);
 
 function atribuirEventos() {
+	
+	$('#mensagemSucessoCadastro div div div .modal-footer .btn').click(function(){
+		window.location.href = "pesquisa.php";
+		return false;
+	})
+	
     $("#link_pre_cadastro").click(toggleFormPreCadastro);
     $("#cancel_pre_cadastro").click(toggleFormPreCadastro);
 
@@ -24,6 +30,7 @@ function atribuirEventos() {
     $(".form_barra").mCustomScrollbar({ axis: "y", scrollButtons: { enable:true } });
     
     listarEstadoCidade('estado');
+    
     $('#estado').change(function(){
     	selectCidade('estado','cidade')
     })
@@ -136,8 +143,6 @@ function atribuirEventos() {
         		success:function(retorno){
         			if (retorno.erro == false) {
         				$("#mensagemSucessoCadastro").show();
-        	        	//listarEscolas();	//Lista es escolas novamente colocando a recem cria e zera a lista dos professores.
-        	        	//$('#selectProfessorAluno').html('<option value="" disabled selected>Selecione primeiro a escola e a série</option>');
         			}else {
                    			$("#textoMensagemVazio").text(retorno.msg);
             	        	$("#mensagemCampoVazio").show();
