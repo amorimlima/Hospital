@@ -7,11 +7,13 @@ include_once($path['controller'].'EnderecoController.php');
 include_once($path['controller'].'EscolaController.php');
 include_once($path['controller'].'UsuarioVariavelController.php');
 include_once($path['controller'].'GrupoController.php');
+include_once($path['controller'].'EnvioDocumentoController.php');
 include_once($path['beans'].'Usuario.php');
 include_once($path['beans'].'UsuarioVariavel.php');
 include_once($path['beans'].'Escola.php');
 include_once($path['beans'].'Endereco.php');
 include_once($path['beans'].'Grupo.php');
+include_once($path['beans'].'EnvioDocumento.php');
 //require_once ($paths["funcao"]."Thumbs.php");
 
 include_once($path['funcao'].'DatasFuncao.php');
@@ -341,6 +343,30 @@ switch ($_REQUEST["acao"]) {
 			$result = Array("status"=>"1", "mensagem"=>"Cadastro rejeitado com sucesso!");
 		else
 			$result = Array("status"=>"0", "mensagem"=>"Erro ao rejeitar o cadastro.");
+
+		echo json_encode($result);
+
+		break;
+	}
+	case "requestPdf": {
+		$envioDocumentoController = new EnvioDocumentoController();
+		$idesc = $_REQUEST["id"];
+		$doc = $envioDocumentoController->selectDocPorEscola($idesc);
+		$result = "";
+
+		if (!empty($doc)) {
+			$result = Array(
+				"id" 			 => utf8_encode($doc->getEnv_id()),
+				"idEscola"	 	 => utf8_encode($doc->getEnv_idEscola()),
+				"idRemetente"	 => utf8_encode($doc->getEnv_idRemetente()),
+				"idDestinatario" => utf8_encode($doc->getEnv_idDestinatario()),
+				"url"	 		 => $path["arquivos"].utf8_encode($doc->getEnv_url()),
+				"Visto"	 		 => utf8_encode($doc->getVisto()),
+				"status"		 => true
+			);
+		} else {
+			$result = Array("status" => false);
+		}
 
 		echo json_encode($result);
 

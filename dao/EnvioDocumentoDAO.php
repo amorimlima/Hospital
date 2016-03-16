@@ -118,6 +118,28 @@ class EnvioDocumentoDAO extends DAO{
         }
     	return $lista;
      }
+    public function selectDocPorEscola($idesc)
+    {
+        $sql = "SELECT * FROM envio_documentos WHERE idEscolas = ".$idesc;
+        $result = $this->retrieve($sql);
+        if ( mysqli_num_rows($result) > 0) {
+            $qr = mysqli_fetch_array($result);
+    
+            $doc = new EnvioDocumento();
+            $doc->setEnv_id($qr["idEnvioDocumento"]);
+            $doc->setEnv_idEscola($qr["idEscolas"]);
+            $doc->setEnv_idRemetente($qr["idRemetente"]);
+            $doc->setEnv_idDestinatario($qr["idDestinatario"]);
+            $doc->setEnv_url($qr["url"]);
+            $doc->setVisto($qr["visto"]);
+
+            return $doc;
+        } else {
+            return false;
+        }
+
+       
+    }
 }
 
 

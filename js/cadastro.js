@@ -681,6 +681,7 @@ function viewPreCadastros(preCadastros) {
 		html +=			"</table>";
 		html +=		"</div>";
 		html += 	"<div class=\"content_col_btns\">";
+        html +=         "<button data-action=\"requestPdf\" data-action-for=\"updateEscolaCont"+preCadastros[b].id+"\" class=\"section_btn btn_request_cad\">Ver pesquisa</button>";
 		html += 		"<button data-action=\"reject\" data-action-for=\"updateEscolaCont"+preCadastros[b].id+"\" class=\"section_btn btn_reject_cad\">Rejeitar cadastro</button>";
 		html += 		"<button data-action=\"confirm\" data-action-for=\"updateEscolaCont"+preCadastros[b].id+"\" class=\"section_btn btn_confirm_cad\">Confirmar cadastro</button>";
 		html += 	"</div>";
@@ -766,6 +767,33 @@ function unbindBotoesModalRejeitar() {
 	$("#mensagemConfirmRejectCad").find("button[data-confirma=nao]").attr("onclick", "");
 };
 
+function getArquivoPesquisa(action, id) {
+    "use strict";
+
+    var arquivo;
+
+    $.ajax({
+        url: "ajax/CadastroAjax.php?acao="+action+"&id="+id,
+        type: "GET",
+        async: false,
+        success: function (data) {
+            arquivo = JSON.parse(data);
+        }
+    });
+
+    return arquivo;
+};
+
+function requestArquivoPesquisa(action, cadastroId) {
+    var arquivo = getArquivoPesquisa(action, cadastroId);
+
+    if (arquivo.status) {
+        window.open(arquivo.url, "_blank");
+    } else {
+        $("#mensagemErroGetArquivo").show();
+    }
+}
+
 /* ================================================ */
 function atribuirEventosPreCadastro() {
 	$(".btn_confirm_cad").click(function() {
@@ -780,4 +808,11 @@ function atribuirEventosPreCadastro() {
 
 		confirmRejeitarCadastro(action,cadastroId);
 	});
+
+    $(".btn_request_cad").click(function() {
+        var action = this.getAttribute("data-action");
+        var cadastroId = this.getAttribute("data-action-for").substring(16);
+
+        requestArquivoPesquisa(action,cadastroId);
+    });
 };

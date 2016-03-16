@@ -67,6 +67,11 @@ class EnvioDocumentoController {
 		$env = $this->envioDocumentoDAO->selectFull();
 		return $env;
 	}
+	public function selectDocPorEscola($idesc)
+	{
+		$doc = $this->envioDocumentoDAO->selectDocPorEscola($idesc);
+		return $doc;
+	}
 }
 ?>
 

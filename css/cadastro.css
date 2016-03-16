@@ -360,7 +360,8 @@ a.accordion_info_toggler:visited {
     border-radius: 4px;
 }
 .btn_del_cad,
-.btn_reject_cad {
+.btn_reject_cad,
+.btn_request_cad {
     background-color: #FFF;
     height: 25px;
     color: #728C07;
@@ -374,7 +375,10 @@ a.accordion_info_toggler:visited {
 .btn_del_cad:active,
 .btn_reject_cad:hover,
 .btn_reject_cad:focus,
-.btn_reject_cad:active {
+.btn_reject_cad:active,
+.btn_request_cad:hover,
+.btn_request_cad:focus,
+.btn_request_cad:active {
     background-color: #F2F2F2;
 }
 .btn_update_cad,

@@ -873,6 +873,11 @@ $logado = unserialize($_SESSION['USR']);
 			$templateGeral->mensagemRetorno("mensagens","Erro ao rejeitar o cadastro!","erro");
 		?>
 	</div>
+	<div id="mensagemErroGetArquivo" style="display:none" class='modalMensagem'>
+		<?php
+			$templateGeral->mensagemRetorno("mensagens","Nenhuma pesquisa encontrada para este pré-cadastro.","erro");
+		?>
+	</div>
       
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
