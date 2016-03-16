@@ -4,8 +4,6 @@ if(!isset($_SESSION['PATH_SYS'])){
    session_start();  
 }
 
-include_once($path['dao'].'ForumQuestaoDao.php');
-include_once($path['dao'].'ForumRespostaDAO.php');
 include_once($path['controller'].'ForumQuestaoController.php');
 include_once($path['controller'].'ForumViewController.php');
 include_once($path['controller'].'ForumRespostaController.php');

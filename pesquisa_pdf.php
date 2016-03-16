@@ -20,7 +20,7 @@ if (isset($_GET["tipo_formacao_professores"])) {
 }
 if (isset($_GET["tipo_outro"])) {
 	array_push($tipo_escola, $_GET["tipo_outro_especificacao"]);
-}
+}	
 
 $dados_escola = [];
 $dados_escola["Ideb"] = isset($_GET["ideb_nulo"]) ? "Não fornecido" : $_GET["ideb"];

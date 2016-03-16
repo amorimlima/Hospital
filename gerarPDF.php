@@ -28,21 +28,22 @@ $dompdf->render();
 
 // Output the generated PDF to Browser
 $arquivo = $dompdf->output("arquivo.pdf", array("Attachment" => true));
-
-$rand = rand(1,100);
-$nomeCrip = md5("arquivo".$rand);
+$rand = rand(1,500);
+$rand2 = rand(1,500);
+$nomeCrip = md5("arquivo".$rand.$rand2);
 
 if($arquivo){
+	file_put_contents($path['arquivos'].$nomeCrip.'.pdf',$arquivo);
 
 	$env = new EnvioDocumento();
     $env->setEnv_idEscola(1);
     $env->setEnv_idRemetente(1);
     $env->setEnv_idDestinatario(4);
-    $env->setEnv_url($nomeCrip.'pdf');
+    $env->setEnv_url($nomeCrip.'.pdf');
     $env->setVisto(0);
 
 	$envioDocumentoControler->insert($env);
-	file_put_contents($path['arquivos'].$nomeCrip.'.pdf',$arquivo);
+	
 }
 
 echo '<script type="text/javascript">window.close();</script>';
