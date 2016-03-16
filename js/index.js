@@ -108,7 +108,7 @@ function atribuirEventos() {
         	var emailCoordenador = $("#email_coordenador").val();
         	
         	$.ajax({
-        		url:'ajax/cadastroAjax.php',
+        		url:'ajax/CadastroAjax.php',
         		type:'post',
         		dataType:'json',
         		data:{
