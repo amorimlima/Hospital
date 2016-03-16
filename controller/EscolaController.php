@@ -54,6 +54,11 @@ class EscolaController {
 		$esc = $this->escolaDAO->confirmCadastro($idesc);
 		return $esc;
 	}
+	public function rejectCadastro($idesc)
+	{
+		$esc = $this->escolaDAO->rejectCadastro($idesc);
+		return $esc;
+	}
 	public function verificaCnpj($cnpj) {
 		return $this->escolaDAO->verificaCnpj($cnpj);
 	}

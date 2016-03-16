@@ -148,6 +148,11 @@ class EscolaDAO extends DAO{
         $sql = "UPDATE escola SET esc_status = '1' WHERE esc_id = ".$idesc;
         return $this->execute($sql);
     }
+    public function rejectCadastro($idesc)
+    {
+        $sql = "UPDATE escola SET esc_status = '2' WHERE esc_id = ".$idesc;
+        return $this->execute($sql);
+    }
     public function selectFull()
     {
         $sql = "select * from escola ORDER BY esc_razao_social";

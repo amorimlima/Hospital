@@ -332,6 +332,20 @@ switch ($_REQUEST["acao"]) {
 
 		break;
 	}
+	case "reject": {
+		$escolasController = new EscolaController();
+		$idesc = $_REQUEST["id"];
+		$result = "";
+
+		if ($confirmacao = $escolasController->rejectCadastro($idesc))
+			$result = Array("status"=>"1", "mensagem"=>"Cadastro rejeitado com sucesso!");
+		else
+			$result = Array("status"=>"0", "mensagem"=>"Erro ao rejeitar o cadastro.");
+
+		echo json_encode($result);
+
+		break;
+	}
 }
 
 ?>

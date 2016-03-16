@@ -718,6 +718,7 @@ function confirmPreCadastro(action, id) {
 		success: function(data) {
 			console.info(data.mensagem+"\nStatus: "+data.status);
 			$("#mensagemSucessoConfirmCad").show();
+			removerItemPreCadastro(id);
 		},
 		error: function(data) {
 			console.error(data.mensagem+"\nStatus: "+data.status);
@@ -726,6 +727,42 @@ function confirmPreCadastro(action, id) {
 	});
 };
 
+function removerItemPreCadastro(id) {
+	//Remove da listagem a escola cujo cadastro acabou de ser confirmado
+	$("#updateEscolaCont"+id).remove();
+	$("#updateEscolaInfo"+id).parent("a").remove();
+}
+function rejectPreCadastro(action, id) {
+	"use strict";
+
+	$.ajax({
+		url: "ajax/CadastroAjax.php",
+		type: "POST",
+		data: {"acao": action, "id": id},
+		dataType: "JSON",
+		success: function(data) {
+			console.info(data.mensagem+"\nStatus: "+data.status);
+			$("#mensagemSucessoRejectCad").show();
+			removerItemPreCadastro(id);
+		},
+		error: function(data) {
+			console.error(data.mensagem+"\nStatus: "+data.status);
+			$("#mensagemErroRejectCad").show();
+		}
+	});
+
+	unbindBotoesModalRejeitar();
+} 
+function confirmRejeitarCadastro(action, id) {
+	$("#mensagemConfirmRejectCad").find("button[data-confirma=sim]").attr("onclick", "rejectPreCadastro('"+action+"','"+id+"')");
+	$("#mensagemConfirmRejectCad").find("button[data-confirma=nao]").attr("onclick", "unbindBotoesModalRejeitar()");
+	$("#mensagemConfirmRejectCad").show();
+}
+function unbindBotoesModalRejeitar() {
+	$("#mensagemConfirmRejectCad").find("button[data-confirma=sim]").attr("onclick", "");
+	$("#mensagemConfirmRejectCad").find("button[data-confirma=nao]").attr("onclick", "");
+}
+
 /* ================================================ */
 function atribuirEventosPreCadastro() {
 	$(".btn_confirm_cad").click(function() {
@@ -733,5 +770,11 @@ function atribuirEventosPreCadastro() {
 		var cadastroId = this.getAttribute("data-action-for").substring(16);
 
 		confirmPreCadastro(action, cadastroId);
+	});
+	$(".btn_reject_cad").click(function() {
+		var action = this.getAttribute("data-action");
+		var cadastroId = this.getAttribute("data-action-for").substring(16);
+
+		confirmRejeitarCadastro(action,cadastroId);
 	});
 };

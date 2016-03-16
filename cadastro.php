@@ -855,7 +855,22 @@ $logado = unserialize($_SESSION['USR']);
 	</div>
 	<div id="mensagemErroConfirmCad" style="display:none" class='modalMensagem'>
 		<?php
-			$templateGeral->mensagemRetorno('mensagens',"Erro ao confirmar o cadastro!",'erro');
+			$templateGeral->mensagemRetorno("mensagens","Erro ao confirmar o cadastro!","erro");
+		?>
+	</div>
+	<div id="mensagemConfirmRejectCad" style="display:none" class='modalMensagem'>
+		<?php
+			$templateGeral->mensagemRetorno("mensagens","Tem certeza que deseja rejeitar esse cadastro?","confirma");
+		?>
+	</div>
+	<div id="mensagemSucessoRejectCad" style="display:none" class='modalMensagem'>
+		<?php
+			$templateGeral->mensagemRetorno('mensagens',"Cadastro rejeitado com sucesso!",'sucesso');
+		?>
+	</div>
+	<div id="mensagemErroRejectCad" style="display:none" class='modalMensagem'>
+		<?php
+			$templateGeral->mensagemRetorno("mensagens","Erro ao rejeitar o cadastro!","erro");
 		?>
 	</div>
       

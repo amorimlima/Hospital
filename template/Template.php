@@ -176,24 +176,33 @@ class Template {
             }
 		}
 
-		echo '<div class="modal fade exibirMsg in" id="myModal" role="dialog">
-				<div class="modal-dialog modal-sm">
-					<div class="'.$corBorda.'">
-						<div class="modal-body">
-							<div class="'.$tipoMensagem.'"></div>
-							<div class="modal-body-container">
-								<div class="text-modal">
-									<p class="'.$corTexto.'">'.$textoMensagem.'</p>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn '.$corBotao.' botao_modal" '.$onClick.'>OK</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-backdrop fade in"></div>';
+        $htmlModal  = "";
+        $htmlModal .= "<div class=\"modal fade exibirMsg in\" id=\"myModal\" role=\"dialog\">";
+        $htmlModal .=   "<div class=\"modal-dialog modal-sm\">";
+        $htmlModal .=       "<div class=\"$corBorda\">";
+        $htmlModal .=           "<div class=\"modal-body\">";
+        $htmlModal .=               "<div class=\"$tipoMensagem\"></div>";
+        $htmlModal .=               "<div class=\"modal-body-container\">";
+        $htmlModal .=                   "<div class=\"text-modal\">";
+        $htmlModal .=                       "<p class=\"$corTexto\">$textoMensagem</p>";
+        $htmlModal .=                   "</div>";
+        $htmlModal .=               "</div>";
+        $htmlModal .=           "</div>";
+        $htmlModal .=           "<div class=\"modal-footer\">";
+
+        if ($tipoMensagem === "confirma") {
+            $htmlModal .=           "<button type=\"button\" class=\"btn $corBotao botao_modal\" data-confirma=\"sim\">Sim</button>";
+            $htmlModal .=           "<button type=\"button\" class=\"btn $corBotao botao_modal\" data-confirma=\"nao\">Não</button>";
+        } else {
+            $htmlModal .=           "<button type=\"button\" class=\"btn $corBotao botao_modal\" $onClick>OK</button>";
+        }
+        $htmlModal .=           "</div>";
+        $htmlModal .=       "</div>";
+        $htmlModal .=   "</div>";
+        $htmlModal .= "</div>";
+        $htmlModal .= "<div class=\"modal-backdrop fade in\"></div>";
+
+		echo $htmlModal;
 	}
 }
 
