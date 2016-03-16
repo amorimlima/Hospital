@@ -36,7 +36,7 @@ if($arquivo){
 	file_put_contents($path['arquivos'].$nomeCrip.'.pdf',$arquivo);
 
 	$env = new EnvioDocumento();
-    $env->setEnv_idEscola(1);
+    $env->setEnv_idEscola($_SESSION['idEscolaPre']);
     $env->setEnv_idRemetente(1);
     $env->setEnv_idDestinatario(4);
     $env->setEnv_url($nomeCrip.'.pdf');
