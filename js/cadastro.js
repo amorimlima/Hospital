@@ -5,7 +5,7 @@ var containers = $('.conteudo_tab');
 var btns = $('.btns_tabs');
 var primeiroAcesso = true;
 var delPerfilId = '0';
-var blah;
+var pre_cadastros_listados = false;
 
 $(document).ready(function() {
 	
@@ -77,6 +77,7 @@ $(document).ready(function() {
                 $('.conteudo_escola').find('.confirm_cadastro').show();
                 $('.conteudo_escola').find('.form_cadastro').hide();
                 $('.conteudo_escola').find('.update_cadastro').hide();
+                requestPreCadastros();
             }
         }
     });
@@ -186,7 +187,7 @@ $(document).ready(function() {
         var imagem = $("#imagem").val();
 
         $.ajax({
-            url:'ajax/cadastroAjax.php',
+            url:'ajax/CadastroAjax.php',
             type:'post',
             dataType:'json',
             data: {
@@ -480,7 +481,7 @@ $(document).ready(function() {
     });
     
 	$("#cadastroImagem").goMobileUpload({
-		script : "ajax/cadastroAjax.php"
+		script : "ajax/CadastroAjax.php"
 	});
 	
 }); //Fim
@@ -545,7 +546,7 @@ function listaProfessores(){
 		return false;
 	}
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'html',
         data: {
@@ -562,7 +563,7 @@ function listaProfessores(){
 
 function listarEscolas(){
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'html',
         data: {
@@ -588,7 +589,7 @@ function limparInputArquivo(){
 function listarAlunos(){
 	
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {
@@ -599,21 +600,138 @@ function listarAlunos(){
         	
         }
     });
-    
-    //var perfilAlunos = $usuarioController->buscaUsuarioCompletoByPerfil(1);
-    
-  //var perfisAlunos = [
-//  {id: 34, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},//    {id: 35, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},
-//  {id: 36, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'},
-//  {id: 37, nome: 'Laura Cristina dos Santos', escola: 'E.E. Prof. Vital Fogaça de Almeida', professor: 'Adilson Ferreira Batista', sala: '3º ano B', periodo: 'Manhã', nascimento: '10/10/1999', rg: '11.234.567-8', cpf: '111.222.333-44', rua: 'Rua Crubixás', numero: '13', complemento: 'casa 02', cep: '03737-037', bairro: 'Vila Araguaia', estado: 'SP', cidade: 'São Paulo', telResidencial: '+55 (11) 2345-6789', telCelular: '', telComercial: '', email: 'lauracris1@gmail.com', usuario: 'laura_cris1'}
-//];
-//	for ( var a in perfisAlunos ) { 
-//      perfisAlunosGerados[a] =
-//          new PerfilAluno(perfisAlunos[a].id, perfisAlunos[a].nome, perfisAlunos[a].escola, perfisAlunos[a].professor, perfisAlunos[a].sala, perfisAlunos[a].periodo, perfisAlunos[a].nascimento, perfisAlunos[a].rg, perfisAlunos[a].cpf,
-//                          perfisAlunos[a].rua, perfisAlunos[a].numero, perfisAlunos[a].complemento, perfisAlunos[a].cep, perfisAlunos[a].bairro, perfisAlunos[a].estado, perfisAlunos[a].cidade, perfisAlunos[a].telResidencial,
-//                          perfisAlunos[a].telCelular, perfisAlunos[a].telComercial, perfisAlunos[a].email, perfisAlunos[a].usuario);
-//
-//      var outerHTML = perfisAlunosGerados[a].gerarHTML();
-//      $('.update_aluno_accordion').append(outerHTML);
-//  }
 }
+
+function getPreCadastros() {
+    "use strict";
+
+    var escolas;
+
+    $.ajax({
+        url: "ajax/CadastroAjax.php?acao=listaPendentes",
+        type: "GET",
+        async: false,
+        success: function(data) {
+            var preCadastros = JSON.parse(data);
+            escolas = preCadastros;
+        }
+    });
+
+ 	return escolas;
+};
+
+function viewPreCadastros(preCadastros) {
+    "use strict";
+    
+	var html = new String();
+
+	for (var b in preCadastros) {
+		html += "<a href=\"#updateEscolaCont"+preCadastros[b].id+"\" class=\"accordion_info_toggler updateAlunoToggler\" data-toggle=\"collapse\">";
+		html += 	"<div class=\"accordion_info\" data-status=\""+preCadastros[b].status+"\" id=\"updateEscolaInfo"+preCadastros[b].id+"\">"+preCadastros[b].nome+"</div>";
+		html += "</a>";
+		html += "<div class=\"accordion_content collapse\" id=\"updateEscolaCont"+preCadastros[b].id+"\">";
+		html += 	"<div class=\"content_col_info\">";
+		html += 		"<table>";
+		html += 			"<tr class=\"content_info_row\">";
+		html +=					"<td colspan=\"4\"><span class=\"content_info_label\">Razão Social:</span> <span class=\"content_info_txt\">"+preCadastros[b].razaoSocial+"</span></td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html += 				"<td colspan=\"2\"><span class=\"content_info_label\">CNPJ:</span> <span class=\"content_info_txt\">"+preCadastros[b].cnpj+"</span></td>";
+		html +=					"<td colspan=\"2\"><span class=\"content_info_label\">Código:</span> <span class=\"content_info_txt\">"+preCadastros[b].codigo+"</span></td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html += 				"<td colspan=\"2\"><span class=\"content_info_label\">Tipo:</span> <span id=\"tipoEscola"+preCadastros[b].tipo.id+"\" class=\"content_info_txt\">"+preCadastros[b].tipo.tipo_escola+"</span></td>";
+		html +=					"<td colspan=\"2\"><span class=\"content_info_label\">Administração:</span> <span id=\"administracaoEscola"+preCadastros[b].administracao.id+"\" class=\"content_info_txt\">"+preCadastros[b].administracao.administracao+"</span></td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">Endereço: </span>";
+		html += 					"<span id=\"escolaEndereco"+preCadastros[b].endereco.id+"\" class=\"content_info_txt\">";
+		html +=							preCadastros[b].endereco.logradouro + ", ";
+		html +=							preCadastros[b].endereco.numero + ", "
+		html += 						preCadastros[b].endereco.complemento ? preCadastros[b].endereco.complemento + ", " : "";
+		html += 						preCadastros[b].endereco.cep + " - ";
+		html += 						preCadastros[b].endereco.bairro + " - ";
+		html += 						preCadastros[b].endereco.cidade + ", ";
+		html +=							preCadastros[b].endereco.uf + " - ";
+		html += 						preCadastros[b].endereco.pais;
+		html += 					"</span>";
+		html += 				"</td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">E-mail:</span> <span class=\"content_info_txt\">"+preCadastros[b].endereco.email+"</span></td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">Telefone:</span> <span class=\"content_info_txt\">"+preCadastros[b].endereco.tel_res+"</span></td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">Website:</span> <span class=\"content_info_txt\">"+preCadastros[b].site+"</span></td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">Diretor(a):</span> <span class=\"content_info_txt\">"+preCadastros[b].diretor+"</span></td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html +=					"<td colspan=\"4\"><span class=\"content_info_label\">E-mail do(a) diretor(a):</span> <span class=\"content_info_txt\">"+preCadastros[b].emailDiretor+"</span></td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">Coordenador(a):</span> <span class=\"content_info_txt\">"+preCadastros[b].coordenador+"</span></td>";
+		html += 			"</tr>";
+		html += 			"<tr class=\"content_info_row\">";
+		html +=					"<td colspan=\"4\"><span class=\"content_info_label\">E-mail do(a) coordenador(a):</span> <span class=\"content_info_txt\">"+preCadastros[b].emailCoord+"</span></td>";
+		html += 			"</tr>";
+		html +=			"</table>";
+		html +=		"</div>";
+		html += 	"<div class=\"content_col_btns\">";
+		html += 		"<button data-action=\"reject\" data-action-for=\"updateEscolaCont"+preCadastros[b].id+"\" class=\"section_btn btn_reject_cad\">Rejeitar cadastro</button>";
+		html += 		"<button data-action=\"confirm\" data-action-for=\"updateEscolaCont"+preCadastros[b].id+"\" class=\"section_btn btn_confirm_cad\">Confirmar cadastro</button>";
+		html += 	"</div>";
+		html +=	"</div>";
+	};
+
+ 	return html;
+};
+
+function requestPreCadastros() {
+    "use strict";
+
+    var preCadastros;
+    var htmlPreCadastros;
+
+    if (!pre_cadastros_listados) {
+        preCadastros = getPreCadastros();
+        htmlPreCadastros = viewPreCadastros(preCadastros);
+        $("#containerPreCadastros").html(htmlPreCadastros);
+        pre_cadastros_listados = true;
+        atribuirEventosPreCadastro();
+    } else {
+        console.info("Pré-cadastros já listados.");
+    }
+};
+
+function confirmPreCadastro(action, id) {
+	"use strict";
+
+	$.ajax({
+		url: "ajax/CadastroAjax.php",
+		type: "POST",
+		data: {"acao": action, "id": id},
+		dataType: "JSON",
+		success: function(data) {
+			console.info(data.mensagem+"\nStatus: "+data.status);
+			$("#mensagemSucessoConfirmCad").show();
+		},
+		error: function(data) {
+			console.error(data.mensagem+"\nStatus: "+data.status);
+			$("#mensagemErroConfirmCad").show();
+		}
+	});
+};
+
+/* ================================================ */
+function atribuirEventosPreCadastro() {
+	$(".btn_confirm_cad").click(function() {
+		var action = this.getAttribute("data-action");
+		var cadastroId = this.getAttribute("data-action-for").substring(16);
+
+		confirmPreCadastro(action, cadastroId);
+	});
+};

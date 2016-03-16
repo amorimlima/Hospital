@@ -44,6 +44,16 @@ class EscolaController {
 		$esc = $this->escolaDAO->selectFull();
 		return $esc;
 	}
+	public function selectPendentes()
+	{
+		$esc = $this->escolaDAO->selectPendentes();
+		return $esc;
+	}
+	public function confirmCadastro($idesc)
+	{
+		$esc = $this->escolaDAO->confirmCadastro($idesc);
+		return $esc;
+	}
 	public function verificaCnpj($cnpj) {
 		return $this->escolaDAO->verificaCnpj($cnpj);
 	}
