@@ -100,6 +100,11 @@ class UsuarioController {
 		$user = $this->usuarioDAO->buscaFotoByIdUsuario($id);
 		return $user;
 	}
+	public function buscaUsuarioCompletoByPerfil($perfil)
+	{
+		$user = $this->usuarioDAO->buscaUsuarioCompletoByPerfil($perfil);
+		return $user;
+	}
 	
 }
 ?>
