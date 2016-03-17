@@ -26,7 +26,6 @@ $dompdf->setPaper('A4', 'portrait');
 // Render the HTML as PDF
 $dompdf->render();
 
-// Output the generated PDF to Browser
 $arquivo = $dompdf->output("arquivo.pdf", array("Attachment" => true));
 $rand = rand(1,500);
 $rand2 = rand(1,500);
@@ -43,10 +42,8 @@ if($arquivo){
     $env->setVisto(0);
 
 	$envioDocumentoControler->insert($env);
-	
 }
 
-echo '<script type="text/javascript">window.close();</script>';
-
+echo '<script>window.location.href = "pesquisa.php?ok";</script>';
 
 ?>

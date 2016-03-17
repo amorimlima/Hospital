@@ -60,18 +60,6 @@ function atribuirEventos() {
 }
 
 function enviarFormulario() {
-    var form = $("#pesquisa_escola").serialize();
-    
-    window.open("pesquisa_pdf.php?"+form, "_blank");
-//    $.ajax({
-//        url: "pesquisa_pdf.php?" + form,
-//        type: "GET",
-//        data: form,
-//        success: function () {
-//            console.log(form);
-//        },
-//        error: function () {
-//            console.log("Aff");
-//        }
-//    })
+    var form = $("#pesquisa_escola").serialize();    
+    window.location.href = "pesquisa_pdf.php?"+form;
 }

@@ -163,7 +163,7 @@ $adms = $AdmController->selectAll();
 	                                    <label for="cidade">Cidade</label>
 	                                    <span>
 	                                        <select id="cidade" name="end_cidade" class="obrigatorio">
-	                                            <option value="0" selected disabled hidden>Selecine em estado primeiro</option>
+	                                            <option value="0" selected disabled hidden>Selecione um estado</option>
 	                                        </select>
 	                                    </span>
 	                                </div>

@@ -178,8 +178,7 @@ foreach ($info_salas as $ano => $vetor) {
 	<script>
 		$(document).ready(function () {
 			var html = $("html").html();
-			window.open("gerarPDF.php?html=" + html, "_blank");
-			window.close();
+			window.location.href = "gerarPDF.php?html=" + html;
 		});
 	</script>
 

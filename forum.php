@@ -57,7 +57,7 @@ $topicos = $topicoController->selectAll();
                                             <option value="" selected disabled>Tópico</option>
                                             <?php
                                             foreach ($topicos as $t){
-                                                echo '<option value="'.$t->getFrt_id().'">'.$t->getFrt_topico().'</option>';
+                                                echo '<option value="'.$t->getFrt_id().'">'.utf8_encode($t->getFrt_topico()).'</option>';
                                             }
                                           ?>
                                         </select>
