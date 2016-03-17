@@ -41,6 +41,11 @@ class LiberarCapituloController {
 		$tem = $this->liberarCapituloDAO->selectByIdLiberarCapitulo($idliberarcapitulo);
 		return $tem;
 	}
+	public function deleteByIdLiberarCapitulo($idliberarcapitulo)
+	{
+		$tem = $this->liberarCapituloDAO->deleteByIdLiberarCapitulo($idliberarcapitulo);
+		return $tem;
+	}
         
     public function selectAll()
 	{

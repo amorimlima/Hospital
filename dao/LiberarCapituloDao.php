@@ -118,5 +118,10 @@ class LiberarCapituloDAO extends DAO{
         };
         return $lista;
     }
+    public function deleteByIdLiberarCapitulo($idliberarcapitulo)
+    {
+        $sql = "DELETE FROM liberar_capitulo WHERE lbr_id = ".$idliberarcapitulo;
+        return $this->execute($sql);
+    }
 }
 ?>
