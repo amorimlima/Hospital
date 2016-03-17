@@ -77,7 +77,7 @@ $(document).ready(function() {
                 $('.conteudo_escola').find('.confirm_cadastro').show();
                 $('.conteudo_escola').find('.form_cadastro').hide();
                 $('.conteudo_escola').find('.update_cadastro').hide();
-                requestPreCadastros();
+				requestPreCadastros();
             }
         }
     });
@@ -518,14 +518,14 @@ function cancelDelPerfil() {
     delPerfilId = '0';
 }
 
-function confirmDelPerfil() {
-    for ( var a in perfisAlunosGerados ) {
-        if ( perfisAlunosGerados[a].id == delPerfilId ) {
-            perfisAlunosGerados[a].deletar();
-            break;
-        }
-    }
-}
+//function confirmDelPerfil() {
+//    for ( var a in perfisAlunosGerados ) {
+//        if ( perfisAlunosGerados[a].id == delPerfilId ) {
+//            perfisAlunosGerados[a].deletar();
+//            break;
+//        }
+//    }
+//}
 
 
 function formatar(mascara, documento){
@@ -586,20 +586,48 @@ function limparInputArquivo(){
 	return false;
 }
 
+function tabNavigatin(tabToShow) {
+	
+	//Reseta a imagem se não for a primeira vez
+    if (primeiroAcesso == true){
+    	primeiroAcesso = false;
+    }else{
+    	limparInputArquivo();
+    }
+	
+	for ( var i = 0; i < tabs.length; i++ ) {
+		if ( tabs[i] == tabToShow ) {
+			$($(containers).get(i)).show();
+			$($(btns).get(i)).show();
+			
+			//Joga o html da imagem no local certo
+			var idDiv = $('.spanImagem').eq(i).attr('id');
+			$('#cadastroImagemUpload').appendTo("#"+idDiv);
+			
+			$($(tabs).get(i)).addClass('tab_cadastro_ativo');
+		} else {
+			$($(containers).get(i)).hide();
+			$($(btns).get(i)).hide();
+			$($(tabs).get(i)).removeClass('tab_cadastro_ativo');
+		}
+	}
+}
 function listarAlunos(){
 	
-	$.ajax({
-        url:'ajax/CadastroAjax.php',
-        type:'post',
-        dataType:'json',
-        data: {
-            'acao': 'listaUsuariosCompleto',
-            'perfil': '1'
-        },
-        success:function(retorno){
-        	
-        }
-    });
+//	$.ajax({
+//        url:'ajax/cadastroAjax.php',
+//        type:'post',
+//        dataType:'json',
+//        data: {
+//            'acao': 'listaUsuariosCompleto',
+//            'perfil': '1'
+//        },
+//        success:function(retorno){
+//        	
+//        }
+//    });
+    
+    //var perfilAlunos = $usuarioController->buscaUsuarioCompletoByPerfil(1);
 }
 
 function getPreCadastros() {
@@ -621,17 +649,21 @@ function getPreCadastros() {
 };
 
 function viewPreCadastros(preCadastros) {
-    "use strict";
-    
+    "use strict";    
 	var html = new String();
 
 	for (var b in preCadastros) {
 		html += "<a href=\"#updateEscolaCont"+preCadastros[b].id+"\" class=\"accordion_info_toggler updateAlunoToggler\" data-toggle=\"collapse\">";
 		html += 	"<div class=\"accordion_info\" data-status=\""+preCadastros[b].status+"\" id=\"updateEscolaInfo"+preCadastros[b].id+"\">"+preCadastros[b].nome+"</div>";
 		html += "</a>";
+
+
 		html += "<div class=\"accordion_content collapse\" id=\"updateEscolaCont"+preCadastros[b].id+"\">";
 		html += 	"<div class=\"content_col_info\">";
 		html += 		"<table>";
+
+
+
 		html += 			"<tr class=\"content_info_row\">";
 		html +=					"<td colspan=\"4\"><span class=\"content_info_label\">Razão Social:</span> <span class=\"content_info_txt\">"+preCadastros[b].razaoSocial+"</span></td>";
 		html += 			"</tr>";
@@ -639,6 +671,7 @@ function viewPreCadastros(preCadastros) {
 		html += 				"<td colspan=\"2\"><span class=\"content_info_label\">CNPJ:</span> <span class=\"content_info_txt\">"+preCadastros[b].cnpj+"</span></td>";
 		html +=					"<td colspan=\"2\"><span class=\"content_info_label\">Código:</span> <span class=\"content_info_txt\">"+preCadastros[b].codigo+"</span></td>";
 		html += 			"</tr>";
+
 		html += 			"<tr class=\"content_info_row\">";
 		html += 				"<td colspan=\"2\"><span class=\"content_info_label\">Tipo:</span> <span id=\"tipoEscola"+preCadastros[b].tipo.id+"\" class=\"content_info_txt\">"+preCadastros[b].tipo.tipo_escola+"</span></td>";
 		html +=					"<td colspan=\"2\"><span class=\"content_info_label\">Administração:</span> <span id=\"administracaoEscola"+preCadastros[b].administracao.id+"\" class=\"content_info_txt\">"+preCadastros[b].administracao.administracao+"</span></td>";
@@ -658,14 +691,18 @@ function viewPreCadastros(preCadastros) {
 		html += 				"</td>";
 		html += 			"</tr>";
 		html += 			"<tr class=\"content_info_row\">";
+
+
 		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">E-mail:</span> <span class=\"content_info_txt\">"+preCadastros[b].endereco.email+"</span></td>";
 		html += 			"</tr>";
+
 		html += 			"<tr class=\"content_info_row\">";
 		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">Telefone:</span> <span class=\"content_info_txt\">"+preCadastros[b].endereco.tel_res+"</span></td>";
 		html += 			"</tr>";
 		html += 			"<tr class=\"content_info_row\">";
 		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">Website:</span> <span class=\"content_info_txt\">"+preCadastros[b].site+"</span></td>";
 		html += 			"</tr>";
+
 		html += 			"<tr class=\"content_info_row\">";
 		html += 				"<td colspan=\"4\"><span class=\"content_info_label\">Diretor(a):</span> <span class=\"content_info_txt\">"+preCadastros[b].diretor+"</span></td>";
 		html += 			"</tr>";
@@ -693,7 +730,7 @@ function viewPreCadastros(preCadastros) {
 
 function requestPreCadastros() {
     "use strict";
-
+	
     var preCadastros;
     var htmlPreCadastros;
 
@@ -715,7 +752,6 @@ function requestPreCadastros() {
 
 function confirmPreCadastro(action, id) {
 	"use strict";
-
 	$.ajax({
 		url: "ajax/CadastroAjax.php",
 		type: "POST",
@@ -741,7 +777,6 @@ function removerItemPreCadastro(id) {
 
 function rejectPreCadastro(action, id) {
 	"use strict";
-
 	$.ajax({
 		url: "ajax/CadastroAjax.php",
 		type: "POST",
@@ -755,6 +790,7 @@ function rejectPreCadastro(action, id) {
 		error: function(data) {
 			console.error(data.mensagem+"\nStatus: "+data.status);
 			$("#mensagemErroRejectCad").show();
+
 		}
 	});
 
@@ -797,26 +833,59 @@ function requestArquivoPesquisa(action, cadastroId) {
     } else {
         $("#mensagemErroGetArquivo").show();
     }
+
 }
 
 /* ================================================ */
 function atribuirEventosPreCadastro() {
-	$(".btn_confirm_cad").click(function() {
-		var action = this.getAttribute("data-action");
-		var cadastroId = this.getAttribute("data-action-for").substring(16);
+$(".btn_confirm_cad").click(function() {
+	var action = this.getAttribute("data-action");
+	var cadastroId = this.getAttribute("data-action-for").substring(16);
 
-		confirmPreCadastro(action, cadastroId);
-	});
-	$(".btn_reject_cad").click(function() {
-		var action = this.getAttribute("data-action");
-		var cadastroId = this.getAttribute("data-action-for").substring(16);
+	confirmPreCadastro(action, cadastroId);
+});
+$(".btn_reject_cad").click(function() {
+	var action = this.getAttribute("data-action");
+	var cadastroId = this.getAttribute("data-action-for").substring(16);
 
-		confirmRejeitarCadastro(action,cadastroId);
-	});
+	confirmRejeitarCadastro(action,cadastroId);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     $(".btn_request_cad").click(function() {
         var action = this.getAttribute("data-action");
         var cadastroId = this.getAttribute("data-action-for").substring(16);
+
+
+
+
 
         requestArquivoPesquisa(action,cadastroId);
     });

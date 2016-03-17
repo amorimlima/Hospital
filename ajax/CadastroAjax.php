@@ -1,7 +1,7 @@
 <?php
 require_once /*$_SESSION['BASE_URL']*/'../_loadPaths.inc.php';
 $path = $_SESSION['PATH_SYS'];
-
+ 
 include_once($path['controller'].'UsuarioController.php');
 include_once($path['controller'].'EnderecoController.php');
 include_once($path['controller'].'EscolaController.php');
@@ -190,15 +190,14 @@ switch ($_REQUEST["acao"]) {
 	    		
 	    		if ($_POST['imagem'] != ''){
 				    $imag = getimagesize("../temporaria/".$_POST["imagem"]);
-					//$xp = $imag[0];					
-					//$ix = 350;
-					//$iy = ($ix * $y) / $x;
 					gerar_tumbs_real(100,100,100,"../temporaria/".$_POST["imagem"],"../imgm/".$_POST["imagem"]);
 					gerar_tumbs_real(65,65,100,"../temporaria/".$_POST["imagem"],"../imgp/".$_POST["imagem"]);
 				}
+				
 				if (isset($_POST['preCadastro'])){
 					$_SESSION['idEscolaPre'] = $idEscola;
-			    }        
+				}
+				
 	    		if($usuarioController->insert($usuario)){
 	    			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 	    		}else{
@@ -322,8 +321,7 @@ switch ($_REQUEST["acao"]) {
 			$result = Array("status"=>false);
 			array_push($lista,$result);
 		}
-		echo json_encode($lista);
-		
+		echo json_encode($lista);		
 		break;
 	}
 	case "confirm": {
@@ -375,7 +373,12 @@ switch ($_REQUEST["acao"]) {
 		}
 
 		echo json_encode($result);
-
+		break;
+	}	
+	case "listaUsuariosCompleto":{
+		$usuarioController = new UsuarioController();
+		$usuarios = $usuarioController->buscaUsuarioCompletoByPerfil($_POST['perfil']);
+		print_r($usuarios);		
 		break;
 	}
 }

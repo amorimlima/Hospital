@@ -4,3 +4,4 @@ _loadPaths.inc.php-tmp
 
 nbproject/private/private.xml
 /nbproject/private/
+*.php-tmp
