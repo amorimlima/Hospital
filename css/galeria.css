@@ -72,14 +72,15 @@
     height: 100%;
     padding: 20px;
 }
-.botaoCarregar {
-    background: url(../img/bt_carregar_arquivos.png) no-repeat;
+.botaoCarregar, .botaoSugestao {
     background-position: center;
     width: 140px;
     height: 100%;
     margin: auto;
     cursor: pointer;
 }
+.botaoCarregar{ background: url(../img/bt_carregar_arquivos.png) no-repeat; }
+.botaoSugestao{ background: url(../img/bt_sugerir_arquivos.png) no-repeat; }
 #form_novo_arquivo {
     height: 581px;
     border: 2px dotted #FAB522;

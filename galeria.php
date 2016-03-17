@@ -4,7 +4,9 @@ if (!isset($_SESSION['PATH_SYS'])) {
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'] . 'Template.php');
+include_once($path['template'] . 'TemplateGaleria.php');
 $templateGeral = new Template();
+$templateGaleria = new TemplateGaleria();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -70,71 +72,9 @@ $templateGeral = new Template();
 							</div>
 							<div id="form_novo_arquivo" style="display: none;">
 								<div>
-									<form id="form_arquivo_galeria" action="ajax/GaleriaAjax.php" method="post" enctype="multipart/form-data">
-										<fieldset>
-											<input type="hidden" name="acao" value="teste"/>
-											<legend>Inserir novo arquivo na Galeria</legend>
-											<div class="formfield">
-												<label for="">Categoria</label>
-												<span>
-													<div id="categoriaPost">
-													</div>
-												</span>
-											</div>
-											<div class="formfield">
-												<label for="titulo_arquivo">Título</label>
-												<span>
-													<input type="text" name="titulo_arquivo" id="titulo_arquivo" placeholder="Digite o título de arquivo" />
-												</span>
-											</div>
-											<div class="formfield">
-												<label for="descricao_arquivo">Descrição</label>
-												<span>
-													<textarea name="descricao_arquivo" id="descricao_arquivo" placeholder="Digite a descrição do arquivo"></textarea>
-												</span>
-											</div>
-											<div class="formfield">
-												<label for="">Tipo de arquivo</label>
-												<span>
-													<div id="tipoDeAruivo">
-
-														<input type="radio" name="tipo_arquivo" value="0" id="tipo_arquivo_link"/>
-														<label for="tipo_arquivo_link">Link</label>
-														<input type="radio" name="tipo_arquivo" value="1" id="tipo_arquivo_arquivo"/>
-														<label for="tipo_arquivo_arquivo">Arquivo</label>
-														
-													</div>
-												</span>
-											</div>
-											<div class="formfield">
-												<label for="">Arquivo</label>
-												<span>
-													<span>
-														<input type="file" name="file_arquivo" id="file_arquivo">
-													</span>
-													<div>
-														<label class="file" for="file_arquivo">
-															<input type="button" data-for="file_arquivo" value="Selecionar arquivo" />
-															<span data-for="file_arquivo">Selecione um arquivo</span>
-														</label>
-													</div>
-												</span>
-											</div>
-											<div class="formfield">
-												<label for="link_arquivo">Link</label>
-												<span>
-													<input type="text" name="link_arquivo" id="link_arquivo" placeholder="Cole aqui o link para o arquivo" />
-												</span>
-											</div>
-										</fieldset>
-										<fieldset>
-											<div class="formbtns">
-												<input type="button" id="btn_cancelar" value="Cancelar"/>
-												<input type="reset" value="Limpar"/>
-												<input type="button" id="btn_enviar" class="btn_primary" value="Enviar"/>
-											</div>
-										</fieldset>
-									</form>
+									<?php
+										$templateGaleria->geraFormulario();
+									?>			
 								</div>
 							</div>
 						</div>
@@ -146,19 +86,6 @@ $templateGeral = new Template();
 								<div id="container_mv_box">
 									<div class="row">
 										<div class="mv_caixa">
-											<div class="mv_caixa_icon">
-												<div class="mv_foto">
-													<div class="icon_foto"></div>
-													<div class="icon_texto">Parques ecológicos</div>
-												</div>
-											</div>
-											<div class="txt_mv_caixa">
-												<p class="txt_mv_caixa_titulo">Parques ecológicos</p>
-												<p class="txt_mv_caixa_sub">Postado por Maria Aparecida </p>
-												<p class="txt_mv_caixa_data">12/01/2015 às 17:34</p>
-
-											</div>
-											<div class="clear"></div>
 										</div>
 									</div>
 									<div class="">
@@ -167,11 +94,9 @@ $templateGeral = new Template();
 									</div>
 								</div>
 							</div>
-							<div id="box_carregar">
-								<div id="carregarContainer">
-									<div id="botaoCarregar" class="botaoCarregar"></div>
-								</div>
-							</div>
+							<?php
+								$templateGaleria->botaoUpload();
+							?>
 						</div>
                         <div class="modal fade in" id="myModal" role="dialog" style="display: none;">
                             <div class="modal-dialog modal-sm">
@@ -208,17 +133,7 @@ $templateGeral = new Template();
 	<script src="js/modulos/formulario.js"></script>
 	<script src="js/Galeria.js"></script>
 	<?php
-
-            if (isset($_SESSION['cadastro']) && $_SESSION['cadastro'] == 'ok')
-                echo 	'<script>
-            				$(document).ready(function () {
-            					$("#tipoMensagem").removeClass();
-        						$("#tipoMensagem").addClass("sucesso");
-       							$("#modalTexto").html("Arquivo adicionado com sucesso!");
-       							showModal();
-            				});
-            			</script>';
-            $_SESSION['cadastro'] = '';
-        ?>
+		$templateGaleria->modalConfirmacaoUpload();
+    ?>
 </body>
 </html>

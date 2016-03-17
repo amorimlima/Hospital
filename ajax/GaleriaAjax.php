@@ -153,7 +153,7 @@ switch ($_REQUEST["acao"]) {
         
         break;
     }
-    case 'teste':{
+    case 'uploadGaleria':{
         $categoria = $_REQUEST['cat_arquivo'];
         $titulo = $_REQUEST['titulo_arquivo'];
         $descricao = $_REQUEST['descricao_arquivo'];

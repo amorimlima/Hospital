@@ -450,7 +450,44 @@ switch ($_POST["acao"]){
 		}
 		
 		break;
-	}   
+	}
+
+	case "sugestaoGaleria":{
+		$logado = unserialize($_SESSION['USR']);
+		$destinatarios = $usuarioController->idsHospital();
+		$mensagemTxt = $_POST['mensagem'];
+		$assunto = "Sugestão de conteúdo para a Galeria";
+
+		$msgRemetente = 0;
+		$msgDestinatario = 0;
+
+		$data = date("Y-m-d");
+		
+		foreach ($destinatarios as $i => $value) {
+
+			$mensagem = new Mensagem();
+			$mensagem->setMsg_destinatario($destinatarios[$i]);
+			$mensagem->setMsg_assunto($assunto);
+			$mensagem->setMsg_cx_entrada('s');
+			$mensagem->setMsg_cx_enviado('n');
+			$mensagem->setMsg_data($data);
+			$mensagem->setMsg_proprietario($destinatarios[$i]);
+			$mensagem->setMsg_remetente($logado['id']);
+			$mensagem->setMsg_lida("n");
+			$mensagem->setMsg_ativo("1");
+			$mensagem->setMsg_mensagem($mensagemTxt);
+			$mensagemController->insert($mensagem);
+
+			$msgDestinatario++;
+		}
+		
+		if($msgDestinatario == count($destinatarios) && $msgRemetente>0){
+			echo true;
+		}else{
+			echo false;
+		}
+	 	break;
+	}
 
 	case "responder":{      
 		$logado = unserialize($_SESSION['USR']);

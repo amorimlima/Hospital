@@ -39,7 +39,9 @@ function carregarGaleria () {
                 htmlCentral +=      '</div>';
                 htmlCentral +=  '</div>';
             }
-            $('#mCSB_1_container').html(htmlCentral);
+            if(htmlCentral == '')
+                    htmlCentral = '<div class="alert alert-warning" style="margin: 0 20px;">Nenhum item cadastrado.</div>';
+                $('#mCSB_1_container').html(htmlCentral);
         },
         error: function(error) {
             console.error("Erro: \n" + error.responseText);
@@ -78,6 +80,8 @@ function atribuirClickSelect () {
                     htmlCentral +=      '</div>';
                     htmlCentral +=  '</div>';
                 }
+                if(htmlCentral == '')
+                    htmlCentral = '<div class="alert alert-warning" style="margin: 0 20px;">Nenhum item cadastrado.</div>';
                 $('#mCSB_1_container').html(htmlCentral);
             },
             error: function(error) {
@@ -171,6 +175,8 @@ function atribuirPesquisa () {
                         htmlCentral +=      '</div>';
                         htmlCentral +=  '</div>';
                     }
+                    if(htmlCentral == '')
+                        htmlCentral = '<div class="alert alert-warning" style="margin: 0 20px;">Nenhum item cadastrado.</div>';
                     $('#mCSB_1_container').html(htmlCentral);
                 },
                 error: function(error) {
@@ -215,6 +221,8 @@ function carregarMaisVistos () {
                 htmlMaisVistos +=       '</div>';
                 htmlMaisVistos +=   '</div>'; 
             };
+            if (htmlMaisVistos == '')
+                htmlMaisVistos += '<div class="alert alert-warning" style="margin: 0;">Nenhum item cadastrado.</div>';
             $('#container_mv_box').html(htmlMaisVistos);
         }
     });
@@ -242,14 +250,29 @@ function contagemVisualizacoes (id) {
 function criarFormulario () {
     $("#botaoCarregar").click(showFormNovoArquivo);
 
-    formulario = new Formulario({
-        idFormulario: "form_arquivo_galeria",
-        idInputFile: "file_arquivo",
-        idBtnEnviar: "btn_enviar",
-        idBtnCancelar: "btn_cancelar",
-        aoValidar: function() { postarPreCadastro(); },
-        aoCancelar: function() { showFormNovoArquivo(); }
-    });
+    if($('#form_arquivo_galeria').length > 0)
+    {
+       formulario = new Formulario({
+            idFormulario: "form_arquivo_galeria",
+            idInputFile: "file_arquivo",
+            idBtnEnviar: "btn_enviar",
+            idBtnCancelar: "btn_cancelar",
+            aoValidar: function() { postarPreCadastro(); },
+            aoCancelar: function() { showFormNovoArquivo(); }
+        }); 
+    }
+    else
+    {
+        formulario = new Formulario({
+            idFormulario: "sugestaoGaleria",
+            idBtnEnviar: "btn_enviar_sugestao",
+            idBtnCancelar: "btn_cancelar",
+            aoValidar: function() { postarSugestao(); },
+            aoCancelar: function() { showFormNovoArquivo(); }
+        });
+    }
+
+    
 };
 
 function showFormNovoArquivo() {
@@ -259,6 +282,7 @@ function showFormNovoArquivo() {
     } else {
         $("#form_novo_arquivo").hide();
         $("#box_galeria").show();
+        formulario.limpar();
     }
 };
 
@@ -273,6 +297,21 @@ function postarPreCadastro () {
     }
 
 };
+
+function postarSugestao () {
+    if (sugestaoCompleta())
+    {
+        $.ajax({
+            url: "ajax/MensagemAjax.php",
+            type: "POST",
+            data: {
+                "acao" : "sugestaoGaleria",
+                "mensagem" : $('#link_arquivo').val() + '\n' +$('#descricao_arquivo').val()
+            },
+        }); 
+    }
+    showModal();
+}
 
 function cadastroCompleto () {
     if ($('#titulo_arquivo').val() == "")
@@ -302,6 +341,29 @@ function cadastroCompleto () {
     else
         return true;
 
+}
+
+function sugestaoCompleta () {
+    if($('#link_arquivo').val() == ""){
+        $('#tipoMensagem').removeClass();
+        $('#tipoMensagem').addClass("erro");
+        $("#modalTexto").html('É necessário fornecer link!');
+        return false;
+    }
+    else if ($('#descricao_arquivo').val() == ""){
+        $('#tipoMensagem').removeClass();
+        $('#tipoMensagem').addClass("erro");
+        $("#modalTexto").html('É necessário fornecer uma descrição!');
+        return false;
+    }
+    else
+    {
+        $('#tipoMensagem').removeClass();
+        $('#tipoMensagem').addClass("sucesso");
+        $('#modalTexto').html('Sugestão mandada com sucesso.');
+        $('#btn_cancelar').trigger('click');
+        return true;
+    }
 }
 
 function showModal () {

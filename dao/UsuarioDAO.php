@@ -169,6 +169,17 @@ class UsuarioDAO extends DAO{
     	return $lista;
      }
 
+     public function idsHospital()
+     {
+        $sql = "select * from usuario where usr_perfil = 4";
+        $result = $this->retrieve($sql);
+        $lista = array();
+        while ($qr = mysqli_fetch_array($result)){
+            array_push($lista, $qr["usr_id"]);
+        }
+        return $lista;
+     }
+
 	public function selectFull()
 	{
         $sql = "select * from usuario";

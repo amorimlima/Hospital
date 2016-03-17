@@ -69,6 +69,11 @@ class UsuarioController {
 		$user = $this->usuarioDAO->selectByPerfilUsuario($idPerfil);
 		return $user;
 	}
+	public function idsHospital()
+	{
+		$user = $this->usuarioDAO->idsHospital();
+		return $user;
+	}
 	
 	public function ultimoIDUsuario(){
 		return $this->usuarioDAO->ultimoIDUsuario();

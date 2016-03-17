@@ -94,4 +94,7 @@ function Formulario(attr) {
         $("input:button[data-for=" + self.idInputFile + "]").click(self.alterarArquivoSelecionado);
         $("#" + self.idBtnCancelar).click(self.aoCancelar);
     }
+    this.limpar = function() {
+        $('#'+self.idFormulario)[0].reset();
+    }
 }
