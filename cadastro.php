@@ -750,33 +750,6 @@ $logado = unserialize($_SESSION['USR']);
                                                 <section class="update_cadastro update_escola cadastroEscolaContent" id="updateEscolaContainer">
                                                     <h2 class="section_header update_cad_escola_header">Atualizar Cadastro</h2>
                                                     <div class="accordion_cad_container update_escola_accordion">
-                                                        <a href="#updateEscolaCont1" class="accordion_info_toggler updateAlunoToggler" data-toggle="collapse">
-                                                            <div class="accordion_info" id="updateEscolaInfo1">E.M.E.F. Deputado Januário Mantelli Neto </div>
-                                                        </a>
-                                                        <div class="accordion_content collapse" id="updateEscolaCont1">
-                                                            <div class="content_col_info">
-                                                                <table>
-                                                                    <tr class="content_info_row">
-                                                                        <td colspan="2"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">Rua Caiçara do Rio do Vento, 43 - Vila Cisper - São Paulo - SP</span></td>
-                                                                        <td><span class="content_info_label">CEP:</span> <span class="content_info_txt">03817-090</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td colspan="2"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">nanda_hr@outlook.com</span></td>
-                                                                    	<td><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+55 (11) 96543-9876</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td colspan="3"><span class="content_info_label">Código:</span> <span class="content_info_txt">567</span></td>
-                                                                    </tr>
-                                                                    <tr class="content_info_row">
-                                                                    	<td colspan="3"><span class="content_info_label">Usuário:</span> <span class="content_info_txt">emef_januario</span></td>
-                                                                    </tr>
-                                                                </table>
-                                                            </div>
-                                                            <div class="content_col_btns">
-                                                                <button class="section_btn btn_del_cad">Excluir cadastro</button>
-                                                                <button class="section_btn btn_update_cad">Alterar Dados</button>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </section>
                                             </div>

@@ -278,44 +278,49 @@ switch ($_REQUEST["acao"]) {
 		$pre_cadastros = $escolasController->selectPendentes();
 		$lista = Array();
 
-		foreach($pre_cadastros as $escola => $valor) {
-			$result = Array(
-				"id" 			=> utf8_encode($valor->getEsc_id()),
-				"razaoSocial" 	=> utf8_encode($valor->getEsc_razao_social()),
-				"nome" 			=> utf8_encode($valor->getEsc_nome()),
-				"cnpj"			=> utf8_encode($valor->getEsc_cnpj()),
-				"endereco"		=> Array(
-					"id"			=> utf8_encode($valor->getesc_endereco()->getend_id()),
-					"logradouro"	=> utf8_encode($valor->getesc_endereco()->getend_logradouro()),
-					"numero"		=> utf8_encode($valor->getesc_endereco()->getend_numero()),
-					"complemento"	=> utf8_encode($valor->getesc_endereco()->getend_complemento()),
-					"bairro"		=> utf8_encode($valor->getesc_endereco()->getend_bairro()),
-					"cep"			=> utf8_encode($valor->getesc_endereco()->getend_cep()),
-					"cidade"		=> utf8_encode($valor->getesc_endereco()->getend_cidade()),
-					"uf"			=> utf8_encode($valor->getesc_endereco()->getend_uf()),
-					"pais"			=> utf8_encode($valor->getesc_endereco()->getend_pais()),
-					"tel_res"		=> utf8_encode($valor->getesc_endereco()->getend_telefone_residencial()),
-					"tel_com"		=> utf8_encode($valor->getesc_endereco()->getend_telefone_comercial()),
-					"tel_cel"		=> utf8_encode($valor->getesc_endereco()->getend_telefone_celular()),
-					"email"			=> utf8_encode($valor->getesc_endereco()->getend_email())
-				),
-				"tipo"			=> Array(
-					"id"			=> utf8_encode($valor->getEsc_tipo_escola()->getTps_id()),
-					"tipo_escola"	=> utf8_encode($valor->getEsc_tipo_escola()->getTps_tipo_escola())
-				),
-				"administracao"	=> Array(
-					"id" 			=> utf8_encode($valor->getEsc_administracao()->getadm_id()),
-					"administracao"	=> utf8_encode($valor->getEsc_administracao()->getadm_administracao())
-				),
-				"status"		=> utf8_encode($valor->getEsc_status()),
-				"site"			=> utf8_encode($valor->getEsc_site()),
-				"diretor"		=> utf8_encode($valor->getEsc_nome_diretor()),
-				"emailDiretor"	=> utf8_encode($valor->getEsc_email_diretor()),
-				"coordenador"	=> utf8_encode($valor->getEsc_nome_coordenador()),
-				"emailCoord"	=> utf8_encode($valor->getEsc_email_coordenador()),
-				"codigo"		=> utf8_encode($valor->getEsc_codigo())
-			);
-			array_push($lista, $result);
+		if ( count($pre_cadastros) > 0 ) {
+			foreach($pre_cadastros as $escola => $valor) {
+				$result = Array(
+					"id" 			=> utf8_encode($valor->getEsc_id()),
+					"razaoSocial" 	=> utf8_encode($valor->getEsc_razao_social()),
+					"nome" 			=> utf8_encode($valor->getEsc_nome()),
+					"cnpj"			=> utf8_encode($valor->getEsc_cnpj()),
+					"endereco"		=> Array(
+						"id"			=> utf8_encode($valor->getesc_endereco()->getend_id()),
+						"logradouro"	=> utf8_encode($valor->getesc_endereco()->getend_logradouro()),
+						"numero"		=> utf8_encode($valor->getesc_endereco()->getend_numero()),
+						"complemento"	=> utf8_encode($valor->getesc_endereco()->getend_complemento()),
+						"bairro"		=> utf8_encode($valor->getesc_endereco()->getend_bairro()),
+						"cep"			=> utf8_encode($valor->getesc_endereco()->getend_cep()),
+						"cidade"		=> utf8_encode($valor->getesc_endereco()->getend_cidade()),
+						"uf"			=> utf8_encode($valor->getesc_endereco()->getend_uf()),
+						"pais"			=> utf8_encode($valor->getesc_endereco()->getend_pais()),
+						"tel_res"		=> utf8_encode($valor->getesc_endereco()->getend_telefone_residencial()),
+						"tel_com"		=> utf8_encode($valor->getesc_endereco()->getend_telefone_comercial()),
+						"tel_cel"		=> utf8_encode($valor->getesc_endereco()->getend_telefone_celular()),
+						"email"			=> utf8_encode($valor->getesc_endereco()->getend_email())
+					),
+					"tipo"			=> Array(
+						"id"			=> utf8_encode($valor->getEsc_tipo_escola()->getTps_id()),
+						"tipo_escola"	=> utf8_encode($valor->getEsc_tipo_escola()->getTps_tipo_escola())
+					),
+					"administracao"	=> Array(
+						"id" 			=> utf8_encode($valor->getEsc_administracao()->getadm_id()),
+						"administracao"	=> utf8_encode($valor->getEsc_administracao()->getadm_administracao())
+					),
+					"status"		=> utf8_encode($valor->getEsc_status()),
+					"site"			=> utf8_encode($valor->getEsc_site()),
+					"diretor"		=> utf8_encode($valor->getEsc_nome_diretor()),
+					"emailDiretor"	=> utf8_encode($valor->getEsc_email_diretor()),
+					"coordenador"	=> utf8_encode($valor->getEsc_nome_coordenador()),
+					"emailCoord"	=> utf8_encode($valor->getEsc_email_coordenador()),
+					"codigo"		=> utf8_encode($valor->getEsc_codigo())
+				);
+				array_push($lista, $result);
+			}
+		} else {
+			$result = Array("status"=>false);
+			array_push($lista,$result);
 		}
 		echo json_encode($lista);
 		

@@ -699,7 +699,12 @@ function requestPreCadastros() {
 
     if (!pre_cadastros_listados) {
         preCadastros = getPreCadastros();
-        htmlPreCadastros = viewPreCadastros(preCadastros);
+        if (typeof(preCadastros[0].status) === undefined) {
+            htmlPreCadastros = viewPreCadastros(preCadastros);
+        } else {
+            htmlPreCadastros = "<div class=\"alert alert-warning\">Nenhum pré-cadastro pendente de confirmação até o momento.</div>";
+        }
+
         $("#containerPreCadastros").html(htmlPreCadastros);
         pre_cadastros_listados = true;
         atribuirEventosPreCadastro();

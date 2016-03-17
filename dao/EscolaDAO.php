@@ -96,7 +96,7 @@ class EscolaDAO extends DAO{
         $sql .= "JOIN endereco end ON esc.esc_endereco = end.end_id ";
         $sql .= "JOIN tipo_escola tps ON esc.esc_tipo_escola = tps.tps_id ";
         $sql .= "JOIN administracao adm ON esc.esc_administracao = adm.adm_id ";
-        $sql .= "WHERE esc_status = 0";
+        $sql .= "WHERE esc_status = 0 ORDER BY esc.esc_id";
         $result = $this->retrieve($sql);
         $lista = Array();
 
