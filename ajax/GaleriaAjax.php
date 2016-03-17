@@ -160,8 +160,8 @@ switch ($_REQUEST["acao"]) {
         $data = date('Y-m-d h:i', time());
         $galeria = new Galeria();
         $galeria->setGlr_categoria($categoria);
-        $galeria->setGlr_nome($titulo);
-        $galeria->setGlr_descricao($descricao);
+        $galeria->setGlr_nome(utf8_decode($titulo));
+        $galeria->setGlr_descricao(utf8_decode($descricao));
         $galeria->setGlr_data($data);
         if ($_REQUEST['tipo_arquivo'] == 0)
         {
@@ -175,11 +175,11 @@ switch ($_REQUEST["acao"]) {
             move_uploaded_file($arquivo_temporario, $local.$nomeImage);
             $arquivo = $local.$nomeImage;
         }
-        $galeria->setGlr_arquivo($arquivo);
+        $galeria->setGlr_arquivo("arquivos_galeria/".$nomeImage);
         $galeria->setGlr_visualizacoes(0);
         $galeriaController->insert($galeria);
         $_SESSION['cadastro'] = "ok";
-        header("Location:".$_LOAD_URL_SYS['BASE_URL']."galeria.php?");
+        header("Location:../galeria.php?");
         break;
     }
 }

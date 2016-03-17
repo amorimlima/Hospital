@@ -115,7 +115,7 @@ $templateGaleria = new TemplateGaleria();
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-backdrop fade in" style="display: none;"></div>';
+                        <div class="modal-backdrop fade in" style="display: none;"></div>
 					</div>
 				</div>
 			</div>
