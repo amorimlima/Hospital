@@ -102,7 +102,7 @@ $logado = unserialize($_SESSION['USR']);
 												</div>
 											</div>
 											<div id="grafico2" class="grafico" style="display: none;">
-												<div class="lista_itens_grafico">
+												<div class="lista_itens_grafico">	
 												</div>
 											</div>
                                         </div>

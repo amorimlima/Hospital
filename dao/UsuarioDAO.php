@@ -356,6 +356,55 @@ class UsuarioDAO extends DAO{
 		return $lista;
 	}
 
+    public function selectProfessorByEscola($idescola)
+    {
+        $sql  = "SELECT * FROM usuario usr ";
+        $sql .= "JOIN endereco end ON usr.usr_endereco = end.end_id ";
+        $sql .= "JOIN perfil prf ON usr.usr_perfil = prf.prf_id ";
+        $sql .= "WHERE usr_perfil = 2 AND usr_escola = ".$idescola;
+        $result = $this->retrieve($sql);
+        $lista = Array();
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($qr = mysqli_fetch_array($result)) {
+                $professor = new Usuario();
+                $professor->setUsr_id($qr["usr_id"]);
+                $professor->setUsr_nome($qr["usr_nome"]);
+                $professor->setUsr_data_nascimento($qr["usr_data_nascimento"]);
+                $professor->setUsr_escola($qr["usr_escola"]);
+                $professor->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
+                $professor->setUsr_rg($qr["usr_rg"]);
+                $professor->setUsr_cpf($qr["usr_cpf"]);
+                $professor->setUsr_login($qr["usr_login"]);
+                $professor->setUsr_imagem($qr["usr_imagem"]);
+                $professor->setUsr_nse($qr["usr_nse"]);
+
+                $professor->setUsr_endereco(new Endereco());
+                $professor->getUsr_endereco()->setend_logradouro($qr["end_logradouro"]);
+                $professor->getUsr_endereco()->setend_numero($qr["end_numero"]);
+                $professor->getUsr_endereco()->setend_complemento($qr["end_complemento"]);
+                $professor->getUsr_endereco()->setend_bairro($qr["end_bairro"]);
+                $professor->getUsr_endereco()->setend_cep($qr["end_cep"]);
+                $professor->getUsr_endereco()->setend_cidade($qr["end_cidade"]);
+                $professor->getUsr_endereco()->setend_uf($qr["end_uf"]);
+                $professor->getUsr_endereco()->setend_pais($qr["end_pais"]);
+                $professor->getUsr_endereco()->setend_telefone_residencial($qr["end_telefone_residencial"]);
+                $professor->getUsr_endereco()->setend_telefone_comercial($qr["end_telefone_comercial"]);
+                $professor->getUsr_endereco()->setend_telefone_celular($qr["end_telefone_celular"]);
+                $professor->getUsr_endereco()->setend_email($qr["end_email"]);
+
+                $professor->setUsr_perfil(new Perfil());
+                $professor->getUsr_perfil()->setPrf_id($qr["prf_id"]);
+                $professor->getUsr_perfil()->setPrf_perfil($qr["prf_perfil"]);
+                $professor->getUsr_perfil()->setPrf_url($qr["url"]);
+                $professor->getUsr_perfil()->setPrf_pagina($qr["pagina"]);
+
+                array_push($lista, $professor);
+            }
+        }
+        return $lista;
+    }
+
 	public function buscaFotoByIdUsuario($id)
      {
         $sql = "select usr_imagem from usuario where usr_id = ".$id;

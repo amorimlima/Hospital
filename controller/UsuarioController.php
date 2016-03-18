@@ -110,6 +110,11 @@ class UsuarioController {
 		$user = $this->usuarioDAO->buscaUsuarioCompletoByPerfil($perfil);
 		return $user;
 	}
+	public function selectProfessorByEscola($idescola)
+	{
+		$user = $this->usuarioDAO->selectProfessorByEscola($idescola);
+		return $user;
+	}
 	
 }
 ?>
