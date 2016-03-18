@@ -362,7 +362,7 @@ function sugestaoCompleta () {
     {
         $('#tipoMensagem').removeClass();
         $('#tipoMensagem').addClass("sucesso");
-        $('#modalTexto').html('Sugestão mandada com sucesso.');
+        $('#modalTexto').html('Sugestão enviada com sucesso!');
         $('#btn_cancelar').trigger('click');
         return true;
     }
