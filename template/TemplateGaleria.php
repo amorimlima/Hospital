@@ -26,7 +26,7 @@ class TemplateGaleria{
 	public function geraFormulario()
 	{
 		$logado = unserialize($_SESSION['USR']);
-		if ($logado['perfil_id'] == 4){
+		if ($logado['perfil_id'] == 3){
 			echo 	'<form id="form_arquivo_galeria" action="ajax/GaleriaAjax.php" method="post" enctype="multipart/form-data">
 						<fieldset>
 							<input type="hidden" name="acao" value="uploadGaleria"/>
