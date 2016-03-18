@@ -45,7 +45,7 @@ class Template {
                         	<div id="user_logout_pequena">
                                 <p id="user_logado">'.$usrLogado['nome'].'</p>
                                 <span id="separador">
-                                    <img class="img-responsive" src="img/separador.png" width="2" height="22" alt=""/>
+                                    <img src="img/separador.png" width="2" height="22" alt=""/>
                                 </span>
                                 <a id="logout" href="sair.php">SAIR</a>
                             </div>
@@ -171,7 +171,7 @@ class Template {
                 $corBorda = 'borda_verde';
                 $corTexto = 'txt_verde';
                 $corBotao = 'btn_verde';
-                $onClick = 'onclick="redireciona(\'areaAluno.php\')"';
+                $onClick = 'onclick="redireciona(\'livros.php\')"';
                 break;
             }
 		}

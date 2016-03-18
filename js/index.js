@@ -196,7 +196,10 @@ function validarLogin() {
                 if(data.erro == true) {
                     alert(data.msg);
                 } else {
-                    localStorage.setItem("serie", data.serie);
+                    if(data[0]){
+                       localStorage.setItem("serie", data[0].serie); 
+                    }
+                    
                     window.location.href=data.url;                   
                 } 
             }

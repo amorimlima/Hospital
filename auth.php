@@ -28,21 +28,25 @@ if(isset($_POST)){
 					'perfil_id'		 =>$user['prf_id'],
 					'url'			 =>$user['prf_url'],
 					'escola'		 =>$user['usr_escola'],
-					'pagina'		 =>utf8_encode($user['prf_pagina']),
-					'idUserVariavel' =>$userVariavel->getUsv_id(),
-					'serie'          =>$userVariavel->getUsv_serie()
+					'pagina'		 =>utf8_encode($user['prf_pagina'])					
 				);
 
+
+
 		if($adm['perfil_id'] == 1){
-			$serie = $adm['serie']; 
+			array_push($adm,array('idUserVariavel'=>$userVariavel->getUsv_id(),'serie'=>$userVariavel->getUsv_serie()));
 		}
 
 		$_SESSION['USR'] = serialize($adm);
-		$result = Array('erro'=>false,'msg'=>'Logado!!','url'=>$adm['url'],'serie'=>$serie);
+		$result = Array('erro'=>false,'msg'=>'Logado!!','url'=>$adm['url']);
+
+		if($adm['perfil_id'] == 1){
+			array_push($result,array('serie'=>$adm[0]['serie']));
+		}
 	}else{
 
 		$result = Array('erro'=>true,'msg'=>'Usuário ou Senha Inválida!!');
 	}
 
-	echo json_encode($result);
+	print_r(json_encode($result));
 }
