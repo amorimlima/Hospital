@@ -456,6 +456,7 @@ switch ($_POST["acao"]){
 		$logado = unserialize($_SESSION['USR']);
 		$destinatarios = $usuarioController->idsHospital();
 		$mensagemTxt = $_POST['mensagem'];
+		echo $mensagemTxt;
 		$assunto = "Sugestão de conteúdo para a Galeria";
 
 		$msgRemetente = 0;
@@ -467,7 +468,7 @@ switch ($_POST["acao"]){
 
 			$mensagem = new Mensagem();
 			$mensagem->setMsg_destinatario($destinatarios[$i]);
-			$mensagem->setMsg_assunto($assunto);
+			$mensagem->setMsg_assunto(utf8_decode($assunto));
 			$mensagem->setMsg_cx_entrada('s');
 			$mensagem->setMsg_cx_enviado('n');
 			$mensagem->setMsg_data($data);
@@ -475,7 +476,8 @@ switch ($_POST["acao"]){
 			$mensagem->setMsg_remetente($logado['id']);
 			$mensagem->setMsg_lida("n");
 			$mensagem->setMsg_ativo("1");
-			$mensagem->setMsg_mensagem($mensagemTxt);
+			$mensagem->setMsg_mensagem(utf8_decode($mensagemTxt));
+			$mensagem->setDestinatarios(implode(" ", $destinatarios));
 			$mensagemController->insert($mensagem);
 
 			$msgDestinatario++;
