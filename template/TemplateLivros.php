@@ -27,9 +27,8 @@
 			$logado                    = unserialize($_SESSION['USR']);
 			$liberarCapituloController = new liberarCapituloController();
 
-			if(($logado['perfil'] == "Unidade Escolar") || ($logado['perfil'] == "Professor")){
+			if(($logado['perfil_id'] != 3)){
 				$capitulos = $liberarCapituloController->listaCapLebaradosPraEscola($logado['escola']);
-
 				$capClass = Array();
 				foreach ($capitulos as $i => $value) {
 					if ($value->getLbr_status() == 1) {
@@ -52,7 +51,8 @@
 		                <p class="tema">
 		                	<a class="cap_5 '.(in_array('5', $capClass) ? "" : "inativo").'"><img src="img/cap_5.png"></a>
 		                </p>';
-		    }else if($logado['perfil'] == "NEC"){
+
+		    }else if($logado['perfil_id'] == 3){
 		    	echo '<p class="tema">
 		                	<a class="cap_1"><img src="img/cap_1.png"></a>
 		                </p>

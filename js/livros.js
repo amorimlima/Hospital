@@ -2,9 +2,17 @@ $(document).ready(function (){
     var url = window.location.href;
 	var retorno = url.split("/"); 	
 	retorno = retorno[retorno.length-1].split("?");
-	
+
+	var serie = "";
+
+	if(typeof retorno[1] == "undefined"){
+		serie = 'ano_'+localStorage.getItem("serie");
+	}else{
+		serie = retorno[1];
+	}
+
 	var obj='';
-	switch (retorno[1]){
+	switch (serie){
 		case 'ano_1':
 			cap_ano = 'ano=1';
 			$('#img_teste').attr('src','img/abertura_Ca.png');

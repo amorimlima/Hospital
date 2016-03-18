@@ -196,8 +196,9 @@ function validarLogin() {
                 if(data.erro == true) {
                     alert(data.msg);
                 } else {
-                    window.location.href=data.url;
-                }
+                    localStorage.setItem("serie", data.serie);
+                    window.location.href=data.url;                   
+                } 
             }
         });
     } else {
