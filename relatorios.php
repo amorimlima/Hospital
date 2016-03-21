@@ -5,6 +5,7 @@ if(!isset($_SESSION['PATH_SYS'])){
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateMensagens.php');
+include_once($path['template'].'TemplateRelatorio.php');
 include_once($path['controller'].'EscolaController.php');
 include_once($path['controller'].'UsuarioController.php');
 include_once($path['controller'].'SerieController.php');
@@ -15,6 +16,7 @@ include_once($path["controller"]."LiberarCapituloController.php");
 
 $templateGeral = new Template();
 $templateMensagens = new TemplateMensagens();
+$templateRelatorio = new TemplateRelatorio();
 $usuarioController = new UsuarioController();
 $escolaController = new EscolaController();
 $serieController = new SerieController();
@@ -73,39 +75,11 @@ $logado = unserialize($_SESSION['USR']);
 											<div id="tipoGrafico1" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
 											<div id="tipoGrafico2">Comparação - Pré e Pós Avaliação (em %)</div>
 										</div>
-										<div id="box_perfil_selected" class="box_perfil_selected">
-											<div class="foto_perfil_selected"></div>
-											<div clas="info_perfil_selected">
-												<div class="nome_perfil_selected">O peito do pé do pai do pedro é preto porque pisou no piso podre.</div>
-												<div class="dados_perfil_selected"></div>
-												<div class="acoes_perfil_selected"></div>
-											</div>
-										</div>
 										<div class="listagem_perfis_graficos">
 											<div id="grafico1" class="grafico">
 												<div class="lista_itens_grafico">
 												<?php
-												foreach ($escolas as $escola) {
-													echo '<div onclick="getEscolaById('.utf8_encode($escola->getEsc_id()).')">';
-													echo 	'<div class="row">';
-													echo 		'<div class="col-md-4">';
-													echo 			'<div class="grafico_desc" id="esc_id_'.utf8_encode($escola->getEsc_id()).'">';
-													echo 				'<div>';
-													echo 					'<span>'.utf8_encode($escola->getEsc_nome()).'</span>';
-													echo 				'</div>';
-													echo 			'</div>';
-													echo 		'</div>';
-													echo 		'<div class="col-md-8">';
-													echo 			'<div class="grafico_chart">';
-													echo 				'<svg class="chart">';
-													echo 					'<rect y="0" width="63%" height="18" class="chart_acesso"></rect>';
-													echo 					'<rect y="22" width="38%" height="18" class="chart_download"></rect>';
-													echo 				'</svg>';
-													echo 			'</div>';
-													echo 		'</div>';
-													echo 	'</div>';
-													echo '</div>';
-												}
+													$templateRelatorio->graficoEscolas();
 												?>
 												</div>
 											</div>
