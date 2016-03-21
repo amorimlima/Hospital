@@ -22,7 +22,7 @@ switch ($_REQUEST["acao"]) {
 		else
 			$result = Array("erro"=>true, "mensagem"=>"Erro ao deletar.");
 
-		echo json_encode($result);
+		print json_encode($result);
 
 	break;
 
@@ -43,13 +43,36 @@ switch ($_REQUEST["acao"]) {
 		else
 			$result = Array("erro"=>true, "mensagem"=>"Erro ao liberar capitulo.");
 
-		echo json_encode($result);
+		print json_encode($result);
+	break;
+
+	case "listar":
+		$idEscola = $_REQUEST["id"];
+		$liberarCapituloController = new LiberarCapituloController();
+		$capitulos = $liberarCapituloController->selectByIdEscola($idEscola);
+		$result = Array();
+
+		foreach ($capitulos as $key => $cap) {
+			$capitulo = Array(
+				"id" 		=> utf8_encode($cap->getLbr_id()),
+				"escola" 	=> utf8_encode($cap->getLbr_escola()),
+				"capitulo" 	=> Array(
+					"id" 		=> utf8_encode($cap->getLbr_capitulo()->getCpt_id()),
+					"capitulo" 	=> utf8_encode($cap->getLbr_capitulo()->getCpt_capitulo()),
+				),
+				"status" 	=> utf8_encode($cap->getLbr_status())
+			);
+
+			array_push($result, $capitulo);
+		}
+
+		print json_encode($result);
 	break;
 	
 	default:
 		$result = Array("erro"=>true, "mensagem"=>"Parametro 'acao' invalido.");
 
-		echo json_encode($result);
+		print json_encode($result);
 	break;
 }
 ?>

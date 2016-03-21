@@ -117,6 +117,25 @@ switch ($_REQUEST["acao"]) {
 	case "professorPorId":
 		$usuarioController = new UsuarioController();
 		$idProfessor = $_REQUEST["id"];
+		$professor = $usuarioController->select($idProfessor);
+		$retorno = "";
+
+		if ($professor) {
+			$retorno = Array(
+				"id" 					=> utf8_encode($professor->getUsr_id()),
+				"nome" 					=> utf8_encode($professor->getUsr_nome()),
+				"data_nascimento" 		=> utf8_encode($professor->getUsr_data_nascimento()),
+				"escola" 				=> utf8_encode($professor->getUsr_escola()),
+				"data_entrada_escola"	=> utf8_encode($professor->getUsr_data_entrada_escola()),
+				"rg" 					=> utf8_encode($professor->getUsr_rg()),
+				"cpf" 					=> utf8_encode($professor->getUsr_cpf()),
+				"login" 				=> utf8_encode($professor->getUsr_login()),
+				"imagem" 				=> $path["arquivos"].utf8_encode($professor->getUsr_imagem()),
+				"nse" 					=> utf8_encode($professor->getUsr_nse())
+			);
+		}
+
+		print json_encode($retorno);
 	break;
 
 	default:

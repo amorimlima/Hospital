@@ -8,6 +8,7 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
 include_once($path['beans'].'LiberarCapitulo.php');
+include_once($path['beans'].'Capitulo.php');
 
 /**
 * Description of LiberarCapituloDAO
@@ -102,7 +103,9 @@ class LiberarCapituloDAO extends DAO{
 
     public function selectByIdEscola($idEscola)
     {
-        $sql = "select * from liberar_capitulo where lbr_escola = ".$idEscola;
+        $sql  = "SELECT * FROM liberar_capitulo lbr ";
+        $sql .= "JOIN capitulo cpt ON lbr.lbr_capitulo = cpt.cpt_id ";
+        $sql .= "WHERE lbr_escola = ".$idEscola;
 
         $lista = array();
         $result = $this->retrieve($sql);
@@ -111,7 +114,11 @@ class LiberarCapituloDAO extends DAO{
             $liberarcapitulo= new LiberarCapitulo();
             $liberarcapitulo->setLbr_id($qr["lbr_id"]);
             $liberarcapitulo->setLbr_escola($qr["lbr_escola"]);
-            $liberarcapitulo->setLbr_capitulo($qr["lbr_capitulo"]);
+            
+            $liberarcapitulo->setLbr_capitulo(new Capitulo());
+            $liberarcapitulo->getLbr_capitulo()->setCpt_id($qr["cpt_id"]);
+            $liberarcapitulo->getLbr_capitulo()->setCpt_capitulo($qr["cpt_capitulo"]);
+
             $liberarcapitulo->setLbr_status($qr["lbr_status"]);
 
             array_push($lista,$liberarcapitulo);

@@ -66,7 +66,8 @@
 	padding-right: 26px;
 }
 .listagem_perfis_graficos {
-	height: 462px;
+	height: auto;
+	max-height: 462px;
 	overflow: hidden;
 }
 .grafico_desc {
@@ -106,10 +107,12 @@
 	fill: #d0f5c9;
 }
 .infos_grafico {
-	position: relative;
+	position: absolute;
 	padding-right: 25px;
 	background-color: #e6e6e6;
 	height: 40px;
+	width: calc(100% - 30px);
+	bottom: 15px;
 }
 .infos_grafico > img {
 	position: absolute;

@@ -73,12 +73,20 @@ $logado = unserialize($_SESSION['USR']);
 											<div id="tipoGrafico1" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
 											<div id="tipoGrafico2">Comparação - Pré e Pós Avaliação (em %)</div>
 										</div>
+										<div id="box_perfil_selected" class="box_perfil_selected">
+											<div class="foto_perfil_selected"></div>
+											<div clas="info_perfil_selected">
+												<div class="nome_perfil_selected">O peito do pé do pai do pedro é preto porque pisou no piso podre.</div>
+												<div class="dados_perfil_selected"></div>
+												<div class="acoes_perfil_selected"></div>
+											</div>
+										</div>
 										<div class="listagem_perfis_graficos">
 											<div id="grafico1" class="grafico">
 												<div class="lista_itens_grafico">
 												<?php
 												foreach ($escolas as $escola) {
-													echo '<div>';
+													echo '<div onclick="getEscolaById('.utf8_encode($escola->getEsc_id()).')">';
 													echo 	'<div class="row">';
 													echo 		'<div class="col-md-4">';
 													echo 			'<div class="grafico_desc" id="esc_id_'.utf8_encode($escola->getEsc_id()).'">';
@@ -107,7 +115,7 @@ $logado = unserialize($_SESSION['USR']);
 											</div>
                                         </div>
 										<div class="infos_grafico">
-											<img src="img/ic_voltar_g.png" class="btn_voltar"></span>
+											<img src="img/ic_voltar_g.png" id="btn_voltar" class="btn_voltar"></span>
 											<div class="row">
 												<div class="col-md-4">
 													<div class="graf_info itens_info">Escolas</div>
