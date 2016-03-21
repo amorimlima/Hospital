@@ -273,9 +273,9 @@ $logado = unserialize($_SESSION['USR']);
     </div>
 
 	<!--Sempre que for utilizar uma mensagem, criar uma div com a classe modalMensagem e com o display none-->
-	<div id="mensagemErroDeletar" class='modalMensagem' style="display:none">
+	<div id="mensagemCapituloLiberado" class='modalMensagem' style="display:none">
 		<?php
-			$templateGeral->mensagemRetorno('mensagens','Selecione uma mensagem para ser deletada!','erro');
+			$templateGeral->mensagemRetorno('livros','Capítulo liberado com sucesso!','sucesso');
 		?>
 	</div>
 	<div id="mensagemSucessoDeletar" style="display:none" class='modalMensagem'>

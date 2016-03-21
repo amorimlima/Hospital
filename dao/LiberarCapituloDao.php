@@ -28,9 +28,9 @@ class LiberarCapituloDAO extends DAO{
 
     public function insertLiberarCapitulo($liberarcapitulo)
     {
-        $sql =  "insert into liberar_capitulo ( lbr_escola,lbr_capitulo,lbr_status )values";
-        $sql .= "( '".$liberarcapitulo->getLbr_escola()."','".$liberarcapitulo->getLbr_capitulo()."','".$liberarcapitulo->getLbr_status()."')";
-        return $this->execute($sql);
+        $sql =  "INSERT INTO liberar_capitulo ( lbr_escola,lbr_capitulo,lbr_livro,lbr_status ) VALUES ";
+        $sql .= "('".$liberarcapitulo->getLbr_escola()."','".$liberarcapitulo->getLbr_capitulo()."','".$liberarcapitulo->getLbr_livro()."','".$liberarcapitulo->getLbr_status()."');";
+        return $this->executeAndReturnLastID($sql);
     }
 
     // **********************
@@ -56,6 +56,7 @@ class LiberarCapituloDAO extends DAO{
         $liberarcapitulo->setLbr_id($qr["lbr_id"]);
         $liberarcapitulo->setLbr_escola($qr["lbr_escola"]);
         $liberarcapitulo->setLbr_capitulo($qr["lbr_capitulo"]);
+        $liberarcapitulo->setLbr_livro($qr["lbr_livro"]);
         $liberarcapitulo->setLbr_status($qr["lbr_status"]);
 
         return $liberarcapitulo;
@@ -75,6 +76,7 @@ class LiberarCapituloDAO extends DAO{
             $liberarcapitulo->setLbr_id($qr["lbr_id"]);
             $liberarcapitulo->setLbr_escola($qr["lbr_escola"]);
             $liberarcapitulo->setLbr_capitulo($qr["lbr_capitulo"]);
+            $liberarcapitulo->setLbr_livro($qr["lbr_livro"]);
             $liberarcapitulo->setLbr_status($qr["lbr_status"]);
 
             array_push($lista,$liberarcapitulo);
@@ -91,6 +93,7 @@ class LiberarCapituloDAO extends DAO{
         $sql = "update liberar_capitulo set ";
         $sql .= "lbr_escola = '".$liberarcapitulo->getLbr_escola()."',";
         $sql .= "lbr_capitulo = '".$liberarcapitulo->getLbr_capitulo()."',";
+        $sql .= "lbr_livro = '".$liberarcapitulo->getLbr_livro()."',";
         $sql .= "lbr_status = '".$liberarcapitulo->getLbr_status()."',";
 
         $sql .= "where $idliberarcapitulo = '".$liberarcapitulo->getLbr_id()."'";
@@ -119,6 +122,7 @@ class LiberarCapituloDAO extends DAO{
             $liberarcapitulo->getLbr_capitulo()->setCpt_id($qr["cpt_id"]);
             $liberarcapitulo->getLbr_capitulo()->setCpt_capitulo($qr["cpt_capitulo"]);
 
+            $liberarcapitulo->setLbr_livro($qr["lbr_livro"]);
             $liberarcapitulo->setLbr_status($qr["lbr_status"]);
 
             array_push($lista,$liberarcapitulo);

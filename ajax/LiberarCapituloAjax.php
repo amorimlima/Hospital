@@ -29,17 +29,19 @@ switch ($_REQUEST["acao"]) {
 	case "liberar":
 		$idCap = $_REQUEST["capitulo"];
 		$idEsc = $_REQUEST["escola"];
+		$livro = $_REQUEST["livro"];
 
 		$liberarCapituloController = new LiberarCapituloController();
 		$liberarCapitulo = new LiberarCapitulo();
 		$liberarCapitulo->setLbr_escola($idEsc);
 		$liberarCapitulo->setLbr_capitulo($idCap);
+		$liberarCapitulo->setLbr_livro($livro);
 		$liberarCapitulo->setLbr_status(1);
-
 		$result = "";
+		$inserido;
 
 		if ($inserido = $liberarCapituloController->insertLiberarCapitulo($liberarCapitulo))
-			$result = Array("erro"=>false, "mensagem"=>"Capitulo liberado com sucesso.");
+			$result = Array("acao"=>"liberar", "id"=>utf8_encode($inserido), "capitulo"=>utf8_encode($idCap), "livro"=>utf8_encode($livro));
 		else
 			$result = Array("erro"=>true, "mensagem"=>"Erro ao liberar capitulo.");
 
@@ -55,12 +57,8 @@ switch ($_REQUEST["acao"]) {
 		foreach ($capitulos as $key => $cap) {
 			$capitulo = Array(
 				"id" 		=> utf8_encode($cap->getLbr_id()),
-				"escola" 	=> utf8_encode($cap->getLbr_escola()),
-				"capitulo" 	=> Array(
-					"id" 		=> utf8_encode($cap->getLbr_capitulo()->getCpt_id()),
-					"capitulo" 	=> utf8_encode($cap->getLbr_capitulo()->getCpt_capitulo()),
-				),
-				"status" 	=> utf8_encode($cap->getLbr_status())
+				"capitulo" 	=> utf8_encode($cap->getLbr_capitulo()->getCpt_capitulo()),
+				"livro" 	=> utf8_encode($cap->getLbr_livro())
 			);
 
 			array_push($result, $capitulo);
