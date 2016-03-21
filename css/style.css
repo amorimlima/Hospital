@@ -177,6 +177,29 @@ img{
 	background:url(../img/bt_forum_ativo.png) no-repeat;
 }
 
+.msg_label {
+    position: absolute;
+    left: auto;
+    right: -13px;
+    top: -7px;
+    font-size: 14px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    color: #FFF;
+    background-color: #e27919;
+    border: 1.5px solid #f9b51c;
+    padding: 2px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: .9 !important;
+    cursor: default;
+}
+
+.msg_topo{
+	right: 110px;
+    top: 0;
+}
 /*CONTEUDO AREA*/
 #Conteudo_Area{
 	width:100%;

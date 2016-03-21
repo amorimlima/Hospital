@@ -7,6 +7,7 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['controller'].'MenuController.php');
 include_once($path['controller'].'UsuarioVariavelController.php');
 include_once($path['controller'].'ExercicioController.php');
+include_once($path['controller'].'MensagemController.php');
 
 /**
  * Description of Template
@@ -24,6 +25,7 @@ class Template {
     //Topo Site
     public function topoSite(){
         $menuControler = new MenuController();
+        $mensagemController = new MensagemController();
 		//$usuarioController = new UsuarioController();
 		if (!isset($_SESSION['USR'])) {
 			header("location:index.php");
@@ -120,6 +122,8 @@ class Template {
                                                                 <a href="livros.php?ano_5">5º Ano</a>
                                                             </li>
                                                         </ul>';
+                                            }elseif($menuId[0]=='mensagens' && $mensagemController->count($usrLogado['id']) > 0){
+                                                echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"><span class="msg_label msg_topo">'.$mensagemController->count($usrLogado['id']).'</span></a>';
                                             }else{
                                                  echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
                                             }

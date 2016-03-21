@@ -358,7 +358,7 @@ function modalOk() {
 		 	$("div.col-lg-8").removeClass("col-sm-12");
 		 	$("div.col-lg-8").addClass("col-sm-9");
 		 	controleMobile = 0;
-	}
+		}
 	}
 }
         
