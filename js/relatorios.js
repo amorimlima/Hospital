@@ -267,14 +267,27 @@ function toggleCapitulo(idEscola, cap, livro)
 
 function liberarCapitulo(idEscola,cap,livro)
 {
+	var retorno;
 	$.ajax({
 		url: "ajax/LiberarCapituloAjax.php",
 		type: "POST",
 		data: "acao=liberar&escola="+idEscola+"&capitulo="+cap+"&livro="+livro,
+		dataType: "json",
 		success: function(data) {
-			console.log(data);
+			retorno = data;
+		},
+		complete: function() {
+			$("#mensagemCapituloLiberado").show();
+			updateToggledCap(retorno.acao,retorno.id,retorno.capitulo,retorno.livro);
 		}
 	});
+};
+
+function updateToggledCap(acao,id,capitulo,livro)
+{
+	$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("class","cap_liberado");
+	$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("data-liberado","1");
+	$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("data-id",id);
 };
 
 /* ============================================ */

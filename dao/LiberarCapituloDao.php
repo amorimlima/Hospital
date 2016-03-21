@@ -28,9 +28,9 @@ class LiberarCapituloDAO extends DAO{
 
     public function insertLiberarCapitulo($liberarcapitulo)
     {
-        $sql =  "insert into liberar_capitulo ( lbr_escola,lbr_capitulo,lbr_livro,lbr_status )values";
-        $sql .= "( '".$liberarcapitulo->getLbr_escola()."','".$liberarcapitulo->getLbr_capitulo()."','".$liberarcapitulo->getLbr_livro()."','".$liberarcapitulo->getLbr_status()."')";
-        return $this->execute($sql);
+        $sql =  "INSERT INTO liberar_capitulo ( lbr_escola,lbr_capitulo,lbr_livro,lbr_status ) VALUES ";
+        $sql .= "('".$liberarcapitulo->getLbr_escola()."','".$liberarcapitulo->getLbr_capitulo()."','".$liberarcapitulo->getLbr_livro()."','".$liberarcapitulo->getLbr_status()."');";
+        return $this->executeAndReturnLastID($sql);
     }
 
     // **********************

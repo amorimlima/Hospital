@@ -38,9 +38,10 @@ switch ($_REQUEST["acao"]) {
 		$liberarCapitulo->setLbr_livro($livro);
 		$liberarCapitulo->setLbr_status(1);
 		$result = "";
+		$inserido;
 
 		if ($inserido = $liberarCapituloController->insertLiberarCapitulo($liberarCapitulo))
-			$result = Array("erro"=>false, "mensagem"=>"Capitulo liberado com sucesso.");
+			$result = Array("acao"=>"liberar", "id"=>utf8_encode($inserido), "capitulo"=>utf8_encode($idCap), "livro"=>utf8_encode($livro));
 		else
 			$result = Array("erro"=>true, "mensagem"=>"Erro ao liberar capitulo.");
 
