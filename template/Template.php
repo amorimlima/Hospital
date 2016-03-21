@@ -125,7 +125,11 @@ class Template {
                                             }elseif($menuId[0]=='mensagens' && $mensagemController->count($usrLogado['id']) > 0){
                                                 echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"><span class="msg_label msg_topo">'.$mensagemController->count($usrLogado['id']).'</span></a>';
                                             }else{
-                                                 echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
+                                                if($menuId[0] == "galeria"){
+                                                    echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
+                                                }else{
+                                                    echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
+                                                }
                                             }
                                             echo'</li>';
                                         }

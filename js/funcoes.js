@@ -46,6 +46,21 @@ $(document).ready(function(e) {
 		//Apenas esconde as divs com a classe modalMensagem
 		$('.modalMensagem').css('display','none');
 	});
+
+
+	$('#mn_galeria').click(function(){
+		$.ajax({
+			url:'ajax/GaleriaAjax.php',
+			type:'post',
+			dataType:'text',
+			data:{'acao':'registroGaleria','menu':'1','download':'0'},
+			success:function(data)
+			{
+				window.location.href = "galeria.php";
+			}
+		});
+	});
+
 });
 
 function redireciona(pagina){

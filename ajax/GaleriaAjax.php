@@ -7,8 +7,10 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['controller'] . 'GaleriaController.php');
 include_once($path['controller'] . 'CategoriaGaleriaController.php');
 include_once($path['controller'] . 'UsuarioController.php');
+include_once($path['controller'] . 'RegistroGaleriaController.php');
 include_once($path['beans'] . 'Galeria.php');
 include_once($path['beans'] . 'CategoriaGaleria.php');
+include_once($path['beans'] . 'RegistroGaleria.php');
 include_once($path['beans'] . 'Usuario.php');
 include_once($path['template'] . 'TemplateGaleria.php');
 include_once($path['funcao'] . 'DatasFuncao.php');
@@ -16,6 +18,7 @@ $template = new TemplateGaleria();
 $galeriaController = new GaleriaController();
 $categoriaGaleriaController = new CategoriaGaleriaController();
 $userController = new UsuarioController();
+$registroGaleriaController = new RegistroGaleriaController();
 
 switch ($_REQUEST["acao"]) {
     case "listaTodos": {
@@ -180,6 +183,23 @@ switch ($_REQUEST["acao"]) {
         $galeriaController->insert($galeria);
         $_SESSION['cadastro'] = "ok";
         header("Location:../galeria.php?");
+        break;
+    }
+
+    case 'registroGaleria':{
+
+        $logado = unserialize($_SESSION['USR']);
+        $data = date("Y-m-d");
+
+        $registrogaleria= new RegistroGaleria();
+        $registrogaleria->setRgg_escola($logado['escola']);
+        $registrogaleria->setRgg_usuario($logado['id']);
+        $registrogaleria->setRgg_menu_galeria($_POST['menu']);
+        $registrogaleria->setRgg_download_galeria($_POST['download']);
+        $registrogaleria->setRgg_data($data);
+
+        $registroGaleriaController->insertRegistroGaleria($registrogaleria);
+        echo "ok";
         break;
     }
 }

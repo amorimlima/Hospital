@@ -242,6 +242,18 @@ function contagemVisualizacoes (id) {
         }
 
     });
+
+    $.ajax({
+        url:'ajax/GaleriaAjax.php',
+        type:'post',
+        dataType:'text',
+        data:{'acao':'registroGaleria','menu':'0','download':'1'},
+        success:function(data)
+        {
+            console.log('ok');
+        }
+    });
+
     console.log(d);
     return d;
 };
