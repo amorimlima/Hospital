@@ -280,7 +280,7 @@ $logado = unserialize($_SESSION['USR']);
 	</div>
 	<div id="mensagemSucessoDeletar" style="display:none" class='modalMensagem'>
 		<?php
-			$templateGeral->mensagemRetorno('mensagens','Mensagem deletada com sucesso!','sucesso');
+			$templateGeral->mensagemRetorno('livros','Capítulo bloqueado com sucesso!','sucesso');
 		?>
 	</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

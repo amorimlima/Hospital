@@ -28,10 +28,6 @@ function atribuirEventos()
 		event.stopPropagation();
 	});
 
-	$("#liberarCapitulos").click(showLiberarCapitulos);
-	$("#cancelarLiberarCapitulos").click(cancelLiberarCapitulos);
-	$("#salvarLiberarCapitulos").click(saveLiberarCapitulos);
-
 	$("#btn_voltar").click(voltarGrafico);
 
 	$("#liberarCapitulosTable").find("span").click(function() {
@@ -67,14 +63,7 @@ function showLiberarCapitulos()
 	$("#liberarCapituloContainer").show();
 };
 
-function cancelLiberarCapitulos()
-{
-	$("#liberarCapitulos").show();
-	$("#conteudoPrincipal").show();
-	$("#liberarCapituloContainer").hide();
-};
-
-function saveLiberarCapitulos()
+function concluirLiberarCapitulos()
 {
 	$("#liberarCapitulos").show();
 	$("#conteudoPrincipal").show();
@@ -240,8 +229,7 @@ function viewCapitulosLiberados(idEscola,capitulos)
 
 	htmlTable += '</table>';
 	htmlTable += '<div>';
-	htmlTable += 	'<button id="cancelarLiberarCapitulos">Cancelar</button>';
-	htmlTable += 	'<button id="salvarLiberarCapitulos" class="btn_primary">Salvar</button>';
+	htmlTable += 	'<button id="concluirLiberarCapitulos" class="btn_primary" onclick="concluirLiberarCapitulos()">Concluir</button>';
 	htmlTable += '</div>';
 
 	$("#liberarCapituloContainer").html(htmlTable);
@@ -262,7 +250,28 @@ function toggleCapitulo(idEscola, cap, livro)
 {
 	if ($("[data-capitulo="+cap+"][data-livro="+livro+"]").is("[data-liberado=0]")) {
 		liberarCapitulo(idEscola,cap,livro);
+	} else if($("[data-capitulo="+cap+"][data-livro="+livro+"]").is("[data-liberado=1]")) {
+		var idCap = $("[data-capitulo="+cap+"][data-livro="+livro+"]").attr("data-id");
+		bloquearCapitulo(idCap, cap, livro);
 	}
+};
+
+function bloquearCapitulo(idCap,cap,livro)
+{
+	var retorno;
+	$.ajax({
+		url: "ajax/LiberarCapituloAjax.php",
+		type: "POST",
+		data: "acao=deletar&id="+idCap,
+		dataType: "json",
+		success: function(data) {
+			console.info(data.mensagem);
+		},
+		complete: function () {
+			$("#mensagemSucessoDeletar").show();
+			updateToggledCap("bloquear",null,cap,livro);
+		}
+	});
 };
 
 function liberarCapitulo(idEscola,cap,livro)
@@ -285,9 +294,15 @@ function liberarCapitulo(idEscola,cap,livro)
 
 function updateToggledCap(acao,id,capitulo,livro)
 {
-	$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("class","cap_liberado");
-	$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("data-liberado","1");
-	$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("data-id",id);
+	if (acao === "liberar") {
+		$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("class","cap_liberado");
+		$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("data-liberado","1");
+		$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("data-id",id);
+	} else if (acao === "bloquear") {
+		$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("class","cap_nao_liberado");
+		$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").attr("data-liberado","0");
+		$("[data-capitulo="+capitulo+"][data-livro="+livro+"]").removeAttr("data-id");
+	}
 };
 
 /* ============================================ */
