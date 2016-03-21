@@ -73,14 +73,6 @@ $logado = unserialize($_SESSION['USR']);
 											<div id="tipoGrafico1" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
 											<div id="tipoGrafico2">Comparação - Pré e Pós Avaliação (em %)</div>
 										</div>
-										<div id="box_perfil_selected" class="box_perfil_selected">
-											<div class="foto_perfil_selected"></div>
-											<div clas="info_perfil_selected">
-												<div class="nome_perfil_selected">O peito do pé do pai do pedro é preto porque pisou no piso podre.</div>
-												<div class="dados_perfil_selected"></div>
-												<div class="acoes_perfil_selected"></div>
-											</div>
-										</div>
 										<div class="listagem_perfis_graficos">
 											<div id="grafico1" class="grafico">
 												<div class="lista_itens_grafico">

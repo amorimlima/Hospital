@@ -173,11 +173,108 @@ function viewEscolaSelected(escola)
 	htmlEscSelected +=			'<div class="nome_perfil_selected">'+escola.nome+'</div>';
 	htmlEscSelected +=			'<div class="razaoSocial_perfil_selected">Razão social: '+escola.razao_social+'</div>';
 	htmlEscSelected +=			'<div class="dados_perfil_selected">Cidade: '+escola.endereco.cidade+' | Estado: '+escola.endereco.uf+' | Site: '+escola.site+'</div>';
-	htmlEscSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span class="lib_cap" id="lib_cap_'+escola.id+'">Liberar capítulos</span></div>';
+	htmlEscSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span class="lib_cap" id="lib_cap_'+escola.id+'" onclick="getCapitulosByEscola('+escola.id+')">Liberar capítulos</span></div>';
 	htmlEscSelected +=		'</div>';
 	htmlEscSelected +=	'</div>';
 
 	$(".tipo_grafico_picker_opcoes").after(htmlEscSelected);
+};
+
+function getCapitulosByEscola(idEscola)
+{
+	var capitulos;
+
+	$.ajax({
+		url: "ajax/LiberarCapituloAjax.php",
+		type: "GET",
+		data: "acao=listar&id="+idEscola,
+		dataType: "json",
+		success: function(data) {
+			capitulos = data;
+		},
+		complete: function() {
+			viewCapitulosLiberados(idEscola,capitulos);
+		}
+	});
+};
+
+function viewCapitulosLiberados(idEscola,capitulos)
+{
+	var htmlTable = '<h1>Liberar capítulos</h1>';
+
+	htmlTable += '<table id="liberarCapitulosTable" class="liberar_capitulos_table">';
+
+	for (var i = 0; i <= 5; i++) {
+		if (i === 0) {
+			htmlTable += '<thead>';
+			htmlTable += 	'<tr>';
+
+			for (var j = 0; j <= 5; j++) {
+				if (j === 0)
+					htmlTable += '<th class="blank">&nbsp;</th>';
+				else
+					htmlTable += '<th>Livro '+j+'</th>'
+			};
+
+			htmlTable += 	'</tr>';
+			htmlTable += '</thead>';
+		} else {
+			if (i === 1)
+				htmlTable += '<tbody>';
+
+			htmlTable += '<tr>';
+
+			for (var j = 0; j <= 5; j++) {
+				if (j === 0)
+					htmlTable += '<td class="capitulo">Capítulo '+i+'</td>';
+				else
+					htmlTable += '<td><span data-liberado="0" data-livro="'+j+'" data-capitulo="'+i+'" onclick="toggleCapitulo('+idEscola+','+i+','+j+')" class="cap_nao_liberado"></span></td>';
+			};
+
+			htmlTable += '</tr>';
+
+			if (i === 5)
+				htmlTable += '</tbody>';
+		};
+	};
+
+	htmlTable += '</table>';
+	htmlTable += '<div>';
+	htmlTable += 	'<button id="cancelarLiberarCapitulos">Cancelar</button>';
+	htmlTable += 	'<button id="salvarLiberarCapitulos" class="btn_primary">Salvar</button>';
+	htmlTable += '</div>';
+
+	$("#liberarCapituloContainer").html(htmlTable);
+	showLiberarCapitulos();
+
+	for (var a in capitulos) {
+		$("[data-capitulo="+capitulos[a].capitulo+"]").each(function() {
+			if ($(this).is("[data-livro="+capitulos[a].livro+"]")) {
+				$(this).attr("class","cap_liberado");
+				$(this).attr("data-liberado","1");
+				$(this).attr("data-id",capitulos[a].id)
+			};
+		});
+	};
+};
+
+function toggleCapitulo(idEscola, cap, livro)
+{
+	if ($("[data-capitulo="+cap+"][data-livro="+livro+"]").is("[data-liberado=0]")) {
+		liberarCapitulo(idEscola,cap,livro);
+	}
+};
+
+function liberarCapitulo(idEscola,cap,livro)
+{
+	$.ajax({
+		url: "ajax/LiberarCapituloAjax.php",
+		type: "POST",
+		data: "acao=liberar&escola="+idEscola+"&capitulo="+cap+"&livro="+livro,
+		success: function(data) {
+			console.log(data);
+		}
+	});
 };
 
 /* ============================================ */
@@ -255,8 +352,8 @@ function viewProfessoresByEscola(professores)
 function viewProfessorSelected(professor)
 {
 	var htmlProfSelected = "";
-	var data_nascimento = professor.data_nascimento.split("-")[2]+"/"+professor.data_nascimento.split("-")[1]+"/"+professor.data_nascimento.split("-")[0]
-	var data_entrada = professor.data_entrada_escola.split("-")[2]+"/"+professor.data_entrada_escola.split("-")[1]+"/"+professor.data_entrada_escola.split("-")[0]
+	var data_nascimento = professor.data_nascimento.split("-")[2]+"/"+professor.data_nascimento.split("-")[1]+"/"+professor.data_nascimento.split("-")[0];
+	var data_entrada = professor.data_entrada_escola.split("-")[2]+"/"+professor.data_entrada_escola.split("-")[1]+"/"+professor.data_entrada_escola.split("-")[0];
 	$("#box_perfil_selected").remove();
 
 	htmlProfSelected +=	'<div id="box_perfil_selected" class="box_perfil_selected">';

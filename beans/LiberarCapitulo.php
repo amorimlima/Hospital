@@ -20,6 +20,7 @@ class LiberarCapitulo
 
     private $lbr_escola;
     private $lbr_capitulo;
+    private $lbr_livro;
     private $lbr_status;
 
 
@@ -45,6 +46,10 @@ public function getLbr_capitulo()
     return $this->lbr_capitulo;
 }
 
+public function getLbr_livro()
+{
+    return $this->lbr_livro;
+}
 public function getLbr_status()
 {
     return $this->lbr_status;
@@ -67,6 +72,10 @@ public function setLbr_capitulo($val)
     $this->lbr_capitulo =  $val;
 }
 
+public function setLbr_livro($val)
+{
+    $this->lbr_livro =  $val;
+}
 public function setLbr_status($val)
 {
     $this->lbr_status =  $val;

@@ -29,13 +29,14 @@ switch ($_REQUEST["acao"]) {
 	case "liberar":
 		$idCap = $_REQUEST["capitulo"];
 		$idEsc = $_REQUEST["escola"];
+		$livro = $_REQUEST["livro"];
 
 		$liberarCapituloController = new LiberarCapituloController();
 		$liberarCapitulo = new LiberarCapitulo();
 		$liberarCapitulo->setLbr_escola($idEsc);
 		$liberarCapitulo->setLbr_capitulo($idCap);
+		$liberarCapitulo->setLbr_livro($livro);
 		$liberarCapitulo->setLbr_status(1);
-
 		$result = "";
 
 		if ($inserido = $liberarCapituloController->insertLiberarCapitulo($liberarCapitulo))
@@ -55,12 +56,8 @@ switch ($_REQUEST["acao"]) {
 		foreach ($capitulos as $key => $cap) {
 			$capitulo = Array(
 				"id" 		=> utf8_encode($cap->getLbr_id()),
-				"escola" 	=> utf8_encode($cap->getLbr_escola()),
-				"capitulo" 	=> Array(
-					"id" 		=> utf8_encode($cap->getLbr_capitulo()->getCpt_id()),
-					"capitulo" 	=> utf8_encode($cap->getLbr_capitulo()->getCpt_capitulo()),
-				),
-				"status" 	=> utf8_encode($cap->getLbr_status())
+				"capitulo" 	=> utf8_encode($cap->getLbr_capitulo()->getCpt_capitulo()),
+				"livro" 	=> utf8_encode($cap->getLbr_livro())
 			);
 
 			array_push($result, $capitulo);
