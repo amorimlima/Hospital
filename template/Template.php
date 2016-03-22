@@ -212,6 +212,13 @@ class Template {
 
 		echo $htmlModal;
 	}
+
+    public function rodape() {
+        echo '<div class="row" id="rodape"></div>';
+        echo '<div class="logo_murano_container">';
+        echo    '<div class="murano"></div>';
+        echo '</div>';
+    }
 }
 
 ?>

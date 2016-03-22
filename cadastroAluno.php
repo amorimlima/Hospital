@@ -245,7 +245,9 @@ $templateGeral = new Template();
             </div>              	
         </div>
         <footer>
-            <div class="row" id="rodape"></div>
+        <?php
+            $templateGeral->rodape();
+        ?>
         </footer>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

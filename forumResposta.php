@@ -84,7 +84,9 @@ $respostasController = new ForumRespostaController();
             </div>              	
         </div>
         <footer>
-            <div class="row" id="rodape"></div>
+        <?php
+            $templateGeral->rodape();
+        ?>
         </footer>
     </div>
     <input type="hidden" name="questao" id="questao" value="<?php echo $_GET['resp'];?>">

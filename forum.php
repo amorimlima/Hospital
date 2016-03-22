@@ -85,7 +85,9 @@ $topicos = $topicoController->selectAll();
             </div>              	
         </div>
         <footer>
-            <div class="row" id="rodape"></div>
+        <?php
+            $templateGeral->rodape();
+        ?>
         </footer>
     </div>
 	

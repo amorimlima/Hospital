@@ -96,14 +96,17 @@ textarea:focus, input:focus, select:focus, button:focus  {
     background-size: 100% auto;
     margin-top: -25px;
 }
+.logo_murano_container {
+	margin: 5px auto 0;
+	max-width: 1280px;
+	padding: 0 49px;
+}
 .murano {
-	margin-top: 5px;
 	background-image: url(../img/logo_murano.png);
 	background-repeat: no-repeat;
-	background-position: left 50%;
+	background-position: right 50%;
 	background-size: 230px auto;
 	height: 25px;
-	opacity: .6; 
 }
 
 /*MENU*/
@@ -920,7 +923,7 @@ img{
 	#Conteudo_Area {
 		width: 100%;
 		height: auto;
-		margin-bottom: 65px;
+		margin-bottom: 25px;
 		background: #F7F7F5;
 		background: rgba(247, 247, 245, 1);
 	}
@@ -946,6 +949,9 @@ img{
         height: 120px;
         padding-left: 24px;
         padding-right: 24px;
+    }
+    .logo_murano_container {
+    	padding: 0 24px;
     }
 	/*--------------------------------*/
     /* Menu */
@@ -1125,6 +1131,9 @@ img{
 		    background: url(../img/logo/logo_mobile.png) no-repeat 50% 50%;
 		    background-size: contain;
 		}
+		.murano {
+			background-position: center;
+		}
 	}
     
 	@media (min-width: 480px) and (max-width: 767px) {
@@ -1136,6 +1145,9 @@ img{
 			max-height: 100px;
 			float: none;
 			background: url(../img/logo/logo_md.png) no-repeat 50% 50%;
+		}
+		.murano {
+			background-position: center;
 		}
 	}
     
