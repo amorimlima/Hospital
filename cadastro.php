@@ -160,10 +160,10 @@ $logado = unserialize($_SESSION['USR']);
                                                             </span>
                                                         </div>
                                                         
-                                                        <div class="form_celula_p">
-                                                            <label for="selectSerieAluno" class="form_info info_p">Série</label>
+                                                        <div class="form_celula_m value_last">
+                                                            <label for="selectSerieAluno" class="form_info info_m">Série</label>
                                                             <span class="select_container">
-                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_p obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores()">
+                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_m obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores()">
                                                                     <option value="" disabled selected>Selecione a série</option>
                                                                     <?php
                                                                     	echo $serieHtml;
@@ -184,10 +184,10 @@ s                                                                 </select>
                                                             </span>
                                                         </div>
                                                         
-														<div class="form_celula_p">
-                                                            <label for="selectPeriodoAluno" class="form_info info_p">Ano Letivo</label>
+														<div class="form_celula_m value_last">
+                                                            <label for="selectPeriodoAluno" class="form_info info_m">Ano Letivo</label>
                                                             <span class="select_container">
-                                                                <select name="selectAnoAluno" id="selectAnoAluno" class="form_value form_select value_p" required>
+                                                                <select name="selectAnoAluno" id="selectAnoAluno" class="form_value form_select value_m" required>
                                                                     <?php
                                                                     if(count($anos)>0){
                                                                         foreach($anos as $a) {
@@ -304,8 +304,8 @@ s                                                                 </select>
                                                                 <input type="text" name="inputEmailAluno" id="inputEmailAluno" class="form_value form_text value_p" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_g">
-                                                            <label for="cadastroImagem" class="form_info info_p">Foto</label>
+                                                        <div class="form_celula_g" style="height: auto; min-height: 40px;">
+                                                           <label for="cadastroImagem" class="form_info info_p">Foto</label>
                                                            
                                                              <span class="input_container spanImagem" id="spanImagemAluno">
                                                              
@@ -313,9 +313,10 @@ s                                                                 </select>
 		                                                        	<div id="cadastroImagem" class="divImagem"></div>
 			
 																	<div id="car"></div>
-																    <br><div id="imgUp" style="position:absolute"><img src="" width="150" height="150"/><br/></div>
+																    <br><div id="imgUp" style="position:relative; top: -11px;"><img src="" width="150" height="150"/><br/></div>
 																    <input name="imagem" type="hidden" id="imagem" value=""></td>
 															    </div>
+
 															</span>
                                                         </div>
                                                     </fieldset>                                                
@@ -503,7 +504,7 @@ s                                                                 </select>
                                                                 <input type="text" name="inputEmailProf" id="inputEmailProf" class="form_value form_text value_g  obrigatorioProf" required msgVazio="O campo email é obrigatório"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_g">
+                                                        <div class="form_celula_g" style="height: auto; min-height: 40px;">
                                                             <label for="cadastroImagem" class="form_info info_p">Foto</label>
                                                             <span class="input_container spanImagem" id="spanImagemProfessor"></span>
                                                         </div>
@@ -556,7 +557,7 @@ s                                                                 </select>
                                                                 <input type="text" name="inputRazaoEscola" id="inputRazaoEscola" class="form_value form_text value_g obrigatorioEscola" msgVazio="O campo razão social é obrigatório" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_m value_last">
+                                                        <div class="form_celula_m">
                                                             <label for="inputCodigoEscola" class="form_info info_m">NSE</label>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputNseEscola" id="inputNseEscola" class="form_value form_text value_m"/>
@@ -574,7 +575,7 @@ s                                                                 </select>
                                                                 <input type="text" name="inputCnpjEscola" id="inputCnpjEscola" class="form_value form_text value_p  obrigatorioEscola"  msgVazio="O campo CNPJ é obrigatório" required maxlength='18' OnKeyPress="formatar('##.###.###/####-##', this)"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_p value_last">
+                                                        <div class="form_celula_p">
                                                             <label for="inputAdmEscola" class="form_info info_p">Administração</label>
                                                             <span class="select_container">
                                                                 <select name="inputAdmEscola" id="inputAdmEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo administração é obrigatório" required>
@@ -589,7 +590,7 @@ s                                                                 </select>
                                                                 </select>
                                                             </span>
                                                         </div>
-														<div class="form_celula_p">
+														<div class="form_celula_p value_last">
                                                             <label for="inputTipoEscola" class="form_info info_p">Tipo de escola</label>
                                                             <span class="select_container">
                                                                 <select name="inputTipoEscola" id="inputTipoEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo tipo da escola é obrigatório" required>
@@ -660,7 +661,7 @@ s                                                                 </select>
                                                                 <input type="text" name="inputEmailEscola" id="inputEmailEscola" class="form_value form_text value_g obrigatorioEscola" msgVazio="O campo email é obrigatório" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_g">
+                                                        <div class="form_celula_g" style="height: auto; min-height: 40px;">
                                                             <label for="cadastroImagem" class="form_info info_p">Foto</label>
                                                             <span class="input_container spanImagem" id="spanImagemEscola"></span>
                                                         </div>
