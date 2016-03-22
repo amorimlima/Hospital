@@ -94,6 +94,16 @@ textarea:focus, input:focus, select:focus, button:focus  {
     background: url(../img/logo/logo_lg.png) no-repeat;
     background-position: left 50%;
     background-size: 100% auto;
+    margin-top: -25px;
+}
+.murano {
+	margin-top: 5px;
+	background-image: url(../img/logo_murano.png);
+	background-repeat: no-repeat;
+	background-position: left 50%;
+	background-size: 230px auto;
+	height: 25px;
+	opacity: .6; 
 }
 
 /*MENU*/
@@ -1140,6 +1150,9 @@ img{
             max-width: none;
             background-position: 50% 50%;
 			background-size: auto 100%;
+		}
+		.murano {
+			background-position: center;
 		}
 	}
 	@media (min-width: 992px) and (max-width: 1199px) {

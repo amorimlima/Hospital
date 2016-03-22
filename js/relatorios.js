@@ -338,8 +338,7 @@ function getProfessorById(idProf)
 		},
 		complete: function() {
 			professorAtivo = professor.id;
-			viewProfessorSelected(professor)
-			//getProfessoresByEscola(idEscola);
+			viewProfessorSelected(professor);
 		},
 		error: function(e) {
 			console.error(e);
