@@ -395,13 +395,13 @@ s                                                                 </select>
                                                 <form action="" class="form_cadastro cadastro_prof cadastroProfContent" id="formCadastroProf" style="display: none;">
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Dados Pessoais</legend>
-                                                        <div class="form_celula_g">
+                                                        <div class="form_celula_m">
                                                             <label for="inputNomeProf" class="form_info info_m">Nome</label>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputNomeProf" id="inputNomeProf" class="form_value form_text value_m obrigatorioProf" required msgVazio="O campo nome é obrigatório"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_m">
+                                                        <div class="form_celula_p">
                                                             <label for="selectSerieProf" class="form_info info_p">Série</label>
                                                             <span class="select_container">
                                                                 <select name="selectSerieProf" id="selectSerieProf" class="form_value form_select value_p obrigatorioProf" msgVazio="O campo série é obrigatório" required>
@@ -412,7 +412,7 @@ s                                                                 </select>
                                                                 </select>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_m value_last">
+                                                        <div class="form_celula_m">
                                                             <label for="selectCategoriaProf" class="form_info info_m">Categoria Funcional</label>
                                                             <span class="select_container">
                                                                 <select name="selectCategoriaProf" id="selectCategoriaProf" class="form_value form_select value_m"required>
@@ -428,7 +428,7 @@ s                                                                 </select>
                                                                 </select>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_m">
+                                                        <div class="form_celula_p">
                                                             <label for="selectGrauProf" class="form_info info_m">Instrução</label>
                                                             <span class="select_container">
                                                                 <select name="selectGrauProf" id="selectGrauProf" class="form_value form_select value_m"required>
@@ -444,8 +444,8 @@ s                                                                 </select>
                                                                 </select>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_m value_last">
-                                                            <label for="selectGrauProf" class="form_info info_g">Perfil</label>
+                                                        <div class="form_celula_g">
+                                                            <label for="selectGrauProf" class="form_info info_g">Instrução</label>
                                                             <span class="select_container">
                                                                 <select name="perfil" id="perfil" class="form_value form_select value_g" required>
                                                                    	<option value='2' selected>Professor</option>
@@ -779,9 +779,7 @@ s                                                                 </select>
             </div>
         </div>
         <footer>
-        <?php
-            $templateGeral->rodape();
-        ?>
+            <div class="row" id="rodape"></div>
         </footer>
     </div>
 	
