@@ -362,6 +362,10 @@ table.liberar_capitulos_table > tbody > tr > td > span.cap_liberado {
 .acoes_perfil_selected span:hover {
 	text-decoration: underline;
 }
+.alert {
+	width: calc(100% + 26px);
+	margin-top: 10px;
+}
 /*Barra de rolagem com plugin JS */
 	.mCSB_inside > .mCSB_container {
 	   margin-right: 0px !important;

@@ -129,26 +129,30 @@ function viewEscolas(escolas)
 	var htmlListaEsc = "";
 	$("#box_perfil_selected").remove();
 
-	for (var a in escolas) {
-		htmlListaEsc += '<div onclick="getEscolaById('+escolas[a].id+')">';
-		htmlListaEsc += 	'<div class="row">';
-		htmlListaEsc += 		'<div class="col-md-4">';
-		htmlListaEsc += 			'<div class="grafico_desc" id="esc_id_'+escolas[a].id+'">';
-		htmlListaEsc += 				'<div>';
-		htmlListaEsc += 					'<span>'+escolas[a].nome+'</span>';
-		htmlListaEsc += 				'</div>';
-		htmlListaEsc += 			'</div>';
-		htmlListaEsc += 		'</div>';
-		htmlListaEsc += 		'<div class="col-md-8">';
-		htmlListaEsc += 			'<div class="grafico_chart">';
-		htmlListaEsc += 				'<svg class="chart">';
-		htmlListaEsc += 					'<rect y="0" width="41%" height="18" class="chart_acesso"></rect>';
-		htmlListaEsc += 					'<rect y="22" width="67%" height="18" class="chart_download"></rect>';
-		htmlListaEsc += 				'</svg>';
-		htmlListaEsc += 			'</div>';
-		htmlListaEsc += 		'</div>';
-		htmlListaEsc += 	'</div>';
-		htmlListaEsc += '</div>';
+	if (escolas.length > 0) {
+		for (var a in escolas) {
+			htmlListaEsc += '<div onclick="getEscolaById('+escolas[a].id+')">';
+			htmlListaEsc += 	'<div class="row">';
+			htmlListaEsc += 		'<div class="col-md-4">';
+			htmlListaEsc += 			'<div class="grafico_desc" id="esc_id_'+escolas[a].id+'">';
+			htmlListaEsc += 				'<div>';
+			htmlListaEsc += 					'<span>'+escolas[a].nome+'</span>';
+			htmlListaEsc += 				'</div>';
+			htmlListaEsc += 			'</div>';
+			htmlListaEsc += 		'</div>';
+			htmlListaEsc += 		'<div class="col-md-8">';
+			htmlListaEsc += 			'<div class="grafico_chart">';
+			htmlListaEsc += 				'<svg class="chart">';
+			htmlListaEsc += 					'<rect y="0" width="41%" height="18" class="chart_acesso"></rect>';
+			htmlListaEsc += 					'<rect y="22" width="67%" height="18" class="chart_download"></rect>';
+			htmlListaEsc += 				'</svg>';
+			htmlListaEsc += 			'</div>';
+			htmlListaEsc += 		'</div>';
+			htmlListaEsc += 	'</div>';
+			htmlListaEsc += '</div>';
+		};
+	} else {
+		htmlListaEsc += '<div class="alert alert-warning">Nenhuma escola encontrada;</div>';
 	}
 
 	$(".lista_itens_grafico").html(htmlListaEsc)
@@ -356,27 +360,31 @@ function viewProfessoresByEscola(professores)
 {
 	var htmlProfsEsc = "";
 
-	for (var c in professores) {
-		htmlProfsEsc += '<div onclick="getProfessorById('+professores[c].id+')">';
-		htmlProfsEsc += 	'<div class="row">';
-		htmlProfsEsc += 		'<div class="col-md-4">';
-		htmlProfsEsc += 			'<div class="grafico_desc" id="prof_id_'+professores[c].id+'">';
-		htmlProfsEsc += 				'<div>';
-		htmlProfsEsc += 					'<img src="'+professores[c].imagem+'" alt="'+professores[c].nome.split(" ")[0]+'" title="'+professores[c].nome+'" />';
-		htmlProfsEsc += 					'<span>'+professores[c].nome+'</span>';
-		htmlProfsEsc += 				'</div>';
-		htmlProfsEsc += 			'</div>';
-		htmlProfsEsc += 		'</div>';
-		htmlProfsEsc += 		'<div class="col-md-8">';
-		htmlProfsEsc += 			'<div class="grafico_chart">';
-		htmlProfsEsc += 				'<svg class="chart">';
-		htmlProfsEsc += 					'<rect y="0" width="41%" height="18" class="chart_acesso"></rect>';
-		htmlProfsEsc += 					'<rect y="22" width="67%" height="18" class="chart_download"></rect>';
-		htmlProfsEsc += 				'</svg>';
-		htmlProfsEsc += 			'</div>';
-		htmlProfsEsc += 		'</div>';
-		htmlProfsEsc += 	'</div>';
-		htmlProfsEsc += '</div>';
+	if (professores.length > 0) {
+		for (var c in professores) {
+			htmlProfsEsc += '<div onclick="getProfessorById('+professores[c].id+')">';
+			htmlProfsEsc += 	'<div class="row">';
+			htmlProfsEsc += 		'<div class="col-md-4">';
+			htmlProfsEsc += 			'<div class="grafico_desc" id="prof_id_'+professores[c].id+'">';
+			htmlProfsEsc += 				'<div>';
+			htmlProfsEsc += 					'<img src="'+professores[c].imagem+'" alt="'+professores[c].nome.split(" ")[0]+'" title="'+professores[c].nome+'" />';
+			htmlProfsEsc += 					'<span>'+professores[c].nome+'</span>';
+			htmlProfsEsc += 				'</div>';
+			htmlProfsEsc += 			'</div>';
+			htmlProfsEsc += 		'</div>';
+			htmlProfsEsc += 		'<div class="col-md-8">';
+			htmlProfsEsc += 			'<div class="grafico_chart">';
+			htmlProfsEsc += 				'<svg class="chart">';
+			htmlProfsEsc += 					'<rect y="0" width="41%" height="18" class="chart_acesso"></rect>';
+			htmlProfsEsc += 					'<rect y="22" width="67%" height="18" class="chart_download"></rect>';
+			htmlProfsEsc += 				'</svg>';
+			htmlProfsEsc += 			'</div>';
+			htmlProfsEsc += 		'</div>';
+			htmlProfsEsc += 	'</div>';
+			htmlProfsEsc += '</div>';
+		};
+	} else {
+		htmlProfsEsc += '<div class="alert alert-warning">Nenhum professor encontrado.</div>';
 	};
 
 	$(".lista_itens_grafico").html(htmlProfsEsc);
