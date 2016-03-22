@@ -113,5 +113,29 @@ class RegistroGaleriaDAO extends DAO{
         $sql .= "where $idregistrogaleria = '".$registrogaleria->getRgg_id()."'";
         return $this->execute($sql);
     }
+
+    public function registroGaleriaCountAcessos()
+    {
+        $sql = "SELECT COUNT(*) FROM registro_galeria WHERE rgg_menu_galeria = 1";
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function registroGaleriaCountAcessosEscola($escola)
+    {
+        $sql = "SELECT COUNT(*) FROM registro_galeria WHERE rgg_menu_galeria = 1 AND rgg_escola = ".$escola; 
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function registroGaleriaCountDownload()
+    {
+        $sql = "SELECT COUNT(*) FROM registro_galeria WHERE rgg_download_galeria = 1"; 
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function registroGaleriaCountDownloadEscola($escola)
+    {
+        $sql = "SELECT COUNT(*) FROM registro_galeria WHERE rgg_download_galeria = 1 AND rgg_escola = ".$escola; 
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
 }
 ?>

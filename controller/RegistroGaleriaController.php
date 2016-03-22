@@ -31,4 +31,20 @@ class RegistroGaleriaController {
 		$ser = $this->registroGaleriaDao->selectAllRegistroGaleria();
 		return $ser;
 	}
+
+	public function registroGaleriaCountAcessos($escola)
+	{
+		if ($escola == 0)
+			return $this->registroGaleriaDao->registroGaleriaCountAcessos();
+		else
+			return $this->registroGaleriaDao->registroGaleriaCountAcessosEscola($escola);
+	}
+
+	public function registroGaleriaCountDownload($escola)
+	{
+		if ($escola == 0)
+			return $this->registroGaleriaDao->registroGaleriaCountDownload();
+		else
+			return $this->registroGaleriaDao->registroGaleriaCountDownloadEscola($escola);
+	}
 }

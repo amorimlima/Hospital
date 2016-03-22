@@ -5,7 +5,6 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 
 //session_start();
-include_once($path['controller'].'GaleriaController.php');
 $path = $_SESSION['PATH_SYS'];
 
 /**
@@ -25,6 +24,7 @@ class TemplateGaleria{
 
 	public function geraFormulario()
 	{
+		$escolas = $escolaController->selectAll();
 		$logado = unserialize($_SESSION['USR']);
 		if ($logado['perfil_id'] == 3){
 			echo 	'<form id="form_arquivo_galeria" action="ajax/GaleriaAjax.php" method="post" enctype="multipart/form-data">
