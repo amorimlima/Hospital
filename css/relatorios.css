@@ -74,8 +74,6 @@
 	height: 60px;
 	padding: 20px 10px;
 	background-color: #f2f2f2;
-}
-.grafico_desc > div {
 	cursor: pointer;
 }
 .grafico_desc > div > span {
@@ -341,6 +339,28 @@ table.liberar_capitulos_table > tbody > tr > td > span.cap_liberado {
 }
 .liberar_capitulo_container > div > .btn_primary:hover {
 	background-color: #b5e247;
+}
+.box_perfil_selected {
+	background-color: #FFFAFA;
+	border: 1px solid #f2f2f2;
+    padding: 5px 10px 10px;
+}
+.nome_perfil_selected {
+	color: #666;
+	font-size: 24px;
+}
+.razaoSocial_perfil_selected {
+	margin-bottom: 2px;
+}
+.dados_perfil_selected {
+	margin-bottom: 2px;
+}
+.acoes_perfil_selected span {
+	color: #6db43b;
+	cursor: pointer;
+}
+.acoes_perfil_selected span:hover {
+	text-decoration: underline;
 }
 /*Barra de rolagem com plugin JS */
 	.mCSB_inside > .mCSB_container {

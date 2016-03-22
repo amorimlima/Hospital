@@ -94,7 +94,6 @@ textarea:focus, input:focus, select:focus, button:focus  {
     background: url(../img/logo/logo_lg.png) no-repeat;
     background-position: left 50%;
     background-size: 100% auto;
-    margin-top: -25px;
 }
 .logo_murano_container {
 	margin: 5px auto 0;

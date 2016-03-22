@@ -110,6 +110,9 @@ function getEscolaById(idEscola)
 		type: "GET",
 		data: "acao=escolaPorId&id="+idEscola,
 		dataType: "json",
+		beforeSend: function () {
+			$(".lista_itens_grafico").empty();
+		},
 		success: function(data) {
 			escola = data;
 		},
@@ -333,6 +336,9 @@ function getProfessorById(idProf)
 		type: "GET",
 		data: "acao=professorPorId&id="+idProf,
 		dataType: "json",
+		beforeSend: function() {
+			$(".lista_itens_grafico").empty();
+		},
 		success: function(data) {
 			professor = data;
 		},

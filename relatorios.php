@@ -244,7 +244,6 @@ $logado = unserialize($_SESSION['USR']);
 											<select id="filtroSala">
 												<option val="" selected>Todos</option>
 											</select>
-											<button id="liberarCapitulos">Liberar capítulos</button>
 											<button id="visualizarRelatorio">Visualizar</button>
 											<button id="baixarRelatorio" class="btn_primary">Baixar relatório</button>
 										</div>
@@ -255,8 +254,8 @@ $logado = unserialize($_SESSION['USR']);
 												<div><img src="img/leg_graf_downloads.png" alt="Quantidade de downloads de conteúdo"><span>Quantidade de downloads de conteúdo</span></div>
 											</div>
 											<div id="legendaGrafico2" style="display: none;">
-												<div><img src="img/leg_graf_acertos_pre.png" alt="Acertos - pré-avaliação"><span>Quantidade de acessos à galeria</span></div>
-												<div><img src="img/leg_graf_acertos_pos.png" alt="Acertos - pós-avaliação"><span>Quantidade de downloads</span></div>
+												<div><img src="img/leg_graf_acertos_pre.png" alt="Acertos - pré-avaliação"><span>Acertos - pré-avaliação</span></div>
+												<div><img src="img/leg_graf_acertos_pos.png" alt="Acertos - pós-avaliação"><span>Acertos - pós-avaliação</span></div>
 											</div>
 										</div>
 									</div>
