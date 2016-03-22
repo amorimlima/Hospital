@@ -47,4 +47,14 @@ class RegistroGaleriaController {
 		else
 			return $this->registroGaleriaDao->registroGaleriaCountDownloadEscola($escola);
 	}
+
+	public function registroGaleriaCountAcessosProfessor($idProfessor)
+	{
+		return $this->registroGaleriaDao->registroGaleriaCountAcessosProfessor($idProfessor);
+	}
+
+	public function registroGaleriaCountDownloadProfessor($idProfessor)
+	{
+		return $this->registroGaleriaDao->registroGaleriaCountDownloadProfessor($idProfessor);
+	}
 }

@@ -511,5 +511,25 @@ class UsuarioDAO extends DAO{
      	return $lista;
      	
      }
+
+     public function buscaUsuarioGrupo($grupo)
+     {
+        $sql  = "SELECT * FROM usuario us ";
+        $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
+        $sql .= "WHERE uv.usv_grupo = ".$grupo;
+        
+        $result = $this->retrieve($sql);
+        $lista = array();
+
+        while ($qr = mysqli_fetch_array($result)){
+            $item = Array(
+                'id' => $qr['usr_id'],
+                'nome' => $qr['usr_nome']
+            );
+            array_push($lista, $item);
+        }
+
+        return $lista;
+     }
 }
 ?>

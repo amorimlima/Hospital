@@ -57,6 +57,7 @@ $logado = unserialize($_SESSION['USR']);
   <body>
   	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
   	<div id="container">
+  		<?php $templateRelatorio->FunctionName(); ?>
         <div class="row">
 			<?php
             	$templateGeral->topoSite();
@@ -79,7 +80,7 @@ $logado = unserialize($_SESSION['USR']);
 											<div id="grafico1" class="grafico">
 												<div class="lista_itens_grafico">
 												<?php
-													$templateRelatorio->graficoEscolas();
+													// $templateRelatorio->graficoEscolas();
 												?>
 												</div>
 											</div>

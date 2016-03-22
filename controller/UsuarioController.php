@@ -115,6 +115,12 @@ class UsuarioController {
 		$user = $this->usuarioDAO->selectProfessorByEscola($idescola);
 		return $user;
 	}
+
+	public function buscaUsuarioGrupo($grupo)
+	{
+		$user = $this->usuarioDAO->buscaUsuarioGrupo($grupo);
+		return $user;
+	}
 	
 }
 ?>

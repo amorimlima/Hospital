@@ -50,5 +50,11 @@ class GrupoController {
 		$gru = $this->grupoDAO->selectFull();
 		return $gru;
 	}
+
+	public function selectProfessor($idProfessor)
+	{
+		$gru = $this->grupoDAO->selectProfessor($idProfessor);
+		return $gru;
+	}
 }
 ?>

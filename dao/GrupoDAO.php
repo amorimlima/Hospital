@@ -82,6 +82,25 @@ class GrupoDAO extends DAO{
         }
     	return $lista;
       }
+
+      public function selectProfessor($idProfessor)
+      {
+        $sql = 'select * from grupo gp where gp.grp_professor = '.$idProfessor;
+        $result = $this->retrieve($sql);
+        $lista = array();
+        while ($qr = mysqli_fetch_array($result))
+        {
+
+                $gru = new Grupo();
+                $gru->setGrp_id($qr["grp_id"]);
+                $gru->setGrp_grupo($qr["grp_grupo"]);
+                $gru->setGrp_escola($qr["grp_escola"]);
+                $gru->setGrp_professor($qr["grp_professor"]);
+                array_push($lista, $gru);
+                
+        }
+        return $lista;
+      }
      
 }
 ?>
