@@ -444,6 +444,15 @@ s                                                                 </select>
                                                                 </select>
                                                             </span>
                                                         </div>
+                                                        <div class="form_celula_g">
+                                                            <label for="selectGrauProf" class="form_info info_g">Instrução</label>
+                                                            <span class="select_container">
+                                                                <select name="perfil" id="perfil" class="form_value form_select value_g" required>
+                                                                   	<option value='2' selected>Professor</option>
+                                                                   	<option value='3'>Unidade Escolar</option>
+                                                                </select>
+                                                            </span>
+                                                        </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputNascimentoProf" class="form_info info_p">Nascimento</label>
                                                             <span class="input_container">
