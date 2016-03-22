@@ -318,46 +318,7 @@ s                                                                 </select>
 															    </div>
 															</span>
                                                         </div>
-                                                    </fieldset>
-                                                    <!--<fieldset class="form_divisao">
-                                                        <legend class="form_divisao_titulo">Dados do Responsável</legend>
-                                                        <div class="form_celula_g">
-                                                            <label for="inputNomeRespAluno" class="form_info info_g">Nome</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNomeRespAluno" id="inputNomeRespAluno" class="form_value form_text value_g" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputNascRespAluno" class="form_info info_p">Nascimento</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNascRespAluno" id="inputNascRespAluno" class="form_value form_text value_p" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputRgRespAluno" class="form_info info_p">RG</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputRgRespAluno" id="inputRgRespAluno" class="form_value form_text value_p" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputCpfRespAluno" class="form_info info_p">CPF</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCpfRespAluno" id="inputCpfRespAluno" class="form_value form_text value_p" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_m">
-                                                            <label for="inputTelRespAluno" class="form_info info_m">Telefone</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputTelRespAluno" id="inputTelRespAluno" class="form_value form_text value_p" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_m value_last">
-                                                            <label for="inputEmailRespAluno" class="form_info info_m">E-mail</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputEmailRespAluno" id="inputEmailRespAluno" class="form_value form_text value_p" required />
-                                                            </span>
-                                                        </div>
-                                                    </fieldset>-->
+                                                    </fieldset>                                                
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Acesso</legend>
                                                         <div class="form_celula_p">
@@ -395,64 +356,64 @@ s                                                                 </select>
                                                 <form action="" class="form_cadastro cadastro_prof cadastroProfContent" id="formCadastroProf" style="display: none;">
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Dados Pessoais</legend>
-                                                        <div class="form_celula_m">
-                                                            <label for="inputNomeProf" class="form_info info_m">Nome</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNomeProf" id="inputNomeProf" class="form_value form_text value_m obrigatorioProf" required msgVazio="O campo nome é obrigatório"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="selectSerieProf" class="form_info info_p">Série</label>
-                                                            <span class="select_container">
-                                                                <select name="selectSerieProf" id="selectSerieProf" class="form_value form_select value_p obrigatorioProf" msgVazio="O campo série é obrigatório" required>
-                                                                    <option value="" disabled selected>Selecione a série</option>
-                                                                    <?php
-                                                                    	echo $serieHtml;
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_m">
-                                                            <label for="selectCategoriaProf" class="form_info info_m">Categoria Funcional</label>
-                                                            <span class="select_container">
-                                                                <select name="selectCategoriaProf" id="selectCategoriaProf" class="form_value form_select value_m"required>
-                                                                    <option value="null" selected>Selecione a categoria</option>
-                                                                    <?php
-                                                                    	if(count($cats)>0){
-																			foreach($cats as $c) {
-																		   		//echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($s->getGrt_instrucao()).'</option>';
-																		   		echo '<option value="'.$c->getctf_id().'">'.utf8_encode($c->getctf_categoria()).'</option>';
-																		    }
-																		}
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="selectGrauProf" class="form_info info_m">Instrução</label>
-                                                            <span class="select_container">
-                                                                <select name="selectGrauProf" id="selectGrauProf" class="form_value form_select value_m"required>
-                                                                    <option value="null" selected>Selecione a intrução</option>
-                                                                    <?php
-                                                                    	if(count($graus)>0){
-																			foreach($graus as $g) {
-																		   		//echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($s->getGrt_instrucao()).'</option>';
-																		   		echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($g->getGrt_instrucao()).'</option>';
-																		    }
-																		}
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g">
-                                                            <label for="selectGrauProf" class="form_info info_g">Instrução</label>
-                                                            <span class="select_container">
-                                                                <select name="perfil" id="perfil" class="form_value form_select value_g" required>
-                                                                   	<option value='2' selected>Professor</option>
-                                                                   	<option value='3'>Unidade Escolar</option>
-                                                                </select>
-                                                            </span>
-                                                        </div>
+                                                            <div class="form_celula_g">
+                                                                <label for="inputNomeProf" class="form_info info_m">Nome</label>
+                                                                <span class="input_container">
+                                                                    <input type="text" name="inputNomeProf" id="inputNomeProf" class="form_value form_text value_m obrigatorioProf" required msgVazio="O campo nome é obrigatório"/>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form_celula_m">
+                                                                <label for="selectSerieProf" class="form_info info_p">Série</label>
+                                                                <span class="select_container">
+                                                                    <select name="selectSerieProf" id="selectSerieProf" class="form_value form_select value_p obrigatorioProf" msgVazio="O campo série é obrigatório" required>
+                                                                        <option value="" disabled selected>Selecione a série</option>
+                                                                        <?php
+                                                                            echo $serieHtml;
+                                                                        ?>
+                                                                    </select>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form_celula_m value_last">
+                                                                <label for="selectCategoriaProf" class="form_info info_m">Categoria Funcional</label>
+                                                                <span class="select_container">
+                                                                    <select name="selectCategoriaProf" id="selectCategoriaProf" class="form_value form_select value_m"required>
+                                                                        <option value="null" selected>Selecione a categoria</option>
+                                                                        <?php
+                                                                            if(count($cats)>0){
+                                                                                foreach($cats as $c) {
+                                                                                    //echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($s->getGrt_instrucao()).'</option>';
+                                                                                    echo '<option value="'.$c->getctf_id().'">'.utf8_encode($c->getctf_categoria()).'</option>';
+                                                                                }
+                                                                            }
+                                                                        ?>
+                                                                    </select>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form_celula_m">
+                                                                <label for="selectGrauProf" class="form_info info_m">Instrução</label>
+                                                                <span class="select_container">
+                                                                    <select name="selectGrauProf" id="selectGrauProf" class="form_value form_select value_m"required>
+                                                                        <option value="null" selected>Selecione a intrução</option>
+                                                                        <?php
+                                                                            if(count($graus)>0){
+                                                                                foreach($graus as $g) {
+                                                                                    //echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($s->getGrt_instrucao()).'</option>';
+                                                                                    echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($g->getGrt_instrucao()).'</option>';
+                                                                                }
+                                                                            }
+                                                                        ?>
+                                                                    </select>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form_celula_m value_last">
+                                                                <label for="selectGrauProf" class="form_info info_g">Perfil</label>
+                                                                <span class="select_container">
+                                                                    <select name="perfil" id="perfil" class="form_value form_select value_g" required>
+                                                                        <option value='2' selected>Professor</option>
+                                                                        <option value='3'>Unidade Escolar</option>
+                                                                    </select>
+                                                                </span>
+                                                            </div>
                                                         <div class="form_celula_p">
                                                             <label for="inputNascimentoProf" class="form_info info_p">Nascimento</label>
                                                             <span class="input_container">
