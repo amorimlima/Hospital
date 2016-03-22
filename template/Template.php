@@ -45,7 +45,7 @@ class Template {
                         </button>
                     	<div id="user_logout">
                         	<div id="user_logout_pequena">
-                                <p id="user_logado">'.$usrLogado['nome'].'</p>
+                                <p id="user_logado">'.utf8_encode($usrLogado['nome']).'</p>
                                 <span id="separador">
                                     <img src="img/separador.png" width="2" height="22" alt=""/>
                                 </span>
