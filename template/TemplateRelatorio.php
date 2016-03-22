@@ -25,7 +25,7 @@ class TemplateRelatorio{
 	{
 		$escolaController = new EscolaController();
 		$registroController = new RegistroGaleriaController();
-		$escolas = $escolaController->selectAll();
+		$escolas = $escolaController->selectAtivas();
 		$acessosGaleria = $registroController->registroGaleriaCountAcessos(0);
 		$downloadGaleria = $registroController->registroGaleriaCountDownload(0);
 		foreach ($escolas as $escola) {

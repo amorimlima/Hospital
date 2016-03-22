@@ -62,5 +62,9 @@ class EscolaController {
 	public function verificaCnpj($cnpj) {
 		return $this->escolaDAO->verificaCnpj($cnpj);
 	}
+	public function selectAtivas()
+	{
+		return $this->escolaDAO->selectAtivas();
+	}
 }
 ?>

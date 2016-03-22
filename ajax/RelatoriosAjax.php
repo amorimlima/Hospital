@@ -16,7 +16,7 @@ include_once($path["funcao"]."Thumbs.php");
 switch ($_REQUEST["acao"]) {
 	case "listarEscolas":
 		$escolaController = new EscolaController();
-		$escolas = $escolaController->selectAll();
+		$escolas = $escolaController->selectAtivas();
 		$listaEscolas = Array();
 
 		if (count($escolas) > 0) {
