@@ -410,7 +410,7 @@ s                                                                 </select>
                                                                 <span class="select_container">
                                                                     <select name="perfil" id="perfil" class="form_value form_select value_g" required>
                                                                         <option value='2' selected>Professor</option>
-                                                                        <option value='3'>Unidade Escolar</option>
+                                                                        <option value='4'>Unidade Escolar</option>
                                                                     </select>
                                                                 </span>
                                                             </div>
