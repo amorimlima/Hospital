@@ -6,12 +6,16 @@ include_once($path["controller"]."LiberarCapituloController.php");
 include_once($path["controller"]."EscolaController.php");
 include_once($path["controller"]."CapituloController.php");
 include_once($path["controller"]."UsuarioController.php");
+include_once($path['controller'].'RegistroGaleriaController.php');
+include_once($path['controller'].'GrupoController.php');
 include_once($path["beans"]."LiberarCapitulo.php");
 include_once($path["beans"]."Escola.php");
 include_once($path["beans"]."Capitulo.php");
 include_once($path["beans"]."Usuario.php");
+include_once($path['beans'].'RegistroGaleria.php');
 include_once($path["funcao"]."DatasFuncao.php");
 include_once($path["funcao"]."Thumbs.php");
+include_once($path['template'].'TemplateRelatorio.php');
 
 switch ($_REQUEST["acao"]) {
 	case "listarEscolas":
@@ -137,6 +141,24 @@ switch ($_REQUEST["acao"]) {
 
 		print json_encode($retorno);
 	break;
+
+	case 'graficoGaleria':
+		$user = unserialize($_SESSION['USR']);
+		$templateRelatorio = new TemplateRelatorio();
+		switch ($user['perfil_id']) {
+			case 2:
+				$templateRelatorio->relatorioProfessor();
+				break;
+			
+			case 4:
+				$templateRelatorio->relatorioEscola();
+				break;
+
+			case 3:
+				$templateRelatorio->relatorioNEC();
+				break;
+		}
+		break;
 
 	default:
 		$result = Array("erro"=>true, "mensagem"=>"Parametro 'acao' invalido.");

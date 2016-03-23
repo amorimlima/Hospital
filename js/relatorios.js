@@ -21,9 +21,6 @@ function atribuirEventos()
 	$("body").click(function() {
 		$("#tipo_grafico_picker").removeClass("picker_expanded");
 	});
-	$(".tipo_grafico_picker_opcoes").click(function(event) {
-		event.stopPropagation();
-	});
 	$("#tipo_grafico_picker").click(function(event) {
 		event.stopPropagation();
 	});
@@ -39,6 +36,11 @@ function atribuirEventos()
 			$(this).addClass("cap_nao_liberado");
 		}
 	});
+
+	graficoGaleria();
+	carregarGraficos();
+
+
 };
 
 function toggleGrafico(item)
@@ -408,6 +410,42 @@ function viewProfessorSelected(professor)
 
 	$(".tipo_grafico_picker_opcoes").after(htmlProfSelected);
 };
+
+function carregarGraficos () {
+	$('#graficoGaleria').click(function() {
+		graficoGaleria();
+		event.stopPropagation();
+	});
+	$('#graficoExercicios').click(function() {
+		graficoExercicios();
+		event.stopPropagation();
+	});
+}
+
+function graficoGaleria () {
+	console.log('ok');
+	$.ajax({
+		url: 'ajax/RelatoriosAjax.php',
+		type: 'GET',
+		data: {'acao' : 'graficoGaleria'},
+		success: function(dados) {
+			$('.lista_itens_grafico').html(dados);
+			$('#grafico1').css('display', 'block');
+		}
+	});
+}
+
+function graficoExercicios () {
+	$.ajax({
+		url: 'ajax/RelatoriosAjax.php',
+		type: 'GET',
+		data: {'acao' : 'graficoExercicios'},
+		success: function(dados) {
+			$('.lista_itens_grafico').html(dados);
+			$('#grafico1').css('display', 'block');
+		}
+	});
+}
 
 /* ============================================ */
 /* 					ALUNO						*/

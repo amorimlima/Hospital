@@ -57,4 +57,25 @@ class RegistroGaleriaController {
 	{
 		return $this->registroGaleriaDao->registroGaleriaCountDownloadProfessor($idProfessor);
 	}
+
+	public function registroGaleriaCountAcessosGrupo($idGrupo)
+	{
+		return $this->registroGaleriaDao->registroGaleriaCountAcessosGrupo($idGrupo);
+	}
+
+	public function registroGaleriaCountDownloadGrupo($idGrupo)
+	{
+		return $this->registroGaleriaDao->registroGaleriaCountDownloadGrupo($idGrupo);
+	}
+
+	public function registroGaleriaCountAcessosAluno($idAluno)
+	{
+		return $this->registroGaleriaDao->registroGaleriaCountAcessosAluno($idAluno);
+	}
+
+	public function registroGaleriaCountDownloadAluno($idAluno)
+	{
+		return $this->registroGaleriaDao->registroGaleriaCountDownloadAluno($idAluno);
+	}
+
 }

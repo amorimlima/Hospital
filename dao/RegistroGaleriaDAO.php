@@ -120,15 +120,15 @@ class RegistroGaleriaDAO extends DAO{
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
-    public function registroGaleriaCountAcessosEscola($escola)
-    {
-        $sql = "SELECT COUNT(*) FROM registro_galeria WHERE rgg_menu_galeria = 1 AND rgg_escola = ".$escola; 
-        return $this->retrieve($sql)->fetch_row()[0];
-    }
-
     public function registroGaleriaCountDownload()
     {
         $sql = "SELECT COUNT(*) FROM registro_galeria WHERE rgg_download_galeria = 1"; 
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function registroGaleriaCountAcessosEscola($escola)
+    {
+        $sql = "SELECT COUNT(*) FROM registro_galeria WHERE rgg_menu_galeria = 1 AND rgg_escola = ".$escola; 
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
@@ -143,7 +143,7 @@ class RegistroGaleriaDAO extends DAO{
         $sql  = "SELECT COUNT(*) FROM registro_galeria rg ";
         $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = rg.rgg_usuario ";
         $sql .= "JOIN grupo gp ON gp.grp_id = uv.usv_grupo ";
-        $sql .= "WHERE gp.grp_professor = ".$idProfessor." AND rgg_download_galeria = 1";
+        $sql .= "WHERE gp.grp_professor = ".$idProfessor." AND rgg_menu_galeria = 1";
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
@@ -153,6 +153,37 @@ class RegistroGaleriaDAO extends DAO{
         $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = rg.rgg_usuario ";
         $sql .= "JOIN grupo gp ON gp.grp_id = uv.usv_grupo ";
         $sql .= "WHERE gp.grp_professor = ".$idProfessor." AND rgg_download_galeria = 1";
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function registroGaleriaCountAcessosGrupo($idGrupo)
+    {
+        $sql  = "SELECT COUNT(*) FROM registro_galeria rg ";
+        $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = rg.rgg_usuario ";
+        $sql .= "WHERE uv.usv_grupo = ".$idGrupo." AND rgg_menu_galeria = 1";
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function registroGaleriaCountDownloadGrupo($idGrupo)
+    {
+        $sql  = "SELECT COUNT(*) FROM registro_galeria rg ";
+        $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = rg.rgg_usuario ";
+        $sql .= "WHERE uv.usv_grupo = ".$idGrupo." AND rgg_download_galeria = 1";
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function registroGaleriaCountAcessosAluno($idAluno)
+    {
+        $sql  = "SELECT COUNT(*) FROM registro_galeria rg ";
+        $sql .= "WHERE rg.rgg_usuario = ".$idAluno." AND rg.rgg_menu_galeria = 1";
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function registroGaleriaCountDownloadAluno($idAluno)
+    {
+        $sql  = "SELECT COUNT(*) FROM registro_galeria rg ";
+        $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = rg.rgg_usuario ";
+        $sql .= "WHERE rg.rgg_usuario = ".$idAluno." AND rgg_download_galeria = 1";
         return $this->retrieve($sql)->fetch_row()[0];
     }
 }

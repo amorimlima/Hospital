@@ -57,7 +57,6 @@ $logado = unserialize($_SESSION['USR']);
   <body>
   	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
   	<div id="container">
-  		<?php $templateRelatorio->FunctionName(); ?>
         <div class="row">
 			<?php
             	$templateGeral->topoSite();
@@ -73,15 +72,13 @@ $logado = unserialize($_SESSION['USR']);
 									<div id="conteudoPrincipal" class="conteudo_principal">
 										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
-											<div id="tipoGrafico1" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
-											<div id="tipoGrafico2">Comparação - Pré e Pós Avaliação (em %)</div>
+											<div id="graficoGaleria" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
+											<div id="graficoExercicios">Comparação - Pré e Pós Avaliação (em %)</div>
 										</div>
 										<div class="listagem_perfis_graficos">
 											<div id="grafico1" class="grafico">
 												<div class="lista_itens_grafico">
-												<?php
-													// $templateRelatorio->graficoEscolas();
-												?>
+													<!--<?php $templateRelatorio->graficoEscolas(); ?>-->
 												</div>
 											</div>
 											<div id="grafico2" class="grafico" style="display: none;">
