@@ -5,6 +5,7 @@ if(!isset($_SESSION['PATH_SYS'])){
 $path = $_SESSION['PATH_SYS'];
 include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateMensagens.php');
+include_once($path['template'].'TemplateCadastro.php');
 include_once($path['controller'].'EscolaController.php');
 include_once($path['controller'].'UsuarioController.php');
 include_once($path['controller'].'SerieController.php');
@@ -17,6 +18,7 @@ include_once($path['controller'].'CategoriaFuncionalController.php');
 
 $templateGeral = new Template();
 $templateMensagens = new TemplateMensagens();
+$templateCadastro = new TemplateCadastro();
 $usuarioController = new UsuarioController();
 $escolaController = new EscolaController();
 $serieController = new SerieController();
@@ -52,6 +54,9 @@ if(count($escolas)>0) {
     }
 }
 
+$path = $_SESSION['PATH_SYS'];
+$logado = unserialize($_SESSION['USR']);
+
 //print_r($anos);
 //echo "<br>"; 
 //foreach ($anos as $a){
@@ -59,8 +64,6 @@ if(count($escolas)>0) {
 //	echo "<br>";
 //	echo "<br>";
 //}
-
-$logado = unserialize($_SESSION['USR']);
 
 ?>
 <!DOCTYPE html>
@@ -110,242 +113,210 @@ $logado = unserialize($_SESSION['USR']);
                                 <!-- Conteúdo principal -->
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <section class="area_btns_tabs">
-                                            <div class="btns_tabs btns_aluno">
-                                                <ul class="lista_btns lista_btns_aluno">
-                                                    <li class="btn_tab btn_aluno btn_add_cadastro">Novo cadastro</li>
-                                                    <li class="btn_tab btn_aluno btn_update_cadastro btn_tab_ativo" id="update_cadastro">Atualizar cadastro</li>
-                                                </ul>
-                                            </div>
-                                            <div class="btns_tabs btns_professor" style="display: none;">
-                                                <ul class="lista_btns lista_btns_professor">
-                                                    <li class="btn_tab btn_professor btn_add_cadastro">Novo cadastro</li>
-                                                    <li class="btn_tab btn_professor btn_update_cadastro btn_tab_ativo">Atualizar cadastro</li>
-                                                </ul>
-                                            </div>
-                                            <div class="btns_tabs btns_escola" style="display: none;">
-                                                <ul class="lista_btns lista_btns_escola">
-                                                    <li class="btn_tab btn_escola btn_add_cadastro">Novo cadastro</li>
-                                                    <li class="btn_tab btn_escola btn_update_cadastro btn_tab_ativo">Atualizar cadastro</li>
-                                                </ul>
-                                            </div>
-                                        </section>
+                                        <?php
+                                            $templateCadastro->botoesCadastro();
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-2">
-                                        <nav role="navigation" class="area_tabs_cadastro">
-                                            <ul class="tabs_cadastro">
-                                                <li class="tab_cadastro tab_aluno"></li>
-                                                <li class="tab_cadastro tab_professor tab_cadastro_ativo"></li>
-                                                <li class="tab_cadastro tab_escola"></li>
-                                            </ul>
-                                        </nav>
+                                        <?php
+                                            $templateCadastro->abasLaterais();
+                                        ?>
                                     </div>
                                     <div class="col-xs-12 col-md-10">
                                         <section class="area_conteudo_tabs">
                                             <div class="conteudo_tab conteudo_aluno">
-                                                <form action="" class="form_cadastro cadastro_aluno cadastroAlunoContent" id="formCadastroAluno" style="display: none;">
-                                                    <fieldset class="form_divisao">
-                                                        <legend class="form_divisao_titulo">Dados Escolares</legend>
-                                                        <div class="form_celula_m">
-                                                            <label for="selectEscolaAluno" class="form_info info_m">Escola</label>
-                                                            <span class="select_container">
-                                                                <select name="selectEscolaAluno" id="selectEscolaAluno" class="form_value form_select value_m obrigatorioAluno" msgVazio="O campo escola é obrigatório" required onChange="listaProfessores()">
-                                                                    <option value="" disabled selected>Selecione a escola</option>
-                                                                    <?php
-																		echo $escolasHtml;
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        
-                                                        <div class="form_celula_m value_last">
-                                                            <label for="selectSerieAluno" class="form_info info_m">Série</label>
-                                                            <span class="select_container">
-                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_m obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores()">
-                                                                    <option value="" disabled selected>Selecione a série</option>
-                                                                    <?php
-                                                                    	echo $serieHtml;
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                          
-                                                        <div class="form_celula_m">
-                                                            <label for="selectProfessorAluno" class="form_info info_m" >Professor</label>
-                                                            <span class="select_container">
-                                                                <select name="selectProfessorAluno" id="selectProfessorAluno" class="form_value form_select value_m obrigatorioAluno" msgVazio="O campo professor é obrigatório" required>
-                                                                
-                                                                	<!--  ATENÇÂO - Se mudar o texto desse option precisa mudar em mais dois lugares no arquivo cadastro.js. -->
-                                                                    <option value="" disabled selected>Selecione primeiro a escola e a série</option>
-                                                                    
-s                                                                 </select>
-                                                            </span>
-                                                        </div>
-                                                        
-														<div class="form_celula_m value_last">
-                                                            <label for="selectPeriodoAluno" class="form_info info_m">Ano Letivo</label>
-                                                            <span class="select_container">
-                                                                <select name="selectAnoAluno" id="selectAnoAluno" class="form_value form_select value_m" required>
-                                                                    <?php
-                                                                    if(count($anos)>0){
-                                                                        foreach($anos as $a) {
-                                                                        	$selected = '';
-                                                                        	if (date(Y) == $a->getAno_ano()) $selected = 'selected';
-                                                                            echo '<option '.$selected.' value="'.utf8_encode($a->getAno_id()).'">'.utf8_encode($a->getAno_ano()).'</option>';
-                                                                        }
-                                                                    }
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <!--<div class="form_celula_p value_last">
-                                                            <label for="inputTurmaAluno" class="form_info info_p">Sala</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputTurmaAluno" id="inputTurmaAluno" class="form_value form_text value_p"/>
-                                                            </span>
-                                                        </div>-->
-                                                    </fieldset>
-                                                    <fieldset class="form_divisao">
-                                                        <legend class="form_divisao_titulo">Dados Pessoais</legend>
-                                                        <div class="form_celula_g">
-                                                            <label for="inputNomeAluno" class="form_info info_g">Nome</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNomeAluno" id="inputNomeAluno" class="form_value form_text value_g obrigatorioAluno" msgVazio="O campo nome é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputNascimentoAluno" class="form_info info_p">Nascimento</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNascimentoAluno" id="inputNascimentoAluno" class="form_value form_text value_p obrigatorioAluno data" msgVazio="O campo nascimento é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputRgAluno" class="form_info info_p">RG</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputRgAluno" id="inputRgAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo RG é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputCpfAluno" class="form_info info_p">CPF</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCpfAluno" id="inputCpfAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo CPF é obrigatório" OnKeyPress="formatar('###.###.###-##', this, 'cpf')" maxlength="14" />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g">
-                                                            <label for="inputRuaAluno" class="form_info info_g">Rua</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputRuaAluno" id="inputRuaAluno" class="form_value form_text value_g obrigatorioAluno" msgVazio="O campo rua é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputNumCasaAluno" class="form_info info_p">Número</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNumCasaAluno" id="inputNumCasaAluno" class="form_value form_number value_p obrigatorioAluno" msgVazio="O campo número é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputCompCasaAluno" class="form_info info_p">Complemento</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCompCasaAluno" id="inputCompCasaAluno" class="form_value form_number value_p" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputCepAluno" class="form_info info_p">CEP</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCepAluno" id="inputCepAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo CEP é obrigatório" required OnKeyPress="formatar('##.###-###', this)" maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputBairroAluno" class="form_info info_p">Bairro</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputBairroAluno" id="inputBairroAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo bairro é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <input type="hidden" id="inputPaisAluno" name="inputPaisAluno" value="Brasil" />
-                                                        <div class="form_celula_p">
-                                                            <label for="inputEstadoAluno" class="form_info info_p">Estado</label>
-                                                            <span class="select_container">
-                                                                <select name="inputEstadoAluno" id="inputEstadoAluno" class="form_value form_select value_p obrigatorioAluno" msgVazio="O campo estado é obrigatório" required>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputCidadeAluno" class="form_info info_p">Cidade</label>
-                                                            <span class="select_container">
-                                                                <select name="inputCidadeAluno" id="inputCidadeAluno" class="form_value form_select value_p obrigatorioAluno" msgVazio="O campo cidade é obrigatório" required>
-                                                                    <option value="" disabled selected>Selecione um estado</option>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputTelResAluno" class="form_info info_p">Tel. Residencial</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputTelResAluno" id="inputTelResAluno" class="form_value form_text value_p obrigatorioAluno" required  OnKeyPress="formatar('## ####-#####', this)"  maxlength="13" msgVazio="Pelo menos um número de telefone deve ser cadastrado"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputTelCelAluno" class="form_info info_p">Tel. Celular</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputTelCelAluno" id="inputTelCelAluno" class="form_value form_text value_p" OnKeyPress="formatar('## ####-#####', this)"  maxlength="13"/>
-					
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputTelComAluno" class="form_info info_p">Tel. Comercial</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputTelComAluno" id="inputTelComAluno" class="form_value form_text value_p" OnKeyPress="formatar('## ####-#####', this)"  maxlength="13"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g">
-                                                            <label for="inputEmailAluno" class="form_info info_p">E-mail</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputEmailAluno" id="inputEmailAluno" class="form_value form_text value_p" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g" style="height: auto; min-height: 40px;">
-                                                           <label for="cadastroImagem" class="form_info info_p">Foto</label>
-                                                           
-                                                             <span class="input_container spanImagem" id="spanImagemAluno">
-                                                             
-                                                             	<div id="cadastroImagemUpload">
-		                                                        	<div id="cadastroImagem" class="divImagem"></div>
-			
-																	<div id="car"></div>
-																    <br><div id="imgUp" style="position:relative; top: -11px;"><img src="" width="150" height="150"/><br/></div>
-																    <input name="imagem" type="hidden" id="imagem" value=""></td>
-															    </div>
-
-															</span>
-                                                        </div>
-                                                    </fieldset>                                                
-                                                    <fieldset class="form_divisao">
-                                                        <legend class="form_divisao_titulo">Acesso</legend>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputUsuarioAluno" class="form_info info_p">Usuário</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputUsuarioAluno" id="inputUsuarioAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo usuário é obrigatório" placeholder="Insira um usuário de usuário" required maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputSenhaAluno" class="form_info info_p">Senha</label>
-                                                            <span class="input_container">
-                                                                <input type="password" name="inputSenhaAluno" id="inputSenhaAluno" class="form_value form_text value_p  obrigatorioAluno" msgVazio="O campo senha é obrigatório" placeholder="Insira uma senha" required maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputSenhaConfirmAluno" class="form_info info_p">Senha</label>
-                                                            <span class="input_container">
-                                                                <input type="password" name="inputSenhaConfirmAluno" id="inputSenhaConfirmAluno" class="form_value form_text value_p" placeholder="Confirme a senha" required maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                    </fieldset>
-                                                    <div class="form_btns_container">
-                                                        <input type="reset" value="Limpar" class="form_btn btn_reset" />
-                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroAluno" />
-                                                    </div>
-                                                </form>
+                                                <?php
+                                                    if ($logado["perfil_id"] != 3 && $logado["perfil_id"] != 1) 
+                                                    {
+                                                        echo '<form action="" class="form_cadastro cadastro_aluno cadastroAlunoContent" id="formCadastroAluno" style="display: none;">';
+                                                        echo     '<fieldset class="form_divisao">';
+                                                        echo         '<legend class="form_divisao_titulo">Dados Escolares</legend>';
+                                                        echo         '<div class="form_celula_m">';
+                                                        echo             '<label for="selectEscolaAluno" class="form_info info_m">Escola</label>';
+                                                        echo             '<span class="select_container">';
+                                                        echo                 '<select name="selectEscolaAluno" id="selectEscolaAluno" class="form_value form_select value_m obrigatorioAluno" msgVazio="O campo escola é obrigatório" required onChange="listaProfessores()">';
+                                                        echo                     '<option value="" disabled selected>Selecione a escola</option>';
+        												echo                     $escolasHtml;
+                                                        echo                '</select>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_m value_last">';
+                                                        echo            '<label for="selectSerieAluno" class="form_info info_m">Série</label>';
+                                                        echo            '<span class="select_container">';
+                                                        echo                '<select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_m obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores()">';
+                                                        echo                    '<option value="" disabled selected>Selecione a série</option>';
+                                                        echo                    $serieHtml;
+                                                        echo                '</select>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_m">';
+                                                        echo            '<label for="selectProfessorAluno" class="form_info info_m" >Professor</label>';
+                                                        echo            '<span class="select_container">';
+                                                        echo                '<select name="selectProfessorAluno" id="selectProfessorAluno" class="form_value form_select value_m obrigatorioAluno" msgVazio="O campo professor é obrigatório" required>';
+                                                                                //ATENÇÂO - Se mudar o texto desse option precisa mudar em mais dois lugares no arquivo cadastro.js. -->
+                                                        echo                    '<option value="" disabled selected>Selecione primeiro a escola e a série</option>';
+                                                        echo                '</select>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+        												echo		'<div class="form_celula_m value_last">';
+                                                        echo            '<label for="selectPeriodoAluno" class="form_info info_m">Ano Letivo</label>';
+                                                        echo            '<span class="select_container">';
+                                                        echo                '<select name="selectAnoAluno" id="selectAnoAluno" class="form_value form_select value_m" required>';
+                                                                                if(count($anos)>0){
+                                                                                    foreach($anos as $a) {
+                                                                                    	$selected = '';
+                                                                                    	if (date(Y) == $a->getAno_ano()) $selected = 'selected';
+                                                                                        echo '<option '.$selected.' value="'.utf8_encode($a->getAno_id()).'">'.utf8_encode($a->getAno_ano()).'</option>';
+                                                                                    }
+                                                                                }
+                                                        echo                '</select>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                                    /*<div class="form_celula_p value_last">
+                                                                    <label for="inputTurmaAluno" class="form_info info_p">Sala</label>
+                                                                        <span class="input_container">
+                                                                            <input type="text" name="inputTurmaAluno" id="inputTurmaAluno" class="form_value form_text value_p"/>
+                                                                        </span>
+                                                                    </div>*/
+                                                        echo        '</fieldset>';
+                                                        echo        '<fieldset class="form_divisao">';
+                                                        echo            '<legend class="form_divisao_titulo">Dados Pessoais</legend>';
+                                                        echo            '<div class="form_celula_g">';
+                                                        echo                '<label for="inputNomeAluno" class="form_info info_g">Nome</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputNomeAluno" id="inputNomeAluno" class="form_value form_text value_g obrigatorioAluno" msgVazio="O campo nome é obrigatório" required />';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputNascimentoAluno" class="form_info info_p">Nascimento</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputNascimentoAluno" id="inputNascimentoAluno" class="form_value form_text value_p obrigatorioAluno data" msgVazio="O campo nascimento é obrigatório" required />';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputRgAluno" class="form_info info_p">RG</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputRgAluno" id="inputRgAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo RG é obrigatório" required />';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p value_last">';
+                                                        echo                '<label for="inputCpfAluno" class="form_info info_p">CPF</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputCpfAluno" id="inputCpfAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo CPF é obrigatório" OnKeyPress="formatar(\'###.###.###-##\', this, \'cpf\')" maxlength="14" />';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_g">';
+                                                        echo                '<label for="inputRuaAluno" class="form_info info_g">Rua</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputRuaAluno" id="inputRuaAluno" class="form_value form_text value_g obrigatorioAluno" msgVazio="O campo rua é obrigatório" required />';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputNumCasaAluno" class="form_info info_p">Número</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputNumCasaAluno" id="inputNumCasaAluno" class="form_value form_number value_p obrigatorioAluno" msgVazio="O campo número é obrigatório" required />';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputCompCasaAluno" class="form_info info_p">Complemento</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputCompCasaAluno" id="inputCompCasaAluno" class="form_value form_number value_p" required />';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p value_last">';
+                                                        echo                '<label for="inputCepAluno" class="form_info info_p">CEP</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputCepAluno" id="inputCepAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo CEP é obrigatório" required OnKeyPress="formatar(\'##.###-###\', this)" maxlength="10"/>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputBairroAluno" class="form_info info_p">Bairro</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputBairroAluno" id="inputBairroAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo bairro é obrigatório" required />';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<input type="hidden" id="inputPaisAluno" name="inputPaisAluno" value="Brasil" />';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputEstadoAluno" class="form_info info_p">Estado</label>';
+                                                        echo                '<span class="select_container">';
+                                                        echo                    '<select name="inputEstadoAluno" id="inputEstadoAluno" class="form_value form_select value_p obrigatorioAluno" msgVazio="O campo estado é obrigatório" required>';
+                                                        echo                    '</select>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p value_last">';
+                                                        echo                '<label for="inputCidadeAluno" class="form_info info_p">Cidade</label>';
+                                                        echo                '<span class="select_container">';
+                                                        echo                    '<select name="inputCidadeAluno" id="inputCidadeAluno" class="form_value form_select value_p obrigatorioAluno" msgVazio="O campo cidade é obrigatório" required>';
+                                                        echo                        '<option value="" disabled selected>Selecione um estado</option>';
+                                                        echo                    '</select>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputTelResAluno" class="form_info info_p">Tel. Residencial</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputTelResAluno" id="inputTelResAluno" class="form_value form_text value_p obrigatorioAluno" required  OnKeyPress="formatar(\'## ####-#####\', this)"  maxlength="13" msgVazio="Pelo menos um número de telefone deve ser cadastrado"/>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputTelCelAluno" class="form_info info_p">Tel. Celular</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputTelCelAluno" id="inputTelCelAluno" class="form_value form_text value_p" OnKeyPress="formatar(\'## ####-#####\', this)"  maxlength="13"/>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p value_last">';
+                                                        echo                '<label for="inputTelComAluno" class="form_info info_p">Tel. Comercial</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputTelComAluno" id="inputTelComAluno" class="form_value form_text value_p" OnKeyPress="formatar(\'## ####-#####\', this)"  maxlength="13"/>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_g">';
+                                                        echo                '<label for="inputEmailAluno" class="form_info info_p">E-mail</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputEmailAluno" id="inputEmailAluno" class="form_value form_text value_p" required />';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_g" style="height: auto; min-height: 40px;">';
+                                                        echo               '<label for="cadastroImagem" class="form_info info_p">Foto</label>';
+                                                        echo                 '<span class="input_container spanImagem" id="spanImagemAluno">';
+                                                        echo                 	'<div id="cadastroImagemUpload">';
+        		                                        echo                  	'<div id="cadastroImagem" class="divImagem"></div>';
+        											 	echo					'<div id="car"></div>';
+        											 	echo				    '<br><div id="imgUp" style="position:relative; top: -11px;"><img src="" width="150" height="150"/><br/></div>';
+        											 	echo				    '<input name="imagem" type="hidden" id="imagem" value=""></td>';
+        											 	echo			    '</div>';
+        											 	echo			'</span>';
+                                                        echo            '</div>';
+                                                        echo        '</fieldset>                                                ';
+                                                        echo        '<fieldset class="form_divisao">';
+                                                        echo            '<legend class="form_divisao_titulo">Acesso</legend>';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputUsuarioAluno" class="form_info info_p">Usuário</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="text" name="inputUsuarioAluno" id="inputUsuarioAluno" class="form_value form_text value_p obrigatorioAluno" msgVazio="O campo usuário é obrigatório" placeholder="Insira um usuário de usuário" required maxlength="10"/>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p">';
+                                                        echo                '<label for="inputSenhaAluno" class="form_info info_p">Senha</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="password" name="inputSenhaAluno" id="inputSenhaAluno" class="form_value form_text value_p  obrigatorioAluno" msgVazio="O campo senha é obrigatório" placeholder="Insira uma senha" required maxlength="10"/>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_p value_last">';
+                                                        echo                '<label for="inputSenhaConfirmAluno" class="form_info info_p">Senha</label>';
+                                                        echo                '<span class="input_container">';
+                                                        echo                    '<input type="password" name="inputSenhaConfirmAluno" id="inputSenhaConfirmAluno" class="form_value form_text value_p" placeholder="Confirme a senha" required maxlength="10"/>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo        '</fieldset>';
+                                                        echo        '<div class="form_btns_container">';
+                                                        echo            '<input type="reset" value="Limpar" class="form_btn btn_reset" />';
+                                                        echo            '<input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroAluno" />';
+                                                        echo        '</div>';
+                                                        echo    '</form>';
+                                                    }
+                                                ?>
                                                 <section class="update_cadastro update_aluno cadastroAlunoContent" id="updateAlunoContainer">
                                                     <h2 class="section_header update_cad_aluno_header">Atualizar Cadastro</h2>
                                                     <div class="accordion_cad_container update_aluno_accordion">
@@ -354,351 +325,365 @@ s                                                                 </select>
                                             </div>
                                             <div class="conteudo_tab conteudo_professor" style="display: none;">
                                             	
-                                                <form action="" class="form_cadastro cadastro_prof cadastroProfContent" id="formCadastroProf" style="display: none;">
-                                                    <fieldset class="form_divisao">
-                                                        <legend class="form_divisao_titulo">Dados Pessoais</legend>
-                                                            <div class="form_celula_g">
-                                                                <label for="inputNomeProf" class="form_info info_m">Nome</label>
-                                                                <span class="input_container">
-                                                                    <input type="text" name="inputNomeProf" id="inputNomeProf" class="form_value form_text value_m obrigatorioProf" required msgVazio="O campo nome é obrigatório"/>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form_celula_m">
-                                                                <label for="selectSerieProf" class="form_info info_p">Série</label>
-                                                                <span class="select_container">
-                                                                    <select name="selectSerieProf" id="selectSerieProf" class="form_value form_select value_p obrigatorioProf" msgVazio="O campo série é obrigatório" required>
-                                                                        <option value="" disabled selected>Selecione a série</option>
-                                                                        <?php
-                                                                            echo $serieHtml;
-                                                                        ?>
-                                                                    </select>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form_celula_m value_last">
-                                                                <label for="selectCategoriaProf" class="form_info info_m">Categoria Funcional</label>
-                                                                <span class="select_container">
-                                                                    <select name="selectCategoriaProf" id="selectCategoriaProf" class="form_value form_select value_m"required>
-                                                                        <option value="null" selected>Selecione a categoria</option>
-                                                                        <?php
-                                                                            if(count($cats)>0){
-                                                                                foreach($cats as $c) {
-                                                                                    //echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($s->getGrt_instrucao()).'</option>';
-                                                                                    echo '<option value="'.$c->getctf_id().'">'.utf8_encode($c->getctf_categoria()).'</option>';
-                                                                                }
-                                                                            }
-                                                                        ?>
-                                                                    </select>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form_celula_m">
-                                                                <label for="selectGrauProf" class="form_info info_m">Instrução</label>
-                                                                <span class="select_container">
-                                                                    <select name="selectGrauProf" id="selectGrauProf" class="form_value form_select value_m"required>
-                                                                        <option value="null" selected>Selecione a intrução</option>
-                                                                        <?php
-                                                                            if(count($graus)>0){
-                                                                                foreach($graus as $g) {
-                                                                                    //echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($s->getGrt_instrucao()).'</option>';
-                                                                                    echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($g->getGrt_instrucao()).'</option>';
-                                                                                }
-                                                                            }
-                                                                        ?>
-                                                                    </select>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form_celula_m value_last">
-                                                                <label for="selectGrauProf" class="form_info info_g">Perfil</label>
-                                                                <span class="select_container">
-                                                                    <select name="perfil" id="perfil" class="form_value form_select value_g" required>
-                                                                        <option value='2' selected>Professor</option>
-                                                                        <option value='4'>Unidade Escolar</option>
-                                                                    </select>
-                                                                </span>
-                                                            </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputNascimentoProf" class="form_info info_p">Nascimento</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNascimentoProf" id="inputNascimentoProf" class="form_value form_text value_p obrigatorioProf data" required msgVazio="O campo nascimento é obrigatório"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputRgProf" class="form_info info_p">RG</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputRgProf" id="inputRgProf" class="form_value form_text value_p obrigatorioProf" required msgVazio="O campo RG é obrigatório"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputCpfProf" class="form_info info_p">CPF</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCpfProf" id="inputCpfProf" class="form_value form_text value_p obrigatorioProf" required OnKeyPress="formatar('###.###.###-##', this)" msgVazio="O campo CPF é obrigatório" maxlength="14"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g">
-                                                            <label for="inputRuaProf" class="form_info info_g">Rua</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputRuaProf" id="inputRuaProf" class="form_value form_text value_g obrigatorioProf" required msgVazio="O campo rua é obrigatório"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputNumCasaProf" class="form_info info_p">Número</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNumCasaProf" id="inputNumCasaProf" class="form_value form_number value_p obrigatorioProf" required msgVazio="O campo número é obrigatório"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputCompCasaProf" class="form_info info_p">Complemento</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCompCasaProf" id="inputCompCasaProf" class="form_value form_number value_p" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputCepProf" class="form_info info_p">CEP</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCepProf" id="inputCepProf" class="form_value form_text value_p obrigatorioProf" required msgVazio="O campo CEP é obrigatório" OnKeyPress="formatar('##.###-###', this)" maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputBairroProf" class="form_info info_p">Bairro</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputBairroProf" id="inputBairroProf" class="form_value form_text value_p obrigatorioProf" required msgVazio="O campo bairro é obrigatório"/>
-                                                            </span>
-                                                        </div>
-                                                        <input type="hidden" id="inputPaisProf" name="inputPaisProf" value="Brasil" />
-                                                        <div class="form_celula_p">
-                                                            <label for="inputEstadoProf" class="form_info info_p">Estado</label>
-                                                            <span class="select_container">
-                                                                <select name="" id="inputEstadoProf" class="form_value form_select value_p obrigatorioProf" required msgVazio="O campo estado é obrigatório">
-                                                                    <!-- <option value="" disabled selected>Selecione o estado</option>-->
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputCidadeProf" class="form_info info_p">Cidade</label>
-                                                            <span class="select_container">
-                                                                <select name="inputCidadeProf" id="inputCidadeProf" class="form_value form_select value_p obrigatorioProf" required msgVazio="O campo cidade é obrigatório">
-                                                                    <option value="" disabled selected>Selecione a cidade</option>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputTelResProf" class="form_info info_p">Tel. Residencial</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputTelResProf" id="inputTelResProf" class="form_value form_text value_p obrigatorioProf" required OnKeyPress="formatar('## ####-#####', this)" msgVazio="Pelo menos um número de telefone deve ser cadastrado" maxlength="13"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputTelCelProf" class="form_info info_p">Tel. Celular</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputTelCelProf" id="inputTelCelProf" class="form_value form_text value_p" OnKeyPress="formatar('## ####-#####', this)" maxlength="13"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputTelComProf" class="form_info info_p">Tel. Comercial</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputTelComProf" id="inputTelComProf" class="form_value form_text value_p" OnKeyPress="formatar('## ####-#####', this)" maxlength="13"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g">
-                                                            <label for="inputEmailProf" class="form_info info_g">E-mail</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputEmailProf" id="inputEmailProf" class="form_value form_text value_g  obrigatorioProf" required msgVazio="O campo email é obrigatório"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g" style="height: auto; min-height: 40px;">
-                                                            <label for="cadastroImagem" class="form_info info_p">Foto</label>
-                                                            <span class="input_container spanImagem" id="spanImagemProfessor"></span>
-                                                        </div>
-                                                    </fieldset>
-                                                    <fieldset class="form_divisao">
-                                                        <legend class="form_divisao_titulo">Acesso</legend>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputUsuarioProf" class="form_info info_p">Usuário</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputUsuarioProf" id="inputUsuarioProf" class="form_value form_text value_p  obrigatorioProf" placeholder="Insira um nome de usuário" required msgVazio="O campo usuário é obrigatório"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputSenhaProf" class="form_info info_p">Senha</label>
-                                                            <span class="input_container">
-                                                                <input type="password" name="inputSenhaProf" id="inputSenhaProf" class="form_value form_text value_p  obrigatorioProf" placeholder="Insira uma senha" required msgVazio="O campo senha é obrigatório" maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputSenhaConfirmProf" class="form_info info_p">Senha</label>
-                                                            <span class="input_container">
-                                                                <input type="password" name="inputSenhaConfirmProf" id="inputSenhaConfirmProf" class="form_value form_text value_p" placeholder="Confirme a senha" required maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                    </fieldset>
-                                                    <div class="form_btns_container">
-                                                        <input type="reset" value="Limpar" class="form_btn btn_reset" />
-                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroProfessor" />
-                                                    </div>
-                                                </form>
+                                                <?php
+                                                    if ($logado["perfil_id"] == 4)
+                                                    {
+                                                        echo '<form action="" class="form_cadastro cadastro_prof cadastroProfContent" id="formCadastroProf" style="display: none;">';
+                                                        echo     '<fieldset class="form_divisao">';
+                                                        echo         '<legend class="form_divisao_titulo">Dados Pessoais</legend>';
+                                                        echo             '<div class="form_celula_g">';
+                                                        echo                 '<label for="inputNomeProf" class="form_info info_m">Nome</label>';
+                                                        echo                 '<span class="input_container">';
+                                                        echo                     '<input type="text" name="inputNomeProf" id="inputNomeProf" class="form_value form_text value_m obrigatorioProf" required msgVazio="O campo nome é obrigatório"/>';
+                                                        echo                 '</span>';
+                                                        echo             '</div>';
+                                                        echo             '<div class="form_celula_m">';
+                                                        echo                 '<label for="selectSerieProf" class="form_info info_p">Série</label>';
+                                                        echo                 '<span class="select_container">';
+                                                        echo                     '<select name="selectSerieProf" id="selectSerieProf" class="form_value form_select value_p obrigatorioProf" msgVazio="O campo série é obrigatório" required>';
+                                                        echo                         '<option value="" disabled selected>Selecione a série</option>';
+                                                        echo                         $serieHtml;
+                                                        echo                    '</select>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo           ' <div class="form_celula_m value_last">';
+                                                        echo               ' <label for="selectCategoriaProf" class="form_info info_m">Categoria Funcional</label>';
+                                                        echo               ' <span class="select_container">';
+                                                        echo                   ' <select name="selectCategoriaProf" id="selectCategoriaProf" class="form_value form_select value_m"required>';
+                                                        echo                       ' <option value="null" selected>Selecione a categoria</option>';
+
+                                                                                    if(count($cats)>0){
+                                                                                        foreach($cats as $c) {
+                                                                                            //echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($s->getGrt_instrucao()).'</option>';
+                                                                                            echo '<option value="'.$c->getctf_id().'">'.utf8_encode($c->getctf_categoria()).'</option>';
+                                                                                        }
+                                                                                    }
+
+                                                        echo                    '</select>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_m">';
+                                                        echo                '<label for="selectGrauProf" class="form_info info_m">Instrução</label>';
+                                                        echo                '<span class="select_container">';
+                                                        echo                    '<select name="selectGrauProf" id="selectGrauProf" class="form_value form_select value_m"required>';
+                                                        echo                        '<option value="null" selected>Selecione a intrução</option>';
+
+                                                                                    if(count($graus)>0){
+                                                                                        foreach($graus as $g) {
+                                                                                            //echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($s->getGrt_instrucao()).'</option>';
+                                                                                            echo '<option value="'.$g->getGrt_id().'">'.utf8_encode($g->getGrt_instrucao()).'</option>';
+                                                                                        }
+                                                                                    }
+
+                                                        echo                    '</select>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo            '<div class="form_celula_m value_last">';
+                                                        echo                '<label for="selectGrauProf" class="form_info info_g">Perfil</label>';
+                                                        echo                '<span class="select_container">';
+                                                        echo                    '<select name="perfil" id="perfil" class="form_value form_select value_g" required>';
+                                                        echo                        '<option value="2" selected>Professor</option>';
+                                                        echo                        '<option value="4">Unidade Escolar</option>';
+                                                        echo                    '</select>';
+                                                        echo                '</span>';
+                                                        echo            '</div>';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputNascimentoProf" class="form_info info_p">Nascimento</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputNascimentoProf" id="inputNascimentoProf" class="form_value form_text value_p obrigatorioProf data" required msgVazio="O campo nascimento é obrigatório"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputRgProf" class="form_info info_p">RG</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputRgProf" id="inputRgProf" class="form_value form_text value_p obrigatorioProf" required msgVazio="O campo RG é obrigatório"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p value_last">';
+                                                        echo            '<label for="inputCpfProf" class="form_info info_p">CPF</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputCpfProf" id="inputCpfProf" class="form_value form_text value_p obrigatorioProf" required OnKeyPress="formatar(\'###.###.###-##\', this)" msgVazio="O campo CPF é obrigatório" maxlength="14"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_g">';
+                                                        echo            '<label for="inputRuaProf" class="form_info info_g">Rua</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputRuaProf" id="inputRuaProf" class="form_value form_text value_g obrigatorioProf" required msgVazio="O campo rua é obrigatório"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputNumCasaProf" class="form_info info_p">Número</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputNumCasaProf" id="inputNumCasaProf" class="form_value form_number value_p obrigatorioProf" required msgVazio="O campo número é obrigatório"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputCompCasaProf" class="form_info info_p">Complemento</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputCompCasaProf" id="inputCompCasaProf" class="form_value form_number value_p" required />';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p value_last">';
+                                                        echo            '<label for="inputCepProf" class="form_info info_p">CEP</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputCepProf" id="inputCepProf" class="form_value form_text value_p obrigatorioProf" required msgVazio="O campo CEP é obrigatório" OnKeyPress="formatar(\'##.###-###\', this)" maxlength="10"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputBairroProf" class="form_info info_p">Bairro</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputBairroProf" id="inputBairroProf" class="form_value form_text value_p obrigatorioProf" required msgVazio="O campo bairro é obrigatório"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<input type="hidden" id="inputPaisProf" name="inputPaisProf" value="Brasil" />';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputEstadoProf" class="form_info info_p">Estado</label>';
+                                                        echo            '<span class="select_container">';
+                                                        echo                '<select name="" id="inputEstadoProf" class="form_value form_select value_p obrigatorioProf" required msgVazio="O campo estado é obrigatório">';
+                                                                            //<!-- <option value="" disabled selected>Selecione o estado</option>-->';
+                                                        echo                '</select>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p value_last">';
+                                                        echo            '<label for="inputCidadeProf" class="form_info info_p">Cidade</label>';
+                                                        echo            '<span class="select_container">';
+                                                        echo                '<select name="inputCidadeProf" id="inputCidadeProf" class="form_value form_select value_p obrigatorioProf" required msgVazio="O campo cidade é obrigatório">';
+                                                        echo                    '<option value="" disabled selected>Selecione a cidade</option>';
+                                                        echo                '</select>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputTelResProf" class="form_info info_p">Tel. Residencial</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputTelResProf" id="inputTelResProf" class="form_value form_text value_p obrigatorioProf" required OnKeyPress="formatar(\'## ####-#####\', this)" msgVazio="Pelo menos um número de telefone deve ser cadastrado" maxlength="13"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputTelCelProf" class="form_info info_p">Tel. Celular</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputTelCelProf" id="inputTelCelProf" class="form_value form_text value_p" OnKeyPress="formatar(\'## ####-#####\', this)" maxlength="13"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p value_last">';
+                                                        echo            '<label for="inputTelComProf" class="form_info info_p">Tel. Comercial</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputTelComProf" id="inputTelComProf" class="form_value form_text value_p" OnKeyPress="formatar(\'## ####-#####\', this)" maxlength="13"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_g">';
+                                                        echo            '<label for="inputEmailProf" class="form_info info_g">E-mail</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputEmailProf" id="inputEmailProf" class="form_value form_text value_g  obrigatorioProf" required msgVazio="O campo email é obrigatório"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_g" style="height: auto; min-height: 40px;">';
+                                                        echo            '<label for="cadastroImagem" class="form_info info_p">Foto</label>';
+                                                        echo            '<span class="input_container spanImagem" id="spanImagemProfessor"></span>';
+                                                        echo        '</div>';
+                                                        echo    '</fieldset>';
+                                                        echo    '<fieldset class="form_divisao">';
+                                                        echo        '<legend class="form_divisao_titulo">Acesso</legend>';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputUsuarioProf" class="form_info info_p">Usuário</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="text" name="inputUsuarioProf" id="inputUsuarioProf" class="form_value form_text value_p  obrigatorioProf" placeholder="Insira um nome de usuário" required msgVazio="O campo usuário é obrigatório"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p">';
+                                                        echo            '<label for="inputSenhaProf" class="form_info info_p">Senha</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="password" name="inputSenhaProf" id="inputSenhaProf" class="form_value form_text value_p  obrigatorioProf" placeholder="Insira uma senha" required msgVazio="O campo senha é obrigatório" maxlength="10"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo        '<div class="form_celula_p value_last">';
+                                                        echo            '<label for="inputSenhaConfirmProf" class="form_info info_p">Senha</label>';
+                                                        echo            '<span class="input_container">';
+                                                        echo                '<input type="password" name="inputSenhaConfirmProf" id="inputSenhaConfirmProf" class="form_value form_text value_p" placeholder="Confirme a senha" required maxlength="10"/>';
+                                                        echo            '</span>';
+                                                        echo        '</div>';
+                                                        echo    '</fieldset>';
+                                                        echo    '<div class="form_btns_container">';
+                                                        echo        '<input type="reset" value="Limpar" class="form_btn btn_reset" />';
+                                                        echo        '<input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroProfessor" />';
+                                                        echo    '</div>';
+                                                        echo '</form>';
+                                                    }
+                                                ?>
+
                                                 <section class="update_cadastro update_prof cadastroProfContent" id="updateProfContainer">
                                                     <h2 class="section_header update_cad_prof_header">Atualizar Cadastro</h2>
                                                     <div class="accordion_cad_container update_prof_accordion">
                                                     </div>
                                                 </section>
                                             </div>
-                                            <div class="conteudo_tab conteudo_escola" style="display: none;">
-                                                <form action="" class="form_cadastro cadastro_escola cadastroEscolaContent" id="formCadastroEscola" style="display: none;">
-                                                    <fieldset class="form_divisao">
-                                                        <legend class="form_divisao_titulo">Dados</legend>
-                                                        <div class="form_celula_g">
-                                                            <label for="inputNomeEscola" class="form_info info_g">Nome</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNomeEscola" id="inputNomeEscola" class="form_value form_text value_g obrigatorioEscola" msgVazio="O campo nome é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g">
-                                                            <label for="inputRazaoEscola" class="form_info info_g">Razão Social</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputRazaoEscola" id="inputRazaoEscola" class="form_value form_text value_g obrigatorioEscola" msgVazio="O campo razão social é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_m">
-                                                            <label for="inputCodigoEscola" class="form_info info_m">NSE</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNseEscola" id="inputNseEscola" class="form_value form_text value_m"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_m value_last">
-                                                            <label for="inputCodigoEscola" class="form_info info_m">Código</label>
-                                                            <span class="input_container">
-                                                                <input type="number" name="inputCodigoEscola" id="inputCodigoEscola" class="form_value form_text value_m"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputCnpjEscola" class="form_info info_p">CNPJ</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCnpjEscola" id="inputCnpjEscola" class="form_value form_text value_p  obrigatorioEscola"  msgVazio="O campo CNPJ é obrigatório" required maxlength='18' OnKeyPress="formatar('##.###.###/####-##', this)"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputAdmEscola" class="form_info info_p">Administração</label>
-                                                            <span class="select_container">
-                                                                <select name="inputAdmEscola" id="inputAdmEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo administração é obrigatório" required>
-                                                                    <!-- <option value="" disabled selected>Selecione a cidade</option> -->
-                                                                    <?php 
-                                                                      if(count($adms)>0) {
-                                                                            foreach($adms as $a) {
-                                                                              echo '<option value="'.$a->getadm_id().'">'.utf8_encode($a->getadm_administracao()).'</option>';
+                                            <?php
+                                                echo '<div class="conteudo_tab conteudo_escola" style="display: none;">';
+
+                                                if ($logado["perfil_id"] == 3)
+                                                {
+                                                    echo '<section class="update_cadastro confirm_escola cadastroEscolaContent" id="cadastroEscolaContainer">';
+                                                    echo     '<h2 class="section_header confirm_cad_escola_header">Pré-cadastros</h2>';
+                                                    echo     '<div class="accordion_cad_container confirm_escola_accordion"> ';
+                                                    echo     '</div>';
+                                                    echo '</section>';
+                                                    echo '<form action="" class="form_cadastro cadastro_escola cadastroEscolaContent" id="formCadastroEscola" style="display: none;">';
+                                                    echo     '<fieldset class="form_divisao">';
+                                                    echo         '<legend class="form_divisao_titulo">Dados</legend>';
+                                                    echo         '<div class="form_celula_g">';
+                                                    echo             '<label for="inputNomeEscola" class="form_info info_g">Nome</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputNomeEscola" id="inputNomeEscola" class="form_value form_text value_g obrigatorioEscola" msgVazio="O campo nome é obrigatório" required />';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_g">';
+                                                    echo             '<label for="inputRazaoEscola" class="form_info info_g">Razão Social</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputRazaoEscola" id="inputRazaoEscola" class="form_value form_text value_g obrigatorioEscola" msgVazio="O campo razão social é obrigatório" required />';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_m">';
+                                                    echo             '<label for="inputCodigoEscola" class="form_info info_m">NSE</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputNseEscola" id="inputNseEscola" class="form_value form_text value_m"/>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_m value_last">';
+                                                    echo             '<label for="inputCodigoEscola" class="form_info info_m">Código</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="number" name="inputCodigoEscola" id="inputCodigoEscola" class="form_value form_text value_m"/>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p">';
+                                                    echo             '<label for="inputCnpjEscola" class="form_info info_p">CNPJ</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputCnpjEscola" id="inputCnpjEscola" class="form_value form_text value_p  obrigatorioEscola"  msgVazio="O campo CNPJ é obrigatório" required maxlength="18" OnKeyPress="formatar(\'##.###.###/####-##\', this)"/>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p">';
+                                                    echo             '<label for="inputAdmEscola" class="form_info info_p">Administração</label>';
+                                                    echo             '<span class="select_container">';
+                                                    echo                 '<select name="inputAdmEscola" id="inputAdmEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo administração é obrigatório" required>';
+                                                                        //<!-- <option value="" disabled selected>Selecione a cidade</option> -->
+                                                                        
+                                                                          if(count($adms)>0) {
+                                                                                foreach($adms as $a) {
+                                                                                  echo '<option value="'.$a->getadm_id().'">'.utf8_encode($a->getadm_administracao()).'</option>';
+                                                                                }
                                                                             }
-                                                                        }
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-														<div class="form_celula_p value_last">
-                                                            <label for="inputTipoEscola" class="form_info info_p">Tipo de escola</label>
-                                                            <span class="select_container">
-                                                                <select name="inputTipoEscola" id="inputTipoEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo tipo da escola é obrigatório" required>
-                                                                    <!--<option value="" disabled selected>Selecione a cidade</option>-->
-                                                                    <?php 
-                                                                     if(count($tiposEscola)>0) {
-                                                                         foreach($tiposEscola as $t) {
-                                                                         		echo '<option value="'.$t->gettps_id().'">'.$t->gettps_tipo_escola().'</option>';
-                                                                         }
-                                                                      }
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_m">
-                                                            <label for="inputRuaEscola" class="form_info info_m">Rua</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputRuaEscola" id="inputRuaEscola" class="form_value form_text value_m obrigatorioEscola" msgVazio="O campo rua é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_m value_last">
-                                                            <label for="inputBairroEscola" class="form_info info_m">Bairro</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputBairroEscola" id="inputBairroEscola" class="form_value form_text value_m obrigatorioEscola" msgVazio="O campo bairro é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputNumCasaEscola" class="form_info info_p">Número</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputNumCasaEscola" id="inputNumCasaEscola" class="form_value form_number value_p obrigatorioEscola" msgVazio="O campo número é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputCompCasaEscola" class="form_info info_p">Complemento</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCompCasaEscola" id="inputCompCasaEscola" class="form_value form_number value_p" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputEstadoEscola" class="form_info info_p">Estado</label>
-                                                            <span class="select_container">
-                                                                <select name="inputEstadoEscola" id="inputEstadoEscola" class="form_value form_select value_p obrigatorioEscola" msgVazio="O campo estado é obrigatório" required>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputCidadeEscola" class="form_info info_p">Cidade</label>
-                                                            <span class="select_container">
-                                                                <select name="inputCidadeEscola" id="inputCidadeEscola" class="form_value form_select value_p obrigatorioEscola" msgVazio="O campo cidade é obrigatório" required>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputCepEscola" class="form_info info_p">CEP</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputCepEscola" id="inputCepEscola" class="form_value form_text value_p obrigatorioEscola" msgVazio="O campo CEP é obrigatório" required OnKeyPress="formatar('##.###-###', this)"  maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputTelefoneEscola" class="form_info info_p">Telefone</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputTelefoneEscola" id="inputTelefoneEscola" class="form_value form_text value_p obrigatorioEscola" msgVazio="O campo telefone é obrigatório" required OnKeyPress="formatar('## ####-#####', this)"  maxlength="13"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g">
-                                                            <label for="inputEmailEscola" class="form_info info_g">E-mail</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputEmailEscola" id="inputEmailEscola" class="form_value form_text value_g obrigatorioEscola" msgVazio="O campo email é obrigatório" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_g" style="height: auto; min-height: 40px;">
-                                                            <label for="cadastroImagem" class="form_info info_p">Foto</label>
-                                                            <span class="input_container spanImagem" id="spanImagemEscola"></span>
-                                                        </div>
-                                                    </fieldset>
-                                                    <fieldset class="form_divisao">
-                                                        <legend class="form_divisao_titulo">Acesso</legend>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputUsuarioEscola" class="form_info info_p">Usuário</label>
-                                                            <span class="input_container">
-                                                                <input type="text" name="inputUsuarioEscola" id="inputUsuarioEscola" class="form_value form_text value_p obrigatorioEscola" msgVazio="O campo usuário é obrigatório" placeholder="Insira um nome de usuário" required />
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p">
-                                                            <label for="inputSenhaEscola" class="form_info info_p">Senha</label>
-                                                            <span class="input_container">
-                                                                <input type="password" name="inputSenhaEscola" id="inputSenhaEscola" class="form_value form_text value_p obrigatorioEscola" msgVazio="O campo senha é obrigatório" placeholder="Insira uma senha" required maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form_celula_p value_last">
-                                                            <label for="inputSenhaConfirmEscola" class="form_info info_p">Senha</label>
-                                                            <span class="input_container">
-                                                                <input type="password" name="inputSenhaConfirmEscola" id="inputSenhaConfirmEscola" class="form_value form_text value_p" placeholder="Confirme a senha" required maxlength="10"/>
-                                                            </span>
-                                                        </div>
-                                                    </fieldset>
-                                                    <div class="form_btns_container">
-                                                        <input type="reset" value="Limpar" class="form_btn btn_reset" />
-                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroEscola" />
-                                                    </div>
-                                                </form>
-                                                <section class="update_cadastro update_escola cadastroProfContent" id="updateProfContainer">
-                                                    <h2 class="section_header update_cad_escola_header">Atualizar Cadastro</h2>
-                                                    <div class="accordion_cad_container update_escola_accordion">
-                                                       
-                                                    </div>
-                                                </section>
-                                            </div>
+                                                                        
+                                                    echo                '</select>';
+                                                    echo            '</span>';
+                                                    echo        '</div>';
+                                                    echo        '<div class="form_celula_p value_last">';
+                                                    echo            '<label for="inputTipoEscola" class="form_info info_p">Tipo de escola</label>';
+                                                    echo            '<span class="select_container">';
+                                                    echo                '<select name="inputTipoEscola" id="inputTipoEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo tipo da escola é obrigatório" required>';
+                                                                        //<!--<option value="" disabled selected>Selecione a cidade</option>-->
+                                                                         
+                                                                         if(count($tiposEscola)>0) {
+                                                                             foreach($tiposEscola as $t) {
+                                                                                    echo '<option value="'.$t->gettps_id().'">'.$t->gettps_tipo_escola().'</option>';
+                                                                             }
+                                                                          }
+                                                                        
+                                                    echo                 '</select>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_m">';
+                                                    echo             '<label for="inputRuaEscola" class="form_info info_m">Rua</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputRuaEscola" id="inputRuaEscola" class="form_value form_text value_m obrigatorioEscola" msgVazio="O campo rua é obrigatório" required />';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_m value_last">';
+                                                    echo             '<label for="inputBairroEscola" class="form_info info_m">Bairro</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputBairroEscola" id="inputBairroEscola" class="form_value form_text value_m obrigatorioEscola" msgVazio="O campo bairro é obrigatório" required />';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p">';
+                                                    echo             '<label for="inputNumCasaEscola" class="form_info info_p">Número</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputNumCasaEscola" id="inputNumCasaEscola" class="form_value form_number value_p obrigatorioEscola" msgVazio="O campo número é obrigatório" required />';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p">';
+                                                    echo             '<label for="inputCompCasaEscola" class="form_info info_p">Complemento</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputCompCasaEscola" id="inputCompCasaEscola" class="form_value form_number value_p" required />';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p value_last">';
+                                                    echo             '<label for="inputEstadoEscola" class="form_info info_p">Estado</label>';
+                                                    echo             '<span class="select_container">';
+                                                    echo                 '<select name="inputEstadoEscola" id="inputEstadoEscola" class="form_value form_select value_p obrigatorioEscola" msgVazio="O campo estado é obrigatório" required>';
+                                                    echo                 '</select>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p">';
+                                                    echo             '<label for="inputCidadeEscola" class="form_info info_p">Cidade</label>';
+                                                    echo             '<span class="select_container">';
+                                                    echo                 '<select name="inputCidadeEscola" id="inputCidadeEscola" class="form_value form_select value_p obrigatorioEscola" msgVazio="O campo cidade é obrigatório" required>';
+                                                    echo                 '</select>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p">';
+                                                    echo             '<label for="inputCepEscola" class="form_info info_p">CEP</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputCepEscola" id="inputCepEscola" class="form_value form_text value_p obrigatorioEscola" msgVazio="O campo CEP é obrigatório" required OnKeyPress="formatar(\'##.###-###\', this)"  maxlength="10"/>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p value_last">';
+                                                    echo             '<label for="inputTelefoneEscola" class="form_info info_p">Telefone</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputTelefoneEscola" id="inputTelefoneEscola" class="form_value form_text value_p obrigatorioEscola" msgVazio="O campo telefone é obrigatório" required OnKeyPress="formatar(\'## ####-#####\', this)"  maxlength="13"/>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_g">';
+                                                    echo             '<label for="inputEmailEscola" class="form_info info_g">E-mail</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputEmailEscola" id="inputEmailEscola" class="form_value form_text value_g obrigatorioEscola" msgVazio="O campo email é obrigatório" required />';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_g" style="height: auto; min-height: 40px;">';
+                                                    echo             '<label for="cadastroImagem" class="form_info info_p">Foto</label>';
+                                                    echo             '<span class="input_container spanImagem" id="spanImagemEscola"></span>';
+                                                    echo         '</div>';
+                                                    echo     '</fieldset>';
+                                                    echo     '<fieldset class="form_divisao">';
+                                                    echo         '<legend class="form_divisao_titulo">Acesso</legend>';
+                                                    echo         '<div class="form_celula_p">';
+                                                    echo             '<label for="inputUsuarioEscola" class="form_info info_p">Usuário</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="text" name="inputUsuarioEscola" id="inputUsuarioEscola" class="form_value form_text value_p obrigatorioEscola" msgVazio="O campo usuário é obrigatório" placeholder="Insira um nome de usuário" required />';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p">';
+                                                    echo             '<label for="inputSenhaEscola" class="form_info info_p">Senha</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="password" name="inputSenhaEscola" id="inputSenhaEscola" class="form_value form_text value_p obrigatorioEscola" msgVazio="O campo senha é obrigatório" placeholder="Insira uma senha" required maxlength="10"/>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo         '<div class="form_celula_p value_last">';
+                                                    echo             '<label for="inputSenhaConfirmEscola" class="form_info info_p">Senha</label>';
+                                                    echo             '<span class="input_container">';
+                                                    echo                 '<input type="password" name="inputSenhaConfirmEscola" id="inputSenhaConfirmEscola" class="form_value form_text value_p" placeholder="Confirme a senha" required maxlength="10"/>';
+                                                    echo             '</span>';
+                                                    echo         '</div>';
+                                                    echo     '</fieldset>';
+                                                    echo     '<div class="form_btns_container">';
+                                                    echo         '<input type="reset" value="Limpar" class="form_btn btn_reset" />';
+                                                    echo         '<input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroEscola" />';
+                                                    echo     '</div>';
+                                                    echo '</form>';
+                                                }
+                                                echo     '<section class="update_cadastro update_escola cadastroEscolaContent" id="updateEscolaContainer">';
+                                                echo         '<h2 class="section_header update_cad_escola_header">Atualizar Cadastro</h2>';
+                                                echo         '<div class="accordion_cad_container update_escola_accordion"> ';
+                                                echo         '</div>';
+                                                echo     '</section>';
+                                                echo '</div>';
+                                            ?>
                                         </section>
                                     </div>
                                 </div>

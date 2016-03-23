@@ -120,6 +120,7 @@
 .tab_cadastro_inativo:hover {
 	background-color: #F2F2F2;
 	cursor: not-allowed;
+    pointer-events: none;
 }
 .tab_aluno {
 	background-image: url(../img/bt_aluno.png);
