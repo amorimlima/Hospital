@@ -48,6 +48,8 @@ switch ($_REQUEST["acao"]) {
 				"status"		=> utf8_encode($escola->getEsc_status()),
 				"nome" 			=> utf8_encode($escola->getEsc_nome()),
 				"razao_social" 	=> utf8_encode($escola->getEsc_razao_social()),
+				"tipo_escola"	=> utf8_encode($escola->getEsc_tipo_escola()->getTps_tipo_escola()),
+				"administracao"	=> utf8_encode($escola->getEsc_administracao()->getAdm_administracao()),
 				"endereco" 		=> Array(
 					"id" 	 	=> utf8_encode($escola->getEsc_endereco()->getEnd_id()),
 					"cidade" 	=> utf8_encode($escola->getEsc_endereco()->getEnd_cidade()),
@@ -59,12 +61,7 @@ switch ($_REQUEST["acao"]) {
 				"diretor" 		=> Array(
 					"nome" 		=> utf8_encode($escola->getEsc_nome_diretor()),
 					"email" 	=> utf8_encode($escola->getEsc_email_diretor())
-				),
-				"coordenador" 	=> Array(
-					"nome" 		=> utf8_encode($escola->getEsc_nome_coordenador()),
-					"email" 	=> utf8_encode($escola->getEsc_email_coordenador())
 				)
-
 			);
 		}
 
@@ -83,7 +80,11 @@ switch ($_REQUEST["acao"]) {
 					"id" 					=> utf8_encode($prof->getUsr_id()),
 					"nome" 					=> utf8_encode($prof->getUsr_nome()),
 					"data_nascimento" 		=> utf8_encode($prof->getUsr_data_nascimento()),
-					"escola" 				=> utf8_encode($prof->getUsr_escola()),
+					"escola" 				=> Array(
+						"id" 					=> utf8_encode($prof->getUsr_escola()->getEsc_id()),
+						"nome"					=> utf8_encode($prof->getUsr_escola()->getEsc_nome()),
+						"razao_social"			=> utf8_encode($prof->getUsr_escola()->getEsc_razao_social())
+					),
 					"data_entrada_escola"	=> utf8_encode($prof->getUsr_data_entrada_escola()),
 					"rg" 					=> utf8_encode($prof->getUsr_rg()),
 					"cpf" 					=> utf8_encode($prof->getUsr_cpf()),

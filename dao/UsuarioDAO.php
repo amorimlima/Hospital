@@ -360,6 +360,7 @@ class UsuarioDAO extends DAO{
     {
         $sql  = "SELECT * FROM usuario usr ";
         $sql .= "JOIN endereco end ON usr.usr_endereco = end.end_id ";
+        $sql .= "JOIN escola esc ON usr.usr_escola = esc.esc_id ";
         $sql .= "JOIN perfil prf ON usr.usr_perfil = prf.prf_id ";
         $sql .= "WHERE usr_perfil = 2 AND usr_escola = ".$idescola;
         $result = $this->retrieve($sql);
@@ -371,7 +372,6 @@ class UsuarioDAO extends DAO{
                 $professor->setUsr_id($qr["usr_id"]);
                 $professor->setUsr_nome($qr["usr_nome"]);
                 $professor->setUsr_data_nascimento($qr["usr_data_nascimento"]);
-                $professor->setUsr_escola($qr["usr_escola"]);
                 $professor->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
                 $professor->setUsr_rg($qr["usr_rg"]);
                 $professor->setUsr_cpf($qr["usr_cpf"]);
@@ -392,6 +392,11 @@ class UsuarioDAO extends DAO{
                 $professor->getUsr_endereco()->setend_telefone_comercial($qr["end_telefone_comercial"]);
                 $professor->getUsr_endereco()->setend_telefone_celular($qr["end_telefone_celular"]);
                 $professor->getUsr_endereco()->setend_email($qr["end_email"]);
+
+                $professor->setUsr_escola(new Escola());
+                $professor->getUsr_escola()->setesc_id($qr["esc_id"]);
+                $professor->getUsr_escola()->setesc_razao_social($qr["esc_razao_social"]);
+                $professor->getUsr_escola()->setesc_nome($qr["esc_nome"]);
 
                 $professor->setUsr_perfil(new Perfil());
                 $professor->getUsr_perfil()->setPrf_id($qr["prf_id"]);
