@@ -24,24 +24,24 @@ class RespostaTxtDAO extends DAO{
         parent::__construct($da);
      }
      
-     public function insert($ret)
-     {
+    public function insert($ret)
+    {
         $sql  = "insert into resposta_txt (rspt_usuario,rspt_exercicio,rspt_questao,rspt_resposta) values ";
         $sql .= "(".$ret->getRspt_usuario().",".$ret->getRspt_exercicio().",";
         $sql .= "".$ret->getRspt_questao().",'".$ret->getRspt_resposta()."')";
         echo $sql;
-    	return $this->execute($sql);
-     }
+        return $this->execute($sql);
+    }
      
-     public function update($ret)
-     {
+    public function update($ret)
+    {
         $sql  = "update resposta_txt set rspt_usuario = '".$ret->getRspt_usuario()."',";
-    	$sql .= "rspt_exercicio = '".$ret->getRspt_exercicio()."',";
+        $sql .= "rspt_exercicio = '".$ret->getRspt_exercicio()."',";
         $sql .= "rspt_questao = '".$ret->getMl_tipo_email()."',";
-    	$sql .= "rspt_resposta = '".$ret->getRspt_resposta()."' ";
+        $sql .= "rspt_resposta = '".$ret->getRspt_resposta()."' ";
         $sql .= "where  rspt_id = ".$ret->getRspt_id()." limit 1";
         return $this->execute($sql);
-     }
+    }
      
      public function delete($idret)
      {
@@ -54,14 +54,12 @@ class RespostaTxtDAO extends DAO{
         $sql = "select * from resposta_txt where rspt_id = ".$idret." ";
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
-
-                $ret = new RespostaTxt();
-                $ret->setRspt_id($qr["rspt_id"]);
-                $ret->setRspt_usuario($qr["rspt_usuario"]);
-                $ret->setRspt_exercicio($qr["rspt_exercicio"]);
-                $ret->setRspt_questao($qr["rspt_questao"]);
-                $ret->setRspt_resposta($qr["rspt_resposta"]);
-                
+            $ret = new RespostaTxt();
+            $ret->setRspt_id($qr["rspt_id"]);
+            $ret->setRspt_usuario($qr["rspt_usuario"]);
+            $ret->setRspt_exercicio($qr["rspt_exercicio"]);
+            $ret->setRspt_questao($qr["rspt_questao"]);
+            $ret->setRspt_resposta($qr["rspt_resposta"]);           
 	    	    	
     	return $ret;
      }
@@ -73,17 +71,23 @@ class RespostaTxtDAO extends DAO{
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
     	{
-
-                $ret = new RespostaTxt();
-                $ret->setRspt_id($qr["rspt_id"]);
-                $ret->setRspt_usuario($qr["rspt_usuario"]);
-                $ret->setRspt_exercicio($qr["rspt_exercicio"]);
-                $ret->setRspt_questao($qr["rspt_questao"]);
-                $ret->setRspt_resposta($qr["rspt_resposta"]);
-                array_push($lista, $ret);
-                
+            $ret = new RespostaTxt();
+            $ret->setRspt_id($qr["rspt_id"]);
+            $ret->setRspt_usuario($qr["rspt_usuario"]);
+            $ret->setRspt_exercicio($qr["rspt_exercicio"]);
+            $ret->setRspt_questao($qr["rspt_questao"]);
+            $ret->setRspt_resposta($qr["rspt_resposta"]);
+            array_push($lista, $ret);                
         } 	    	
     	return $lista;
      }
+
+    public function selectExeByAluno($idExercicio,$idUsuario,$questao)
+    {
+        $sql = "select * from resposta_txt where rspt_usuario = ".$idUsuario." and rspt_exercicio=".$idExercicio." and rspt_questao=".$questao;
+        $result = $this->retrieve($sql);
+        $qr = mysqli_num_rows($result);
+        return $qr;
+    }
 }
 ?>

@@ -68,4 +68,11 @@ class RegistroAcessoDAO extends DAO{
 		return $this->executeAndReturnLastID($sql);
 	}
 
+	public function selectExeByAlunoRegistro($idExercicio,$idUsuario)
+    {
+        $sql = "select * from registro_acesso where rgc_exercicio = ".$idExercicio." and rgc_usuario=".$idUsuario;
+        $result = $this->retrieve($sql);
+        $qr = mysqli_num_rows($result);
+        return $qr;
+    } 
 }

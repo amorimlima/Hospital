@@ -13,16 +13,22 @@ class RegistroAcessoController {
 		$this->registroAcessoDao = new RegistroAcessoDAO(new DataAccess());
 	}
 	public function listaRegistroAcessoByIdExercicio($id){
-	return $this->registroAcessoDao->listaRegistroAcessoByIdExercicio($id);
+		return $this->registroAcessoDao->listaRegistroAcessoByIdExercicio($id);
 	}
 	public function listaRegistroAcessoByUsuarioAndExercicio($usuario,$exercicio){
-	return $this->registroAcessoDao->listaRegistroAcessoByUsuarioAndExercicio($usuario, $exercicio);
+		return $this->registroAcessoDao->listaRegistroAcessoByUsuarioAndExercicio($usuario, $exercicio);
 	}
 	public function editaRegistroAcesso($rg){
-	return $this->registroAcessoDao->editaRegistroAcesso($rg);
+		return $this->registroAcessoDao->editaRegistroAcesso($rg);
 	}
 	public function gravaRegistroAcesso($rg){
-	return $this->registroAcessoDao->gravaRegistroAcesso($rg);
+		return $this->registroAcessoDao->gravaRegistroAcesso($rg);
 	}
+
+	public function selectExeByAlunoRegistro($idExercicio,$idUsuario)
+	{
+		return $this->registroAcessoDao->selectExeByAlunoRegistro($idExercicio,$idUsuario);
+	}	
+	
 
 }

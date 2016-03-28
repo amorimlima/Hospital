@@ -50,11 +50,14 @@ class RespostaMultiplaController {
 		$rem = $this->respostaMultiplaDAO->selectFull();
 		return $rem;
 	}
-
 	public function countCorretasAluno($idAluno)
 	{
 		$rem = $this->respostaMultiplaDAO->countCorretasAluno($idAluno);
 		return $rem;
 	}
+	public function selectExeByAlunoM($idExercicio,$idUsuario,$questao)
+	{
+		return $this->selectExeByAlunoM($idExercicio,$idUsuario,$questao);
+	}	
 }
 ?>

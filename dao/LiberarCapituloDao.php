@@ -134,5 +134,30 @@ class LiberarCapituloDAO extends DAO{
         $sql = "DELETE FROM liberar_capitulo WHERE lbr_id = ".$idliberarcapitulo;
         return $this->execute($sql);
     }
+
+     // **********************
+    // SELECT BY ID da ESCOLA
+    // **********************
+
+    public function selectCapLiberadoByIdEscola($idEscola)
+    {
+        $sql = "select * from liberar_capitulo where lbr_escola = ".$idEscola;
+
+        $lista = array();
+        $result = $this->retrieve($sql);
+        while ($qr = mysqli_fetch_array($result)){
+
+            $liberarcapitulo= new LiberarCapitulo();
+            $liberarcapitulo->setLbr_id($qr["lbr_id"]);
+            $liberarcapitulo->setLbr_escola($qr["lbr_escola"]);
+            $liberarcapitulo->setLbr_capitulo($qr["lbr_capitulo"]);
+            $liberarcapitulo->setLbr_livro($qr["lbr_livro"]);
+            $liberarcapitulo->setLbr_status($qr["lbr_status"]);
+
+            array_push($lista,$liberarcapitulo);
+        };
+        return $lista;
+    }
+
 }
 ?>

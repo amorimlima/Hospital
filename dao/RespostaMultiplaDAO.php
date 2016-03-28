@@ -28,7 +28,6 @@ class RespostaMultiplaDAO extends DAO{
         $sql  = "insert into resposta_multipla (rspm_usuario, rspm_exercicio, rspm_questao, rspm_resposta) values ";
         $sql .= "(".$rem->getRspm_usuario().",".$rem->getRspm_exercicio().",";
         $sql .= "'".$rem->getRspm_questao()."','".$rem->getRspm_resposta()."')";
-        echo $sql;
     	return $this->execute($sql);
      }
     
@@ -82,7 +81,7 @@ class RespostaMultiplaDAO extends DAO{
         }
     	return $lista;
      }
-
+     
      public function countCorretasAluno($idAluno)
      {
         $sql = 'SELECT COUNT(*) FROM resposta_multipla rm
@@ -90,5 +89,13 @@ class RespostaMultiplaDAO extends DAO{
                 WHERE rm.rspm_usuario = '.$idAluno.' AND rm.rspm_resposta = gb.gbt_resposta';
         return $this->retrieve($sql)->fetch_row()[0];
      }
+
+    public function selectExeByAlunoM($idExercicio,$idUsuario,$questao)
+    {
+        $sql = "select * from resposta_multipla where rspm_exercicio = ".$idExercicio." and rspm_usuario=".$idUsuario." and rspm_questao=".$questao;
+        $result = $this->retrieve($sql);
+        $qr = mysqli_num_rows($result);
+        return $qr;
+    }    
 }
 ?>
