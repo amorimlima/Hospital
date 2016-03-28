@@ -62,6 +62,7 @@ $logado = unserialize($_SESSION['USR']);
             	$templateGeral->topoSite();
             ?>
         </div>
+        <!-- Comentário -->
         <div id="Conteudo_Area">
                <div class="col-xs-12 col-md-12 col-lg-12"  id="area_geral">
                     <div id="Conteudo_Area_box_Grande">
