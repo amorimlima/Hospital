@@ -166,10 +166,10 @@ class TemplateRelatorio{
 		$grupo = $grupos[0];
 		$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
 		foreach ($alunosGrupo as $aluno) {
-			$exerciciosAluno = $exerciciosController->countExerciciosAluno($aluno['id']);
+			$exerciciosAluno = $exerciciosController->countExerciciosAluno($aluno['escola'], $aluno['serie']);
 			$exerciciosAlunoCompletos = $exerciciosController->countExerciciosAlunoCompletos($aluno['id']);
 			$pctExerciciosCompletosAluno = $exerciciosAluno > 0? $exerciciosAlunoCompletos/$exerciciosAluno : 0;
-			$multiplaAluno = $gabaritoController->countMultiplaAluno($aluno['escola']);
+			$multiplaAluno = $gabaritoController->countMultiplaAluno($aluno['escola'], $aluno['serie']);
 			$multiplaAlunoCorretos = $respostaMultiplaController->countCorretasAluno($aluno['id']);
 			$pctCorretosAluno = $multiplaAluno > 0? $multiplaAlunoCorretos/$multiplaAluno : 0;
 			echo '<div>';
@@ -204,12 +204,12 @@ class TemplateRelatorio{
 		$professores = $usuarioController->selectProfessorByEscola($user['escola']);
 		foreach ($professores as $professor) {
 			$idProfessor = $professor->getUsr_id();
-			$grupos = $grupoController->selectProfessor($idProfessor);
-			$grupo = $grupos[0];
-			$acessosProfessor = $registroController->registroGaleriaCountAcessosGrupo($grupo->getGrp_id()) +  $registroController->registroGaleriaCountAcessosUsuario($idProfessor);
-			$downloadProfessor = $registroController->registroGaleriaCountDownloadGrupo($grupo->getGrp_id()) + $registroController->registroGaleriaCountDownloadUsuario($idProfessor);
-			$pctAcessos = $acessosGaleria > 0? $acessosProfessor/$acessosGaleria : 0;
-			$pctDownloads = $downloadGaleria > 0? $downloadProfessor/$downloadGaleria : 0;
+			$exerciciosProfessor = $exerciciosController->countExerciciosProfessor($idProfessor);
+			$exerciciosProfessorCompletos = $exerciciosController->countExerciciosProfessorCompletos($idProfessor);
+			$pctExerciciosCompletosProfessor = $exerciciosProfessor > 0? $exerciciosProfessorCompletos/$exerciciosProfessor : 0;
+			$multiplaProfessor = $gabaritoController->countMultiplaProfessor($idProfessor);
+			$multiplaProfessorCorretos = $respostaMultiplaController->countCorretasProfessor($idProfessor);
+			$pctCorretosProfessor = $multiplaProfessor > 0? $multiplaProfessorCorretos/$multiplaProfessor : 0;
 			echo '<div>';
 			echo 	'<div class="row">';
 			echo 		'<div class="col-md-4">';
@@ -222,8 +222,45 @@ class TemplateRelatorio{
 			echo 		'<div class="col-md-8">';
 			echo 			'<div class="grafico_chart">';
 			echo 				'<svg class="chart">';
-			echo 					'<rect y="0" width="'.($pctAcessos * 100).'%" height="18" class="chart_acesso"></rect>';
-			echo 					'<rect y="22" width="'.($pctDownloads *100).'%" height="18" class="chart_download"></rect>';
+			echo 					'<rect y="0" width="'.($pctExerciciosCompletosProfessor * 100).'%" height="18" class="chart_acesso"></rect>';
+			echo 					'<rect y="22" width="'.($pctCorretosProfessor * 100).'%" height="18" class="chart_download"></rect>';
+			echo 				'</svg>';
+			echo 			'</div>';
+			echo 		'</div>';
+			echo 	'</div>';
+			echo '</div>';
+		}
+	}
+
+	public function exerciciosNEC(){
+		$grupoController = new GrupoController();
+		$escolaController = new EscolaController();
+		$exerciciosController = new ExercicioController();
+		$respostaMultiplaController = new RespostaMultiplaController();
+		$gabaritoController = new GabaritoController();
+		$escolas = $escolaController->selectAtivas();
+		foreach ($escolas as $escola) {
+			$idEscola = $escola->getEsc_id();
+			$exerciciosEscola = $exerciciosController->countExerciciosEscola($idEscola);
+			$exerciciosEscolaCompletos = $exerciciosController->countExerciciosEscolaCompletos($idEscola);
+			$pctExerciciosCompletosEscola = $exerciciosEscola > 0? $exerciciosEscolaCompletos/$exerciciosEscola : 0;
+			$multiplaEscola = $gabaritoController->countMultiplaEscola($idEscola);
+			$multiplaEscolaCorretos = $respostaMultiplaController->countCorretasEscola($idEscola);
+			$pctCorretosEscola = $multiplaEscola > 0? $multiplaEscolaCorretos/$multiplaEscola : 0;
+			echo '<div>';
+			echo 	'<div class="row">';
+			echo 		'<div class="col-md-4">';
+			echo 			'<div class="grafico_desc" id="escola_id_'.utf8_encode($idEscola).'">';
+			echo 				'<div>';
+			echo 					'<span>'.utf8_encode($escola->getEsc_nome()).'</span>';
+			echo 				'</div>';
+			echo 			'</div>';
+			echo 		'</div>';
+			echo 		'<div class="col-md-8">';
+			echo 			'<div class="grafico_chart">';
+			echo 				'<svg class="chart">';
+			echo 					'<rect y="0" width="'.($pctExerciciosCompletosEscola * 100).'%" height="18" class="chart_acesso"></rect>';
+			echo 					'<rect y="22" width="'.($pctCorretosEscola * 100).'%" height="18" class="chart_download"></rect>';
 			echo 				'</svg>';
 			echo 			'</div>';
 			echo 		'</div>';

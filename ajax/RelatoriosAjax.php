@@ -173,7 +173,7 @@ switch ($_REQUEST["acao"]) {
 				break;
 
 			case 3:
-				$templateRelatorio->relatorioNEC();
+				$templateRelatorio->exerciciosNEC();
 				break;
 		}
 		break;

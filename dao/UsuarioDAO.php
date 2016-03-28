@@ -525,7 +525,8 @@ class UsuarioDAO extends DAO{
             $item = Array(
                 'id' => $qr['usr_id'],
                 'nome' => $qr['usr_nome'],
-                'escola' => $qr['usr_escola']
+                'escola' => $qr['usr_escola'],
+                'serie' => $qr['usv_serie']
             );
             array_push($lista, $item);
         }
