@@ -160,6 +160,24 @@ switch ($_REQUEST["acao"]) {
 		}
 		break;
 
+	case 'graficoExercicios':
+		$user = unserialize($_SESSION['USR']);
+		$templateRelatorio = new TemplateRelatorio();
+		switch ($user['perfil_id']) {
+			case 2:
+				$templateRelatorio->exerciciosProfessor();
+				break;
+			
+			case 4:
+				$templateRelatorio->exerciciosEscola();
+				break;
+
+			case 3:
+				$templateRelatorio->relatorioNEC();
+				break;
+		}
+		break;
+
 	default:
 		$result = Array("erro"=>true, "mensagem"=>"Parametro 'acao' invalido.");
 		print json_encode($result);

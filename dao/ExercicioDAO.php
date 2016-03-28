@@ -225,5 +225,24 @@ class ExercicioDAO extends DAO{
         return $qr;
     }
 
+    public function countExerciciosAluno($idAluno)
+    {
+        $sql = 'SELECT COUNT(*) FROM exercicio ex
+                JOIN liberar_capitulo lc ON (ex.exe_serie =  lc.lbr_livro AND ex.exe_capitulo = lc.lbr_capitulo)
+                WHERE lc.lbr_escola = 69 AND lc.lbr_status = 1 AND ex.exe_serie = 1';
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function countExerciciosAlunoCompletos($idAluno)
+    {
+        $sql = 'SELECT COUNT( * ) 
+                FROM exercicio ex
+                WHERE ex.exe_id IN (
+                    SELECT DISTINCT rgc_exercicio FROM registro_acesso ra
+                    WHERE ra.rgc_usuario ='.$idAluno.' 
+                    AND ra.rgc_inicio < ra.rgc_fim)';
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
 }
 ?>

@@ -128,13 +128,17 @@ class RegistroGaleriaDAO extends DAO{
 
     public function registroGaleriaCountAcessosEscola($escola)
     {
-        $sql = "SELECT COUNT(*) FROM registro_galeria WHERE rgg_menu_galeria = 1 AND rgg_escola = ".$escola; 
+        $sql = "SELECT COUNT(*) FROM registro_galeria rg ";
+        $sql .= "JOIN usuario us ON us.usr_id = rg.rgg_usuario ";
+        $sql .= "WHERE rg.rgg_menu_galeria = 1 AND us.usr_perfil < 3 AND rg.rgg_escola = ".$escola;  
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
     public function registroGaleriaCountDownloadEscola($escola)
     {
-        $sql = "SELECT COUNT(*) FROM registro_galeria WHERE rgg_download_galeria = 1 AND rgg_escola = ".$escola; 
+        $sql =  "SELECT COUNT(*) FROM registro_galeria rg ";
+        $sql .= "JOIN usuario us ON us.usr_id = rg.rgg_usuario ";
+        $sql .= "WHERE rg.rgg_download_galeria = 1 AND us.usr_perfil < 3 AND rg.rgg_escola = ".$escola; 
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
@@ -172,18 +176,17 @@ class RegistroGaleriaDAO extends DAO{
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
-    public function registroGaleriaCountAcessosAluno($idAluno)
+    public function registroGaleriaCountAcessosUsuario($idUsuario)
     {
         $sql  = "SELECT COUNT(*) FROM registro_galeria rg ";
-        $sql .= "WHERE rg.rgg_usuario = ".$idAluno." AND rg.rgg_menu_galeria = 1";
+        $sql .= "WHERE rg.rgg_usuario = ".$idUsuario." AND rg.rgg_menu_galeria = 1";
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
-    public function registroGaleriaCountDownloadAluno($idAluno)
+    public function registroGaleriaCountDownloadUsuario($idUsuario)
     {
         $sql  = "SELECT COUNT(*) FROM registro_galeria rg ";
-        $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = rg.rgg_usuario ";
-        $sql .= "WHERE rg.rgg_usuario = ".$idAluno." AND rgg_download_galeria = 1";
+        $sql .= "WHERE rg.rgg_usuario = ".$idUsuario." AND rgg_download_galeria = 1";
         return $this->retrieve($sql)->fetch_row()[0];
     }
 }

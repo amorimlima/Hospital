@@ -82,5 +82,13 @@ class RespostaMultiplaDAO extends DAO{
         }
     	return $lista;
      }
+
+     public function countCorretasAluno($idAluno)
+     {
+        $sql = 'SELECT COUNT(*) FROM resposta_multipla rm
+                JOIN gabarito gb ON gb.gbt_exercicio = rm.rspm_exercicio AND gb.gbt_questao = rm.rspm_questao
+                WHERE rm.rspm_usuario = '.$idAluno.' AND rm.rspm_resposta = gb.gbt_resposta';
+        return $this->retrieve($sql)->fetch_row()[0];
+     }
 }
 ?>

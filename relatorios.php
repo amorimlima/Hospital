@@ -73,12 +73,12 @@ $logado = unserialize($_SESSION['USR']);
 										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
 											<div id="graficoGaleria" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
-											<div id="graficoExercicios">Comparação - Pré e Pós Avaliação (em %)</div>
+											<div id="graficoExercicios">Exercícios (em %)</div>
 										</div>
 										<div class="listagem_perfis_graficos">
 											<div id="grafico1" class="grafico">
 												<div class="lista_itens_grafico">
-													<!--<?php $templateRelatorio->graficoEscolas(); ?>-->
+													<?php //$templateRelatorio->graficoEscolas(); ?>
 												</div>
 											</div>
 											<div id="grafico2" class="grafico" style="display: none;">
