@@ -70,6 +70,7 @@ function concluirLiberarCapitulos()
 	$("#liberarCapitulos").show();
 	$("#conteudoPrincipal").show();
 	$("#liberarCapituloContainer").hide();
+	$("#liberarCapituloContainer").empty();
 };
 
 function voltarGrafico()

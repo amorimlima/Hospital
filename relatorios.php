@@ -111,125 +111,12 @@ $logado = unserialize($_SESSION['USR']);
 										</div>
 									</div>
 									<div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
-										<h1>Liberar capítulos</h1>
-										<table id="liberarCapitulosTable" class="liberar_capitulos_table">
-											<thead>
-												<tr>
-													<th class="blank">&nbsp;</th>
-													<th>Livro 1</th>
-													<th>Livro 2</th>
-													<th>Livro 3</th>
-													<th>Livro 4</th>
-													<th>Livro 5</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td class="capitulo">Capítulo 1</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-												</tr>
-												<tr>
-													<td class="capitulo">Capítulo 2</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-												</tr>
-												<tr>
-													<td class="capitulo">Capítulo 3</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-												</tr>
-												<tr>
-													<td class="capitulo">Capítulo 4</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-												</tr>
-												<tr>
-													<td class="capitulo">Capítulo 5</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-													<td>
-														<span class="cap_nao_liberado"></span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-										<div>
-											<button id="cancelarLiberarCapitulos">Cancelar</button>
-											<button id="salvarLiberarCapitulos" class="btn_primary">Salvar</button>
-										</div>
 									</div>
 								</div>
 								<div class="col-sm-12 col-md-3">
 									<div class="conteudo_lateral">
 										<div class="form_filtros">
 											<h2>Gerar relatório</h2>
-											<label for="filtroEscola">Escola</label>
-											<select id="filtroEscola">
-												<option val="" selected>Todas</option>
-											</select>
 											<label for="filtroLivro">Livro</label>
 											<select id="filtroLivro">
 												<option val="" selected>Todos</option>
