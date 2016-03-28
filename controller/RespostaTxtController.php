@@ -50,5 +50,10 @@ class RespostaTxtController {
 		$ret = $this->respostaTxtDAO->selectFull();
 		return $ret;
 	}
+
+	public function selectExeByAluno($idExercicio,$idUsuario,$questao)
+	{
+		return $this->respostaTxtDAO->selectExeByAluno($idExercicio,$idUsuario,$questao);
+	}
 }
 ?>

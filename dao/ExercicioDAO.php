@@ -121,11 +121,11 @@ class ExercicioDAO extends DAO{
         $sql .= "join liberar_capitulo lbr  on lbr.lbr_capitulo = ex.exe_capitulo ";
         $sql .= "join diretorio dir on dir.drt_id = ex.exe_diretorio ";
         $sql .= "Where ex.exe_serie = ".$serie." and lbr.lbr_escola = ".$idEscola;
+        $sql .= " and lbr.lbr_livro = ".$serie;
         if($capitulo){
             $sql .=" and ex.exe_capitulo = ".$capitulo;
         }
         $sql .= " order by ex.exe_ordem asc";
-
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){           

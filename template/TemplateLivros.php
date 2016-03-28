@@ -28,13 +28,13 @@
 			$liberarCapituloController = new liberarCapituloController();
 
 			if(($logado['perfil_id'] != 3)){
-				$capitulos = $liberarCapituloController->listaCapLebaradosPraEscola($logado['escola']);
+				$capitulos = $liberarCapituloController->selectCapLiberadoByIdEscola($logado['escola']);				
 				$capClass = Array();
 				foreach ($capitulos as $i => $value) {
 					if ($value->getLbr_status() == 1) {
 						$capClass[$i] = $value->getLbr_capitulo();
 					}
-				}
+				}				
 
 				echo '<p class="tema">
 		                	<a class="cap_1 '.(in_array('1', $capClass) ? "" : "inativo").'"><img src="img/cap_1.png"></a>
