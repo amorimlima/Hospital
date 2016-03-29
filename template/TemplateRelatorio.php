@@ -36,7 +36,7 @@ class TemplateRelatorio{
 				break;
 			
 			case 4:
-				$this->relatorioEscola();
+				$this->relatorioEscola($user['escola']);
 				break;
 
 			case 3:
@@ -84,14 +84,13 @@ class TemplateRelatorio{
 		}
 	}
 
-	public function relatorioEscola(){
+	public function relatorioEscola($idEscola){
 		$grupoController = new GrupoController();
 		$registroController = new RegistroGaleriaController();
 		$usuarioController = new UsuarioController();
-		$user = unserialize($_SESSION['USR']);
-		$professores = $usuarioController->selectProfessorByEscola($user['escola']);
-		$acessosGaleria = $registroController->registroGaleriaCountAcessosEscola($user['escola']);
-		$downloadGaleria = $registroController->registroGaleriaCountDownloadEscola($user['escola']);
+		$professores = $usuarioController->selectProfessorByEscola($idEscola);
+		$acessosGaleria = $registroController->registroGaleriaCountAcessosEscola($idEscola);
+		$downloadGaleria = $registroController->registroGaleriaCountDownloadEscola($idEscola);
 		foreach ($professores as $professor) {
 			$idProfessor = $professor->getUsr_id();
 			$grupos = $grupoController->selectProfessor($idProfessor);
@@ -100,7 +99,7 @@ class TemplateRelatorio{
 			$downloadProfessor = $registroController->registroGaleriaCountDownloadGrupo($grupo->getGrp_id()) + $registroController->registroGaleriaCountDownloadUsuario($idProfessor);
 			$pctAcessos = $acessosGaleria > 0? $acessosProfessor/$acessosGaleria : 0;
 			$pctDownloads = $downloadGaleria > 0? $downloadProfessor/$downloadGaleria : 0;
-			echo '<div>';
+			echo '<div onclick="getProfessorById('.utf8_encode($idProfessor).')">';
 			echo 	'<div class="row">';
 			echo 		'<div class="col-md-4">';
 			echo 			'<div class="grafico_desc" id="professor_id_'.utf8_encode($idProfessor).'">';

@@ -151,7 +151,7 @@ switch ($_REQUEST["acao"]) {
 				break;
 			
 			case 4:
-				$templateRelatorio->relatorioEscola();
+				$templateRelatorio->relatorioEscola($user['escola']);
 				break;
 
 			case 3:
@@ -176,6 +176,11 @@ switch ($_REQUEST["acao"]) {
 				$templateRelatorio->exerciciosNEC();
 				break;
 		}
+		break;
+
+	case 'galeriaEscola':
+		$templateRelatorio = new TemplateRelatorio();
+		$templateRelatorio->relatorioEscola($_REQUEST['idEscola']);
 		break;
 
 	default:

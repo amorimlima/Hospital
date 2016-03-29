@@ -324,13 +324,9 @@ function getProfessoresByEscola(idEscola)
 	$.ajax({
 		url: "ajax/RelatoriosAjax.php",
 		type: "GET",
-		data: "acao=professoresPorEscola&id="+idEscola,
-		dataType: "json",
+		data: "acao=galeriaEscola&idEscola="+idEscola,
 		success: function(data) {
-			professores = data;
-		},
-		complete: function() {
-			viewProfessoresByEscola(professores);
+			$(".lista_itens_grafico").html(data);
 		}
 	});
 };
@@ -352,6 +348,7 @@ function getProfessorById(idProf)
 		complete: function() {
 			professorAtivo = professor.id;
 			viewProfessorSelected(professor);
+			getAlunosByProfessor(professor);
 		},
 		error: function(e) {
 			console.error(e);
