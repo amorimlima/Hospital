@@ -12,7 +12,7 @@ include_once($path['controller'].'SerieController.php');
 include_once($path['controller'].'UsuarioController.php');
 include_once($path['controller'].'UsuarioController.php');
 include_once($path["controller"]."LiberarCapituloController.php");
-
+include_once($path["controller"]."AvaliacaoController.php");
 
 $templateGeral = new Template();
 $templateMensagens = new TemplateMensagens();
@@ -21,6 +21,11 @@ $usuarioController = new UsuarioController();
 $escolaController = new EscolaController();
 $serieController = new SerieController();
 $liberarCapituloController = new LiberarCapituloController();
+$avaliacaoController = new AvaliacaoController();
+
+//$avaliacao = $avaliacaoController->selectAvaliacaoByGeral();
+//echo "<pre>";
+//print_r($avaliacao);
 
 
 $professor = $usuarioController->selectByPerfilUsuario(2);

@@ -6,7 +6,6 @@
 
 	$path = $_SESSION['PATH_SYS'];
 
-	include_once($path['dao'].'ExercicioDAO.php');
 	include_once($path['controller'].'ExercicioController.php');
 	include_once($path['controller'].'UsuarioController.php');
 	include_once($path['controller'].'UsuarioVariavelController.php');

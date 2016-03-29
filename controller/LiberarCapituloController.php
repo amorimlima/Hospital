@@ -5,6 +5,7 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 
 $path = $_SESSION['PATH_SYS'];
+
 include_once($path['dao'].'LiberarCapituloDAO.php');
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,7 +16,7 @@ include_once($path['dao'].'LiberarCapituloDAO.php');
 /**
  * Description of TemaController
  *
- * @author Kevyn
+ * @author Carol
  */
 class LiberarCapituloController {
     //put your code here
@@ -53,21 +54,16 @@ class LiberarCapituloController {
 		return $tem;
 	}
 
-	public function listaCapLebaradosPraEscola($idEscola){
+	public function listaCapLebaradosPraEscola($idEscola)
+	{
 		$valor = $this->liberarCapituloDAO->selectByIdEscola($idEscola);
 		return $valor;
 	}
 
-	public function selectByIdEscola($idEscola)
+	public function selectCapLiberadoByIdEscola($idescola)
 	{
-		$lib = $this->liberarCapituloDAO->selectByIdEscola($idEscola);
+		$lib = $this->liberarCapituloDAO->selectCapByEscola($idescola);
 		return $lib;
-	}
-
-	public function selectCapLiberadoByIdEscola($idEscola)
-	{
-		$valor = $this->liberarCapituloDAO->selectCapLiberadoByIdEscola($idEscola);
-		return $valor;
 	}	
 }
 ?>

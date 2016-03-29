@@ -15,7 +15,7 @@ include_once($path['dao'].'AcessoDAO.php');
 /**
  * Description of AcessoController
  *
- * @author Kevyn
+ * @author Ana Carolina
  */
 class AcessoController {
      private $acessoDAO;

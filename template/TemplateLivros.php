@@ -5,7 +5,6 @@
 	}
 
 	$path = $_SESSION['PATH_SYS'];
-	include_once($path['dao'].'LiberarCapituloDAO.php');
 	include_once($path['controller'].'LiberarCapituloController.php');
 
 	/**
@@ -28,7 +27,7 @@
 			$liberarCapituloController = new liberarCapituloController();
 
 			if(($logado['perfil_id'] != 3)){
-				$capitulos = $liberarCapituloController->selectCapLiberadoByIdEscola($logado['escola']);				
+				$capitulos = $liberarCapituloController->listaCapLebaradosPraEscola($logado['escola']);				
 				$capClass = Array();
 				foreach ($capitulos as $i => $value) {
 					if ($value->getLbr_status() == 1) {
