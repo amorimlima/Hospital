@@ -82,14 +82,14 @@ class AvaliacaoDAO extends DAO{
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
-        $avaliacao= new Avaliacao();
-        $avaliacao->setAva_id($qr['ava_id']);
-        $avaliacao->setAva_ano_estudo($qr['ava_ano_estudo']);
-        $avaliacao->setAva_tipo_avaliacao($qr['ava_tipo_avaliacao']);
-        $avaliacao->setAva_capitulo($qr['ava_capitulo']);
-        $avaliacao->setAva_exercicio($qr['ava_exercicio']);
+            $avaliacao= new Avaliacao();
+            $avaliacao->setAva_id($qr['ava_id']);
+            $avaliacao->setAva_ano_estudo($qr['ava_ano_estudo']);
+            $avaliacao->setAva_tipo_avaliacao($qr['ava_tipo_avaliacao']);
+            $avaliacao->setAva_capitulo($qr['ava_capitulo']);
+            $avaliacao->setAva_exercicio($qr['ava_exercicio']);
 
-        array_push($lista,$avaliacao);
+            array_push($lista,$avaliacao);
         };
         return $lista;
     }
@@ -110,14 +110,29 @@ class AvaliacaoDAO extends DAO{
         return $this->execute($sql);
     }
 
-    function selectAvaliacaoByGeral()
+    function selectAvaliacaoByGeral($idEscola,$idProfessor,$capitulo)
     {
         $sql  = "select * from avaliacao av ";
         $sql .= "join exercicio ex on av.ava_exercicio = ex.exe_id ";
         $sql .= "Left Join registro_acesso ra on ra.rgc_exercicio = ex.exe_id and ex.exe_tipo = 1 ";
         $sql .= "Left Join resposta_multipla rm on rm.rspm_exercicio = ex.exe_id and ex.exe_tipo = 2 ";
-        $sql .= "Left Join resposta_txt rt on rt.rspt_exercicio = ex.exe_id and ex.exe_tipo = 4";
-       
+        $sql .= "Left Join resposta_txt rt on rt.rspt_exercicio = ex.exe_id and ex.exe_tipo = 4 ";
+        $sql .= "Left Join usuario us on (us.usr_id = rm.rspm_usuario or us.usr_id = rt.rspt_usuario or us.usr_id = ra. rgc_usuario) ";
+        $sql .= "Left Join usuario_variavel uv on uv.usv_usuario = us.usr_id "; 
+        $sql .= "Left Join grupo gr on gr.grp_id = uv.usv_grupo ";
+        $sql .= "where us.usr_escola =".$idEscola." ";
+        if($idProfessor){
+            $sql .= "and gr.grp_professor =".$idProfessor;
+        }
+
+        if($capitulo){
+             $sql .= " and ex.exe_capitulo =".$capitulo;
+        }
+
+        //$sql .= " group by ex.exe_id";
+        
+        echo $sql;
+        die();
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){

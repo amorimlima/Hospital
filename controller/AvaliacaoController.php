@@ -35,9 +35,9 @@ class AvaliacaoController {
 		return $this->avaliacaoDAO->updateAvaliacao($idavaliacao);
 	}
 	        
-    public function selectAvaliacaoByGeral()
+    public function selectAvaliacaoByGeral($idEscola,$idProfessor,$capitulo)
 	{
-		$avaliacao = $this->avaliacaoDAO->selectAvaliacaoByGeral();
+		$avaliacao = $this->avaliacaoDAO->selectAvaliacaoByGeral($idEscola,$idProfessor,$capitulo);
 		return $avaliacao;
 	}
 }
