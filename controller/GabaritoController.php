@@ -50,4 +50,10 @@ class GabaritoController {
 		$gab = $this->gabaritoDAO->selectFull();
 		return $gab;
 	}
+
+	public function countMultiplaAluno($idEscola)
+	{
+		$gab = $this->gabaritoDAO->countMultiplaAluno($idEscola);
+		return $gab;
+	}
 }

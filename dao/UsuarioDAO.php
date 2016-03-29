@@ -524,7 +524,8 @@ class UsuarioDAO extends DAO{
         while ($qr = mysqli_fetch_array($result)){
             $item = Array(
                 'id' => $qr['usr_id'],
-                'nome' => $qr['usr_nome']
+                'nome' => $qr['usr_nome'],
+                'escola' => $qr['usr_escola']
             );
             array_push($lista, $item);
         }
