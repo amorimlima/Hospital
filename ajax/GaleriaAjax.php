@@ -189,18 +189,22 @@ switch ($_REQUEST["acao"]) {
     case 'registroGaleria':{
 
         $logado = unserialize($_SESSION['USR']);
-        $data = date("Y-m-d");
+        if($logado['perfil_id'] != 3)
+        {
+            $data = date("Y-m-d");
 
-        $registrogaleria= new RegistroGaleria();
-        $registrogaleria->setRgg_escola($logado['escola']);
-        $registrogaleria->setRgg_usuario($logado['id']);
-        $registrogaleria->setRgg_menu_galeria($_POST['menu']);
-        $registrogaleria->setRgg_download_galeria($_POST['download']);
-        $registrogaleria->setRgg_data($data);
-
-        $registroGaleriaController->insertRegistroGaleria($registrogaleria);
-        echo "ok";
-        break;
+            $registrogaleria= new RegistroGaleria();
+            $registrogaleria->setRgg_escola($logado['escola']);
+            $registrogaleria->setRgg_usuario($logado['id']);
+            $registrogaleria->setRgg_menu_galeria($_POST['menu']);
+            $registrogaleria->setRgg_download_galeria($_POST['download']);
+            $registrogaleria->setRgg_data($data);
+    
+            $registroGaleriaController->insertRegistroGaleria($registrogaleria);
+            echo "ok";
+            break;
+        }
+        
     }
 }
 ?>
