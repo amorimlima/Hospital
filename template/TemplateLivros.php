@@ -27,7 +27,7 @@
 			$liberarCapituloController = new liberarCapituloController();
 
 			if(($logado['perfil_id'] != 3)){
-				$capitulos = $liberarCapituloController->listaCapLebaradosPraEscola($logado['escola']);				
+				$capitulos = $liberarCapituloController->selectCapLiberadoByIdEscola($logado['escola']);				
 				$capClass = Array();
 				foreach ($capitulos as $i => $value) {
 					if ($value->getLbr_status() == 1) {
