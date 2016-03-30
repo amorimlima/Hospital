@@ -147,7 +147,7 @@ switch ($_REQUEST["acao"]) {
 		$templateRelatorio = new TemplateRelatorio();
 		switch ($user['perfil_id']) {
 			case 2:
-				$templateRelatorio->relatorioProfessor();
+				$templateRelatorio->relatorioProfessor($user['id']);
 				break;
 			
 			case 4:
@@ -178,9 +178,29 @@ switch ($_REQUEST["acao"]) {
 		}
 		break;
 
+	case 'graficoEscola':
+		$templateRelatorio = new TemplateRelatorio();
+		if ($_REQUEST['tipoGrafico'] == 'galeria'){
+			$templateRelatorio->relatorioEscola($_REQUEST['idEscola']);
+		}
+		else if ($_REQUEST['tipoGrafico'] == 'exercicios'){
+			$templateRelatorio->exerciciosEscola($_REQUEST['idEscola']);
+		}
+		break;
+
+	case 'galeriaHospital';
+		$templateRelatorio = new TemplateRelatorio();
+		$templateRelatorio->relatorioNEC();
+		break;
+
 	case 'galeriaEscola':
 		$templateRelatorio = new TemplateRelatorio();
 		$templateRelatorio->relatorioEscola($_REQUEST['idEscola']);
+		break;
+
+	case 'galeriaProfessor':
+		$templateRelatorio = new TemplateRelatorio();
+		$templateRelatorio->relatorioProfessor($_REQUEST['idProfessor']);
 		break;
 
 	default:
