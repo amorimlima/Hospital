@@ -7,6 +7,8 @@ if(!isset($_SESSION['PATH_SYS'])){
 //session_start();
 $path = $_SESSION['PATH_SYS'];
 
+include_once ($path['controller'].'EscolaController.php');
+
 /**
  * Description of Template
  *
@@ -24,6 +26,7 @@ class TemplateGaleria{
 
 	public function geraFormulario()
 	{
+		$escolaController = new EscolaController();
 		$escolas = $escolaController->selectAll();
 		$logado = unserialize($_SESSION['USR']);
 		if ($logado['perfil_id'] == 3){
