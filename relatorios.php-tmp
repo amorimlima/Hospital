@@ -1,31 +1,31 @@
 <?php
-if(!isset($_SESSION['PATH_SYS'])){
-   require_once '_loadPaths.inc.php';
+if (!isset($_SESSION['PATH_SYS'])) {
+	require_once '_loadPaths.inc.php';
 }
 $path = $_SESSION['PATH_SYS'];
-include_once($path['template'].'Template.php');
-include_once($path['template'].'TemplateMensagens.php');
-include_once($path['template'].'TemplateRelatorio.php');
-include_once($path['controller'].'EscolaController.php');
-include_once($path['controller'].'UsuarioController.php');
-include_once($path['controller'].'SerieController.php');
-include_once($path['controller'].'UsuarioController.php');
-include_once($path['controller'].'UsuarioController.php');
-include_once($path["controller"]."LiberarCapituloController.php");
-include_once($path["controller"]."AvaliacaoController.php");
+include_once ($path['template'].'Template.php');
+include_once ($path['template'].'TemplateMensagens.php');
+include_once ($path['template'].'TemplateRelatorio.php');
+include_once ($path['controller'].'EscolaController.php');
+include_once ($path['controller'].'UsuarioController.php');
+include_once ($path['controller'].'SerieController.php');
+include_once ($path['controller'].'UsuarioController.php');
+include_once ($path['controller'].'UsuarioController.php');
+include_once ($path["controller"]."LiberarCapituloController.php");
+include_once ($path["controller"]."AvaliacaoController.php");
 
-$templateGeral = new Template();
-$templateMensagens = new TemplateMensagens();
-$templateRelatorio = new TemplateRelatorio();
-$usuarioController = new UsuarioController();
-$escolaController = new EscolaController();
-$serieController = new SerieController();
+$templateGeral             = new Template();
+$templateMensagens         = new TemplateMensagens();
+$templateRelatorio         = new TemplateRelatorio();
+$usuarioController         = new UsuarioController();
+$escolaController          = new EscolaController();
+$serieController           = new SerieController();
 $liberarCapituloController = new LiberarCapituloController();
-$avaliacaoController = new AvaliacaoController();
+$avaliacaoController       = new AvaliacaoController();
 
 $professor = $usuarioController->selectByPerfilUsuario(2);
-$serie = $serieController->selectAll();
-$escolas = $escolaController->selectAll();
+$serie     = $serieController->selectAll();
+$escolas   = $escolaController->selectAll();
 
 $logado = unserialize($_SESSION['USR']);
 
@@ -62,10 +62,10 @@ $logado = unserialize($_SESSION['USR']);
   	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
   	<div id="container">
         <div class="row">
-			<?php
-            	$templateGeral->topoSite();
-            ?>
-        </div>
+<?php
+$templateGeral->topoSite();
+?>
+</div>
         <!-- Comentário -->
         <div id="Conteudo_Area">
                <div class="col-xs-12 col-md-12 col-lg-12"  id="area_geral">
@@ -83,11 +83,11 @@ $logado = unserialize($_SESSION['USR']);
 										<div class="listagem_perfis_graficos">
 											<div id="grafico1" class="grafico">
 												<div class="lista_itens_grafico">
-													<?php //$templateRelatorio->graficoEscolas(); ?>
-												</div>
+<?php //$templateRelatorio->graficoEscolas(); ?>
+</div>
 											</div>
 											<div id="grafico2" class="grafico" style="display: none;">
-												<div class="lista_itens_grafico">	
+												<div class="lista_itens_grafico">
 												</div>
 											</div>
                                         </div>
@@ -157,23 +157,23 @@ $logado = unserialize($_SESSION['USR']);
             </div>
         </div>
         <footer>
-        <?php
-            $templateGeral->rodape();
-        ?>
-        </footer>
+<?php
+$templateGeral->rodape();
+?>
+</footer>
     </div>
 
 	<!--Sempre que for utilizar uma mensagem, criar uma div com a classe modalMensagem e com o display none-->
 	<div id="mensagemCapituloLiberado" class='modalMensagem' style="display:none">
-		<?php
-			$templateGeral->mensagemRetorno('livros','Capítulo liberado com sucesso!','sucesso');
-		?>
-	</div>
+<?php
+$templateGeral->mensagemRetorno('livros', 'Capítulo liberado com sucesso!', 'sucesso');
+?>
+</div>
 	<div id="mensagemSucessoDeletar" style="display:none" class='modalMensagem'>
-		<?php
-			$templateGeral->mensagemRetorno('livros','Capítulo bloqueado com sucesso!','sucesso');
-		?>
-	</div>
+<?php
+$templateGeral->mensagemRetorno('livros', 'Capítulo bloqueado com sucesso!', 'sucesso');
+?>
+</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>

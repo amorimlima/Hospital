@@ -5,7 +5,6 @@
 	}
 
 	$path = $_SESSION['PATH_SYS'];
-	include_once($path['dao'].'LiberarCapituloDAO.php');
 	include_once($path['controller'].'LiberarCapituloController.php');
 
 	/**
