@@ -41,7 +41,7 @@ $templateLivros = new TemplateLivros();
         </div>
         <div id="Conteudo_Area">
             <div class="row">
-                <div class="col-xs-12 col-md-12 col-lg-8">
+                <div class="col-xs-12 col-md-8 col-lg-8">
                		<div  id="Conteudo_Area_box_left">
                         <a href="#">                        	
                         	<img src="" alt="" id="img_teste"/>   	
@@ -49,7 +49,7 @@ $templateLivros = new TemplateLivros();
                     </div>
                 </div>
                 
-                <div class="col-xs-12 col-md-12 col-lg-4">
+                <div class="col-xs-12 col-md-4 col-lg-4">
                 	<div id="Conteudo_Area_box_right">
                         <div id="btn_exercicio">
                         	<?php $templateLivros->listaCapitulosLiberados(); ?>

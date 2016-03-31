@@ -25,14 +25,23 @@ $(document).ready(function(e) {
 });
 
 function checkbox(){
-	$('.check-box').click(function(){		
+	$('.check-box').click(function(){	
+	    var detetadas = $('#deletadas').val();	
 		$(this).toggleClass('checked');
 		var elementos = $('.checked');
-		if(elementos.length>1 || elementos.length==0){
-			$('#btn_msg_responder').addClass('inativo');
-		}else{
-			$('#btn_msg_responder').removeClass('inativo');
-		}
+		if(!detetadas){
+			if(elementos.length>1 || elementos.length==0){
+				$('#btn_msg_responder').addClass('inativo');
+			}else{
+				$('#btn_msg_responder').removeClass('inativo');
+			}
+		}else{	
+			if(elementos.length>1 || elementos.length==0){
+				$('#btn_msg_restaurar').addClass('inativo');
+			}else{
+				$('#btn_msg_restaurar').removeClass('inativo');
+			}
+		}		
 	});	
 }
 
@@ -101,7 +110,11 @@ function envidasFuncao(){
 	$('#nova_mensagem').css('display','none');
 	$('#box_recebe_msg').html('');
 	$('#conteudo_mensagem').css('display','block');
-	
+
+	$('#deletadas').val('');
+	$('#btn_msg_responder').addClass('inativo').css('display','block');
+	$('#btn_msg_restaurar').css('display','none');
+
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
@@ -116,7 +129,21 @@ function envidasFuncao(){
 		}
 	});
 }
-              
+    
+function restaurar(){
+	var idMsg = $('.checked').attr('id');
+	$.ajax({
+		url:'ajax/MensagemAjax.php',
+		type:'post',
+		dataType:'json',
+		data:{'acao':'reutauraMensagem','id':idMsg},
+		success:function(data){
+			$('#mensagemSucessoReustaurar').css('display','block');
+			$('#msg_valores_'+idMsg).remove();
+		}
+	});
+}
+
 function envidasFuncaoMobile(){
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
@@ -139,6 +166,10 @@ function recebidasFuncao(){
 	$('#box_recebe_msg').html('');
 	$('#conteudo_mensagem').css('display','block');
 	
+	$('#deletadas').val('');
+	$('#btn_msg_responder').addClass('inativo').css('display','block');
+	$('#btn_msg_restaurar').css('display','none');
+
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',
@@ -148,7 +179,8 @@ function recebidasFuncao(){
 		{
 			$("#titulo_rem").text('REMETENTES');
 			$('#box_recebe_msg').html(data);
-			$('#box_msg_right_botton').hide();		
+			$('#box_msg_right_botton').hide();
+
 			checkbox();
 		}
 	});
@@ -285,7 +317,11 @@ function deletadas(){
 	$('#nova_mensagem').css('display','none');
 	$('#box_recebe_msg').html('');
 	$('#conteudo_mensagem').css('display','block');
-	
+	$('#deletadas').val("true");
+
+	$('#btn_msg_responder').css('display','none');
+	$('#btn_msg_restaurar').css('display','block');
+
 	$.ajax({
 		url:'ajax/MensagemAjax.php',
 		type:'post',

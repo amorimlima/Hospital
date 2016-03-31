@@ -28,6 +28,14 @@ switch ($_POST["acao"]){
         }
         break;
     }
+
+    case "reutauraMensagem":{      
+        $idmens = $_POST["id"];
+          $mensagemController->restaurar($_POST["id"]);  
+          $result = Array('ok'=>true,'msg'=>'<div class="alert alert-danger"><i class="fa fa-times"></i> Restaurada com sucesso!</div>');
+          echo json_encode($result);
+        break;
+    }
     
     case "deletadas":{
         

@@ -57,8 +57,9 @@ $logado = unserialize($_SESSION['USR']);
                                                     	<div id="box_nre_dentro">
                                                             <a href="#" onclick="novo()" id="btn_msg_novo"></a>
                                                             <a href="#" onclick="responder()" class="margin_ambas inativo" id="btn_msg_responder"></a>
-                                                            <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>
-                                                         </div>
+                                                            <a href="#" onclick="restaurar()" class="margin_ambas inativo" id="btn_msg_restaurar"></a>
+                                                            <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>   
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -153,7 +154,8 @@ $logado = unserialize($_SESSION['USR']);
                                             	<div class="box_img"><img id="enviados_msg" src="img/icone_enviados.png" alt=""/></div>
                                                 <div class="box_text">ENVIADOS</div>
                                             </div>
-                                            <div id="btn_excluidos" onclick="deletadas()"  class="btn_msg">
+                                            <div id="btn_excluidos" onclick="deletadas()" class="btn_msg">
+                                                <input type="hidden" name="delete" id="deletadas" value=""> 
                                             	<div class="box_img"><img id="excluidos_msg" src="img/icone_excluidos.png" alt=""/></div>
                                                 <div class="box_text">EXCLUÍDOS</div>
                                             </div>
@@ -260,6 +262,11 @@ $logado = unserialize($_SESSION['USR']);
 			$templateGeral->mensagemRetorno('mensagens','Mensagem deletada com sucesso!','sucesso');
 		?>
 	</div>
+    <div id="mensagemSucessoReustaurar" style="display:none" class='modalMensagem'>
+        <?php
+            $templateGeral->mensagemRetorno('mensagens','Mensagem restaurada com sucesso!','sucesso');
+        ?>
+    </div>
     <div id="mensagemSucessoEnviar" style="display:none" class='modalMensagem'>
         <?php
             $templateGeral->mensagemRetorno('mensagens','Mensagem enviada com sucesso!','sucesso');
