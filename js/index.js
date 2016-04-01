@@ -13,6 +13,7 @@ function atribuirEventos() {
 	
     $("#link_pre_cadastro").click(toggleFormPreCadastro);
     $("#cancel_pre_cadastro").click(toggleFormPreCadastro);
+    $("#cancel_recuperar_senha").click(toggleRecuperarSenha);
 
     formulario = new Formulario({
         idFormulario: "formulario_pre_cadastro",
@@ -180,7 +181,6 @@ function toggleFormPreCadastro() {
         break;
     }
 }
-
 function validarLogin() {
     $("#result").html('').removeClass();
     var user = $("#usuario").val();
@@ -227,12 +227,16 @@ function mudarTipoEscola() {
 	}
 }
 
+function recuperarSenha(acao) {
+    switch(acao) {
+        case "login":
+            $("#form_recuperar_senha").hide();
+            $("#login").show();
+        break;
 
-
-
-
-
-
-
-
-
+        case "recuperarSenha":
+            $("#form_recuperar_senha").show();
+            $("#login").hide();
+        break;
+    };
+};
