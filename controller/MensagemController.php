@@ -40,9 +40,14 @@ class MensagemController {
             return $this->mensagemDAO->msgLida($idmens);
         }
 
-        public function delete($idmens)
+    public function delete($idmens)
 	{
             return $this->mensagemDAO->delete($idmens);
+	}
+
+	public function restaurar($idmens)
+	{
+            return $this->mensagemDAO->restaurar($idmens);
 	}
 	
 	public function selectMensagem($idmens)

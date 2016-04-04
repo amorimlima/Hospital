@@ -112,14 +112,20 @@ class AvaliacaoDAO extends DAO{
 
     function selectAvaliacaoByGeral($idEscola,$idProfessor,$capitulo)
     {
-        $sql  = "select * from avaliacao av ";
-        $sql .= "join exercicio ex on av.ava_exercicio = ex.exe_id ";
+        $sql  = "select av.ava_id,av.ava_serie,av.ava_tipo_avaliacao,av.ava_capitulo,av.ava_exercicio,";
+        $sql .= "ex.exe_tipo,ex.exe_serie,exe_ordem,ra.rgc_id,ra.rgc_inicio,rgc_fim,rm.rspm_id,";
+        $sql .= "rm.rspm_questao,rspm_resposta,us.usr_id,us.usr_escola,us.usr_perfil,";
+        $sql .= "uv.usv_id,uv.usv_serie,uv.usv_grupo,gr.grp_id,gr.grp_professor,gb.gbt_resposta,gb.gbt_questao,gb.gbt_exercicio ";
+        $sql .= "from avaliacao av ";
+        $sql .= "Inner join exercicio ex on av.ava_exercicio = ex.exe_id ";
         $sql .= "Left Join registro_acesso ra on ra.rgc_exercicio = ex.exe_id and ex.exe_tipo = 1 ";
         $sql .= "Left Join resposta_multipla rm on rm.rspm_exercicio = ex.exe_id and ex.exe_tipo = 2 ";
-        $sql .= "Left Join resposta_txt rt on rt.rspt_exercicio = ex.exe_id and ex.exe_tipo = 4 ";
-        $sql .= "Left Join usuario us on (us.usr_id = rm.rspm_usuario or us.usr_id = rt.rspt_usuario or us.usr_id = ra. rgc_usuario) ";
+
+        $sql .= "Left Join usuario us on (us.usr_id = rm.rspm_usuario or us.usr_id = ra. rgc_usuario) ";
+
         $sql .= "Left Join usuario_variavel uv on uv.usv_usuario = us.usr_id "; 
         $sql .= "Left Join grupo gr on gr.grp_id = uv.usv_grupo ";
+        $sql .= "Left Join gabarito gb on gb.gbt_exercicio = ex.exe_id ";
         $sql .= "where us.usr_escola =".$idEscola." ";
         if($idProfessor){
             $sql .= "and gr.grp_professor =".$idProfessor;
@@ -129,7 +135,7 @@ class AvaliacaoDAO extends DAO{
              $sql .= " and ex.exe_capitulo =".$capitulo;
         }
 
-        //$sql .= " group by ex.exe_id";
+       // $sql .= " group by gb.gbt_questao";
         
         echo $sql;
         die();
