@@ -126,7 +126,9 @@ class GaleriaDAO extends DAO{
         $sql = "SELECT *";
         $sql .= "FROM galeria glr ";
         $sql .= "JOIN categorias_galeria ctg ON ctg.ctg_id = glr.glr_categoria ";
-        $sql .= "WHERE glr.glr_categoria = ".$categoria;
+        if($categoria!="todos"){
+           $sql .= "WHERE glr.glr_categoria = ".$categoria; 
+        }        
         $result = $this->retrieve($sql);
         $lista = array();
         while ($qr = mysqli_fetch_array($result))
@@ -154,7 +156,7 @@ class GaleriaDAO extends DAO{
         $sql .= "FROM galeria glr ";
         $sql .= "JOIN categorias_galeria ctg ON ctg.ctg_id = glr.glr_categoria ";
         $sql .= "ORDER BY glr.glr_data DESC ";
-        $sql .= "LIMIT 0 , 20";
+        //$sql .= "LIMIT 0 , 20";
         $result = $this->retrieve($sql);
         $lista = array();
         while ($qr = mysqli_fetch_array($result))

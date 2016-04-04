@@ -5,8 +5,6 @@ $(document).ready(function () {
     atribuirPesquisa();
     criarFormulario();   
     formulario.iniciar();
-    carregarGaleria();
-    carregarMaisVistos();
     $('body').click(function() {
         $('#box_select').hide();
     });
@@ -107,6 +105,11 @@ function carregarCategorias () {
         success:function(categorias){
             htmlCategorias = "";
             htmlCategoriasRadio = "";
+
+            htmlCategorias += '<span id="cat_todos" class="opcoesCategorias">Todos</span>'
+            htmlCategoriasRadio += '<input type="radio" name="cat_arquivo" value="todos" id="cat_upload_todos"/>';
+            htmlCategoriasRadio += '<label for="cat_upload_todos">Todos</label>';
+
             for(var i = 0; i < categorias.length; i++){
                 htmlCategorias += '<span id="cat_'+categorias[i].id+'" class="opcoesCategorias">'+categorias[i].categoria+'</span>'
                 htmlCategoriasRadio += '<input type="radio" name="cat_arquivo" value="'+categorias[i].id+'" id="cat_upload_'+categorias[i].id+'"/>';

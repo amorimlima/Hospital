@@ -125,7 +125,6 @@ class AvaliacaoDAO extends DAO{
 
         $sql .= "Left Join usuario_variavel uv on uv.usv_usuario = us.usr_id "; 
         $sql .= "Left Join grupo gr on gr.grp_id = uv.usv_grupo ";
-        $sql .= "Left Join gabarito gb on gb.gbt_exercicio = ex.exe_id ";
         $sql .= "where us.usr_escola =".$idEscola." ";
         if($idProfessor){
             $sql .= "and gr.grp_professor =".$idProfessor;
