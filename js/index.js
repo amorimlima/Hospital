@@ -13,7 +13,6 @@ function atribuirEventos() {
 	
     $("#link_pre_cadastro").click(toggleFormPreCadastro);
     $("#cancel_pre_cadastro").click(toggleFormPreCadastro);
-    $("#cancel_recuperar_senha").click(toggleRecuperarSenha);
 
     formulario = new Formulario({
         idFormulario: "formulario_pre_cadastro",

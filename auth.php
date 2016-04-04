@@ -12,7 +12,7 @@ if(isset($_POST)){
 
 	$usuario = str_replace("'", "",$_POST["usuario"]);
 	$senha = str_replace("'","", $_POST["senha"]);
-    //$senha = md5($senha);
+    $senha = md5($senha);
 
 	$usuarioController = new UsuarioController();
 	$usuarioVariavelController = new UsuarioVariavelController();	
