@@ -26,21 +26,29 @@ class TemplateRelatorio{
 		self::$path = $_SESSION['URL_SYS'];
 	}
 
-	public function graficoEscolas()
+	public function graficoGeral($tipoGrafico)
 	{
 		$user = unserialize($_SESSION['USR']);
-		print_r($user);
 		switch ($user['perfil_id']) {
 			case 2:
-				$this->relatorioProfessor($user['id']);
+				if ($tipoGrafico == "graficoGaleria")
+					$this->relatorioProfessor($user['id']);
+				else if ($tipoGrafico == "graficoExercicios")
+					$this->exerciciosProfessor($user['id']);
 				break;
 			
 			case 4:
-				$this->relatorioEscola($user['escola']);
+				if ($tipoGrafico == "graficoGaleria")
+					$this->relatorioEscola($user['escola']);
+				else if ($tipoGrafico == "graficoExercicios")
+					$this->exerciciosEscola($user['escola']);
 				break;
 
 			case 3:
-				$this->relatorioNEC();
+				if ($tipoGrafico == "graficoGaleria")
+					$this->relatorioNEC();
+				else if ($tipoGrafico == "graficoExercicios")
+					$this->exerciciosNEC();
 				break;
 		}
 	}

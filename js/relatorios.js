@@ -39,12 +39,8 @@ function atribuirBarrasRolagem () {
 function voltarGrafico()
 {
 	$("#btn_voltar").click(function() {
-		if (escolaAtiva && professorAtivo) {
-			getEscolaById(escolaAtiva);
-			professorAtivo = false;
-		} else if (escolaAtiva && !professorAtivo) {
-			getEscolas();
-			escolaAtiva = false;
+		if ($('.box_perfil_selected').attr('escola_id') != undefined){
+			getEscolaById($('.box_perfil_selected').attr('escola_id'));
 		} else {
 			graficoGaleria();
 		}
@@ -118,12 +114,53 @@ function getProfessoresByEscola(idEscola)
 	$.ajax({
 		url: 'ajax/RelatoriosAjax.php',
 		type: 'GET',
-		data: 'acao=galeriaEscola&idEscola='+idEscola+'&tipoGrafico='+graficoAtual,
+		data: 'acao=graficoEscola&idEscola='+idEscola+'&tipoGrafico='+graficoAtual,
 		success: function(data) {
 			$(".lista_itens_grafico").html(data);
 		}
 	});
 };
+
+function graficoGaleria () {
+	$('#box_perfil_selected').remove();
+	$('.lista_itens_grafico').empty();
+	var graficoAtual = $('.option_selected').attr('id');
+	$.ajax({
+		url: 'ajax/RelatoriosAjax.php',
+		type: 'GET',
+		data: {	'acao' : 'graficoGeral',
+				'tipoGrafico' : graficoAtual},
+		success: function(dados) {
+			$('.lista_itens_grafico').html(dados);
+			$('#grafico1').css('display', 'block');
+		}
+	});
+}
+
+function graficoExercicios () {
+	$('#box_perfil_selected').remove();
+	$('.lista_itens_grafico').empty();
+	$.ajax({
+		url: 'ajax/RelatoriosAjax.php',
+		type: 'GET',
+		data: {'acao' : 'graficoExercicios'},
+		success: function(dados) {
+			$('.lista_itens_grafico').html(dados);
+			$('#grafico1').css('display', 'block');
+		}
+	});
+}
+
+function carregarGraficos () {
+	$('#graficoGaleria').click(function() {
+		graficoGaleria();
+		event.stopPropagation();
+	});
+	$('#graficoExercicios').click(function() {
+		graficoExercicios();
+		event.stopPropagation();
+	});
+}
 
 // var escolaAtiva;
 // var professorAtivo;
@@ -132,6 +169,7 @@ function getProfessoresByEscola(idEscola)
 
 // function atribuirEventos()
 // {
+
 // 	$("#tipo_grafico_picker").click(function() {
 // 		$(this).toggleClass("picker_expanded");
 // 	});

@@ -178,12 +178,17 @@ switch ($_REQUEST["acao"]) {
 		}
 		break;
 
+	case 'graficoGeral':
+		$templateRelatorio = new TemplateRelatorio();
+		$templateRelatorio->graficoGeral($_REQUEST['tipoGrafico']);
+		break;
+
 	case 'graficoEscola':
 		$templateRelatorio = new TemplateRelatorio();
-		if ($_REQUEST['tipoGrafico'] == 'galeria'){
+		if ($_REQUEST['tipoGrafico'] == 'graficoGaleria'){
 			$templateRelatorio->relatorioEscola($_REQUEST['idEscola']);
 		}
-		else if ($_REQUEST['tipoGrafico'] == 'exercicios'){
+		else if ($_REQUEST['tipoGrafico'] == 'graficoExercicios'){
 			$templateRelatorio->exerciciosEscola($_REQUEST['idEscola']);
 		}
 		break;
