@@ -56,7 +56,7 @@ $adms = $AdmController->selectAll();
                                     </div>
                                 </form>
                                 <div class="link">
-                                    <a href="#">Esqueceu a senha?</a>
+                                    <a href="#" onclick="recuperarSenha('recuperarSenha')">Esqueceu a senha?</a>
                                 </div>
                             </div>
                         </div>
@@ -70,6 +70,27 @@ $adms = $AdmController->selectAll();
                     <div class="pratinha"></div>
                 </div>
                 <div class="col-md-2">&nbsp;</div>
+            </div>
+            <div id="form_recuperar_senha" class="row" style="display:none">
+            	<div class="formulario_panel">
+            		<form action="" id="formulario_recuperar_senha">
+            			<fieldset>
+            				<legend>Recuperar senha</legend>
+            				<div class="formfield">
+            					<label for="campo_email">E-mail</label>
+            					<span>
+            						<input type="text" id="campo_email" name="usr_login" placeholder="Digite seu usuário">
+            					</span>
+            				</div>
+            			</fieldset>
+            			<fieldset>
+            				<div class="formbtns">
+	                            <input type="button" id="cancel_recuperar_senha" onclick="recuperarSenha('login')" value="Cancelar" />
+                                <input type="button" id="enviar_recuperar_senha" class="btn_primary" data-form="formulario_recuperar_senha" value="Enviar" />
+	                        </div>
+            			</fieldset>
+            		</form>
+            	</div>
             </div>
             <div class="row" id="form_pre_cadastro"  style="display: none;">
                 <div id="Conteudo_Area">
