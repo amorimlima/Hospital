@@ -60,7 +60,7 @@ class EnderecoDAO extends DAO{
     {
     	$sql  = "update endereco set end_logradouro = '".$end->getend_logradouro()."',";
     	$sql .= "end_numero = '".$end->getend_numero()."',";
-    	$sql .= "end_complemento = ".$end->getend_complemento().",";
+    	$sql .= "end_complemento = '".$end->getend_complemento()."',";
     	$sql .= "end_cep = '".$end->getend_cep()."',";
     	$sql .= "end_bairro = '".$end->getend_bairro()."',";
     	$sql .= "end_cidade = '".$end->getend_cidade()."',";
@@ -71,6 +71,7 @@ class EnderecoDAO extends DAO{
         $sql .= "end_telefone_celular = '".$end->getend_telefone_celular()."',";
         $sql .= "end_email = '".$end->getend_email()."'";
     	$sql .= "where end_id = ".$end->getend_id()." limit 1";
+//    	echo $sql;
     	return $this->execute($sql);
     }
     
