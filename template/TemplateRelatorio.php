@@ -161,14 +161,12 @@ class TemplateRelatorio{
 		}
 	}
 
-	public function exerciciosProfessor(){
+	public function exerciciosProfessor($idProfessor){
 		$grupoController = new GrupoController();
 		$usuarioController = new UsuarioController();
 		$exerciciosController = new ExercicioController();
 		$respostaMultiplaController = new RespostaMultiplaController();
 		$gabaritoController = new GabaritoController();
-		$user = unserialize($_SESSION['USR']);
-		$idProfessor = $user['id'];
 		$grupos = $grupoController->selectProfessor($idProfessor);
 		$grupo = $grupos[0];
 		$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
@@ -201,14 +199,13 @@ class TemplateRelatorio{
 		}
 	}
 
-	public function exerciciosEscola(){
+	public function exerciciosEscola($idEscola){
 		$grupoController = new GrupoController();
 		$usuarioController = new UsuarioController();
 		$exerciciosController = new ExercicioController();
 		$respostaMultiplaController = new RespostaMultiplaController();
 		$gabaritoController = new GabaritoController();
-		$user = unserialize($_SESSION['USR']);
-		$professores = $usuarioController->selectProfessorByEscola($user['escola']);
+		$professores = $usuarioController->selectProfessorByEscola($idEscola);
 		foreach ($professores as $professor) {
 			$idProfessor = $professor->getUsr_id();
 			$exerciciosProfessor = $exerciciosController->countExerciciosProfessor($idProfessor);
@@ -217,7 +214,7 @@ class TemplateRelatorio{
 			$multiplaProfessor = $gabaritoController->countMultiplaProfessor($idProfessor);
 			$multiplaProfessorCorretos = $respostaMultiplaController->countCorretasProfessor($idProfessor);
 			$pctCorretosProfessor = $multiplaProfessor > 0? $multiplaProfessorCorretos/$multiplaProfessor : 0;
-			echo '<div>';
+			echo '<div onclick="getProfessorById('.utf8_encode($idProfessor).')">';
 			echo 	'<div class="row">';
 			echo 		'<div class="col-md-4">';
 			echo 			'<div class="grafico_desc" id="professor_id_'.utf8_encode($idProfessor).'">';
@@ -254,7 +251,7 @@ class TemplateRelatorio{
 			$multiplaEscola = $gabaritoController->countMultiplaEscola($idEscola);
 			$multiplaEscolaCorretos = $respostaMultiplaController->countCorretasEscola($idEscola);
 			$pctCorretosEscola = $multiplaEscola > 0? $multiplaEscolaCorretos/$multiplaEscola : 0;
-			echo '<div>';
+			echo '<div onclick="getEscolaById('.utf8_encode($escola->getEsc_id()).')">';
 			echo 	'<div class="row">';
 			echo 		'<div class="col-md-4">';
 			echo 			'<div class="grafico_desc" id="escola_id_'.utf8_encode($idEscola).'">';

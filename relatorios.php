@@ -77,8 +77,8 @@ $logado = unserialize($_SESSION['USR']);
 									<div id="conteudoPrincipal" class="conteudo_principal">
 										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
-											<div id="graficoGaleria" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
-											<div id="graficoExercicios">Exercícios (em %)</div>
+											<div id="graficoGaleria" class="option_selected opcoes_graficos">Acessos e Downloads na Galeria (em %)</div>
+											<div id="graficoExercicios" class="opcoes_graficos">Exercícios (em %)</div>
 										</div>
 										<div class="listagem_perfis_graficos">
 											<div id="grafico1" class="grafico">
@@ -124,11 +124,21 @@ $logado = unserialize($_SESSION['USR']);
 											<h2>Gerar relatório</h2>
 											<label for="filtroLivro">Livro</label>
 											<select id="filtroLivro">
-												<option val="" selected>Todos</option>
+												<option val="0" selected>Todos</option>
+												<option val="1">1ª Série</option>
+												<option val="2">2ª Série</option>
+												<option val="3">3ª Série</option>
+												<option val="4">4ª Série</option>
+												<option val="5">5ª Série</option>
 											</select>
 											<label for="filtroCapitulo">Capítulo</label>
 											<select id="filtroCapitulo">
-												<option val="" selected>Todos</option>
+												<option val="0" selected>Todos</option>
+												<option val="1">1</option>
+												<option val="2">2</option>
+												<option val="3">3</option>
+												<option val="4">4</option>
+												<option val="5">5</option>
 											</select>
 											<label for="filtroSala">Sala</label>
 											<select id="filtroSala">

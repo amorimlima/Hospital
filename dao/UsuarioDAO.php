@@ -361,7 +361,8 @@ class UsuarioDAO extends DAO{
         $sql  = "SELECT * FROM usuario usr ";
         $sql .= "JOIN endereco end ON usr.usr_endereco = end.end_id ";
         $sql .= "JOIN perfil prf ON usr.usr_perfil = prf.prf_id ";
-        $sql .= "WHERE usr_perfil = 2 AND usr_escola = ".$idescola;
+        $sql .= "WHERE usr_perfil = 2 AND usr_escola = ";
+        $sql .= $idescola;
         $result = $this->retrieve($sql);
         $lista = Array();
 
