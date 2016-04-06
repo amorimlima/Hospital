@@ -124,7 +124,9 @@ function viewEscolaSelected(escola)
 	htmlEscSelected += 		'<input type="hidden" id="escola_id" id_escola="'+escola.id+'"/>';
 	htmlEscSelected +=			'<div class="nome_perfil_selected">'+escola.nome+'</div>';
 	htmlEscSelected +=			'<div class="razaoSocial_perfil_selected">Razão social: '+escola.razao_social+'</div>';
+	htmlEscSelected += 			'<div class="dados_perfil_selected">Tipo: '+escola.tipo_escola+' | Administração: '+escola.administracao+'</div>';
 	htmlEscSelected +=			'<div class="dados_perfil_selected">Cidade: '+escola.endereco.cidade+' | Estado: '+escola.endereco.uf+' | Site: '+escola.site+'</div>';
+	htmlEscSelected +=			'<div class="dados_perfil_selected">Diretor: '+escola.diretor.nome+' | E-mail: '+escola.diretor.email+'</div>';
 	htmlEscSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span class="lib_cap" id="lib_cap_'+escola.id+'" onclick="getCapitulosByEscola('+escola.id+')">Liberar capítulos</span></div>';
 	htmlEscSelected +=		'</div>';
 	htmlEscSelected +=	'</div>';
@@ -226,6 +228,8 @@ function viewProfessorSelected(professor)
 	var htmlProfSelected = "";
 	var data_nascimento = professor.data_nascimento.split("-")[2]+"/"+professor.data_nascimento.split("-")[1]+"/"+professor.data_nascimento.split("-")[0];
 	var data_entrada = professor.data_entrada_escola.split("-")[2]+"/"+professor.data_entrada_escola.split("-")[1]+"/"+professor.data_entrada_escola.split("-")[0];
+	var rg = professor.rg.slice(0,2)+"."+professor.rg.slice(2,5)+"."+professor.rg.slice(5,8)+"-"+professor.rg.slice(8);
+	var cpf = professor.cpf.slice(0,3)+"."+professor.cpf.slice(3,6)+"."+professor.cpf.slice(6,9)+"-"+professor.cpf.slice(9);
 	$("#box_perfil_selected").remove();
 
 	htmlProfSelected +=	'<div id="box_perfil_selected" class="box_perfil_selected ficha_dados">';
@@ -234,7 +238,8 @@ function viewProfessorSelected(professor)
 	htmlProfSelected += 	'<input type="hidden" id="professor_id" id_professor="'+professor.id+'"/>';
 	htmlProfSelected += 	'<input type="hidden" id="escola_id" id_escola="'+professor.escola+'"/>';
 	htmlProfSelected +=			'<div class="nome_perfil_selected">'+professor.nome+'</div>';
-	htmlProfSelected +=			'<div class="dados_perfil_selected">Data de nascimento: '+data_nascimento+' | Entrada na escola: '+data_entrada+'</div>';
+	htmlProfSelected +=			'<div class="dados_perfil_selected">Escola: '+professor.escola.nome+' | Entrada na escola: '+data_entrada+'</div>';
+	htmlProfSelected +=			'<div class="dados_perfil_selected">RG: '+rg+' | CPF: '+cpf+' | Data de nascimento: '+data_nascimento+'</div>';
 	htmlProfSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a></div>';
 	htmlProfSelected +=		'</div>';
 	htmlProfSelected +=	'</div>';
