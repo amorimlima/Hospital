@@ -1,5 +1,4 @@
 "use strict";
-
 var tabs = $('.tab_cadastro');
 var containers = $('.conteudo_tab');
 var btns = $('.btns_tabs');
@@ -8,6 +7,7 @@ var delPerfilId = '0';
 var blah;
 var perfisAlunosGerados = [];
 var perfisProfessoresGerados = [];
+var perfisEscolasGerados = [];
 
 $(document).ready(function() {
 	
@@ -21,7 +21,16 @@ $(document).ready(function() {
 	});
     
     $(tabs).click(function() {
-        tabNavigation(this);
+    	
+    	tabNavigation(this);
+    	
+    	//Coloca automaticamente na página que lista os usuários de acordo com o clicado
+    	var classe = $(this).attr('pagina');
+        $('.'+classe+' .btn_update_cadastro').trigger( "click" );
+        
+        //Função só para gastar linhas e deixar mais complicado
+        
+        return false;
     });
 
     
@@ -36,8 +45,10 @@ $(document).ready(function() {
     
     listarAlunos();
     listarProfessores();
+    listarEscolas();
    
     $('.btn_tab').click(function() {
+
         $(this).siblings().removeClass('btn_tab_ativo');
         $(this).addClass('btn_tab_ativo');
         
@@ -45,21 +56,18 @@ $(document).ready(function() {
             if ( $(this).hasClass('btn_add_cadastro') ) {
             	$('.conteudo_aluno').find('.form_cadastro').show();
                 $('.conteudo_aluno').find('.update_cadastro').hide();
-                
+                $('#inputCpfAluno').removeAttr('readonly');
                 $('#cadastroImagemUpload').appendTo("#spanImagemAluno");
-                
             } else if ( $(this).hasClass('btn_update_cadastro') ) {
                 $('.conteudo_aluno').find('.form_cadastro').hide();
-
                 listarAlunos();
-                
-                $('.conteudo_aluno').find('.update_cadastro').show()
+                $('.conteudo_aluno').find('.update_cadastro').show();
             }
         } else if ( $(this).hasClass('btn_professor') ) {
             if ( $(this).hasClass('btn_add_cadastro') ) {
                 $('.conteudo_professor').find('.form_cadastro').show();
                 $('.conteudo_professor').find('.update_cadastro').hide();
-                
+                $('#inputCpfProf').removeAttr('readonly');
                 $('#cadastroImagemUpload').appendTo("#spanImagemProfessor");
                 
             } else if ( $(this).hasClass('btn_update_cadastro') ) {
@@ -73,10 +81,12 @@ $(document).ready(function() {
                 $('.conteudo_escola').find('.form_cadastro').show();
                 $('.conteudo_escola').find('.update_cadastro').hide();
                 $('#cadastroImagemUpload').appendTo("#spanImagemEscola");
+                $('#inputCnpjEscola').removeAttr('readonly');
             } else if ( $(this).hasClass('btn_update_cadastro') ) {
                 $('.conteudo_escola').find('.confirm_cadastro').hide();
                 $('.conteudo_escola').find('.form_cadastro').hide();
                 $('.conteudo_escola').find('.update_cadastro').show();
+                listarEscolas();
             } else if ( $(this).hasClass('btn_confirm_cadastro') ) {
                 $('.conteudo_escola').find('.confirm_cadastro').show();
                 $('.conteudo_escola').find('.form_cadastro').hide();
@@ -88,15 +98,15 @@ $(document).ready(function() {
     //chama a função q carrega os estados no select
     listarEstadoCidade('inputEstadoAluno');
     $('#inputEstadoAluno').change(function(){
-    	selectCidade('inputEstadoAluno','inputCidadeAluno')
+    	selectCidade('inputEstadoAluno','inputCidadeAluno');
     });
     listarEstadoCidade('inputEstadoProf');
     $('#inputEstadoProf').change(function(){
-    	selectCidade('inputEstadoProf','inputCidadeProf')
+    	selectCidade('inputEstadoProf','inputCidadeProf');
     });
     listarEstadoCidade('inputEstadoEscola');
     $('#inputEstadoEscola').change(function(){
-    	selectCidade('inputEstadoEscola','inputCidadeEscola')
+    	selectCidade('inputEstadoEscola','inputCidadeEscola');
     });
     
     
@@ -105,6 +115,14 @@ $(document).ready(function() {
     });
 
     $("#cadastroAluno").click(function(){
+    	
+    	if ($('#idAluno').val() != ''){
+    		$('#inputSenhaAluno').removeClass('obrigatorioAluno');
+    		var acao = 'editarUsuario';
+    	}else{
+    		$('#inputSenhaAluno').addClass('obrigatorioAluno');
+    		var acao = 'novoUsuario';
+    	}
     	
     	$('.obrigatorioAluno').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
@@ -127,11 +145,13 @@ $(document).ready(function() {
     	//Se a div de erro está visivel para aqui.
     	if ($("#mensagemCampoVazio").is(':visible')) return false;
     	
-    	if (validarCPF($("#inputCpfAluno").val()) == false){
-    		$("#textoMensagemVazio").text('CPF inválido!');
-    		$("#mensagemCampoVazio").show();
-    		$("#inputCpfAluno").focus();
-    		return false;
+    	if ($("#inputCpfAluno").val() != ''){
+	    	if (validarCPF($("#inputCpfAluno").val()) == false){
+	    		$("#textoMensagemVazio").text('CPF inválido!');
+	    		$("#mensagemCampoVazio").show();
+	    		$("#inputCpfAluno").focus();
+	    		return false;
+	    	}
     	}
     	
     	if ($("#inputCepAluno").val().length < 10){
@@ -157,13 +177,14 @@ $(document).ready(function() {
 
     	//dados da tabela usuário
     	var nome = $("#inputNomeAluno").val();
-    	//var escolaGrupo = $("#selectProfessorAluno").val().split('_');
-    	//var escola = escolaGrupo[0];
-    	//var grupo = escolaGrupo[1];
-    	var escola = '';
-    	var grupo = '';
+    	var profGrupo = $("#selectProfessorAluno").val().split('_');
+    	var professor = profGrupo[0];
+    	var grupo = profGrupo[1];
+    	//alert(escola);
+//    	var escola = '';
+//    	var grupo = '';
     	
-    	var professor = $("#selectProfessorAluno").val();
+    	var escola = $("#selectEscolaAluno").val();
         var periodo = $("#selectPeriodoAluno").val();
         var serie = $("#selectSerieAluno").val();
         var nascimento = $("#inputNascimentoAluno").val();
@@ -188,13 +209,16 @@ $(document).ready(function() {
         var login = $("#inputUsuarioAluno").val();
         var senha = $("#inputSenhaAluno").val();
         var imagem = $("#imagem").val();
+        var idUsuario = $("#idAluno").val();
+        var idUsuarioVar = $("#idUsuarioVariavelAluno").val();
+        var idEndereco = $("#idEnderecoAluno").val();
 
         $.ajax({
             url:'ajax/cadastroAjax.php',
             type:'post',
             dataType:'json',
             data: {
-                'acao': 'novoUsuario',
+                'acao': acao,
                 'perfil': '1',
                 'nome': nome,
                 'professor': professor,
@@ -222,16 +246,23 @@ $(document).ready(function() {
                 'nse':'',
                 'imagem':imagem,
                 'login':login,
-                'senha':senha
+                'senha':senha,
+                'idUsuario':idUsuario,
+                'idUsuarioVar':idUsuarioVar,
+                'idEndereco':idEndereco
             },
             success:function(retorno){
-        		if (retorno.erro == false) $("#mensagemSucessoCadastro").show();
+        		if (retorno.erro == false) {
+        			$("#mensagemSucessoCadastro").show();
+        			$('.btns_aluno .btn_update_cadastro').trigger( "click" );
+        		}
 	           		else {
 	           			$("#textoMensagemVazio").text(retorno.msg);
 	           			$("#mensagemCampoVazio").show();
 	           		}
             	return false;
             },
+
             error:function(data){
             	$("#mensagemErroCadastro").show();
             	return false;
@@ -242,6 +273,14 @@ $(document).ready(function() {
 
     $("#cadastroProfessor").click(function(){
     
+    	if ($('#idProfessor').val() != ''){
+    		$('#inputSenhaProf').removeClass('obrigatorioProf');
+    		var acao = 'editarUsuario';
+    	}else{
+    		$('#inputSenhaProf').addClass('obrigatorioProf');
+    		var acao = 'novoUsuario';
+    	}
+
     	$('.obrigatorioProf').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
     			if ($(this).attr('id') == 'inputTelResProf'){	//Verifica se existe ao menos um telefone cadastrado!
@@ -317,11 +356,17 @@ $(document).ready(function() {
     	var imagem = $("#imagem").val();
     	var perfil = $("#perfil").val();
     	
+    	var idUsuario = $("#idProfessor").val();
+    	var idGrupo = $("#idGrupoProfessor").val();
+    	var idUsuarioVar = $("#idUsuarioVariavelProfessor").val();
+    	var idEndereco = $("#idEnderecoProfessor").val();
+    	
+    	
     	$.ajax({
         	url:'ajax/cadastroAjax.php',
         	type:'post',
         	dataType:'json',
-        	data:{'acao':'novoUsuario',
+        	data:{'acao':acao,
     			'perfil': perfil,
         		'nome':nomeProfessor,
         		'nascimento':dataNascimentoProfessor,
@@ -348,11 +393,16 @@ $(document).ready(function() {
         		'escola':'',
         		'imagem':imagem,
         		'login':loginProfessor,
-        		'senha':senhaProfessor},
+        		'senha':senhaProfessor,
+        		'idUsuario': idUsuario,
+        		'idGrupo': idGrupo,
+        		'idUsuarioVar': idUsuarioVar,
+        		'idEndereco': idEndereco
+    		},
         	success:function(retorno){
         		if (retorno.erro == false) {
         			$("#mensagemSucessoCadastro").show();
-        			listaProfessores(); //Lista os professores novamente para aparecer o professor recem-cadsatrado (se precisar)
+        			$('.btns_professor .btn_update_cadastro').trigger( "click" );
         		}else {
                			$("#textoMensagemVazio").text(retorno.msg);
                			$("#mensagemCampoVazio").show();
@@ -370,46 +420,55 @@ $(document).ready(function() {
    
     //Cadastro daescola.
     $("#cadastroEscola").click(function(){
-
-//    	$('.obrigatorioEscola').each(function(){
-//    		if ($(this).val() == '' || $(this).val() == null ){
-//    			$("#textoMensagemVazio").text($(this).attr('msgVazio'));
-//	        	$("#mensagemCampoVazio").show();
-//	        	$(this).focus();
-//	        	return false;
-//    		} 
-//    	})
-//    	
-//    	//Se a div de erro está visivel para aqui.
-//    	if ($("#mensagemCampoVazio").is(':visible')) return false;
-//    	
-//    	if (validaCNPJ($("#inputCnpjEscola").val()) == false){
-//    		$("#textoMensagemVazio").text('CNPJ inválido!');
-//    		$("#mensagemCampoVazio").show();
-//    		$("#inputCpfAluno").focus();
-//    		return false;
-//    	}
-//    	
-//    	if ($("#inputCepEscola").val().length < 10){
-//    		$("#textoMensagemVazio").text('CEP inválido!');
-//    		$("#mensagemCampoVazio").show();
-//    		$("#inputCepAluno").focus();
-//    		return false;
-//    	}
-//    	
-//    	if(validaEmail($("#inputEmailEscola").val()) == false){
-//    		$("#textoMensagemVazio").text('Email inválido!');
-//    		$("#mensagemCampoVazio").show();
-//    		$("#inputEmailAluno").focus();
-//    		return false;    		
-//    	}
-//    	
-//    	if ($('#inputSenhaEscola').val() != $('#inputSenhaConfirmEscola').val()){
-//			$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
-//    		$("#mensagemCampoVazio").show();
-//    		$('#inputSenhaAluno').focus();
-//			return false;    		
-//    	}
+    	if ($('#idEscola').val() != ''){
+    		$('#inputSenhaEscola').removeClass('obrigatorioEscola');
+    		var acao = 'editarEscola';
+    	}else{
+    		$('#inputSenhaEscola').addClass('obrigatorioEscola');
+    		var acao = 'cadastraEscola';
+    	}
+    		
+    	$('.obrigatorioEscola').each(function(){
+    		if ($(this).val() == '' || $(this).val() == null ){
+    			$("#textoMensagemVazio").text($(this).attr('msgVazio'));
+	        	$("#mensagemCampoVazio").show();
+	        	$(this).focus();
+	        	return false;
+    		}
+    	})
+    	
+    	//$('#inputSenhaEscola').addClass('obrigatorioEscola');
+    	
+    	//Se a div de erro está visivel para aqui.
+    	if ($("#mensagemCampoVazio").is(':visible')) return false;
+    	
+    	if (validaCNPJ($("#inputCnpjEscola").val()) == false){
+    		$("#textoMensagemVazio").text('CNPJ inválido!');
+    		$("#mensagemCampoVazio").show();
+    		$("#inputCpfAluno").focus();
+    		return false;
+    	}
+    	
+    	if ($("#inputCepEscola").val().length < 10){
+    		$("#textoMensagemVazio").text('CEP inválido!');
+    		$("#mensagemCampoVazio").show();
+    		$("#inputCepAluno").focus();
+    		return false;
+    	}
+    	
+    	if(validaEmail($("#inputEmailEscola").val()) == false){
+    		$("#textoMensagemVazio").text('Email inválido!');
+    		$("#mensagemCampoVazio").show();
+    		$("#inputEmailAluno").focus();
+    		return false;    		
+    	}
+    	
+    	if ($('#inputSenhaEscola').val() != $('#inputSenhaConfirmEscola').val()){
+			$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
+    		$("#mensagemCampoVazio").show();
+    		$('#inputSenhaAluno').focus();
+			return false;    		
+    	}
 
     	var nomeEscola = $("#inputNomeEscola").val();
     	var razao = $("#inputRazaoEscola").val();
@@ -427,17 +486,22 @@ $(document).ready(function() {
     	var cepEscola = $("#inputCepEscola").val();
     	var telefoneEscola = $("#inputTelefoneEscola").val();
     	var emailEscola = $("#inputEmailEscola").val();
+    	//var emailEscola2 = $("#inputEmailEscolaAntigo").val();
     	var loginEscola = $("#inputUsuarioEscola").val();
+    	//var loginEscola2 = $("#inputUsuarioEscolaAntigo").val();
     	var senhaEscola = $("#inputSenhaEscola").val();
     	var imagem = $("#imagem").val();
     	
+    	var idEscola = $("#idEscola").val();
+    	var idEndereco = $("#idEnderecoEscola").val();
+    	var idUsuario = $("#idUsuarioEscola").val();
     	
     	$.ajax({
     		url:'ajax/cadastroAjax.php',
     		type:'post',
     		dataType:'json',
     		data:{
-    			'acao':'cadastraEscola',
+    			'acao': acao,
     			'perfil': '4',
     			'status': '1',
     			'nomeEscola':nomeEscola,
@@ -462,11 +526,19 @@ $(document).ready(function() {
     			'emailDiretor':'',
     			'nomeCoordenador':'',
     			'emailCoordenador':'',
-    			'imagem':imagem
+    			'imagem':imagem,
+    			'idEscola':idEscola,
+    			'idEndereco':idEndereco,
+    			'idUsuario':idUsuario
     		},
     		success:function(retorno){
     			if (retorno.erro == false) {
-    				$("#mensagemSucessoCadastro").show();
+    				if (acao =='cadastraEscola'){
+    					$("#mensagemSucessoCadastro").show();
+    					$('.btns_escola .btn_update_cadastro').trigger( "click" );
+    				}
+    				else $("#mensagemSucessoEdicao").show();
+    				
     	        	listarEscolas();	//Lista es escolas novamente colocando a recem cria e zera a lista dos professores.
     	        	$('#selectProfessorAluno').html('<option value="" disabled selected>Selecione primeiro a escola e a série</option>');
     			}else {
@@ -488,6 +560,138 @@ $(document).ready(function() {
 		script : "ajax/cadastroAjax.php"
 	});
 	
+	
+	$("body").delegate(".btnUpdateCadAluno", "click", function (){
+		var idUsuario = $(this).attr('idUsuario');
+		//alert($('#professor'+idUsuario).attr('idProfessor'));
+		
+		$('#idAluno').val(idUsuario);
+		$('#idEnderecoAluno').val($(this).attr('idEndereco'));
+		$('#idUsuarioVariavelAluno').val($(this).attr('idUsuarioVar'));
+		$('#selectEscolaAluno').val($('#escola'+idUsuario).attr('idEscola'));
+		$('#selectSerieAluno').val($('#serie'+idUsuario).val());
+		
+		var idProfessor = $('#professor'+idUsuario).attr('idProfessor');
+		var idGrupo = $('#grupo'+idUsuario).val();
+		listaProfessores(idProfessor+'_'+idGrupo);
+		
+		$('#selectAnoAluno').val($('#ano'+idUsuario).val());
+		$('#inputNomeAluno').val($('#updateAlunoInfo'+idUsuario).text());
+		$('#inputNascimentoAluno').val($('#nascimento'+idUsuario).text());
+		$('#inputRgAluno').val($('#rg'+idUsuario).text());
+		$('#inputCpfAluno').val($('#cpf'+idUsuario).text());
+		
+		if ($('#inputCpfAluno').val() != '') $('#inputCpfAluno').attr('readonly', 'readonly');
+			else $('#inputCpfAluno').removeAttr('readonly');
+		
+		$('#inputRuaAluno').val($('#rua'+idUsuario).val());
+		$('#inputNumCasaAluno').val($('#numero'+idUsuario).val());
+		$('#inputCompCasaAluno').val($('#complemento'+idUsuario).val());
+		$('#inputCepAluno').val($('#cep'+idUsuario).val());
+		$('#inputBairroAluno').val($('#bairro'+idUsuario).val());
+		$('#inputEstadoAluno').val($('#estado'+idUsuario).val());
+		selectCidade('inputEstadoAluno','inputCidadeAluno')
+		$('#inputCidadeAluno').val($('#cidade'+idUsuario).val());
+		$('#inputTelResAluno').val($('#telResidencial'+idUsuario).val());
+		$('#inputTelCelAluno').val($('#telCelular'+idUsuario).val());
+		$('#inputTelComAluno').val($('#telComercial'+idUsuario).val());
+		$('#inputEmailAluno').val($('#email'+idUsuario).text());
+	    $('#inputUsuarioAluno').val($('#usuario'+idUsuario).text());
+		//alert($('#nascimento'+idUsuario).text());
+		
+		if ($('#imagem'+idUsuario).val() != '')	mostrarInputArquivo($('#imagem'+idUsuario).val(), 'imgp/'+$('#imagem'+idUsuario).val());
+			else limparInputArquivo();	    
+		
+		$('.conteudo_aluno').find('.form_cadastro').show();
+		$('.conteudo_aluno').find('.update_cadastro').hide();
+		$('#cadastroImagemUpload').appendTo("#spanImagemAluno");
+		
+		return false;
+	})
+	$("body").delegate(".btnUpdateCadProf", "click", function (){
+		var idUsuario = $(this).attr('idUsuario');
+		
+		$('#idGrupoProfessor').val($(this).attr('idGrupo'));
+		$('#idEnderecoProfessor').val($(this).attr('idEndereco'));
+		$('#idProfessor').val(idUsuario);
+		$('#idUsuarioVariavelProfessor').val($(this).attr('idUsuarioVar'));
+				
+		$('#inputNomeProf').val($('#updateProfInfo'+idUsuario).text());
+		$('#selectSerieProf').val($('#serie'+idUsuario).val());
+		$('#selectCategoriaProf').val($('#categoria'+idUsuario).attr('idCategoria'));
+		$('#selectGrauProf').val($('#instrucao'+idUsuario).attr('idInstrucao'));
+		$('#perfil').val($('#perfil'+idUsuario).val());
+		$('#inputNascimentoProf').val($('#dataNasc'+idUsuario).text());
+		$('#inputRgProf').val($('#rg'+idUsuario).text());
+		$('#inputCpfProf').val($('#cpf'+idUsuario).text());
+		if ($('#inputCpfProf').val() != '') $('#inputCpfProf').attr('readonly', 'readonly');
+			else $('#inputCpfProf').removeAttr('readonly');
+		$('#inputRuaProf').val($('#rua'+idUsuario).val());
+		$('#inputNumCasaProf').val($('#numero'+idUsuario).val());
+		$('#inputCompCasaProf').val($('#complemento'+idUsuario).val());
+		$('#inputCepProf').val($('#cep'+idUsuario).val());
+		$('#inputBairroProf').val($('#bairro'+idUsuario).val());
+		$('#inputTelResProf').val($('#telResidencial'+idUsuario).val());
+		$('#inputTelCelProf').val($('#telCelular'+idUsuario).val());
+		$('#inputTelComProf').val($('#telComercial'+idUsuario).val());
+		$('#inputEstadoProf').val($('#estado'+idUsuario).val());
+		selectCidade('inputEstadoProf','inputCidadeProf')
+		$('#inputCidadeProf').val($('#cidade'+idUsuario).val());
+		$('#inputEmailProf').val($('#email'+idUsuario).text());
+	    $('#inputUsuarioProf').val($('#usuario'+idUsuario).text());
+		
+		if ($('#imagem'+idUsuario).val() != '')	mostrarInputArquivo($('#imagem'+idUsuario).val(), 'imgp/'+$('#imagem'+idUsuario).val());
+			else limparInputArquivo();	    
+		
+		$('.conteudo_professor').find('.form_cadastro').show();
+        $('.conteudo_professor').find('.update_cadastro').hide();
+        $('#cadastroImagemUpload').appendTo("#spanImagemProfessor");
+		
+		return false;
+	})
+	
+	
+	$("body").delegate(".btnUpdateCadEscola", "click", function (){
+		var idUsuario = $(this).attr('idUsuario');
+
+		//alert($('#usuario'+idUsuario).text());
+		
+		$('#idEscola').val($(this).attr('idEscola'));
+		$('#idEnderecoEscola').val($(this).attr('idEndereco'));
+		$('#idUsuarioEscola').val(idUsuario);
+		
+		$('#inputNomeEscola').val($('#updateEscInfo'+idUsuario).text());
+		$('#inputRazaoEscola').val($('#razao'+idUsuario).text());
+		$('#inputNseEscola').val($('#nse'+idUsuario).val());
+		$('#inputCodigoEscola').val($('#codigo'+idUsuario).val());
+		$('#inputCnpjEscola').val($('#cnpj'+idUsuario).text());
+		$('#inputCnpjEscola').attr('readonly', 'readonly');
+		$('#inputAdmEscola').val($('#adm'+idUsuario).attr('idAdm'));
+		$('#inputTipoEscola').val($('#tipo'+idUsuario).attr('idTipo'));
+		$('#inputRuaEscola').val($('#rua'+idUsuario).val());
+		$('#inputBairroEscola').val($('#bairro'+idUsuario).val());
+		$('#inputNumCasaEscola').val($('#numero'+idUsuario).val());
+		$('#inputCompCasaEscola').val($('#complemento'+idUsuario).val());
+		$('#inputEstadoEscola').val($('#estado'+idUsuario).val());
+		selectCidade('inputEstadoEscola','inputCidadeEscola')
+		$('#inputCidadeEscola').val($('#cidade'+idUsuario).val());
+		$('#inputCepEscola').val($('#cep'+idUsuario).val());
+		$('#inputTelefoneEscola').val($('#telefone'+idUsuario).text());
+		$('#inputEmailEscola').val($('#email'+idUsuario).text());
+		$('#inputEmailEscolaAntigo').val($('#email'+idUsuario).text());
+		$('#inputUsuarioEscola').val($('#usuario'+idUsuario).text());
+		$('#inputUsuarioEscolaAntigo').val($('#usuario'+idUsuario).text());
+		
+		if ($('#imagem'+idUsuario).val() != '')	mostrarInputArquivo($('#imagem'+idUsuario).val(), 'imgp/'+$('#imagem'+idUsuario).val());
+			else limparInputArquivo();
+				
+		//aparece a página de cadastro de escolas com os dados da escola a ser editada.
+		$('.conteudo_escola').find('.confirm_cadastro').hide();
+        $('.conteudo_escola').find('.form_cadastro').show();
+        $('.conteudo_escola').find('.update_cadastro').hide();
+		return false;
+	})
+	
 }); //Fim
 
 function tabNavigation(tabToShow) {
@@ -499,7 +703,7 @@ function tabNavigation(tabToShow) {
     	limparInputArquivo();
     }
 	
-	for ( var i = 0; i < tabs.length; i++ ) {
+    for ( var i = 0; i < tabs.length; i++ ) {
 		if ( tabs[i] == tabToShow ) {
 			$($(containers).get(i)).show();
 			$($(btns).get(i)).show();
@@ -507,7 +711,7 @@ function tabNavigation(tabToShow) {
 			//Joga o html da imagem no local certo
 			var idDiv = $('.spanImagem').eq(i).attr('id');
 			$('#cadastroImagemUpload').appendTo("#"+idDiv);
-			
+
 			$($(tabs).get(i)).addClass('tab_cadastro_ativo');
 		} else {
 			$($(containers).get(i)).hide();
@@ -543,12 +747,14 @@ function formatar(mascara, documento){
   	  
   }
 
-function listaProfessores(){
-	
+
+function listaProfessores(id){
+
 	if ($('#selectEscolaAluno').val() == null || $('#selectSerieAluno').val() == null){
 		$('#selectProfessorAluno').html('<option value="" disabled selected>Selecione primeiro a escola e a série</option>');
 		return false;
 	}
+	
 	$.ajax({
         url:'ajax/cadastroAjax.php',
         type:'post',
@@ -560,6 +766,7 @@ function listaProfessores(){
         },
         success:function(retorno){
         	$('#selectProfessorAluno').html(retorno);
+        	if (id != '') $('#selectProfessorAluno').val(id);
         }
     });
 	return false;
@@ -590,33 +797,47 @@ function limparInputArquivo(){
 	return false;
 }
 
+function mostrarInputArquivo(nomeImagem, caminho){
+	$("#imgUp").show();
+	$("#cadastroImagem form").hide();
+	$("#cadastroImagem").hide();
+	$("#imgUp img").attr('src',caminho)
+	$("#imagem").val(nomeImagem);
+	return false;
+}
+
 //Classe Perfil Aluno
-function PerfilAluno(id, nome, escola, professor, sala, periodo, nascimento, rg, cpf, rua, num, complemento, cep, bairro, estado, cidade, telResidencial, telCelular, telComercial, email, usuario, imagem) {
+function PerfilAluno(aluno) {
     self = this;
-    
-    this.id = id;
-    this.nome = nome;
-    this.escola = escola;
-    this.professor = professor;
-    this.sala = sala;
-    this.periodo = periodo
-    this.nascimento = nascimento;
-    this.rg = rg;
-    this.cpf = cpf;
-    this.rua = rua;
-    this.num = num;
-    this.complemento = complemento;
-    this.cep = cep;
-    this.bairro = bairro;
-    this.estado = estado;
+    this.id = aluno.idUsuario;
+    this.nome = aluno.nomeUsuario;
+    this.idEscola = aluno.idEscola;
+    this.escola = aluno.nomeEscola;
+    this.idProfessor = aluno.idProfessor;
+    this.professor = aluno.nomeProfessor;
+    this.idGrupo = aluno.idGrupo;
+    this.sala = aluno.grupo;
+    this.nascimento = aluno.dataNascBR;
+    this.rg = aluno.rg;
+    this.cpf = aluno.cpf;
+    this.idEndereco = aluno.idEndereco;
+    this.rua = aluno.logradouro;
+    this.num = aluno.numero;
+    this.complemento = aluno.complemento;
+    this.cep = aluno.cep;
+    this.bairro = aluno.bairro;
+    this.estado = aluno.uf;
     this.pais = 'Brasil';
-    this.cidade = cidade;
-    this.telResidencial = telResidencial;
-    this.telCelular = telCelular;
-    this.telComercial = telComercial;
-    this.email = email;
-    this.usuario = usuario;
-    this.imagem = imagem;
+    this.cidade = aluno.cidade;
+    this.telResidencial = aluno.telResidencial;
+    this.telCelular = aluno.telCelular;
+    this.telComercial = aluno.telComercial;
+    this.email = aluno.email;
+    this.usuario = aluno.login;
+    this.imagem = aluno.imagem;
+    this.idUsuarioVar = aluno.idUsuarioVar;
+    this.idSerie = aluno.idSerie;
+    this.idAno = aluno.idAno;
     
     this.gerarHTML = function () {
         var html = '';
@@ -633,25 +854,41 @@ function PerfilAluno(id, nome, escola, professor, sala, periodo, nascimento, rg,
         }
         
         html +=
-        '<a href="#updateAlunoCont'+this.id+'" class="accordion_info_toggler updateAlunoToggler" data-toggle="collapse">'+
+        '<a href="#updateAlunoCont'+this.id+'" class="accordion_info_toggler updateAlunoToggler " data-toggle="collapse">'+
             '<div class="accordion_info" id="updateAlunoInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
         '<div class="accordion_content collapse" id="updateAlunoCont'+this.id+'">'+
             '<div class="content_col_info">';
-        
-        html += 
+
+        html +=
+        	
+	    		'<input type="hidden" value="'+this.idSerie+'" id="serie'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.idGrupo+'" id="grupo'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.idAno+'" id="ano'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.rua+'" id="rua'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.num+'" id="numero'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.complemento+'" id="complemento'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.cep+'" id="cep'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.bairro+'" id="bairro'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.telResidencial+'" id="telResidencial'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.telCelular+'" id="telCelular'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.telComercial+'" id="telComercial'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.estado+'" id="estado'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.cidade+'" id="cidade'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.imagem+'" id="imagem'+this.id+'"/>'+
+	    		
                 '<table border="0">'+
                     '<tr class="content_info_row">'+
-                         '<td colspan="6"><span class="content_info_label">Escola:</span> <span class="content_info_txt">'+this.escola+'</span></td>'+
+                         '<td colspan="6"><span class="content_info_label">Escola:</span> <span id="escola'+this.id+'" idEscola="'+this.idEscola+'" class="content_info_txt">'+this.escola+'</span></td>'+
                     '</tr>'+
                     '<tr class="content_info_row">'+
-                        '<td colspan="3"><span class="content_info_label">Professor:</span> <span class="content_info_txt">'+this.professor+'</span></td>'+
-                        '<td colspan="3"><span class="content_info_label">Sala:</span> <span class="content_info_txt">'+this.sala+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">Professor:</span> <span id="professor'+this.id+'" idProfessor="'+this.idProfessor+'" class="content_info_txt">'+this.professor+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">Sala:</span> <span id="grupo'+this.id+'" idGrupo="'+this.idGrupo+'" class="content_info_txt">'+this.sala+'</span></td>'+
                     '</tr>'+
                     '<tr class="content_info_row">'+
-                        '<td colspan="2"><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">'+this.nascimento+'</span></td>'+
-                        '<td colspan="2"><span class="content_info_label">RG:</span> <span class="content_info_txt">'+this.rg+'</span></td>'+
-                        '<td colspan="2"><span class="content_info_label">CPF:</span> <span class="content_info_txt">'+this.cpf+'</span></td>'+
+                        '<td colspan="2"><span class="content_info_label">Nascimento:</span> <span id="nascimento'+this.id+'" class="content_info_txt">'+this.nascimento+'</span></td>'+
+                        '<td colspan="2"><span class="content_info_label">RG:</span> <span id="rg'+this.id+'" class="content_info_txt">'+this.rg+'</span></td>'+
+                        '<td colspan="2"><span class="content_info_label">CPF:</span> <span id="cpf'+this.id+'" class="content_info_txt">'+this.cpf+'</span></td>'+
                     '</tr>'+
                     '<tr class="content_info_row">'+
                         '<td colspan="6">'+
@@ -666,43 +903,32 @@ function PerfilAluno(id, nome, escola, professor, sala, periodo, nascimento, rg,
                         '<td colspan="6"><span class="content_info_label">Tel.:</span> <span class="content_info_txt">'+telefones+'</span></td>'+
                     '</tr>'+
                     '<tr class="content_info_row">'+
-                        '<td colspan="2"><span class="content_info_label">Usuário:</span> <span class="content_info_txt">'+this.usuario+'</span></td>'+
-                        '<td colspan="4"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">'+this.email+'</span></td>'+
+                        '<td colspan="2"><span class="content_info_label">Usuário:</span> <span id="usuario'+this.id+'" class="content_info_txt">'+this.usuario+'</span></td>'+
+                        '<td colspan="4"><span class="content_info_label">E-mail:</span> <span id="email'+this.id+'" class="content_info_txt">'+this.email+'</span></td>'+
                     '</tr>'+
                 '</table>';
         
-        if (this.imagem != '')
+        if (this.imagem != ''){
         	var img = '<div><img src="imgm/'+this.imagem+'"/></div><br/>';
-        else var img = '';
+        	var posicao = 'style="position: relative"';
+        }
+        else {
+        	var img = '';
+        	var posicao = '';
+        }
         
         html +=
             '</div>'+
-            '<div class="content_col_btns" style="position: relative">'+
+            '<div class="content_col_btns" '+posicao+'>'+
             	img+
                 '<button id="btnDelAluno'+this.id+'" class="section_btn btn_del_cad btnDelCadAluno">Excluir cadastro</button>'+
-                '<button id="btnUpdateAluno'+this.id+'" class="section_btn btn_update_cad btnUpdateCadAluno">Alterar Dados</button>'+
+                '<button id="btnUpdateAluno'+this.id+'" class="section_btn btn_update_cad btnUpdateCadAluno"  idUsuario="'+this.id+'" idUsuarioVar="'+this.idUsuarioVar+'" idEndereco="'+this.idEndereco+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
         
         return html;
     }
-    this.gerarForm = function () {
-        $('#inputTurmaAluno').val(this.sala);
-        $('#inputNomeAluno').val(this.nome);
-        $('#inputNascimentoAluno').val(this.nascimento);
-        $('#inputRgAluno').val(this.rg);
-        $('#inputCpfAluno').val(this.cpf);
-        $('#inputRuaAluno').val(this.rua);
-        $('#inputNumCasaAluno').val(this.num);
-        $('#inputCompCasaAluno').val(this.complemento);
-        $('#inputCepAluno').val(this.cep);
-        $('#inputBairroAluno').val(this.bairro);
-        $('#inputTelResAluno').val(this.telResidencial);
-        $('#inputTelCelAluno').val(this.telCelular);
-        $('#inputTelComAluno').val(this.telComercial);
-        $('#inputEmailAluno').val(this.email);
-        $('#inputUsuarioAluno').val(this.usuario);
-    }
+      
     this.deletar = function() {
         $('#updateAlunoInfo'+this.id).parent('a').remove();
         $('#updateAlunoCont'+this.id).remove();
@@ -710,33 +936,44 @@ function PerfilAluno(id, nome, escola, professor, sala, periodo, nascimento, rg,
 }
 
 //Classe Perfil Professor
-function PerfilProfessor(id, nome, nascimento, rg, cpf, rua, numero, complemento, cep, bairro, estado, cidade, telResidencial, telCelular, telComercial, email, escola, sala, periodo, usuario, imagem, categoria, instrucao) {
+function PerfilProfessor(professor) {
     self = this;
-    
-    this.id = id;
-    this.nome = nome;
-    this.nascimento = nascimento;
-    this.rg = rg;
-    this.cpf = cpf;
-    this.rua = rua;
-    this.numero = numero;
-    this.complemento = complemento;
-    this.cep = cep;
-    this.bairro = bairro;
-    this.estado = estado;
-    this.cidade = cidade;
-    this.telResidencial = telResidencial;
-    this.telComercial = telComercial;
-    this.telCelular = telCelular;
-    this.email = email;
-    this.escola = escola;
-    this.sala = sala;
-    this.periodo = periodo;
-    this.usuario = usuario;
-    this.imagem = imagem;
-    this.categoria = categoria;
-    this.instrucao = instrucao;
 
+    this.id = professor.idUsuario;
+    this.nome = professor.nomeUsuario;
+    this.nascimento = professor.dataNascimento;
+    this.nascimentoBr = professor.dataNascBR;
+    this.rg = professor.rg;
+    this.cpf = professor.cpf;
+    this.idEndereco = professor.idEndereco;
+    this.rua = professor.logradouro;
+    this.numero = professor.numero;
+    this.complemento = professor.complemento;
+    this.cep = professor.cep;
+    this.bairro = professor.bairro;
+    this.estado = professor.uf;
+    this.cidade = professor.cidade;
+    this.telResidencial = professor.telResidencial;
+    this.telComercial = professor.telComercial;
+    this.telCelular = professor.telCelular;
+    this.email = professor.email;
+    this.escola = professor.idEscola;
+    this.nomeEscola = professor.nomeEscola;
+    this.idSala = professor.idGrupo;
+    this.sala = professor.grupo;
+    this.usuario = professor.login;
+    this.imagem = professor.imagem;
+    this.idCategoria = professor.idCatFuncional;
+    this.categoria = professor.categoria;
+    this.idInstrucao = professor.idInstrucao;
+    this.instrucao = professor.instrucao;
+    this.idUsuarioVar = professor.idUsuarioVar;
+    this.idSerie = professor.idSerie;
+    this.idPerfil = professor.idPerfil;
+    this.imagem = professor.imagem;
+    this.idEscola = professor.idEscola;
+    this.perfil = professor.idPerfil;
+    
     this.gerarHTML = function () {
         var html = '';
         
@@ -759,20 +996,37 @@ function PerfilProfessor(id, nome, nascimento, rg, cpf, rua, numero, complemento
         '<div class="accordion_content collapse" id="updateProfCont'+this.id+'">'+
             '<div class="content_col_info">';
             
-        html +=    
+        html +=
+        	
+	        	'<input type="hidden" value="'+this.idSerie+'" id="serie'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.idGrupo+'" id="grupo'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.idAno+'" id="ano'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.rua+'" id="rua'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.numero+'" id="numero'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.complemento+'" id="complemento'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.cep+'" id="cep'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.bairro+'" id="bairro'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.telResidencial+'" id="telResidencial'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.telCelular+'" id="telCelular'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.telComercial+'" id="telComercial'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.estado+'" id="estado'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.cidade+'" id="cidade'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.imagem+'" id="imagem'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.perfil+'" id="perfil'+this.id+'"/>'+
+	    		
                 '<table border="0">'+
                 	'<tr class="content_info_row">'+
-		                '<td colspan="4"><span class="content_info_label">Escola: </span><span class="content_info_txt">'+ this.escola +'</span></td>'+
-		                '<td colspan="2"><span class="content_info_label">Sala: </span><span class="content_info_txt">'+this.sala + '</span></td>'+
+		                '<td colspan="4"><span class="content_info_label">Escola: </span><span id="nomeEscola'+this.id+'" class="content_info_txt">'+ this.nomeEscola +'</span></td>'+
+		                '<td colspan="2"><span class="content_info_label">Sala: </span><span id="grupo'+this.id+'" idGrupo="'+this.idSala+'" class="content_info_txt">'+this.sala + '</span></td>'+
 		            '</tr>'+
                 	'<tr class="content_info_row">'+
-		                '<td colspan="3"><span class="content_info_label">Categoria Funcional: </span><span class="content_info_txt">'+ this.categoria +'</span></td>'+
-		                '<td colspan="3"><span class="content_info_label">Grau Instrução: </span><span class="content_info_txt">'+this.instrucao + '</span></td>'+
+		                '<td colspan="3"><span class="content_info_label">Categoria Funcional: </span><span id="categoria'+this.id+'" idCategoria="'+this.idCategoria+'" class="content_info_txt">'+ this.categoria +'</span></td>'+
+		                '<td colspan="3"><span class="content_info_label">Grau Instrução: </span><span id="instrucao'+this.id+'" idInstrucao="'+this.idInstrucao+'" class="content_info_txt">'+this.instrucao + '</span></td>'+
 		            '</tr>'+
                     '<tr class="content_info_row">'+
-                        '<td colspan="2"><span class="content_info_label">Nascimento:</span> <span class="content_info_txt">'+this.nascimento+'</span></td>'+
-                        '<td colspan="2"><span class="content_info_label">RG:</span> <span class="content_info_txt">'+this.rg+'</span></td>'+
-                        '<td colspan="2"><span class="content_info_label">CPF:</span> <span class="content_info_txt">'+this.cpf+'</span></td>'+
+                        '<td colspan="2"><span class="content_info_label">Nascimento:</span> <span id="dataNasc'+this.id+'" class="content_info_txt">'+this.nascimentoBr+'</span></td>'+
+                        '<td colspan="2"><span class="content_info_label">RG:</span> <span id="rg'+this.id+'" class="content_info_txt">'+this.rg+'</span></td>'+
+                        '<td colspan="2"><span class="content_info_label">CPF:</span> <span id="cpf'+this.id+'" class="content_info_txt">'+this.cpf+'</span></td>'+
                     '</tr>'+
                     '<tr class="content_info_row">'+
                         '<td colspan="6"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">'+
@@ -780,69 +1034,154 @@ function PerfilProfessor(id, nome, nascimento, rg, cpf, rua, numero, complemento
                         '</span></td>'+
                     '</tr>'+
                     '<tr class="content_info_row">'+
-                        '<td colspan="6"><span class="content_info_label">Tel.:</span> <span class="content_info_txt">+'+telefones+'</span></td>'+
+                        '<td colspan="6"><span class="content_info_label">Tel.:</span> <span class="content_info_txt">'+telefones+'</span></td>'+
                     '</tr>'+
                     
                     '<tr class="content_info_row">'+
-                        '<td colspan="3"><span class="content_info_label">Usuário</span> <span class="content_info_txt">'+this.usuario+'</span></td>'+
-                        '<td colspan="3"><span class="content_info_label">E-mail:</span> <span class="content_info_txt">'+this.email+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">Usuário</span> <span id="usuario'+this.id+'" class="content_info_txt">'+this.usuario+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">E-mail:</span> <span id="email'+this.id+'" class="content_info_txt">'+this.email+'</span></td>'+
                     '</tr>'+
                 '</table>';
         
-        if (this.imagem != '')
+        if (this.imagem != ''){
         	var img = '<div><img src="imgm/'+this.imagem+'"/></div><br/>';
-        else var img = '';
+        	var posicao = 'style="position: relative"';
+        }
+        else {
+        	var img = '';
+        	var posicao = '';
+        }
         
         html +=
             '</div>'+
-            '<div class="content_col_btns" style="position: relative">'+
+            '<div class="content_col_btns" '+posicao+'>'+
             	img+
                 '<button id="btnDelProf'+this.id+'" class="section_btn btn_del_cad btnDelCadProf">Excluir cadastro</button>'+
-                '<button id="btnUpdateProf'+this.id+'" class="section_btn btn_update_cad btnUpdateCadProf">Alterar Dados</button>'+
+                '<button id="btnUpdateProf'+this.id+'" class="section_btn btn_update_cad btnUpdateCadProf" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idUsuarioVar="'+this.idUsuarioVar+'" idGrupo="'+this.idSala+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
     
         return html;
     }
-    this.gerarForm = function () {
-        $('#inputNomeProf').val(this.nome);
-        $('#inputNascimentoProf').val(this.nascimento);
-        $('#inputRgProf').val(this.rg);
-        $('#inputCpfProf').val(this.cpf);
-        $('#inputRuaProf').val(this.rua);
-        $('#inputNumCasaProf').val(this.numero);
-        $('#inputCompCasaProf').val(this.complemento);
-        $('#inputCepProf').val(this.cep);
-        $('#inputBairroProf').val(this.bairro);
-        $('#inputTelResProf').val(this.telResidencial);
-        $('#inputTelCelProf').val(this.telCelular);
-        $('#inputTelComProf').val(this.telComercial);
-        $('#inputEmailProf').val(this.email);
-        $('#inputUsuarioProf').val(this.usuario);
-    }
-    this.deletar = function() {
-        $('#updateProfInfo'+this.id).parent('a').remove();
-        $('#updateProfCont'+this.id).remove();
-    }
+
+//    this.deletar = function() {
+//        $('#updateProfInfo'+this.id).parent('a').remove();
+//        $('#updateProfCont'+this.id).remove();
+//    }
 }
 
-//Classe Perfil Escola
-function PerfilEscola() {
+function PerfilEscola(escola) {
+	
     self = this;
 
-    this.id = id;
-    this.codigo = codigo; 
-    this.rua = rua;
-    this.numero = numero;
-    this.complemento = complemento;
-    this.cep = cep;
-    this.bairro = bairro;
+    this.id = escola.idUsuario;
+    this.idEndereco = escola.idEndereco;
+    this.idEscola = escola.idEscola;
+    this.codigo = escola.codigo; 
+    this.nome = escola.nomeEscola;
+    this.razao = escola.razaoEscola;
+    this.cnpj = escola.cnpj;
+    this.nse = escola.nse;
+    this.adm = escola.administracao;
+    this.tipoEscola = escola.tipoEscola;
+    this.rua = escola.logradouro;
+    this.numero = escola.numero;
+    this.complemento = escola.complemento;
+    this.cep = escola.cep;
+    this.bairro = escola.bairro;
     this.pais = 'Brasil';
-    this.estado = estado;
-    this.cidade = cidade;
-    this.telefone = telefone;
-    this.email = email;
-    this.usuario = usuario;
+    this.estado = escola.uf;
+    this.cidade = escola.cidade;
+    this.telefone = escola.telResidencial;
+    this.email = escola.email;
+    this.nomeDiretor = escola.nomeDiretor;
+    this.emailDiretor = escola.emailDiretor;
+    this.nomeCoord = escola.nomeCoord;
+    this.emailCoord = escola.emailCoord;
+    this.usuario = escola.login;
+    this.site = escola.site;
+    this.status = escola.status;
+    this.idAdm = escola.idAdm;
+    this.idTipoEscola = escola.idTipoEscola;
+    this.imagem = escola.imagem; 
+    	
+    this.gerarHTML = function () {
+        var html = '';
+        
+        if (this.status == 0) status = 'Desativado'
+        else if (this.status == 1) status = 'Ativado'
+        else if (this.status == 2) status = 'Rejeitado'
+        else status = '';
+        
+        html +=
+        '<a href="#updateEscCont'+this.id+'" class="accordion_info_toggler updateEscToggler" data-toggle="collapse">'+
+            '<div class="accordion_info" id="updateEscInfo'+this.id+'">'+this.nome+'</div>'+
+        '</a>'+
+        '<div class="accordion_content collapse" id="updateEscCont'+this.id+'">'+
+            '<div class="content_col_info">';
+            
+        html +=
+       		
+        		//Campos hiddens de dados
+        		'<input type="hidden" value="'+this.nse+'" id="nse'+this.id+'"/>'+	
+        		'<input type="hidden" value="'+this.codigo+'" id="codigo'+this.id+'"/>'+
+        		'<input type="hidden" value="'+this.rua+'" id="rua'+this.id+'"/>'+
+        		'<input type="hidden" value="'+this.bairro+'" id="bairro'+this.id+'"/>'+
+        		'<input type="hidden" value="'+this.numero+'" id="numero'+this.id+'"/>'+
+        		'<input type="hidden" value="'+this.complemento+'" id="complemento'+this.id+'"/>'+
+        		'<input type="hidden" value="'+this.estado+'" id="estado'+this.id+'"/>'+
+        		'<input type="hidden" value="'+this.cidade+'" id="cidade'+this.id+'"/>'+
+        		'<input type="hidden" value="'+this.cep+'" id="cep'+this.id+'"/>'+
+        		'<input type="hidden" value="'+this.imagem+'" id="imagem'+this.id+'"/>'+
+
+                '<table border="0">'+
+                	'<tr class="content_info_row">'+
+		                '<td colspan="6"><span class="content_info_label">Razão Social: </span><span id="razao'+this.id+'" class="content_info_txt">'+ this.razao +'</span></td>'+
+		                //'<td colspan="2"><span class="content_info_label">Sala: </span><span class="content_info_txt">'+this.sala + '</span></td>'+
+		            '</tr>'+
+                	'<tr class="content_info_row">'+
+		                '<td colspan="2"><span class="content_info_label">CNPJ: </span><span id="cnpj'+this.id+'" class="content_info_txt">'+this.cnpj+'</span></td>'+
+		                '<td colspan="2"><span class="content_info_label">Administração: </span><span id="adm'+this.id+'" idAdm="'+this.idAdm+'" class="content_info_txt">'+this.adm+'</span></td>'+
+		                '<td colspan="2"><span class="content_info_label">Tipo: </span><span id="tipo'+this.id+'" idTipo="'+this.idTipoEscola+'" class="content_info_txt">'+this.tipoEscola + '</span></td>'+
+		            '</tr>'+
+		            '<tr class="content_info_row">'+
+	                    '<td colspan="6"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">'+
+	                        this.rua + ', ' + this.numero + (this.complemento != '' ? ', '+this.complemento : '') + ' - ' + this.bairro + ' - ' + this.cidade + ', ' + this.estado +'. CEP: '+this.cep+
+	                    '</span></td>'+
+	                '</tr>'+
+	                '<tr class="content_info_row">'+
+	                    '<td colspan="3"><span class="content_info_label">Tel.:</span> <span id="telefone'+this.id+'" class="content_info_txt">'+this.telefone+'</span></td>'+
+	                    '<td colspan="3"><span class="content_info_label">Email:</span> <span id="email'+this.id+'" class="content_info_txt">'+this.email+'</span></td>'+
+	                '</tr>'+
+	                '<tr class="content_info_row">'+
+	                    '<td colspan="3"><span class="content_info_label">Diretor:</span> <span class="content_info_txt">'+this.nomeDiretor+'</span></td>'+
+	                    '<td colspan="3"><span class="content_info_label">Email:</span> <span class="content_info_txt">'+this.emailDiretor+'</span></td>'+
+	                '</tr>'+
+	                '<tr class="content_info_row">'+
+	                    '<td colspan="3"><span class="content_info_label">Coordenador:</span> <span class="content_info_txt">'+this.nomeCoord+'</span></td>'+
+	                    '<td colspan="3"><span class="content_info_label">Email:</span> <span class="content_info_txt">'+this.emailCoord+'</span></td>'+
+	                '</tr>'+
+	                '<tr class="content_info_row">'+
+	                    '<td colspan="6"><span class="content_info_label">Site:</span> <span class="content_info_txt">'+this.site+'</span></td>'+
+	                '</tr>'+
+                    '<tr class="content_info_row">'+
+                        '<td colspan="3"><span class="content_info_label">Usuário</span> <span id="usuario'+this.id+'" class="content_info_txt">'+this.usuario+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">Status:</span> <span class="content_info_txt">'+status+'</span></td>'+
+                    '</tr>'+
+                '</table>';
+        
+        html +=
+            '</div>'+
+            '<div class="content_col_btns">'+
+                '<button id="btnDelProf'+this.id+'" class="section_btn btn_del_cad btnDelCadEscola">Excluir cadastro</button>'+
+                '<button id="btnUpdateProf'+this.id+'" class="section_btn btn_update_cad btnUpdateCadEscola" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idEscola="'+this.idEscola+'">Alterar Dados</button>'+
+            '</div>'+
+        '</div>';
+    
+        return html;
+    }
+    
+    //inputNomeEscola
 }
 
 function tabNavigation(tabToShow) {
@@ -862,18 +1201,17 @@ function tabNavigation(tabToShow) {
 			//Joga o html da imagem no local certo
 			var idDiv = $('.spanImagem').eq(i).attr('id');
 			$('#cadastroImagemUpload').appendTo("#"+idDiv);
-			
 			$($(tabs).get(i)).addClass('tab_cadastro_ativo');
 		} else {
 			$($(containers).get(i)).hide();
 			$($(btns).get(i)).hide();
-
 			$($(tabs).get(i)).removeClass('tab_cadastro_ativo');
 		}
 	}
 }
 
 function listarAlunos(){
+
 	$.ajax({
         url:'ajax/cadastroAjax.php',
         type:'post',
@@ -883,17 +1221,11 @@ function listarAlunos(){
             'perfil': '1'
         },
         success:function(alunos){
-        	//console.log(alunos);
+        	$('.update_aluno_accordion').html('');
         	
         	for ( var a in alunos ) {
-        	  //alert(alunos[a].idUsuario);
-              perfisAlunosGerados[a] =
-              new PerfilAluno(alunos[a].idUsuario, alunos[a].nomeUsuario, alunos[a].nomeEscola, alunos[a].nomeProfessor, alunos[a].grupo, '', alunos[a].dataNascimento, alunos[a].rg, alunos[a].cpf,
-                              alunos[a].logradouro, alunos[a].numero, alunos[a].complemento, alunos[a].cep, alunos[a].bairro, alunos[a].uf, alunos[a].cidade, alunos[a].telResidencial,
-                              alunos[a].telCelular, alunos[a].telComercial, alunos[a].email, alunos[a].login, alunos[a].imagem);
-        
+              perfisAlunosGerados[a] = new PerfilAluno(alunos[a]);
               var outerHTML = perfisAlunosGerados[a].gerarHTML();
-              //var outerHTML = '';
               $('.update_aluno_accordion').append(outerHTML);
         	}
               
@@ -913,23 +1245,70 @@ function listarProfessores(){
             'perfil': '2'
         },
         success:function(professores){
-        	console.log(professores);
+        	$('.update_prof_accordion').html('');
         	
         	for ( var a in professores ) {
-        		perfisProfessoresGerados[a] =
-        			new PerfilProfessor(professores[a].idUsuario, professores[a].nomeUsuario,  professores[a].dataNascimento, professores[a].rg, professores[a].cpf,
-                              			professores[a].logradouro, professores[a].numero, professores[a].complemento, professores[a].cep, professores[a].bairro, professores[a].uf, professores[a].cidade, professores[a].telResidencial,
-                              			professores[a].telCelular, professores[a].telComercial, professores[a].email, professores[a].nomeEscola, professores[a].grupo, '', professores[a].login, professores[a].imagem, professores[a].categoria, professores[a].instrucao);
-        
+        		perfisProfessoresGerados[a] = new PerfilProfessor(professores[a]);
         		var outerHTML = perfisProfessoresGerados[a].gerarHTML();
-        		//var outerHTML = '';
-        		
         		$('.update_prof_accordion').append(outerHTML);
         	}
               
         },error:function(){
         	console.log('Erro ao listar professores!!');
-        	alert('Erro!!');
         }
     });	
+}
+
+function listarEscolas(){
+	
+	$.ajax({
+        url:'ajax/cadastroAjax.php',
+        type:'post',
+        dataType:'json',
+        data: {
+            'acao': 'listaUsuariosCompleto',
+            'perfil': '4'
+        },
+        success:function(escolas){
+        	$('.update_escola_accordion').html('');
+        	
+        	for ( var a in escolas ) {
+        		perfisEscolasGerados[a] = new PerfilEscola(escolas[a]);
+        		var outerHTML = perfisEscolasGerados[a].gerarHTML();
+        		$('.update_escola_accordion').append(outerHTML);
+        	}
+              
+        },error:function(){
+        	console.log('Erro ao listar escolas!!');
+        }
+    });	
+}
+
+//Função para limpar os campos.
+function limparCadastro(classe){
+	
+	//Função para preparar para receber uma nova imagem.
+	limparInputArquivo();	
+
+	//Percorre o formulário com a classe limpando todos os campos. 
+	$('.'+classe).each(function(){
+		$(this).val('');
+	});
+	
+	//Casos expecificos para cada formulário.
+	if (classe == 'formAluno'){
+		listarEscolas();
+		$('#selectAnoAluno option').eq(0).attr('selected','selected');
+	}else if (classe = 'formProf'){
+		$('#selectCategoriaProf option').eq(0).attr('selected','selected');
+		$('#selectGrauProf option').eq(0).attr('selected','selected');
+	}else if (classe == 'formEscola'){
+		$('#inputAdmEscola option').eq(0).attr('selected','selected');
+		$('#inputTipoEscola option').eq(0).attr('selected','selected');
+	}
+		
+	//Coloca o foco sobre o primeiro campo para ficar na parte de cima da tela.
+	$('.'+classe).eq(0).focus();
+	
+	return false;
 }

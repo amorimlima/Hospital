@@ -37,8 +37,9 @@ class GrupoDAO extends DAO{
      {
         $sql  = "update grupo set grp_grupo = '".$gru->getGrp_grupo()."',";
     	$sql .= "grp_escola = '".$gru->getGrp_escola()."',";
-    	$sql .= "grp_professor = ".$gru->getGrp_professor().",";
+    	$sql .= "grp_professor = ".$gru->getGrp_professor()." ";
         $sql .= "where  grp_id = ".$gru->getGrp_id()." limit 1";
+       // echo $sql;
         return $this->execute($sql);
      }
      
