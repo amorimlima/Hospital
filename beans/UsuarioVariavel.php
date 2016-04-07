@@ -26,7 +26,7 @@ private $usv_serie;
 private $usv_grau_instrucao;
 private $usv_categoria_funcional;
 private $usv_grupo;
-
+private $usv_status;
 
 
 public function UsuarioVariavel()
@@ -72,6 +72,10 @@ public function getUsv_grupo()
 return $this->usv_grupo;
 }
 
+public function getUsv_status()
+{
+return $this->usv_status;
+}
 
 
 public function setUsv_id($val)
@@ -109,6 +113,10 @@ public function setUsv_grupo($val)
 $this->usv_grupo =  $val;
 }
 
+public function setUsv_status($val)
+{
+$this->usv_status =  $val;
+}
 
 } 
 
