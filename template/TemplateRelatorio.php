@@ -78,10 +78,10 @@ class TemplateRelatorio{
 		$liberarCapituloController = new LiberarCapituloController();
 		$usuarioController = new UsuarioController();
 		$professor = $usuarioController->select($idProfessor);
-		echo '<option val="0" selected>Todos</option>';
+		echo '<option value="0" selected>Todos</option>';
 		$livros = $liberarCapituloController->listaLivrosProfessor($professor->getUsr_id());	
 		foreach ($livros as $livro) {
-				echo '<option val="'.$livro.'">'.$livro.'ª Série</option>';
+				echo '<option value="'.$livro.'">'.$livro.'ª Série</option>';
 		}
 	}
 
@@ -106,10 +106,10 @@ class TemplateRelatorio{
 		$liberarCapituloController = new LiberarCapituloController();
 		$usuarioController = new UsuarioController();
 		$professor = $usuarioController->select($idProfessor);
-		echo '<option val="0" selected>Todos</option>';
+		echo '<option value="0" selected>Todos</option>';
 		$capitulos = $liberarCapituloController->listaCapitulosProfessor($professor->getUsr_id());	
 		foreach ($capitulos as $capitulo) {
-				echo '<option val="'.$capitulo.'">'.$capitulo.'º Capítulo</option>';
+				echo '<option value="'.$capitulo.'">'.$capitulo.'º Capítulo</option>';
 		}
 	}
 
@@ -131,10 +131,10 @@ class TemplateRelatorio{
 		$usuarioController = new UsuarioController();
 		$grupoController = new GrupoController();
 		$professor = $usuarioController->select($idProfessor);
-		echo '<option val="0" selected>Todos</option>';
+		echo '<option value="0" selected>Todos</option>';
 		$gruposProfessor = $grupoController->selectProfessor($idProfessor);
 		foreach ($gruposProfessor as $grupo) {
-			echo '<option val="'.$grupo->getGrp_id().'">'.$grupo->getGrp_grupo().'</option>';
+			echo '<option value="'.$grupo->getGrp_id().'">'.$grupo->getGrp_grupo().'</option>';
 		}
 	}
 
