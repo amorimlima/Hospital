@@ -581,5 +581,61 @@ class UsuarioDAO extends DAO{
 
         return $lista;
      }
+
+     public function selectGeral($idUsuario)
+     {
+        $sql  = "SELECT * FROM usuario us ";
+        $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
+        $sql .= "WHERE us.usr_id = ".$idUsuario;
+
+        $result = $this->retrieve($sql);
+        $qr = mysqli_fetch_array($result);
+
+        $usuario = array(
+            "id" => $qr['usr_id'],
+            "nome" => $qr['usr_nome'],
+            "perfil" => $qr['usr_perfil'],
+            "escola" => $qr['usr_escola'],
+            "imagem" => $qr['usr_imagem'],
+            "serie" => $qr['usv_serie'],
+            "grupo" => $qr['usv_grupo'],
+            "id_variavel" => $qr['usv_id']);
+
+        return $usuario;
+     }
+
+     public function buscarAlunosGrafico($par)
+     {
+        $sql = "SELECT * FROM usuario us ";
+        $join = "JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
+        $join .= "JOIN grupo g ON g.grp_escola = us.usr_escola AND g.grp_serie = uv.usv_serie ";
+        $where = "WHERE g.grp_professor = ".$par['id']." AND us.usr_perfil = 1 ";
+        if ($par['livro'] != 0){
+            $where .= "AND g.grp_serie = ".$par['livro']." ";
+        }
+        if ($par['capitulo'] != 0){
+            $join .= "JOIN liberar_capitulo lc ON lc.lbr_escola = us.usr_escola AND lc.lbr_livro = uv.usv_serie AND lc.lbr_capitulo = ".$par['capitulo']." ";
+        }
+        if ($par['sala'] != 0){
+            $where .= "g.grp_id = ".$par['sala']." ";
+        }
+
+        $sql = $sql.$join.$where;
+
+        $result = $this->retrieve($sql);
+        $lista = Array();
+
+        while ($qr = mysqli_fetch_array($result)){
+            $item = Array(
+                'id' => $qr['usr_id'],
+                'nome' => $qr['usr_nome'],
+                'perfil' => 'aluno',
+                'escola' => $qr['usr_escola'],
+                'serie' => $qr['usv_serie']
+            );
+            array_push($lista, $item);
+        }
+        return $lista;
+     }
 }
 ?>

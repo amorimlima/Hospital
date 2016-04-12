@@ -123,26 +123,16 @@ $logado = unserialize($_SESSION['USR']);
 										<div class="form_filtros">
 											<h2>Gerar relatório</h2>
 											<label for="filtroLivro">Livro</label>
-											<select id="filtroLivro">
-												<option val="0" selected>Todos</option>
-												<option val="1">1ª Série</option>
-												<option val="2">2ª Série</option>
-												<option val="3">3ª Série</option>
-												<option val="4">4ª Série</option>
-												<option val="5">5ª Série</option>
+											<select id="filtroLivro" class="filtrosSelect">
+												<?php $templateRelatorio->getLivros(); ?>
 											</select>
 											<label for="filtroCapitulo">Capítulo</label>
-											<select id="filtroCapitulo">
-												<option val="0" selected>Todos</option>
-												<option val="1">1</option>
-												<option val="2">2</option>
-												<option val="3">3</option>
-												<option val="4">4</option>
-												<option val="5">5</option>
+											<select id="filtroCapitulo" class="filtrosSelect">
+												<?php $templateRelatorio->getCapitulos(); ?>
 											</select>
 											<label for="filtroSala">Sala</label>
-											<select id="filtroSala">
-												<option val="" selected>Todos</option>
+											<select id="filtroSala" class="filtrosSelect">
+												<?php $templateRelatorio->getSalas(); ?>
 											</select>
 											<button id="visualizarRelatorio">Visualizar</button>
 											<button id="baixarRelatorio" class="btn_primary">Baixar relatório</button>

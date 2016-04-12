@@ -220,6 +220,11 @@ switch ($_REQUEST["acao"]) {
 		$templateRelatorio->relatorioProfessor($_REQUEST['idProfessor']);
 		break;
 
+	case 'carregaGrafico':
+		$templateRelatorio = new TemplateRelatorio();
+		$templateRelatorio->carregaGrafico($_REQUEST);
+	break;
+
 	default:
 		$result = Array("erro"=>true, "mensagem"=>"Parametro 'acao' invalido.");
 		print json_encode($result);
