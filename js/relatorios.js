@@ -113,7 +113,7 @@ function carregarGrafico () {
 		id = usuario.id;
 	}
 		
-	//GO GO AJAX
+		
 	$.ajax({
 		url: 'ajax/RelatoriosAjax.php',
 		type: 'GET',
@@ -149,6 +149,30 @@ function viewEscola(escola)
 
 	$(".tipo_grafico_picker_opcoes").after(htmlEscSelected);
 }
+
+function viewProfessorSelected(professor)
+{
+	var htmlProfSelected = "";
+	var data_nascimento = professor.data_nascimento.split("-")[2]+"/"+professor.data_nascimento.split("-")[1]+"/"+professor.data_nascimento.split("-")[0];
+	var data_entrada = professor.data_entrada_escola.split("-")[2]+"/"+professor.data_entrada_escola.split("-")[1]+"/"+professor.data_entrada_escola.split("-")[0];
+	var rg = professor.rg.slice(0,2)+"."+professor.rg.slice(2,5)+"."+professor.rg.slice(5,8)+"-"+professor.rg.slice(8);
+	var cpf = professor.cpf.slice(0,3)+"."+professor.cpf.slice(3,6)+"."+professor.cpf.slice(6,9)+"-"+professor.cpf.slice(9);
+	$("#box_perfil_selected").remove();
+
+	htmlProfSelected +=	'<div id="box_perfil_selected" class="box_perfil_selected ficha_dados">';
+	htmlProfSelected +=		'<div class="foto_perfil_selected"></div>';
+	htmlProfSelected +=		'<div clas="info_perfil_selected">';
+	htmlProfSelected += 	'<input type="hidden" id="professor_id" id_professor="'+professor.id+'"/>';
+	htmlProfSelected += 	'<input type="hidden" id="escola_id" id_escola="'+professor.escola+'"/>';
+	htmlProfSelected +=			'<div class="nome_perfil_selected">'+professor.nome+'</div>';
+	htmlProfSelected +=			'<div class="dados_perfil_selected">Escola: '+professor.escola.nome+' | Entrada na escola: '+data_entrada+'</div>';
+	htmlProfSelected +=			'<div class="dados_perfil_selected">RG: '+rg+' | CPF: '+cpf+' | Data de nascimento: '+data_nascimento+'</div>';
+	htmlProfSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a></div>';
+	htmlProfSelected +=		'</div>';
+	htmlProfSelected +=	'</div>';
+
+	$(".tipo_grafico_picker_opcoes").after(htmlProfSelected);
+};
 
 // $(document).ready(function() {
 // 	voltarGrafico();

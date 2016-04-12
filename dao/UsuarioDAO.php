@@ -608,7 +608,7 @@ class UsuarioDAO extends DAO{
      {
         $sql = "SELECT * FROM usuario us ";
         $join = "JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
-        $join .= "JOIN grupo g ON g.grp_escola = us.usr_escola AND g.grp_serie = uv.usv_serie ";
+        $join .= "JOIN grupo g ON g.grp_id = uv.usv_grupo AND g.grp_serie = uv.usv_serie ";
         $where = "WHERE g.grp_professor = ".$par['id']." AND us.usr_perfil = 1 ";
         if ($par['livro'] != 0){
             $where .= "AND g.grp_serie = ".$par['livro']." ";
@@ -621,7 +621,6 @@ class UsuarioDAO extends DAO{
         }
 
         $sql = $sql.$join.$where;
-
         $result = $this->retrieve($sql);
         $lista = Array();
 

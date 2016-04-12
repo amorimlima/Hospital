@@ -24,7 +24,8 @@ class RelatorioController {
 	public function getListaVisualizacao($par)
 	{
 		if($par['perfil'] == 2){
-			return $this->usuarioDAO->buscarAlunosGrafico($par);
+			$result = $this->usuarioDAO->buscarAlunosGrafico($par);
+			return $result;
 		}
 	}
 
@@ -34,8 +35,8 @@ class RelatorioController {
 			if($par['perfil'] == 2){
 				$acessosUsuario = $this->registroGaleriaDAO->registroGaleriaCountAcessosUsuario($usuario['id']);
 				$dowloadsUsuario = $this->registroGaleriaDAO->registroGaleriaCountDownloadUsuario($usuario['id']);
-				$acessosProfessor = $this->registroGaleriaDAO->registroGaleriaCountAcessosProfessor($par);
-				$downloadsProfessor= $this->registroGaleriaDAO->registroGaleriaCountDownloadProfessor($par);
+				$acessosProfessor = $this->registroGaleriaDAO->registroGaleriaCountAcessosProfessor($par['id']);
+				$downloadsProfessor= $this->registroGaleriaDAO->registroGaleriaCountDownloadProfessor($par['id']);
 				$pctAcessos = $acessosProfessor > 0? $acessosUsuario/$acessosProfessor : 0;
 				$pctDownloads = $downloadsProfessor > 0? $dowloadsUsuario/$downloadsProfessor : 0;
 				$result = array(
@@ -47,7 +48,7 @@ class RelatorioController {
 		else if($par['grafico'] == 'graficoExercicios'){
 			if($par['perfil'] == 2){
 				$exerciciosUsuario = $this->exercicioDAO->exerciciosCompletosUsuario($par, $usuario);
-				$exerciciosTotais = $this->exercicioDAO->exerciciosTotais($par, $usuario);
+				$exerciciosTotais = $this->exercicioDAO->exerciciosTotaisUsuario($par, $usuario);
 			}
 		}
 	}
