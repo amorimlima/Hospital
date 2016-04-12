@@ -83,12 +83,12 @@ class GabaritoDAO extends DAO{
     	return $lista;
      }
 
-     public function countMultiplaAluno($idEscola)
+     public function countMultiplaAluno($idEscola, $serie)
      {
         $sql = 'SELECT COUNT(*) FROM gabarito
                 WHERE gbt_exercicio IN (SELECT exe_id FROM exercicio ex
                 JOIN liberar_capitulo lc ON (ex.exe_serie =  lc.lbr_livro AND ex.exe_capitulo = lc.lbr_capitulo)
-                WHERE lc.lbr_escola = '.$idEscola.' AND lc.lbr_status = 1 AND ex.exe_serie = 1)';
+                WHERE lc.lbr_escola = '.$idEscola.' AND lc.lbr_status = 1 AND ex.exe_serie = '.$serie.')';
         return $this->retrieve($sql)->fetch_row()[0];
      }
 }

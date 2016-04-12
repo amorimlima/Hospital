@@ -95,7 +95,7 @@ $(document).ready(function ()
     });
 
 	$("body").delegate("#btn_pronto", "click", function (){
-        usuario = $(this).attr("idAluno");
+        usuarioId = $(this).attr("idAluno");
 		resposta = $("#resp_forum").val();
 		questao = $("#questao").val();
 		
@@ -108,7 +108,7 @@ $(document).ready(function ()
 			    	acao: "NovaRespostaQuestao",
 			        questao: questao,
 			        resposta: resposta,
-			        usuario: usuario
+			        usuario: usuarioId
 			    },
 			    success: function (){
 			    	$("#respostaSucesso").css('display','block');

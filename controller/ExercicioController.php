@@ -4,6 +4,8 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'ExercicioDAO.php');
+include_once($path['controller'].'GrupoController.php');
+include_once($path['controller'].'UsuarioController.php');
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -92,9 +94,9 @@ class ExercicioController {
 		$exe = $this->exercicioDAO->selectCountExercicioNumGabarito($exercicio);
 	}
 
-	public function countExerciciosAluno($idAluno)
+	public function countExerciciosAluno($idAluno, $serie)
 	{
-		$exe = $this->exercicioDAO->countExerciciosAluno($idAluno);
+		$exe = $this->exercicioDAO->countExerciciosAluno($idAluno, $serie);
 		return $exe;
 	}
 
@@ -102,6 +104,61 @@ class ExercicioController {
 	{
 		$exe = $this->exercicioDAO->countExerciciosAlunoCompletos($idAluno);
 		return $exe;
-	}		
+	}
+
+	public function countExerciciosProfessor($idProfessor)
+	{
+		$exercicios = 0;
+		$grupoController = new GrupoController();
+		$usuarioController = new UsuarioController();
+		$grupos = $grupoController->selectProfessor($idProfessor);
+		foreach ($grupos as $grupo) {
+			$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
+			foreach ($alunosGrupo as $aluno) {
+				$exercicios += $this->exercicioDAO->countExerciciosAluno($aluno['escola'], $aluno['serie']);
+			}
+		}
+		return $exercicios;
+	}
+
+	public function countExerciciosProfessorCompletos($idProfessor)
+	{
+		$exercicios = 0;
+		$grupoController = new GrupoController();
+		$usuarioController = new UsuarioController();
+		$grupos = $grupoController->selectProfessor($idProfessor);
+		foreach ($grupos as $grupo) {
+			$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
+			foreach ($alunosGrupo as $aluno) {
+				$exercicios += $this->exercicioDAO->countExerciciosAlunoCompletos($aluno['id']);
+			}
+		}
+		return $exercicios;
+	}
+
+	public function countExerciciosEscola($idEscola)
+	{
+		$exercicios = 0;
+		$usuarioController = new UsuarioController();
+		$professores = $usuarioController->selectProfessorByEscola($idEscola);
+		foreach ($professores as $professor) {
+			$exercicios += $this->countExerciciosProfessor($professor->getUsr_id());
+		}
+		return $exercicios;
+	}
+
+	public function countExerciciosEscolaCompletos($idEscola)
+	{
+		$exercicios = 0;
+		$usuarioController = new UsuarioController();
+		$professores = $usuarioController->selectProfessorByEscola($idEscola);
+		foreach ($professores as $professor) {
+			$exercicios += $this->countExerciciosProfessorCompletos($professor->getUsr_id());
+		}
+		return $exercicios;
+	}
+
+
+
 }
 ?>

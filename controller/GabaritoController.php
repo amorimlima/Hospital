@@ -4,6 +4,8 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'GabaritoDAO.php');
+include_once($path['controller'].'GrupoController.php');
+include_once($path['controller'].'UsuarioController.php');
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -51,9 +53,35 @@ class GabaritoController {
 		return $gab;
 	}
 
-	public function countMultiplaAluno($idEscola)
+	public function countMultiplaAluno($idEscola, $serie)
 	{
-		$gab = $this->gabaritoDAO->countMultiplaAluno($idEscola);
+		$gab = $this->gabaritoDAO->countMultiplaAluno($idEscola, $serie);
 		return $gab;
+	}
+
+	public function countMultiplaProfessor($idProfessor)
+	{
+		$exercicios = 0;
+		$grupoController = new GrupoController();
+		$usuarioController = new UsuarioController();
+		$grupos = $grupoController->selectProfessor($idProfessor);
+		foreach ($grupos as $grupo) {
+			$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
+			foreach ($alunosGrupo as $aluno) {
+				$exercicios += $this->gabaritoDAO->countMultiplaAluno($aluno['escola'], $aluno['serie']);
+			}
+		}
+		return $exercicios;
+	}
+
+	public function countMultiplaEscola($idEscola)
+	{
+		$exercicios = 0;
+		$usuarioController = new UsuarioController();
+		$professores = $usuarioController->selectProfessorByEscola($idEscola);
+		foreach ($professores as $professor) {
+			$exercicios += $this->countMultiplaProfessor($professor->getUsr_id());
+		}
+		return $exercicios;
 	}
 }

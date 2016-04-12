@@ -1,3 +1,5 @@
+var usuario;
+
 $(document).ready(function(e) {
 	//Define o tamanho do objeto na tela mobile
 	var largura = $(window).width();
@@ -60,6 +62,10 @@ $(document).ready(function(e) {
 			}
 		});
 	});
+
+	//Busca e armazena o usuário ativo
+	if ($('#idUsuario').length > 0)
+		usuario = new Usuario($('#idUsuario').val());
 
 });
 
@@ -175,4 +181,30 @@ function validaCNPJ(cnpj) {
 
     return true;
 
+}
+
+var Usuario = function (idUsuario) {
+	var self = this;
+
+	var dataUsuario;
+	$.ajax({
+		url: 'ajax/UsuarioAjax.php',
+		type: 'GET',
+		data: {	'acao'	: 'usuarioGeral',
+				'id'	: idUsuario},
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			dataUsuario = data;
+		}
+	});
+
+	this.id = dataUsuario.id;
+	this.nome = dataUsuario.nome;
+	this.perfil = dataUsuario.perfil;
+	this.escola = dataUsuario.escola;
+	this.imagem = dataUsuario.imagem;
+	this.id_variavel = dataUsuario.id_variavel;
+	this.serie = dataUsuario.serie;
+	this.grupo = dataUsuario.grupo;
 }
