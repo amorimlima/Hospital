@@ -225,11 +225,11 @@ class ExercicioDAO extends DAO{
         return $qr;
     }
 
-    public function countExerciciosAluno($idAluno)
+    public function countExerciciosAluno($idEscola, $serie)
     {
         $sql = 'SELECT COUNT(*) FROM exercicio ex
                 JOIN liberar_capitulo lc ON (ex.exe_serie =  lc.lbr_livro AND ex.exe_capitulo = lc.lbr_capitulo)
-                WHERE lc.lbr_escola = 69 AND lc.lbr_status = 1 AND ex.exe_serie = 1';
+                WHERE lc.lbr_escola = '.$idEscola.' AND lc.lbr_status = 1 AND ex.exe_serie = '.$serie;
         return $this->retrieve($sql)->fetch_row()[0];
     }
 

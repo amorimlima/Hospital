@@ -4,6 +4,8 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'RespostaMultiplaDAO.php');
+include_once($path['controller'].'GrupoController.php');
+include_once($path['controller'].'UsuarioController.php');
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -55,6 +57,33 @@ class RespostaMultiplaController {
 		$rem = $this->respostaMultiplaDAO->countCorretasAluno($idAluno);
 		return $rem;
 	}
+
+	public function countCorretasProfessor($idProfessor)
+	{
+		$exercicios = 0;
+		$grupoController = new GrupoController();
+		$usuarioController = new UsuarioController();
+		$grupos = $grupoController->selectProfessor($idProfessor);
+		foreach ($grupos as $grupo) {
+			$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
+			foreach ($alunosGrupo as $aluno) {
+				$exercicios += $this->respostaMultiplaDAO->countCorretasAluno($aluno['id']);
+			}
+		}
+		return $exercicios;
+	}
+
+	public function countCorretasEscola($idEscola)
+	{
+		$exercicios = 0;
+		$usuarioController = new UsuarioController();
+		$professores = $usuarioController->selectProfessorByEscola($idEscola);
+		foreach ($professores as $professor) {
+			$exercicios += $this->countCorretasProfessor($professor->getUsr_id());
+		}
+		return $exercicios;
+	}
+
 	public function selectExeByAlunoM($idExercicio,$idUsuario,$questao)
 	{
 		return $this->selectExeByAlunoM($idExercicio,$idUsuario,$questao);
