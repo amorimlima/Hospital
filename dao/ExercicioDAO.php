@@ -244,5 +244,17 @@ class ExercicioDAO extends DAO{
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
+    public function exerciciosCompletosUsuario($par, $usuario)
+    {
+        $sql = "SELECT COUNT(*) FROM exercicio ex ";
+        $where = 'WHERE ex.exe_id IN (
+                    SELECT DISTINCT rgc_exercicio FROM registro_acesso ra
+                    WHERE ra.rgc_usuario ='.$usuario['id'].' 
+                    AND ra.rgc_inicio < ra.rgc_fim)';
+
+
+
+    }
+
 }
 ?>

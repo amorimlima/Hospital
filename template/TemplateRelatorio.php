@@ -10,7 +10,10 @@ include_once($path['controller'].'UsuarioController.php');
 include_once($path['controller'].'ExercicioController.php');
 include_once($path['controller'].'RespostaMultiplaController.php');
 include_once($path['controller'].'GabaritoController.php');
+include_once($path['controller'].'LiberarCapituloController.php');
+include_once($path['controller'].'RelatorioController.php');
 include_once($path['beans'].'RegistroGaleria.php');
+include_once($path['beans'].'Grupo.php');
 $path = $_SESSION['PATH_SYS'];
 /**
  * Description of Template
@@ -24,6 +27,115 @@ class TemplateRelatorio{
 	function __construct()
 	{
 		self::$path = $_SESSION['URL_SYS'];
+	}
+
+	public function carregaGrafico($par)
+	{
+		$relatorioController = new RelatorioController();
+		$listados = $relatorioController->getListaVisualizacao($par);
+		foreach ($listados as $listado) {
+			$barrasGrafico = $relatorioController->getBarrasUsuario ($par, $listado);
+			echo '<div onclick="'.$listado['perfil'].'GetById('.$listado['id'].')">';
+			echo 	'<div class="row">';
+			echo 		'<div class="col-md-4">';
+			echo 			'<div class="grafico_desc" id="listado_id_'.utf8_encode($listado['id']).'">';
+			echo 				'<div>';
+			echo 					'<span>'.utf8_encode($listado['nome']).'</span>';
+			echo 				'</div>';
+			echo 			'</div>';
+			echo 		'</div>';
+			echo 		'<div class="col-md-8">';
+			echo 			'<div class="grafico_chart">';
+			echo 				'<svg class="chart">';
+			echo 					'<rect y="0" width="'.($barrasGrafico['barra1'] * 100).'%" height="18" class="chart_acesso"></rect>';
+			echo 					'<rect y="22" width="'.($barrasGrafico['barra2'] * 100).'%" height="18" class="chart_download"></rect>';
+			echo 				'</svg>';
+			echo 			'</div>';
+			echo 		'</div>';
+			echo 	'</div>';
+			echo '</div>';
+		}
+	}
+
+	public function getLivros()
+	{
+		$user = unserialize($_SESSION['USR']);
+		switch ($user['perfil_id']) {
+			case 2:
+				$this->professorLivros($user['id']);
+				break;
+			case 4:
+				$this->escolaLivros($user['escola']);
+				break;
+			case 3:
+				$this->necLivros();
+				break;
+		}
+	}
+
+	public function professorLivros($idProfessor)
+	{
+		$liberarCapituloController = new LiberarCapituloController();
+		$usuarioController = new UsuarioController();
+		$professor = $usuarioController->select($idProfessor);
+		echo '<option val="0" selected>Todos</option>';
+		$livros = $liberarCapituloController->listaLivrosProfessor($professor->getUsr_id());	
+		foreach ($livros as $livro) {
+				echo '<option val="'.$livro.'">'.$livro.'ª Série</option>';
+		}
+	}
+
+	public function getCapitulos()
+	{
+		$user = unserialize($_SESSION['USR']);
+		switch ($user['perfil_id']) {
+			case 2:
+				$this->professorCapitulos($user['id']);
+				break;
+			case 4:
+				$this->escolaCapitulos($user['escola']);
+				break;
+			case 3:
+				$this->necCapitulos();
+				break;
+		}
+	}
+
+	public function professorCapitulos($idProfessor)
+	{
+		$liberarCapituloController = new LiberarCapituloController();
+		$usuarioController = new UsuarioController();
+		$professor = $usuarioController->select($idProfessor);
+		echo '<option val="0" selected>Todos</option>';
+		$capitulos = $liberarCapituloController->listaCapitulosProfessor($professor->getUsr_id());	
+		foreach ($capitulos as $capitulo) {
+				echo '<option val="'.$capitulo.'">'.$capitulo.'º Capítulo</option>';
+		}
+	}
+
+	public function getSalas()
+	{
+		$user = unserialize($_SESSION['USR']);
+		switch ($user['perfil_id']) {
+			case 2:
+				$this->professorSalas($user['id']);
+				break;
+			case 4:
+				$this->escolaSalas($user['escola']);
+				break;
+		}
+	}
+
+	public function professorSalas($idProfessor)
+	{
+		$usuarioController = new UsuarioController();
+		$grupoController = new GrupoController();
+		$professor = $usuarioController->select($idProfessor);
+		echo '<option val="0" selected>Todos</option>';
+		$gruposProfessor = $grupoController->selectProfessor($idProfessor);
+		foreach ($gruposProfessor as $grupo) {
+			echo '<option val="'.$grupo->getGrp_id().'">'.$grupo->getGrp_grupo().'</option>';
+		}
 	}
 
 	public function graficoGeral($tipoGrafico)
