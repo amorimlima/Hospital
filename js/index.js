@@ -180,7 +180,6 @@ function toggleFormPreCadastro() {
         break;
     }
 }
-
 function validarLogin() {
     $("#result").html('').removeClass();
     var user = $("#usuario").val();
@@ -227,12 +226,16 @@ function mudarTipoEscola() {
 	}
 }
 
+function recuperarSenha(acao) {
+    switch(acao) {
+        case "login":
+            $("#form_recuperar_senha").hide();
+            $("#login").show();
+        break;
 
-
-
-
-
-
-
-
-
+        case "recuperarSenha":
+            $("#form_recuperar_senha").show();
+            $("#login").hide();
+        break;
+    };
+};

@@ -94,9 +94,9 @@ class ExercicioController {
 		$exe = $this->exercicioDAO->selectCountExercicioNumGabarito($exercicio);
 	}
 
-	public function countExerciciosAluno($idAluno)
+	public function countExerciciosAluno($idAluno, $serie)
 	{
-		$exe = $this->exercicioDAO->countExerciciosAluno($idAluno);
+		$exe = $this->exercicioDAO->countExerciciosAluno($idAluno, $serie);
 		return $exe;
 	}
 

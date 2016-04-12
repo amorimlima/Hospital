@@ -169,6 +169,9 @@ switch ($_REQUEST["acao"]) {
 			if ($_REQUEST['tipo_arquivo'] == 0) {
 				$arquivo = $_REQUEST['link_arquivo'];
 			} else {
+				print_r($_FILES);
+				die();
+
 				$nomeImage          = "_".md5(uniqid(rand(), true)).'.'.pathinfo($_FILES['file_arquivo']['name'], PATHINFO_EXTENSION);
 				$arquivo_temporario = $_FILES["file_arquivo"]["tmp_name"];
 				$local              = $path['arquivos_galeria'];
@@ -186,18 +189,21 @@ switch ($_REQUEST["acao"]) {
 	case 'registroGaleria':{
 
 			$logado = unserialize($_SESSION['USR']);
-			$data   = date("Y-m-d");
+			if ($logado['perfil_id'] != 3) {
+				$data = date("Y-m-d");
 
-			$registrogaleria = new RegistroGaleria();
-			$registrogaleria->setRgg_escola($logado['escola']);
-			$registrogaleria->setRgg_usuario($logado['id']);
-			$registrogaleria->setRgg_menu_galeria($_POST['menu']);
-			$registrogaleria->setRgg_download_galeria($_POST['download']);
-			$registrogaleria->setRgg_data($data);
+				$registrogaleria = new RegistroGaleria();
+				$registrogaleria->setRgg_escola($logado['escola']);
+				$registrogaleria->setRgg_usuario($logado['id']);
+				$registrogaleria->setRgg_menu_galeria($_POST['menu']);
+				$registrogaleria->setRgg_download_galeria($_POST['download']);
+				$registrogaleria->setRgg_data($data);
 
-			$registroGaleriaController->insertRegistroGaleria($registrogaleria);
-			echo "ok";
-			break;
+				$registroGaleriaController->insertRegistroGaleria($registrogaleria);
+				echo "ok";
+				break;
+			}
+
 		}
 }
 ?>

@@ -172,6 +172,9 @@ switch ($_REQUEST["acao"]) {
         }
         else
         {
+            print_r($_FILES);
+            die();
+
             $nomeImage = "_".md5(uniqid(rand(),true)).'.'.pathinfo($_FILES['file_arquivo']['name'], PATHINFO_EXTENSION);
             $arquivo_temporario = $_FILES["file_arquivo"]["tmp_name"];
             $local = $path['arquivos_galeria'];

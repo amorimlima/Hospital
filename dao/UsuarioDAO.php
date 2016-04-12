@@ -7,6 +7,7 @@ include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
 include_once($path['beans'].'Usuario.php');
 include_once($path['beans'].'Perfil.php');
+include_once($path['funcao'].'DatasFuncao.php');
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -98,15 +99,15 @@ class UsuarioDAO extends DAO{
     	$sql .= "usr_endereco = ".$user->getUsr_endereco().",";
         $sql .= "usr_escola = '".$user->getUsr_escola()."',";
         $sql .= "usr_data_entrada_escola = '".$user->getUsr_data_entrada_escola()."',";
-        $sql .= "usr_nse = ".$user->getUsr_nse().",";
+        $sql .= "usr_nse = '".$user->getUsr_nse()."',";
         $sql .= "usr_perfil = ".$user->getUsr_perfil().",";
-        $sql .= "usr_rg = ".$user->getUsr_rg().",";
-        $sql .= "usr_cpf = ".$user->getUsr_cpf().",";
-        $sql .= "usr_login = ".$user->getUsr_login().",";
-        $sql .= "usr_senha = ".$user->getUsr_senha().",";
-        $sql .= "usr_imagem = ".$user->getUsr_imagem();
+        $sql .= "usr_rg = '".$user->getUsr_rg()."',";
+        $sql .= "usr_cpf = '".$user->getUsr_cpf()."',";
+        $sql .= "usr_login = '".$user->getUsr_login()."',";
+        $sql .= "usr_senha = '".$user->getUsr_senha()."',";
+        $sql .= "usr_imagem = '".$user->getUsr_imagem()."'";
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
-        
+//        echo $sql;
         return $this->execute($sql);
      }
      
@@ -119,7 +120,7 @@ class UsuarioDAO extends DAO{
      public function select($iduser)
      {
         $sql = "select * from usuario where usr_id = ".$iduser;
-        //echo $sql;
+		//echo $sql;
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
         
@@ -135,10 +136,10 @@ class UsuarioDAO extends DAO{
                 $user->setUsr_rg($qr["usr_rg"]);
                 $user->setUsr_cpf($qr["usr_cpf"]);
                 $user->setUsr_imagem($qr["usr_imagem"]);
-                //$user->setUsr_login($qr["usr_login"]);
-            	//$user->setUsr_senha($qr["usr_senha"]);
-                
+                $user->setUsr_login($qr["usr_login"]);
+            	$user->setUsr_senha($qr["usr_senha"]);
               	
+            	//print_r($user);
     	return $user;
      }
      
@@ -362,7 +363,8 @@ class UsuarioDAO extends DAO{
         $sql .= "JOIN endereco end ON usr.usr_endereco = end.end_id ";
         $sql .= "JOIN escola esc ON usr.usr_escola = esc.esc_id ";
         $sql .= "JOIN perfil prf ON usr.usr_perfil = prf.prf_id ";
-        $sql .= "WHERE usr_perfil = 2 AND usr_escola = ".$idescola;
+        $sql .= "WHERE usr_perfil = 2 AND usr_escola = ";
+        $sql .= $idescola;
         $result = $this->retrieve($sql);
         $lista = Array();
 
@@ -424,25 +426,33 @@ class UsuarioDAO extends DAO{
      	
      	switch ($perfil){
             //Perfil Aluno
-          	case '1':{
-	     		$sql = "SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
+            case '1':{
+	     		$sql = " SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
 	     					   us.usr_cpf, us.usr_login, us.usr_senha, us.usr_imagem,
 	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome, 
 	     					   uv.usv_id, ano.ano_id, ano.ano_ano, s.sri_id, s.sri_serie, 
 	     					   g.grp_id, g.grp_grupo, prof.usr_id AS idProfessor, prof.usr_nome AS nomeProfessor, e.*
 						FROM  `usuario` AS us
-							LEFT OUTER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
-							LEFT OUTER JOIN escola AS es ON us.usr_escola = es.esc_id
-							LEFT OUTER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-							LEFT OUTER JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
-							LEFT OUTER JOIN serie AS s ON uv.usv_serie = s.sri_id
-							LEFT OUTER JOIN endereco AS e ON us.usr_endereco = e.end_id
-							LEFT OUTER JOIN grupo AS g ON uv.usv_grupo = g.grp_id
-							LEFT OUTER JOIN usuario AS prof ON g.grp_professor = prof.usr_id
+							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
+							left OUTER JOIN escola AS es ON us.usr_escola = es.esc_id
+							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
+							INNER JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
+							INNER JOIN serie AS s ON uv.usv_serie = s.sri_id
+							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
+							left OUTER JOIN grupo AS g ON uv.usv_grupo = g.grp_id
+							left OUTER JOIN usuario AS prof ON g.grp_professor = prof.usr_id
 						WHERE us.usr_perfil = 1";
 	     		break;
    			}
-   			
+//   			FROM  `usuario` AS us
+//							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
+//							left OUTER JOIN escola AS es ON us.usr_escola = es.esc_id
+//							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
+//							INNER JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
+//							INNER JOIN serie AS s ON uv.usv_serie = s.sri_id
+//							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
+//							LEFT OUTER JOIN grupo AS g ON uv.usv_grupo = g.grp_id
+//							/*RIGHT OUTER JOIN usuario AS prof ON g.grp_professor = prof.usr_id*/
 	       //Perfil Professor
           	case '2':{
 	     		$sql = "SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
@@ -450,71 +460,104 @@ class UsuarioDAO extends DAO{
 	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome,
 	     					   uv.usv_id, s.*, gi.*,cat.*, g.grp_id, g.grp_grupo, e.*
 						FROM usuario as us 
-							LEFT OUTER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
-							LEFT OUTER JOIN escola AS es ON us.usr_escola = es.esc_id
-							LEFT OUTER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-							LEFT OUTER JOIN serie AS s ON uv.usv_serie = s.sri_id
-							LEFT OUTER JOIN grau_instrucao AS gi ON uv.usv_grau_instrucao = gi.grt_id
-							LEFT OUTER JOIN categoria_funcional AS cat ON uv.usv_categoria_funcional = cat.ctf_id
-							LEFT OUTER JOIN grupo AS g ON us.usr_id = g.grp_professor
-							LEFT OUTER JOIN endereco AS e ON us.usr_endereco = e.end_id
+							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
+							INNER JOIN escola AS es ON us.usr_escola = es.esc_id
+							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
+							INNER JOIN serie AS s ON uv.usv_serie = s.sri_id
+							INNER JOIN grau_instrucao AS gi ON uv.usv_grau_instrucao = gi.grt_id
+							INNER JOIN categoria_funcional AS cat ON uv.usv_categoria_funcional = cat.ctf_id
+							RIGHT OUTER JOIN grupo AS g ON us.usr_id = g.grp_professor
+							RIGHT OUTER JOIN endereco AS e ON us.usr_endereco = e.end_id
 						WHERE us.usr_perfil = 2";
 	     		break;
    			}
+   			
+          	case '4':{
+          		$sql = 'SELECT es.*, us.usr_id, us.usr_nome, us.usr_login, us.usr_senha, us.usr_imagem, us.usr_nse,
+          					   pf.prf_id, pf.prf_perfil, te.tps_tipo_escola, adm.adm_administracao, e.*
+						FROM `usuario` as us 
+							INNER JOIN escola as es ON us.usr_escola = es.esc_id
+							INNER JOIN perfil as pf ON us.usr_perfil = pf.prf_id
+							INNER JOIN tipo_escola as te ON es.esc_tipo_escola = te.tps_id
+							INNER JOIN administracao as adm ON es.esc_administracao = adm.adm_id
+							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
+						WHERE us.usr_perfil = 4';
+          		break;
+          	}
      	}
      	
-     	$result = $this->retrieve($sql);
      	$lista = array();
-        
-     	while ($qr = mysqli_fetch_array($result)){
+
+     	if ($sql != ''){
+     		$dataFuncao = new DatasFuncao();
      		
-     		$u = array(
-        		'idUsuario'		=> ( isset($qr['usr_id']) ? $qr['usr_id'] : "" ),
-        		'nomeUsuario'	=> ( isset($qr['usr_nome']) ? utf8_encode($qr['usr_nome']) : "" ),
-        		'dataNascimento'=> ( isset($qr['usr_data_nascimento']) ? $qr['usr_data_nascimento'] : "" ),
-        		'rg'			=> ( isset($qr['usr_rg']) ? $qr['usr_rg'] : "" ),
-        		'cpf'			=> ( isset($qr['usr_cpf']) ? $qr['usr_cpf'] : "" ),
-        		'login'			=> ( isset($qr['usr_login']) ? $qr['usr_login'] : "" ),
-        		'senha'			=> ( isset($qr['usr_senha']) ? $qr['usr_senha'] : "" ),
-        		'imagem'		=> ( isset($qr['usr_imagem']) ? $qr['usr_imagem'] : "" ),
-        		'idPerfil'		=> ( isset($qr['prf_id']) ? $qr['prf_id'] : "" ),
-        		'perfil'		=> ( isset($qr['prf_perfil']) ? utf8_encode($qr['prf_perfil']) : "" ),
-        		'idEscola'		=> ( isset($qr['esc_id']) ? $qr['esc_id'] : "" ),
-        		'nomeEscola'	=> ( isset($qr['esc_nome']) ? utf8_encode($qr['esc_nome']) : "" ),
-        		'razaoEscola'	=> ( isset($qr['esc_razao_social']) ? utf8_encode($qr['esc_razao_social']) : "" ),
-        		'idUsuarioVar'	=> ( isset($qr['usv_id']) ? $qr['usv_id'] : "" ),
-        		'idAno'			=> ( isset($qr['ano_id']) ? $qr['ano_id'] : "" ),
-        		'ano'			=> ( isset($qr['ano_ano']) ? $qr['ano_ano'] : "" ),
-        		'idSerie'		=> ( isset($qr['sri_id']) ? $qr['sri_id'] : "" ),
-        		'serie'			=> ( isset($qr['sri_serie']) ? utf8_encode($qr['sri_serie']) : "" ),
-        		'idGrupo'		=> ( isset($qr['grp_id']) ? $qr['grp_id'] : "" ),
-        		'grupo'			=> ( isset($qr['grp_grupo']) ? utf8_encode($qr['grp_grupo']) : "" ),
-        		'idProfessor'	=> ( isset($qr['idProfessor']) ? $qr['idProfessor'] : "" ),
-        		'nomeProfessor'	=> ( isset($qr['nomeProfessor']) ? utf8_encode($qr['nomeProfessor']) : "" ),
-        		'idEndereco' 	=> ( isset($qr['end_id']) ? $qr['end_id'] : "" ),
-        		'logradouro' 	=> ( isset($qr['end_logradouro']) ? utf8_encode($qr['end_logradouro']) : "" ),
-        		'numero' 		=> ( isset($qr['end_numero']) ? $qr['end_numero'] : "" ),
-        		'complemento' 	=> ( isset($qr['end_complemento']) ? utf8_encode($qr['end_complemento']) : "" ),
-        		'cep' 			=> ( isset($qr['end_cep']) ? $qr['end_cep'] : "" ),
-        		'bairro' 		=> ( isset($qr['end_bairro']) ? utf8_encode($qr['end_bairro']) : "" ),
-        		'cidade'		=> ( isset($qr['end_cidade']) ? utf8_encode($qr['end_cidade']) : "" ),	
-	      		'uf'			=> ( isset($qr['end_uf']) ? $qr['end_uf'] : "" ),
-        		'pais' 			=> ( isset($qr['end_pais']) ? $qr['end_pais'] : "" ),
-				'telResidencial'=> ( isset($qr['end_telefone_residencial']) ? $qr['end_telefone_residencial'] : "" ),
-        		'telComercial' 	=> ( isset($qr['end_telefone_comercial']) ? $qr['end_telefone_comercial'] : "" ),
-        		'telCelular' 	=> ( isset($qr['end_telefone_celular']) ? $qr['end_telefone_celular'] : "" ),
-        		'email' 		=> ( isset($qr['end_email']) ? $qr['end_email'] : "" ),
-     			'idInstrucao' 	=> ( isset($qr['grt_id']) ? $qr['grt_id'] : "" ),
-     			'instrucao' 		=> ( isset($qr['grt_instrucao']) ? utf8_encode($qr['grt_instrucao']) : "" ),
-     			'idCatFuncional'=> ( isset($qr['ctf_id']) ? $qr['ctf_id'] : "" ),
-     			'categoria'		=> ( isset($qr['ctf_categoria']) ? utf8_encode($qr['ctf_categoria']) : "" )
-        	);
-        	//print_r($u);
-        	array_push($lista, $u);
+     		$result = $this->retrieve($sql);
+     		
+	     	while ($qr = mysqli_fetch_array($result)){
+
+    	 		$u = array(
+	        		'idUsuario'		=> ( isset($qr['usr_id']) ? $qr['usr_id'] : "" ),
+	        		'nomeUsuario'	=> ( isset($qr['usr_nome']) ? utf8_encode($qr['usr_nome']) : "" ),
+	        		'dataNascimento'=> ( isset($qr['usr_data_nascimento']) ? $qr['usr_data_nascimento'] : "" ),
+	     			'dataNascBR'	=> ( isset($qr['usr_data_nascimento']) ? $dataFuncao->dataBR($qr['usr_data_nascimento']) : "" ),
+	        		'rg'			=> ( isset($qr['usr_rg']) ? $qr['usr_rg'] : "" ),
+	        		'cpf'			=> ( isset($qr['usr_cpf']) ? $qr['usr_cpf'] : "" ),
+	        		'login'			=> ( isset($qr['usr_login']) ? $qr['usr_login'] : "" ),
+	        		'senha'			=> ( isset($qr['usr_senha']) ? $qr['usr_senha'] : "" ),
+	        		'imagem'		=> ( isset($qr['usr_imagem']) ? $qr['usr_imagem'] : "" ),
+	        		'idPerfil'		=> ( isset($qr['prf_id']) ? $qr['prf_id'] : "" ),
+	        		'perfil'		=> ( isset($qr['prf_perfil']) ? utf8_encode($qr['prf_perfil']) : "" ),
+	        		'idEscola'		=> ( isset($qr['esc_id']) ? $qr['esc_id'] : "" ),
+	        		'nomeEscola'	=> ( isset($qr['esc_nome']) ? utf8_encode($qr['esc_nome']) : "" ),
+	        		'razaoEscola'	=> ( isset($qr['esc_razao_social']) ? utf8_encode($qr['esc_razao_social']) : "" ),
+	     			'cnpj'			=> ( isset($qr['esc_cnpj']) ? utf8_encode($qr['esc_cnpj']) : "" ),
+	     			'status'		=> ( isset($qr['esc_status']) ? utf8_encode($qr['esc_status']) : "" ),
+	     			'site'			=> ( isset($qr['esc_site']) ? utf8_encode($qr['esc_site']) : "" ),
+	     			'nomeDiretor'	=> ( isset($qr['esc_nome_diretor']) ? utf8_encode($qr['esc_nome_diretor']) : "" ),
+	     			'emailDiretor'	=> ( isset($qr['esc_email_diretor']) ? utf8_encode($qr['esc_email_diretor']) : "" ),
+	     			'nomeCoord'		=> ( isset($qr['esc_nome_coordenador']) ? utf8_encode($qr['esc_nome_coordenador']) : "" ),
+	     			'emailCoord'	=> ( isset($qr['esc_email_coordenador']) ? utf8_encode($qr['esc_email_coordenador']) : "" ),
+	     			'codigo'		=> ( isset($qr['esc_codigo']) ? utf8_encode($qr['esc_codigo']) : "" ),
+	        		'idUsuarioVar'	=> ( isset($qr['usv_id']) ? $qr['usv_id'] : "" ),
+	        		'idAno'			=> ( isset($qr['ano_id']) ? $qr['ano_id'] : "" ),
+	        		'ano'			=> ( isset($qr['ano_ano']) ? $qr['ano_ano'] : "" ),
+	        		'idSerie'		=> ( isset($qr['sri_id']) ? $qr['sri_id'] : "" ),
+	        		'serie'			=> ( isset($qr['sri_serie']) ? utf8_encode($qr['sri_serie']) : "" ),
+	        		'idGrupo'		=> ( isset($qr['grp_id']) ? $qr['grp_id'] : "" ),
+	        		'grupo'			=> ( isset($qr['grp_grupo']) ? utf8_encode($qr['grp_grupo']) : "" ),
+	        		'idProfessor'	=> ( isset($qr['idProfessor']) ? $qr['idProfessor'] : "" ),
+	        		'nomeProfessor'	=> ( isset($qr['nomeProfessor']) ? utf8_encode($qr['nomeProfessor']) : "" ),
+	        		'idEndereco' 	=> ( isset($qr['end_id']) ? $qr['end_id'] : "" ),
+	        		'logradouro' 	=> ( isset($qr['end_logradouro']) ? utf8_encode($qr['end_logradouro']) : "" ),
+	        		'numero' 		=> ( isset($qr['end_numero']) ? $qr['end_numero'] : "" ),
+	        		'complemento' 	=> ( isset($qr['end_complemento']) ? utf8_encode($qr['end_complemento']) : "" ),
+	        		'cep' 			=> ( isset($qr['end_cep']) ? $qr['end_cep'] : "" ),
+	        		'bairro' 		=> ( isset($qr['end_bairro']) ? utf8_encode($qr['end_bairro']) : "" ),
+	        		'cidade'		=> ( isset($qr['end_cidade']) ? utf8_encode($qr['end_cidade']) : "" ),	
+		      		'uf'			=> ( isset($qr['end_uf']) ? $qr['end_uf'] : "" ),
+	        		'pais' 			=> ( isset($qr['end_pais']) ? $qr['end_pais'] : "" ),
+					'telResidencial'=> ( isset($qr['end_telefone_residencial']) ? $qr['end_telefone_residencial'] : "" ),
+	        		'telComercial' 	=> ( isset($qr['end_telefone_comercial']) ? $qr['end_telefone_comercial'] : "" ),
+	        		'telCelular' 	=> ( isset($qr['end_telefone_celular']) ? $qr['end_telefone_celular'] : "" ),
+	        		'email' 		=> ( isset($qr['end_email']) ? $qr['end_email'] : "" ),
+	     			'idInstrucao' 	=> ( isset($qr['grt_id']) ? $qr['grt_id'] : "" ),
+	     			'instrucao' 	=> ( isset($qr['grt_instrucao']) ? utf8_encode($qr['grt_instrucao']) : "" ),
+	     			'idCatFuncional'=> ( isset($qr['ctf_id']) ? $qr['ctf_id'] : "" ),
+	     			'categoria'		=> ( isset($qr['ctf_categoria']) ? utf8_encode($qr['ctf_categoria']) : "" ),
+	     			'idTipoEscola'	=> ( isset($qr['esc_tipo_escola']) ? $qr['esc_tipo_escola'] : "" ),
+	     			'tipoEscola'	=> ( isset($qr['tps_tipo_escola']) ? $qr['tps_tipo_escola'] : "" ),
+	     			'idAdm'			=> ( isset($qr['esc_administracao']) ? $qr['esc_administracao'] : "" ),
+	     			'administracao'	=> ( isset($qr['adm_administracao']) ? $qr['adm_administracao'] : "" ),
+    	 			'nse'			=> ( isset($qr['usr_nse']) ? $qr['usr_nse'] : "" )
+	        	);
+
+	        	array_push($lista, $u);
+	     	}
+	     	//print_r($lista);
      	}
-     	//print_r($lista);
-     	return $lista;
+	    return $lista;
      	
+	     	
      }
 
      public function buscaUsuarioGrupo($grupo)

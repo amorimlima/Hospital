@@ -28,7 +28,7 @@ class LiberarCapituloDAO extends DAO{
 
     public function insertLiberarCapitulo($liberarcapitulo)
     {
-        $sql =  "INSERT INTO liberar_capitulo ( lbr_escola,lbr_capitulo,lbr_livro,lbr_status ) VALUES ";
+        $sql =  "insert into liberar_capitulo ( lbr_escola,lbr_capitulo,lbr_livro,lbr_status ) VALUES ";
         $sql .= "('".$liberarcapitulo->getLbr_escola()."','".$liberarcapitulo->getLbr_capitulo()."','".$liberarcapitulo->getLbr_livro()."','".$liberarcapitulo->getLbr_status()."');";
         return $this->executeAndReturnLastID($sql);
     }
@@ -106,7 +106,7 @@ class LiberarCapituloDAO extends DAO{
 
     public function selectByIdEscola($idEscola)
     {
-        $sql  = "SELECT * FROM liberar_capitulo lbr ";
+        $sql  = "select * from liberar_capitulo lbr ";
         $sql .= "JOIN capitulo cpt ON lbr.lbr_capitulo = cpt.cpt_id ";
         $sql .= "WHERE lbr_escola = ".$idEscola;
 
@@ -129,9 +129,10 @@ class LiberarCapituloDAO extends DAO{
         };
         return $lista;
     }
+
     public function deleteByIdLiberarCapitulo($idliberarcapitulo)
     {
-        $sql = "DELETE FROM liberar_capitulo WHERE lbr_id = ".$idliberarcapitulo;
+        $sql = "delete from liberar_capitulo WHERE lbr_id = ".$idliberarcapitulo;
         return $this->execute($sql);
     }
 
@@ -139,10 +140,9 @@ class LiberarCapituloDAO extends DAO{
     // SELECT BY ID da ESCOLA
     // **********************
 
-    public function selectCapLiberadoByIdEscola($idEscola)
+    public function selectCapByEscola($idescola)
     {
-        $sql = "select * from liberar_capitulo where lbr_escola = ".$idEscola;
-
+        $sql = "select * from liberar_capitulo where lbr_escola = ".$idescola;
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){

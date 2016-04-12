@@ -35,7 +35,7 @@ $templateGaleria = new TemplateGaleria();
 		<div id="container">
 			<div class="row">
 				<?php
-				$templateGeral->topoSite();
+					$templateGeral->topoSite();
 				?>
 			</div>
 			<div id="Conteudo_Area">
@@ -67,6 +67,9 @@ $templateGaleria = new TemplateGaleria();
 								<div class="box_left_gal_results">
 									<p id="box_left_box_titulo_results" class="titulo">RESULTADOS DA PESQUISA</p>
 									<div id="box_left_resultados_container">
+									<?php
+										$templateGaleria->listaGaleria();
+									?>
 									</div>
 								</div>
 							</div>
@@ -84,6 +87,9 @@ $templateGaleria = new TemplateGaleria();
 							<div id="box_mais_vistos">
 								<p id="topo_mais_vistos"></p>
 								<div id="container_mv_box">
+									<?php
+										$templateGaleria->listaMaisVistosGaleria();
+									?>									
 									<div class="row">
 										<div class="mv_caixa">
 										</div>
@@ -125,17 +131,16 @@ $templateGaleria = new TemplateGaleria();
 	        ?>
 			</footer>
 		</div>
-	</div>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="js/lib/jquery.maskedinput.js" type="text/javascript"></script>
-	<script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
-	<script src="js/funcoes.js"></script>
-	<script src="js/modulos/formulario.js"></script>
-	<script src="js/Galeria.js"></script>
-	<?php
-		$templateGaleria->modalConfirmacaoUpload();
-    ?>
-</body>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="js/lib/jquery.maskedinput.js" type="text/javascript"></script>
+		<script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
+		<script src="js/funcoes.js"></script>
+		<script src="js/modulos/formulario.js"></script>
+		<script src="js/Galeria.js"></script>
+		<?php
+			$templateGaleria->modalConfirmacaoUpload();
+    	?>
+	</body>
 </html>

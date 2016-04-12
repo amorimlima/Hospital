@@ -66,6 +66,12 @@ class MensagemDAO extends DAO{
          $sql = "update mensagem set msg_ativo = 0 where msg_id = ".$idmens." limit 1";
     	return $this->execute($sql); 
      }
+
+     public function restaurar($idmens)
+     {
+         $sql = "update mensagem set msg_ativo = 1 where msg_id = ".$idmens." limit 1";
+      return $this->execute($sql); 
+     }
      
      public function select($idmens)
      {

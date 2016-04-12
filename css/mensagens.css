@@ -126,6 +126,18 @@
     height: 32px;
 }
 
+#btn_msg_restaurar{
+    background:url(../img/bt_responder_normal.png) no-repeat;
+    width: 126px;
+    height: 32px;
+    display: none;
+}
+#btn_msg_restaurar:hover{
+    background:url(../img/bt_responder_ativo.png) no-repeat; 
+    width: 126px;
+    height: 32px;
+}
+
 .inativo,.inativo:hover{
 	opacity: 0.5;
 	pointer-events: none;

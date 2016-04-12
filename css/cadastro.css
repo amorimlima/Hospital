@@ -437,6 +437,9 @@ a.accordion_info_toggler:visited {
 .generic_btn:hover {
     background-color: #F2F2F2;
 }
+.asterisco {
+	color:red;
+}
 
 /* Fim modal Bootstrap */
 

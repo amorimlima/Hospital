@@ -340,6 +340,7 @@ table.liberar_capitulos_table > tbody > tr > td > span.cap_liberado {
 .liberar_capitulo_container > div > .btn_primary:hover {
 	background-color: #b5e247;
 }
+
 .box_perfil_selected {
 	background-color: #FFFAFA;
 	border: 1px solid #f2f2f2;

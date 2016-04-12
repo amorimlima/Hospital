@@ -119,24 +119,25 @@ switch ($_REQUEST["acao"]) {
 		print_r(json_encode($retorno));
 	break;
 
-	case "professorPorId":
+	case "usuarioPorId":
 		$usuarioController = new UsuarioController();
-		$idProfessor = $_REQUEST["id"];
-		$professor = $usuarioController->select($idProfessor);
+		$idUsuario = $_REQUEST["id"];
+		$usuario = $usuarioController->select($idUsuario);
 		$retorno = "";
 
-		if ($professor) {
+		if ($usuario) {
 			$retorno = Array(
-				"id" 					=> utf8_encode($professor->getUsr_id()),
-				"nome" 					=> utf8_encode($professor->getUsr_nome()),
-				"data_nascimento" 		=> utf8_encode($professor->getUsr_data_nascimento()),
-				"escola" 				=> utf8_encode($professor->getUsr_escola()),
-				"data_entrada_escola"	=> utf8_encode($professor->getUsr_data_entrada_escola()),
-				"rg" 					=> utf8_encode($professor->getUsr_rg()),
-				"cpf" 					=> utf8_encode($professor->getUsr_cpf()),
-				"login" 				=> utf8_encode($professor->getUsr_login()),
-				"imagem" 				=> $path["arquivos"].utf8_encode($professor->getUsr_imagem()),
-				"nse" 					=> utf8_encode($professor->getUsr_nse())
+				"id" 					=> utf8_encode($usuario->getUsr_id()),
+				"nome" 					=> utf8_encode($usuario->getUsr_nome()),
+				"data_nascimento" 		=> utf8_encode($usuario->getUsr_data_nascimento()),
+				"perfil"				=> utf8_encode($usuario->getUsr_perfil()),
+				"escola" 				=> utf8_encode($usuario->getUsr_escola()),
+				"data_entrada_escola"	=> utf8_encode($usuario->getUsr_data_entrada_escola()),
+				"rg" 					=> utf8_encode($usuario->getUsr_rg()),
+				"cpf" 					=> utf8_encode($usuario->getUsr_cpf()),
+				"login" 				=> utf8_encode($usuario->getUsr_login()),
+				"imagem" 				=> $path["arquivos"].utf8_encode($usuario->getUsr_imagem()),
+				"nse" 					=> utf8_encode($usuario->getUsr_nse())
 			);
 		}
 
@@ -148,7 +149,7 @@ switch ($_REQUEST["acao"]) {
 		$templateRelatorio = new TemplateRelatorio();
 		switch ($user['perfil_id']) {
 			case 2:
-				$templateRelatorio->relatorioProfessor();
+				$templateRelatorio->relatorioProfessor($user['id']);
 				break;
 			
 			case 4:
@@ -179,9 +180,44 @@ switch ($_REQUEST["acao"]) {
 		}
 		break;
 
+	case 'graficoGeral':
+		$templateRelatorio = new TemplateRelatorio();
+		$templateRelatorio->graficoGeral($_REQUEST['tipoGrafico']);
+		break;
+
+	case 'graficoEscola':
+		$templateRelatorio = new TemplateRelatorio();
+		if ($_REQUEST['tipoGrafico'] == 'graficoGaleria'){
+			$templateRelatorio->relatorioEscola($_REQUEST['idEscola']);
+		}
+		else if ($_REQUEST['tipoGrafico'] == 'graficoExercicios'){
+			$templateRelatorio->exerciciosEscola($_REQUEST['idEscola']);
+		}
+		break;
+
+	case 'graficoProfessor':
+		$templateRelatorio = new TemplateRelatorio();
+		if($_REQUEST['tipoGrafico'] == 'graficoGaleria'){
+			$templateRelatorio->relatorioProfessor($_REQUEST['idProfessor']);
+		}
+		else if ($_REQUEST['tipoGrafico'] == 'graficoExercicios'){
+			$templateRelatorio->exerciciosProfessor($_REQUEST['idProfessor']);
+		}
+		break;
+
+	case 'galeriaHospital';
+		$templateRelatorio = new TemplateRelatorio();
+		$templateRelatorio->relatorioNEC();
+		break;
+
 	case 'galeriaEscola':
 		$templateRelatorio = new TemplateRelatorio();
 		$templateRelatorio->relatorioEscola($_REQUEST['idEscola']);
+		break;
+
+	case 'galeriaProfessor':
+		$templateRelatorio = new TemplateRelatorio();
+		$templateRelatorio->relatorioProfessor($_REQUEST['idProfessor']);
 		break;
 
 	default:
