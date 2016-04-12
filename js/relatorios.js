@@ -31,6 +31,9 @@ function atribuirBarrasRolagem () {
 			enable:true
 		}
 	});
+	$("#alunosContainer").mCustomScrollbar({
+		axis: "y"
+	});
 }
 
 function toggleGrafico(item)

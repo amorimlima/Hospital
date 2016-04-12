@@ -12,6 +12,7 @@ include_once($path['controller'].'RespostaMultiplaController.php');
 include_once($path['controller'].'GabaritoController.php');
 include_once($path['controller'].'LiberarCapituloController.php');
 include_once($path['controller'].'RelatorioController.php');
+include_once($path['controller'].'SerieController.php');
 include_once($path['beans'].'RegistroGaleria.php');
 include_once($path['beans'].'Grupo.php');
 $path = $_SESSION['PATH_SYS'];
@@ -382,6 +383,14 @@ class TemplateRelatorio{
 			echo 		'</div>';
 			echo 	'</div>';
 			echo '</div>';
+		}
+	}
+
+	public function getSeriesCombobox() {
+		$serieController = new SerieController();
+		$series = $serieController->selectAll();
+		foreach ($series as $serie) {
+			echo "<option value='".utf8_encode($serie->getSri_id())."'>".utf8_encode($serie->getSri_serie())."&#170; série</option>";
 		}
 	}
 
