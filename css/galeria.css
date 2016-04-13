@@ -664,7 +664,7 @@
     @media (max-width: 480px) {
         #box_mais_vistos{
             width: 100%;
-            height: auto;
+            height: 380px;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
         }
@@ -757,7 +757,7 @@
     @media (min-width: 481px) and (max-width: 767px) {
         #box_mais_vistos{
             width: 100%;
-            height: auto;
+            height: 380px;
             border: 2px dotted #FAB522;
             background: #FFFFFF;
         }
@@ -861,7 +861,7 @@
     /* Mais Vistos */
     #box_mais_vistos{
         width: 100%;
-        height: auto;
+        height: 380px;
         border: 2px dotted #FAB522;
         background: #FFFFFF;
     }
@@ -983,7 +983,7 @@
     /* Mais Vistos */
     #box_mais_vistos{
         width: 100%;
-        height: auto;
+        height: 380px;
         border: 2px dotted #FAB522;
         background: #FFFFFF;
     }
