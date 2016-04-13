@@ -54,13 +54,14 @@ $topicos = $topicoController->selectAll();
                                     <p class="txt_pergunta">TEM ALGUMA PERGUNTA?</p>
                                     <div role="form" id="frm_pergunta">
                                         <select id="topico" placeholder="Tópico">
-                                            <option value="" selected disabled>Tópico</option>
+                                            <option value="0" selected style="font-style: italic;">Novo Tópico</option>
                                             <?php
                                             foreach ($topicos as $t){
                                                 echo '<option value="'.$t->getFrt_id().'">'.utf8_encode($t->getFrt_topico()).'</option>';
                                             }
                                           ?>
                                         </select>
+                                        <input type="text" placeholder="Digite o nome do novo tópico" id="box_novoTopico"/>
                                         <textarea id="box_pergunta" class="form-control" rows="5" placeholder="Digite aqui sua pergunta!"></textarea>
                                         <button onClick="enviar()" id="btn_perguntar" class="btn_form btn_form_forum">PERGUNTAR</button>
                                     </div>
