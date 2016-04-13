@@ -102,6 +102,13 @@ legend {
     -o-appearance: none;
     appearance: none;
 }
+.formfield > span > input.campo-pesquisa {
+    background-image: url(../../img/lupinha.png);
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    background-size: 17px 17px;
+    padding-left: 30px;
+}
 .formfield > span > input.input_faltando,
 .formfield > span > select.input_faltando,
 .formfield > span > textarea.input_faltando{
@@ -138,6 +145,13 @@ legend {
     padding: 8px 6px 8px 29px;
     line-height: 1em;
 }
+.formfield > span > div.checkbox-list {
+    height: auto;
+    max-height: 266px;
+}
+.formfield > span > div.checkbox-block-list {
+    padding: 8px 6px;
+}
 .formfield > span > div > input {
     display: none;
 }
@@ -169,6 +183,36 @@ legend {
 .formfield > span > div > input[type="radio"]:checked + label::before {
     content: url(../../img/radio_form_h.png);
 }
+.formfield > span > div.checkbox-list > input + label.checkbox-list-item {
+    display: block;
+    width: 100%;
+}
+.formfield > span > div.checkbox-list > input + label.checkbox-list-item:last-of-type {
+    margin-bottom: 0; 
+}
+.formfield > span > div > input[type="checkbox"] + label.checkbox-block {
+    position: relative;
+    font-size: 16px;
+    padding: 15px 40px 15px 60px;
+    border-radius: 4px;
+    background-color: #efefef;
+}
+.formfield > span > div > input[type="checkbox"] + label.checkbox-block > img {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    margin-top: -15px;
+    border-radius: 4px;
+    left: 10px;
+    top: 50%;
+}
+.formfield > span > div.checkbox-list > input + label.checkbox-block::before {
+    left: auto;
+    right: 10px;
+    margin-top: -10.5px;
+    top: 50%;
+}
+
 .formfield > span > span {
     display: none;
 }

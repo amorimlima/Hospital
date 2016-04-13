@@ -26,10 +26,10 @@ class UsuarioVariavelDAO extends DAO{
     
      public function insert($userv)
      {
-        $sql  = "insert into  usuario_variavel (usv_usuario,usv_ano_letivo,usv_serie,usv_grau_instrucao,usv_categoria_funcional,usv_grupo) values ";
+        $sql  = "insert into  usuario_variavel (usv_usuario,usv_ano_letivo,usv_serie,usv_grau_instrucao,usv_categoria_funcional,usv_grupo,usv_status) values ";
         $sql .= "(".$userv->getUsv_usuario().",".$userv->getUsv_ano_letivo().",";
-        $sql .= "".$userv->getUsv_serie().",".$userv->getUsv_grau_instrucao().",";
-        $sql .= "".$userv->getUsv_categoria_funcional().",".$userv->getUsv_grupo().")";
+        $sql .= "'".$userv->getUsv_serie()."',".$userv->getUsv_grau_instrucao().",";
+        $sql .= "".$userv->getUsv_categoria_funcional().",".$userv->getUsv_grupo().",'".$userv->getUsv_status()."')";
         //echo $sql;
     	return $this->executeAndReturnLastID($sql);
      }
@@ -41,8 +41,10 @@ class UsuarioVariavelDAO extends DAO{
         $sql .= "usv_serie = '".$userv->getUsv_serie()."',";
         $sql .= "usv_grau_instrucao = ".$userv->getUsv_grau_instrucao().",";
         $sql .= "usv_categoria_funcional = ".$userv->getUsv_categoria_funcional().",";
-    	$sql .= "usv_grupo = ".$userv->getUsv_grupo()."";
-        $sql .= "where  usv_id = ".$userv->getUsv_id()." limit 1";
+    	$sql .= "usv_grupo = ".$userv->getUsv_grupo().", ";
+    	$sql .= "usv_status = ".$userv->getUsv_status()." ";
+        $sql .= "where usv_id = ".$userv->getUsv_id()." limit 1";
+//        echo $sql;
         return $this->execute($sql);
      }
      
@@ -66,6 +68,7 @@ class UsuarioVariavelDAO extends DAO{
                 $userv->setUsv_grau_instrucao($qr["usv_grau_instrucao"]);
                 $userv->setUsv_categoria_funcional($qr["usv_categoria_funcional"]);
                 $userv->setUsv_grupo($qr["usv_grupo"]);
+                $userv->setUsv_status($qr["usv_status"]);
 	    	    	
     	return $userv;
      }
@@ -86,6 +89,7 @@ class UsuarioVariavelDAO extends DAO{
                 $userv->setUsv_grau_instrucao($qr["usv_grau_instrucao"]);
                 $userv->setUsv_categoria_funcional($qr["usv_categoria_funcional"]);
                 $userv->setUsv_grupo($qr["usv_grupo"]);
+                $userv->setUsv_status($qr["usv_status"]);
                 array_push($lista, $userv);
                
         }    	
@@ -103,12 +107,21 @@ class UsuarioVariavelDAO extends DAO{
                 $userv->setUsv_id($qr["usv_id"]);
                 $userv->setUsv_usuario($qr["usv_usuario"]);
                 $userv->setUsv_ano_letivo($qr["usv_ano_letivo"]);
-                $userv->setUsv_serie($qr["usv_serie"]);
+                //$userv->setUsv_serie($qr["usv_serie"]);
                 $userv->setUsv_grau_instrucao($qr["usv_grau_instrucao"]);
                 $userv->setUsv_categoria_funcional($qr["usv_categoria_funcional"]);
                 $userv->setUsv_grupo($qr["usv_grupo"]);
+                $userv->setUsv_status($qr["usv_status"]);
                     
         return $userv;
+     }
+     
+     public function removeGrupoByIdGrupo($idGrupo)
+     {
+        $sql  = "update usuario_variavel set usv_grupo = null ";
+    	$sql .= "where usv_grupo = ".$idGrupo;
+        echo $sql;
+        return $this->execute($sql);
      }
 }
 ?>

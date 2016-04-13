@@ -46,6 +46,7 @@ $logado = unserialize($_SESSION['USR']);
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/modulos/formulario.css">
     <link rel="stylesheet" type="text/css" href="css/box-modal.css">
     <link rel="stylesheet" type="text/css" href="css/relatorios.css">
     <link href='http://fonts.googleapis.com/css?family=Overlock:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
@@ -74,11 +75,11 @@ $logado = unserialize($_SESSION['USR']);
                         	<div class="row">
                         		<div class="col-sm-12 col-md-9">
                         			<span class="header"></span>
-									<div id="conteudoPrincipal" class="conteudo_principal">
+									<div id="conteudoPrincipal" class="conteudo_principal" style="display:none">
 										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
-											<div id="graficoGaleria" class="option_selected">Acessos e Downloads na Galeria (em %)</div>
-											<div id="graficoExercicios">Exercícios (em %)</div>
+											<div id="graficoGaleria" class="option_selected opcoes_graficos">Acessos e Downloads na Galeria (em %)</div>
+											<div id="graficoExercicios" class="opcoes_graficos">Exercícios (em %)</div>
 										</div>
 										<div class="listagem_perfis_graficos">
 											<div id="grafico1" class="grafico">
@@ -117,22 +118,112 @@ $logado = unserialize($_SESSION['USR']);
 									</div>
 									<div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
 									</div>
+									<div id="criarGrupoContainer" class="liberar_grupo_container">
+										<form action="">
+				                        	<fieldset>
+				                        		<legend>Novo grupo</legend>
+				                        		<div class="formfield formfield-s">
+				                        			<label for="">Série</label>
+				                        			<span>
+				                        				<select name="grp_serie">
+				                        					<?php
+					                        					$templateRelatorio->getSeriesCombobox();
+					                        				?>
+				                        				</select>
+				                        			</span>
+				                        		</div>
+				                        		<div class="formfield formfield-s">
+				                        			<label for="">Período</label>
+				                        			<span>
+				                        				<select name="grp_periodo">
+				                        					<?php
+					                        					//$templateRelatorio->getPeriodosCombobox();
+					                        				?>
+					                        				<option value="1">Manhã</option>
+					                        				<option value="2">Tarde</option>
+					                        				<option value="3">Noite</option>
+				                        				</select>
+				                        			</span>
+				                        		</div>
+				                        		<div class="formfield formfield-s" style="visibility: hidden"></div>
+				                        		<div class="formfield">
+				                        			<label for="">Buscar aluno</label>
+				                        			<span>
+				                        				<input type="text" class="campo-pesquisa" placeholder="Digite o nome do aluno"/>
+				                        			</span>
+				                        		</div>
+				                        		<div class="formfield">
+				                        			<span>
+				                        				<div id="alunosContainer" class="checkbox-list checkbox-block-list">
+				                        					<input name="usr_id" value="1" type="checkbox" id="aluno1">
+				                        					<label for="aluno1" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+                        										Ana Carolina Ferreira Soares
+				                        					</label>
+				                        					<input name="usr_id" value="2" type="checkbox" id="aluno2">
+				                        					<label for="aluno2" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+				                        						Diego de Moraes Garcia
+				                        					</label>
+				                        					<input name="usr_id" value="3" type="checkbox" id="aluno3">
+				                        					<label for="aluno3" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+				                        						Diego de Moraes Garcia
+				                        					</label>
+				                        					<input name="usr_id" value="4" type="checkbox" id="aluno4">
+				                        					<label for="aluno4" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+				                        						Diego de Moraes Garcia
+				                        					</label>
+				                        					<input name="usr_id" value="5" type="checkbox" id="aluno5">
+				                        					<label for="aluno5" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+				                        						Diego de Moraes Garcia
+				                        					</label>
+				                        					<input name="usr_id" value="6" type="checkbox" id="aluno6">
+				                        					<label for="aluno6" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+				                        						Diego de Moraes Garcia
+				                        					</label>
+				                        					<input name="usr_id" value="7" type="checkbox" id="aluno7">
+				                        					<label for="aluno7" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+				                        						Diego de Moraes Garcia
+				                        					</label>
+				                        					<input name="usr_id" value="8" type="checkbox" id="aluno8">
+				                        					<label for="aluno8" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+				                        						Diego de Moraes Garcia
+				                        					</label>
+				                        				</div>
+				                        			</span>
+				                        		</div>
+				                        	</fieldset>
+				                        	<fieldset>
+				                        		<div class="formbtns">
+				                        			<input type="reset" value="Limpar"/>
+				                        			<input type="submit" value="Enviar"/>
+				                        		</div>
+				                        	</fieldset>
+				                        </form>
+
+									</div>
 								</div>
 								<div class="col-sm-12 col-md-3">
 									<div class="conteudo_lateral">
 										<div class="form_filtros">
 											<h2>Gerar relatório</h2>
 											<label for="filtroLivro">Livro</label>
-											<select id="filtroLivro">
-												<option val="" selected>Todos</option>
+											<select id="filtroLivro" class="filtrosSelect">
+												<?php $templateRelatorio->getLivros(); ?>
 											</select>
 											<label for="filtroCapitulo">Capítulo</label>
-											<select id="filtroCapitulo">
-												<option val="" selected>Todos</option>
+											<select id="filtroCapitulo" class="filtrosSelect">
+												<?php $templateRelatorio->getCapitulos(); ?>
 											</select>
 											<label for="filtroSala">Sala</label>
-											<select id="filtroSala">
-												<option val="" selected>Todos</option>
+											<select id="filtroSala" class="filtrosSelect">
+												<?php $templateRelatorio->getSalas(); ?>
 											</select>
 											<button id="visualizarRelatorio">Visualizar</button>
 											<button id="baixarRelatorio" class="btn_primary">Baixar relatório</button>

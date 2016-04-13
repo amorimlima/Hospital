@@ -23,6 +23,7 @@ private $grp_id;
 private $grp_grupo;
 private $grp_escola;
 private $grp_professor;
+private $grp_eerie;
 
 
 
@@ -53,7 +54,10 @@ public function getGrp_professor()
 {
 return $this->grp_professor;
 }
-
+public function getGrp_serie()
+{
+return $this->grp_serie;
+}
 
 
 public function setGrp_id($val)
@@ -76,6 +80,10 @@ public function setGrp_professor($val)
 $this->grp_professor =  $val;
 }
 
+public function setGrp_serie($val)
+{
+$this->grp_serie =  $val;
+}
 
 } 
 

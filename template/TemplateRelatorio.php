@@ -10,7 +10,11 @@ include_once($path['controller'].'UsuarioController.php');
 include_once($path['controller'].'ExercicioController.php');
 include_once($path['controller'].'RespostaMultiplaController.php');
 include_once($path['controller'].'GabaritoController.php');
+include_once($path['controller'].'LiberarCapituloController.php');
+include_once($path['controller'].'RelatorioController.php');
+include_once($path['controller'].'SerieController.php');
 include_once($path['beans'].'RegistroGaleria.php');
+include_once($path['beans'].'Grupo.php');
 $path = $_SESSION['PATH_SYS'];
 /**
  * Description of Template
@@ -26,56 +30,26 @@ class TemplateRelatorio{
 		self::$path = $_SESSION['URL_SYS'];
 	}
 
-	public function graficoEscolas()
+	public function carregaGrafico($par)
 	{
-		$user = unserialize($_SESSION['USR']);
-		print_r($user);
-		switch ($user['perfil_id']) {
-			case 2:
-				$this->relatorioProfessor();
-				break;
-			
-			case 4:
-				$this->relatorioEscola();
-				break;
-
-			case 3:
-				$this->relatorioNEC();
-				break;
-		}
-	}
-
-	public function relatorioProfessor()
-	{
-		$grupoController = new GrupoController();
-		$registroController = new RegistroGaleriaController();
-		$usuarioController = new UsuarioController();
-		$user = unserialize($_SESSION['USR']);
-		$idProfessor = $user['id'];
-		$grupos = $grupoController->selectProfessor($idProfessor);
-		$grupo = $grupos[0];
-		$acessosGaleria = $registroController->registroGaleriaCountAcessosGrupo($grupo->getGrp_id());
-		$downloadGaleria = $registroController->registroGaleriaCountDownloadGrupo($grupo->getGrp_id());
-		$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
-		foreach($alunosGrupo as $aluno){
-			$acessosAluno = $registroController->registroGaleriaCountAcessosUsuario($aluno['id']);
-			$downloadAluno = $registroController->registroGaleriaCountDownloadUsuario($aluno['id']);
-			$pctAcessosAluno = $acessosGaleria > 0? $acessosAluno/$acessosGaleria : 0;
-			$pctDownloadsAluno = $downloadGaleria > 0? $downloadAluno/$downloadGaleria : 0;
-			echo '<div>';
+		$relatorioController = new RelatorioController();
+		$listados = $relatorioController->getListaVisualizacao($par);
+		foreach ($listados as $listado) {
+			$barrasGrafico = $relatorioController->getBarrasUsuario ($par, $listado);
+			echo '<div onclick="'.$listado['perfil'].'GetById('.$listado['id'].')">';
 			echo 	'<div class="row">';
 			echo 		'<div class="col-md-4">';
-			echo 			'<div class="grafico_desc" id="aluno_id_'.utf8_encode($aluno['id']).'">';
+			echo 			'<div class="grafico_desc" id="listado_id_'.utf8_encode($listado['id']).'">';
 			echo 				'<div>';
-			echo 					'<span>'.utf8_encode($aluno['nome']).'</span>';
+			echo 					'<span>'.utf8_encode($listado['nome']).'</span>';
 			echo 				'</div>';
 			echo 			'</div>';
 			echo 		'</div>';
 			echo 		'<div class="col-md-8">';
 			echo 			'<div class="grafico_chart">';
 			echo 				'<svg class="chart">';
-			echo 					'<rect y="0" width="'.($pctAcessosAluno * 100).'%" height="18" class="chart_acesso"></rect>';
-			echo 					'<rect y="22" width="'.($pctDownloadsAluno*100).'%" height="18" class="chart_download"></rect>';
+			echo 					'<rect y="0" width="'.($barrasGrafico['barra1'] * 100).'%" height="18" class="chart_acesso"></rect>';
+			echo 					'<rect y="22" width="'.($barrasGrafico['barra2'] * 100).'%" height="18" class="chart_download"></rect>';
 			echo 				'</svg>';
 			echo 			'</div>';
 			echo 		'</div>';
@@ -84,14 +58,160 @@ class TemplateRelatorio{
 		}
 	}
 
-	public function relatorioEscola(){
+	public function getLivros()
+	{
+		$user = unserialize($_SESSION['USR']);
+		switch ($user['perfil_id']) {
+			case 2:
+				$this->professorLivros($user['id']);
+				break;
+			case 4:
+				$this->escolaLivros($user['escola']);
+				break;
+			case 3:
+				$this->necLivros();
+				break;
+		}
+	}
+
+	public function professorLivros($idProfessor)
+	{
+		$liberarCapituloController = new LiberarCapituloController();
+		$usuarioController = new UsuarioController();
+		$professor = $usuarioController->select($idProfessor);
+		echo '<option value="0" selected>Todos</option>';
+		$livros = $liberarCapituloController->listaLivrosProfessor($professor->getUsr_id());	
+		foreach ($livros as $livro) {
+				echo '<option value="'.$livro.'">'.$livro.'ª Série</option>';
+		}
+	}
+
+	public function getCapitulos()
+	{
+		$user = unserialize($_SESSION['USR']);
+		switch ($user['perfil_id']) {
+			case 2:
+				$this->professorCapitulos($user['id']);
+				break;
+			case 4:
+				$this->escolaCapitulos($user['escola']);
+				break;
+			case 3:
+				$this->necCapitulos();
+				break;
+		}
+	}
+
+	public function professorCapitulos($idProfessor)
+	{
+		$liberarCapituloController = new LiberarCapituloController();
+		$usuarioController = new UsuarioController();
+		$professor = $usuarioController->select($idProfessor);
+		echo '<option value="0" selected>Todos</option>';
+		$capitulos = $liberarCapituloController->listaCapitulosProfessor($professor->getUsr_id());	
+		foreach ($capitulos as $capitulo) {
+				echo '<option value="'.$capitulo.'">'.$capitulo.'º Capítulo</option>';
+		}
+	}
+
+	public function getSalas()
+	{
+		$user = unserialize($_SESSION['USR']);
+		switch ($user['perfil_id']) {
+			case 2:
+				$this->professorSalas($user['id']);
+				break;
+			case 4:
+				$this->escolaSalas($user['escola']);
+				break;
+		}
+	}
+
+	public function professorSalas($idProfessor)
+	{
+		$usuarioController = new UsuarioController();
+		$grupoController = new GrupoController();
+		$professor = $usuarioController->select($idProfessor);
+		echo '<option value="0" selected>Todos</option>';
+		$gruposProfessor = $grupoController->selectProfessor($idProfessor);
+		foreach ($gruposProfessor as $grupo) {
+			echo '<option value="'.$grupo->getGrp_id().'">'.$grupo->getGrp_grupo().'</option>';
+		}
+	}
+
+	public function graficoGeral($tipoGrafico)
+	{
+		$user = unserialize($_SESSION['USR']);
+		switch ($user['perfil_id']) {
+			case 2:
+				if ($tipoGrafico == "graficoGaleria")
+					$this->relatorioProfessor($user['id']);
+				else if ($tipoGrafico == "graficoExercicios")
+					$this->exerciciosProfessor($user['id']);
+				break;
+			
+			case 4:
+				if ($tipoGrafico == "graficoGaleria")
+					$this->relatorioEscola($user['escola']);
+				else if ($tipoGrafico == "graficoExercicios")
+					$this->exerciciosEscola($user['escola']);
+				break;
+
+			case 3:
+				if ($tipoGrafico == "graficoGaleria")
+					$this->relatorioNEC();
+				else if ($tipoGrafico == "graficoExercicios")
+					$this->exerciciosNEC();
+				break;
+		}
+	}
+
+	public function relatorioProfessor($idProfessor)
+	{
 		$grupoController = new GrupoController();
 		$registroController = new RegistroGaleriaController();
 		$usuarioController = new UsuarioController();
 		$user = unserialize($_SESSION['USR']);
-		$professores = $usuarioController->selectProfessorByEscola($user['escola']);
-		$acessosGaleria = $registroController->registroGaleriaCountAcessosEscola($user['escola']);
-		$downloadGaleria = $registroController->registroGaleriaCountDownloadEscola($user['escola']);
+		$grupos = $grupoController->selectProfessor($idProfessor);
+		$acessosGaleria = $registroController->registroGaleriaCountAcessosProfessor($idProfessor);
+		$downloadGaleria = $registroController->registroGaleriaCountDownloadProfessor($idProfessor);
+		foreach ($grupos as $grupo) {
+			$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
+			foreach($alunosGrupo as $aluno){
+				$acessosAluno = $registroController->registroGaleriaCountAcessosUsuario($aluno['id']);
+				$downloadAluno = $registroController->registroGaleriaCountDownloadUsuario($aluno['id']);
+				$pctAcessosAluno = $acessosGaleria > 0? $acessosAluno/$acessosGaleria : 0;
+				$pctDownloadsAluno = $downloadGaleria > 0? $downloadAluno/$downloadGaleria : 0;
+				echo '<div>';
+				echo 	'<div class="row">';
+				echo 		'<div class="col-md-4">';
+				echo 			'<div class="grafico_desc" id="aluno_id_'.utf8_encode($aluno['id']).'">';
+				echo 				'<div>';
+				echo 					'<span>'.utf8_encode($aluno['nome']).'</span>';
+				echo 				'</div>';
+				echo 			'</div>';
+				echo 		'</div>';
+				echo 		'<div class="col-md-8">';
+				echo 			'<div class="grafico_chart">';
+				echo 				'<svg class="chart">';
+				echo 					'<rect y="0" width="'.($pctAcessosAluno * 100).'%" height="18" class="chart_acesso"></rect>';
+				echo 					'<rect y="22" width="'.($pctDownloadsAluno*100).'%" height="18" class="chart_download"></rect>';
+				echo 				'</svg>';
+				echo 			'</div>';
+				echo 		'</div>';
+				echo 	'</div>';
+				echo '</div>';
+			}
+		}
+	}
+
+	public function relatorioEscola($idEscola){
+		$grupoController = new GrupoController();
+		$registroController = new RegistroGaleriaController();
+		$usuarioController = new UsuarioController();
+		$professores = $usuarioController->selectProfessorByEscola($idEscola);
+		$acessosGaleria = $registroController->registroGaleriaCountAcessosEscola($idEscola);
+		$downloadGaleria = $registroController->registroGaleriaCountDownloadEscola($idEscola);
 		foreach ($professores as $professor) {
 			$idProfessor = $professor->getUsr_id();
 			$grupos = $grupoController->selectProfessor($idProfessor);
@@ -100,7 +220,7 @@ class TemplateRelatorio{
 			$downloadProfessor = $registroController->registroGaleriaCountDownloadGrupo($grupo->getGrp_id()) + $registroController->registroGaleriaCountDownloadUsuario($idProfessor);
 			$pctAcessos = $acessosGaleria > 0? $acessosProfessor/$acessosGaleria : 0;
 			$pctDownloads = $downloadGaleria > 0? $downloadProfessor/$downloadGaleria : 0;
-			echo '<div>';
+			echo '<div onclick="getProfessorById('.utf8_encode($idProfessor).')">';
 			echo 	'<div class="row">';
 			echo 		'<div class="col-md-4">';
 			echo 			'<div class="grafico_desc" id="professor_id_'.utf8_encode($idProfessor).'">';
@@ -154,22 +274,20 @@ class TemplateRelatorio{
 		}
 	}
 
-	public function exerciciosProfessor(){
+	public function exerciciosProfessor($idProfessor){
 		$grupoController = new GrupoController();
 		$usuarioController = new UsuarioController();
 		$exerciciosController = new ExercicioController();
 		$respostaMultiplaController = new RespostaMultiplaController();
 		$gabaritoController = new GabaritoController();
-		$user = unserialize($_SESSION['USR']);
-		$idProfessor = $user['id'];
 		$grupos = $grupoController->selectProfessor($idProfessor);
 		$grupo = $grupos[0];
 		$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
 		foreach ($alunosGrupo as $aluno) {
-			$exerciciosAluno = $exerciciosController->countExerciciosAluno($aluno['id']);
+			$exerciciosAluno = $exerciciosController->countExerciciosAluno($aluno['escola'], $aluno['serie']);
 			$exerciciosAlunoCompletos = $exerciciosController->countExerciciosAlunoCompletos($aluno['id']);
 			$pctExerciciosCompletosAluno = $exerciciosAluno > 0? $exerciciosAlunoCompletos/$exerciciosAluno : 0;
-			$multiplaAluno = $gabaritoController->countMultiplaAluno($aluno['escola']);
+			$multiplaAluno = $gabaritoController->countMultiplaAluno($aluno['escola'], $aluno['serie']);
 			$multiplaAlunoCorretos = $respostaMultiplaController->countCorretasAluno($aluno['id']);
 			$pctCorretosAluno = $multiplaAluno > 0? $multiplaAlunoCorretos/$multiplaAluno : 0;
 			echo '<div>';
@@ -194,23 +312,22 @@ class TemplateRelatorio{
 		}
 	}
 
-	public function exerciciosEscola(){
+	public function exerciciosEscola($idEscola){
 		$grupoController = new GrupoController();
 		$usuarioController = new UsuarioController();
 		$exerciciosController = new ExercicioController();
 		$respostaMultiplaController = new RespostaMultiplaController();
 		$gabaritoController = new GabaritoController();
-		$user = unserialize($_SESSION['USR']);
-		$professores = $usuarioController->selectProfessorByEscola($user['escola']);
+		$professores = $usuarioController->selectProfessorByEscola($idEscola);
 		foreach ($professores as $professor) {
 			$idProfessor = $professor->getUsr_id();
-			$grupos = $grupoController->selectProfessor($idProfessor);
-			$grupo = $grupos[0];
-			$acessosProfessor = $registroController->registroGaleriaCountAcessosGrupo($grupo->getGrp_id()) +  $registroController->registroGaleriaCountAcessosUsuario($idProfessor);
-			$downloadProfessor = $registroController->registroGaleriaCountDownloadGrupo($grupo->getGrp_id()) + $registroController->registroGaleriaCountDownloadUsuario($idProfessor);
-			$pctAcessos = $acessosGaleria > 0? $acessosProfessor/$acessosGaleria : 0;
-			$pctDownloads = $downloadGaleria > 0? $downloadProfessor/$downloadGaleria : 0;
-			echo '<div>';
+			$exerciciosProfessor = $exerciciosController->countExerciciosProfessor($idProfessor);
+			$exerciciosProfessorCompletos = $exerciciosController->countExerciciosProfessorCompletos($idProfessor);
+			$pctExerciciosCompletosProfessor = $exerciciosProfessor > 0? $exerciciosProfessorCompletos/$exerciciosProfessor : 0;
+			$multiplaProfessor = $gabaritoController->countMultiplaProfessor($idProfessor);
+			$multiplaProfessorCorretos = $respostaMultiplaController->countCorretasProfessor($idProfessor);
+			$pctCorretosProfessor = $multiplaProfessor > 0? $multiplaProfessorCorretos/$multiplaProfessor : 0;
+			echo '<div onclick="getProfessorById('.utf8_encode($idProfessor).')">';
 			echo 	'<div class="row">';
 			echo 		'<div class="col-md-4">';
 			echo 			'<div class="grafico_desc" id="professor_id_'.utf8_encode($idProfessor).'">';
@@ -222,13 +339,58 @@ class TemplateRelatorio{
 			echo 		'<div class="col-md-8">';
 			echo 			'<div class="grafico_chart">';
 			echo 				'<svg class="chart">';
-			echo 					'<rect y="0" width="'.($pctAcessos * 100).'%" height="18" class="chart_acesso"></rect>';
-			echo 					'<rect y="22" width="'.($pctDownloads *100).'%" height="18" class="chart_download"></rect>';
+			echo 					'<rect y="0" width="'.($pctExerciciosCompletosProfessor * 100).'%" height="18" class="chart_acesso"></rect>';
+			echo 					'<rect y="22" width="'.($pctCorretosProfessor * 100).'%" height="18" class="chart_download"></rect>';
 			echo 				'</svg>';
 			echo 			'</div>';
 			echo 		'</div>';
 			echo 	'</div>';
 			echo '</div>';
+		}
+	}
+
+	public function exerciciosNEC(){
+		$grupoController = new GrupoController();
+		$escolaController = new EscolaController();
+		$exerciciosController = new ExercicioController();
+		$respostaMultiplaController = new RespostaMultiplaController();
+		$gabaritoController = new GabaritoController();
+		$escolas = $escolaController->selectAtivas();
+		foreach ($escolas as $escola) {
+			$idEscola = $escola->getEsc_id();
+			$exerciciosEscola = $exerciciosController->countExerciciosEscola($idEscola);
+			$exerciciosEscolaCompletos = $exerciciosController->countExerciciosEscolaCompletos($idEscola);
+			$pctExerciciosCompletosEscola = $exerciciosEscola > 0? $exerciciosEscolaCompletos/$exerciciosEscola : 0;
+			$multiplaEscola = $gabaritoController->countMultiplaEscola($idEscola);
+			$multiplaEscolaCorretos = $respostaMultiplaController->countCorretasEscola($idEscola);
+			$pctCorretosEscola = $multiplaEscola > 0? $multiplaEscolaCorretos/$multiplaEscola : 0;
+			echo '<div onclick="getEscolaById('.utf8_encode($escola->getEsc_id()).')">';
+			echo 	'<div class="row">';
+			echo 		'<div class="col-md-4">';
+			echo 			'<div class="grafico_desc" id="escola_id_'.utf8_encode($idEscola).'">';
+			echo 				'<div>';
+			echo 					'<span>'.utf8_encode($escola->getEsc_nome()).'</span>';
+			echo 				'</div>';
+			echo 			'</div>';
+			echo 		'</div>';
+			echo 		'<div class="col-md-8">';
+			echo 			'<div class="grafico_chart">';
+			echo 				'<svg class="chart">';
+			echo 					'<rect y="0" width="'.($pctExerciciosCompletosEscola * 100).'%" height="18" class="chart_acesso"></rect>';
+			echo 					'<rect y="22" width="'.($pctCorretosEscola * 100).'%" height="18" class="chart_download"></rect>';
+			echo 				'</svg>';
+			echo 			'</div>';
+			echo 		'</div>';
+			echo 	'</div>';
+			echo '</div>';
+		}
+	}
+
+	public function getSeriesCombobox() {
+		$serieController = new SerieController();
+		$series = $serieController->selectAll();
+		foreach ($series as $serie) {
+			echo "<option value='".utf8_encode($serie->getSri_id())."'>".utf8_encode($serie->getSri_serie())."&#170; série</option>";
 		}
 	}
 

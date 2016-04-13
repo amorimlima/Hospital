@@ -361,8 +361,10 @@ class UsuarioDAO extends DAO{
     {
         $sql  = "SELECT * FROM usuario usr ";
         $sql .= "JOIN endereco end ON usr.usr_endereco = end.end_id ";
+        $sql .= "JOIN escola esc ON usr.usr_escola = esc.esc_id ";
         $sql .= "JOIN perfil prf ON usr.usr_perfil = prf.prf_id ";
-        $sql .= "WHERE usr_perfil = 2 AND usr_escola = ".$idescola;
+        $sql .= "WHERE usr_perfil = 2 AND usr_escola = ";
+        $sql .= $idescola;
         $result = $this->retrieve($sql);
         $lista = Array();
 
@@ -372,7 +374,6 @@ class UsuarioDAO extends DAO{
                 $professor->setUsr_id($qr["usr_id"]);
                 $professor->setUsr_nome($qr["usr_nome"]);
                 $professor->setUsr_data_nascimento($qr["usr_data_nascimento"]);
-                $professor->setUsr_escola($qr["usr_escola"]);
                 $professor->setUsr_data_entrada_escola($qr["usr_data_entrada_escola"]);
                 $professor->setUsr_rg($qr["usr_rg"]);
                 $professor->setUsr_cpf($qr["usr_cpf"]);
@@ -393,6 +394,11 @@ class UsuarioDAO extends DAO{
                 $professor->getUsr_endereco()->setend_telefone_comercial($qr["end_telefone_comercial"]);
                 $professor->getUsr_endereco()->setend_telefone_celular($qr["end_telefone_celular"]);
                 $professor->getUsr_endereco()->setend_email($qr["end_email"]);
+
+                $professor->setUsr_escola(new Escola());
+                $professor->getUsr_escola()->setesc_id($qr["esc_id"]);
+                $professor->getUsr_escola()->setesc_razao_social($qr["esc_razao_social"]);
+                $professor->getUsr_escola()->setesc_nome($qr["esc_nome"]);
 
                 $professor->setUsr_perfil(new Perfil());
                 $professor->getUsr_perfil()->setPrf_id($qr["prf_id"]);
@@ -424,45 +430,36 @@ class UsuarioDAO extends DAO{
 	     		$sql = " SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
 	     					   us.usr_cpf, us.usr_login, us.usr_senha, us.usr_imagem,
 	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome, 
-	     					   uv.usv_id, ano.ano_id, ano.ano_ano, s.sri_id, s.sri_serie, 
+	     					   uv.usv_id, ano.ano_id, ano.ano_ano, s.sri_id, s.sri_serie as serie, 
 	     					   g.grp_id, g.grp_grupo, prof.usr_id AS idProfessor, prof.usr_nome AS nomeProfessor, e.*
 						FROM  `usuario` AS us
 							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
 							left OUTER JOIN escola AS es ON us.usr_escola = es.esc_id
 							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-							INNER JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
-							INNER JOIN serie AS s ON uv.usv_serie = s.sri_id
+							left outer JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
+							left outer JOIN serie AS s ON uv.usv_serie = s.sri_id
 							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
 							left OUTER JOIN grupo AS g ON uv.usv_grupo = g.grp_id
 							left OUTER JOIN usuario AS prof ON g.grp_professor = prof.usr_id
 						WHERE us.usr_perfil = 1";
 	     		break;
    			}
-//   			FROM  `usuario` AS us
-//							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
-//							left OUTER JOIN escola AS es ON us.usr_escola = es.esc_id
-//							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-//							INNER JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
-//							INNER JOIN serie AS s ON uv.usv_serie = s.sri_id
-//							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
-//							LEFT OUTER JOIN grupo AS g ON uv.usv_grupo = g.grp_id
-//							/*RIGHT OUTER JOIN usuario AS prof ON g.grp_professor = prof.usr_id*/
-	       //Perfil Professor
+
           	case '2':{
 	     		$sql = "SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
 	     					   us.usr_cpf, us.usr_login, us.usr_senha, us.usr_imagem, 
 	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome,
-	     					   uv.usv_id, s.*, gi.*,cat.*, g.grp_id, g.grp_grupo, e.*
+	     					   uv.usv_id, uv.usv_serie as serie, gi.*,cat.*, e.*
 						FROM usuario as us 
 							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
-							INNER JOIN escola AS es ON us.usr_escola = es.esc_id
+							left outer JOIN escola AS es ON us.usr_escola = es.esc_id
 							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-							INNER JOIN serie AS s ON uv.usv_serie = s.sri_id
-							INNER JOIN grau_instrucao AS gi ON uv.usv_grau_instrucao = gi.grt_id
-							INNER JOIN categoria_funcional AS cat ON uv.usv_categoria_funcional = cat.ctf_id
-							RIGHT OUTER JOIN grupo AS g ON us.usr_id = g.grp_professor
-							RIGHT OUTER JOIN endereco AS e ON us.usr_endereco = e.end_id
+							left JOIN grau_instrucao AS gi ON uv.usv_grau_instrucao = gi.grt_id
+							left JOIN categoria_funcional AS cat ON uv.usv_categoria_funcional = cat.ctf_id
+							left OUTER JOIN endereco AS e ON us.usr_endereco = e.end_id
 						WHERE us.usr_perfil = 2";
+	     		
+	     		//echo $sql;
 	     		break;
    			}
    			
@@ -516,7 +513,7 @@ class UsuarioDAO extends DAO{
 	        		'idAno'			=> ( isset($qr['ano_id']) ? $qr['ano_id'] : "" ),
 	        		'ano'			=> ( isset($qr['ano_ano']) ? $qr['ano_ano'] : "" ),
 	        		'idSerie'		=> ( isset($qr['sri_id']) ? $qr['sri_id'] : "" ),
-	        		'serie'			=> ( isset($qr['sri_serie']) ? utf8_encode($qr['sri_serie']) : "" ),
+	        		'serie'			=> ( isset($qr['serie']) ? utf8_encode($qr['serie']) : "" ),
 	        		'idGrupo'		=> ( isset($qr['grp_id']) ? $qr['grp_id'] : "" ),
 	        		'grupo'			=> ( isset($qr['grp_grupo']) ? utf8_encode($qr['grp_grupo']) : "" ),
 	        		'idProfessor'	=> ( isset($qr['idProfessor']) ? $qr['idProfessor'] : "" ),
@@ -567,11 +564,67 @@ class UsuarioDAO extends DAO{
             $item = Array(
                 'id' => $qr['usr_id'],
                 'nome' => $qr['usr_nome'],
-                'escola' => $qr['usr_escola']
+                'escola' => $qr['usr_escola'],
+                'serie' => $qr['usv_serie']
             );
             array_push($lista, $item);
         }
 
+        return $lista;
+     }
+
+     public function selectGeral($idUsuario)
+     {
+        $sql  = "SELECT * FROM usuario us ";
+        $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
+        $sql .= "WHERE us.usr_id = ".$idUsuario;
+
+        $result = $this->retrieve($sql);
+        $qr = mysqli_fetch_array($result);
+
+        $usuario = array(
+            "id" => $qr['usr_id'],
+            "nome" => $qr['usr_nome'],
+            "perfil" => $qr['usr_perfil'],
+            "escola" => $qr['usr_escola'],
+            "imagem" => $qr['usr_imagem'],
+            "serie" => $qr['usv_serie'],
+            "grupo" => $qr['usv_grupo'],
+            "id_variavel" => $qr['usv_id']);
+
+        return $usuario;
+     }
+
+     public function buscarAlunosGrafico($par)
+     {
+        $sql = "SELECT * FROM usuario us ";
+        $join = "JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
+        $join .= "JOIN grupo g ON g.grp_id = uv.usv_grupo AND g.grp_serie = uv.usv_serie ";
+        $where = "WHERE g.grp_professor = ".$par['id']." AND us.usr_perfil = 1 ";
+        if ($par['livro'] != 0){
+            $where .= "AND g.grp_serie = ".$par['livro']." ";
+        }
+        if ($par['capitulo'] != 0){
+            $join .= "JOIN liberar_capitulo lc ON lc.lbr_escola = us.usr_escola AND lc.lbr_livro = uv.usv_serie AND lc.lbr_capitulo = ".$par['capitulo']." ";
+        }
+        if ($par['sala'] != 0){
+            $where .= "g.grp_id = ".$par['sala']." ";
+        }
+
+        $sql = $sql.$join.$where;
+        $result = $this->retrieve($sql);
+        $lista = Array();
+
+        while ($qr = mysqli_fetch_array($result)){
+            $item = Array(
+                'id' => $qr['usr_id'],
+                'nome' => $qr['usr_nome'],
+                'perfil' => 'aluno',
+                'escola' => $qr['usr_escola'],
+                'serie' => $qr['usv_serie']
+            );
+            array_push($lista, $item);
+        }
         return $lista;
      }
 }

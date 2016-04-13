@@ -121,6 +121,12 @@ class UsuarioController {
 		$user = $this->usuarioDAO->buscaUsuarioGrupo($grupo);
 		return $user;
 	}
+
+	public function selectGeral($idUsuario)
+	{
+		$user = $this->usuarioDAO->selectGeral($idUsuario);
+		return $user;
+	}
 	
 }
 ?>

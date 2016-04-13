@@ -243,11 +243,13 @@
 .legenda_grafico > div > div:first-child {
 	margin-bottom: 10px;
 }
-.liberar_capitulo_container {
+.liberar_capitulo_container,
+.liberar_grupo_container {
 	padding: 20px 15px 15px;
 	height: 100%;
 }
-.liberar_capitulo_container > h1 {
+.liberar_capitulo_container > h1,
+.liberar_grupo_container > h1 {
 	width: 90%;
 	font-size: 18px;
 	margin: 10px auto 15px;
@@ -340,6 +342,7 @@ table.liberar_capitulos_table > tbody > tr > td > span.cap_liberado {
 .liberar_capitulo_container > div > .btn_primary:hover {
 	background-color: #b5e247;
 }
+
 .box_perfil_selected {
 	background-color: #FFFAFA;
 	border: 1px solid #f2f2f2;
@@ -402,5 +405,8 @@ table.liberar_capitulos_table > tbody > tr > td > span.cap_liberado {
 	}
 	.mCSB_container {
 		padding-right: 0 !important;
+	}
+	#alunosContainer {
+		overflow-y: scroll;
 	}
 /*Fim barra de rolagem*/
