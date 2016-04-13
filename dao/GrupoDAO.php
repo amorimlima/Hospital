@@ -26,9 +26,9 @@ class GrupoDAO extends DAO{
      
      public function insert($gru)
      {
-         $sql  = "insert into grupo (grp_grupo,grp_escola,grp_professor) values ";
+         $sql  = "insert into grupo (grp_grupo,grp_escola,grp_professor,grp_serie) values ";
          $sql .= "('".$gru->getGrp_grupo()."',";
-         $sql .= "'".$gru->getGrp_escola()."','".$gru->getGrp_professor()."')";
+         $sql .= "'".$gru->getGrp_escola()."','".$gru->getGrp_professor()."','".$gru->getGrp_serie()."')";
 		//echo $sql;
     	return $this->execute($sql);
      }
@@ -38,7 +38,7 @@ class GrupoDAO extends DAO{
         $sql  = "update grupo set grp_grupo = '".$gru->getGrp_grupo()."',";
     	$sql .= "grp_escola = '".$gru->getGrp_escola()."',";
     	$sql .= "grp_professor = ".$gru->getGrp_professor()." ";
-        $sql .= "where  grp_id = ".$gru->getGrp_id()." limit 1";
+        $sql .= "where grp_id = ".$gru->getGrp_id()." limit 1";
        // echo $sql;
         return $this->execute($sql);
      }
@@ -60,7 +60,7 @@ class GrupoDAO extends DAO{
                 $gru->setGrp_grupo($qr["grp_grupo"]);
                 $gru->setGrp_escola($qr["grp_escola"]);
                 $gru->setGrp_professor($qr["grp_professor"]);
-                
+                $gru->setGrp_serie($qr["grp_serie"]);
 
     	return $gru;
      }
@@ -78,15 +78,17 @@ class GrupoDAO extends DAO{
                 $gru->setGrp_grupo($qr["grp_grupo"]);
                 $gru->setGrp_escola($qr["grp_escola"]);
                 $gru->setGrp_professor($qr["grp_professor"]);
+                $gru->setGrp_serie($qr["grp_serie"]);
                 array_push($lista, $gru);
                 
         }
     	return $lista;
       }
 
-      public function selectProfessor($idProfessor)
+      public function selectByProfessor($idProfessor)
       {
         $sql = 'select * from grupo gp where gp.grp_professor = '.$idProfessor;
+        //echo $sql;
         $result = $this->retrieve($sql);
         $lista = array();
         while ($qr = mysqli_fetch_array($result))
@@ -97,6 +99,7 @@ class GrupoDAO extends DAO{
                 $gru->setGrp_grupo($qr["grp_grupo"]);
                 $gru->setGrp_escola($qr["grp_escola"]);
                 $gru->setGrp_professor($qr["grp_professor"]);
+                $gru->setGrp_serie($qr["grp_serie"]);
                 array_push($lista, $gru);
                 
         }
