@@ -20,6 +20,8 @@ $categoriaGaleriaController = new CategoriaGaleriaController();
 $userController = new UsuarioController();
 $registroGaleriaController = new RegistroGaleriaController();
 
+$maxSize = 30000000; //Tamanho máximo de arquivo 30Mb
+
 switch ($_REQUEST["acao"]) {
     case "listaTodos": {
         $galeria = $galeriaController->selectAll();
@@ -172,19 +174,27 @@ switch ($_REQUEST["acao"]) {
         }
         else
         {
-            print_r($_FILES);
-            die();
-
             $nomeImage = "_".md5(uniqid(rand(),true)).'.'.pathinfo($_FILES['file_arquivo']['name'], PATHINFO_EXTENSION);
             $arquivo_temporario = $_FILES["file_arquivo"]["tmp_name"];
             $local = $path['arquivos_galeria'];
-            move_uploaded_file($arquivo_temporario, $local.$nomeImage);
-            $arquivo = $local.$nomeImage;
+            if (filesize($arquivo_temporario) > $maxSize)
+            {
+                $_SESSION['cadastro'] = "excedeu";
+            }
+            else
+            {
+                move_uploaded_file($arquivo_temporario, $local.$nomeImage);
+                $arquivo = $local.$nomeImage;
+            } 
         }
-        $galeria->setGlr_arquivo("arquivos_galeria/".$nomeImage);
-        $galeria->setGlr_visualizacoes(0);
-        $galeriaController->insert($galeria);
-        $_SESSION['cadastro'] = "ok";
+        if (!$_SESSION['cadastro'] == "excedeu")
+        {
+            $galeria->setGlr_arquivo("arquivos_galeria/".$nomeImage);
+            $galeria->setGlr_visualizacoes(0);
+            $galeriaController->insert($galeria);
+            $_SESSION['cadastro'] = "ok";
+        }
+        
         header("Location:../galeria.php?");
         break;
     }
