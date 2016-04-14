@@ -31,10 +31,7 @@ function atribuirBarrasRolagem () {
 			enable:true
 		}
 	});
-	$("#alunosContainer").mCustomScrollbar({
-		axis: "y"
-	});
-}
+};
 
 function toggleGrafico(item)
 {
@@ -110,7 +107,10 @@ function carregarGrafico () {
 	else
 	{
 		perfil = usuario.perfil;
-		id = usuario.id;
+		if (perfil != 4)
+			id = usuario.id;
+		else
+			id = usuario.escola;
 	}
 		
 		

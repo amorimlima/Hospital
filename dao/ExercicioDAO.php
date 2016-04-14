@@ -246,14 +246,30 @@ class ExercicioDAO extends DAO{
 
     public function exerciciosCompletosUsuario($par, $usuario)
     {
-        $sql = "SELECT COUNT(*) FROM exercicio ex ";
-        $where = 'WHERE ex.exe_id IN (
+        $sql = "SELECT COUNT(*) FROM exercicio ex";
+        $where = ' WHERE ex.exe_id IN (
                     SELECT DISTINCT rgc_exercicio FROM registro_acesso ra
                     WHERE ra.rgc_usuario ='.$usuario['id'].' 
                     AND ra.rgc_inicio < ra.rgc_fim)';
+        if ($par['capitulo'] != 0)
+            $where .= " AND ex.exe_capitulo = ".$par['capitulo'];
 
+        $sql = $sql.$where;
 
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
 
+    public function exerciciosTotaisUsuario($par, $usuario)
+    {
+        $sql = "SELECT COUNT(*) FROM exercicio ex";
+        $join = " JOIN liberar_capitulo lc ON ex.exe_serie = lc.lbr_livro AND ex.exe_capitulo = lc.lbr_capitulo";
+        $where = " WHERE lc.lbr_escola = ".$usuario['serie']." AND ex.exe_serie = ".$usuario['serie'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND ex.exe_capitulo = ".$par['capitulo'];
+
+        $sql = $sql.$join.$where;
+
+        return $this->retrieve($sql)->fetch_row()[0];
     }
 
 }

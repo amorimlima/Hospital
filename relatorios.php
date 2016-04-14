@@ -75,7 +75,7 @@ $logado = unserialize($_SESSION['USR']);
                         	<div class="row">
                         		<div class="col-sm-12 col-md-9">
                         			<span class="header"></span>
-									<div id="conteudoPrincipal" class="conteudo_principal" style="display:none">
+									<div id="conteudoPrincipal" class="conteudo_principal">
 										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
 											<div id="graficoGaleria" class="option_selected opcoes_graficos">Acessos e Downloads na Galeria (em %)</div>
@@ -118,7 +118,7 @@ $logado = unserialize($_SESSION['USR']);
 									</div>
 									<div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
 									</div>
-									<div id="criarGrupoContainer" class="liberar_grupo_container">
+									<div id="criarGrupoContainer" class="liberar_grupo_container" style="display: none">
 										<form action="">
 				                        	<fieldset>
 				                        		<legend>Novo grupo</legend>
@@ -215,15 +215,18 @@ $logado = unserialize($_SESSION['USR']);
 											<h2>Gerar relatório</h2>
 											<label for="filtroLivro">Livro</label>
 											<select id="filtroLivro" class="filtrosSelect">
-												<?php $templateRelatorio->getLivros(); ?>
+												<option value="0">Todos</option>
+												<?php //$templateRelatorio->getLivros(); ?>
 											</select>
 											<label for="filtroCapitulo">Capítulo</label>
 											<select id="filtroCapitulo" class="filtrosSelect">
-												<?php $templateRelatorio->getCapitulos(); ?>
+												<option value="0">Todos</option>
+												<?php //$templateRelatorio->getCapitulos(); ?>
 											</select>
 											<label for="filtroSala">Sala</label>
 											<select id="filtroSala" class="filtrosSelect">
-												<?php $templateRelatorio->getSalas(); ?>
+												<option value="0">Todos</option>
+												<?php //$templateRelatorio->getSalas(); ?>
 											</select>
 											<button id="visualizarRelatorio">Visualizar</button>
 											<button id="baixarRelatorio" class="btn_primary">Baixar relatório</button>

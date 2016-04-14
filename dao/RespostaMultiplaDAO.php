@@ -81,6 +81,55 @@ class RespostaMultiplaDAO extends DAO{
         }
     	return $lista;
      }
+
+
+
+     public function countRespostasUsuario($par, $usuario)
+     {
+        $sql = 'SELECT COUNT(*) FROM resposta_multipla rm';
+        $join = '';
+        $where = ' WHERE rm.rspm_usuario = '.$usuario['id'];
+        if ($par['capitulo'] != 0)
+        {
+            $join .= ' JOIN exercicio ex ON ex.exe_id = rm.rspm_exercicio';
+            $where .= ' AND ex.exe_capitulo = '.$par['capitulo'];
+        }
+        
+        $sql = $sql.$join.$where;
+
+        return $this->retrieve($sql)->fetch_row()[0];
+     }
+
+     public function countRespostasCorretasUsuario($par, $usuario)
+     {
+        $sql = 'SELECT COUNT(*) FROM resposta_multipla rm';
+        $join = ' JOIN gabarito gb ON gb.gbt_exercicio = rm.rspm_exercicio AND gb.gbt_questao = rm.rspm_questao';
+        $where = ' WHERE rm.rspm_usuario = '.$usuario['id'].' AND rm.rspm_resposta = gb.gbt_resposta';
+        if ($par['capitulo'] != 0)
+        {
+            $join .= ' JOIN exercicio ex ON ex.exe_id = rm.rspm_exercicio';
+            $where .= ' AND ex.exe_capitulo = '.$par['capitulo'];
+        }
+        
+        $sql = $sql.$join.$where;
+
+        return $this->retrieve($sql)->fetch_row()[0];
+     }
+
+     public function multiplaTotaisUsuario($par, $usuario)
+     {
+        $sql = "SELECT * FROM gabarito gb";
+        $join = " JOIN exercicio ex ON ex.exe_id = gb.gbt_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_livro = ex.exe_serie AND lc.lbr_capitulo = ex.exe_serie";
+        $where = " WHERE lc.lbr_escola = ".$usuario['escola']." AND ex.exe_serie = ".$usuario['serie'];
+        if ($par['capitulo'] != 0)
+            $where .= ' AND ex.exe_capitulo = '.$par['capitulo'];
+
+        $sql = $sql.$join.$where;
+
+        return $this->retrieve($sql)->fetch_row()[0];
+     }
+
      
      public function countCorretasAluno($idAluno)
      {

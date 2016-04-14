@@ -150,15 +150,28 @@ class TemplateGaleria{
 
 	public function modalConfirmacaoUpload()
 	{
-		if (isset($_SESSION['cadastro']) && $_SESSION['cadastro'] == 'ok')
-       	    echo 	'<script>
-       					$(document).ready(function () {
-       						$("#tipoMensagem").removeClass();
-    						$("#tipoMensagem").addClass("sucesso");
-    						$("#modalTexto").html("Arquivo adicionado com sucesso!");
-    						showModal();
-       					});
-       				</script>';
+		if (isset($_SESSION['cadastro']))
+		{
+			if ($_SESSION['cadastro'] == 'ok')
+       	    	echo 	'<script>
+       						$(document).ready(function () {
+       							$("#tipoMensagem").removeClass();
+    							$("#tipoMensagem").addClass("sucesso");
+    							$("#modalTexto").html("Arquivo adicionado com sucesso!");
+    							showModal();
+       						});
+       					</script>';
+       		else if ($_SESSION['cadastro'] == 'excedeu')
+       			echo 	'<script>
+       						$(document).ready(function () {
+       							$("#tipoMensagem").removeClass();
+    							$("#tipoMensagem").addClass("erro");
+    							$("#modalTexto").html("O arquivo deve ter menos de 30Mb!");
+    							showModal();
+       						});
+       					</script>';
+		}
+			
        	$_SESSION['cadastro'] = '';
 	}
 
