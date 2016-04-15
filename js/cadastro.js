@@ -1487,26 +1487,10 @@ function listPeriodos(combo, idserieSelect, idperiodoSelect, periodos) {
     }
 
     $(idperiodoSelect).html(htmlPeriodos);
-    atribuirEventosPeriodos();
 }
 
 function atribuirEventosSerie(idserieSelect,idperiodoSelect) {
     $("[data-grupoAttr='serie']").change(function() {
         getPeriodos(this, idserieSelect,idperiodoSelect);
-    });
-}
-
-function atribuirEventosPeriodos() {
-    var combosPeriodo = document.querySelectorAll("[data-grupoAttr='periodo']");
-    console.log(combosPeriodo);
-
-    $(combosPeriodo).change(function() {
-        for (var a in combosPeriodo) {
-            if ($($(combosPeriodo).get(a)).find("option:selected").val() == "") {
-                break;
-            } else {
-
-            }
-        }
     });
 }
