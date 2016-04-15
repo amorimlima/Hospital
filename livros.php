@@ -9,6 +9,8 @@ include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateLivros.php');
 $templateGeral = new Template();
 $templateLivros = new TemplateLivros();
+
+$logado = unserialize($_SESSION['USR']);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -33,6 +35,7 @@ $templateLivros = new TemplateLivros();
     <![endif]-->
   </head>
   <body>
+    <input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
   	<div id="container">
         <div class="row">
            <?php 
