@@ -170,6 +170,12 @@
     border-bottom: 1px dashed #CCCCCC;
     margin-bottom: 15px;
 }
+.form_divisao::after {
+    content: "";
+    display: block;
+    width: 100%;
+    clear: both;
+}
 .form_divisao:last-child {
 	border-bottom: none;
     margin-bottom: 0;
@@ -205,6 +211,17 @@ div[class*="form_celula"] {
 }
 .value_last {
 	margin-right: 0;
+}
+.acao_form {
+    float: left;
+    display: block;
+    width: 100%;
+}
+.acao_form > span {
+    cursor: pointer;
+}
+.acao_form > span:hover {
+    text-decoration: underline;
 }
 input.form_text,
 input.form_number {

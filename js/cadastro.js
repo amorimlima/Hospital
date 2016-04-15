@@ -99,6 +99,8 @@ $(document).ready(function() {
         }
     });
     
+    $("#inserirNovaSerie").click(function() {expandSeriePeriodoProfessor(this);});
+
     //chama a função q carrega os estados no select
     listarEstadoCidade('inputEstadoAluno');
     $('#inputEstadoAluno').change(function(){
@@ -1344,4 +1346,167 @@ function limparCadastro(classe){
 	$('.'+classe).eq(0).focus();
 	
 	return false;
+}
+
+function expandSeriePeriodoProfessor(trigger) {
+    var fieldCount      = (document.querySelectorAll("[data-grupoAttr]").length/2)+1;
+    var idperiodoSelect = "#inputPeriodoProf"+fieldCount;
+    var idserieSelect   = "#inputSerieProf"+fieldCount;
+    var htmlSeries      = "";
+    var htmlPeriod      = "";
+
+    htmlSeries += '<div class="form_celula_p" style="height: 0;">';
+    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
+    htmlSeries +=     '<span class="select_container">';
+    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">';
+    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
+    htmlSeries +=         '</select>';
+    htmlSeries +=     '</span>';
+    htmlSeries += '</div>';
+
+    htmlPeriod += '<div class="form_celula_p" style="height: 0;">';
+    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
+    htmlPeriod +=     '<span class="select_container">';
+    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">';
+    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
+    htmlPeriod +=         '</select>';
+    htmlPeriod +=     '</span>';
+    htmlPeriod += '</div>';
+
+    $(htmlSeries+htmlPeriod).insertBefore("#acaoNovaSerieContainer");
+    $(idperiodoSelect).parent().parent().animate({height: "40px"}, 200);
+    $(idserieSelect).parent().parent().animate({height: "40px"}, 200);
+
+    getSeries(idserieSelect,idperiodoSelect);
+}
+
+function getSeries(idserieSelect,idperiodoSelect) {
+    var series;
+    $.ajax({
+        url: "ajax/SerieAjax.php",
+        type: "GET",
+        dataType: "json",
+        data: "acao=selectAll",
+        success: function(data) {
+            series = data;
+        },
+        complete: function() {
+            listSeries(series,idserieSelect,idperiodoSelect);
+        }
+    });
+}
+
+function listSeries(series,idserieSelect,idperiodoSelect) {
+    var seriesSelecionadas  = [];
+    var seriesCombos        = document.querySelectorAll("[data-grupoAttr='serie']");
+    var seriesHtml          = "<option value='' selected disabled hidden>Selecione</option>";
+    var periodosHtml        = "<option hidden selected disabed>Selecione uma série</option>";
+
+    $(seriesCombos).each(function(a) {
+        if (a !== seriesCombos.length-1) 
+            seriesSelecionadas.push(this.value);
+    });
+
+    for (var b in series.retorno) {
+        if (seriesSelecionadas.indexOf(series.retorno[b].id) > -1) {
+            var disponivel = verificarOcorrenciasSerie(seriesCombos, series.retorno[b]);
+
+            if (!disponivel)
+                continue;
+        }
+        
+        seriesHtml += '<option value="'+series.retorno[b].id+'">'+series.retorno[b].serie+'</option>';
+    }
+
+    seriesHtml += '<option value="0" style="font-style: italic;">Remover</option>';
+
+    $(idserieSelect).html(seriesHtml);
+    $(idperiodoSelect).html(periodosHtml);
+    atribuirEventosSerie(idserieSelect,idperiodoSelect);
+}
+
+function verificarOcorrenciasSerie(combos, serie) {
+    var count = 0;
+    for (var a in combos) {
+        if (combos[a].value == serie.id)
+            count++;
+    }
+
+    if (count === 2)
+        return false;
+    else
+        return true;
+}
+
+function getPeriodos(combo, idserieSelect, idperiodoSelect) {
+    var retorno;
+
+    $.ajax({
+        url: "ajax/PeriodoAjax.php",
+        type: "GET",
+        dataType: "json",
+        data: "acao=selectAll",
+        beforeSend: function() {
+            var htmlPeriodos = "<option disabled selected hidden style='font-style:italic;'>Carregando...</option>";
+            $(idperiodoSelect).html(htmlPeriodos);
+        },
+        success: function(periodos) {
+            retorno = periodos.retorno;;
+        },
+        complete: function() {
+            listPeriodos(combo, idserieSelect, idperiodoSelect, retorno);
+        }
+    });
+}
+
+function listPeriodos(combo, idserieSelect, idperiodoSelect, periodos) {
+    var combosSeries = document.querySelectorAll("[data-grupoAttr='serie']");
+    var comboAtual = document.getElementById(idserieSelect.slice(1));
+    var periodsSelecionados = [];
+    var htmlPeriodos = "<option value='' disabled selected hidden>Selecione</option>";
+
+    for (var a = 0; a < combosSeries.length-1; a++) { 
+        if (combosSeries[a].value == comboAtual.value) {
+            var idNumeroCombo = combosSeries[a].id.slice(14);
+            var selectPeriodoVal = $("#inputPeriodoProf"+idNumeroCombo).find("option:selected").val();
+
+            periodsSelecionados.push(selectPeriodoVal);
+        }
+    }
+
+    for (var b = 0; b < periodos.length; b++) {
+        if (periodsSelecionados.length > 0) {
+            for (var c = 0; c < periodsSelecionados.length; c++) {
+                if (periodos[b].id != periodsSelecionados[c]) {
+                    htmlPeriodos += "<option value='"+periodos[b].id+"''>"+periodos[b].periodo+"</option>";
+                }
+            }
+        } else {
+            htmlPeriodos += "<option value='"+periodos[b].id+"''>"+periodos[b].periodo+"</option>";
+        }
+    }
+
+    $(idperiodoSelect).html(htmlPeriodos);
+    atribuirEventosPeriodos();
+}
+
+function atribuirEventosSerie(idserieSelect,idperiodoSelect) {
+    $("[data-grupoAttr='serie']").change(function() {
+        getPeriodos(this, idserieSelect,idperiodoSelect);
+    });
+}
+
+function atribuirEventosPeriodos() {
+    var combosPeriodo = document.querySelectorAll("[data-grupoAttr='periodo']");
+    console.log(combosPeriodo);
+
+    $(combosPeriodo).change(function() {
+        for (var a in combosPeriodo) {
+            if ($($(combosPeriodo).get(a)).find("option:selected").val() == "") {
+                break;
+            } else {
+
+            }
+        }
+    });
 }
