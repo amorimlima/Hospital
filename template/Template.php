@@ -8,6 +8,7 @@ include_once($path['controller'].'MenuController.php');
 include_once($path['controller'].'UsuarioVariavelController.php');
 include_once($path['controller'].'ExercicioController.php');
 include_once($path['controller'].'MensagemController.php');
+include_once($path['controller'].'LiberarCapituloController.php');
 
 /**
  * Description of Template
@@ -66,13 +67,12 @@ class Template {
                                     <ul class="nav navbar-nav" id="menu">';
                                         foreach($menuLista as $menu){
                                             $menuId = explode(".", $menu->getBtn_menu());
+                                            $logado = unserialize($_SESSION['USR']);
                                             echo '<li class="mn_li" id="mn_livros_sub">';
                                             if ($usrLogado['perfil_id'] == 1 && $menuId[0]=='exercicios'){
 
                                                 $usuarioVariavelController = new UsuarioVariavelController();
-                                                $exercicioController = new ExercicioController();
-
-                                                $logado = unserialize($_SESSION['USR']);
+                                                $exercicioController = new ExercicioController();                                               
                                                 $userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
                                                 $exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(), $logado['escola'],"");
                                                 $capitulos = Array();
@@ -103,7 +103,7 @@ class Template {
                                                         </ul>';
 
 
-                                            }elseif($usrLogado['perfil_id'] != 1 && $menuId[0]=='livros'){
+                                            }elseif($usrLogado['perfil_id'] == 3 && $menuId[0]=='livros'){
                                                   echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
                                                         <ul id="sbm_exercicios" style="width: 85px; margin: 6px 19px;">
                                                             <li class="sub_a">
@@ -122,6 +122,37 @@ class Template {
                                                                 <a href="livros.php?ano_5">5º Ano</a>
                                                             </li>
                                                         </ul>';
+
+                                            }elseif(($usrLogado['perfil_id'] == 2 || $usrLogado['perfil_id'] == 4 ) && $menuId[0]=='livros'){
+                                                $liberarCapitulosController = new liberarCapituloController();
+                                                $retorno = $liberarCapitulosController->selectCapLiberadoByIdEscola($logado['escola']);
+                                                
+                                                $livroClass = Array();
+                                                foreach ($retorno as $i => $value) {
+                                                    if ($value->getLbr_status() == 1) {
+                                                        $livroClass[$i] = $value->getLbr_livro();
+                                                    }
+                                                }  
+
+                                                echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>
+                                                    <ul id="sbm_exercicios" style="width: 85px; margin: 6px 19px;">
+                                                        <li class="sub_a '.(in_array('1', $livroClass) ? "" : "inativoL").'">
+                                                            <a href="livros.php?ano_1">1º Ano</a>
+                                                        </li>
+                                                        <li class="sub_a '.(in_array('2', $livroClass) ? "" : "inativoL").'">
+                                                            <a href="livros.php?ano_2">2º Ano</a>
+                                                        </li>
+                                                        <li class="sub_a '.(in_array('3', $livroClass) ? "" : "inativoL").'">
+                                                            <a href="livros.php?ano_3">3º Ano</a>
+                                                        </li>
+                                                        <li class="sub_a '.(in_array('4', $livroClass) ? "" : "inativoL").'">
+                                                            <a href="livros.php?ano_4">4º Ano</a>
+                                                        </li>
+                                                        <li class="sub_a '.(in_array('5', $livroClass) ? "" : "inativoL").'">
+                                                            <a href="livros.php?ano_5">5º Ano</a>
+                                                        </li>
+                                                    </ul>';
+
                                             }elseif($menuId[0]=='mensagens' && $mensagemController->count($usrLogado['id']) > 0){
                                                 echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"><span class="msg_label msg_topo">'.$mensagemController->count($usrLogado['id']).'</span></a>';
                                             }else{
