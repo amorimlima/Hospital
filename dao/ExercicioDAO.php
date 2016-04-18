@@ -57,14 +57,14 @@ class ExercicioDAO extends DAO{
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
         $exercicio= new Exercicio();
-        $exercicio->setExe_id($qr[exe_id]);
-        $exercicio->setExe_nome($qr[exe_nome]);
-        $exercicio->setExe_diretorio($qr[exe_diretorio]);
-        $exercicio->setExe_tipo($qr[exe_tipo]);
-        $exercicio->setExe_serie($qr[exe_serie]);
-        $exercicio->setExe_tema($qr[exe_tema]);
-        $exercicio->setExe_capitulo($qr[exe_capitulo]);
-        $exercicio->setExe_ordem($qr[exe_ordem]);
+        $exercicio->setExe_id($qr["exe_id"]);
+        $exercicio->setExe_nome($qr["exe_nome"]);
+        $exercicio->setExe_diretorio($qr["exe_diretorio"]);
+        $exercicio->setExe_tipo($qr["exe_tipo"]);
+        $exercicio->setExe_serie($qr["exe_serie"]);
+        $exercicio->setExe_tema($qr["exe_tema"]);
+        $exercicio->setExe_capitulo($qr["exe_capitulo"]);
+        $exercicio->setExe_ordem($qr["exe_ordem"]);
 
         return $exercicio;
     }

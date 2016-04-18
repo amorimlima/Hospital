@@ -8,16 +8,17 @@ include_once($path['controller'].'ExercicioController.php');
 include_once($path['controller'].'UsuarioVariavelController.php');
 include_once($path['controller'].'RegistroAcessoController.php');
 include_once($path['beans'].'RegistroAcesso.php');
+include_once($path['beans'].'Exercicio.php');
 
 $exercicioController = new ExercicioController();
 $registroAcessoController = new RegistroAcessoController();
 $usuarioVariavelController = new UsuarioVariavelController();
 
-switch ($_POST["acao"]){
+switch ($_REQUEST["acao"]){
 	case "verificaExercicio":{		
 
 		$logado = unserialize($_SESSION['USR']);
-		$capitulo = $_POST['capitulo'];
+		$capitulo = $_REQUEST['capitulo'];
 		$userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
 
 		if($logado['perfil'] == "Aluno"){
@@ -36,11 +37,13 @@ switch ($_POST["acao"]){
 							$exercicioVerProntoAcesso->getRgc_fim()!= "00:00:00"){
 									$result = Array(
 										'id_exercicio'=>utf8_encode($exercicioVerProntoAcesso->getRgc_exercicio()),
+										'nome_exercicio'=>utf8_encode($value['exe_nome']),
 										'completo'=> "S"
 									);	
 						}else{
 							$result = Array(
 								'id_exercicio'=>utf8_encode($exercicioVerProntoAcesso->getRgc_exercicio()),
+								'nome_exercicio'=>utf8_encode($value['exe_nome']),
 								'completo'=> "N"
 							);
 						}
@@ -48,6 +51,7 @@ switch ($_POST["acao"]){
 					else{
 						$result = Array(
 							'id_exercicio'=>utf8_encode($value['exe_id']),
+							'nome_exercicio'=>utf8_encode($value['exe_nome']),
 							'completo'=> "N"
 						);
 					}				
@@ -60,11 +64,13 @@ switch ($_POST["acao"]){
 					if(($numQuestao != 0) && ($numQuestao == $exercicioVerProntoMultipla)){
 						$result = Array(
 							'id_exercicio'=>$value['exe_id'],
+							'nome_exercicio'=>utf8_encode($value['exe_nome']),
 							'completo'=> "S"
 						);
 					}else{
 						$result = Array(
 							'id_exercicio'=>$value['exe_id'],
+							'nome_exercicio'=>utf8_encode($value['exe_nome']),
 							'completo'=> "N"
 						);
 					}
@@ -77,11 +83,13 @@ switch ($_POST["acao"]){
 					if(($numQuestao != 0) && ($numQuestao == $exercicioVerProntoEscrita)){
 						$result = Array(
 							'id_exercicio'=>$value['exe_id'],
+							'nome_exercicio'=>utf8_encode($value['exe_nome']),
 							'completo'=> "S"
 						);
 					}else{
 						$result = Array(
 							'id_exercicio'=>$value['exe_id'],
+							'nome_exercicio'=>utf8_encode($value['exe_nome']),
 							'completo'=> "N"
 						);
 					}
@@ -93,4 +101,9 @@ switch ($_POST["acao"]){
 		}
 		break;
 	}
+
+	case "getNameById":
+		$exercicios = $exercicioController->selectByIdExercicio($_REQUEST['id']);
+		echo utf8_encode($exercicios->getExe_nome());
+		break;
 }

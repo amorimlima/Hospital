@@ -21,8 +21,20 @@ $(document).ready(function(e) {
 		colorirDivs();
 
 		//autoComplete($("#txt_pesquisa_input").val());
+
 	});
+	$("#topico").change(verificarForumTopico);
 });
+
+
+function verificarForumTopico() {
+	var campoNovoTopico = "<input type='text' style='opacity: 0' placeholder='Digite o nome do novo tópico' id='box_novoTopico'/>";
+
+	if ($(this).val() == "0")
+		$(campoNovoTopico).insertAfter(this).animate({opacity: 1}, 200);
+	else
+		$("#box_novoTopico").animate({opacity: 0}, 200, function() {$(this).remove();});
+}
 
 function colorirDivs(){
 	$('.qtd_visu').removeClass('cx_rosaP cx_brancaP');

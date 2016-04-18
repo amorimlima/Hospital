@@ -63,7 +63,7 @@
 					}
 
 					if($introducao=='n_ok'){
-						echo '<span id="obj_'.$value['exe_id'].'" url="'.$value['drt_nome'].$value['exe_nome'].'" class="tema obj_icone"></span>';
+						echo '<span id="obj_'.$value['exe_id'].'" class="obj_icone"></span>';
 					}
 				}
 			}else{
