@@ -627,5 +627,15 @@ class UsuarioDAO extends DAO{
         }
         return $lista;
      }
+
+     public function selectEmail($email){
+        $sql  = "select * from usuario usr ";
+        $sql .= "join endereco end ON usr.usr_endereco = end.end_id ";
+        $sql .= "where end_email = '". $email."' limit 1";
+       
+        $result = $this->retrieve($sql);
+        $qr = mysqli_num_rows($result);
+        return $qr;
+     }
 }
 ?>

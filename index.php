@@ -79,14 +79,14 @@ $adms = $AdmController->selectAll();
             				<div class="formfield">
             					<label for="campo_email">E-mail</label>
             					<span>
-            						<input type="text" id="campo_email" name="usr_login" placeholder="Digite seu usuário">
+            						<input type="text" id="campo_email" name="usr_email" placeholder="Digite seu email">
             					</span>
             				</div>
             			</fieldset>
             			<fieldset>
             				<div class="formbtns">
 	                            <input type="button" id="cancel_recuperar_senha" onclick="recuperarSenha('login')" value="Cancelar" />
-                                <input type="button" id="enviar_recuperar_senha" class="btn_primary" data-form="formulario_recuperar_senha" value="Enviar" />
+                                <input type="button" id="enviar_recuperar_senha" onclick="esqueceuSenha()" class="btn_primary" data-form="formulario_recuperar_senha" value="Enviar" />
 	                        </div>
             			</fieldset>
             		</form>

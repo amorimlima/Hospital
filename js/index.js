@@ -9,7 +9,7 @@ function atribuirEventos() {
 	$('#mensagemSucessoCadastro div div div .modal-footer .btn').click(function(){
 		window.location.href = "pesquisa.php";
 		return false;
-	})
+	});
 	
     $("#link_pre_cadastro").click(toggleFormPreCadastro);
     $("#cancel_pre_cadastro").click(toggleFormPreCadastro);
@@ -239,3 +239,29 @@ function recuperarSenha(acao) {
         break;
     };
 };
+
+function esqueceuSenha(){
+    var email = $('#campo_email').val();
+    $.ajax({
+        url:'ajax/MailSendAjax.php',
+        type:'post',
+        dataType:'json',
+        data:{'acao':'verificaEmail','email':email},
+        success:function(data){
+            //console.log(data);
+            if(data == 1){
+                $.ajax({
+                    url:'ajax/MailSendAjax.php',
+                    type:'post',
+                    dataType:'json',
+                    data:{'acao':'enviaEmail','email':email},
+                    success:function(data){
+                        console.log(data);
+                    }
+                });                
+            }else{
+
+            }
+        }
+    });
+}
