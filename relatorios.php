@@ -58,6 +58,12 @@ $logado = unserialize($_SESSION['USR']);
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
+    <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
+    <script src="js/funcoes.js"></script>
+    <script src="js/relatorios.js"></script>
   </head>
   <body>
   	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
@@ -93,7 +99,7 @@ $logado = unserialize($_SESSION['USR']);
 											</div>
                                         </div>
 										<div class="infos_grafico">
-											<img src="img/ic_voltar_g.png" id="btn_voltar" class="btn_voltar"></span>
+											<img src="img/ic_voltar_g.png" id="btn_voltar" class="btn_voltar">
 											<div class="row">
 												<div class="col-md-4">
 													<div class="graf_info itens_info">Escolas</div>
@@ -125,7 +131,7 @@ $logado = unserialize($_SESSION['USR']);
 				                        		<div class="formfield formfield-s">
 				                        			<label for="">Série</label>
 				                        			<span>
-				                        				<select name="grp_serie">
+				                        				<select name="grp_serie" id="grp_serie">
 				                        					<?php
 					                        					$templateRelatorio->getSeriesCombobox();
 					                        				?>
@@ -252,7 +258,7 @@ $logado = unserialize($_SESSION['USR']);
             $templateGeral->rodape();
         ?>
         </footer>
-    </div>
+    
 
 	<!--Sempre que for utilizar uma mensagem, criar uma div com a classe modalMensagem e com o display none-->
 	<div id="mensagemCapituloLiberado" class='modalMensagem' style="display:none">
@@ -265,12 +271,20 @@ $logado = unserialize($_SESSION['USR']);
 			$templateGeral->mensagemRetorno('livros','Capítulo bloqueado com sucesso!','sucesso');
 		?>
 	</div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)--> 
+    
+    
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
     <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
+    <script src="bootstrap/js/bootstrap-datepicker.js"></script>
+    <script src="js/EstadoCidade.js"></script>
     <script src="js/funcoes.js"></script>
-    <script src="js/relatorios.js"></script>
+	<script src="js/cadastro.js"></script>
+	<script src="js/goMobileUpload.js"></script>
+    
+    
 </body>
 </html>
