@@ -161,7 +161,7 @@ $logado = unserialize($_SESSION['USR']);
 				                        		<div class="formfield">
 				                        			<span>
 				                        				<div id="alunosContainer" class="checkbox-list checkbox-block-list">
-				                        					<input name="usr_id" value="1" type="checkbox" id="aluno1">
+				                        					<!-- <input name="usr_id" value="1" type="checkbox" id="aluno1">
 				                        					<label for="aluno1" class="checkbox-list-item checkbox-block">
 				                        						<img src="img/erro.png" alt="" />
                         										Ana Carolina Ferreira Soares
@@ -200,7 +200,7 @@ $logado = unserialize($_SESSION['USR']);
 				                        					<label for="aluno8" class="checkbox-list-item checkbox-block">
 				                        						<img src="img/erro.png" alt="" />
 				                        						Diego de Moraes Garcia
-				                        					</label>
+				                        					</label>-->
 				                        				</div>
 				                        			</span>
 				                        		</div>
