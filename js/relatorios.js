@@ -17,8 +17,8 @@ function listarAlunosSemGrupoBySerie(idSerie) {
 	$.ajax({
 		url: 'ajax/RelatoriosAjax.php',
 		type: 'GET',
-		data: {	'acao' : 'listarAlunos',
-				'id' : idSerie},
+		data: {	'acao' : 'listarAlunosSemGrupo',
+				'idSerie' : idSerie},
 		dataType: 'json',
 		success: function(x) {
 			//montar o html no RelatoriosAjax.php
