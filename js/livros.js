@@ -6,7 +6,7 @@ $(document).ready(function (){
 	var serie = "";
 
 	if(typeof retorno[1] == "undefined"){
-		serie = 'ano_'+localStorage.getItem("serie");
+		serie = 'ano_'+usuario.serie;
 	}else{
 		serie = retorno[1];
 	}
@@ -45,4 +45,3 @@ $(document).ready(function (){
 	$('.cap_4').attr('href','capitulos.php?'+cap_ano+"&capitulo=4");
 	$('.cap_5').attr('href','capitulos.php?'+cap_ano+"&capitulo=5");
 });
-       

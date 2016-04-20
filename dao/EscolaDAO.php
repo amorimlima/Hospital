@@ -41,6 +41,7 @@ class EscolaDAO extends DAO{
 
     public function update($esc)
     {
+    	
         $sql  = "update escola set esc_razao_social = '".$esc->getesc_razao_social()."',";
         $sql .= "esc_nome = '".$esc->getesc_nome()."',";
         $sql .= "esc_cnpj = '".$esc->getesc_cnpj()."',";
@@ -52,10 +53,12 @@ class EscolaDAO extends DAO{
         $sql .= "esc_nome_diretor = '".$esc->getesc_nome_diretor()."',";
         $sql .= "esc_email_diretor = '".$esc->getesc_email_diretor()."',";
         $sql .= "esc_nome_coordenador = '".$esc->getesc_nome_coordenador()."',";
-        $sql .= "esc_email_coordenador = '".$esc->getesc_email_coordenador()."',";
-        $sql .= "esc_codigo = '".$esc->getesc_codigo()."'";
+        $sql .= "esc_email_coordenador = '".$esc->getesc_email_coordenador()."', ";
+        $sql .= "esc_codigo = '".$esc->getesc_codigo()."' ";
         $sql .= "where  esc_id = ".$esc->getesc_id()." limit 1";
-        return $this->execute($esc);
+        
+        //echo $sql;
+        return $this->execute($sql);
     }
 
     public function delete($idesc)

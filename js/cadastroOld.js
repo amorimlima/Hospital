@@ -9,10 +9,6 @@ var perfisAlunosGerados = [];
 var perfisProfessoresGerados = [];
 var perfisEscolasGerados = [];
 
-var mydate=new Date()
-var ano = mydate.getYear()
-
-
 $(document).ready(function() {
 	
 	$('#update_cadastro').trigger('click');
@@ -99,8 +95,6 @@ $(document).ready(function() {
         }
     });
     
-    $("#inserirNovaSerie").click(function() {expandSeriePeriodoProfessor(this);});
-
     //chama a função q carrega os estados no select
     listarEstadoCidade('inputEstadoAluno');
     $('#inputEstadoAluno').change(function(){
@@ -286,7 +280,7 @@ $(document).ready(function() {
     		$('#inputSenhaProf').addClass('obrigatorioProf');
     		var acao = 'novoUsuario';
     	}
-    	
+
     	$('.obrigatorioProf').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
     			if ($(this).attr('id') == 'inputTelResProf'){	//Verifica se existe ao menos um telefone cadastrado!
@@ -302,55 +296,39 @@ $(document).ready(function() {
 	        		$(this).focus();
 	        		return false;
     			}
-    		}
+    		} 
     	})
     	
     	//Se a div de erro está visivel para aqui.
     	if ($("#mensagemCampoVazio").is(':visible')) return false;
     	
-    	//Verifica se alguma série foi selecionada e concatena todas em uma variavel
-    	var seriesProfessor = '';
-    	$('.seriesProfessor').each(function(){
-    		if ($(this).is(":checked")){
-    			seriesProfessor += $(this).val()+';'; 
-    		}
-    	})
-    	//Se a variavel estiver das séries estiver vazia, exibe mensagem de erro.
-    	if (seriesProfessor == ''){
-    		$("#textoMensagemVazio").text('Selecione ao menos uma série!');
+    	if (validarCPF($("#inputCpfProf").val()) == false){
+    		$("#textoMensagemVazio").text('CPF inválido!');
     		$("#mensagemCampoVazio").show();
-    		$(".seriesProfessor").focus();
+    		$("#inputCpfAluno").focus();
     		return false;
     	}
     	
+    	if ($("#inputCepProf").val().length < 10){
+    		$("#textoMensagemVazio").text('CEP inválido!');
+    		$("#mensagemCampoVazio").show();
+    		$("#inputCepAluno").focus();
+    		return false;
+    	}
     	
-//    	if (validarCPF($("#inputCpfProf").val()) == false){
-//    		$("#textoMensagemVazio").text('CPF inválido!');
-//    		$("#mensagemCampoVazio").show();
-//    		$("#inputCpfAluno").focus();
-//    		return false;
-//    	}
-//    	
-//    	if ($("#inputCepProf").val().length < 10){
-//    		$("#textoMensagemVazio").text('CEP inválido!');
-//    		$("#mensagemCampoVazio").show();
-//    		$("#inputCepAluno").focus();
-//    		return false;
-//    	}
-//    	
-//    	if(validaEmail($("#inputEmailProf").val()) == false){
-//    		$("#textoMensagemVazio").text('Email inválido!');
-//    		$("#mensagemCampoVazio").show();
-//    		$("#inputEmailAluno").focus();
-//    		return false;    		
-//    	}
-//    	
-//    	if ($('#inputSenhaProf').val() != $('#inputSenhaConfirmProf').val()){
-//			$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
-//    		$("#mensagemCampoVazio").show();
-//    		$('#inputSenhaAluno').focus();
-//			return false;    		
-//    	}
+    	if(validaEmail($("#inputEmailProf").val()) == false){
+    		$("#textoMensagemVazio").text('Email inválido!');
+    		$("#mensagemCampoVazio").show();
+    		$("#inputEmailAluno").focus();
+    		return false;    		
+    	}
+    	
+    	if ($('#inputSenhaProf').val() != $('#inputSenhaConfirmProf').val()){
+			$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
+    		$("#mensagemCampoVazio").show();
+    		$('#inputSenhaAluno').focus();
+			return false;    		
+    	}
 
     	var nomeProfessor = $("#inputNomeProf").val();
     	var dataNascimentoProfessor = $("#inputNascimentoProf").val();
@@ -374,7 +352,7 @@ $(document).ready(function() {
     	
     	var grauInstrucao = $("#selectGrauProf").val();
     	var categoria = $("#selectCategoriaProf").val();
-    	//var serie = 'null';
+    	var serie = $("#selectSerieProf").val();
     	var imagem = $("#imagem").val();
     	var perfil = $("#perfil").val();
     	
@@ -397,7 +375,7 @@ $(document).ready(function() {
         		'ano':'null',
         		'turma':'null',
         		'grupo':'null',
-        		'serie': seriesProfessor,
+        		'serie':serie,
         		'grauInstrucao': grauInstrucao,
         		'categoria':categoria,
         		'rua':ruaProfessor,
@@ -637,20 +615,9 @@ $(document).ready(function() {
 		$('#idEnderecoProfessor').val($(this).attr('idEndereco'));
 		$('#idProfessor').val(idUsuario);
 		$('#idUsuarioVariavelProfessor').val($(this).attr('idUsuarioVar'));
-		//$('#serieProf').val($('#serie'+idUsuario).val());
-		var series = $('#serie'+idUsuario).val();
-		var serieArray = series.split(';');
-		console.log(serieArray);
-		$('.seriesProfessor').prop('checked', false);
-		for (var i=0; i< serieArray.length; i++){
-			if (serieArray[i] != ''){
-				console.log(serieArray[i]);
-				$("#serieProf"+serieArray[i]).prop('checked', true);
-			}
-		}
-		
+				
 		$('#inputNomeProf').val($('#updateProfInfo'+idUsuario).text());
-		//$('#selectSerieProf').val($('#serie'+idUsuario).val());
+		$('#selectSerieProf').val($('#serie'+idUsuario).val());
 		$('#selectCategoriaProf').val($('#categoria'+idUsuario).attr('idCategoria'));
 		$('#selectGrauProf').val($('#instrucao'+idUsuario).attr('idInstrucao'));
 		$('#perfil').val($('#perfil'+idUsuario).val());
@@ -687,6 +654,8 @@ $(document).ready(function() {
 	$("body").delegate(".btnUpdateCadEscola", "click", function (){
 		var idUsuario = $(this).attr('idUsuario');
 
+		//alert($('#usuario'+idUsuario).text());
+		
 		$('#idEscola').val($(this).attr('idEscola'));
 		$('#idEnderecoEscola').val($(this).attr('idEndereco'));
 		$('#idUsuarioEscola').val(idUsuario);
@@ -723,11 +692,6 @@ $(document).ready(function() {
 		return false;
 	})
 	
-	$('body').delegate('.btnDelCadAluno, .btnDelCadProf, .btnDelCadEscola','click', function(){
-		alert('excluir!');
-		return false;
-	})
-
 }); //Fim
 
 function tabNavigation(tabToShow) {
@@ -771,6 +735,7 @@ function cancelDelPerfil() {
 //    }
 //}
 
+
 function formatar(mascara, documento){
     var i = documento.value.length;
     var saida = mascara.substring(0,1);
@@ -781,6 +746,7 @@ function formatar(mascara, documento){
     }
   	  
   }
+
 
 function listaProfessores(id){
 
@@ -842,7 +808,7 @@ function mostrarInputArquivo(nomeImagem, caminho){
 
 //Classe Perfil Aluno
 function PerfilAluno(aluno) {
-	self = this;
+    self = this;
     this.id = aluno.idUsuario;
     this.nome = aluno.nomeUsuario;
     this.idEscola = aluno.idEscola;
@@ -973,7 +939,6 @@ function PerfilAluno(aluno) {
 function PerfilProfessor(professor) {
     self = this;
 
-    //console.log(professor.serie);
     this.id = professor.idUsuario;
     this.nome = professor.nomeUsuario;
     this.nascimento = professor.dataNascimento;
@@ -1003,7 +968,7 @@ function PerfilProfessor(professor) {
     this.idInstrucao = professor.idInstrucao;
     this.instrucao = professor.instrucao;
     this.idUsuarioVar = professor.idUsuarioVar;
-    this.serie = professor.serie;
+    this.idSerie = professor.idSerie;
     this.idPerfil = professor.idPerfil;
     this.imagem = professor.imagem;
     this.idEscola = professor.idEscola;
@@ -1033,7 +998,7 @@ function PerfilProfessor(professor) {
             
         html +=
         	
-	        	'<input type="text" value="'+this.serie+'" id="serie'+this.id+'"/>'+
+	        	'<input type="hidden" value="'+this.idSerie+'" id="serie'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idGrupo+'" id="grupo'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idAno+'" id="ano'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.rua+'" id="rua'+this.id+'"/>'+
@@ -1287,7 +1252,7 @@ function listarProfessores(){
         		var outerHTML = perfisProfessoresGerados[a].gerarHTML();
         		$('.update_prof_accordion').append(outerHTML);
         	}
-        	  
+              
         },error:function(){
         	console.log('Erro ao listar professores!!');
         }
@@ -1312,7 +1277,7 @@ function listarEscolas(){
         		var outerHTML = perfisEscolasGerados[a].gerarHTML();
         		$('.update_escola_accordion').append(outerHTML);
         	}
-        	 
+              
         },error:function(){
         	console.log('Erro ao listar escolas!!');
         }
@@ -1330,167 +1295,20 @@ function limparCadastro(classe){
 		$(this).val('');
 	});
 	
-	//alert(classe);
 	//Casos expecificos para cada formulário.
 	if (classe == 'formAluno'){
 		listarEscolas();
-		$('.anoAtual').attr('selected','selected');
+		$('#selectAnoAluno option').eq(0).attr('selected','selected');
 	}else if (classe = 'formProf'){
-		$('.seriesProfessor').prop('checked',false);
-		$('.seriesProfessor').eq(0).prop('checked',true);
+		$('#selectCategoriaProf option').eq(0).attr('selected','selected');
+		$('#selectGrauProf option').eq(0).attr('selected','selected');
 	}else if (classe == 'formEscola'){
-		//
+		$('#inputAdmEscola option').eq(0).attr('selected','selected');
+		$('#inputTipoEscola option').eq(0).attr('selected','selected');
 	}
 		
 	//Coloca o foco sobre o primeiro campo para ficar na parte de cima da tela.
 	$('.'+classe).eq(0).focus();
 	
 	return false;
-}
-
-function expandSeriePeriodoProfessor(trigger) {
-    var fieldCount      = (document.querySelectorAll("[data-grupoAttr]").length/2)+1;
-    var idperiodoSelect = "#inputPeriodoProf"+fieldCount;
-    var idserieSelect   = "#inputSerieProf"+fieldCount;
-    var htmlSeries      = "";
-    var htmlPeriod      = "";
-
-    htmlSeries += '<div class="form_celula_p" style="height: 0;">';
-    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
-    htmlSeries +=     '<span class="select_container">';
-    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">';
-    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
-    htmlSeries +=         '</select>';
-    htmlSeries +=     '</span>';
-    htmlSeries += '</div>';
-
-    htmlPeriod += '<div class="form_celula_p" style="height: 0;">';
-    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
-    htmlPeriod +=     '<span class="select_container">';
-    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">';
-    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
-    htmlPeriod +=         '</select>';
-    htmlPeriod +=     '</span>';
-    htmlPeriod += '</div>';
-
-    $(htmlSeries+htmlPeriod).insertBefore("#acaoNovaSerieContainer");
-    $(idperiodoSelect).parent().parent().animate({height: "40px"}, 200);
-    $(idserieSelect).parent().parent().animate({height: "40px"}, 200);
-
-    getSeries(idserieSelect,idperiodoSelect);
-}
-
-function getSeries(idserieSelect,idperiodoSelect) {
-    var series;
-    $.ajax({
-        url: "ajax/SerieAjax.php",
-        type: "GET",
-        dataType: "json",
-        data: "acao=selectAll",
-        success: function(data) {
-            series = data;
-        },
-        complete: function() {
-            listSeries(series,idserieSelect,idperiodoSelect);
-        }
-    });
-}
-
-function listSeries(series,idserieSelect,idperiodoSelect) {
-    var seriesSelecionadas  = [];
-    var seriesCombos        = document.querySelectorAll("[data-grupoAttr='serie']");
-    var seriesHtml          = "<option value='' selected disabled hidden>Selecione</option>";
-    var periodosHtml        = "<option hidden selected disabed>Selecione uma série</option>";
-
-    $(seriesCombos).each(function(a) {
-        if (a !== seriesCombos.length-1) 
-            seriesSelecionadas.push(this.value);
-    });
-
-    for (var b in series.retorno) {
-        if (seriesSelecionadas.indexOf(series.retorno[b].id) > -1) {
-            var disponivel = verificarOcorrenciasSerie(seriesCombos, series.retorno[b]);
-
-            if (!disponivel)
-                continue;
-        }
-        
-        seriesHtml += '<option value="'+series.retorno[b].id+'">'+series.retorno[b].serie+'</option>';
-    }
-
-    seriesHtml += '<option value="0" style="font-style: italic;">Remover</option>';
-
-    $(idserieSelect).html(seriesHtml);
-    $(idperiodoSelect).html(periodosHtml);
-    atribuirEventosSerie(idserieSelect,idperiodoSelect);
-}
-
-function verificarOcorrenciasSerie(combos, serie) {
-    var count = 0;
-    for (var a in combos) {
-        if (combos[a].value == serie.id)
-            count++;
-    }
-
-    if (count === 2)
-        return false;
-    else
-        return true;
-}
-
-function getPeriodos(combo, idserieSelect, idperiodoSelect) {
-    var retorno;
-
-    $.ajax({
-        url: "ajax/PeriodoAjax.php",
-        type: "GET",
-        dataType: "json",
-        data: "acao=selectAll",
-        beforeSend: function() {
-            var htmlPeriodos = "<option disabled selected hidden style='font-style:italic;'>Carregando...</option>";
-            $(idperiodoSelect).html(htmlPeriodos);
-        },
-        success: function(periodos) {
-            retorno = periodos.retorno;;
-        },
-        complete: function() {
-            listPeriodos(combo, idserieSelect, idperiodoSelect, retorno);
-        }
-    });
-}
-
-function listPeriodos(combo, idserieSelect, idperiodoSelect, periodos) {
-    var combosSeries = document.querySelectorAll("[data-grupoAttr='serie']");
-    var comboAtual = document.getElementById(idserieSelect.slice(1));
-    var periodsSelecionados = [];
-    var htmlPeriodos = "<option value='' disabled selected hidden>Selecione</option>";
-
-    for (var a = 0; a < combosSeries.length-1; a++) { 
-        if (combosSeries[a].value == comboAtual.value) {
-            var idNumeroCombo = combosSeries[a].id.slice(14);
-            var selectPeriodoVal = $("#inputPeriodoProf"+idNumeroCombo).find("option:selected").val();
-
-            periodsSelecionados.push(selectPeriodoVal);
-        }
-    }
-
-    for (var b = 0; b < periodos.length; b++) {
-        if (periodsSelecionados.length > 0) {
-            for (var c = 0; c < periodsSelecionados.length; c++) {
-                if (periodos[b].id != periodsSelecionados[c]) {
-                    htmlPeriodos += "<option value='"+periodos[b].id+"''>"+periodos[b].periodo+"</option>";
-                }
-            }
-        } else {
-            htmlPeriodos += "<option value='"+periodos[b].id+"''>"+periodos[b].periodo+"</option>";
-        }
-    }
-
-    $(idperiodoSelect).html(htmlPeriodos);
-}
-
-function atribuirEventosSerie(idserieSelect,idperiodoSelect) {
-    $("[data-grupoAttr='serie']").change(function() {
-        getPeriodos(this, idserieSelect,idperiodoSelect);
-    });
 }

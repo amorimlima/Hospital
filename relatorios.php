@@ -75,7 +75,7 @@ $logado = unserialize($_SESSION['USR']);
                         	<div class="row">
                         		<div class="col-sm-12 col-md-9">
                         			<span class="header"></span>
-									<div id="conteudoPrincipal" class="conteudo_principal">
+									<div id="conteudoPrincipal" class="conteudo_principal" style="display:none">
 										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
 											<div id="graficoGaleria" class="option_selected opcoes_graficos">Acessos e Downloads na Galeria (em %)</div>
@@ -93,7 +93,7 @@ $logado = unserialize($_SESSION['USR']);
 											</div>
                                         </div>
 										<div class="infos_grafico">
-											<img src="img/ic_voltar_g.png" id="btn_voltar" class="btn_voltar"></span>
+											<img src="img/ic_voltar_g.png" id="btn_voltar" class="btn_voltar">
 											<div class="row">
 												<div class="col-md-4">
 													<div class="graf_info itens_info">Escolas</div>
@@ -118,14 +118,14 @@ $logado = unserialize($_SESSION['USR']);
 									</div>
 									<div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
 									</div>
-									<div id="criarGrupoContainer" class="liberar_grupo_container" style="display: none">
+									<div id="criarGrupoContainer" class="liberar_grupo_container">
 										<form action="">
 				                        	<fieldset>
 				                        		<legend>Novo grupo</legend>
 				                        		<div class="formfield formfield-s">
 				                        			<label for="">Série</label>
 				                        			<span>
-				                        				<select name="grp_serie">
+				                        				<select name="grp_serie" id="grp_serie">
 				                        					<?php
 					                        					$templateRelatorio->getSeriesCombobox();
 					                        				?>
@@ -155,7 +155,7 @@ $logado = unserialize($_SESSION['USR']);
 				                        		<div class="formfield">
 				                        			<span>
 				                        				<div id="alunosContainer" class="checkbox-list checkbox-block-list">
-				                        					<input name="usr_id" value="1" type="checkbox" id="aluno1">
+				                        					<!-- <input name="usr_id" value="1" type="checkbox" id="aluno1">
 				                        					<label for="aluno1" class="checkbox-list-item checkbox-block">
 				                        						<img src="img/erro.png" alt="" />
                         										Ana Carolina Ferreira Soares
@@ -194,7 +194,7 @@ $logado = unserialize($_SESSION['USR']);
 				                        					<label for="aluno8" class="checkbox-list-item checkbox-block">
 				                        						<img src="img/erro.png" alt="" />
 				                        						Diego de Moraes Garcia
-				                        					</label>
+				                        					</label>-->
 				                        				</div>
 				                        			</span>
 				                        		</div>
@@ -215,17 +215,14 @@ $logado = unserialize($_SESSION['USR']);
 											<h2>Gerar relatório</h2>
 											<label for="filtroLivro">Livro</label>
 											<select id="filtroLivro" class="filtrosSelect">
-												<option value="0">Todos</option>
 												<?php //$templateRelatorio->getLivros(); ?>
 											</select>
 											<label for="filtroCapitulo">Capítulo</label>
 											<select id="filtroCapitulo" class="filtrosSelect">
-												<option value="0">Todos</option>
 												<?php //$templateRelatorio->getCapitulos(); ?>
 											</select>
 											<label for="filtroSala">Sala</label>
 											<select id="filtroSala" class="filtrosSelect">
-												<option value="0">Todos</option>
 												<?php //$templateRelatorio->getSalas(); ?>
 											</select>
 											<button id="visualizarRelatorio">Visualizar</button>
@@ -255,7 +252,7 @@ $logado = unserialize($_SESSION['USR']);
             $templateGeral->rodape();
         ?>
         </footer>
-    </div>
+    
 
 	<!--Sempre que for utilizar uma mensagem, criar uma div com a classe modalMensagem e com o display none-->
 	<div id="mensagemCapituloLiberado" class='modalMensagem' style="display:none">
@@ -268,12 +265,20 @@ $logado = unserialize($_SESSION['USR']);
 			$templateGeral->mensagemRetorno('livros','Capítulo bloqueado com sucesso!','sucesso');
 		?>
 	</div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)--> 
+    
+    
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
     <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
+    <script src="bootstrap/js/bootstrap-datepicker.js"></script>
+    <script src="js/EstadoCidade.js"></script>
     <script src="js/funcoes.js"></script>
-    <script src="js/relatorios.js"></script>
+	<script src="js/cadastro.js"></script>
+	<script src="js/goMobileUpload.js"></script>
+    
+    
 </body>
 </html>

@@ -430,45 +430,36 @@ class UsuarioDAO extends DAO{
 	     		$sql = " SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
 	     					   us.usr_cpf, us.usr_login, us.usr_senha, us.usr_imagem,
 	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome, 
-	     					   uv.usv_id, ano.ano_id, ano.ano_ano, s.sri_id, s.sri_serie, 
+	     					   uv.usv_id, ano.ano_id, ano.ano_ano, s.sri_id, s.sri_serie as serie, 
 	     					   g.grp_id, g.grp_grupo, prof.usr_id AS idProfessor, prof.usr_nome AS nomeProfessor, e.*
 						FROM  `usuario` AS us
 							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
 							left OUTER JOIN escola AS es ON us.usr_escola = es.esc_id
 							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-							INNER JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
-							INNER JOIN serie AS s ON uv.usv_serie = s.sri_id
+							left outer JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
+							left outer JOIN serie AS s ON uv.usv_serie = s.sri_id
 							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
 							left OUTER JOIN grupo AS g ON uv.usv_grupo = g.grp_id
 							left OUTER JOIN usuario AS prof ON g.grp_professor = prof.usr_id
 						WHERE us.usr_perfil = 1";
 	     		break;
    			}
-//   			FROM  `usuario` AS us
-//							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
-//							left OUTER JOIN escola AS es ON us.usr_escola = es.esc_id
-//							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-//							INNER JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
-//							INNER JOIN serie AS s ON uv.usv_serie = s.sri_id
-//							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
-//							LEFT OUTER JOIN grupo AS g ON uv.usv_grupo = g.grp_id
-//							/*RIGHT OUTER JOIN usuario AS prof ON g.grp_professor = prof.usr_id*/
-	       //Perfil Professor
+
           	case '2':{
 	     		$sql = "SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
 	     					   us.usr_cpf, us.usr_login, us.usr_senha, us.usr_imagem, 
 	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome,
-	     					   uv.usv_id, s.*, gi.*,cat.*, g.grp_id, g.grp_grupo, e.*
+	     					   uv.usv_id, uv.usv_serie as serie, gi.*,cat.*, e.*
 						FROM usuario as us 
 							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
-							INNER JOIN escola AS es ON us.usr_escola = es.esc_id
+							left outer JOIN escola AS es ON us.usr_escola = es.esc_id
 							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-							INNER JOIN serie AS s ON uv.usv_serie = s.sri_id
-							INNER JOIN grau_instrucao AS gi ON uv.usv_grau_instrucao = gi.grt_id
-							INNER JOIN categoria_funcional AS cat ON uv.usv_categoria_funcional = cat.ctf_id
-							RIGHT OUTER JOIN grupo AS g ON us.usr_id = g.grp_professor
-							RIGHT OUTER JOIN endereco AS e ON us.usr_endereco = e.end_id
+							left JOIN grau_instrucao AS gi ON uv.usv_grau_instrucao = gi.grt_id
+							left JOIN categoria_funcional AS cat ON uv.usv_categoria_funcional = cat.ctf_id
+							left OUTER JOIN endereco AS e ON us.usr_endereco = e.end_id
 						WHERE us.usr_perfil = 2";
+	     		
+	     		//echo $sql;
 	     		break;
    			}
    			
@@ -522,7 +513,7 @@ class UsuarioDAO extends DAO{
 	        		'idAno'			=> ( isset($qr['ano_id']) ? $qr['ano_id'] : "" ),
 	        		'ano'			=> ( isset($qr['ano_ano']) ? $qr['ano_ano'] : "" ),
 	        		'idSerie'		=> ( isset($qr['sri_id']) ? $qr['sri_id'] : "" ),
-	        		'serie'			=> ( isset($qr['sri_serie']) ? utf8_encode($qr['sri_serie']) : "" ),
+	        		'serie'			=> ( isset($qr['serie']) ? utf8_encode($qr['serie']) : "" ),
 	        		'idGrupo'		=> ( isset($qr['grp_id']) ? $qr['grp_id'] : "" ),
 	        		'grupo'			=> ( isset($qr['grp_grupo']) ? utf8_encode($qr['grp_grupo']) : "" ),
 	        		'idProfessor'	=> ( isset($qr['idProfessor']) ? $qr['idProfessor'] : "" ),

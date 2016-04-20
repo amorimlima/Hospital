@@ -54,7 +54,8 @@ $topicos = $topicoController->selectAll();
                                     <p class="txt_pergunta">TEM ALGUMA PERGUNTA?</p>
                                     <div role="form" id="frm_pergunta">
                                         <select id="topico" placeholder="Tópico">
-                                            <option value="" selected disabled>Tópico</option>
+                                            <option value="" selected disabled hidden>Selecione um tópico</option>
+                                            <option value="0" style="font-style: italic;">Novo Tópico</option>
                                             <?php
                                             foreach ($topicos as $t){
                                                 echo '<option value="'.$t->getFrt_id().'">'.utf8_encode($t->getFrt_topico()).'</option>';

@@ -57,6 +57,11 @@ class UsuarioVariavelController {
 		return $userv;
 	}
 
+	public function removeGrupoByIdGrupo($idGrupo)
+	{
+		$userv = $this->usuarioVariavelDAO->removeGrupoByIdGrupo($idGrupo);
+		return $userv;
+	}
 	
 }
 ?>

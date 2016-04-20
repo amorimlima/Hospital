@@ -225,6 +225,30 @@ switch ($_REQUEST["acao"]) {
 		$templateRelatorio->carregaGrafico($_REQUEST);
 	break;
 
+	case "listarAlunosSemGrupo":
+		$usuarioController = new UsuarioController();
+		
+		$idSerie = $_REQUEST["idSerie"];
+		//Criar método ou editar de acordo com o que vem do ajax (periodo, série)
+		$alunos = $usuarioController->selectSemGrupoBySerie($idSerie);
+
+		
+		//montar o html com os alunos sem grupos!! 
+		$html = '<input name="usr_id" value="1" type="checkbox" id="aluno1">
+				                        					<label for="aluno1" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+                        										Ana Carolina Ferreira Soares
+				                        					</label>
+				                        					<input name="usr_id" value="2" type="checkbox" id="aluno2">
+				                        					<label for="aluno2" class="checkbox-list-item checkbox-block">
+				                        						<img src="img/erro.png" alt="" />
+				                        						Diego de Moraes Garcia
+				                        					</label>
+				';
+
+		print json_encode($html);
+	break;
+	
 	default:
 		$result = Array("erro"=>true, "mensagem"=>"Parametro 'acao' invalido.");
 		print json_encode($result);

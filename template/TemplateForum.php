@@ -7,6 +7,7 @@ if(!isset($_SESSION['PATH_SYS'])){
 $path = $_SESSION['PATH_SYS'];
 include_once($path['controller'].'ForumQuestaoController.php');
 include_once($path['controller'].'ForumRespostaController.php');
+include_once($path['controller'].'ForumTopicoController.php');
 include_once($path['controller'].'ForumViewController.php');
 include_once($path['controller'].'UsuarioController.php');
 include_once($path['funcao'].'DatasFuncao.php');
@@ -29,17 +30,20 @@ class TemplateForum{
 	public function listaAlunos()
 	{			   
 		$forumController = new ForumQuestaoController();
+		$forumTopicoController = new ForumTopicoController();
 		$userController = new UsuarioController();
 		$viewController = new ForumViewController();
 		$respController = new ForumRespostaController();
 		$dataFuncao = new DatasFuncao();
 		
 		$forum = $forumController->selectAll();
-		$cont = 0; 
+		$cont = 0;
+
 		foreach ($forum as $key => $value){				
 			$user = $userController->select(($value->getFrq_usuario()));			
 			$view = $viewController->totalByQuestao($value->getFrq_id());
 			$resp = $respController->totalByQuestao($value->getFrq_id());
+			$topico = $forumTopicoController->select(($value->getFrq_topico()));
 			
 			if($cont % 2 == 0){
 				$caixaGrande  = "cx_rosa"; 	
@@ -60,7 +64,7 @@ class TemplateForum{
 						<p class="foto_aluno"><img src="imgp/'.$foto.'"></p>
 						<p class="perg_aluno questaoTexto" id="'.$value->getFrq_id().'">'.utf8_encode($value->getFrq_questao()).'</p>
 						<p class="nome_aluno">'.utf8_encode($user->getUsr_nome()).'</p>
-						<p class="post_data">Postado dia '.$dataFuncao->dataTimeBRExibicao($value->getFrq_data()).'</p>
+						<p class="post_data">Tópico: '.utf8_encode($topico->getFrt_topico()).' | Postado dia '.$dataFuncao->dataTimeBRExibicao($value->getFrq_data()).'</p>
 					</div>
 					<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
 						<p id="qtd_visu'.$value->getFrq_id().'" class="qtd_visu '.$caixaPequena.'"><span>'.$view.'</span> visualizações</p>

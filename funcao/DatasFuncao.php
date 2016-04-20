@@ -2,32 +2,36 @@
 class DatasFuncao {
 
 	public static function dataTimeUSA($dataBr) {
-		$dataUSA = '0000-00-00';
-		$tamanho = strlen($dataBr);
-		if ($tamanho < 19) {
-			$data = explode("/", $dataBr);
-			$dataUSA = $data[2] . "-" . $data[1] . "-" . $data[0];
-		}
-		else {
-			$tipo = explode(" ", $dataBr);
-			$data = explode("/", $tipo[0]);
-			$dataUSA = $data[2] . "-" . $data[1] . "-" . $data[0] . " " . $tipo[1];
-		}
+		if ($dataBr != ''){
+			$dataUSA = '0000-00-00';
+			$tamanho = strlen($dataBr);
+			if ($tamanho < 19) {
+				$data = explode("/", $dataBr);
+				$dataUSA = $data[2] . "-" . $data[1] . "-" . $data[0];
+			}
+			else {
+				$tipo = explode(" ", $dataBr);
+				$data = explode("/", $tipo[0]);
+				$dataUSA = $data[2] . "-" . $data[1] . "-" . $data[0] . " " . $tipo[1];
+			}
+		}else $dataUSA = '';
 		return $dataUSA;
 	}
 	
 	public static function dataUSA($dataBr) {
-		$dataUSA = '0000-00-00';
-		$tamanho = strlen($dataBr);
-		if ($tamanho < 19) {
-			$data = explode("/", $dataBr);
-			$dataUSA = $data[2] . "-" . $data[1] . "-" . $data[0];
-		}
-		else {
-			$tipo = explode(" ", $dataBr);
-			$data = explode("/", $tipo[0]);
-			$dataUSA = $data[2] . "-" . $data[1] . "-" . $data[0];
-		}
+		if ($dataBr != ''){
+			$dataUSA = '0000-00-00';
+			$tamanho = strlen($dataBr);
+			if ($tamanho < 19) {
+				$data = explode("/", $dataBr);
+				$dataUSA = $data[2] . "-" . $data[1] . "-" . $data[0];
+			}
+			else {
+				$tipo = explode(" ", $dataBr);
+				$data = explode("/", $tipo[0]);
+				$dataUSA = $data[2] . "-" . $data[1] . "-" . $data[0];
+			}
+		} else $dataUSA = '';
 		return $dataUSA;
 	}
 

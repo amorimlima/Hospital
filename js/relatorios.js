@@ -1,10 +1,32 @@
 "use strict";
 
 $(document).ready(function() {
+	listarAlunosSemGrupoBySerie($('#grp_serie').val());
 	gerarPickerTipoGrafico();
 	atribuirBarrasRolagem();
 	menuAtribuirCapitulo();
+	
+	$('#grp_serie').change(function(){
+		listarAlunosSemGrupoBySerie($(this).val());
+	})
 });
+
+	
+function listarAlunosSemGrupoBySerie(idSerie) {
+	
+	$.ajax({
+		url: 'ajax/RelatoriosAjax.php',
+		type: 'GET',
+		data: {	'acao' : 'listarAlunosSemGrupo',
+				'idSerie' : idSerie},
+		dataType: 'json',
+		success: function(x) {
+			//montar o html no RelatoriosAjax.php
+			$('#alunosContainer').html(x);
+		}
+	});
+	
+}
 
 function gerarPickerTipoGrafico() {
 	$("#tipo_grafico_picker").click(function() {
