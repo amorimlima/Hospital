@@ -6,6 +6,9 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
 include_once($path['beans'].'ForumQuestao.php');
+include_once($path['beans'].'ForumTopico.php');
+include_once($path['beans'].'Usuario.php');
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -132,5 +135,130 @@ class ForumQuestaoDAO extends DAO{
        
     	return $lista;
      }
+
+    public function selectPendentes()
+    {
+        $sql  = "SELECT * FROM forum_questao frq ";
+        $sql .= "JOIN usuario usr ON frq.frq_usuario = usr.usr_id ";
+        $sql .= "JOIN forum_topico frt ON frq.frq_topico = frt.frt_id ";
+        $sql .= "WHERE frt_status = 0 ORDER BY frq_id DESC";
+        $result = $this->retrieve($sql);
+        $lista = Array();
+
+        while ($qr = mysqli_fetch_array($result))
+        {
+            $frq = new ForumQuestao();
+            $frq->setFrq_id($qr["frq_id"]);
+            $frq->setFrq_questao($qr["frq_questao"]);
+            $frq->setFrq_data($qr["frq_data"]);
+            $frq->setFrq_anexo($qr["frq_anexo"]);
+
+            $frq->setFrq_usuario(new Usuario());
+            $frq->getFrq_usuario()->setUsr_id($qr["usr_id"]);
+            $frq->getFrq_usuario()->setUsr_nome($qr["usr_nome"]);
+            $frq->getFrq_usuario()->setUsr_escola($qr["usr_escola"]);
+            $frq->getFrq_usuario()->setUsr_imagem($qr["usr_imagem"]);
+
+            $frq->setFrq_topico(new ForumTopico());
+            $frq->getFrq_topico()->setFrt_id($qr["frt_id"]);
+            $frq->getFrq_topico()->setFrt_topico($qr["frt_topico"]);
+            $frq->getFrq_topico()->setFrt_status($qr["frt_status"]);
+
+            array_push($lista,$frq);
+        }
+
+        return $lista;
+    }
+    
+    public function selectAprovadas()
+    {
+        $sql  = "SELECT * FROM forum_questao frq ";
+        $sql .= "JOIN usuario usr ON frq.frq_usuario = usr.usr_id ";
+        $sql .= "JOIN forum_topico frt ON frq.frq_topico = frt.frt_id ";
+        $sql .= "WHERE frt_status = 1 ORDER BY frq_id DESC";
+        $result = $this->retrieve($sql);
+        $lista = Array();
+
+        while ($qr = mysqli_fetch_array($result))
+        {
+            $frq = new ForumQuestao();
+            $frq->setFrq_id($qr["frq_id"]);
+            $frq->setFrq_questao($qr["frq_questao"]);
+            $frq->setFrq_data($qr["frq_data"]);
+            $frq->setFrq_anexo($qr["frq_anexo"]);
+
+            $frq->setFrq_usuario(new Usuario());
+            $frq->getFrq_usuario()->setUsr_id($qr["usr_id"]);
+            $frq->getFrq_usuario()->setUsr_nome($qr["usr_nome"]);
+            $frq->getFrq_usuario()->setUsr_escola($qr["usr_escola"]);
+            $frq->getFrq_usuario()->setUsr_imagem($qr["usr_imagem"]);
+
+            $frq->setFrq_topico(new ForumTopico());
+            $frq->getFrq_topico()->setFrt_id($qr["frt_id"]);
+            $frq->getFrq_topico()->setFrt_topico($qr["frt_topico"]);
+            $frq->getFrq_topico()->setFrt_status($qr["frt_status"]);
+
+            array_push($lista,$frq);
+        }
+
+        return $lista;
+    }
+    
+    public function selectByTopico($idfrt)
+    {
+        $sql  = "SELECT * FROM forum_questao frq ";
+        $sql .= "JOIN forum_topico frt ON frq.frq_topico = frt.frt_id ";
+        $sql .= "JOIN usuario usr ON frq.frq_usuario = usr.usr_id ";
+        $sql .= "WHERE frt.frt_id = {$idfrt};";
+        $result = $this->retrieve($sql);
+        $lista = Array();
+        
+        while ($qr = mysqli_fetch_array($result))
+        {
+            $frq = new ForumQuestao();
+            $frq->setFrq_id($qr["frq_id"]);
+            $frq->setFrq_questao($qr["frq_questao"]);
+            $frq->setFrq_data($qr["frq_data"]);
+            $frq->setFrq_anexo($qr["frq_anexo"]);
+            
+            $frq->setFrq_usuario(new Usuario());
+            $frq->getFrq_usuario()->setUsr_id($qr["usr_id"]);
+            $frq->getFrq_usuario()->setUsr_nome($qr["usr_nome"]);
+            $frq->getFrq_usuario()->setUsr_escola($qr["usr_escola"]);
+            $frq->getFrq_usuario()->setUsr_imagem($qr["usr_imagem"]);
+
+            $frq->setFrq_topico(new ForumTopico());
+            $frq->getFrq_topico()->setFrt_id($qr["frt_id"]);
+            $frq->getFrq_topico()->setFrt_topico($qr["frt_topico"]);
+            $frq->getFrq_topico()->setFrt_status($qr["frt_status"]);
+            
+            array_push($lista,$frq);
+        }
+        
+        return $lista;
+    }
+    
+    public function selectAutorByQuestao($idquestao)
+    {
+        $sql  = "SELECT * FROM usuario usr ";
+        $sql .= "JOIN forum_questao frq ON frq.frq_usuario = usr.usr_id ";
+        $sql .= "WHERE frq.frq_id = {$idquestao}";
+        $result = $this->retrieve($sql);
+        $retorno;
+        
+        if ($result) {
+            $qr = mysqli_fetch_array($result);
+            
+            $retorno = new ForumQuestao();
+            $retorno->setFrq_id($qr["frq_id"]);
+            $retorno->setFrq_usuario(new Usuario());
+            $retorno->getFrq_usuario()->setUsr_id($qr["usr_id"]);
+            $retorno->getFrq_usuario()->setUsr_nome($qr["usr_nome"]);
+            $retorno->getFrq_usuario()->setUsr_escola($qr["usr_escola"]);
+            $retorno->getFrq_usuario()->setUsr_imagem($qr["usr_imagem"]);
+        }
+        
+        return $retorno;
+    }
 }
 ?>

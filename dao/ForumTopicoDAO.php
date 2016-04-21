@@ -54,6 +54,7 @@ class ForumTopicoDAO extends DAO{
                 $frt = new ForumTopico();
                 $frt->setFrt_id($qr["frt_id"]);
                 $frt->setFrt_topico($qr["frt_topico"]);
+                $frt->setFrt_status($qr["frt_status"]);
 	    	    	
     	return $frt;
      }
@@ -69,9 +70,41 @@ class ForumTopicoDAO extends DAO{
                 $frt = new ForumTopico();
                 $frt->setFrt_id($qr["frt_id"]);
                 $frt->setFrt_topico($qr["frt_topico"]);
+                $frt->setFrt_status($qr["frt_status"]);
                 array_push($lista, $frt);
         }	    	
     	return $lista;
      }
+
+     public function insertAndReturnId($frt)
+     {
+        $sql = "INSERT INTO forum_topico (frt_topico, frt_status) VALUES ('".$frt->getFrt_topico()."', '".$frt->getFrt_status()."')";
+        return $this->executeAndReturnLastID($sql);
+     }
+
+     public function selectAtivos()
+     {
+        $sql = "SELECT * FROM forum_topico WHERE frt_status = 1";
+        $result = $this->retrieve($sql);
+        $lista = Array();
+
+        while ($qr = mysqli_fetch_array($result))
+        {
+            $frt = new ForumTopico();
+            $frt->setFrt_id($qr["frt_id"]);
+            $frt->setFrt_topico($qr["frt_topico"]);
+            $frt->setFrt_status($qr["frt_status"]);
+
+            array_push($lista,$frt);
+        }
+
+        return $lista;
+     }
+
+    public function aprovarTopico($idfrt)
+    {
+        $sql = "UPDATE forum_topico SET frt_status = 1 WHERE frt_id = ".$idfrt;
+        return $this->execute($sql);
+    }
 }
 ?>

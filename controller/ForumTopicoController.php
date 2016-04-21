@@ -50,5 +50,21 @@ class ForumTopicoController {
 		$frt = $this->forumTopicoDAO->selectFull();
 		return $frt;
 	}
+
+	public function insertAndReturnId($frt)
+	{
+		return $this->forumTopicoDAO->insertAndReturnId($frt);
+	}
+
+	public function selectAtivos()
+	{
+		$frt_ativos = $this->forumTopicoDAO->selectAtivos();
+		return $frt_ativos;
+	}
+
+	public function aprovarTopico($idfrt)
+	{
+		return $this->forumTopicoDAO->aprovarTopico($idfrt);
+	}
 }
 ?>

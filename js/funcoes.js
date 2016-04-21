@@ -46,7 +46,7 @@ $(document).ready(function(e) {
 	
 	$('.botao_modal').click(function(){
 		//Apenas esconde as divs com a classe modalMensagem
-		$('.modalMensagem').css('display','none');
+		$('.modalMensagem').fadeOut(200);
 	});
 
 
@@ -198,7 +198,7 @@ var Usuario = function (idUsuario) {
 			dataUsuario = data;
 		}
 	});
-
+	
 	this.id = dataUsuario.id;
 	this.nome = dataUsuario.nome;
 	this.perfil = dataUsuario.perfil;

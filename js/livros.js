@@ -2,6 +2,7 @@ $(document).ready(function (){
     var url = window.location.href;
 	var retorno = url.split("/"); 	
 	retorno = retorno[retorno.length-1].split("?");
+	var cap_ano;
 
 	var serie = "";
 

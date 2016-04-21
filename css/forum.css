@@ -41,7 +41,12 @@
     resize: none;
     border-radius: 0;
 }
-
+#box_questoes_pendentes > div:nth-child(odd) {
+    background-color: #f4f4f4;
+}
+#box_questoes_pendentes > div:nth-child(even) {
+    background-color: #fff;   
+}
 #box_novoTopico {
     font-size:14px;
     height: 28px;
@@ -64,15 +69,35 @@
     background: #FFFFFF;
     float: left;
 }
-#txt_postagens{
-    margin: 27px 24px 16px 24px;
-    color: #E35F0F;
+#titulos_box_forum {
+    float: left;
+    padding: 24px;
+}
+#titulos_box_forum::after {
+    content:"";
+    display: block;
+    width: 100%;
+    clear: both;
+}
+.titulo_box_forum {
+    position: relative;
+    color: #666;
     font-family: Overlock;
     font-weight: bold;
-	font-size:17px;
-    width: 50%;
+    font-size: 18px;
     float: left;
+    margin-right: 5px;
+    cursor: pointer;
 }
+.titulo_box_forum.ativo {
+    color: #E35F0F;
+    cursor: default;
+}
+.titulo_box_forum:not(:last-of-type)::after {
+    content: " | ";
+    color: #E35F0F;
+}
+
 #txt_pesquisa{
     margin: 18px 24px 16px 24px;
     float: right;
@@ -87,8 +112,9 @@
 #txt_pesquisa input{
     border: 0;
     margin-left: 23px;
-} 
-#box_alunos_container{
+}
+#box_alunos_container,
+#box_questoes_pendentes_container{
     margin-top: 73px;
     height: 295px;
     width: 100%;
@@ -147,6 +173,10 @@
 .perg_box_2{
     float: left;
 }
+.btns_container {
+    float: right;
+    padding: 20px 0 0;
+}
 .qtd_visu{
     width: 143px;
     float: left;
@@ -185,6 +215,16 @@
     float: left;
     margin-right: 5px;
     margin-left: 20px;
+}
+
+.form_justificativa_container {
+    padding: 10px 24px;
+}
+.form_justificativa_container::after {
+    content: "";
+    display: block;
+    width: 100%;
+    clear: both;
 }
 @media (max-width:767px){
 	/*#Conteudo_Area_box_Grande {

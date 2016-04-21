@@ -416,7 +416,7 @@ switch ($_POST["acao"]){
 
 		//insere mensagem remetente
 		$mensagem = new Mensagem();
-		$mensagem->setMsg_assunto($assunto);
+		$mensagem->setMsg_assunto(utf8_decode($assunto));
 		$mensagem->setMsg_cx_entrada('n');
 		$mensagem->setMsg_cx_enviado('s');
 		$mensagem->setMsg_data($data);
@@ -424,7 +424,7 @@ switch ($_POST["acao"]){
 		$mensagem->setMsg_remetente($logado['id']);
 		$mensagem->setMsg_lida("s");
 		$mensagem->setMsg_ativo("1");
-		$mensagem->setMsg_mensagem($mensagemTxt);
+		$mensagem->setMsg_mensagem(utf8_decode($mensagemTxt));
 		$mensagem->setDestinatarios($destinatarios);
 		$msgRemetente = $mensagemController->insert($mensagem);		
 		
@@ -432,7 +432,7 @@ switch ($_POST["acao"]){
 
 			$mensagem = new Mensagem();
 			$mensagem->setMsg_destinatario($destinatario[$i]);
-			$mensagem->setMsg_assunto($assunto);
+			$mensagem->setMsg_assunto(utf8_decode($assunto));
 			$mensagem->setMsg_cx_entrada('s');
 			$mensagem->setMsg_cx_enviado('n');
 			$mensagem->setMsg_data($data);
@@ -440,7 +440,7 @@ switch ($_POST["acao"]){
 			$mensagem->setMsg_remetente($logado['id']);
 			$mensagem->setMsg_lida("n");
 			$mensagem->setMsg_ativo("1");
-			$mensagem->setMsg_mensagem($mensagemTxt);
+			$mensagem->setMsg_mensagem(utf8_decode($mensagemTxt));
 			$mensagem->setDestinatarios($destinatarios);
 			$mensagemController->insert($mensagem);
 
@@ -528,7 +528,7 @@ switch ($_POST["acao"]){
         print(json_encode($result));
 
         break;
-    }              
+    }     
 }
 
 ?> 
