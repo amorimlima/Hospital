@@ -94,6 +94,12 @@ class UsuarioController {
 	{
 		return $this->usuarioDAO->verificaCpf($cpf);
 	}
+
+	public function buscaAlunoSemGrupoBySerieEscola($serie, $idEscola)
+	{
+		$user = $this->usuarioDAO->buscaAlunoSemGrupoBySerieEscola($serie, $idEscola);
+		return $user;
+	}
 	
 	public function buscaProfessorByEscolaAndSerie($idEscola,$idSerie)
 	{

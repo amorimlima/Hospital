@@ -25,6 +25,22 @@ switch ($_REQUEST["acao"]) {
 		);
 		print_r(json_encode($retorno));
 		break;
+
+	case 'buscaAlunoSemGrupoBySerieEscola':
+		$usuarioController = new UsuarioController();
+		$alunos = $usuarioController->buscaAlunoSemGrupoBySerieEscola($_REQUEST['serie'], $_REQUEST['idEscola']);
+		$retorno = array();
+		foreach ($alunos as $aluno) {
+			$a = Array(
+				"idUsuario" => utf8_encode($aluno['idUsuario']),
+				"nome" 		=> utf8_encode($aluno['nome']),
+				"imagem"	=> utf8_encode($aluno['imagem']),
+				"idVariavel"=> utf8_encode($aluno['idVariavel'])
+			);
+			array_push($retorno, $a);
+		}
+		echo json_encode($retorno);
+		break;
 }
 
 ?>

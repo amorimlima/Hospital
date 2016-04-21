@@ -71,5 +71,44 @@ class SerieDAO extends DAO{
         }
     	return $lista;
      }
+
+     public function listarDisponiveisProfessorSemGrupo($idProfessor)
+     {
+        $sql = "SELECT * from serie s WHERE 
+                (s.sri_id NOT IN (SELECT s2.sri_id FROM serie s2
+                    JOIN grupo g ON g.grp_serie = s2.sri_id
+                    WHERE g.grp_professor = ".$idProfessor." AND g.grp_periodo = 1)
+                OR
+                s.sri_id NOT IN (SELECT s2.sri_id FROM serie s2
+                    JOIN grupo g ON g.grp_serie = s2.sri_id
+                    WHERE g.grp_professor = ".$idProfessor." AND g.grp_periodo  = 2))";
+        $result = $this->retrieve($sql);
+        $lista = array();
+        while ($qr = mysqli_fetch_array($result))
+        {
+                $ser = new Serie();
+                $ser->setSri_id($qr["sri_id"]);
+                $ser->setSri_serie($qr["sri_serie"]);
+                array_push($lista, $ser);   
+        }
+        return $lista;
+     }
+
+     public function listarDisponiveisProfessor($idProfessor)
+     {
+        $sql = "SELECT * FROM serie s
+                    JOIN grupo g ON g.grp_serie = s.sri_id
+                    WHERE g.grp_professor = ".$idProfessor;
+        $result = $this->retrieve($sql);
+        $lista = array();
+        while ($qr = mysqli_fetch_array($result))
+        {
+                $ser = new Serie();
+                $ser->setSri_id($qr["sri_id"]);
+                $ser->setSri_serie($qr["sri_serie"]);
+                array_push($lista, $ser);   
+        }
+        return $lista;
+     }
 }
 ?>

@@ -8,7 +8,7 @@ $(document).ready(function() {
 	
 	$('#grp_serie').change(function(){
 		listarAlunosSemGrupoBySerie($(this).val());
-	})
+	});
 });
 
 	
@@ -189,12 +189,88 @@ function viewProfessorSelected(professor)
 	htmlProfSelected +=			'<div class="nome_perfil_selected">'+professor.nome+'</div>';
 	htmlProfSelected +=			'<div class="dados_perfil_selected">Escola: '+professor.escola.nome+' | Entrada na escola: '+data_entrada+'</div>';
 	htmlProfSelected +=			'<div class="dados_perfil_selected">RG: '+rg+' | CPF: '+cpf+' | Data de nascimento: '+data_nascimento+'</div>';
-	htmlProfSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a></div>';
+	htmlProfSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span id="editar_grupos">Editar grupos</span></div>';
 	htmlProfSelected +=		'</div>';
 	htmlProfSelected +=	'</div>';
 
 	$(".tipo_grafico_picker_opcoes").after(htmlProfSelected);
+	$('#editar_grupos').click(function() {
+		abrirEdicaoGrupo(professor.id);
+	});
 };
+
+function professorGetById(idProfessor) {
+	$('#listagem_perfis_graficos').empty();
+	$.ajax({
+		url: "ajax/RelatoriosAjax.php",
+		type: "GET",
+		data: "acao=usuarioPorId&id="+idProfessor,
+		dataType: "json",
+		success: function(d) {
+			viewProfessorSelected(d);
+			carregarGrafico();
+		}		
+	});
+}
+
+function abrirEdicaoGrupo(idProfessor) {
+	$("#criarGrupoContainer").show();
+	$.ajax({
+		url: "ajax/SerieAjax.php",
+		data: {	'acao' : 'listarDisponiveisProfessor',
+				'idProfessor' : idProfessor},
+		dataType: "json",
+		success: function(dataSeries) {
+			var htmlSeries = "";
+			for (var i = 0; i < dataSeries.length; i++)
+				htmlSeries += '<option value="'+dataSeries[i].id+'">'+dataSeries[i].serie+'ª Série</option>';
+			$('#grp_serie').html(htmlSeries);
+			carregarPeriodosSerie(idProfessor);
+		}
+	});
+	$('#grp_serie').change(function() {
+		carregarPeriodosSerie(idProfessor);
+	});
+
+	//Quando a série for trocada, atualizar os períodos disponíveis.
+	//Quando série ou período forem trocados, trazer todos os alunos daquela combinação de série e período disponíveis.
+
+}
+
+function carregarPeriodosSerie(idProfessor) {
+	$.ajax({
+		url: "ajax/PeriodoAjax.php",
+		data: {	'acao' : 'listarDisponiveisProfessorSerie',
+				'idProfessor' : idProfessor,
+				'serie' : $('#grp_serie').val()},
+		dataType: "json",
+		success: function(dataPeriodos){
+			var htmlPeriodos = "";
+			for (var i = 0; i < dataPeriodos.length; i++){
+				htmlPeriodos += '<option value="'+dataPeriodos[i].id+'">'+dataPeriodos[i].periodo+'</option>'
+			}
+			$('#grp_periodo').html(htmlPeriodos);
+			carregarAluno();
+			$('#grp_periodo').change(function() {
+				carregarAluno();
+			})
+		}
+	});
+}
+
+function carregarAluno() {
+	$.ajax({
+		url: "ajax/UsuarioAjax.php",
+		data: {	'acao' : 'buscaAlunoSemGrupoBySerieEscola',
+				'serie' : $('#grp_serie').val(),
+				'idEscola' : $('#escola_id').attr('id_escola')},
+		dataType: 'json',
+		success: function(data){
+			console.log(data);
+		}
+	});
+}
+
 
 // $(document).ready(function() {
 // 	voltarGrafico();

@@ -333,6 +333,26 @@ class UsuarioDAO extends DAO{
 		return $qr["total"];	
     }
     
+    public function buscaAlunoSemGrupoBySerieEscola($serie, $idEscola)
+    {
+        $sql = "SELECT * FROM usuario us
+                JOIN usuario_variavel uv ON us.usr_id = uv.usv_usuario
+                WHERE us.usr_perfil = 1 AND uv.usv_grupo IS NULL AND us.usr_escola = ".$idEscola." AND uv.usv_serie = ".$serie;
+        $result = $this->retrieve($sql);
+        $lista = array();
+        while ($qr = mysqli_fetch_array($result)){
+      
+            $user = array(
+                        'idUsuario' => $qr["usr_id"],
+                        'nome'      => $qr['usr_nome'],
+                        'imagem'    => $qr['usr_imagem'],
+                        'idVariavel'=> $qr['usv_id']
+                    );
+            array_push($lista, $user);
+        }  
+        return $lista;
+    }
+
     public function buscaProfessorByEscolaAndSerie($idEscola, $idSerie){
     	
 		$sql = "SELECT u.usr_id, u.usr_nome, g.grp_id 

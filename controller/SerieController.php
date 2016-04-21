@@ -50,4 +50,16 @@ class SerieController {
 		$ser = $this->serieDAO->selectFull();
 		return $ser;
 	}
+
+	public function listarDisponiveisProfessorSemGrupo($idProfessor)
+	{
+		$ser = $this->serieDAO->listarDisponiveisProfessorSemGrupo($idProfessor);
+		return $ser;
+	}
+
+	public function listarDisponiveisProfessor($idProfessor)
+	{
+		$ser = $this->serieDAO->listarDisponiveisProfessor($idProfessor);
+		return $ser;
+	}
 }
