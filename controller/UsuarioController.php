@@ -134,5 +134,10 @@ class UsuarioController {
 		return $user;
 	}
 	
+	public function verificaEmail($mail)
+	{
+		$user = $this->usuarioDAO->selectEmail($mail);
+		return $user;
+	}
 }
 ?>
