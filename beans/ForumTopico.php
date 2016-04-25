@@ -19,8 +19,8 @@
 class ForumTopico
 { 
 private $frt_id;
-
 private $frt_topico;
+private $frt_status;
 
 
 
@@ -34,24 +34,33 @@ public function ForumTopico()
 
 public function getFrt_id()
 {
-return $this->frt_id;
+	return $this->frt_id;
 }
 
 public function getFrt_topico()
 {
-return $this->frt_topico;
+	return $this->frt_topico;
 }
 
+public function getFrt_status()
+{
+	return $this->frt_status;
+}
 
 
 public function setFrt_id($val)
 {
-$this->frt_id =  $val;
+	$this->frt_id =  $val;
 }
 
 public function setFrt_topico($val)
 {
-$this->frt_topico =  $val;
+	$this->frt_topico =  $val;
+}
+
+public function setFrt_status($val)
+{
+	$this->frt_status = $val;
 }
 
 

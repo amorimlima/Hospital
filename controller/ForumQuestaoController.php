@@ -61,5 +61,29 @@ class ForumQuestaoController {
 		$foq = $this->forumQuestaoDAO->selectUltimas($qtd);
 		return $foq;
 	}
+
+	public function selectPendentes()
+	{
+		$foq = $this->forumQuestaoDAO->selectPendentes();
+		return $foq;
+	}
+        
+        public function selectAprovadas()
+        {
+            $frq = $this->forumQuestaoDAO->selectAprovadas();
+            return $frq;
+        }
+        
+        public function selectByTopico($idfrt)
+        {
+            $frq = $this->forumQuestaoDAO->selectByTopico($idfrt);
+            return $frq;
+        }
+        
+        public function selectAutorByQuestao($idquestao)
+        {
+            $usr = $this->forumQuestaoDAO->selectAutorByQuestao($idquestao);
+            return $usr;
+        }
 }
 ?>

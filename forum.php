@@ -9,7 +9,7 @@ include_once($path['controller'].'ForumTopicoController.php');
 $templateGeral = new Template();
 $templateForum = new TemplateForum();
 $topicoController = new ForumTopicoController();
-$topicos = $topicoController->selectAll();
+$topicos = $topicoController->selectAtivos();
 //print_r($topicos);
 ?>
 <!DOCTYPE html>
@@ -39,13 +39,13 @@ $topicos = $topicoController->selectAll();
     <div id="container">
     	<!--Topo-->
     	<div class="row">
-            <?php 
-				$templateGeral->topoSite();
-			?>      
+            <?php
+                $templateGeral->topoSite();
+            ?>      
         </div>
         <!--Conteudo Central-->
         <div id="Conteudo_Area">
-            <div class="row">
+            <div class="row"> 
                <div class="col-xs-12 col-md-12 col-lg-12" id="area_geral">
                     <div id="Conteudo_Area_box_Grande">
                     	<div class="row">
@@ -69,7 +69,11 @@ $topicos = $topicoController->selectAll();
                              </div>
                        		<div class="col-xs-12 col-md-12 col-lg-12">
                                 <div id="box_forum_botton">
-                                    <p id="txt_postagens">POSTAGENS RECENTES</p>
+                                    <div id="titulos_box_forum">
+                                        <?php
+                                            $templateForum->mostrarAbasForum();
+                                        ?>
+                                    </div>
                                     <p id="txt_pesquisa">
                                         <input id="txt_pesquisa_input" type="text" placeholder="Pesquise no fórum!">
                                     </p>
@@ -78,6 +82,8 @@ $topicos = $topicoController->selectAll();
                                              <?php $templateForum->listaAlunos()?>                           
                                         </div>
                                     </div>
+                                    <!-- Listar questões e tópicos pendentes para professor e escola -->
+                                    <?php $templateForum->listarTopicosPendentes(); ?>
                                 </div>
                             </div> 
                         </div>
@@ -113,6 +119,31 @@ $topicos = $topicoController->selectAll();
 			$templateGeral->mensagemRetorno('forum','Pergunta criada com sucesso!','sucesso');
 		?>
 	</div>
+        <div id="forumTopicoAprovado" class="modalMensagem" style="display: none;">
+            <?php
+                $templateGeral->mensagemRetorno("forum","Tópico aprovado com sucesso", "sucesso");  
+            ?>
+        </div>
+        <div id="forumErroRetornarQuestao" class="modalMensagem" style="display: none;">
+            <?php
+                $templateGeral->mensagemRetorno("forum", "Erro ao buscar questões para este tópico.", "erro");
+            ?>
+        </div>
+        <div id="forumRejeicaoJustificada" class="modalMensagem" style="display: none;">
+            <?php
+                $templateGeral->mensagemRetorno("forum", "Justificativa enviada com sucesso.", "sucesso");
+            ?>
+        </div>
+        <div id="forumErroGenerico" class="modalMensagem" style="display: none;">
+            <?php
+                $templateGeral->mensagemRetorno("forum", "Ocorreu um erro ao solicitar a requisição.", "erro");
+            ?>
+        </div>
+        <div id="forumNovoTopicoAluno" class="modalMensagem" style="display: none;">
+            <?php
+                $templateGeral->mensagemRetorno("forum", "Tópico criado e enviado para aprovação.", "sucesso");
+            ?>
+        </div>
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
