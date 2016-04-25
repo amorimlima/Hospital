@@ -297,10 +297,9 @@ function rejeitarTopico(idquestao, idtopico) {
     
     $("[data-action='confirmar']").click(function() {
         var idtopico = this.getAttribute("data-topico");
-        var idquestao = this.getAttribute("data-questao");
         var txtJustificativa = $("#txtJustificativa"+idtopico).val();
         
-        vaildarJustificativaRejeicao(idtopico, idquestao, txtJustificativa);
+        vaildarJustificativaRejeicao(idtopico, txtJustificativa);
     });
     
     $("[data-action='cancelar']").click(function() {
@@ -323,10 +322,10 @@ function rejeitarTopico(idquestao, idtopico) {
     
 }
 
-function vaildarJustificativaRejeicao(idtopico, idquestao, justificativa) {
-    if (idtopico && idquestao) {
+function vaildarJustificativaRejeicao(idtopico, justificativa) {
+    if (idtopico) {
         if (justificativa) {
-            confirmarJustificativaRejeicao(idtopico,idquestao,justificativa);
+            confirmarJustificativaRejeicao(idtopico,justificativa);
         } else {
             $("#txtJustificativa"+idtopico).addClass("input-missing");
             $("#txtJustificativa"+idtopico).attr("placeholder", "Este campo é obrigatório");
@@ -336,14 +335,13 @@ function vaildarJustificativaRejeicao(idtopico, idquestao, justificativa) {
     }
 }
 
-function confirmarJustificativaRejeicao(idtopico,idquestao,justificativa) {
-    function selectAutorPorIdQuestao() {
-        var autor;
+function confirmarJustificativaRejeicao(idtopico,justificativa) {
+    function deletarTopico() {
         $.ajax({
             url: "ajax/ForumAjax.php",
-            type: "GET",
+            type: "POST",
             dataType: "json",
-            data: "acao=selectAutorByQuestao&idquestao="+idquestao,
+            data: "acao=rejeitarTopico&idtopico="+idtopico,
             beforeSend: function() {
                 $("#txtJustificativa"+idtopico).attr("disabled", "disabled");
                 $("[data-action=cancelar]").filter("[data-topico="+idtopico+"]").attr("disabled", "disabled");
@@ -351,65 +349,9 @@ function confirmarJustificativaRejeicao(idtopico,idquestao,justificativa) {
                 $("[data-action=confirmar]").filter("[data-topico="+idtopico+"]").html("Aguarde...");
             },
             success: function(data) {
-                if (!data.erro) {
-                    autor = data.retorno;
-                    selectTopicoById(autor);
-                } else {
-                    $("#forumErroGenerico").fadeIn(200);
+                if (data.topico.id && data.questao.autor) {
+                    enviarJustificativaRejeicao(data.topico, data.questao);
                 }
-            },
-            error: function() {
-                console.error("Erro ao selecionar autor");
-            }
-        });
-    }
-    
-    function selectTopicoById(autor) {
-        var topico;
-        $.ajax({
-            url: "ajax/ForumAjax.php",
-            type: "GET",
-            dataType: "json",
-            data: "acao=selectTopico&idtopico="+idtopico,
-            success: function(data) {
-                if (!data.erro) {
-                    topico = data.retorno;
-                    enviarJustificativaRejeicao(autor,topico);
-                } else {
-                    $("#forumErroGenerico").fadeIn(200);
-                }
-            },
-            error: function() {
-                console.error("Erro ao selecionar tópico");
-            }
-        });
-    }
-    
-    function enviarJustificativaRejeicao(autor,topico) {
-        var assunto = "Seu tópico \""+topico.topico+"\" foi rejeitado.";
-        
-        $.ajax({
-            url: "ajax/MensagemAjax.php",
-            type: "POST",
-            dataType: "json",
-            data: "acao=inserirMensagem&destinatarios="+autor[0].id+"&assunto="+assunto+"&mensagem=Justificativa:\n"+justificativa,
-            success: function(data) {
-                deletarTopico();
-            },
-            error: function() {
-                console.error("Erro ao enviar justificativa");
-            }
-        });
-    }
-    
-    function deletarTopico() {
-        $.ajax({
-            url: "ajax/ForumAjax.php",
-            type: "POST",
-            dataType: "json",
-            data: "acao=rejeitarTopico&id="+idtopico,
-            success: function(data) {
-                deletarQuestao();
             },
             error: function() {
                 console.error("Erro ao deletar tópico");
@@ -417,22 +359,26 @@ function confirmarJustificativaRejeicao(idtopico,idquestao,justificativa) {
         });
     }
     
-    function deletarQuestao() {
+    function enviarJustificativaRejeicao(topico,questao) {
+        var assunto = "Seu tópico \""+topico.topico+"\" foi rejeitado.";
+        var mensagem  = "Olá, "+questao.autor.nome.split(" ")[0]+".\n";
+            mensagem += "Seu tópico \""+topico.topico+"\" foi rejeitado, ";
+            mensagem += "e sua questão \""+questao.questao+"\" apagada. \n\n";
+            mensagem += "Justificativa: \n"+justificativa;
+        
         $.ajax({
-            url: "ajax/ForumAjax.php",
+            url: "ajax/MensagemAjax.php",
             type: "POST",
             dataType: "json",
-            data: "acao=deletarQuestao&idquestao="+idquestao,
-            success: function(data) {
-                if (!data.erro) {
-                    $("#forumRejeicaoJustificada").fadeIn(200);
-                }
+            data: "acao=inserirMensagem&destinatarios="+questao.autor.id+"&assunto="+assunto+"&mensagem="+mensagem,
+            success: function() {
+                $("#forumRejeicaoJustificada").fadeIn(200);
             },
             error: function() {
-                console.error("Erro ao deletar questao");
+                console.error("Erro ao enviar justificativa");
             },
             complete: function() {
-                $("#box_questao"+idquestao).animate({opacity: 0}, 200, function() {
+                $("#box_questao"+questao.id).animate({opacity: 0}, 200, function() {
                     $(this).remove();
                     verificarQtdeTopicosPendentes();
                 });
@@ -440,7 +386,7 @@ function confirmarJustificativaRejeicao(idtopico,idquestao,justificativa) {
         });
     }
     
-    selectAutorPorIdQuestao();
+    deletarTopico();
 }
 
 function verificarQtdeTopicosPendentes() {
@@ -454,7 +400,5 @@ function verificarQtdeTopicosPendentes() {
         
         $("#box_questoes_pendentes").html(htmlAlerta);
         $("#alert_sem_topicos_pendentes").fadeIn(200);
-    } else {
-        console.log("Não. Existem "+topicos.length+" divs.");
     }
 } 

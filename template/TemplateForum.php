@@ -94,9 +94,9 @@ class TemplateForum {
                     echo    "<div class=\"row perg_box\">";
                     echo        "<div class=\"perg_box_1 col-xs-12 col-md-9\">";
                     echo            "<p class=\"foto_aluno\"><img src=\"imgp/" . verificarImagem($questao->getFrq_usuario()->getUsr_imagem()) . "\"></p>";
-                    echo            "<p id=\"" . $questao->getFrq_id() . "\" class=\"perg_aluno questaoTexto\">" . utf8_encode($questao->getFrq_questao()) . "</p>";
-                    echo            "<p class=\"nome_aluno\">" . $questao->getFrq_usuario()->getUsr_nome() . "</p>";
-                    echo            "<p class=\"post_data\">Tópico: " . utf8_encode($questao->getFrq_topico()->getFrt_topico()) . " | Solicitado dia " . $dataFuncao->dataTimeBRExibicao($questao->getFrq_data()) . "</p>";
+                    echo            "<p id=\"" . $questao->getFrq_id() . "\" class=\"perg_aluno questaoTexto\">" . utf8_encode($questao->getFrq_topico()->getFrt_topico()) . "</p>";
+                    echo            "<p class=\"nome_aluno\">Questão: " . utf8_encode($questao->getFrq_questao()) . "</p>";
+                    echo            "<p class=\"post_data\">Solicitante: " . $questao->getFrq_usuario()->getUsr_nome() . " | Solicitado dia " . $dataFuncao->dataTimeBRExibicao($questao->getFrq_data()) . "</p>";
                     echo        "</div>";
                     echo        "<div class=\"btns_container col-xs-12 col-md-3\">";
                     echo            "<button type=\"button\" data-action=\"aceitar\" data-topico=\"" . $questao->getFrq_topico()->getFrt_id() . "\" id=\"btn_aceitar" . $questao->getFrq_id() . "\" class=\"btn btn-primary\">Aceitar Tópico</p>";
