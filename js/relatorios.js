@@ -1,32 +1,15 @@
 "use strict";
 
 $(document).ready(function() {
-	listarAlunosSemGrupoBySerie($('#grp_serie').val());
 	gerarPickerTipoGrafico();
 	atribuirBarrasRolagem();
 	menuAtribuirCapitulo();
-	
-	$('#grp_serie').change(function(){
-		listarAlunosSemGrupoBySerie($(this).val());
-	});
+	carregarGrafico();
+	botoesGrupo();
+	$('.botao_modal').click(function(){
+        hideModal();
+    });
 });
-
-	
-function listarAlunosSemGrupoBySerie(idSerie) {
-	
-	$.ajax({
-		url: 'ajax/RelatoriosAjax.php',
-		type: 'GET',
-		data: {	'acao' : 'listarAlunosSemGrupo',
-				'idSerie' : idSerie},
-		dataType: 'json',
-		success: function(x) {
-			//montar o html no RelatoriosAjax.php
-			$('#alunosContainer').html(x);
-		}
-	});
-	
-}
 
 function gerarPickerTipoGrafico() {
 	$("#tipo_grafico_picker").click(function() {
@@ -104,10 +87,11 @@ function voltarGrafico()
 				carregarGrafico();
 			}
 		}
-	})
-};
+	});
+}
 
 function carregarGrafico () {
+	$('.lista_itens_grafico').html("Carregando...");
 	var livro = $('#filtroLivro').val();
 	var capitulo = $('#filtroCapitulo').val();
 	var sala = $('#filtroSala').val();
@@ -200,7 +184,6 @@ function viewProfessorSelected(professor)
 };
 
 function professorGetById(idProfessor) {
-	$('#listagem_perfis_graficos').empty();
 	$.ajax({
 		url: "ajax/RelatoriosAjax.php",
 		type: "GET",
@@ -215,6 +198,8 @@ function professorGetById(idProfessor) {
 
 function abrirEdicaoGrupo(idProfessor) {
 	$("#criarGrupoContainer").show();
+	$("#conteudoPrincipal").hide();
+	$('#alunosContainer').html("Carregando...");
 	$.ajax({
 		url: "ajax/SerieAjax.php",
 		data: {	'acao' : 'listarDisponiveisProfessor',
@@ -229,15 +214,14 @@ function abrirEdicaoGrupo(idProfessor) {
 		}
 	});
 	$('#grp_serie').change(function() {
+		$('#alunosContainer').html("Carregando...");
 		carregarPeriodosSerie(idProfessor);
 	});
-
-	//Quando a série for trocada, atualizar os períodos disponíveis.
-	//Quando série ou período forem trocados, trazer todos os alunos daquela combinação de série e período disponíveis.
 
 }
 
 function carregarPeriodosSerie(idProfessor) {
+	$('#grp_periodo').html('<option>Carregando...</option>');
 	$.ajax({
 		url: "ajax/PeriodoAjax.php",
 		data: {	'acao' : 'listarDisponiveisProfessorSerie',
@@ -265,12 +249,67 @@ function carregarAluno() {
 				'serie' : $('#grp_serie').val(),
 				'idEscola' : $('#escola_id').attr('id_escola')},
 		dataType: 'json',
-		success: function(data){
-			console.log(data);
+		success: function(dataAlunos){
+			var htmlAlunos = '';
+			for (var i = 0; i < dataAlunos.length; i++){
+				htmlAlunos += 	'<input name="usr_id" value="'+dataAlunos[i].idVariavel+'" type="checkbox" class="aluno_grupo" id="aluno_'+dataAlunos[i].idUsuario+'">';
+				htmlAlunos += 	'<label for="aluno_'+dataAlunos[i].idUsuario+'" class="checkbox-list-item checkbox-block">';
+				htmlAlunos += 		'<img src="'+dataAlunos[i].imagem+'">';
+				htmlAlunos += 		dataAlunos[i].nome;
+				htmlAlunos += 	'</label>';
+			}
+			$('#alunosContainer').html(htmlAlunos);
 		}
 	});
 }
 
+function botoesGrupo() {
+	$('#cancelarGrupo').click(function() {
+		$('#grp_periodo').html('<option>Carregando...</option>');
+		$('#grp_serie').html('<option>Carregando...</option>');
+		$("#criarGrupoContainer").hide();
+		$("#conteudoPrincipal").show();
+	});
+
+	$('#salvarGrupo').click(function(e) {
+		e.preventDefault();
+		adicionarAlunosGrupo();
+	});
+}
+
+function adicionarAlunosGrupo() {
+	 var alunos = "";
+	$('.aluno_grupo:checked').each(function(i) {
+		if (alunos === "")
+			alunos = "( " + $(this).val();
+		else
+			alunos += ", " + $(this).val();
+	});
+	alunos += ")";
+	$.ajax({
+		url: "ajax/RelatoriosAjax.php",
+		data: {	'acao' : 'adicionarGrupoProfessorSeriePeriodo',
+				'alunos' : alunos,
+				'idProfessor' : $('#professor_id').attr('id_professor'),
+				'serie' : $('#grp_serie').val(),
+				'periodo' : $('#grp_periodo').val()},
+		type: "POST",
+		success: function() {
+		}
+	});
+
+	$('#tipoMensagem').removeClass();
+    $('#tipoMensagem').addClass("sucesso");
+    $("#modalTexto").html('Alunos atribuidos ao grupo!');
+    $('.modal').show();
+    $('.modal-backdrop').show();
+    $('#cancelarGrupo').trigger('click');
+}
+
+function hideModal(){
+    $('.modal-backdrop').hide();
+    $('.modal').hide();
+}
 
 // $(document).ready(function() {
 // 	voltarGrafico();

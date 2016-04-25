@@ -97,6 +97,25 @@ class GrupoDAO extends DAO{
         }
         return $lista;
       }
+
+    public function listarProfessorSeriePeriodo($idProfessor, $serie, $periodo)
+    {
+        $sql  = " SELECT * FROM grupo";
+        $sql .= " WHERE grp_professor = ".$idProfessor." AND grp_serie = ".$serie." AND grp_periodo = ".$periodo;
+        $sql .= " LIMIT 1";
+        $result = $this->retrieve($sql);
+        $qr = mysqli_fetch_array($result);
+        $gru = array(
+            "id"        => $qr["grp_id"],
+            "grupo"     => $qr["grp_grupo"],
+            "escola"    => $qr["grp_escola"],
+            "professor" => $qr["grp_professor"],
+            "serie"     => $qr["grp_serie"],
+            "periodo"   => $qr["grp_periodo"]
+        );        
+        return $gru;
+
+    }
      
 }
 ?>

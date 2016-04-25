@@ -139,5 +139,10 @@ class UsuarioController {
 		$user = $this->usuarioDAO->selectEmail($mail);
 		return $user;
 	}
+
+	public function adicionarAlunosGrupo($idGrupo, $alunos)
+	{
+		return $this->usuarioDAO->adicionarAlunosGrupo($idGrupo, $alunos);
+	}
 }
 ?>

@@ -57,5 +57,11 @@ class GrupoController {
 		return $gru;
 	}
 
+	public function listarProfessorSeriePeriodo($idProfessor, $serie, $periodo)
+	{
+		$gru = $this->grupoDAO->listarProfessorSeriePeriodo($idProfessor, $serie, $periodo);
+		return $gru;
+	}
+
 }
 ?>

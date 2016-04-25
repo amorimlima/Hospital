@@ -12,12 +12,21 @@ include_once($path["beans"]."LiberarCapitulo.php");
 include_once($path["beans"]."Escola.php");
 include_once($path["beans"]."Capitulo.php");
 include_once($path["beans"]."Usuario.php");
-include_once($path['beans'].'RegistroGaleria.php');
+include_once($path["beans"]."RegistroGaleria.php");
+include_once($path["beans"]."Grupo.php");
 include_once($path["funcao"]."DatasFuncao.php");
 include_once($path["funcao"]."Thumbs.php");
-include_once($path['template'].'TemplateRelatorio.php');
+include_once($path["template"]."TemplateRelatorio.php");
 
 switch ($_REQUEST["acao"]) {
+
+	case 'adicionarGrupoProfessorSeriePeriodo':
+		$grupoController = new GrupoController();
+		$grupo = $grupoController->listarProfessorSeriePeriodo($_REQUEST['idProfessor'], $_REQUEST['serie'], $_REQUEST['periodo']);
+		$usuarioController = new UsuarioController();
+		$usuarioController->adicionarAlunosGrupo($grupo['id'], $_REQUEST['alunos']);
+		break;
+
 	case "listarEscolas":
 		$escolaController = new EscolaController();
 		$escolas = $escolaController->selectAtivas();
@@ -223,30 +232,6 @@ switch ($_REQUEST["acao"]) {
 	case 'carregaGrafico':
 		$templateRelatorio = new TemplateRelatorio();
 		$templateRelatorio->carregaGrafico($_REQUEST);
-	break;
-
-	case "listarAlunosSemGrupo":
-		$usuarioController = new UsuarioController();
-		
-		$idSerie = $_REQUEST["idSerie"];
-		//Criar método ou editar de acordo com o que vem do ajax (periodo, série)
-		$alunos = $usuarioController->selectSemGrupoBySerie($idSerie);
-
-		
-		//montar o html com os alunos sem grupos!! 
-		$html = '<input name="usr_id" value="1" type="checkbox" id="aluno1">
-				                        					<label for="aluno1" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-                        										Ana Carolina Ferreira Soares
-				                        					</label>
-				                        					<input name="usr_id" value="2" type="checkbox" id="aluno2">
-				                        					<label for="aluno2" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-				                        						Diego de Moraes Garcia
-				                        					</label>
-				';
-
-		print json_encode($html);
 	break;
 	
 	default:

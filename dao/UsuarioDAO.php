@@ -345,7 +345,7 @@ class UsuarioDAO extends DAO{
             $user = array(
                         'idUsuario' => $qr["usr_id"],
                         'nome'      => $qr['usr_nome'],
-                        'imagem'    => $qr['usr_imagem'],
+                        'imagem'    => $_SESSION['PATH_SYS']['imgp'].$qr['usr_imagem'],
                         'idVariavel'=> $qr['usv_id']
                     );
             array_push($lista, $user);
@@ -690,6 +690,15 @@ class UsuarioDAO extends DAO{
        $result = $this->retrieve($sql);
        $qr = mysqli_num_rows($result);
        return $qr;
+    }
+
+    public function adicionarAlunosGrupo($idGrupo, $alunos)
+    {
+        $sql = "UPDATE usuario_variavel SET usv_grupo = ".$idGrupo;
+        $sql .= " WHERE usv_id IN ".$alunos;
+
+        return $this->execute($sql);
+
     }
 }
 ?>
