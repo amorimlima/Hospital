@@ -401,4 +401,14 @@ function verificarQtdeTopicosPendentes() {
         $("#box_questoes_pendentes").html(htmlAlerta);
         $("#alert_sem_topicos_pendentes").fadeIn(200);
     }
+    
+    atualizarCountTopicosPendentes(topicos.length);
 } 
+
+function atualizarCountTopicosPendentes(count) {
+    if (count > 0) {
+        $("#countTopicosPendentes").text(count);
+    } else {
+        $("#countTopicosPendentes").remove();
+    }
+}
