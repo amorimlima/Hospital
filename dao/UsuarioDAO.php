@@ -54,7 +54,7 @@ class UsuarioDAO extends DAO{
      	$sql .= "'".$user->getUsr_rg()."',";
      	$sql .= "'".$user->getUsr_cpf()."',";
      	$sql .= "'".$user->getUsr_login()."',";
-     	$sql .= "'".$user->getUsr_senha()."',";
+     	$sql .= "'".md5($user->getUsr_senha())."',";
      	$sql .= "'".$user->getUsr_imagem()."')";
      	//echo $sql;
      	return $this->execute($sql);
@@ -86,7 +86,7 @@ class UsuarioDAO extends DAO{
          $sql .= "'".$user->getUsr_rg()."',";
          $sql .= "'".$user->getUsr_cpf()."',";
          $sql .= "'".$user->getUsr_login()."',";
-         $sql .= "'".$user->getUsr_senha()."',";
+         $sql .= "'".md5($user->getUsr_senha())."',";
          $sql .= "'".$user->getUsr_imagem()."')";
 		//echo $sql;
     	return $this->executeAndReturnLastID($sql);
@@ -104,7 +104,7 @@ class UsuarioDAO extends DAO{
         $sql .= "usr_rg = '".$user->getUsr_rg()."',";
         $sql .= "usr_cpf = '".$user->getUsr_cpf()."',";
         $sql .= "usr_login = '".$user->getUsr_login()."',";
-        $sql .= "usr_senha = '".$user->getUsr_senha()."',";
+        $sql .= "usr_senha = '".md5($user->getUsr_senha())."',";
         $sql .= "usr_imagem = '".$user->getUsr_imagem()."'";
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
 //        echo $sql;
@@ -576,7 +576,7 @@ class UsuarioDAO extends DAO{
      public function selectGeral($idUsuario)
      {
         $sql  = "SELECT * FROM usuario us ";
-        $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
+        $sql .= "LEFT OUTER JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
         $sql .= "WHERE us.usr_id = ".$idUsuario;
 
         $result = $this->retrieve($sql);
