@@ -197,10 +197,8 @@ function aprovarTopico(idquestao,idtopico) {
             retorno = data.retorno;
         },
         complete: function() {
-            verificarQtdeTopicosPendentes();
             updateListaQuestoesTopicoAprovado(idtopico);
             getTopicoListagem(idtopico);
-            listarQuestoesTopicoAprovado(idquestao, idtopico);
         }
     });
 }
@@ -259,6 +257,7 @@ function updateListaQuestoesTopicoAprovado(idtopico) {
         }, 200,
         function() {
             $(this).remove();
+            verificarQtdeTopicosPendentes();
         });
     });
     
@@ -271,10 +270,11 @@ function updateListaQuestoesTopicoAprovado(idtopico) {
             questoesGet = data;
         },
         complete: function() {
-            if (questoesGet)
+            if (questoesGet) {
                 incluirQuestaoListagemRecentes(questoesGet.retorno);
-            else
+            } else {
                 $("#forumErroRetornarQuestao").fadeIn(200);
+            }
         }
     });
 }
