@@ -248,7 +248,6 @@ function esqueceuSenha(){
         dataType:'json',
         data:{'acao':'verificaEmail','email':email},
         success:function(data){
-            //console.log(data);
             if(data == 1){
                 $.ajax({
                     url:'ajax/MailSendAjax.php',
