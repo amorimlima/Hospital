@@ -133,6 +133,12 @@ class UsuarioController {
 		$user = $this->usuarioDAO->selectGeral($idUsuario);
 		return $user;
 	}
+
+	public function selectSemGrupoBySerie($idSerie)
+	{
+		$user = $this->usuarioDAO->selectSemGrupoBySerie($idSerie);
+		return $user;
+	}
 	
 	public function verificaEmail($mail)
 	{

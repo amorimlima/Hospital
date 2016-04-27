@@ -296,29 +296,63 @@ switch ($_REQUEST["acao"]) {
         break;
 
     case "rejeitarTopico":
-        $usuario = unserialize($_SESSION["USR"]);
-        $perfilLogado = $usuario["perfil_id"];
-        $frt_id = $_REQUEST["id"];
-        $retorno = Array("erro" => false, "retorno" => Array());
-
-        if ($perfilLogado == 2 || $perfilLogado == 4) {
-            if ($request = $forumTopicoController->delete($frt_id)) {
-                $retorno["retorno"] = Array("mensagem" => "Tópico rejeitado com sucesso.");
+        $usuario       = unserialize($_SESSION["USR"]);
+        $perfilLogado  = $usuario["perfil_id"];
+        $topico        = $forumTopicoController->select($_REQUEST["idtopico"]);
+        $questoes      = $forumController->selectByTopico($topico->getFrt_id());
+            
+        $retorno = [
+            "erro"    => false, 
+            "retorno" => [],
+            "topico"  => [
+                "id"      => $topico->getFrt_id(),
+                "topico"  => utf8_encode($topico->getFrt_topico())
+            ],
+            "questao" => [
+                "id"      => $questoes[0]->getFrq_id(),
+                "questao" => utf8_encode($questoes[0]->getFrq_questao()),
+                "autor"   => [
+                    "id"    => $questoes[0]->getFrq_usuario()->getUsr_id(),
+                    "nome"  => $questoes[0]->getFrq_usuario()->getUsr_nome()
+                ]
+            ]
+        ];
+        
+        function deletarTopicoRejeitado(&$frt, &$frtController, &$retorno) {
+            if ($frtController->delete($frt->getFrt_id())) {
+                $dtr = Array("mensagem" => "Tópico {$frt->getFrt_id()} deletado.");
+                array_push($retorno, $dtr);
             } else {
-                $retorno["erro"] = true;
-                $retorno["retorno"] = Array("mensagem" => "Erro ao rejeitar a criação do tópico.");
+                $dtr = Array("mensagem" => "Erro ao deletar o tópico {$frt->getFrt_id()}.");
+                array_push($retorno, $dtr);
             }
+        }
+        
+        function deletarQuestaoTopicoRejeitado(&$frq, &$frqController, &$retorno) {
+            if ($frqController->delete($frq[0]->getFrq_id())) {
+                $dqtr = ["mensagem" => "Questão {$frq[0]->getFrq_id()} deletada."];
+                array_push($retorno, $dqtr);
+            } else {
+                $dqtr = Array("mensagem" => "Erro ao deletar a questão {$frq[0]->getFrq_id()}.");
+                array_push($retorno, $dqtr);
+            }
+        }
+        
+        if (intval($perfilLogado) === 2 || intval($perfilLogado) === 4) {
+            deletarTopicoRejeitado($topico,$forumTopicoController,$retorno["retorno"]);
+            deletarQuestaoTopicoRejeitado($questoes,$forumController,$retorno["retorno"]);
         } else {
             $retorno["erro"] = true;
-            $retorno["retorno"] = Array("mensagem" => "Ação não permitida para este perfil.");
+            $erro = Array("mensagem" => "Ação não permitida para este perfil.");
+            array_push($retorno["retorno"], $erro);
         }
 
         echo json_encode($retorno);
         break;
     
     case "selectTopico":
-        $id_topico = $_GET["idtopico"];
-        $topico = $forumTopicoController->select($id_topico);
+        $idtopico = $_GET["idtopico"];
+        $topico = $forumTopicoController->select($idtopico);
         $retorno = Array("erro" => false, "retorno" => Array());
         
         if ($topico) {

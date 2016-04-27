@@ -37,7 +37,9 @@ switch ($_REQUEST["acao"]) {
 //        }else if ($usuarioController->verificaLogin($_POST["login"])){
 //        	$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
 //        }
-
+	
+		
+		
 		if ($result == ''){
 	       	$endereco = new Endereco();
 	        $endereco->setend_logradouro(utf8_decode($_POST["rua"]));
@@ -54,8 +56,8 @@ switch ($_REQUEST["acao"]) {
 	    	$endereco->setend_email($_POST["email"]);
 	    	
 	    	if ($idEndereco = $enderecoController->insert($endereco)){
-	    	
-		    	$dataFuncao = new DatasFuncao();
+	    		
+	    		$dataFuncao = new DatasFuncao();
 		        $usuario = new Usuario();
 		        
 		        $usuario->setUsr_login($_POST["login"]);
@@ -68,16 +70,18 @@ switch ($_REQUEST["acao"]) {
 		        $usuario->setUsr_cpf($_POST['cpf']);
 		        $usuario->setUsr_nse($_POST['nse']);
 		        
-		        if ($_POST['perfil'] == '2'){
+		        if ($_POST['perfil'] == '1'){
+		        	$escola = $_POST['escola'];
+		        }else {
 		        	$u = unserialize($_SESSION['USR']);
 					$escola = $u['escola'];
-		        }else $escola = $_POST['escola'];
+		        }
 				
 		        $usuario->setUsr_escola($escola);
 		        $usuario->setUsr_perfil($_POST['perfil']);
 				$usuario->setUsr_imagem($_POST['imagem']);
 				
-		        if ($idUsuario = $usuarioController->insert($usuario)){
+				if ($idUsuario = $usuarioController->insert($usuario)){
 		        	
 		        		if ($_POST['imagem'] != ''){
 				        	$imag = getimagesize("../temporaria/".$_POST["imagem"]);
@@ -98,10 +102,16 @@ switch ($_REQUEST["acao"]) {
 			        	$usuarioVar->setUsv_status('0');
 			        	if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
 			        		else $usuarioVar->setUsv_grupo($_POST['grupo']);
-			        	$usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
-			        	$usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
+//			        	$usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
+//			        	$usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
+			        	$usuarioVar->setUsv_grau_instrucao('null');
+			        	$usuarioVar->setUsv_categoria_funcional('null');
 			        	
 			        	$usuarioVarController->insert($usuarioVar);
+			     //   	$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
+//	    		echo json_encode($result);
+//	    		exit;
+//	    		break;
 			        	
 		        	if ($_POST['perfil'] == 2){
 
@@ -122,9 +132,18 @@ switch ($_REQUEST["acao"]) {
 						array_pop($series);
 		
 						foreach($series as $s){
-							$nomeGrupo = $_POST['nome'].' - '.$s[0];
-							$grupo->setGrp_grupo($nomeGrupo);
-							$grupo->setGrp_serie($s[0]);
+							$sp = explode('-', $s);
+							
+							if ($sp[1] == 1){
+								$periodo = 'Manhã';
+							}else{
+								$periodo = 'Tarde';
+							}
+							
+							$nomeGrupo = $_POST['nome'].' - '.$sp[0].' '.$periodo;
+							$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
+							$grupo->setGrp_serie($sp[0]);
+							$grupo->setGrp_periodo($sp[1]);
 							$grupoController->insert($grupo);
 						}
 			        }
@@ -142,7 +161,6 @@ switch ($_REQUEST["acao"]) {
     case "cadastraEscola":{
     	
     	//print_r($_POST);
-    	
     	$result = '';
     	$escolaController = new EscolaController();
      	$enderecoController = new EnderecoController();
@@ -298,7 +316,6 @@ switch ($_REQUEST["acao"]) {
 			$usuarioController->update($usuario);
 			
 			//Verifica se a imagem vem com o formulário e se é uma outra imagem.
-			 
        		if ($_POST['imagem'] != ''){
 				if ($_POST['imagem'] != $imagemAntiga){
 				    $imag = getimagesize("../temporaria/".$_POST["imagem"]);
@@ -322,48 +339,50 @@ switch ($_REQUEST["acao"]) {
 		    if ($_POST['perfil'] == 2){
 			    $grupoController = new GrupoController();
 			    //$grupo = $grupoController->select($_POST['idGrupo']);
-			    $grupos = $grupoController->selectByProfessor($_POST['idUsuario']);
+			    //$grupos = $grupoController->selectByProfessor($_POST['idUsuario']);
 			    
 			    $series = explode(';', $_POST['serie']);
 				array_pop($series);
+				
+				foreach ($series as $s){
+					$grp = explode('-', $s);
+					//Se o array formado tiver tamanho 1, deve ser excluido
+					//Tamanho 2, deve ser adicionado um grupo para o professor
+					//e se tiver do tamanho 3 deve ser editado
+					if (count($grp) > 1 ){
 						
-			    if (count($grupos)>0){
-				    foreach ($grupos as $g){
+						if ($grp[1] == 1) $periodo = 'Manhã';
+							else $periodo = 'Tarde';
+						$nomeGrupo = $_POST['nome'].' - '.$grp[0].' '.$periodo;
 						
-						if (in_array($g->getGrp_serie(), $series)) { 
-					    	//echo "A serie".$g->getGrp_serie()."ja esta cadastrada e será editada.";
-					    	//echo "O item será retirado do array!!";
-					    	
-							$nomeGrupo = $_POST['nome'].' - '.$g->getGrp_serie();
-							$g->setGrp_grupo($nomeGrupo);
-							$grupoController->update($g);
+						if (count($grp) > 2 ){
+							$grupo = $grupoController->select($grp[2]);
+							$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
+							$grupo->setGrp_serie($grp[0]);
+							$grupo->setGrp_periodo($grp[1]);
+							$grupoController->update($grupo);
 							
-							$series = array_diff($series, array($g->getGrp_serie()));
 						}else{
-							$grupoController->delete($g->getGrp_id());
-							$usuarioVarController->removeGrupoByIdGrupo($g->getGrp_id()); 
-							//Tirar series do aluno ou ediar o grupo tirando o professor e deixando os alunos sem professor
+							//Pega o id da escola pela sessão
+							if (!isset($escola)){ 
+		        				$u = unserialize($_SESSION['USR']);
+								$escola = $u['escola'];
+							}
+							
+							$grupo = new Grupo();
+							$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
+							$grupo->setGrp_serie($grp[0]);
+							$grupo->setGrp_periodo($grp[1]);
+							$grupo->setGrp_professor($_POST['idUsuario']);
+							$grupo->setGrp_escola($escola);
+							$grupoController->insert($grupo);
+							
 						}
-
-				    }
-			    }
-			    
-			    //print_r(count($series));
-		       	if (count($series)>0){
-		       		$u = unserialize($_SESSION['USR']);
-					$escola = $u['escola'];
-				   	$grupo = new Grupo();
-				   	$grupo->setGrp_escola($escola);
-			       	$grupo->setGrp_professor($_POST['idUsuario']);
-			        	
-				   	foreach($series as $s){
-						$nomeGrupo = $_POST['nome'].' - '.$s;
-						$grupo->setGrp_grupo($nomeGrupo);
-						$grupo->setGrp_serie($s);
-						$grupoController->insert($grupo);
+					}else{
+						$grupoController->delete($grp[0]);
+						$usuarioVarController->removeGrupoByIdGrupo($grp[0]); 
 					}
 				}
-				
 			}
 
 			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
@@ -615,6 +634,22 @@ switch ($_REQUEST["acao"]) {
 		$usuarioController = new UsuarioController();
 		$usuarios = $usuarioController->buscaUsuarioCompletoByPerfil($_POST['perfil']);
 		echo json_encode($usuarios);
+		break;
+	}
+	
+	case "BuscaGruposByIdProfessor":{
+		$grupoController = new GrupoController();
+		$grupos = $grupoController->selectByProfessor($_POST['idProfessor']);
+		$result = Array();
+		foreach ($grupos as $g){
+			$grp = Array(
+				"idGrupo"	=> $g->getGrp_id(),
+				"idSerie"	=> $g->getGrp_serie(),
+				"idPeriodo"	=> $g->getGrp_periodo()
+			);
+			array_push($result, $grp);
+		}
+		echo json_encode($result);
 		break;
 	}
 }

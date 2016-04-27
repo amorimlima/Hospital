@@ -9,6 +9,7 @@ include_once($path['controller'].'UsuarioVariavelController.php');
 include_once($path['controller'].'ExercicioController.php');
 include_once($path['controller'].'MensagemController.php');
 include_once($path['controller'].'LiberarCapituloController.php');
+include_once($path['controller'].'ForumTopicoController.php');
 
 /**
  * Description of Template
@@ -153,12 +154,16 @@ class Template {
                                                         </li>
                                                     </ul>';
 
-                                            }elseif($menuId[0]=='mensagens' && $mensagemController->count($usrLogado['id']) > 0){
+                                            } elseif ($menuId[0]=='mensagens' && $mensagemController->count($usrLogado['id']) > 0){
                                                 echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"><span class="msg_label msg_topo">'.$mensagemController->count($usrLogado['id']).'</span></a>';
-                                            }else{
-                                                if($menuId[0] == "galeria"){
+                                            } elseif ($menuId[0]=="forum" && ($usrLogado["perfil_id"] == 2 || $usrLogado["perfil_id"] == 4)) {
+                                                echo "<a href={$menu->getBtn_menu()} id=\"mn_".$menuId[0]."\" class=\"mn_a_menu\">";
+                                                    $this->countForumTopicoPendentes();
+                                                echo "</a>";
+                                            } else {
+                                                if ($menuId[0] == "galeria") {
                                                     echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
-                                                }else{
+                                                } else {
                                                     echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
                                                 }
                                             }
@@ -249,6 +254,16 @@ class Template {
         echo '<div class="logo_murano_container">';
         echo    '<div class="murano"></div>';
         echo '</div>';
+    }
+    
+    private function countForumTopicoPendentes() {
+        $forumTopicoController = new ForumTopicoController();
+        $countTopicosPendentes = intval($forumTopicoController->countTopicosPendentes());
+        
+        if ($countTopicosPendentes > 0)
+            echo "<span id=\"countTopicosPendentes\" class=\"msg_label msg_topo\">".$countTopicosPendentes."</span>";
+        else
+            echo "";
     }
 }
 

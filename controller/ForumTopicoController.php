@@ -66,5 +66,10 @@ class ForumTopicoController {
 	{
 		return $this->forumTopicoDAO->aprovarTopico($idfrt);
 	}
+        
+        public function countTopicosPendentes()
+        {
+            return $this->forumTopicoDAO->countTopicosPendentes();
+        }
 }
 ?>

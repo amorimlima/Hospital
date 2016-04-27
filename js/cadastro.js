@@ -48,8 +48,8 @@ $(document).ready(function() {
     });
     
     listarAlunos();
-    listarProfessores();
-    listarEscolas();
+    //listarProfessores();
+    //listarEscolas();
    
     $('.btn_tab').click(function() {
 
@@ -286,44 +286,76 @@ $(document).ready(function() {
     		$('#inputSenhaProf').addClass('obrigatorioProf');
     		var acao = 'novoUsuario';
     	}
-    	
-    	$('.obrigatorioProf').each(function(){
-    		if ($(this).val() == '' || $(this).val() == null ){
-    			if ($(this).attr('id') == 'inputTelResProf'){	//Verifica se existe ao menos um telefone cadastrado!
-    				if ($('#inputTelCelProf').val() == '' && $('#inputTelComProf').val() == ''){
-    					$("#textoMensagemVazio").text($(this).attr('msgVazio'));
-    	        		$("#mensagemCampoVazio").show();
-    	        		$(this).focus();
-    					return false;
-    				}
-    			}else{
-	    			$("#textoMensagemVazio").text($(this).attr('msgVazio'));
-	        		$("#mensagemCampoVazio").show();
-	        		$(this).focus();
-	        		return false;
-    			}
-    		}
-    	})
-    	
-    	//Se a div de erro está visivel para aqui.
-    	if ($("#mensagemCampoVazio").is(':visible')) return false;
+//    	
+//    	$('.obrigatorioProf').each(function(){
+//    		if ($(this).val() == '' || $(this).val() == null ){
+//    			if ($(this).attr('id') == 'inputTelResProf'){	//Verifica se existe ao menos um telefone cadastrado!
+//    				if ($('#inputTelCelProf').val() == '' && $('#inputTelComProf').val() == ''){
+//    					$("#textoMensagemVazio").text($(this).attr('msgVazio'));
+//    	        		$("#mensagemCampoVazio").show();
+//    	        		$(this).focus();
+//    					return false;
+//    				}
+//    			}else{
+//	    			$("#textoMensagemVazio").text($(this).attr('msgVazio'));
+//	        		$("#mensagemCampoVazio").show();
+//	        		$(this).focus();
+//	        		return false;
+//    			}
+//    		}
+//    	})
+//    	
+//    	//Se a div de erro está visivel para aqui.
+//    	if ($("#mensagemCampoVazio").is(':visible')) return false;
     	
     	//Verifica se alguma série foi selecionada e concatena todas em uma variavel
     	var seriesProfessor = '';
-    	$('.seriesProfessor').each(function(){
-    		if ($(this).is(":checked")){
-    			seriesProfessor += $(this).val()+';'; 
-    		}
+    	var seriesExcluir = '';
+    	var serieErro = '';
+
+    	//Percorre os selects dos grupos para montar a string e verificar erro
+    	$("[data-grupoAttr='serie']").each(function() {
+    		if (($(this).val() != 0) && ($(this).val() != null)){
+
+    			var contador = $(this).attr('id').replace('inputSerieProf', '');
+    			//Verifica se o campo não está vazio ou se já tem um erro na série.
+    			if (($("#inputPeriodoProf"+contador).val() != '') && ($("#inputPeriodoProf"+contador).val() != null) && (serieErro == '')){
+    				//Só haverá o atributo idGrupo na edição.
+    				if ($(this).attr('idGrupo') != undefined){
+    					seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+'-'+$(this).attr('idGrupo')+';';
+    				}else{
+    					seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+';';
+    				}
+    	 		}else{
+    	 			serieErro = contador;
+    	 		}
+    		 }else{
+    			 //Só vai acontecer na edição
+    			 if ($(this).attr('idGrupo') != undefined){
+    				 //monta string 'idGrupo-;' para futura exclusão.
+    				 seriesExcluir += $(this).attr('idGrupo')+';';
+    			 }
+    		 }
     	})
-    	//Se a variavel estiver das séries estiver vazia, exibe mensagem de erro.
-    	if (seriesProfessor == ''){
-    		$("#textoMensagemVazio").text('Selecione ao menos uma série!');
+    	
+    	//Se teve erro de alguma série ficar vazia.
+    	if (serieErro != ''){
+    		$("#textoMensagemVazio").text('Todos os grupos precisam ter série!');
     		$("#mensagemCampoVazio").show();
-    		$(".seriesProfessor").focus();
+    		$("#inputPeriodoProf"+serieErro).focus();
     		return false;
     	}
+    	//Se nenhum grupo foi criado
+    	if (seriesProfessor == ''){
+    		$("#textoMensagemVazio").text('Selecione ao menos uma grupo!');
+    		$("#mensagemCampoVazio").show();
+    		$("#inputSerieProf1").focus();
+    		return false;
+    	}else{
+    		seriesProfessor += seriesExcluir;
+    	}
     	
-    	
+
 //    	if (validarCPF($("#inputCpfProf").val()) == false){
 //    		$("#textoMensagemVazio").text('CPF inválido!');
 //    		$("#mensagemCampoVazio").show();
@@ -637,17 +669,67 @@ $(document).ready(function() {
 		$('#idEnderecoProfessor').val($(this).attr('idEndereco'));
 		$('#idProfessor').val(idUsuario);
 		$('#idUsuarioVariavelProfessor').val($(this).attr('idUsuarioVar'));
-		//$('#serieProf').val($('#serie'+idUsuario).val());
-		var series = $('#serie'+idUsuario).val();
-		var serieArray = series.split(';');
-		console.log(serieArray);
-		$('.seriesProfessor').prop('checked', false);
-		for (var i=0; i< serieArray.length; i++){
-			if (serieArray[i] != ''){
-				console.log(serieArray[i]);
-				$("#serieProf"+serieArray[i]).prop('checked', true);
-			}
-		}
+
+		$('.divSerie').remove();
+		$('.divPeriodo').remove();
+
+		$.ajax({
+	        url:'ajax/cadastroAjax.php',
+	        type:'post',
+	        dataType:'json',
+	        data: {
+	            'acao': 'BuscaGruposByIdProfessor',
+	            'idProfessor': idUsuario
+	        },
+	        success:function(data){
+	        	
+	        	//Faz o for varrendo os resultados e criando o html. No primeiro coloca n campo fixo.
+	        	for (var i=0; i< data.length; i++){
+	    				//console.log(data[i]);
+	        			var fieldCount = i + 1;
+	        			
+	    				if (i > 0){
+
+	    					var idperiodoSelect = "#inputPeriodoProf"+fieldCount;
+	    				    var idserieSelect   = "#inputSerieProf"+fieldCount;
+	    				    var htmlSeries      = "";
+	    				    var htmlPeriod      = "";
+
+	    				    htmlSeries += '<div class="form_celula_p divSerie" style="height: 0;">';
+	    				    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
+	    				    htmlSeries +=     '<span class="select_container">';
+	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">';
+	    				    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
+	    				    htmlSeries +=         '</select>';
+	    				    htmlSeries +=     '</span>';
+	    				    htmlSeries += '</div>';
+
+	    				    htmlPeriod += '<div class="form_celula_p divPeriodo" style="height: 0;">';
+	    				    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
+	    				    htmlPeriod +=     '<span class="select_container">';
+	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">';
+	    				    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
+	    				    htmlPeriod +=         '</select>';
+	    				    htmlPeriod +=     '</span>';
+	    				    htmlPeriod += '</div>';
+
+	    				    $(htmlSeries+htmlPeriod).insertBefore("#acaoNovaSerieContainer");
+	    				    $(idperiodoSelect).parent().parent().animate({height: "40px"}, 200);
+	    				    $(idserieSelect).parent().parent().animate({height: "40px"}, 200);
+
+	    				    getSeries(idserieSelect,idperiodoSelect,data[i].idSerie);
+	    				    getPeriodos(idserieSelect, idperiodoSelect,data[i].idPeriodo);
+
+	    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
+	    				}else{
+		    				$('#inputSerieProf'+fieldCount).val(data[i].idSerie);
+	    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
+	    					$('#inputPeriodoProf'+fieldCount).val(data[i].idPeriodo);
+	    				}
+				
+	        }
+	        },
+	    });		
 		
 		$('#inputNomeProf').val($('#updateProfInfo'+idUsuario).text());
 		//$('#selectSerieProf').val($('#serie'+idUsuario).val());
@@ -973,7 +1055,6 @@ function PerfilAluno(aluno) {
 function PerfilProfessor(professor) {
     self = this;
 
-    //console.log(professor.serie);
     this.id = professor.idUsuario;
     this.nome = professor.nomeUsuario;
     this.nascimento = professor.dataNascimento;
@@ -1033,9 +1114,9 @@ function PerfilProfessor(professor) {
             
         html +=
         	
-	        	'<input type="text" value="'+this.serie+'" id="serie'+this.id+'"/>'+
+	        	/*'<input type="hidden" value="'+this.serie+'" id="serie'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idGrupo+'" id="grupo'+this.id+'"/>'+
-	    		'<input type="hidden" value="'+this.idAno+'" id="ano'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.idAno+'" id="ano'+this.id+'"/>'+*/
 	    		'<input type="hidden" value="'+this.rua+'" id="rua'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.numero+'" id="numero'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.complemento+'" id="complemento'+this.id+'"/>'+
@@ -1256,7 +1337,9 @@ function listarAlunos(){
             'perfil': '1'
         },
         success:function(alunos){
+        	$('.update_prof_accordion').html('');
         	$('.update_aluno_accordion').html('');
+        	$('.update_escola_accordion').html('');
         	
         	for ( var a in alunos ) {
               perfisAlunosGerados[a] = new PerfilAluno(alunos[a]);
@@ -1281,6 +1364,8 @@ function listarProfessores(){
         },
         success:function(professores){
         	$('.update_prof_accordion').html('');
+        	$('.update_aluno_accordion').html('');
+        	$('.update_escola_accordion').html('');
         	
         	for ( var a in professores ) {
         		perfisProfessoresGerados[a] = new PerfilProfessor(professores[a]);
@@ -1305,6 +1390,8 @@ function listarEscolas(){
             'perfil': '4'
         },
         success:function(escolas){
+        	$('.update_prof_accordion').html('');
+        	$('.update_aluno_accordion').html('');
         	$('.update_escola_accordion').html('');
         	
         	for ( var a in escolas ) {
@@ -1330,14 +1417,14 @@ function limparCadastro(classe){
 		$(this).val('');
 	});
 	
-	//alert(classe);
 	//Casos expecificos para cada formulário.
 	if (classe == 'formAluno'){
 		listarEscolas();
 		$('.anoAtual').attr('selected','selected');
 	}else if (classe = 'formProf'){
-		$('.seriesProfessor').prop('checked',false);
-		$('.seriesProfessor').eq(0).prop('checked',true);
+		$('.divSerie').remove();
+		$('.divPeriodo').remove();
+		$('#inputSerieProf1').removeAttr('idGrupo');
 	}else if (classe == 'formEscola'){
 		//
 	}
@@ -1355,7 +1442,7 @@ function expandSeriePeriodoProfessor(trigger) {
     var htmlSeries      = "";
     var htmlPeriod      = "";
 
-    htmlSeries += '<div class="form_celula_p" style="height: 0;">';
+    htmlSeries += '<div class="form_celula_p divSerie" style="height: 0;">';
     htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
     htmlSeries +=     '<span class="select_container">';
     htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">';
@@ -1364,7 +1451,7 @@ function expandSeriePeriodoProfessor(trigger) {
     htmlSeries +=     '</span>';
     htmlSeries += '</div>';
 
-    htmlPeriod += '<div class="form_celula_p" style="height: 0;">';
+    htmlPeriod += '<div class="form_celula_p divPeriodo" style="height: 0;">';
     htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
     htmlPeriod +=     '<span class="select_container">';
     htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">';
@@ -1377,10 +1464,10 @@ function expandSeriePeriodoProfessor(trigger) {
     $(idperiodoSelect).parent().parent().animate({height: "40px"}, 200);
     $(idserieSelect).parent().parent().animate({height: "40px"}, 200);
 
-    getSeries(idserieSelect,idperiodoSelect);
+    getSeries(idserieSelect,idperiodoSelect, '');
 }
 
-function getSeries(idserieSelect,idperiodoSelect) {
+function getSeries(idserieSelect,idperiodoSelect, idSerie) { //idSerie para setar. 
     var series;
     $.ajax({
         url: "ajax/SerieAjax.php",
@@ -1391,12 +1478,12 @@ function getSeries(idserieSelect,idperiodoSelect) {
             series = data;
         },
         complete: function() {
-            listSeries(series,idserieSelect,idperiodoSelect);
+            listSeries(series,idserieSelect,idperiodoSelect, idSerie);
         }
     });
 }
 
-function listSeries(series,idserieSelect,idperiodoSelect) {
+function listSeries(series,idserieSelect,idperiodoSelect, idSerie) {
     var seriesSelecionadas  = [];
     var seriesCombos        = document.querySelectorAll("[data-grupoAttr='serie']");
     var seriesHtml          = "<option value='' selected disabled hidden>Selecione</option>";
@@ -1423,6 +1510,10 @@ function listSeries(series,idserieSelect,idperiodoSelect) {
     $(idserieSelect).html(seriesHtml);
     $(idperiodoSelect).html(periodosHtml);
     atribuirEventosSerie(idserieSelect,idperiodoSelect);
+    
+    if (idSerie != ''){
+    	$(idserieSelect).val(idSerie);
+    }
 }
 
 function verificarOcorrenciasSerie(combos, serie) {
@@ -1438,9 +1529,10 @@ function verificarOcorrenciasSerie(combos, serie) {
         return true;
 }
 
-function getPeriodos(combo, idserieSelect, idperiodoSelect) {
+															//idPeriodo se for necessário já setar o valor
+function getPeriodos(idserieSelect, idperiodoSelect, idPeriodo) {
     var retorno;
-
+    
     $.ajax({
         url: "ajax/PeriodoAjax.php",
         type: "GET",
@@ -1454,12 +1546,12 @@ function getPeriodos(combo, idserieSelect, idperiodoSelect) {
             retorno = periodos.retorno;;
         },
         complete: function() {
-            listPeriodos(combo, idserieSelect, idperiodoSelect, retorno);
+            listPeriodos(idserieSelect, idperiodoSelect, retorno, idPeriodo);
         }
     });
 }
 
-function listPeriodos(combo, idserieSelect, idperiodoSelect, periodos) {
+function listPeriodos(idserieSelect, idperiodoSelect, periodos, idPeriodo) {
     var combosSeries = document.querySelectorAll("[data-grupoAttr='serie']");
     var comboAtual = document.getElementById(idserieSelect.slice(1));
     var periodsSelecionados = [];
@@ -1487,10 +1579,14 @@ function listPeriodos(combo, idserieSelect, idperiodoSelect, periodos) {
     }
 
     $(idperiodoSelect).html(htmlPeriodos);
+    
+    if (idPeriodo != ''){
+    	$(idperiodoSelect).val(idPeriodo);
+    }
 }
 
 function atribuirEventosSerie(idserieSelect,idperiodoSelect) {
     $("[data-grupoAttr='serie']").change(function() {
-        getPeriodos(this, idserieSelect,idperiodoSelect);
+        getPeriodos(idserieSelect, idperiodoSelect,'');
     });
 }

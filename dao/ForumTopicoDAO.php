@@ -106,5 +106,13 @@ class ForumTopicoDAO extends DAO{
         $sql = "UPDATE forum_topico SET frt_status = 1 WHERE frt_id = ".$idfrt;
         return $this->execute($sql);
     }
+    
+    public function countTopicosPendentes()
+    {
+        $sql = "SELECT * FROM forum_topico WHERE frt_status = 0";
+        $result = $this->retrieve($sql);
+        $qr = mysqli_num_rows($result);
+        return $qr;
+    }
 }
 ?>

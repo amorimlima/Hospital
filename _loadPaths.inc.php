@@ -35,6 +35,7 @@ $_LOAD_PATH_SYS['temporaria'] 		  = $_LOAD_PATH_SYS['home'].'temporaria'.$_PATH_
 $_LOAD_PATH_SYS['images']     		  = $_LOAD_PATH_SYS['home'].'images'.$_PATH_SEPARATOR;
 $_LOAD_PATH_SYS['template']   		  = $_LOAD_PATH_SYS['home'].'template'.$_PATH_SEPARATOR;
 $_LOAD_PATH_SYS['funcao']     		  = $_LOAD_PATH_SYS['home'].'funcao'.$_PATH_SEPARATOR;
+$_LOAD_PATH_SYS['PHPMailer']     	  = $_LOAD_PATH_SYS['home'].'PHPMailer'.$_PATH_SEPARATOR;
 
 if ($system == "W")
 	$_LOAD_URL_SYS['BASE_URL']    = '/Hospital/';

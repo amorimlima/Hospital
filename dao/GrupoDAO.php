@@ -16,9 +16,9 @@ class GrupoDAO extends DAO{
      
      public function insert($gru)
      {
-         $sql  = "insert into grupo (grp_grupo,grp_escola,grp_professor,grp_serie,grp_periodo) values ";
-         $sql .= "('".$gru->getGrp_grupo()."',";
-         $sql .= "'".$gru->getGrp_escola()."','".$gru->getGrp_professor()."','".$gru->getGrp_serie()."','".$gru->getGrp_periodo()."')";
+        $sql  = "insert into grupo (grp_grupo,grp_escola,grp_professor,grp_serie,grp_periodo) values ";
+        $sql .= "('".$gru->getGrp_grupo()."',";
+        $sql .= "'".$gru->getGrp_escola()."','".$gru->getGrp_professor()."','".$gru->getGrp_serie()."','".$gru->getGrp_periodo()."')";
 		//echo $sql;
     	return $this->execute($sql);
      }
@@ -26,8 +26,8 @@ class GrupoDAO extends DAO{
      public function update($gru)
      {
         $sql  = "update grupo set grp_grupo = '".$gru->getGrp_grupo()."',";
-    	$sql .= "grp_escola = '".$gru->getGrp_escola()."',";
-    	$sql .= "grp_professor = ".$gru->getGrp_professor().", ";
+    //	$sql .= "grp_escola = '".$gru->getGrp_escola()."',";
+    //	$sql .= "grp_professor = ".$gru->getGrp_professor().", ";
     	$sql .= "grp_serie = ".$gru->getGrp_serie().", ";
     	$sql .= "grp_periodo = ".$gru->getGrp_periodo()." ";
         $sql .= "where grp_id = ".$gru->getGrp_id()." limit 1";
@@ -80,7 +80,7 @@ class GrupoDAO extends DAO{
 
       public function selectByProfessor($idProfessor)
       {
-        $sql = 'select * from grupo where grp_professor = '.$idProfessor;
+        $sql = 'select * from grupo where grp_professor = '.$idProfessor.' order by grp_serie, grp_periodo';
         //echo $sql;
         $result = $this->retrieve($sql);
         $lista = array();
@@ -95,6 +95,8 @@ class GrupoDAO extends DAO{
                 $gru->setGrp_periodo($qr["grp_periodo"]);
                 array_push($lista, $gru);
         }
+        //echo $sql;
+        //select * from grupo where grp_professor = 2
         return $lista;
       }
 

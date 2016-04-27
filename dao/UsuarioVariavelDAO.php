@@ -120,7 +120,7 @@ class UsuarioVariavelDAO extends DAO{
      {
         $sql  = "update usuario_variavel set usv_grupo = null ";
     	$sql .= "where usv_grupo = ".$idGrupo;
-        echo $sql;
+//        echo $sql;
         return $this->execute($sql);
      }
 }
