@@ -36,7 +36,7 @@ $adms = $AdmController->selectAll();
                     </div>
                 </div>
             </div>
-            <div class="row" id="login">
+            <div class="row" id="login" style="<?=($_GET['recSenha'] == 'alt@' || $_GET['newPass'])?'display:none':'display:block'?>" >
                 <div class="col-md-2">&nbsp;</div>
                 <div class="col-md-4">
                     <div class="login-panel-container">
@@ -56,7 +56,7 @@ $adms = $AdmController->selectAll();
                                     </div>
                                 </form>
                                 <div class="link">
-                                    <a href="#" onclick="recuperarSenha('recuperarSenha')">Esqueceu a senha?</a>
+                                    <a href="index.php?recSenha=alt@">Esqueceu a senha?</a>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@ $adms = $AdmController->selectAll();
                 </div>
                 <div class="col-md-2">&nbsp;</div>
             </div>
-            <div id="form_recuperar_senha" class="row" style="display:none">
+            <div id="form_recuperar_senha" class="row" style="<?=$_GET['recSenha'] == 'alt@'?'display:block':'display:none'?>" >
             	<div class="formulario_panel">
             		<form action="" id="formulario_recuperar_senha">
             			<fieldset>
@@ -85,8 +85,35 @@ $adms = $AdmController->selectAll();
             			</fieldset>
             			<fieldset>
             				<div class="formbtns">
-	                            <input type="button" id="cancel_recuperar_senha" onclick="recuperarSenha('login')" value="Cancelar" />
+	                            <input type="button" id="cancel_recuperar_senha" onclick="recuperarSenha()" value="Cancelar" />
                                 <input type="button" id="enviar_recuperar_senha" onclick="esqueceuSenha()" class="btn_primary" data-form="formulario_recuperar_senha" value="Enviar" />
+	                        </div>
+            			</fieldset>
+            		</form>
+            	</div>
+            </div>
+            <div id="form_recuperar_senha" class="row" style="<?=$_GET['newPass'] ?'display:block':'display:none'?>">
+            	<div class="formulario_panel">
+            		<form action="" id="formulario_recuperar_senha">
+            			<fieldset>
+            				<legend>Redefinir senha</legend>
+            				<div class="formfield">
+            					<label for="campo_email">Nova Senha</label>
+            					<span>
+            						<input type="password" id="usr_new" name="usr_new" placeholder="Digite uma nova senha">
+            					</span>
+            				</div>
+            				<div class="formfield">
+            					<label for="campo_email">Confirmar Senha</label>
+            					<span>
+            						<input type="password" id="usr_conf" name="usr_conf" placeholder="Confirme sua senha">
+            						<input type="hidden" id="emailRec" name="email" value="<?=$_GET['newPass']?>">
+            					</span>
+            				</div>
+            			</fieldset>
+            			<fieldset>
+            				<div class="formbtns">            					
+                                <input type="button" id="enviar_recuperar_senha" onclick="alterarSenha()" class="btn_primary" data-form="formulario_recuperar_senha" value="Enviar" />
 	                        </div>
             			</fieldset>
             		</form>

@@ -9,7 +9,7 @@ include_once($path["beans"]."Usuario.php");
 include_once($path["beans"]."UsuarioVariavel.php");
 
 switch ($_REQUEST["acao"]) {
-	case 'usuarioGeral':
+	case 'usuarioGeral':{
 		$usuarioController = new UsuarioController();
 		$idUsuario = $_REQUEST["id"];
 		$usuario = $usuarioController->selectGeral($idUsuario);
@@ -25,6 +25,17 @@ switch ($_REQUEST["acao"]) {
 		);
 		print_r(json_encode($retorno));
 		break;
+	}
+	case 'alterarSenha':{
+		$usuarioController = new UsuarioController();
+		$senha = $_REQUEST["senha"];
+		$email = $_REQUEST["email"];
+		$usuario = $usuarioController->updateSenha();
+
+
+
+		break;
+	}
 }
 
 ?>

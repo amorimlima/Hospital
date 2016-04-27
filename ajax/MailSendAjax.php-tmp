@@ -21,6 +21,8 @@ switch ($_POST["acao"]) {
 	case "enviaEmail":{
 			// Inicia a classe PHPMailer
 			$mail = new PHPMailer();
+
+			$destinatario = base64_encode('email?@'.$_POST["email"]);
 			// // Define os dados do servidor e tipo de conexão
 			// $mail->IsSMTP(); // Define que a mensagem será SMTP
 			// $mail->Host = "localhost"; // Endereço do servidor SMTP (caso queira utilizar a autenticação, utilize o host smtp.seudomínio.com.br)
@@ -49,10 +51,11 @@ switch ($_POST["acao"]) {
 				<div id="conteudo_mensagem" style="font-size: 16px; font-family: Arial; font-weight: normal; color: #666">
 				<p>Para redefinir sua senha clique no link abaixo!</a></p>
 				<p>Caso o link não esteja funcionando, copie e cole a url abaixo em seu navegador:</p>
-				<p style="color: #728C07">http://187.73.149.26:8080/index.php?recup=123</p>
+				<p style="color: #728C07"><a href="http://187.73.149.26:8080/index.php?newPass='	.$destinatario.'">http://187.73.149.26:8080/redefinir.php?newPass='.$destinatario.'</p>
 				</div>
 				<hr style="border: 0; background-color: #ccc; height: 1px;">
 				<div id="assinatura" style="text-align: right;">
+					<img src="http://187.73.149.26:8080/img/logo/logo_lg.png" height="60px" />
 				</div>
 				</div>
 				</body>'	;

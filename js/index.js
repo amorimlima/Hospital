@@ -227,17 +227,11 @@ function mudarTipoEscola() {
 }
 
 function recuperarSenha(acao) {
-    switch(acao) {
-        case "login":
-            $("#form_recuperar_senha").hide();
-            $("#login").show();
-        break;
-
-        case "recuperarSenha":
-            $("#form_recuperar_senha").show();
-            $("#login").hide();
-        break;
-    };
+    var url = window.location.href;
+    if (url.indexOf("?") > -1 ){
+        url = url.substr(0,url.indexOf("?")).toLowerCase();
+    }
+    window.location = url;
 };
 
 function esqueceuSenha(){
@@ -261,6 +255,22 @@ function esqueceuSenha(){
             }else{
 
             }
+        }
+    });
+}
+
+function alterarSenha(){
+    var newPass = $('#usr_new').val();
+    var confPass = $('#usr_conf').val();
+    var email = $('#emailRec').val();
+    console.log(email);
+    $.ajax({
+        url:'ajax/UsuarioAjax.php',
+        type:'post',
+        dataType:'json',
+        data:{'acao':'alterarSenha','senha':newPass},
+        success:function(data){
+
         }
     });
 }
