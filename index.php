@@ -107,7 +107,7 @@ $adms = $AdmController->selectAll();
             					<label for="campo_email">Confirmar Senha</label>
             					<span>
             						<input type="password" id="usr_conf" name="usr_conf" placeholder="Confirme sua senha">
-            						<input type="hidden" id="emailRec" name="email" value="<?=$_GET['newPass']?>">
+            						<input type="hidden" id="emailRec" name="email" value="<?=base64_decode($_GET['newPass'])?>">
             					</span>
             				</div>
             			</fieldset>

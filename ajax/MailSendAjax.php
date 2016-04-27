@@ -22,7 +22,7 @@ switch ($_POST["acao"]){
 		// Inicia a classe PHPMailer
 		$mail = new PHPMailer();
 
-			$destinatario = base64_encode('email?@'.$_POST["email"]);
+			$destinatario = base64_encode($_POST["email"]);
 			// // Define os dados do servidor e tipo de conexão
 			// $mail->IsSMTP(); // Define que a mensagem será SMTP
 			// $mail->Host = "localhost"; // Endereço do servidor SMTP (caso queira utilizar a autenticação, utilize o host smtp.seudomínio.com.br)
