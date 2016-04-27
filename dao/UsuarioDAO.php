@@ -619,17 +619,17 @@ class UsuarioDAO extends DAO{
     {
        $sql = "SELECT * FROM usuario us";
        $join = " JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id";
-       $join .= " JOIN grupo g ON g.grp_id = uv.usv_grupo AND g.grp_serie = uv.usv_serie";
+       $join .= " JOIN grupo g ON g.grp_id = uv.usv_grupo";
        $where = " WHERE g.grp_professor = ".$par['id']." AND us.usr_perfil = 1";
        if ($par['livro'] != 0){
            $where .= " AND g.grp_serie = ".$par['livro'];
        }
        if ($par['capitulo'] != 0){
            $join .= " JOIN liberar_capitulo lc ON lc.lbr_escola = us.usr_escola AND lc.lbr_livro = uv.usv_serie";
-           $where .= " lc.lbr_capitulo = ".$par['capitulo'];
+           $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
        }
        if ($par['sala'] != 0){
-           $where .= " g.grp_id = ".$par['sala'];
+           $where .= " AND g.grp_id = ".$par['sala'];
        }
 
        $sql = $sql.$join.$where;

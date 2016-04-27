@@ -27,8 +27,8 @@ class RelatorioController {
 		$this->usuarioDAO = new UsuarioDAO(new DataAccess());
 		$this->exercicioDAO = new ExercicioDAO(new DataAccess());
 		$this->respostaMultiplaDAO = new RespostaMultiplaDAO(new DataAccess());
-		$this->$liberarCapituloDAO = new LiberarCapituloDAO(new DataAccess());
-		$this->$grupoDAO = new GrupoDAO(new DataAccess());
+		$this->liberarCapituloDAO = new LiberarCapituloDAO(new DataAccess());
+		$this->grupoDAO = new GrupoDAO(new DataAccess());
 	}
 
 	public function getListaVisualizacao($par)
@@ -103,10 +103,10 @@ class RelatorioController {
 		}
 	}
 
-	public function getSala($par)
+	public function getSalas($par)
 	{
 		if ($par['perfil'] == 2){
-			$this->$grupoDAO->listaGruposProfessor($par);
+			$this->grupoDAO->listaGruposProfessor($par);
 		}
 	}
 }

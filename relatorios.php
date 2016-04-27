@@ -179,11 +179,11 @@ $par = array(
 											</select>
 											<label for="filtroCapitulo">Capítulo</label>
 											<select id="filtroCapitulo" class="filtrosSelect">
-												<?php //$templateRelatorio->getCapitulos(); ?>
+												<?php $templateRelatorio->getCapitulos($par); ?>
 											</select>
 											<label for="filtroSala">Sala</label>
 											<select id="filtroSala" class="filtrosSelect">
-												<?php //$templateRelatorio->getSalas(); ?>
+												<?php $templateRelatorio->getSalas($par); ?>
 											</select>
 										</div>
 										<div class="legenda_grafico">
