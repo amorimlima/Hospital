@@ -12,7 +12,8 @@ $(document).ready(function() {
 });
 
 function gerarPickerTipoGrafico() {
-	$("#tipo_grafico_picker").click(function() {
+	$("#tipo_grafico_picker").click(function(event) {
+		event.stopPropagation();
 		$(this).toggleClass("picker_expanded");
 	});
 
@@ -22,10 +23,6 @@ function gerarPickerTipoGrafico() {
 
 	$("body").click(function() {
 		$("#tipo_grafico_picker").removeClass("picker_expanded");
-	});
-
-	$("#tipo_grafico_picker").click(function(event) {
-		event.stopPropagation();
 	});
 }
 
@@ -43,9 +40,13 @@ function toggleGrafico(item)
 	var texto = $(item).html();
 
 	$("#tipo_grafico_picker").removeClass("picker_expanded");
-	$(".tipo_grafico_picker_opcoes").children("div").not(item).removeClass("option_selected");
-	$(item).addClass("option_selected");
-	$("#tipo_grafico_picker").html(texto);
+	if (texto != $("#tipo_grafico_picker").html){
+		$(".tipo_grafico_picker_opcoes").children("div").not(item).removeClass("option_selected");
+		$(item).addClass("option_selected");
+		$("#tipo_grafico_picker").html(texto);
+		carregarGrafico();
+	}
+	
 };
 
 function menuAtribuirCapitulo () {
@@ -279,9 +280,9 @@ function botoesGrupo() {
 
 function adicionarAlunosGrupo() {
 	 var alunos = "";
-	$('.aluno_grupo:checked').each(function(i) {
+	$('.aluno_grupo:checked').each(function() {
 		if (alunos === "")
-			alunos = "( " + $(this).val();
+			alunos = "(" + $(this).val();
 		else
 			alunos += ", " + $(this).val();
 	});

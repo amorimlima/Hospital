@@ -58,111 +58,31 @@ class TemplateRelatorio{
 		}
 	}
 
-	public function getLivros()
+	public function getLivros($par)
 	{
-		$user = unserialize($_SESSION['USR']);
-		switch ($user['perfil_id']) {
-			case 2:
-				$this->professorLivros($user['id']);
-				break;
-			case 4:
-				$this->escolaLivros($user['escola']);
-				break;
-			case 3:
-				$this->necLivros();
-				break;
-		}
-	}
-
-	public function professorLivros($idProfessor)
-	{
-		$liberarCapituloController = new LiberarCapituloController();
-		$usuarioController = new UsuarioController();
-		$professor = $usuarioController->select($idProfessor);
+		$relatorioController = new RelatorioController();
+		$livros = $relatorioController->getLivros($par);
 		echo '<option value="0" selected>Todos</option>';
-		$livros = $liberarCapituloController->listaLivrosProfessor($professor->getUsr_id());	
-		foreach ($livros as $livro) {
-				echo '<option value="'.$livro.'">'.$livro.'ª Série</option>';
-		}
+		foreach ($livros as $livro)
+			echo '<option value="'.$livro.'">'.$livro.'ª Série</option>';
 	}
 
-	public function getCapitulos()
+	public function getCapitulos($par)
 	{
-		$user = unserialize($_SESSION['USR']);
-		switch ($user['perfil_id']) {
-			case 2:
-				$this->professorCapitulos($user['id']);
-				break;
-			case 4:
-				$this->escolaCapitulos($user['escola']);
-				break;
-			case 3:
-				$this->necCapitulos();
-				break;
-		}
-	}
-
-	public function professorCapitulos($idProfessor)
-	{
-		$liberarCapituloController = new LiberarCapituloController();
-		$usuarioController = new UsuarioController();
-		$professor = $usuarioController->select($idProfessor);
+		$relatorioController = new RelatorioController();
+		$capitulos = $relatorioController->getCapitulos($par);
 		echo '<option value="0" selected>Todos</option>';
-		$capitulos = $liberarCapituloController->listaCapitulosProfessor($professor->getUsr_id());	
-		foreach ($capitulos as $capitulo) {
+		foreach ($capitulos as $capitulo)
 				echo '<option value="'.$capitulo.'">'.$capitulo.'º Capítulo</option>';
-		}
 	}
 
-	public function getSalas()
+	public function getSalas($par)
 	{
-		$user = unserialize($_SESSION['USR']);
-		switch ($user['perfil_id']) {
-			case 2:
-				$this->professorSalas($user['id']);
-				break;
-			case 4:
-				$this->escolaSalas($user['escola']);
-				break;
-		}
-	}
-
-	public function professorSalas($idProfessor)
-	{
-		$usuarioController = new UsuarioController();
-		$grupoController = new GrupoController();
-		$professor = $usuarioController->select($idProfessor);
+		$relatorioController = new RelatorioController();
+		$salas = $relatorioController->getSalas($par);
 		echo '<option value="0" selected>Todos</option>';
-		$gruposProfessor = $grupoController->selectProfessor($idProfessor);
-		foreach ($gruposProfessor as $grupo) {
-			echo '<option value="'.$grupo->getGrp_id().'">'.$grupo->getGrp_grupo().'</option>';
-		}
-	}
-
-	public function graficoGeral($tipoGrafico)
-	{
-		$user = unserialize($_SESSION['USR']);
-		switch ($user['perfil_id']) {
-			case 2:
-				if ($tipoGrafico == "graficoGaleria")
-					$this->relatorioProfessor($user['id']);
-				else if ($tipoGrafico == "graficoExercicios")
-					$this->exerciciosProfessor($user['id']);
-				break;
-			
-			case 4:
-				if ($tipoGrafico == "graficoGaleria")
-					$this->relatorioEscola($user['escola']);
-				else if ($tipoGrafico == "graficoExercicios")
-					$this->exerciciosEscola($user['escola']);
-				break;
-
-			case 3:
-				if ($tipoGrafico == "graficoGaleria")
-					$this->relatorioNEC();
-				else if ($tipoGrafico == "graficoExercicios")
-					$this->exerciciosNEC();
-				break;
+		foreach ($salas as $sala) {
+			echo '<option value="'.$sala->getGrp_id().'">'.utf8_encode($sala->getGrp_grupo()).'</option>';
 		}
 	}
 

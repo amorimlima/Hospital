@@ -116,6 +116,28 @@ class GrupoDAO extends DAO{
         return $gru;
 
     }
-     
+
+    public function listaGruposProfessor($par)
+    {
+      $sql = "SELECT DISTINCT g.grp_id, g.grp_grupo FROM grupo g";
+      $join = "";
+      $where = " WHERE g.grp_professor = ".$par['id'];
+      if ($par['capitulo'] != 0){
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_escola = g.grp_escola AND lc.lbr_livro = g.grp_serie";
+        $where .= " AND lc.liberar_capitulo = ".$par['capitulo'];
+      }
+
+      $sql = $sql.$join.$where;
+
+      $result = $this->retrieve($sql);
+      $qr = mysqli_fetch_array($result);
+      $gru = array(
+        "id"        => $qr["grp_id"],
+        "grupo"     => $qr["grp_grupo"],
+      );        
+      return $gru;      
+
+    }
+
 }
 ?>

@@ -71,11 +71,5 @@ class LiberarCapituloController {
 		$livros = $this->liberarCapituloDAO->listaLivrosProfessor($idProfessor);
 		return $livros;
 	}
-
-	public function listaCapitulosProfessor($idProfessor)
-	{
-		$capitulos = $this->liberarCapituloDAO->listaCapitulosProfessor($idProfessor);
-		return $capitulos;
-	}
 }
 ?>

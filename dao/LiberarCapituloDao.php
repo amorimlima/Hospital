@@ -173,12 +173,18 @@ class LiberarCapituloDAO extends DAO{
         return $lista;
     }
 
-    public function listaCapitulosProfessor($idProfessor)
+    public function listaCapitulosProfessor($par)
     {
-        $sql  = "SELECT DISTINCT lbr_capitulo FROM liberar_capitulo lc ";
-        $sql .= "JOIN grupo g ON g.grp_serie = lc.lbr_livro AND g.grp_escola = lc.lbr_escola ";
-        $sql .= "WHERE g.grp_professor = ".$idProfessor;
-        $sql .= " ORDER BY lc.lbr_capitulo ASC";
+        $sql  = "SELECT DISTINCT lbr_capitulo FROM liberar_capitulo lc";
+        $join = " JOIN grupo g ON g.grp_serie = lc.lbr_livro AND g.grp_escola = lc.lbr_escola";
+        $where = " WHERE g.grp_professor = ".$par['id'];
+        $order = " ORDER BY lc.lbr_capitulo ASC";
+        if ($par['sala'] != 0){
+            $where .= " AND g.grp_id = ".$par['sala'];
+        }
+
+        $sql = $sql.$join.$where.$order;
+
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){

@@ -29,9 +29,14 @@ $escolas = $escolaController->selectAll();
 
 $logado = unserialize($_SESSION['USR']);
 
-//$avaliacao = $avaliacaoController->selectAvaliacaoByGeral('69','2','5');
-//echo "<pre>";
-//print_r($avaliacao);
+$par = array(
+	"perfil"	=> $logado['perfil_id'],
+	"livro"		=> 0,
+	"capitulo"	=> 0,
+	"serie"		=> 0,
+	"grafico"	=> "graficoGaleria",
+	"id"		=> $logado['perfil_id'] == 4? $logado['escola'] : $logado['id']
+	);
 
 ?>
 <!DOCTYPE html>
@@ -156,7 +161,7 @@ $logado = unserialize($_SESSION['USR']);
 				                        	</fieldset>
 				                        	<fieldset>
 				                        		<div class="formbtns">
-				                        			<input type="reset" id="cancelarGrupo" value="Retornar"/>
+				                        			<input type="reset" id="cancelarGrupo" value="Voltar"/>
 				                        			<input type="submit" id="salvarGrupo" value="Salvar"/>
 				                        		</div>
 				                        	</fieldset>
@@ -170,7 +175,7 @@ $logado = unserialize($_SESSION['USR']);
 											<h2>Gerar relatório</h2>
 											<label for="filtroLivro">Livro</label>
 											<select id="filtroLivro" class="filtrosSelect">
-												<?php //$templateRelatorio->getLivros(); ?>
+												<?php $templateRelatorio->getLivros($par); ?>
 											</select>
 											<label for="filtroCapitulo">Capítulo</label>
 											<select id="filtroCapitulo" class="filtrosSelect">
@@ -180,8 +185,6 @@ $logado = unserialize($_SESSION['USR']);
 											<select id="filtroSala" class="filtrosSelect">
 												<?php //$templateRelatorio->getSalas(); ?>
 											</select>
-											<button id="visualizarRelatorio">Visualizar</button>
-											<button id="baixarRelatorio" class="btn_primary">Baixar relatório</button>
 										</div>
 										<div class="legenda_grafico">
 											<h2>Legenda</h2>

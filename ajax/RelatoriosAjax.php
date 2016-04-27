@@ -189,11 +189,6 @@ switch ($_REQUEST["acao"]) {
 		}
 		break;
 
-	case 'graficoGeral':
-		$templateRelatorio = new TemplateRelatorio();
-		$templateRelatorio->graficoGeral($_REQUEST['tipoGrafico']);
-		break;
-
 	case 'graficoEscola':
 		$templateRelatorio = new TemplateRelatorio();
 		if ($_REQUEST['tipoGrafico'] == 'graficoGaleria'){
@@ -232,6 +227,11 @@ switch ($_REQUEST["acao"]) {
 	case 'carregaGrafico':
 		$templateRelatorio = new TemplateRelatorio();
 		$templateRelatorio->carregaGrafico($_REQUEST);
+	break;
+
+	case 'carregarFiltros':
+		$templateRelatorio = new TemplateRelatorio();
+		$templateRelatorio->carregaFiltros($_REQUEST);
 	break;
 	
 	default:

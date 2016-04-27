@@ -9,6 +9,8 @@ require_once ($paths["dao"]."RegistroGaleriaDAO.php");
 require_once ($paths["dao"]."UsuarioDAO.php");
 require_once ($paths["dao"]."ExercicioDAO.php");
 require_once ($paths["dao"]."RespostaMultiplaDAO.php");
+require_once ($paths["dao"]."LiberarCapituloDAO.php");
+require_once ($paths["dao"]."GrupoDAO.php");
 
 class RelatorioController {
 	
@@ -16,6 +18,8 @@ class RelatorioController {
 	private $usuarioDAO;
 	private $exercicioDAO;
 	private $respostaMultiplaDAO;
+	private $liberarCapituloDAO;
+	private $grupoDAO;
 	
 	public function __construct()
 	{
@@ -23,6 +27,8 @@ class RelatorioController {
 		$this->usuarioDAO = new UsuarioDAO(new DataAccess());
 		$this->exercicioDAO = new ExercicioDAO(new DataAccess());
 		$this->respostaMultiplaDAO = new RespostaMultiplaDAO(new DataAccess());
+		$this->$liberarCapituloDAO = new LiberarCapituloDAO(new DataAccess());
+		$this->$grupoDAO = new GrupoDAO(new DataAccess());
 	}
 
 	public function getListaVisualizacao($par)
@@ -79,6 +85,28 @@ class RelatorioController {
 			if($par['perfil'] == 4){
 				
 			}
+		}
+	}
+
+	public function getLivros($par)
+	{
+		if($par['perfil'] == 2){
+			return array();
+		}
+	}
+
+	public function getCapitulos($par)
+	{
+		if ($par['perfil'] == 2){
+			$result = $this->liberarCapituloDAO->listaCapitulosProfessor($par);
+			return $result;
+		}
+	}
+
+	public function getSala($par)
+	{
+		if ($par['perfil'] == 2){
+			$this->$grupoDAO->listaGruposProfessor($par);
 		}
 	}
 }
