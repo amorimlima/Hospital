@@ -144,6 +144,12 @@ class UsuarioController {
 	{
 		$user = $this->usuarioDAO->selectEmail($mail);
 		return $user;
+	}	
+
+	public function updateSenhaByUser($user)
+	{
+		$user = $this->usuarioDAO->updateSenhaByUser($user);
+		return $user;
 	}
 
 	public function adicionarAlunosGrupo($idGrupo, $alunos)

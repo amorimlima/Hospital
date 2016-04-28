@@ -36,7 +36,7 @@ $adms = $AdmController->selectAll();
                     </div>
                 </div>
             </div>
-            <div class="row" id="login" style="<?=($_GET['recSenha'] == 'alt@' || $_GET['newPass'])?'display:none':'display:block'?>" >
+            <div class="row" id="login" style="<?=(isset($_GET['recSenha']) == 'alt@' || $_GET['newPass'])?'display:none':'display:block'?>" >
                 <div class="col-md-2">&nbsp;</div>
                 <div class="col-md-4">
                     <div class="login-panel-container">
@@ -71,7 +71,7 @@ $adms = $AdmController->selectAll();
                 </div>
                 <div class="col-md-2">&nbsp;</div>
             </div>
-            <div id="form_recuperar_senha" class="row" style="<?=$_GET['recSenha'] == 'alt@'?'display:block':'display:none'?>" >
+            <div id="form_recuperar_senha" class="row" style="<?=isset($_GET['recSenha']) == 'alt@'?'display:block':'display:none'?>" >
             	<div class="formulario_panel">
             		<form action="" id="formulario_recuperar_senha">
             			<fieldset>
@@ -92,7 +92,7 @@ $adms = $AdmController->selectAll();
             		</form>
             	</div>
             </div>
-            <div id="form_recuperar_senha" class="row" style="<?=$_GET['newPass'] ?'display:block':'display:none'?>">
+            <div id="form_recuperar_senha" class="row" style="<?=isset($_GET['newPass']) ?'display:block':'display:none'?>">
             	<div class="formulario_panel">
             		<form action="" id="formulario_recuperar_senha">
             			<fieldset>
@@ -107,7 +107,7 @@ $adms = $AdmController->selectAll();
             					<label for="campo_email">Confirmar Senha</label>
             					<span>
             						<input type="password" id="usr_conf" name="usr_conf" placeholder="Confirme sua senha">
-            						<input type="hidden" id="emailRec" name="email" value="<?=$_GET['newPass']?>">
+            						<input type="hidden" id="emailRec" name="email" value="<?=base64_decode($_GET['newPass'])?>">
             					</span>
             				</div>
             			</fieldset>
@@ -278,6 +278,32 @@ $adms = $AdmController->selectAll();
 		<div id="mensagemSucessoCadastro" style="display:none" class='modalMensagem'>
 			<?php
 				$templateGeral->mensagemRetorno('mensagens','Solicitação de cadastrado feita com sucesso!','sucesso');
+			?>
+		</div>
+
+		<div id="mensagemErroCampoNull" class='modalMensagem' style="display:none">
+			<?php
+				$templateGeral->mensagemRetorno('mensagens','Os campos senha e confirma senha são obrigatórios!','erro');
+			?>
+		</div>
+		<div id="mensagemErroCamposDiferentes" class='modalMensagem' style="display:none">
+			<?php
+				$templateGeral->mensagemRetorno('mensagens','As senhas digitadas não correspondem!','erro');
+			?>
+		</div>
+		<div id="mensagemEmailVerifique" class='modalMensagem' style="display:none">
+			<?php
+				$templateGeral->mensagemRetorno('mensagens','Este email não existe em nossa base de dados!','erro');
+			?>
+		</div>
+		<div id="mensagemSucessoAlterou" class='modalMensagem' style="display:none">
+			<?php
+				$templateGeral->mensagemRetorno('mensagens','Senha redefinida com sucesso!','sucesso');
+			?>
+		</div>
+		<div id="mensagemSucessoVerifique" class='modalMensagem' style="display:none">
+			<?php
+				$templateGeral->mensagemRetorno('mensagens','Cheque o email fornecido no cadastro para alterar a sua senha. Caso nenhuma mensagem da plataforma tenha chegado, verifique sua caixa de spam e lixeira.','alerta');
 			?>
 		</div>
     </body>

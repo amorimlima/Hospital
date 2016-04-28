@@ -678,19 +678,8 @@ class UsuarioDAO extends DAO{
             array_push($lista, $item);
         }
         return $lista;
-
     }
 
-
-    public function selectEmail($email){
-       $sql  = "select * from usuario usr ";
-       $sql .= "join endereco end ON usr.usr_endereco = end.end_id ";
-       $sql .= "where end_email = '". $email."' limit 1";
-      
-       $result = $this->retrieve($sql);
-       $qr = mysqli_num_rows($result);
-       return $qr;
-    }
 
     public function adicionarAlunosGrupo($idGrupo, $alunos)
     {
@@ -698,7 +687,36 @@ class UsuarioDAO extends DAO{
         $sql .= " WHERE usv_id IN ".$alunos;
 
         return $this->execute($sql);
-
     }
+
+     public function selectEmail($email){
+        $sql  = "select * from usuario usr ";
+        $sql .= "join endereco end ON usr.usr_endereco = end.end_id ";
+        $sql .= "where end_email = '". $email."' limit 1";
+       
+        $result = $this->retrieve($sql);
+            
+        if(mysqli_num_rows($result)>0){
+            $qr = mysqli_fetch_array($result);
+            $usuario = array(
+                "id" => $qr['usr_id'],
+                "nome" => $qr['usr_nome'],
+                "perfil" => $qr['usr_perfil'],
+                "escola" => $qr['usr_escola'],
+            );
+
+            return $usuario;
+        }else{
+            return 0;
+        }       
+     }
+
+     public function updateSenhaByUser($user)
+     {
+        $sql  = "update usuario set ";
+        $sql .= "usr_senha = '".md5($user->getUsr_senha())."'";
+        $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
+        return $this->execute($sql);
+     }
 }
 ?>

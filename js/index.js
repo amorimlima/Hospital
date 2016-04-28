@@ -242,18 +242,20 @@ function esqueceuSenha(){
         dataType:'json',
         data:{'acao':'verificaEmail','email':email},
         success:function(data){
-            if(data == 1){
+            if(data==0){
+                $('#mensagemEmailVerifique').css('display','block');
+            }else{
                 $.ajax({
                     url:'ajax/MailSendAjax.php',
                     type:'post',
-                    dataType:'json',
+                    dataType:'text',
                     data:{'acao':'enviaEmail','email':email},
                     success:function(data){
-                        console.log(data);
+                        if(data.trim() == 'ok'){
+                            $('#mensagemSucessoVerifique').css('display','block');
+                        }                                                
                     }
                 });                
-            }else{
-
             }
         }
     });
@@ -263,13 +265,28 @@ function alterarSenha(){
     var newPass = $('#usr_new').val();
     var confPass = $('#usr_conf').val();
     var email = $('#emailRec').val();
-    console.log(email);
     $.ajax({
         url:'ajax/UsuarioAjax.php',
-        type:'post',
+        type:'POST',
         dataType:'json',
-        data:{'acao':'alterarSenha','senha':newPass},
+        data:{'acao':'alterarSenha','senha':newPass,'confPass':confPass,'email':email},
         success:function(data){
+            console.log(data);
+            if(data =='campo_vazio'){
+                $('#mensagemErroCampoNull').css('display','block');
+            }
+
+            if(data =='senhas_diferentes'){
+                $('#mensagemErroCamposDiferentes').css('display','block');
+            }
+
+            if(data =='senhas_diferentes'){
+                $('#mensagemErroCamposDiferentes').css('display','block');
+            }
+
+            if(data == 'alterou'){
+                $('#mensagemSucessoAlterou').css('display','block');
+            }
 
         }
     });

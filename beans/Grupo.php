@@ -26,8 +26,6 @@ private $grp_professor;
 private $grp_serie;
 private $grp_periodo;
 
-
-
 public function Grupo()
 {
 
