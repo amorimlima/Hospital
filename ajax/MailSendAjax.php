@@ -14,7 +14,11 @@ switch ($_POST["acao"]){
 
 	case "verificaEmail":{ 
 		$emailValidacao = $userController->verificaEmail($_POST["email"]);	
-		print_r(trim($emailValidacao));   
+		if($emailValidacao!=0){
+			print_r(json_encode($emailValidacao));
+		}else{
+			echo 0;
+		}
 		break;
 	}
 
@@ -69,10 +73,9 @@ switch ($_POST["acao"]){
 			 
 			// Exibe uma mensagem de resultado
 			if ($enviado) {
-				echo "E-mail enviado com sucesso!";
+				echo "ok";
 			} else {
-				echo "Não foi possível enviar o e-mail.";
-				echo "Informações do erro: " . $mail->ErrorInfo;
+				echo "n_ok";
 			}
 
 		}

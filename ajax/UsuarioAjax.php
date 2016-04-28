@@ -26,14 +26,33 @@ switch ($_REQUEST["acao"]) {
 		print_r(json_encode($retorno));
 		break;
 	}
+
 	case 'alterarSenha':{
 		$usuarioController = new UsuarioController();
 		$senha = $_REQUEST["senha"];
+		$senhaconf = $_REQUEST["confPass"];
 		$email = $_REQUEST["email"];
-		$usuario = $usuarioController->updateSenha();
 
+		$mensagem = Array(
+			"1" => 'campo_vazio',
+			"2" => 'senhas_diferentes',
+			"3" => 'alterou'
+		);
 
-
+		if($senha == "" || $senhaconf == ""){
+			print_r(json_encode($mensagem['1'])); 
+		}else if($senha != $senhaconf){
+			print_r(json_encode($mensagem['2']));
+		}else{
+			$emailValidacao = $usuarioController->verificaEmail($email);
+			$user =  new Usuario();
+			$user->setUsr_senha($senha);
+			$user->setUsr_id($emailValidacao['id']);
+			$usuario = $usuarioController->updateSenhaByUser($user);
+			if($usuario){
+				print_r(json_encode($mensagem['3'])); 
+			}
+		}		
 		break;
 	}
 }
