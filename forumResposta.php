@@ -16,6 +16,9 @@ $utils = new DatasFuncao();
 $templateResposta = new TemplateForumResposta();
 $questaoController = new ForumQuestaoController();
 $respostasController = new ForumRespostaController();
+
+$templateResposta->updateQuestaoParticipante();
+$templateResposta->updateQuestaoVisualizacao();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

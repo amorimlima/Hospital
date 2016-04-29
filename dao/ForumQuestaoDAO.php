@@ -29,11 +29,20 @@ class ForumQuestaoDAO extends DAO{
      
      public function insert($foq)
      {
-         $sql  = "insert into forum_questao (frq_usuario,frq_questao,frq_anexo,frq_data,frq_topico) values ";
+         $sql  = "INSERT INTO forum_questao (frq_usuario,frq_questao,frq_anexo,frq_data,frq_topico) VALUES ";
          $sql .= "('".$foq->getFrq_usuario()."','".$foq->getFrq_questao()."',";
          $sql .= "'".$foq->getFrq_anexo()."','".$foq->getFrq_data()."','".$foq->getFrq_topico()."')";
 		//echo $sql;
     	return $this->execute($sql);
+     }
+     
+     public function insertAndReturnLastId($foq)
+     {
+         $sql  = "INSERT INTO forum_questao (frq_usuario,frq_questao,frq_anexo,frq_data,frq_topico) VALUES ";
+         $sql .= "('".$foq->getFrq_usuario()."','".$foq->getFrq_questao()."',";
+         $sql .= "'".$foq->getFrq_anexo()."','".$foq->getFrq_data()."','".$foq->getFrq_topico()."')";
+		//echo $sql;
+    	return $this->executeAndReturnLastID($sql);
      }
      
       public function update($foq)
@@ -44,6 +53,7 @@ class ForumQuestaoDAO extends DAO{
         
         $sql .= "frq_data = ".$foq->getFrq_data().",";
         $sql .= "frq_topico = ".$foq->getFrq_topico().",";
+        $sql .= "frq_visualizacoes = ".$foq->getFrq_visualizacoes().",";
         $sql .= "where  frq_id = ".$foq->getFrq_id()." limit 1";
         return $this->execute($sql);
      }
@@ -56,7 +66,7 @@ class ForumQuestaoDAO extends DAO{
      
      public function select($idfoq)
      {
-        $sql = "select * from forum_questao where frq_id = ".$idfoq." ";
+        $sql = "SELECT * FROM forum_questao WHERE frq_id = ".$idfoq." ";
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
 
@@ -67,6 +77,7 @@ class ForumQuestaoDAO extends DAO{
                 $foq->setFrq_anexo($qr["frq_anexo"]);
                 $foq->setFrq_data($qr["frq_data"]);
                 $foq->setFrq_topico($qr["frq_topico"]);
+                $foq->setFrq_visualizacoes($qr["frq_visualizacoes"]);
                 
 	    	    	
     	return $foq;
@@ -74,8 +85,7 @@ class ForumQuestaoDAO extends DAO{
      
      public function selectCompleta($keyword)
      {
-        $sql = "select * from forum_questao where  frq_questao like '%".utf8_decode($keyword)."%' ORDER BY frq_id DESC";
-		//echo $sql;
+        $sql = "SELECT * FROM forum_questao WHERE  frq_questao LIKE '%".utf8_decode($keyword)."%' ORDER BY frq_id DESC";
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
@@ -88,6 +98,7 @@ class ForumQuestaoDAO extends DAO{
                 $foq->setFrq_anexo($qr["frq_anexo"]);
                 $foq->setFrq_data($qr["frq_data"]);
                 $foq->setFrq_topico($qr["frq_topico"]);
+                $foq->setFrq_visualizacoes($qr["frq_visualizacoes"]);
                 array_push($lista, $foq);
         }    
        
@@ -97,40 +108,40 @@ class ForumQuestaoDAO extends DAO{
 
      public function selectFull()
      {
-        $sql = "select * from forum_questao ORDER BY frq_id DESC";
+        $sql = "SELECT * FROM forum_questao ORDER BY frq_id DESC";
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
     	{
-
-                $foq = new ForumQuestao();
-                $foq->setFrq_id($qr["frq_id"]);
-                $foq->setFrq_usuario($qr["frq_usuario"]);
-                $foq->setFrq_questao($qr["frq_questao"]);
-                $foq->setFrq_anexo($qr["frq_anexo"]);
-                $foq->setFrq_data($qr["frq_data"]);
-                $foq->setFrq_topico($qr["frq_topico"]);
-                array_push($lista, $foq);
+            $foq = new ForumQuestao();
+            $foq->setFrq_id($qr["frq_id"]);
+            $foq->setFrq_usuario($qr["frq_usuario"]);
+            $foq->setFrq_questao($qr["frq_questao"]);
+            $foq->setFrq_anexo($qr["frq_anexo"]);
+            $foq->setFrq_data($qr["frq_data"]);
+            $foq->setFrq_topico($qr["frq_topico"]);
+            $foq->setFrq_visualizacoes($qr["frq_visualizacoes"]);
+            array_push($lista, $foq);
         }    	
     	return $lista;
      }
 	 
 	  public function selectUltimas($qtd)
      {
-        $sql = "select * from forum_questao order by frq_data desc limit ".$qtd;
+        $sql = "SELECT * FROM forum_questao JOIN forum_topico ON frq_topico = frt_id WHERE frt_status = 1 ORDER BY frq_data DESC LIMIT {$qtd}";
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
     	{
-
-               $foq = new ForumQuestao();
-                $foq->setFrq_id($qr["frq_id"]);
-                $foq->setFrq_usuario($qr["frq_usuario"]);
-                $foq->setFrq_questao($qr["frq_questao"]);
-                $foq->setFrq_anexo($qr["frq_anexo"]);
-                $foq->setFrq_data($qr["frq_data"]);
-                $foq->setFrq_topico($qr["frq_topico"]);
-                array_push($lista, $foq);
+            $foq = new ForumQuestao();
+            $foq->setFrq_id($qr["frq_id"]);
+            $foq->setFrq_usuario($qr["frq_usuario"]);
+            $foq->setFrq_questao($qr["frq_questao"]);
+            $foq->setFrq_anexo($qr["frq_anexo"]);
+            $foq->setFrq_data($qr["frq_data"]);
+            $foq->setFrq_topico($qr["frq_topico"]);
+            $foq->setFrq_visualizacoes($qr["frq_visualizacoes"]);
+            array_push($lista, $foq);
         }    
        
     	return $lista;
@@ -152,6 +163,7 @@ class ForumQuestaoDAO extends DAO{
             $frq->setFrq_questao($qr["frq_questao"]);
             $frq->setFrq_data($qr["frq_data"]);
             $frq->setFrq_anexo($qr["frq_anexo"]);
+            $frq->setFrq_visualizacoes($qr["frq_visualizacoes"]);
 
             $frq->setFrq_usuario(new Usuario());
             $frq->getFrq_usuario()->setUsr_id($qr["usr_id"]);
@@ -186,6 +198,7 @@ class ForumQuestaoDAO extends DAO{
             $frq->setFrq_questao($qr["frq_questao"]);
             $frq->setFrq_data($qr["frq_data"]);
             $frq->setFrq_anexo($qr["frq_anexo"]);
+            $frq->setFrq_visualizacoes($qr["frq_visualizacoes"]);
 
             $frq->setFrq_usuario(new Usuario());
             $frq->getFrq_usuario()->setUsr_id($qr["usr_id"]);
@@ -206,10 +219,8 @@ class ForumQuestaoDAO extends DAO{
     
     public function selectByTopico($idfrt)
     {
-        $sql  = "SELECT * FROM forum_questao frq ";
-        $sql .= "JOIN forum_topico frt ON frq.frq_topico = frt.frt_id ";
-        $sql .= "JOIN usuario usr ON frq.frq_usuario = usr.usr_id ";
-        $sql .= "WHERE frt.frt_id = {$idfrt};";
+        $sql  = "SELECT * FROM forum_questao ";
+        $sql .= "WHERE frq_topico = {$idfrt};";
         $result = $this->retrieve($sql);
         $lista = Array();
         
@@ -217,20 +228,12 @@ class ForumQuestaoDAO extends DAO{
         {
             $frq = new ForumQuestao();
             $frq->setFrq_id($qr["frq_id"]);
+            $frq->setFrq_usuario($qr["frq_usuario"]);
+            $frq->setFrq_topico($qr["frq_topico"]);
             $frq->setFrq_questao($qr["frq_questao"]);
             $frq->setFrq_data($qr["frq_data"]);
             $frq->setFrq_anexo($qr["frq_anexo"]);
-            
-            $frq->setFrq_usuario(new Usuario());
-            $frq->getFrq_usuario()->setUsr_id($qr["usr_id"]);
-            $frq->getFrq_usuario()->setUsr_nome($qr["usr_nome"]);
-            $frq->getFrq_usuario()->setUsr_escola($qr["usr_escola"]);
-            $frq->getFrq_usuario()->setUsr_imagem($qr["usr_imagem"]);
-
-            $frq->setFrq_topico(new ForumTopico());
-            $frq->getFrq_topico()->setFrt_id($qr["frt_id"]);
-            $frq->getFrq_topico()->setFrt_topico($qr["frt_topico"]);
-            $frq->getFrq_topico()->setFrt_status($qr["frt_status"]);
+            $frq->setFrq_visualizacoes($qr["frq_visualizacoes"]);
             
             array_push($lista,$frq);
         }
@@ -259,6 +262,12 @@ class ForumQuestaoDAO extends DAO{
         }
         
         return $retorno;
+    }
+
+    public function incrementarVisualizacoes($idfrq)
+    {
+       $sql = "UPDATE forum_questao SET frq_visualizacoes = frq_visualizacoes + 1 WHERE frq_id = {$idfrq};";
+       return $this->execute($sql);
     }
 }
 ?>

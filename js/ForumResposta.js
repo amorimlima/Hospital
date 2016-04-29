@@ -25,26 +25,6 @@ function barraDeRolagem () {
     });
 }
 
-//function autoCompleteRespostas(a)
-//{
-//	
-//	setTimeout(function(){
-//			if ( $("#txt_pesquisa_input").val() == a) {
-//				$.ajax({
-//					url: "ajax/ForumAjax.php",
-//					type: "post",
-//					dataType: "html",
-//					data: {
-//						acao: "listaQuestoesRecentes",
-//						texto: a
-//					},
-//					success: function (a){
-//						$("#box_result_pesquisa").html(a)
-//					}
-//				})
-//			}
-//	}, 3000)
-//}
 // Barra de rolagem personalizada
 $(document).ready(function ()
 {
@@ -126,12 +106,10 @@ $(document).ready(function ()
     })
 });
 
-function atualizaVisitas(questao){
-	//alert('Questao a ser atualizada'+idQuestao);
-	console.log(questao);
+function atualizarVisitas(questao){
 	var total = $("#totalVis"+questao).text();
-	total++; 
-	console.log(total);
+	total++;
+
 	if (total == 1)	$("#totalVisTexto"+questao).html('<span id="totalVis'+questao+'">1</span> Visualização');
 		else $("#totalVisTexto"+questao).html('<span id="totalVis'+questao+'">'+total+'</span> Visualizações');
 	return false;

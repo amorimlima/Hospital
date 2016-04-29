@@ -61,5 +61,11 @@ class ForumRespostaController {
 		$for = $this->forumRespostaDAO->totalByQuestao($idQuestao);
 		return $for;
 	}
+        
+    public function getMaisRecenteByQuestao($idfrq)
+    {
+        $frr = $this->forumRespostaDAO->getMaisRecenteByQuestao($idfrq);
+        return $frr;
+    }
 }
 ?>

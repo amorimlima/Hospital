@@ -28,6 +28,11 @@ class ForumQuestaoController {
 	{
 		return $this->forumQuestaoDAO->insert($foq);
 	}
+        
+        public function insertAndReturnLastId($foq)
+	{
+		return $this->forumQuestaoDAO->insertAndReturnLastId($foq);
+	}
 	
 	public function update($foq)
 	{
@@ -85,5 +90,10 @@ class ForumQuestaoController {
             $usr = $this->forumQuestaoDAO->selectAutorByQuestao($idquestao);
             return $usr;
         }
+
+    public function incrementarVisualizacoes($idfrq)
+    {
+    	return $this->forumQuestaoDAO->incrementarVisualizacoes($idfrq);
+    }
 }
 ?>

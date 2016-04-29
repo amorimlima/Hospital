@@ -1,4 +1,4 @@
-<?php
+ <?php
 if(!isset($_SESSION['PATH_SYS'])){
    session_start();
 }
@@ -10,6 +10,10 @@ include_once($path['controller'].'ExercicioController.php');
 include_once($path['controller'].'MensagemController.php');
 include_once($path['controller'].'LiberarCapituloController.php');
 include_once($path['controller'].'ForumTopicoController.php');
+include_once($path['controller'].'ForumQuestaoController.php');
+include_once($path['controller'].'ForumRespostaController.php');
+include_once($path['controller'].'ForumQuestaoParticipanteController.php');
+include_once($path['controller'].'ForumViewController.php');
 
 /**
  * Description of Template
@@ -154,11 +158,15 @@ class Template {
                                                         </li>
                                                     </ul>';
 
-                                            } elseif ($menuId[0]=='mensagens' && $mensagemController->count($usrLogado['id']) > 0){
-                                                echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"><span class="msg_label msg_topo">'.$mensagemController->count($usrLogado['id']).'</span></a>';
-                                            } elseif ($menuId[0]=="forum" && ($usrLogado["perfil_id"] == 2 || $usrLogado["perfil_id"] == 4)) {
-                                                echo "<a href={$menu->getBtn_menu()} id=\"mn_".$menuId[0]."\" class=\"mn_a_menu\">";
-                                                    $this->countForumTopicoPendentes();
+                                            } elseif ($menuId[0]=='mensagens' && $mensagemController->count($usrLogado['id']) > 0) {
+                                                echo '<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu">';
+                                                echo    '<span class="badge menu-badge">'.$mensagemController->count($usrLogado['id']).'</span>';
+                                                echo '</a>';
+                                            } elseif ($menuId[0]=="forum") {
+                                                $qtde = intval($this->countForumTopicoPendentes()) + intval($this->countAtualizacoesForumQuestao());
+                                                
+                                                echo "<a href={$menu->getBtn_menu()} id=\"mn_{$menuId[0]}\" class=\"mn_a_menu\">";
+                                                echo ($qtde>0) ? "<span id=\"badgeForumAtualizacoes\" class=\"badge menu-badge\">{$qtde}</span>" : "";
                                                 echo "</a>";
                                             } else {
                                                 if ($menuId[0] == "galeria") {
@@ -261,9 +269,28 @@ class Template {
         $countTopicosPendentes = intval($forumTopicoController->countTopicosPendentes());
         
         if ($countTopicosPendentes > 0)
-            echo "<span id=\"countTopicosPendentes\" class=\"msg_label msg_topo\">".$countTopicosPendentes."</span>";
+            return $countTopicosPendentes;
         else
-            echo "";
+            return 0;
+    }
+
+    private function countAtualizacoesForumQuestao() {
+        $fqpController = new ForumQuestaoParticipanteController();
+        $frrController = new ForumRespostaController();
+        $questoes = $fqpController->getQuestoesByParticipante(5);
+        $count = 0;
+
+        foreach ($questoes as $fqp)
+        {
+            $idfrq = $fqp->getFqp_questao();
+            $frr = $frrController->getMaisRecenteByQuestao($idfrq);
+
+            if ($frr && strtotime($fqp->getFqp_ultima_visualizacao()) < strtotime($frr->getFrr_data())) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 }
 

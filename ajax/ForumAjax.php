@@ -7,6 +7,7 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['controller'] . 'ForumQuestaoController.php');
 include_once($path['controller'] . 'UsuarioController.php');
 include_once($path['controller'] . 'ForumRespostaController.php');
+include_once($path['controller'] . 'ForumQuestaoParticipanteController.php');
 include_once($path['controller'] . 'ForumTopicoController.php');
 include_once($path['controller'] . 'ForumViewController.php');
 include_once($path['template'] . 'TemplateForum.php');
@@ -18,6 +19,9 @@ $respostasController = new ForumRespostaController();
 $viewController = new ForumViewController();
 $questaoController = new ForumQuestaoController();
 $forumTopicoController = new ForumTopicoController();
+$frqParticipante = new ForumQuestaoParticipanteController();
+
+date_default_timezone_set("America/Sao_Paulo");
 
 switch ($_REQUEST["acao"]) {
 
@@ -68,7 +72,8 @@ switch ($_REQUEST["acao"]) {
             }
             echo $html;
             break;
-        }
+    }
+        
     case "listaRespostaQuestao": {
             $dataFuncao = new DatasFuncao();
             $l = unserialize($_SESSION['USR']);
@@ -84,13 +89,13 @@ switch ($_REQUEST["acao"]) {
                 $view->setFrv_data(date('Y-m-d h:i:s'));
                 $viewController->insert($view);
                 $htmlJquery = '<script text="<script type="text/javascript">atualizaVisitas(' . $_POST['resp'] . ')</script>';
-            } else
+            } else {
                 $htmlJquery = '';
+            }
 
             $usuario = $userController->select($resp->getFrq_usuario());
             $respostas = $respostasController->selectByQuestao($resp->getFrq_id());
 
-            //$data = str_replace(' ',' às ',$resp->getFrq_data());
             $data = $dataFuncao->dataTimeBRExibicao($resp->getFrq_data());
 
             if (file_exists("imgp/" . $usuario->getUsr_imagem())) {
@@ -174,23 +179,26 @@ switch ($_REQUEST["acao"]) {
 
             echo $html;
             break;
-        }
+    }
 
     case "NovaRespostaQuestao": {
+            $data = date("Y:m:d H:i:s");
             $resp = new ForumResposta();
             $resp->setFrr_questao($_POST['questao']);
             $resp->setFrr_resposta($_POST['resposta']);
             $resp->setFrr_usuario($_POST['usuario']);
-            $resp->setFrr_data(date('Y-m-d h:i:s'));
+            $resp->setFrr_data($data);
 
             if ($respostasController->insert($resp)) {
                 $result = Array();
+
+                $frqParticipante->insertOrUpdateUltimaVisualizacao($resp->getFrr_questao(),$resp->getFrr_usuario(),$data);
             } else {
                 $result = Array('erro' => true);
             }
             echo json_encode($result);
             break;
-        }
+    }
 
     case "perguntar": {
 
@@ -214,7 +222,6 @@ switch ($_REQUEST["acao"]) {
             $topico->setFrt_topico($frt->getFrt_topico());
             $topico->setFrt_status($frt->getFrt_status());
 
-
             if ($anexo == '') {
                 $questao->setFrq_anexo('0');
             } else {
@@ -223,7 +230,15 @@ switch ($_REQUEST["acao"]) {
 
             $questao->setFrq_data($data);
             $questao->setFrq_usuario($usuario);
-            $id = $forumController->insert($questao);
+            $id = $forumController->insertAndReturnLastId($questao);
+            
+            $fqp = new ForumQuestaoParticipante();
+            $fqp->setFqp_questao($id);
+            $fqp->setFqp_usuario($usuario);
+            $fqp->setFqp_ultima_visualizacao($data);
+            
+            $frqParticipante->insert($fqp);
+            
             $user = $userController->select($usuario);
 
 
@@ -234,24 +249,24 @@ switch ($_REQUEST["acao"]) {
 
             //$html  = '<a href="forumResposta.php?resp='.$id.'"><div class="perg_box '.$caixaGrande.' row">
             echo '<a href="forumResposta.php?resp=' . $id . '" id="caixaQuestao' . $id . '"><div id="perg_box' . $id . '" class="perg_box row">
-						<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
-							<p class="foto_aluno"><img src="imgp/' . $foto . '"></p>
-							<p class="perg_aluno questaoTexto" id="' . $id . '">' . $texto . '</p>
-							<p class="nome_aluno">' . utf8_encode($user->getUsr_nome()) . '</p>
-							<p class="post_data">Tópico: ' . utf8_encode($topico->getFrt_topico()) . ' | Postado dia ' . $dataFuncao->dataTimeBRExibicao($data) . '</p>
-						</div>
-						<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
-							<p id="qtd_visu' . $id . '" class="qtd_visu"><span>0</span> visualizações</p>
-							<p id="qtd_resp' . $id . '" class="qtd_resp"><span>0</span> respostas</p>
-							
-						</div>
-					</div></a>';
+                        <div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
+                                <p class="foto_aluno"><img src="imgp/' . $foto . '"></p>
+                                <p class="perg_aluno questaoTexto" id="' . $id . '">' . $texto . '</p>
+                                <p class="nome_aluno">' . utf8_encode($user->getUsr_nome()) . '</p>
+                                <p class="post_data">Tópico: ' . utf8_encode($topico->getFrt_topico()) . ' | Postado dia ' . $dataFuncao->dataTimeBRExibicao($data) . '</p>
+                        </div>
+                        <div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
+                                <p id="qtd_visu' . $id . '" class="qtd_visu"><span>0</span> visualizações</p>
+                                <p id="qtd_resp' . $id . '" class="qtd_resp"><span>0</span> respostas</p>
+
+                        </div>
+                </div></a>';
 
 
             break;
-        }
+    }
 
-    case "novoTopico":
+    case "novoTopico": {
         $usuario = unserialize($_SESSION['USR']);
         $perfilLogado = $usuario["perfil_id"];
         $topico = utf8_decode($_REQUEST["topico"]);
@@ -273,8 +288,9 @@ switch ($_REQUEST["acao"]) {
 
         echo json_encode($retorno);
         break;
+    }
 
-    case "aprovarTopico":
+    case "aprovarTopico": {
         $usuario = unserialize($_SESSION["USR"]);
         $perfilLogado = $usuario["perfil_id"];
         $frt_id = $_REQUEST["id_topico"];
@@ -294,63 +310,55 @@ switch ($_REQUEST["acao"]) {
 
         echo json_encode($retorno);
         break;
+    }
 
-    case "rejeitarTopico":
+    case "rejeitarTopico": {
         $usuario       = unserialize($_SESSION["USR"]);
         $perfilLogado  = $usuario["perfil_id"];
-        $topico        = $forumTopicoController->select($_REQUEST["idtopico"]);
-        $questoes      = $forumController->selectByTopico($topico->getFrt_id());
+        $idtopico      = $_REQUEST["idtopico"];
+
+        $frt = $forumTopicoController->select($idtopico);
+        $frq = $forumController->selectByTopico($frt->getFrt_id())[0];
+        $usr = $userController->select($frq->getFrq_usuario());
+        $fqp = $frqParticipante->selectById($frq->getFrq_id(), $usr->getUsr_id());
             
         $retorno = [
             "erro"    => false, 
-            "retorno" => [],
-            "topico"  => [
-                "id"      => $topico->getFrt_id(),
-                "topico"  => utf8_encode($topico->getFrt_topico())
-            ],
-            "questao" => [
-                "id"      => $questoes[0]->getFrq_id(),
-                "questao" => utf8_encode($questoes[0]->getFrq_questao()),
-                "autor"   => [
-                    "id"    => $questoes[0]->getFrq_usuario()->getUsr_id(),
-                    "nome"  => $questoes[0]->getFrq_usuario()->getUsr_nome()
+            "retorno" => [
+                "questao" => [
+                    "id"  => $frq->getFrq_id(),
+                    "autor" => [
+                        "id"    => $usr->getUsr_id(),
+                        "nome"  => utf8_encode($usr->getUsr_nome())
+                    ],
+                    "topico" => [
+                        "id"     => $frt->getFrt_id(),
+                        "topico" => utf8_encode($frt->getFrt_topico()),
+                        "status" => $frt->getFrt_status()
+                    ],
+                    "questao"       => utf8_encode($frq->getFrq_questao()),
+                    "anexo"         => $frq->getFrq_anexo(),
+                    "data"          => $frq->getFrq_data(),
+                    "visualizacoes" => $frq->getFrq_visualizacoes()
                 ]
             ]
         ];
         
-        function deletarTopicoRejeitado(&$frt, &$frtController, &$retorno) {
-            if ($frtController->delete($frt->getFrt_id())) {
-                $dtr = Array("mensagem" => "Tópico {$frt->getFrt_id()} deletado.");
-                array_push($retorno, $dtr);
-            } else {
-                $dtr = Array("mensagem" => "Erro ao deletar o tópico {$frt->getFrt_id()}.");
-                array_push($retorno, $dtr);
-            }
-        }
-        
-        function deletarQuestaoTopicoRejeitado(&$frq, &$frqController, &$retorno) {
-            if ($frqController->delete($frq[0]->getFrq_id())) {
-                $dqtr = ["mensagem" => "Questão {$frq[0]->getFrq_id()} deletada."];
-                array_push($retorno, $dqtr);
-            } else {
-                $dqtr = Array("mensagem" => "Erro ao deletar a questão {$frq[0]->getFrq_id()}.");
-                array_push($retorno, $dqtr);
-            }
-        }
-        
         if (intval($perfilLogado) === 2 || intval($perfilLogado) === 4) {
-            deletarTopicoRejeitado($topico,$forumTopicoController,$retorno["retorno"]);
-            deletarQuestaoTopicoRejeitado($questoes,$forumController,$retorno["retorno"]);
+            $frqParticipante->delete($frq->getFrq_id(),$usr->getUsr_id());
+            $forumController->delete($frq->getFrq_id());
+            $forumTopicoController->delete($frt->getFrt_id());
         } else {
             $retorno["erro"] = true;
-            $erro = Array("mensagem" => "Ação não permitida para este perfil.");
-            array_push($retorno["retorno"], $erro);
+            $retorno["retorno"] = "Ação não permitida para este perfil.";
         }
 
         echo json_encode($retorno);
+        
         break;
+    }
     
-    case "selectTopico":
+    case "selectTopico": {
         $idtopico = $_GET["idtopico"];
         $topico = $forumTopicoController->select($idtopico);
         $retorno = Array("erro" => false, "retorno" => Array());
@@ -369,9 +377,11 @@ switch ($_REQUEST["acao"]) {
         }
         
         echo json_encode($retorno);
-    break;    
+
+        break;
+    }
         
-    case "selectTopicoAprovado":
+    case "selectTopicoAprovado": {
         $id_topico = $_GET["idtopico"];
         $topico = $forumTopicoController->select($id_topico);
         $retorno = Array("erro" => false, "retorno" => Array());
@@ -390,9 +400,11 @@ switch ($_REQUEST["acao"]) {
         }
         
         echo json_encode($retorno);
-    break;
+
+        break;
+    }
     
-    case "selectQuestoesByTopico":
+    case "selectQuestoesByTopico": {
         $id_topico = $_GET["idtopico"];
         $retorno = Array("erro" => false, "retorno" => Array());
         $questoes = $forumController->selectByTopico($id_topico);
@@ -435,9 +447,11 @@ switch ($_REQUEST["acao"]) {
         }
         
         echo json_encode($retorno);
-    break;
+
+        break;
+    }
     
-    case "selectAutorByQuestao":
+    case "selectAutorByQuestao": {
         $idquestao = $_GET["idquestao"];
         $retorno = Array("erro"=>false, "retorno"=>Array());
         $autor = $forumController->selectAutorByQuestao($idquestao);
@@ -456,9 +470,11 @@ switch ($_REQUEST["acao"]) {
         }
         
         echo json_encode($retorno);
-    break;
+
+        break;
+    }
     
-    case "deletarQuestao":
+    case "deletarQuestao": {
         $usuario = unserialize($_SESSION["USR"]);
         $perfilLogado = $usuario["perfil_id"];
         $idquestao = $_POST["idquestao"];
@@ -476,7 +492,55 @@ switch ($_REQUEST["acao"]) {
             $retorno["retorno"] = Array("mensagem" => "Ação não permitida para este perfil.");
         }
         
-        echo json_encode($retorno); 
-    break;
-}
+        echo json_encode($retorno);
 
+        break;
+    }
+    
+    case "verificarAlteracaoQuestao": {
+        $idfrq = $_REQUEST["idfrq"];
+        $idusr = (unserialize($_SESSION["USR"])["id"]);
+        $fqp = $frqParticipante->getUltimaVisualizacao($idfrq, $idusr);
+        $frr = $respostasController->getMaisRecenteByQuestao($idfrq);
+        
+        $fqp_d = strtotime($fqp->getFqp_ultima_visualizacao());
+        $frr_d = strtotime($frr->getFrr_data());
+        
+        if ($fqp_d - $frr_d < 0)
+            echo "1";
+        else
+            echo "0";
+        
+        break;
+    }
+    
+    case "verificarUsuarioParticipante": {
+        $idquestao = $_REQUEST["idquestao"];
+        $logado = $userController->select(unserialize($_SESSION['USR'])['id']);
+        $idusuario = $logado->getUsr_id();
+        $participante = $frqParticipante->verificarParticipante($idquestao, $idusuario);
+        
+        print "<pre>";
+        print_r($participante);
+        print "</pre>";
+        
+        break;
+    }
+    
+    case "incrementarVisualizacoes": {
+        $idfrq = $_POST["idfrq"];
+        
+        if ($forumController->incrementarVisualizacoes($idfrq))
+            echo "1";
+        else
+            echo "0";
+        break;
+    }
+    /*
+     * Método para teste de funcionalidades
+     */
+    
+    case "teste": {
+        
+    }
+}
