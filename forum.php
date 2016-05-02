@@ -10,6 +10,7 @@ $templateGeral = new Template();
 $templateForum = new TemplateForum();
 $topicoController = new ForumTopicoController();
 $topicos = $topicoController->selectAtivos();
+$templateGeral->getPerfilEscolaUsuario();
 //print_r($topicos);
 ?>
 <!DOCTYPE html>

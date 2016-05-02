@@ -119,5 +119,22 @@ class ForumRespostaDAO extends DAO{
 		return $total;
 	}
      
+    public function getMaisRecenteByQuestao($idfrq)
+    {
+        $sql = "SELECT `frr_data` FROM `forum_resposta` WHERE `frr_questao` = {$idfrq} ORDER BY `frr_data` DESC LIMIT 1";
+        $result = $this->retrieve($sql);
+        $frr = new ForumResposta();
+        
+        if ($qr = mysqli_fetch_array($result))
+        {
+            $frr->setFrr_data($qr["frr_data"]);
+            
+            return $frr;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 ?>

@@ -21,19 +21,19 @@ if(isset($_POST)){
 	$userVariavel = $usuarioVariavelController->selectByIdUsuario($user['usr_id']);
 
 	if($user!=null){
-		$adm = Array(
-					'nome'			 =>$user['usr_nome'],
-					'id'			 =>$user['usr_id'],
-					'perfil'		 =>$user['prf_perfil'],
-					'perfil_id'		 =>$user['prf_id'],
-					'url'			 =>$user['prf_url'],
-					'escola'		 =>$user['usr_escola'],
-					'pagina'		 =>utf8_encode($user['prf_pagina'])					
-				);
+            $adm = [
+                'nome' => $user['usr_nome'],
+                'id' => $user['usr_id'],
+                'perfil' => $user['prf_perfil'],
+                'perfil_id' => $user['prf_id'],
+                'url' => $user['prf_url'],
+                'escola' => $user['usr_escola'],
+                'pagina' => utf8_encode($user['prf_pagina'])
+            ];
 
 
 
-		if($adm['perfil_id'] == 1){
+        if($adm['perfil_id'] == 1){
 			array_push($adm,array('idUserVariavel'=>$userVariavel->getUsv_id(),'serie'=>$userVariavel->getUsv_serie()));
 		}
 

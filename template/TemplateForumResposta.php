@@ -7,9 +7,10 @@ if(!isset($_SESSION['PATH_SYS'])){
 include_once($path['controller'].'ForumQuestaoController.php');
 include_once($path['controller'].'ForumViewController.php');
 include_once($path['controller'].'ForumRespostaController.php');
+include_once($path['controller'].'ForumQuestaoParticipanteController.php');
 include_once($path['controller'].'UsuarioController.php');
 include_once($path['funcao'].'DatasFuncao.php');
-
+date_default_timezone_set("America/Sao_Paulo");
 
 $path = $_SESSION['PATH_SYS'];
 
@@ -29,15 +30,22 @@ class TemplateForumResposta{
 		$respostasController = new ForumRespostaController();
 		$viewController = new ForumViewController();
 		$dataFuncao = new DatasFuncao();
+        $idesc = (unserialize($_SESSION["USR"])["escola"]);
+        $questoesAll;
 		
 		$questoes = $questaoController->selectUltimas(5);
-		$questoesAll = $questaoController->selectAll();
+
+        if ($idesc)
+            $questoesAll = $questaoController->selectAprovadasByEscola($idesc);
+        else
+            $questoes = $forumController->selectAllAprovadas($idesc);
+
 		$html = '<div id="listaRecentes">';
 		if (count($questoes)>0){
                     
 			foreach ($questoes as $q){
             	$totalRespostas = $respostasController->totalByQuestao($q->getFrq_id());
-                $totalViews = $viewController->totalByQuestao($q->getFrq_id());		
+                $totalViews = $q->getFrq_visualizacoes();		
                 if ($totalViews == 1) $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">1</span> visualização</span>';
                 	else $msgView = '<span id="totalVisTexto'.$q->getFrq_id().'"><span id="totalVis'.$q->getFrq_id().'">'.$totalViews.'</span> visualizações</span>';
                             
@@ -95,15 +103,16 @@ class TemplateForumResposta{
 	
 	
 	public function listaRespostas($idQuestao){
-	
+	    date_default_timezone_set("America/Sao_Paulo");
 		$userController = new UsuarioController();
 		$forumController = new ForumQuestaoController();
+        $frqController = new ForumQuestaoParticipanteController();
 		$viewController = new ForumViewController();
 		$respostasController = new ForumRespostaController();
 		$dataFuncao = new DatasFuncao();
 		$logado = unserialize($_SESSION['USR']);
 	  	$id = $logado['id'];
-	  	
+
 	  	$resp = $forumController->select($idQuestao);
 	  	
 	  	if ($viewController->verificaUsuarioByQuestao($id,$idQuestao) == 0){
@@ -195,5 +204,25 @@ class TemplateForumResposta{
 
 		echo $html .= '</div></div>';
 	}
+
+    public function updateQuestaoParticipante() {
+        $fqpController = new ForumQuestaoParticipanteController();
+        $data = date("Y-m-d H:i:s");
+        $idusr = unserialize($_SESSION["USR"])["id"];
+        $idfrq = $_GET["resp"];
+
+        $fqp = new ForumQuestaoParticipante();
+        $fqp->setFqp_questao($idfrq);
+        $fqp->setFqp_usuario($idusr);
+        $fqp->setFqp_ultima_visualizacao($data);
+
+        $fqpController->update($fqp);
+    }
+
+    public function updateQuestaoVisualizacao() {
+        $idfrq = $_GET["resp"];
+        $frqController = new ForumQuestaoController();
+        $frqController->incrementarVisualizacoes($idfrq);
+    }
 }
 ?>

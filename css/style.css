@@ -188,30 +188,27 @@ img{
 #mn_forum:hover{
 	background:url(../img/bt_forum_ativo.png) no-repeat;
 }
+.notification {
+    position: relative;
+}
 
-.msg_label {
+.badge {
+    font-family: Overlock;
+    text-transform: uppercase;
+    position: relative;
+    top: -3px;
+}
+.menu-badge {
     position: absolute;
-    left: auto;
-    right: -13px;
-    top: -7px;
-    font-size: 14px;
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    color: #FFF;
-    background-color: #e27919;
-    border: 1.5px solid #f9b51c;
-    padding: 2px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: .9 !important;
-    cursor: default;
+    left: 25px;
+    top: -5px;
+    border: 2px solid #fab522;
+    background-color: #e35f0f;   
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
 }
 
-.msg_topo{
-	right: 110px;
-    top: 0;
-}
+
+
 /*CONTEUDO AREA*/
 #Conteudo_Area{
 	width:100%;

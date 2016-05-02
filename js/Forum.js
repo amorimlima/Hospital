@@ -37,6 +37,11 @@ $(document).ready(function (e) {
         } else {
             $("#box_alunos_container").hide();
             $("#box_questoes_pendentes_container").show();
+            window.setTimeout(function() {
+                $("#txt_topicos_pendentes").find("span").fadeOut(500,function() {
+                   $(this).remove(); 
+                });
+            }, 1000);
         }
         $(".titulo_box_forum").removeClass("ativo");
         $(this).addClass("ativo");
@@ -319,7 +324,6 @@ function rejeitarTopico(idquestao, idtopico) {
         $("#txtJustificativa"+idtopico).attr("placeholder", "Digite o porquê de estar rejeitando este tópico");
         
     });
-    
 }
 
 function vaildarJustificativaRejeicao(idtopico, justificativa) {
@@ -349,8 +353,10 @@ function confirmarJustificativaRejeicao(idtopico,justificativa) {
                 $("[data-action=confirmar]").filter("[data-topico="+idtopico+"]").html("Aguarde...");
             },
             success: function(data) {
-                if (data.topico.id && data.questao.autor) {
-                    enviarJustificativaRejeicao(data.topico, data.questao);
+                if (!data.erro) {
+                    enviarJustificativaRejeicao(data.retorno.questao);
+                } else {
+                    console.error(data.retorno)
                 }
             },
             error: function() {
@@ -359,11 +365,11 @@ function confirmarJustificativaRejeicao(idtopico,justificativa) {
         });
     }
     
-    function enviarJustificativaRejeicao(topico,questao) {
-        var assunto = "Seu tópico \""+topico.topico+"\" foi rejeitado.";
+    function enviarJustificativaRejeicao(questao) {
+        var assunto = "Seu tópico \""+questao.topico.topico+"\" foi rejeitado.";
         var mensagem  = "Olá, "+questao.autor.nome.split(" ")[0]+".\n";
-            mensagem += "Seu tópico \""+topico.topico+"\" foi rejeitado, ";
-            mensagem += "e sua questão \""+questao.questao+"\" apagada. \n\n";
+            mensagem += "Seu tópico \""+questao.topico.topico+"\" foi rejeitado, ";
+            mensagem += "e sua questão \""+questao.questao+"\" deletada. \n\n";
             mensagem += "Justificativa: \n"+justificativa;
         
         $.ajax({
@@ -397,18 +403,26 @@ function verificarQtdeTopicosPendentes() {
         htmlAlerta += "<div id=\"alert_sem_topicos_pendentes\" class=\"alert_container\" style=\"display: none;\">";
         htmlAlerta +=    "<div class=\"alert alert-warning\">Nenhum tópico ou questão pendente de aprovação.</div>";
         htmlAlerta += "</div>";
-        
         $("#box_questoes_pendentes").html(htmlAlerta);
         $("#alert_sem_topicos_pendentes").fadeIn(200);
     }
-    
-    atualizarCountTopicosPendentes(topicos.length);
+    atualizarCountForumAtualizacoes();
 } 
 
-function atualizarCountTopicosPendentes(count) {
-    if (count > 0) {
-        $("#countTopicosPendentes").text(count);
+function atualizarCountForumAtualizacoes() {
+    var count = $("#badgeForumAtualizacoes").text();
+
+    if (count > 1) {
+        $("#badgeForumAtualizacoes").text(count-1 );
     } else {
-        $("#countTopicosPendentes").remove();
+        $("#badgeForumAtualizacoes").remove();
     }
+}
+
+function incrementarVisualizacoes(idfrq) {
+    $.ajax({
+        url: "ajax/ForumAjax.php",
+        type: "POST",
+        data: "acao=incrementarVisualizacoes&idfrq="+idfrq
+    });
 }

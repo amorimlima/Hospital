@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Hospital/controller/ForumTopicoController.php</file>
-            <file>file:/C:/xampp/htdocs/Hospital/dao/ForumTopicoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/Hospital/forum.php</file>
+            <file>file:/C:/xampp/htdocs/Hospital/beans/ForumQuestaoParticipante.php</file>
+            <file>file:/C:/xampp/htdocs/Hospital/ajax/ForumAjax.php</file>
+            <file>file:/C:/xampp/htdocs/Hospital/beans/ForumQuestao.php</file>
+            <file>file:/C:/xampp/htdocs/Hospital/dao/ForumRespostaDAO.php</file>
+            <file>file:/C:/xampp/htdocs/Hospital/controller/ForumRespostaController.php</file>
             <file>file:/C:/xampp/htdocs/Hospital/js/Forum.js</file>
-            <file>file:/C:/xampp/htdocs/Hospital/template/Template.php</file>
+            <file>file:/C:/xampp/htdocs/Hospital/controller/ForumQuestaoParticipanteController.php</file>
+            <file>file:/C:/xampp/htdocs/Hospital/dao/ForumQuestaoParticipanteDAO.php</file>
         </group>
     </open-files>
 </project-private>

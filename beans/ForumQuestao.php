@@ -25,6 +25,7 @@ private $frq_questao;
 private $frq_anexo;
 private $frq_data;
 private $frq_topico;
+private $frq_visualizacoes;
 
 
 
@@ -66,6 +67,11 @@ public function getFrq_topico()
 return $this->frq_topico;
 }
 
+public function getFrq_visualizacoes()
+{
+	return $this->frq_visualizacoes;
+}
+
 
 
 public function setFrq_id($val)
@@ -98,8 +104,11 @@ public function setFrq_topico($val)
 $this->frq_topico =  $val;
 }
 
+public function setFrq_visualizacoes($val)
+{
+	$this->frq_visualizacoes = $val;
+}
 
 } 
 
 ?>
-

@@ -16,6 +16,9 @@ $utils = new DatasFuncao();
 $templateResposta = new TemplateForumResposta();
 $questaoController = new ForumQuestaoController();
 $respostasController = new ForumRespostaController();
+
+$templateResposta->updateQuestaoParticipante();
+$templateResposta->updateQuestaoVisualizacao();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -58,8 +61,7 @@ $respostasController = new ForumRespostaController();
                    <div class="col-xs-12 col-md-8 col-lg-8">               
                         <div id="Conteudo_Area_box_left" >
                             <div class="conteudoRespostas">
-				<?php $templateResposta->listaRespostas($_GET['resp']); ?>
-						
+				                <?php $templateResposta->listaRespostas($_GET['resp']); ?>
                             </div>
                         </div>
                    </div>

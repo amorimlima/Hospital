@@ -9,6 +9,7 @@ include_once($path['controller'] . 'ForumQuestaoController.php');
 include_once($path['controller'] . 'ForumRespostaController.php');
 include_once($path['controller'] . 'ForumTopicoController.php');
 include_once($path['controller'] . 'ForumViewController.php');
+include_once($path['controller'] . 'ForumQuestaoParticipanteController.php');
 include_once($path['controller'] . 'UsuarioController.php');
 include_once($path['funcao'] . 'DatasFuncao.php');
 
@@ -29,14 +30,40 @@ class TemplateForum {
         $forumController = new ForumQuestaoController();
         $viewController = new ForumViewController();
         $respController = new ForumRespostaController();
+        $frqParticipante = new ForumQuestaoParticipanteController();
         $dataFuncao = new DatasFuncao();
+        $idusr = (unserialize($_SESSION["USR"])["id"]);
+        $idesc = (unserialize($_SESSION["USR"])["escola"]);
+        $questoes;
 
-        $forum = $forumController->selectAprovadas();
+        if ($idesc)
+            $questoes = $forumController->selectAprovadasByEscola($idesc);
+        else
+            $questoes = $forumController->selectAllAprovadas($idesc);
         $cont = 0;
 
-        foreach ($forum as $key => $value) {
-            $view = $viewController->totalByQuestao($value->getFrq_id());
+        function verificarAlteracaoQuestao($fqp, $frr) {
+            $fqp_d = strtotime($fqp->getFqp_ultima_visualizacao());
+            $frr_d = strtotime($frr->getFrr_data());
+            
+            if ($fqp_d - $frr_d < 0)
+                return true;
+            else
+                return false;
+        }
+
+        foreach ($questoes as $key => $value) {
             $resp = $respController->totalByQuestao($value->getFrq_id());
+            $labelNovo = "";
+
+            if ($frqParticipante->verificarParticipante($value->getFrq_id(), $idusr)) {
+                $fqp = $frqParticipante->getUltimaVisualizacao($value->getFrq_id(), $idusr);
+                $frr = $respController->getMaisRecenteByQuestao($value->getFrq_id());
+
+                if ($frr && verificarAlteracaoQuestao($fqp, $frr))
+                    $labelNovo = "<span class=\"badge\">Novo</span>";
+            }
+
 
             if ($cont % 2 == 0) {
                 $caixaGrande = "cx_rosa";
@@ -46,24 +73,32 @@ class TemplateForum {
                 $caixaPequena = "cx_rosaP";
             }
 
-            if (file_exists("imgp/".$value->getFrq_usuario()->getUsr_imagem())) {
+            if (file_exists("imgp/".$value->getFrq_usuario()->getUsr_imagem()))
                 $foto = $value->getFrq_usuario()->getUsr_imagem();
-            } else {
+            else
                 $foto = 'default.png';
-            }
 
-            echo '<a href="forumResposta.php?resp=' . $value->getFrq_id() . '" id="caixaQuestao' . $value->getFrq_id() . '"><div id="perg_box' . $value->getFrq_id() . '" class="perg_box ' . $caixaGrande . ' row">
-					<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">
-						<p class="foto_aluno"><img src="imgp/' . $foto . '"></p>
-						<p class="perg_aluno questaoTexto" id="' . $value->getFrq_id() . '">' . utf8_encode($value->getFrq_questao()) . '</p>
-						<p class="nome_aluno">' . utf8_encode($value->getFrq_usuario()->getUsr_nome()) . '</p>
-						<p class="post_data">Tópico: ' . utf8_encode($value->getFrq_topico()->getFrt_topico()) . ' | Postado dia ' . $dataFuncao->dataTimeBRExibicao($value->getFrq_data()) . '</p>
-					</div>
-					<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">
-						<p id="qtd_visu' . $value->getFrq_id() . '" class="qtd_visu ' . $caixaPequena . '"><span>' . $view . '</span> visualizações</p>
-						<p id="qtd_resp' . $value->getFrq_id() . '" class="qtd_resp ' . $caixaPequena . '"><span>' . $resp . '</span> respostas</p>
-					</div>
-				</div></a>';
+            $idfrq  = $value->getFrq_id();
+            $frq    = utf8_encode($value->getFrq_questao());
+            $usr    = utf8_encode($value->getFrq_usuario()->getUsr_nome());
+            $frt    = utf8_encode($value->getFrq_topico()->getFrt_topico());
+            $data   = $dataFuncao->dataTimeBRExibicao($value->getFrq_data());
+            $views  = $value->getFrq_visualizacoes();
+
+            echo '<a onclick="incrementarVisualizacoes('.$idfrq.')" href="forumResposta.php?resp='.$idfrq.'" id="caixaQuestao'.$idfrq.'">';
+            echo     '<div id="perg_box'.$idfrq.'" class="perg_box '.$caixaGrande.' row">';
+            echo         '<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">';
+            echo             '<p class="foto_aluno"><img src="imgp/'.$foto.'"></p>';
+            echo             '<p class="perg_aluno questaoTexto" id="'.$idfrq.'">'.$frq.' '.$labelNovo.'</p>';
+            echo             '<p class="nome_aluno">'.$usr.'</p>';
+            echo             '<p class="post_data">Tópico: '.$frt.' | Postado dia '.$data.'</p>';
+            echo         '</div>';
+            echo         '<div class="perg_box_2 col-xs-12 col-md-5 col-lg-5">';
+            echo             '<p id="qtd_visu'.$idfrq.'" class="qtd_visu '.$caixaPequena.'"><span>'.$views.'</span> visualizações</p>';
+            echo             '<p id="qtd_resp'.$idfrq.'" class="qtd_resp '.$caixaPequena.'"><span>'.$resp.'</span> respostas</p>';
+            echo         '</div>';
+            echo     '</div>';
+            echo '</a>';
 
             $cont++;
         }
@@ -72,11 +107,12 @@ class TemplateForum {
     public function listarTopicosPendentes() {
         $usuario = unserialize($_SESSION['USR']);
         $perfilLogado = $usuario["perfil_id"];
+        $usrEscola = $usuario["escola"];
         $dataFuncao = new DatasFuncao();
 
         if (intval($perfilLogado) === 2 || intval($perfilLogado) === 4) {
             $forumQuestaoController = new ForumQuestaoController();
-            $questoesPendentes = $forumQuestaoController->selectPendentes();
+            $questoesPendentes = $forumQuestaoController->selectPendentes($usrEscola);
             
             function verificarImagem($arquivo) {
                 if (file_exists("imgp/" . $arquivo))
@@ -116,13 +152,32 @@ class TemplateForum {
         }
     }
     
+    public function countTopicosPendentes() {
+        $usr = unserialize($_SESSION['USR']);
+        $usrEscola = $usr["escola"];
+        $forumTopicoController = new ForumTopicoController();
+        $countFrtPendentes = intval($forumTopicoController->countTopicosPendentes($usrEscola));
+        
+        if ($countFrtPendentes > 0)
+            return $countFrtPendentes;
+        else
+            return false;
+    }
+    
     public function mostrarAbasForum() {
-        $usuario = unserialize($_SESSION['USR']);
-        $perfilLogado = $usuario["perfil_id"];
+        $usr = unserialize($_SESSION['USR']);
+        $perfilLogado = $usr["perfil_id"];
+        $usrEscola = $usr["escola"];
         
         if (intval($perfilLogado) === 2 || intval($perfilLogado) === 4){
             echo "<p class=\"titulo_box_forum ativo\" id=\"txt_postagens\">POSTAGENS RECENTES</p>";
-            echo "<p class=\"titulo_box_forum\" id=\"txt_topicos_pendentes\">TÓPICOS PENDENTES</p>";
+            echo "<p class=\"titulo_box_forum\" id=\"txt_topicos_pendentes\">";
+            echo    "TÓPICOS PENDENTES ";
+            
+            if ($this->countTopicosPendentes($usrEscola))
+                echo "<span class=\"badge\">Novo</span>";
+            
+            echo "</p>";
         } else {
             echo "<p class=\"titulo_box_forum ativo\" id=\"txt_postagens\">POSTAGENS RECENTES</p>";
         }
