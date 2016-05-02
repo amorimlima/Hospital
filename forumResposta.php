@@ -61,8 +61,7 @@ $templateResposta->updateQuestaoVisualizacao();
                    <div class="col-xs-12 col-md-8 col-lg-8">               
                         <div id="Conteudo_Area_box_left" >
                             <div class="conteudoRespostas">
-				<?php $templateResposta->listaRespostas($_GET['resp']); ?>
-						
+				                <?php $templateResposta->listaRespostas($_GET['resp']); ?>
                             </div>
                         </div>
                    </div>

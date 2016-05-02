@@ -33,8 +33,13 @@ class TemplateForum {
         $frqParticipante = new ForumQuestaoParticipanteController();
         $dataFuncao = new DatasFuncao();
         $idusr = (unserialize($_SESSION["USR"])["id"]);
+        $idesc = (unserialize($_SESSION["USR"])["escola"]);
+        $questoes;
 
-        $questoes = $forumController->selectAprovadas();
+        if ($idesc)
+            $questoes = $forumController->selectAprovadasByEscola($idesc);
+        else
+            $questoes = $forumController->selectAllAprovadas($idesc);
         $cont = 0;
 
         function verificarAlteracaoQuestao($fqp, $frr) {
@@ -102,11 +107,12 @@ class TemplateForum {
     public function listarTopicosPendentes() {
         $usuario = unserialize($_SESSION['USR']);
         $perfilLogado = $usuario["perfil_id"];
+        $usrEscola = $usuario["escola"];
         $dataFuncao = new DatasFuncao();
 
         if (intval($perfilLogado) === 2 || intval($perfilLogado) === 4) {
             $forumQuestaoController = new ForumQuestaoController();
-            $questoesPendentes = $forumQuestaoController->selectPendentes();
+            $questoesPendentes = $forumQuestaoController->selectPendentes($usrEscola);
             
             function verificarImagem($arquivo) {
                 if (file_exists("imgp/" . $arquivo))
@@ -147,27 +153,29 @@ class TemplateForum {
     }
     
     public function countTopicosPendentes() {
+        $usr = unserialize($_SESSION['USR']);
+        $usrEscola = $usr["escola"];
         $forumTopicoController = new ForumTopicoController();
-        $countTopicosPendentes = intval($forumTopicoController->countTopicosPendentes());
+        $countFrtPendentes = intval($forumTopicoController->countTopicosPendentes($usrEscola));
         
-        if ($countTopicosPendentes > 0)
-            return $countTopicosPendentes;
+        if ($countFrtPendentes > 0)
+            return $countFrtPendentes;
         else
             return false;
     }
     
     public function mostrarAbasForum() {
-        $usuario = unserialize($_SESSION['USR']);
-        $perfilLogado = $usuario["perfil_id"];
+        $usr = unserialize($_SESSION['USR']);
+        $perfilLogado = $usr["perfil_id"];
+        $usrEscola = $usr["escola"];
         
         if (intval($perfilLogado) === 2 || intval($perfilLogado) === 4){
             echo "<p class=\"titulo_box_forum ativo\" id=\"txt_postagens\">POSTAGENS RECENTES</p>";
             echo "<p class=\"titulo_box_forum\" id=\"txt_topicos_pendentes\">";
             echo    "TÓPICOS PENDENTES ";
             
-            if ($this->countTopicosPendentes()) {
+            if ($this->countTopicosPendentes($usrEscola))
                 echo "<span class=\"badge\">Novo</span>";
-            }
             
             echo "</p>";
         } else {

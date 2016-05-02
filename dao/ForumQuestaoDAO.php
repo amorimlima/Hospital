@@ -147,12 +147,48 @@ class ForumQuestaoDAO extends DAO{
     	return $lista;
      }
 
-    public function selectPendentes()
+    public function selectPendentes($idesc)
     {
         $sql  = "SELECT * FROM forum_questao frq ";
         $sql .= "JOIN usuario usr ON frq.frq_usuario = usr.usr_id ";
         $sql .= "JOIN forum_topico frt ON frq.frq_topico = frt.frt_id ";
-        $sql .= "WHERE frt_status = 0 ORDER BY frq_id DESC";
+        $sql .= "WHERE frt_status = 0 AND usr.usr_escola = {$idesc} ORDER BY frq_id DESC";
+        $result = $this->retrieve($sql);
+        $lista = Array();
+
+        while ($qr = mysqli_fetch_array($result))
+        {
+            $frq = new ForumQuestao();
+            $frq->setFrq_id($qr["frq_id"]);
+            $frq->setFrq_questao($qr["frq_questao"]);
+            $frq->setFrq_data($qr["frq_data"]);
+            $frq->setFrq_anexo($qr["frq_anexo"]);
+            $frq->setFrq_visualizacoes($qr["frq_visualizacoes"]);
+
+            $frq->setFrq_usuario(new Usuario());
+            $frq->getFrq_usuario()->setUsr_id($qr["usr_id"]);
+            $frq->getFrq_usuario()->setUsr_nome($qr["usr_nome"]);
+            $frq->getFrq_usuario()->setUsr_escola($qr["usr_escola"]);
+            $frq->getFrq_usuario()->setUsr_imagem($qr["usr_imagem"]);
+
+            $frq->setFrq_topico(new ForumTopico());
+            $frq->getFrq_topico()->setFrt_id($qr["frt_id"]);
+            $frq->getFrq_topico()->setFrt_topico($qr["frt_topico"]);
+            $frq->getFrq_topico()->setFrt_status($qr["frt_status"]);
+
+            array_push($lista,$frq);
+        }
+
+        return $lista;
+    }
+
+    public function selectAllAprovadas()
+    {
+        $sql  = "SELECT * FROM forum_questao frq ";
+        $sql .= "JOIN usuario usr ON frq.frq_usuario = usr.usr_id ";
+        $sql .= "JOIN forum_topico frt ON frq.frq_topico = frt.frt_id ";
+        $sql .= "WHERE frt_status = 1 ORDER BY frq_id DESC";
+
         $result = $this->retrieve($sql);
         $lista = Array();
 
@@ -182,12 +218,12 @@ class ForumQuestaoDAO extends DAO{
         return $lista;
     }
     
-    public function selectAprovadas()
+    public function selectAprovadasByEscola($idesc)
     {
         $sql  = "SELECT * FROM forum_questao frq ";
         $sql .= "JOIN usuario usr ON frq.frq_usuario = usr.usr_id ";
         $sql .= "JOIN forum_topico frt ON frq.frq_topico = frt.frt_id ";
-        $sql .= "WHERE frt_status = 1 ORDER BY frq_id DESC";
+        $sql .= "WHERE frt_status = 1 AND usr.usr_escola = {$idesc} ORDER BY frq_id DESC";
         $result = $this->retrieve($sql);
         $lista = Array();
 

@@ -265,19 +265,23 @@ class Template {
     }
     
     private function countForumTopicoPendentes() {
+        $usr = unserialize($_SESSION['USR']);
+        $usrPerfil = $usr["perfil_id"];
+        $usrEscola = $usr["escola"];
         $forumTopicoController = new ForumTopicoController();
-        $countTopicosPendentes = intval($forumTopicoController->countTopicosPendentes());
+        $countTopicosPendentes = intval($forumTopicoController->countTopicosPendentes($usrEscola));
         
-        if ($countTopicosPendentes > 0)
+        if (intval($usrPerfil) === 2 || intval($usrPerfil) === 4)
             return $countTopicosPendentes;
         else
             return 0;
     }
 
     private function countAtualizacoesForumQuestao() {
+        $idusr = unserialize($_SESSION['USR'])["id"];
         $fqpController = new ForumQuestaoParticipanteController();
         $frrController = new ForumRespostaController();
-        $questoes = $fqpController->getQuestoesByParticipante(5);
+        $questoes = $fqpController->getQuestoesByParticipante($idusr);
         $count = 0;
 
         foreach ($questoes as $fqp)
@@ -291,6 +295,17 @@ class Template {
         }
 
         return $count;
+    }
+
+    public function getPerfilEscolaUsuario() {
+        $usr = unserialize($_SESSION['USR']);
+        $usrPerfil = $usr["perfil_id"];
+        $usrEscola = $usr["escola"];
+
+        if (intval($usrPerfil) !== 3)
+            return $usrEscola;
+        else
+            return false;
     }
 }
 

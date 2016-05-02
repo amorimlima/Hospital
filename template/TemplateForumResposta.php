@@ -30,9 +30,16 @@ class TemplateForumResposta{
 		$respostasController = new ForumRespostaController();
 		$viewController = new ForumViewController();
 		$dataFuncao = new DatasFuncao();
+        $idesc = (unserialize($_SESSION["USR"])["escola"]);
+        $questoesAll;
 		
 		$questoes = $questaoController->selectUltimas(5);
-		$questoesAll = $questaoController->selectAprovadas();
+
+        if ($idesc)
+            $questoesAll = $questaoController->selectAprovadasByEscola($idesc);
+        else
+            $questoes = $forumController->selectAllAprovadas($idesc);
+
 		$html = '<div id="listaRecentes">';
 		if (count($questoes)>0){
                     

@@ -50,46 +50,53 @@ class ForumQuestaoController {
 		return $foq;
 	}
         
-        public function selectComleta($keyword){
-                $foq = $this->forumQuestaoDAO->selectCompleta($keyword);
+    public function selectComleta($keyword) {
+        $foq = $this->forumQuestaoDAO->selectCompleta($keyword);
 		return $foq;
-        }
+    }
             
 
-                public function selectAll()
+    public function selectAll()
 	{
 		$foq = $this->forumQuestaoDAO->selectFull();
 		return $foq;
 	}
+
 	public function selectUltimas($qtd)
 	{
 		$foq = $this->forumQuestaoDAO->selectUltimas($qtd);
 		return $foq;
 	}
 
-	public function selectPendentes()
+	public function selectPendentes($idesc)
 	{
-		$foq = $this->forumQuestaoDAO->selectPendentes();
+		$foq = $this->forumQuestaoDAO->selectPendentes($idesc);
 		return $foq;
 	}
         
-        public function selectAprovadas()
-        {
-            $frq = $this->forumQuestaoDAO->selectAprovadas();
-            return $frq;
-        }
-        
-        public function selectByTopico($idfrt)
-        {
-            $frq = $this->forumQuestaoDAO->selectByTopico($idfrt);
-            return $frq;
-        }
-        
-        public function selectAutorByQuestao($idquestao)
-        {
-            $usr = $this->forumQuestaoDAO->selectAutorByQuestao($idquestao);
-            return $usr;
-        }
+	public function selectAllAprovadas()
+    {
+        $frq = $this->forumQuestaoDAO->selectAllAprovadas();
+        return $frq;
+    }
+
+    public function selectAprovadasByEscola($idesc)
+    {
+        $frq = $this->forumQuestaoDAO->selectAprovadasByEscola($idesc);
+        return $frq;
+    }
+    
+    public function selectByTopico($idfrt)
+    {
+        $frq = $this->forumQuestaoDAO->selectByTopico($idfrt);
+        return $frq;
+    }
+    
+    public function selectAutorByQuestao($idquestao)
+    {
+        $usr = $this->forumQuestaoDAO->selectAutorByQuestao($idquestao);
+        return $usr;
+    }
 
     public function incrementarVisualizacoes($idfrq)
     {
