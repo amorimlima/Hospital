@@ -233,17 +233,6 @@ class ExercicioDAO extends DAO{
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
-    public function countExerciciosAlunoCompletos($idAluno)
-    {
-        $sql = 'SELECT COUNT( * ) 
-                FROM exercicio ex
-                WHERE ex.exe_id IN (
-                    SELECT DISTINCT rgc_exercicio FROM registro_acesso ra
-                    WHERE ra.rgc_usuario ='.$idAluno.' 
-                    AND ra.rgc_inicio < ra.rgc_fim)';
-        return $this->retrieve($sql)->fetch_row()[0];
-    }
-
     public function exerciciosCompletosUsuario($par, $usuario)
     {
         $sql = "SELECT COUNT(*) FROM exercicio ex";
@@ -259,16 +248,56 @@ class ExercicioDAO extends DAO{
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
+    public function exerciciosCompletosProfessor($par, $usuario)
+    {
+
+        $sql = "SELECT DISTINCT ex.exe_id, ra.rgc_usuario FROM registro_acesso ra";
+        $join = " JOIN usuario_variavel uv ON uv.usv_usuario = ra.rgc_usuario";
+        $join .= " JOIN exercicio ex ON ex.exe_id = ra.rgc_exercicio";
+        $join .= " JOIN liberar_capitulo lc on lc.lbr_capitulo = ex.exe_capitulo AND lc.lbr_livro = ex.exe_serie";
+        $join .= " JOIN grupo g ON g.grp_id = uv.usv_grupo";
+        $where = " WHERE g.grp_professor = ".$usuario['id'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND ex.exe_capitulo = ".$par['capitulo'];
+        if ($par['livro'] != 0)
+            $where .= " AND ex.exe_serie = ".$par['livro'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+
+        return mysqli_num_rows($return);
+    }
+
     public function exerciciosTotaisUsuario($par, $usuario)
     {
         $sql = "SELECT COUNT(*) FROM exercicio ex";
         $join = " JOIN liberar_capitulo lc ON ex.exe_serie = lc.lbr_livro AND ex.exe_capitulo = lc.lbr_capitulo";
-        $where = " WHERE lc.lbr_escola = ".$usuario['serie']." AND ex.exe_serie = ".$usuario['serie'];
+        $where = " WHERE (ex.exe_tipo = 1 OR ex.exe_tipo = 3) AND lc.lbr_escola = ".$usuario['escola']." AND ex.exe_serie = ".$usuario['serie'];
         if ($par['capitulo'] != 0)
             $where .= " AND ex.exe_capitulo = ".$par['capitulo'];
-
         $sql = $sql.$join.$where;
 
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function exerciciosTotaisProfessor($par, $usuario)
+    {
+        $sql = "SELECT COUNT(*) FROM exercicio ex";
+        $join = " JOIN liberar_capitulo lc ON ex.exe_serie = lc.lbr_livro AND ex.exe_capitulo = lc.lbr_capitulo";
+        $join .= " JOIN grupo g ON lc.lbr_escola = g.grp_escola";
+        $join .= " JOIN usuario us ON us.usr_escola = lc.lbr_escola";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id";
+        $where = " WHERE (ex.exe_tipo = 1 OR ex.exe_tipo = 3) AND g.grp_professor = ".$usuario['id']." AND lc.lbr_livro = uv.usv_serie AND uv.usv_grupo = g.grp_id";
+        if ($par['livro'] != 0)
+            $where .= " AND ex.exe_serie = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND ex.exe_capitulo = ".$par['capitulo'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+        $sql = $sql.$join.$where;
         return $this->retrieve($sql)->fetch_row()[0];
     }
 

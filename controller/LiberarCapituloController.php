@@ -65,11 +65,5 @@ class LiberarCapituloController {
 		$lib = $this->liberarCapituloDAO->selectCapByEscola($idescola);
 		return $lib;
 	}
-
-	public function listaLivrosProfessor($idProfessor)
-	{
-		$livros = $this->liberarCapituloDAO->listaLivrosProfessor($idProfessor);
-		return $livros;
-	}
 }
 ?>

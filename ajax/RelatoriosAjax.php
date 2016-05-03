@@ -26,24 +26,6 @@ switch ($_REQUEST["acao"]) {
 		$usuarioController = new UsuarioController();
 		$usuarioController->adicionarAlunosGrupo($grupo['id'], $_REQUEST['alunos']);
 		break;
-
-	case "listarEscolas":
-		$escolaController = new EscolaController();
-		$escolas = $escolaController->selectAtivas();
-		$listaEscolas = Array();
-
-		if (count($escolas) > 0) {
-			foreach ($escolas as $key => $esc) {
-				$escola = Array(
-					"id" 	=> utf8_encode($esc->getEsc_id()),
-					"nome" 	=> utf8_encode($esc->getEsc_nome())
-				);
-				array_push($listaEscolas, $escola);
-			}
-		}
-
-		print json_encode($listaEscolas);
-	break;
 	
 	case "escolaPorId":
 		$escolaController = new EscolaController();
@@ -77,57 +59,6 @@ switch ($_REQUEST["acao"]) {
 		print json_encode($retorno);
 	break;
 
-	case "professoresPorEscola":
-		$usuarioController = new UsuarioController();
-		$idEscola = $_REQUEST["id"];
-		$professores = $usuarioController->selectProfessorByEscola($idEscola);
-		$retorno = Array();
-
-		if (count($professores) > 0) {
-			foreach ($professores as $key => $prof) {
-				$professor = Array(
-					"id" 					=> utf8_encode($prof->getUsr_id()),
-					"nome" 					=> utf8_encode($prof->getUsr_nome()),
-					"data_nascimento" 		=> utf8_encode($prof->getUsr_data_nascimento()),
-					"escola" 				=> Array(
-						"id" 					=> utf8_encode($prof->getUsr_escola()->getEsc_id()),
-						"nome"					=> utf8_encode($prof->getUsr_escola()->getEsc_nome()),
-						"razao_social"			=> utf8_encode($prof->getUsr_escola()->getEsc_razao_social())
-					),
-					"data_entrada_escola"	=> utf8_encode($prof->getUsr_data_entrada_escola()),
-					"rg" 					=> utf8_encode($prof->getUsr_rg()),
-					"cpf" 					=> utf8_encode($prof->getUsr_cpf()),
-					"login" 				=> utf8_encode($prof->getUsr_login()),
-					"imagem" 				=> $path["arquivos"].utf8_encode($prof->getUsr_imagem()),
-					"nse" 					=> utf8_encode($prof->getUsr_nse()),
-					"endereco" 				=> Array(
-						"logradouro" 			=> utf8_encode($prof->getUsr_endereco()->getend_logradouro()),
-						"numero" 				=> utf8_encode($prof->getUsr_endereco()->getend_numero()),
-						"complemento" 			=> utf8_encode($prof->getUsr_endereco()->getend_complemento()),
-						"bairro" 				=> utf8_encode($prof->getUsr_endereco()->getend_bairro()),
-						"cep" 					=> utf8_encode($prof->getUsr_endereco()->getend_cep()),
-						"cidade" 				=> utf8_encode($prof->getUsr_endereco()->getend_cidade()),
-						"uf" 					=> utf8_encode($prof->getUsr_endereco()->getend_uf()),
-						"pais" 					=> utf8_encode($prof->getUsr_endereco()->getend_pais()),
-						"tel_residencial" 		=> utf8_encode($prof->getUsr_endereco()->getend_telefone_residencial()),
-						"tel_comercial" 		=> utf8_encode($prof->getUsr_endereco()->getend_telefone_comercial()),
-						"tel_celular" 			=> utf8_encode($prof->getUsr_endereco()->getend_telefone_celular()),
-						"email" 				=> utf8_encode($prof->getUsr_endereco()->getend_email())
-					),
-					"perfil" 				=> Array(
-						"id" 					=>utf8_encode($prof->getUsr_perfil()->getPrf_id()),
-						"perfil" 				=>utf8_encode($prof->getUsr_perfil()->getPrf_perfil()),
-						"url" 					=>utf8_encode($prof->getUsr_perfil()->getPrf_url()),
-						"pagina" 				=>utf8_encode($prof->getUsr_perfil()->getPrf_pagina())
-					)
-				);
-				array_push($retorno, $professor);
-			}
-		}
-
-		print_r(json_encode($retorno));
-	break;
-
 	case "usuarioPorId":
 		$usuarioController = new UsuarioController();
 		$idUsuario = $_REQUEST["id"];
@@ -153,89 +84,18 @@ switch ($_REQUEST["acao"]) {
 		print json_encode($retorno);
 	break;
 
-	case 'graficoGaleria':
-		$user = unserialize($_SESSION['USR']);
-		$templateRelatorio = new TemplateRelatorio();
-		switch ($user['perfil_id']) {
-			case 2:
-				$templateRelatorio->relatorioProfessor($user['id']);
-				break;
-			
-			case 4:
-				$templateRelatorio->relatorioEscola($user['escola']);
-				break;
-
-			case 3:
-				$templateRelatorio->relatorioNEC();
-				break;
-		}
-		break;
-
-	case 'graficoExercicios':
-		$user = unserialize($_SESSION['USR']);
-		$templateRelatorio = new TemplateRelatorio();
-		switch ($user['perfil_id']) {
-			case 2:
-				$templateRelatorio->exerciciosProfessor();
-				break;
-			
-			case 4:
-				$templateRelatorio->exerciciosEscola();
-				break;
-
-			case 3:
-				$templateRelatorio->exerciciosNEC();
-				break;
-		}
-		break;
-
-	case 'graficoEscola':
-		$templateRelatorio = new TemplateRelatorio();
-		if ($_REQUEST['tipoGrafico'] == 'graficoGaleria'){
-			$templateRelatorio->relatorioEscola($_REQUEST['idEscola']);
-		}
-		else if ($_REQUEST['tipoGrafico'] == 'graficoExercicios'){
-			$templateRelatorio->exerciciosEscola($_REQUEST['idEscola']);
-		}
-		break;
-
-	case 'graficoProfessor':
-		$templateRelatorio = new TemplateRelatorio();
-		if($_REQUEST['tipoGrafico'] == 'graficoGaleria'){
-			$templateRelatorio->relatorioProfessor($_REQUEST['idProfessor']);
-		}
-		else if ($_REQUEST['tipoGrafico'] == 'graficoExercicios'){
-			$templateRelatorio->exerciciosProfessor($_REQUEST['idProfessor']);
-		}
-		break;
-
-	case 'galeriaHospital';
-		$templateRelatorio = new TemplateRelatorio();
-		$templateRelatorio->relatorioNEC();
-		break;
-
-	case 'galeriaEscola':
-		$templateRelatorio = new TemplateRelatorio();
-		$templateRelatorio->relatorioEscola($_REQUEST['idEscola']);
-		break;
-
-	case 'galeriaProfessor':
-		$templateRelatorio = new TemplateRelatorio();
-		$templateRelatorio->relatorioProfessor($_REQUEST['idProfessor']);
-		break;
-
 	case 'carregaGrafico':
 		$templateRelatorio = new TemplateRelatorio();
 		$templateRelatorio->carregaGrafico($_REQUEST);
 	break;
 
-	case 'carregarFiltros':
+	case 'carregaFiltro':
 		$templateRelatorio = new TemplateRelatorio();
-		$templateRelatorio->carregaFiltros($_REQUEST);
+		$templateRelatorio->carregaFiltro($_REQUEST);
 	break;
 	
 	default:
-		$result = Array("erro"=>true, "mensagem"=>"Parametro 'acao' invalido.");
+		$result = Array("erro"=>true, "mensagem"=>"Parametro 'acao' invalido.", "acao" => $_REQUEST['acao']);
 		print json_encode($result);
 	break;
 }

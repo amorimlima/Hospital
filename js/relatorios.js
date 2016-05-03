@@ -4,7 +4,10 @@ $(document).ready(function() {
 	gerarPickerTipoGrafico();
 	atribuirBarrasRolagem();
 	menuAtribuirCapitulo();
-	carregarGrafico();
+	var data = getDadosUsuario();
+	carregarGrafico(data);
+	carregarTodosFiltros(data);
+	filtrosChange();
 	botoesGrupo();
 	$('.botao_modal').click(function(){
         hideModal();
@@ -44,7 +47,7 @@ function toggleGrafico(item)
 		$(".tipo_grafico_picker_opcoes").children("div").not(item).removeClass("option_selected");
 		$(item).addClass("option_selected");
 		$("#tipo_grafico_picker").html(texto);
-		carregarGrafico();
+		carregarGrafico(getDadosUsuario());
 	}
 	
 };
@@ -80,23 +83,70 @@ function voltarGrafico()
 						viewEscola(escola);
 					}
 				});
-				carregarGrafico();
+				carregarGrafico(getDadosUsuario());
 			}
 			else
 			{
 				$('#box_perfil_selected').remove();
-				carregarGrafico();
+				carregarGrafico(getDadosUsuario());
 			}
 		}
 	});
 }
 
-function carregarGrafico () {
+function filtrosChange () {
+
+	$(".filtrosSelect").change(function() {
+		carregarGrafico(getDadosUsuario());
+
+		var data = getDadosUsuario();
+		$(".filtrosSelect").not(this).each(function() {
+			carregaFiltro(data, this);
+		});
+	});
+}
+
+function carregarGrafico (data) {
 	$('.lista_itens_grafico').html("Carregando...");
-	var livro = $('#filtroLivro').val();
-	var capitulo = $('#filtroCapitulo').val();
-	var sala = $('#filtroSala').val();
-	var grafico = $('.option_selected ').attr('id');
+	data.acao = "carregaGrafico";
+	data.grafico = $('.option_selected ').attr('id');
+	$.ajax({
+		url: 'ajax/RelatoriosAjax.php',
+		type: 'GET',
+		data: data,
+		success: function(dados) {
+			$('.lista_itens_grafico').html(dados);
+		}
+	});
+}
+
+function carregaFiltro(data, filtro) {
+	var valor = $(filtro).val();
+	$(filtro).html("<option>Carregando...</option>");
+	data.filtro = filtro.id
+	data.acao = "carregaFiltro";
+	$.ajax({
+		url: "ajax/RelatoriosAjax.php",
+		type: "GET",
+		data: data,
+		success: function(d) {
+			console.log(d);
+			$(filtro).html(d);
+		},
+		complete: function() {
+			if (valor != null)
+				$(filtro).val(valor);
+		}
+	});
+}
+
+function carregarTodosFiltros(data) {
+	$('.filtrosSelect').each(function() {
+		carregaFiltro(data, this);
+	})
+}
+
+function getDadosUsuario () {
 	var perfil;
 	var id;
 	if ($('#box_perfil_selected').length > 0){
@@ -119,22 +169,22 @@ function carregarGrafico () {
 		else
 			id = usuario.escola;
 	}
-		
-		
-	$.ajax({
-		url: 'ajax/RelatoriosAjax.php',
-		type: 'GET',
-		data: {	'acao' 		: 'carregaGrafico',
-				'livro' 	: livro,
-				'capitulo'	: capitulo,
-				'sala'		: sala,
-				'grafico'	: grafico,
-				'perfil'	: perfil,
-				'id'		: id},
-		success: function(dados) {
-			$('.lista_itens_grafico').html(dados);
-		}
-	});
+	var data = {
+		'livro' : $('#filtroLivro').val(),
+		'capitulo' : $('#filtroCapitulo').val(),
+		'sala' : $('#filtroSala').val(),
+		'perfil' : perfil,
+		'id' : id,
+	};
+
+	if (data.livro == null)
+		data.livro = 0;
+	if (data.capitulo == null)
+		data.capitulo = 0;
+	if (data.sala == null)
+		data.sala = 0;
+
+	return data;
 }
 
 function viewEscola(escola)
@@ -192,7 +242,7 @@ function professorGetById(idProfessor) {
 		dataType: "json",
 		success: function(d) {
 			viewProfessorSelected(d);
-			carregarGrafico();
+			carregarGrafico(getDadosUsuario());
 		}		
 	});
 }

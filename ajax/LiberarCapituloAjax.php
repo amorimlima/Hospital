@@ -51,7 +51,7 @@ switch ($_REQUEST["acao"]) {
 	case "listar":
 		$idEscola = $_REQUEST["id"];
 		$liberarCapituloController = new LiberarCapituloController();
-		$capitulos = $liberarCapituloController->selectByIdEscola($idEscola);
+		$capitulos = $liberarCapituloController->selectCapLiberadoByIdEscola($idEscola);
 		$result = Array();
 
 		foreach ($capitulos as $key => $cap) {

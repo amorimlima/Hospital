@@ -159,17 +159,32 @@ class LiberarCapituloDAO extends DAO{
         return $lista;
     }
 
-    public function listaLivrosProfessor($idProfessor)
+    public function listaLivrosEscola($par)
     {
-        $sql  = "SELECT DISTINCT lbr_livro FROM liberar_capitulo lc ";
-        $sql .= "JOIN grupo g ON g.grp_serie = lc.lbr_livro AND g.grp_escola = lc.lbr_escola ";
-        $sql .= "WHERE g.grp_professor = ".$idProfessor;
-        $sql .= " ORDER BY lc.lbr_livro ASC";
+        $sql = "SELECT DISTINCT lbr_livro FROM liberar_capitulo lc";
+        $join = "";
+        $where = " WHERE lc.lbr_escola = ".$par['id'];
+        $order = " ORDER BY lc.lbr_livro ASC";
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+        if ($par['sala'] != 0){
+            $join .= " JOIN grupo g ON g.grp_escola = lc.lbr_escola";
+            $where .= " AND g.grp_id = ".$par['sala'];
+        }
+
+        $sql = $sql.$join.$where.$order;
+
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
-            array_push($lista,$qr["lbr_livro"]);
+            $lbc = array(
+                "id" => $qr["lbr_livro"],
+                "nome" => utf8_decode($qr["lbr_livro"]."º Ano")
+                );
+
+            array_push($lista,$lbc);
         };
+
         return $lista;
     }
 
@@ -188,7 +203,41 @@ class LiberarCapituloDAO extends DAO{
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
-            array_push($lista,$qr["lbr_capitulo"]);
+            $lbc = array(
+                "id" => $qr["lbr_capitulo"],
+                "nome" => utf8_decode($qr["lbr_capitulo"]."º Capítulo")
+                );
+
+            array_push($lista,$lbc);
+        };
+
+        return $lista;
+    }
+
+    public function listaCapitulosEscola($par)
+    {
+        $sql  = "SELECT DISTINCT lbr_capitulo FROM liberar_capitulo lc";
+        $join = "";
+        $where = " WHERE lc.lbr_escola = ".$par['id'];
+        $order = " ORDER BY lc.lbr_capitulo ASC";
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['sala'] != 0){
+            $join .= " JOIN grupo g ON g.grp_escola = lc.lbr_escola";
+            $where .= " AND g.grp_id = ".$par['sala'];
+        }
+
+        $sql = $sql.$join.$where.$order;
+
+        $lista = array();
+        $result = $this->retrieve($sql);
+        while ($qr = mysqli_fetch_array($result)){
+            $lbc = array(
+                "id" => $qr["lbr_capitulo"],
+                "nome" => utf8_decode($qr["lbr_capitulo"]."º Capítulo")
+                );
+
+            array_push($lista,$lbc);
         };
         return $lista;
     }

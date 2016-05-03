@@ -100,6 +100,26 @@ class RespostaMultiplaDAO extends DAO{
         return $this->retrieve($sql)->fetch_row()[0];
      }
 
+     public function countRespostasProfessor($par, $usuario)
+     {
+        $sql = 'SELECT COUNT(*) FROM resposta_multipla rm';
+        $join = " JOIN usuario_variavel uv ON uv.usv_usuario = rm.rspm_usuario
+                  JOIN exercicio ex ON ex.exe_id = rm.rspm_exercicio
+                  JOIN liberar_capitulo lc on lc.lbr_capitulo = ex.exe_capitulo AND lc.lbr_livro = ex.exe_serie
+                  JOIN grupo g ON g.grp_id = uv.usv_grupo";
+        $where = ' WHERE g.grp_professor = '.$usuario['id'];
+        if ($par['capitulo'] != 0)
+            $where .= ' AND ex.exe_capitulo = '.$par['capitulo'];
+        if ($par['livro'] != 0)
+            $where .= " AND ex.exe_serie = ".$par['livro'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+        
+        $sql = $sql.$join.$where;
+
+        return $this->retrieve($sql)->fetch_row()[0];
+     }
+
      public function countRespostasCorretasUsuario($par, $usuario)
      {
         $sql = 'SELECT COUNT(*) FROM resposta_multipla rm';
@@ -116,9 +136,50 @@ class RespostaMultiplaDAO extends DAO{
         return $this->retrieve($sql)->fetch_row()[0];
      }
 
+     public function countRespostasCorretasProfessor($par, $usuario)
+     {
+        $sql = 'SELECT COUNT(*) FROM resposta_multipla rm';
+        $join = " JOIN usuario_variavel uv ON uv.usv_usuario = rm.rspm_usuario
+                  JOIN exercicio ex ON ex.exe_id = rm.rspm_exercicio
+                  JOIN liberar_capitulo lc on lc.lbr_capitulo = ex.exe_capitulo AND lc.lbr_livro = ex.exe_serie
+                  JOIN grupo g ON g.grp_id = uv.usv_grupo
+                  JOIN gabarito gb ON gb.gbt_exercicio = rm.rspm_exercicio AND gb.gbt_questao = rm.rspm_questao";
+        $where = ' WHERE g.grp_professor = '.$usuario['id']." AND rm.rspm_resposta = gb.gbt_resposta";
+        if ($par['capitulo'] != 0)
+            $where .= ' AND ex.exe_capitulo = '.$par['capitulo'];
+        if ($par['livro'] != 0)
+            $where .= " AND ex.exe_serie = ".$par['livro'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+        
+        $sql = $sql.$join.$where;
+
+        return $this->retrieve($sql)->fetch_row()[0];
+     }
+
+     public function multiplaTotaisProfessor($par, $usuario)
+     {
+        $sql = "SELECT COUNT(*) FROM gabarito gb";
+        $join = " JOIN exercicio ex ON ex.exe_id = gb.gbt_exercicio
+                  JOIN liberar_capitulo lc ON lc.lbr_livro = ex.exe_serie AND lc.lbr_capitulo = ex.exe_capitulo
+                  JOIN grupo g ON g.grp_escola = lc.lbr_escola AND g.grp_serie = lc.lbr_livro
+                  JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
+        $where = " WHERE g.grp_professor = ".$usuario['id'];
+        if ($par['capitulo'] != 0)
+            $where .= ' AND ex.exe_capitulo = '.$par['capitulo'];
+        if ($par['livro'] != 0)
+            $where .= " AND ex.exe_serie = ".$par['livro'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+
+        $sql = $sql.$join.$where;
+
+        return $this->retrieve($sql)->fetch_row()[0];
+     }
+
      public function multiplaTotaisUsuario($par, $usuario)
      {
-        $sql = "SELECT * FROM gabarito gb";
+        $sql = "SELECT COUNT(*) FROM gabarito gb";
         $join = " JOIN exercicio ex ON ex.exe_id = gb.gbt_exercicio";
         $join .= " JOIN liberar_capitulo lc ON lc.lbr_livro = ex.exe_serie AND lc.lbr_capitulo = ex.exe_serie";
         $where = " WHERE lc.lbr_escola = ".$usuario['escola']." AND ex.exe_serie = ".$usuario['serie'];

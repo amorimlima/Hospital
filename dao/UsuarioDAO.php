@@ -659,6 +659,8 @@ class UsuarioDAO extends DAO{
             $where .= " AND g.grp_serie = ".$par['livro'];
         }
         if ($par['capitulo'] != 0){
+            if ($par['livro'] == 0)
+                $join .= " JOIN grupo g ON g.grp_professor = us.usr_id";
             $join .= " JOIN liberar_capitulo lc ON lc.lbr_escola = us.usr_escola AND lc.lbr_livro = g.grp_serie";
             $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
         }

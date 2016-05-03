@@ -29,15 +29,6 @@ $escolas = $escolaController->selectAll();
 
 $logado = unserialize($_SESSION['USR']);
 
-$par = array(
-	"perfil"	=> $logado['perfil_id'],
-	"livro"		=> 0,
-	"capitulo"	=> 0,
-	"serie"		=> 0,
-	"grafico"	=> "graficoGaleria",
-	"id"		=> $logado['perfil_id'] == 4? $logado['escola'] : $logado['id']
-	);
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -80,7 +71,7 @@ $par = array(
                         	<div class="row">
                         		<div class="col-sm-12 col-md-9">
                         			<span class="header"></span>
-									<div id="conteudoPrincipal" class="conteudo_principal">
+									<div id="conteudoPrincipal" class="conteudo_principal" style="display: block">
 										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
 											<div id="graficoGaleria" class="option_selected opcoes_graficos">Acessos e Downloads na Galeria (em %)</div>
@@ -175,15 +166,15 @@ $par = array(
 											<h2>Gerar relatório</h2>
 											<label for="filtroLivro">Livro</label>
 											<select id="filtroLivro" class="filtrosSelect">
-												<?php $templateRelatorio->getLivros($par); ?>
+												<?php //$templateRelatorio->getLivros($par); ?>
 											</select>
 											<label for="filtroCapitulo">Capítulo</label>
 											<select id="filtroCapitulo" class="filtrosSelect">
-												<?php $templateRelatorio->getCapitulos($par); ?>
+												<?php //$templateRelatorio->getCapitulos($par); ?>
 											</select>
 											<label for="filtroSala">Sala</label>
 											<select id="filtroSala" class="filtrosSelect">
-												<?php $templateRelatorio->getSalas($par); ?>
+												<?php //$templateRelatorio->getSalas($par); ?>
 											</select>
 										</div>
 										<div class="legenda_grafico">
@@ -254,6 +245,7 @@ $par = array(
     <script src="js/funcoes.js"></script>
 	<script src="js/cadastro.js"></script>
 	<script src="js/relatorios.js"></script>
+	<script src="js/liberarCapitulos.js"></script>
 	<script src="js/goMobileUpload.js"></script>
     
     
