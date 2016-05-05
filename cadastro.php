@@ -24,8 +24,8 @@ $serieController = new SerieController();
 $AdmController = new AdministracaoController();
 $tipoEscolaController = new TipoEscolaController();
 $anoController = new AnoLetivoController();
-//$grauInstController = new GrauInstrucaoController();
-//$categoriaController = new CategoriaFuncionalController();
+$grauInstController = new GrauInstrucaoController();
+$categoriaController = new CategoriaFuncionalController();
 $periodoController = new PeriodoController();
 
 $escolas = $escolaController->selectAll();
@@ -35,8 +35,8 @@ $serie = $serieController->selectAll();
 $adms = $AdmController->selectAll();
 $tiposEscola = $tipoEscolaController->selectAll();
 $anos = $anoController->selectAll();
-//$graus = $grauInstController->selectAll();
-//$cats = $categoriaController->selectAll();
+$graus = $grauInstController->selectAll();
+$cats = $categoriaController->selectAll();
 //echo "<pre>";
 //print_r($cats);
 //echo "</pre>";
@@ -156,7 +156,7 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_m">
                                                             <label for="selectEscolaAluno" class="form_info info_m">Escola<span class="asterisco">*</span></label>
                                                             <span class="select_container">
-                                                                <select name="selectEscolaAluno" id="selectEscolaAluno" class="form_value form_select formAluno obrigatorioAluno" msgVazio="O campo escola é obrigatório" required onChange="listaProfessores()">
+                                                                <select name="selectEscolaAluno" id="selectEscolaAluno" class="form_value form_select formAluno obrigatorioAluno" msgVazio="O campo escola é obrigatório" required onChange="listaProfessores('')">
                                                                     <option value="" disabled selected>Selecione a escola</option>
                                                                     <?php
 																		echo $escolasHtml;
@@ -168,7 +168,7 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="selectSerieAluno" class="form_info info_p">Série<span class="asterisco">*</span></label>
                                                             <span class="select_container">
-                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_p formAluno obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores()">
+                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_p formAluno obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores('')">
                                                                     <option value="" disabled selected>Selecione a série</option>
                                                                     <?php
                                                                     	echo $serieHtml;
@@ -452,11 +452,6 @@ $logado = unserialize($_SESSION['USR']);
                                                                 </select>
                                                             </span>
                                                         </div>-->
-                                                        
-                                                        <!-- ATENÇÃO: Se for voltar os campos do grau de instrução e categoria funcional esses inputs hiddens devem ser retirados. -->
-                                                        <input type="hidden" value="" id="selectGrauProf">
-                                                        <input type="hidden" value="" id="selectCategoriaProf">
-                                                        
                                                         <div class="form_celula_p">
                                                             <label for="inputNascimentoProf" class="form_info info_p">Nascimento<span class="asterisco">*</span></label>
                                                             <span class="input_container">
@@ -553,7 +548,7 @@ $logado = unserialize($_SESSION['USR']);
                                                     </fieldset>
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Grupos</legend>
-                                                        <div class="form_celula_p divSeriePrincipal">
+                                                        <div class="form_celula_p">
                                                             <label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>
                                                             <span class="select_container">
                                                                 <select name="" id="inputSerieProf1" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">
@@ -562,7 +557,7 @@ $logado = unserialize($_SESSION['USR']);
                                                                 </select>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_p divPeriodoPrincipal">
+                                                        <div class="form_celula_p">
                                                             <label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>
                                                             <span class="select_container">
                                                                 <select name="" id="inputPeriodoProf1" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">
@@ -600,6 +595,7 @@ $logado = unserialize($_SESSION['USR']);
                                                         <input type="hidden" value="" id="idGrupoProfessor" class="formProf"/>
                                                         <input type="hidden" value="" id="idUsuarioVariavelProfessor" class="formProf"/>
                                                         <input type="hidden" value="" id="idEnderecoProfessor" class="formProf"/>
+                                                        <!-- <input type="hidden" value="" id="serieProf" class="formProf"/> -->
                                                         
                                                         <input type="reset" value="Limpar" class="form_btn btn_reset" />
                                                         <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroProfessor" />
@@ -759,9 +755,9 @@ $logado = unserialize($_SESSION['USR']);
                                                         </div>
                                                     </fieldset>
                                                     <div class="form_btns_container">
-                                                        <input type="hidden" value="" class="formEscola" id="idEscola" />
-                                                        <input type="hidden" value="" class="formEscola" id="idUsuarioEscola" />
-                                                        <input type="hidden" value="" class="formEscola" id="idEnderecoEscola" />
+                                                        <input type="hidden" value="" class="form_btn btn_submit" id="idEscola" />
+                                                        <input type="hidden" value="" class="form_btn btn_submit" id="idUsuarioEscola" />
+                                                        <input type="hidden" value="" class="form_btn btn_submit" id="idEnderecoEscola" />
                                                         
                                                         <input type="reset" value="Limpar" class="form_btn btn_reset" />
                                                         <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroEscola" />
@@ -828,12 +824,12 @@ $logado = unserialize($_SESSION['USR']);
 	</div>
 	<div id="mensagemSucessoCadastro" style="display:none" class='modalMensagem'>
 		<?php
-			$templateGeral->mensagemRetorno('mensagens','Cadastrado efetuado com sucesso!','sucesso');
+			$templateGeral->mensagemRetorno('mensagens','Cadastro efetuado com sucesso!','sucesso');
 		?>
 	</div>
 	<div id="mensagemSucessoEdicao" style="display:none" class='modalMensagem'>
 		<?php
-			$templateGeral->mensagemRetorno('mensagens','Cadastrado editado com sucesso!','sucesso');
+			$templateGeral->mensagemRetorno('mensagens','Cadastro editado com sucesso!','sucesso');
 		?>
 	</div>
 	<div id="mensagemErroCadastro" style="display:none" class='modalMensagem'>
