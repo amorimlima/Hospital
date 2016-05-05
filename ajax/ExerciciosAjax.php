@@ -1,3 +1,4 @@
+
 <?php
 
 require_once '../_loadPaths.inc.php';
@@ -60,8 +61,23 @@ switch ($_REQUEST["acao"]){
 				if($value['exe_tipo']==2){
 					$exercicioVerProntoMultipla = $exercicioController->selectExercicioProntoMultipla($value['exe_id'], $logado['id']);
 					$numQuestao = $exercicioController->selectCountExercicioNumQuestoes($value['exe_id']);
+					if($numQuestao == 0){
+						$verificaPrePos = $exercicioController->selecionaExePrePos($value['exe_id']);
+					}
+
+					// echo $value['exe_id'];
+					// print_r($verificaPrePos);
+					// echo "-----";
+					// print_r($exercicioVerProntoMultipla);
+					// echo "<br>";
 
 					if(($numQuestao != 0) && ($numQuestao == $exercicioVerProntoMultipla)){
+						$result = Array(
+							'id_exercicio'=>$value['exe_id'],
+							'nome_exercicio'=>utf8_encode($value['exe_nome']),
+							'completo'=> "S"
+						);
+					}else if($verificaPrePos>0 && $exercicioVerProntoMultipla>0){
 						$result = Array(
 							'id_exercicio'=>$value['exe_id'],
 							'nome_exercicio'=>utf8_encode($value['exe_nome']),
@@ -79,8 +95,18 @@ switch ($_REQUEST["acao"]){
 				if($value['exe_tipo']==4){
 					$exercicioVerProntoEscrita = $exercicioController->selectExercicioProntoEscrita($value['exe_id'], $logado['id']);
 					$numQuestao = $exercicioController->selectCountExercicioNumQuestoes($value['exe_id']);
+					
+					if($numQuestao == 0){
+						$verificaPrePos = $exercicioController->selecionaExePrePos($value['exe_id']);
+					}
 
 					if(($numQuestao != 0) && ($numQuestao == $exercicioVerProntoEscrita)){
+						$result = Array(
+							'id_exercicio'=>$value['exe_id'],
+							'nome_exercicio'=>utf8_encode($value['exe_nome']),
+							'completo'=> "S"
+						);
+					}else if($verificaPrePos>1 && $exercicioVerProntoMultipla>1){
 						$result = Array(
 							'id_exercicio'=>$value['exe_id'],
 							'nome_exercicio'=>utf8_encode($value['exe_nome']),

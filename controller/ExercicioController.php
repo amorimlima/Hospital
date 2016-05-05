@@ -158,7 +158,10 @@ class ExercicioController {
 		return $exercicios;
 	}
 
-
-
+	public function selecionaExePrePos($exercicio)
+	{
+		$exe = $this->exercicioDAO->selecionaExePrePos($exercicio);
+		return $exe;
+	}
 }
 ?>

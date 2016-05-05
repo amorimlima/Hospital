@@ -52,6 +52,7 @@ class RespostaMultiplaController {
 		$rem = $this->respostaMultiplaDAO->selectFull();
 		return $rem;
 	}
+
 	public function countCorretasAluno($idAluno)
 	{
 		$rem = $this->respostaMultiplaDAO->countCorretasAluno($idAluno);
@@ -84,9 +85,10 @@ class RespostaMultiplaController {
 		return $exercicios;
 	}
 
-	public function selectExeByAlunoM($idExercicio,$idUsuario,$questao)
+	public function selectAllQuestaoExeAluno($idExercicio,$idUsuario,$questao)
 	{
-		return $this->selectExeByAlunoM($idExercicio,$idUsuario,$questao);
-	}	
+		$rem = $this->respostaMultiplaDAO->selectQuestaoExByAluno($idExercicio,$idUsuario,$questao);
+		return $rem;
+	}
 }
 ?>

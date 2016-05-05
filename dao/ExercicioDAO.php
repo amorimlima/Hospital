@@ -126,6 +126,8 @@ class ExercicioDAO extends DAO{
             $sql .=" and ex.exe_capitulo = ".$capitulo;
         }
         $sql .= " order by ex.exe_ordem asc";
+
+        //echo $sql;
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){           
@@ -183,6 +185,7 @@ class ExercicioDAO extends DAO{
         $sql  = "select * from registro_acesso where rgc_exercicio=".$idExercicio." and rgc_usuario=".$idUsuario; 
         $result = $this->retrieve($sql);  
         $qr = mysqli_fetch_array($result);
+        //echo $sql;
 
         if(isset($qr['rgc_id'])){
             $registro = new ResgistroAcesso();
@@ -251,9 +254,13 @@ class ExercicioDAO extends DAO{
                     SELECT DISTINCT rgc_exercicio FROM registro_acesso ra
                     WHERE ra.rgc_usuario ='.$usuario['id'].' 
                     AND ra.rgc_inicio < ra.rgc_fim)';
+    }
 
-
-
+    function selecionaExePrePos($idExercicio){
+        $sql  = "select * from avaliacao where ava_exercicio=".$idExercicio;
+        $result = $this->retrieve($sql);
+        $qr = mysqli_num_rows($result);
+        return $qr;
     }
 
 }

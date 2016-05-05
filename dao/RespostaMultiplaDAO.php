@@ -90,12 +90,12 @@ class RespostaMultiplaDAO extends DAO{
         return $this->retrieve($sql)->fetch_row()[0];
      }
 
-    public function selectExeByAlunoM($idExercicio,$idUsuario,$questao)
+    public function selectQuestaoExByAluno($idExercicio,$idUsuario,$questao)
     {
         $sql = "select * from resposta_multipla where rspm_exercicio = ".$idExercicio." and rspm_usuario=".$idUsuario." and rspm_questao=".$questao;
         $result = $this->retrieve($sql);
         $qr = mysqli_num_rows($result);
         return $qr;
-    }    
+    } 
 }
 ?>
