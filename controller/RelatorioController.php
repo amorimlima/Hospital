@@ -13,6 +13,7 @@ require_once ($paths["dao"]."LiberarCapituloDAO.php");
 require_once ($paths["dao"]."GrupoDAO.php");
 require_once ($paths["dao"]."RespostaTxtDAO.php");
 require_once ($paths["dao"]."QuestaoDAO.php");
+require_once ($paths["dao"]."EscolaDAO.php");
 
 class RelatorioController {
 	
@@ -24,6 +25,7 @@ class RelatorioController {
 	private $grupoDAO;
 	private $respostaTextoDAO;
 	private $questaoDAO;
+	private $escolaDAO;
 	
 	public function __construct()
 	{
@@ -35,18 +37,19 @@ class RelatorioController {
 		$this->grupoDAO = new GrupoDAO(new DataAccess());
 		$this->respostaTextoDAO = new RespostaTxtDAO(new DataAccess());
 		$this->questaoDAO = new QuestaoDAO(new DataAccess());
+		$this->escolaDAO = new EscolaDAO(new DataAccess());
 	}
 
 	public function getListaVisualizacao($par)
 	{
-		if($par['perfil'] == 2){
-			$result = $this->usuarioDAO->buscarAlunosGrafico($par);
-			return $result;
-		}
-		else if($par['perfil'] == 4) {
-			$result = $this->usuarioDAO->buscarProfessoresGrafico($par);
-			return $result;
-		}
+		if($par['perfil'] == 2)
+			return $this->usuarioDAO->buscarAlunosGrafico($par);
+		
+		else if($par['perfil'] == 4)
+			return $this->usuarioDAO->buscarProfessoresGrafico($par);
+
+		else if($par['perfil'] == 3)
+			return $this->escolaDAO->buscarEscolasGrafico($par);
 	}
 
 	public function getBarrasUsuario($par, $usuario)
@@ -61,12 +64,14 @@ class RelatorioController {
 
 	public function barrasGaleria($par, $usuario)
 	{
-		if($par['perfil'] == 2){
+		if($par['perfil'] == 2)
 			return $this->galeriaProfessor($par, $usuario);
-		}
-		if($par['perfil'] == 4){
+		
+		else if($par['perfil'] == 4)
 			return $this->galeriaEscola($par, $usuario);
-		}
+
+		else if($par['perfil'] == 3)
+			return $this->galeriaHospital($par, $usuario);
 	}
 
 	public function galeriaProfessor($par, $usuario)
@@ -103,14 +108,32 @@ class RelatorioController {
 		return $result;
 	}
 
+	public function galeriaHospital($par, $usuario)
+	{
+		$acessosEscola = $this->registroGaleriaDAO->registroGaleriaCountAcessosEscola($usuario['id']);
+		$downloadsEscola = $this->registroGaleriaDAO->registroGaleriaCountDownloadEscola($usuario['id']);
+
+		$acessosTotais = $this->registroGaleriaDAO->registroGaleriaCountAcessos();
+		$downloadsTotais = $this->registroGaleriaDAO->registroGaleriaCountDownload();
+
+		$pctAcessos = $acessosTotais > 0? $acessosEscola/$acessosTotais : 0;
+		$pctDownloads = $downloadsTotais > 0? $downloadsEscola/$downloadsTotais : 0;
+		$result = array(
+			'barra1' => $pctAcessos,
+			'barra2' => $pctDownloads);
+		return $result;
+	}
+
 	public function barrasExercicios($par, $usuario)
 	{
-		if($par['perfil'] == 2){
+		if($par['perfil'] == 2)
 			return $this->exerciciosProfessor($par, $usuario);
-		}
-		if($par['perfil'] == 4){
+
+		else if($par['perfil'] == 4)
 			return $this->exerciciosEscola($par, $usuario);
-		}
+
+		else if($par['perfil'] == 3)
+			return $this->exerciciosHospital($par, $usuario);
 	}
 
 	public function exerciciosProfessor($par, $usuario)
@@ -159,6 +182,30 @@ class RelatorioController {
 		return $result;
 	}
 
+	public function exerciciosHospital($par, $usuario)
+	{
+		$exerciciosTempoEscola = $this->exercicioDAO->exerciciosCompletosEscola($par, $usuario);
+		$exerciciosTextoEscola = $this->respostaTextoDAO->countRespostasTextoEscola($par, $usuario);
+		$exerciciosMultiplaEscola = $this->respostaMultiplaDAO->countRespostasEscola($par, $usuario);
+		$exerciciosMultiplaCorretas = $this->respostaMultiplaDAO->countRespostasCorretasEscola($par, $usuario);
+
+		$exerciciosTempo = $this->exercicioDAO->exerciciosTotaisEscola($par, $usuario);
+		$exerciciosTexto = $this->questaoDAO->textoTotaisEscola($par, $usuario);
+		$exerciciosMultipla = $this->respostaMultiplaDAO->multiplaTotaisEscola($par, $usuario);
+
+		$exerciciosTotaisEscola =  $exerciciosTempoEscola + $exerciciosTextoEscola + $exerciciosMultiplaEscola;
+		$exerciciosTotais = $exerciciosTempo + $exerciciosTexto + $exerciciosMultipla;
+
+
+		$pctCompletos = $exerciciosTotais > 0? $exerciciosTotaisEscola / $exerciciosTotais : 0;
+		$pctCorretos = $exerciciosMultipla > 0? $exerciciosMultiplaCorretas / $exerciciosMultipla : 0;
+			
+		$result = array(
+			'barra1' => $pctCompletos,
+			'barra2' => $pctCorretos);
+		return $result;
+	}
+
 	public function getFiltros($par)
 	{
 		if ($par['filtro'] == "filtroLivro")
@@ -171,38 +218,40 @@ class RelatorioController {
 
 	public function getLivros($par)
 	{
-		if($par['perfil'] == 2){
+		if($par['perfil'] == 2)
 			return array();
-		}
-		else if($par['perfil'] == 4){
-			$result = $this->liberarCapituloDAO->listaLivrosEscola($par);
-			return $result;
-		}
+	
+		else if($par['perfil'] == 4)
+			return $this->liberarCapituloDAO->listaLivrosEscola($par);
+			
+		
+		else if($par['perfil'] == 3)
+			return $this->liberarCapituloDAO->listaLivrosHospital($par);
 	}
 
 	public function getCapitulos($par)
 	{
-		if ($par['perfil'] == 2){
-			$result = $this->liberarCapituloDAO->listaCapitulosProfessor($par);
-			return $result;
-		}
+		if ($par['perfil'] == 2)
+			return $this->liberarCapituloDAO->listaCapitulosProfessor($par);
 
-		else if ($par['perfil'] == 4){
-			$result = $this->liberarCapituloDAO->listaCapitulosEscola($par);
-			return $result;
-		}
+		else if ($par['perfil'] == 4)
+			return $this->liberarCapituloDAO->listaCapitulosEscola($par);
+		
+		else if ($par['perfil'] == 3)
+			return $this->liberarCapituloDAO->listaCapitulosHospital($par);
+
 	}
 
 	public function getSalas($par)
 	{
-		if ($par['perfil'] == 2){
-			$result = $this->grupoDAO->listaGruposProfessor($par);
-			return $result;
-		}
-		else if ($par['perfil'] == 4){
-			$result = $this->grupoDAO->listaGruposEscola($par);
-			return $result;
-		}
+		if ($par['perfil'] == 2)
+			return $this->grupoDAO->listaGruposProfessor($par);
+		
+		else if ($par['perfil'] == 4)
+			return $this->grupoDAO->listaGruposEscola($par);
+
+		else if ($par['perfil'] == 3)
+			return array();
 	}
 }
 

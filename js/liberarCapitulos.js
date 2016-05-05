@@ -57,7 +57,7 @@ function viewCapitulosLiberados(idEscola,capitulos)
 	htmlTable += '</div>';
 
 	$("#liberarCapituloContainer").html(htmlTable);
-	//showLiberarCapitulos();
+	showLiberarCapitulos();
 
 	for (var a in capitulos) {
 		$("[data-capitulo="+capitulos[a].capitulo+"]").each(function() {
@@ -76,6 +76,13 @@ function concluirLiberarCapitulos()
 	$("#conteudoPrincipal").show();
 	$("#liberarCapituloContainer").hide();
 	$("#liberarCapituloContainer").empty();
+};
+
+function showLiberarCapitulos()
+{
+	$("#liberarCapitulos").hide();
+	$("#conteudoPrincipal").hide();
+	$("#liberarCapituloContainer").show();
 };
 
 function toggleCapitulo(idEscola, cap, livro)

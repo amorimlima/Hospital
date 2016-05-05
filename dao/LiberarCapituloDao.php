@@ -188,6 +188,31 @@ class LiberarCapituloDAO extends DAO{
         return $lista;
     }
 
+    public function listaLivrosHospital($par)
+    {
+        $sql = "SELECT DISTINCT lbr_livro FROM liberar_capitulo lc";
+        $join = "";
+        $where = "";
+        $order = " ORDER BY lc.lbr_livro ASC";
+        if ($par['capitulo'] != 0)
+            $where .= " WHERE lc.lbr_capitulo = ".$par['capitulo'];
+
+        $sql = $sql.$join.$where.$order;
+
+        $lista = array();
+        $result = $this->retrieve($sql);
+        while ($qr = mysqli_fetch_array($result)){
+            $lbc = array(
+                "id" => $qr["lbr_livro"],
+                "nome" => utf8_decode($qr["lbr_livro"]."º Ano")
+                );
+
+            array_push($lista,$lbc);
+        };
+
+        return $lista;
+    }
+
     public function listaCapitulosProfessor($par)
     {
         $sql  = "SELECT DISTINCT lbr_capitulo FROM liberar_capitulo lc";
@@ -226,6 +251,30 @@ class LiberarCapituloDAO extends DAO{
             $join .= " JOIN grupo g ON g.grp_escola = lc.lbr_escola";
             $where .= " AND g.grp_id = ".$par['sala'];
         }
+
+        $sql = $sql.$join.$where.$order;
+
+        $lista = array();
+        $result = $this->retrieve($sql);
+        while ($qr = mysqli_fetch_array($result)){
+            $lbc = array(
+                "id" => $qr["lbr_capitulo"],
+                "nome" => utf8_decode($qr["lbr_capitulo"]."º Capítulo")
+                );
+
+            array_push($lista,$lbc);
+        };
+        return $lista;
+    }
+
+    public function listaCapitulosHospital($par)
+    {
+        $sql  = "SELECT DISTINCT lbr_capitulo FROM liberar_capitulo lc";
+        $join = "";
+        $where = "";
+        $order = " ORDER BY lc.lbr_capitulo ASC";
+        if ($par['livro'] != 0)
+            $where .= " WHERE lc.lbr_livro = ".$par['livro'];
 
         $sql = $sql.$join.$where.$order;
 

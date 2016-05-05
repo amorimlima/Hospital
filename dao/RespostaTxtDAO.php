@@ -122,5 +122,23 @@ class RespostaTxtDAO extends DAO{
 
         return $this->retrieve($sql)->fetch_row()[0];
     }
+
+    public function countRespostasTextoEscola($par, $usuario)
+    {
+        $sql = "SELECT COUNT(*) FROM resposta_txt rt";
+        $join = " JOIN usuario us ON us.usr_id = rt.rspt_usuario
+                  JOIN usuario_variavel uv ON uv.usv_usuario = rt.rspt_usuario
+                  JOIN exercicio ex ON ex.exe_id = rt.rspt_exercicio
+                  JOIN liberar_capitulo lc on lc.lbr_capitulo = ex.exe_capitulo AND lc.lbr_livro = ex.exe_serie AND us.usr_escola = lc.lbr_escola";
+        $where = " WHERE lc.lbr_escola = ".$usuario['id'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND ex.exe_capitulo = ".$par['capitulo'];
+        if ($par['livro'] != 0)
+            $where .= " AND ex.exe_serie = ".$par['livro'];
+            
+        $sql = $sql.$join.$where;
+
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
 }
 ?>

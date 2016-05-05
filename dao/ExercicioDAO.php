@@ -271,6 +271,27 @@ class ExercicioDAO extends DAO{
         return mysqli_num_rows($return);
     }
 
+    public function exerciciosCompletosEscola($par, $usuario)
+    {
+        $sql = "SELECT DISTINCT ex.exe_id, ra.rgc_usuario FROM registro_acesso ra";
+        $join = " JOIN usuario us ON us.usr_id = ra.rgc_usuario";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_usuario = ra.rgc_usuario";
+        $join .= " JOIN exercicio ex ON ex.exe_id = ra.rgc_exercicio";
+        $join .= " JOIN liberar_capitulo lc on lc.lbr_capitulo = ex.exe_capitulo AND lc.lbr_livro = ex.exe_serie AND us.usr_escola = lc.lbr_escola";
+        $where = " WHERE lc.lbr_escola = ".$usuario['id'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND ex.exe_capitulo = ".$par['capitulo'];
+        if ($par['livro'] != 0)
+            $where .= " AND ex.exe_serie = ".$par['livro'];
+            
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+
+        return mysqli_num_rows($return);
+    }
+
     public function exerciciosTotaisUsuario($par, $usuario)
     {
         $sql = "SELECT COUNT(*) FROM exercicio ex";
@@ -297,6 +318,21 @@ class ExercicioDAO extends DAO{
             $where .= " AND ex.exe_capitulo = ".$par['capitulo'];
         if ($par['sala'] != 0)
             $where .= " AND g.grp_id = ".$par['sala'];
+        $sql = $sql.$join.$where;
+        return $this->retrieve($sql)->fetch_row()[0];
+    }
+
+    public function exerciciosTotaisEscola($par, $usuario)
+    {
+        $sql = "SELECT COUNT(*) FROM exercicio ex";
+        $join = " JOIN liberar_capitulo lc ON ex.exe_serie = lc.lbr_livro AND ex.exe_capitulo = lc.lbr_capitulo";
+        $join .= " JOIN usuario us ON us.usr_escola = lc.lbr_escola";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id";
+        $where = " WHERE (ex.exe_tipo = 1 OR ex.exe_tipo = 3) AND us.usr_escola = ".$usuario['id']." AND lc.lbr_livro = uv.usv_serie AND us.usr_escola = lc.lbr_escola";
+        if ($par['livro'] != 0)
+            $where .= " AND ex.exe_serie = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND ex.exe_capitulo = ".$par['capitulo'];
         $sql = $sql.$join.$where;
         return $this->retrieve($sql)->fetch_row()[0];
     }

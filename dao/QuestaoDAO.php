@@ -104,11 +104,31 @@ class QuestaoDAO extends DAO{
                   JOIN grupo g ON g.grp_escola = lc.lbr_escola AND g.grp_serie = lc.lbr_livro
                   JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
         $where = " WHERE g.grp_professor = ".$usuario['id'];
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+
+        $sql = $sql.$join.$where;
+
+        return $this->retrieve($sql)->fetch_row()[0];
+     }
+
+     public function textoTotaisEscola($par, $usuario)
+     {
+        $sql = "SELECT COUNT(*) FROM questao q";
+        $join = " JOIN exercicio ex ON ex.exe_id = q.qst_exercicio
+                  JOIN liberar_capitulo lc ON lc.lbr_livro = ex.exe_serie AND lc.lbr_capitulo = ex.exe_capitulo
+                  JOIN usuario us ON us.usr_escola = lc.lbr_escola
+                  JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id";
+        $where = " WHERE us.usr_escola = ".$usuario['id']."  AND uv.usv_serie = ex.exe_serie AND us.usr_perfil = 1";
         if ($par['capitulo'] != 0)
             $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
 
         $sql = $sql.$join.$where;
-
+        
         return $this->retrieve($sql)->fetch_row()[0];
      }
 }

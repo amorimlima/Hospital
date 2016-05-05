@@ -12,6 +12,7 @@ $(document).ready(function() {
 	$('.botao_modal').click(function(){
         hideModal();
     });
+    voltarGrafico();
 });
 
 function gerarPickerTipoGrafico() {
@@ -232,7 +233,28 @@ function viewProfessorSelected(professor)
 	$('#editar_grupos').click(function() {
 		abrirEdicaoGrupo(professor.id);
 	});
-};
+}
+
+function viewEscolaSelected(escola)
+{
+	var htmlEscSelected = "";
+	$("#box_perfil_selected").remove();
+
+	htmlEscSelected +=	'<div id="box_perfil_selected" class="box_perfil_selected ficha_dados">';
+	htmlEscSelected +=		'<div class="foto_perfil_selected"></div>';
+	htmlEscSelected +=		'<div class="info_perfil_selected">';
+	htmlEscSelected += 		'<input type="hidden" id="escola_id" id_escola="'+escola.id+'"/>';
+	htmlEscSelected +=			'<div class="nome_perfil_selected">'+escola.nome+'</div>';
+	htmlEscSelected +=			'<div class="razaoSocial_perfil_selected">Razão social: '+escola.razao_social+'</div>';
+	htmlEscSelected += 			'<div class="dados_perfil_selected">Tipo: '+escola.tipo_escola+' | Administração: '+escola.administracao+'</div>';
+	htmlEscSelected +=			'<div class="dados_perfil_selected">Cidade: '+escola.endereco.cidade+' | Estado: '+escola.endereco.uf+' | Site: '+escola.site+'</div>';
+	htmlEscSelected +=			'<div class="dados_perfil_selected">Diretor: '+escola.diretor.nome+' | E-mail: '+escola.diretor.email+'</div>';
+	htmlEscSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span class="lib_cap" id="lib_cap_'+escola.id+'" onclick="getCapitulosByEscola('+escola.id+')">Liberar capítulos</span></div>';
+	htmlEscSelected +=		'</div>';
+	htmlEscSelected +=	'</div>';
+
+	$(".tipo_grafico_picker_opcoes").after(htmlEscSelected);
+}
 
 function professorGetById(idProfessor) {
 	$.ajax({
@@ -242,6 +264,19 @@ function professorGetById(idProfessor) {
 		dataType: "json",
 		success: function(d) {
 			viewProfessorSelected(d);
+			carregarGrafico(getDadosUsuario());
+		}		
+	});
+}
+
+function escolaGetById(idEscola) {
+	$.ajax({
+		url: "ajax/RelatoriosAjax.php",
+		type: "GET",
+		data: "acao=escolaPorId&id="+idEscola,
+		dataType: "json",
+		success: function(d) {
+			viewEscolaSelected(d);
 			carregarGrafico(getDadosUsuario());
 		}		
 	});
