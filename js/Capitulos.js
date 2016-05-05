@@ -13,25 +13,9 @@ $(document).ready(function (){
 		capitulo = parseInt(url.split("&")[1].split("=")[1]);
 	}
 
-	// $('.tema').click(function(){	
-		
-	// 	var idTema = $(this).attr('url');
-	// 	$('#objeto').attr('src','Objetos/'+idTema+'/index.html').css({'display':'block'});
-
-	// 	if(items[0] == 'ano'){
-	// 		$('.tema').css('background', 'url(img/circulo_avancar_cap_'+capitulo+'.png) no-repeat');
-	// 	}
-
- //    	$(this).css('background', 'url(img/circulo_parabens.png) no-repeat');
-
-	// 	risizeObj();
-
-	// });
-
 	$.ajax({
     	url: 'ajax/ExerciciosAjax.php',
-    	data: {	'acao' 		: 'verificaExercicio',
-    			'capitulo' 	: capitulo},
+    	data: {	'acao' 		: 'verificaExercicio','capitulo': capitulo},
     	dataType: 'json',
     	success: function(d) {
     		for (var i = 0; i < d.length; i++){

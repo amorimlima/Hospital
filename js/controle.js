@@ -20,7 +20,7 @@ function getUsuario(){
 				if(!data.erro){
 					//console.log(data.usuario);
 					usuarioLogado = data.usuario;
-					console.log("Usuario: "+usuarioLogado);
+					//console.log("Usuario: "+usuarioLogado);
 				}
 			}
 		});
@@ -34,8 +34,8 @@ function getExercicio(parametro){
 	tempo = convertTotalSeconds(startDate);
 	//console.log("Usuario: "+getUsuario());
 	//usuarioLogado = getUsuario();
-	console.log("Tempo: "+tempo);
-	console.log("Exercicio: "+exercicioAtual);
+	// console.log("Tempo: "+tempo);
+	// console.log("Exercicio: "+exercicioAtual);
 	//console.log("Usuario: "+usuarioLogado);
 }
 
@@ -45,12 +45,9 @@ function registraOpcaoResposta(exercicio,resposta,questao){
 		url:'../acoes.php',
 		type:'post',
 		dataType:'json',
-		data:{
-			'acao':'registraOpcaoResposta',
-			'exercicio':exercicio,
-			'resposta':resposta,
-			'questao':questao},
+		data:{'acao':'registraOpcaoResposta','exercicio':exercicio,'resposta':resposta,'questao':questao},
 		success:function(data){
+			//console.log(data);
 			if(data.erro){
 			alert("Ocorreu um erro em executar ação  do Exercício.");	
 			}
@@ -61,20 +58,20 @@ function registraOpcaoResposta(exercicio,resposta,questao){
 
 function acaoExercicio(exercicio,tipoAcao){
 	$(function(){
-	$.ajax({
-		url:'../acoes.php',
-		type:'post',
-		dataType:'json',
-		data:{
-			'acao':'acaoExercicio',
-			'exercicio':exercicio,
-			'tipoacao':tipoAcao},
-		success:function(data){
-			if(data.erro){
-			alert("Ocorreu um erro em executar ação  do Exercício.");	
+		$.ajax({
+			url:'../acoes.php',
+			type:'post',
+			dataType:'json',
+			data:{
+				'acao':'acaoExercicio',
+				'exercicio':exercicio,
+				'tipoacao':tipoAcao},
+			success:function(data){
+				if(data.erro){
+					alert("Ocorreu um erro em executar ação  do Exercício.");	
+				}
 			}
-		}
-	});
+		});
 	});
 }
 function iniciaParticipacaoExercicio(exercicio){
@@ -103,9 +100,9 @@ function finalizaParticipacaoExercicio(exercicio){
 		data:{
 			'acao':'finalizaExercicio',
 			'exercicio':exercicio},
-		success:function(data){
+			success:function(data){
 			if(data.erro){
-			alert("Ocorreu um erro em executar ação  do Exercício.");	
+				alert("Ocorreu um erro em executar ação  do Exercício.");	
 			}
 		}
 	});
