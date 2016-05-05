@@ -183,6 +183,36 @@ function validaCNPJ(cnpj) {
 
 }
 
+function validaSenha(senha){
+	var aux = senha;
+	var aux2 = senha;
+	aux = senha.replace(/[0-9]+/g, '');
+	aux2 = aux.replace(/[a-zA-Z]+/g, '');
+	
+	if ((senha.length < 6) || (senha == aux) || (aux == aux2) || (aux2 == ''))
+		return false;
+
+	return true;
+}
+
+function validaData(data){	//Verifica se a data é valida (formato br)
+
+	if(data.length!=10) return false;   
+
+		var dia         = data.substr(0,2);   
+	    var separacao1      = data.substr(2,1);   
+	    var mes         = data.substr(3,2);   
+	    var separacao2      = data.substr(5,1);   
+	    var ano         = data.substr(6,4);
+	    var separador =	'/'; 
+	    
+	    if(separacao1!=separador || separacao2!=separador ||isNaN(dia)||isNaN(mes)||isNaN(ano)||dia>31||mes>12||ano < 1900)return false;   
+	    if((mes==4||mes==6||mes==9||mes==11) && dia==31)return false;   
+	    if(mes==2 && (dia>29||(dia==29 && ano%4!=0)))return false;   
+	    return true;   
+ 
+}
+
 var Usuario = function (idUsuario) {
 	var self = this;
 
@@ -196,15 +226,18 @@ var Usuario = function (idUsuario) {
 		async: false,
 		success: function(data) {
 			dataUsuario = data;
+			this.id = dataUsuario.id;
+			this.nome = dataUsuario.nome;
+			this.perfil = dataUsuario.perfil;
+			this.escola = dataUsuario.escola;
+			this.imagem = dataUsuario.imagem;
+			this.id_variavel = dataUsuario.id_variavel;
+			this.serie = dataUsuario.serie;
+			this.grupo = dataUsuario.grupo;
+			
+			return this
 		}
 	});
 	
-	this.id = dataUsuario.id;
-	this.nome = dataUsuario.nome;
-	this.perfil = dataUsuario.perfil;
-	this.escola = dataUsuario.escola;
-	this.imagem = dataUsuario.imagem;
-	this.id_variavel = dataUsuario.id_variavel;
-	this.serie = dataUsuario.serie;
-	this.grupo = dataUsuario.grupo;
+	
 }
