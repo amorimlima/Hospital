@@ -52,6 +52,7 @@ class RegistroAcessoDAO extends DAO{
 		$sql = "update registro_acesso set ";
 		$sql .= "rgc_fim = '".$rg->getRgc_fim()."' ";
 		$sql .= "where rgc_id = ".$rg->getRgc_id()." limit 1";
+		echo $sql;
 		return $this->execute($sql);
 	}
 	public function gravaRegistroAcesso(RegistroAcesso $rg){
@@ -76,3 +77,4 @@ class RegistroAcessoDAO extends DAO{
         return $qr;
     } 
 }
+

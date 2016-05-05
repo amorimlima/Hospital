@@ -1,5 +1,5 @@
 <?php
-/**/ if(!isset($_SESSION['PATH_SYS'])){
+if(!isset($_SESSION['PATH_SYS'])){
 	require_once ("../_loadPaths.inc.php");
 }
 
@@ -23,37 +23,40 @@ switch ($_REQUEST["acao"]){
 
 			$exercicio = $exercicioController->selectByIdExercicio($_REQUEST["exercicio"]);
 
+			$retorno = '';
+
 			if($exercicio->getExe_tipo() == 4){
-				$verificaRespTxt  = $respostaTxtController->selectExeByAluno($_REQUEST["exercicio"],$usuario,$_REQUEST["questao"]);
+				$verificaRespTxt  = $respostaTxtController->selectAllQuestaoExeAluno($_REQUEST["exercicio"],$usuario,$_REQUEST["questao"]);
 				if($verificaRespTxt == 0){
 					$respostaTxt = new RespostaTxt();
 					$respostaTxt->setRspt_usuario($usuario);
 					$respostaTxt->setRspt_exercicio($_REQUEST["exercicio"]);
 					$respostaTxt->setRspt_questao($_REQUEST["questao"]);
 					$respostaTxt->setRspt_resposta($_REQUEST["resposta"]);
-					$respostaTxtController->insert($respostaTxt);
+					$retorno = $respostaTxtController->insert($respostaTxt);
 				}
 			}
 			
 			if($exercicio->getExe_tipo() == 2){				
-				$verificaRespMult = $respostaMultiplaController->selectExeByAlunoM($_REQUEST["exercicio"],$usuario,$_REQUEST["questao"]);		
+				$verificaRespMult = $respostaMultiplaController->selectAllQuestaoExeAluno($_REQUEST["exercicio"],$usuario,$_REQUEST["questao"]);		
 				if($verificaRespMult == 0){
 					$respostaMultipla = new RespostaMultipla();
 					$respostaMultipla->setRspm_usuario($usuario);
 					$respostaMultipla->setRspm_exercicio($_REQUEST["exercicio"]);
 					$respostaMultipla->setRspm_questao($_REQUEST["questao"]);
 					$respostaMultipla->setRspm_resposta($_REQUEST["resposta"]);
-					$respostaMultiplaController->insert($respostaMultipla);
+					$retorno = $respostaMultiplaController->insert($respostaMultipla);
 				}
 			}
+			print_r($retorno);
 		break;
 	}
 		
 	case "iniciaExercicio":{
+
 		$verifiacaExeAcesso = $registroAcessoController->selectExeByAlunoRegistro($_REQUEST["exercicio"],$usuario);
-		 
 		if($verifiacaExeAcesso == 0){
-			if(!$_SESSION["EXERCICIO_ATUAL"]){
+			if($_SESSION["EXERCICIO_ATUAL"]){
 				$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_SESSION["EXERCICIO_ATUAL"]);
 			}else{
 				$registroAcesso = null;
@@ -82,8 +85,10 @@ switch ($_REQUEST["acao"]){
 		break;
 	}
 	
-	case "finalizaExercicio":{
+	case "finalizaExercicio":{		
 		$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_SESSION["EXERCICIO_ATUAL"]);
+		//echo json_encode($registroAcesso);
+		//die();
 		$registroAcesso->setRgc_fim(date("Y-m-d H:i:s"));
 		if($registroAcessoController->editaRegistroAcesso($registroAcesso)){
 			$result = Array(
@@ -95,6 +100,8 @@ switch ($_REQUEST["acao"]){
 					'erro'=>true
 			);
 		}
+
+
 		break;
 	}
 	
@@ -103,6 +110,7 @@ switch ($_REQUEST["acao"]){
 		if($verifiacaExeAcesso == 0){
 			if($_REQUEST["tipoacao"] == "iniciou"){
 				$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_SESSION["EXERCICIO_ATUAL"]);
+
 				if($registroAcesso == null){
 					$registroAcesso = new RegistroAcesso();
 					$registroAcesso->setRgc_usuario($usuario);
@@ -128,12 +136,13 @@ switch ($_REQUEST["acao"]){
 					if($registroAcessoController->editaRegistroAcesso($registroAcesso)){
 						$result = Array(
 							'erro'=>false
-					);
-					unset($_SESSION["EXERCICIO_ATUAL"]);
+						);
+						unset($_SESSION["EXERCICIO_ATUAL"]);
 					}else{
 						$result = Array(
 							'erro'=>true
-					);
+						);
+					}
 				}
 			}
 

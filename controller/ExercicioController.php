@@ -126,7 +126,21 @@ class ExercicioController {
 		return $exercicios;
 	}
 
+	public function countExerciciosEscolaCompletos($idEscola)
+	{
+		$exercicios = 0;
+		$usuarioController = new UsuarioController();
+		$professores = $usuarioController->selectProfessorByEscola($idEscola);
+		foreach ($professores as $professor) {
+			$exercicios += $this->countExerciciosProfessorCompletos($professor->getUsr_id());
+		}
+		return $exercicios;
+	}
 
-
+	public function selecionaExePrePos($exercicio)
+	{
+		$exe = $this->exercicioDAO->selecionaExePrePos($exercicio);
+		return $exe;
+	}
 }
 ?>
