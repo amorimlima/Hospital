@@ -143,19 +143,23 @@ function criarNovoTopico(topico) {
         url: "ajax/ForumAjax.php",
         type: "POST",
         dataType: "json",
-        data: "acao=novoTopico&topico=" + topico.novoTopico + "&status=" + topico.status,
-        success: function (data) {
-            retorno = data;
+        data: "acao=novoTopico&topico=" + topico.novoTopico,
+        beforeSend: function() {
+            $("#box_pergunta").attr("disabled", "disabled");
+            $("#box_novoTopico").attr("disabled", "disabled");
         },
-        complete: function () {
-            if (retorno.retorno.perfil == 2 || retorno.retorno.perfil == 4)
-                $("#topico").append("<option value=" + retorno.retorno.id + ">" + topico.novoTopico + "</option>");
-            
-            if(retorno.retorno.perfil == 1)
+        success: function(data) {
+            if (data.perfil != "1")
+                $("#topico").append("<option value="+data.id+">"+topico.novoTopico+"</option>");
+            else
                 $("#forumNovoTopicoAluno").fadeIn(200);
-            
-            criarNovaQuestao(retorno.retorno.id, topico.text, retorno.retorno.perfil);
-                
+
+            $("#box_pergunta").val("");
+            $("#box_novoTopico").val("");
+            $("#box_pergunta").removeAttr("disabled");
+            $("#box_novoTopico").removeAttr("disabled");
+
+            criarNovaQuestao(data.id, topico.text, data.perfil);
         }
     });
 }
@@ -178,8 +182,6 @@ function criarNovaQuestao(idtopico, questao, perfil) {
             }
 
             colorirDivs();
-            $("#box_pergunta").val("");
-            $("#box_novoTopico").val("");
             $("#topico option").eq(0).attr('selected', 'selected');
         }
     });

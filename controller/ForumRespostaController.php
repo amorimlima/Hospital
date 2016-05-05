@@ -50,7 +50,7 @@ class ForumRespostaController {
 		$for = $this->forumRespostaDAO->selectFull();
 		return $for;
 	}
-		public function selectByQuestao($idQuestao)
+		public static function selectByQuestao($idQuestao)
 	{
 		$for = $this->forumRespostaDAO->selectByQuestao($idQuestao);
 		return $for;
@@ -65,6 +65,12 @@ class ForumRespostaController {
     public function getMaisRecenteByQuestao($idfrq)
     {
         $frr = $this->forumRespostaDAO->getMaisRecenteByQuestao($idfrq);
+        return $frr;
+    }
+    
+    public function selectRangeByQuestao($idfrq,$min)
+    {
+        $frr = $this->forumRespostaDAO->selectRangeByQuestao($idfrq,$min);
         return $frr;
     }
 }

@@ -292,8 +292,9 @@ img{
     color: #728C07;
     margin-right: 15px;
 }
-.btn:last-child {
-	margin-right: 0;
+.btn:last-child,
+.btn:last-of-type{
+    margin-right: 0;
 }
 .btn:hover, .btn:hover:active,
 .btn:active, .btn:active:focus,

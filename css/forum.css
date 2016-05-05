@@ -1,6 +1,54 @@
+.btn {
+    color: #E35F0F;
+    border-color: #E35F0F;
+}
+.btn:hover, 
+.btn:hover:active, 
+.btn:active, .btn:active:focus, 
+.btn:focus, .btn:hover:focus, 
+.btn:hover:active:focus {
+    border: 1px solid #E35F0F;
+    color: #E35F0F;
+    background-color: #F2F2F2;
+}
+.btn-primary {
+    background-color: #FDF1E7;
+}
+
+.btn-primary:hover, 
+.btn-primary:hover:active, 
+.btn-primary:active, 
+.btn-primary:active:focus, 
+.btn-primary:focus, 
+.btn-primary:hover:focus, 
+.btn-primary:hover:active:focus {
+    color: #E35F0F;
+    border-color: #E35F0F;
+    background-color: #FBE9DA;
+}
+
+.btn[disabled],
+.btn:hover[disabled], .btn:hover:active[disabled],
+.btn:active[disabled], .btn:active:focus[disabled],
+.btn:focus[disabled], .btn:hover:focus[disabled],
+.btn:hover:active:focus[disabled] {
+    border-color: #E35F0F;
+    background-color: #FBE9DA;
+    opacity: 0.7;
+}
+
+.btn-primary[disabled],
+.btn-primary:hover[disabled], .btn-primary:hover:active[disabled],
+.btn-primary:active[disabled], .btn-primary:active:focus[disabled],
+.btn-primary:focus[disabled], .btn-primary:hover:focus[disabled],
+.btn-primary:hover:active:focus[disabled] {
+    background-color: #FBE9DA;
+    opacity: 0.7;
+}
+
 #box_forum_top{
     width: 100%;
-	height: 200px;
+	height: 215px;
     border: 2px dotted #E35F0F;
     background: #FFFFFF;
     margin-bottom: 25px;
@@ -34,15 +82,15 @@
 
 }
 #box_pergunta {
-	font-size:16px;
+	font-size:14px;
     height: 45px;    
-    padding: 10px 15px;
+    padding: 5px 15px;
     border: 1px solid #EA925B;
     resize: none;
     border-radius: 0;
 }
 #box_questoes_pendentes > div:nth-child(odd) {
-    background-color: #f4f4f4;
+    background-color: #FBE9DA;
 }
 #box_questoes_pendentes > div:nth-child(even) {
     background-color: #fff;   
@@ -116,7 +164,7 @@
 #box_alunos_container,
 #box_questoes_pendentes_container{
     margin-top: 73px;
-    height: 295px;
+    height: 285px;
     width: 100%;
     overflow: auto;
 }
@@ -126,7 +174,7 @@
     overflow: inherit;
 }
 .cx_rosa{
-    background-color: #FEF8F4;
+    background-color: #FDF1E7;
     min-height: 70px;
 }
 .cx_branca{

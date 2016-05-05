@@ -163,11 +163,22 @@ class Template {
                                                 echo    '<span class="badge menu-badge">'.$mensagemController->count($usrLogado['id']).'</span>';
                                                 echo '</a>';
                                             } elseif ($menuId[0]=="forum") {
-                                                $qtde = intval($this->countForumTopicoPendentes()) + intval($this->countAtualizacoesForumQuestao());
+                                                $idesc = $usrLogado["escola"];
+                                                $idusr = $usrLogado["id"];
+                                                $perfilUsr = $usrLogado["perfil_id"];
                                                 
-                                                echo "<a href={$menu->getBtn_menu()} id=\"mn_{$menuId[0]}\" class=\"mn_a_menu\">";
-                                                echo ($qtde>0) ? "<span id=\"badgeForumAtualizacoes\" class=\"badge menu-badge\">{$qtde}</span>" : "";
-                                                echo "</a>";
+                                                $frtController = new ForumTopicoController();
+                                                $fqpController = new ForumQuestaoParticipanteController();
+
+                                                $qtdeFrtPendentes = ($perfilUsr == 2 ||$perfilUsr == 4) ? $frtController->countPendentesByEscola($idesc) : 0;
+                                                $qtdeFqpAtualizadas = $fqpController->countAtualizacoes($idusr);
+                                                $qtde = $qtdeFrtPendentes + $qtdeFqpAtualizadas;
+                                                
+                                                $htmlMenuForum  = "<a href={$menu->getBtn_menu()} id=\"mn_{$menuId[0]}\" class=\"mn_a_menu\">";
+                                                $htmlMenuForum .= ($qtde > 0) ? "<span id=\"badgeForumAtualizacoes\" class=\"badge menu-badge\">{$qtde}</span>" : "";
+                                                $htmlMenuForum .= "</a>";
+
+                                                echo $htmlMenuForum;
                                             } else {
                                                 if ($menuId[0] == "galeria") {
                                                     echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
@@ -258,43 +269,12 @@ class Template {
 	}
 
     public function rodape() {
-        echo '<div class="row" id="rodape"></div>';
-        echo '<div class="logo_murano_container">';
-        echo    '<div class="murano"></div>';
-        echo '</div>';
-    }
-    
-    private function countForumTopicoPendentes() {
-        $usr = unserialize($_SESSION['USR']);
-        $usrPerfil = $usr["perfil_id"];
-        $usrEscola = $usr["escola"];
-        $forumTopicoController = new ForumTopicoController();
-        $countTopicosPendentes = intval($forumTopicoController->countTopicosPendentes($usrEscola));
-        
-        if (intval($usrPerfil) === 2 || intval($usrPerfil) === 4)
-            return $countTopicosPendentes;
-        else
-            return 0;
-    }
+        $htmlRodape  = '<div class="row" id="rodape"></div>';
+        $htmlRodape .= '<div class="logo_murano_container">';
+        $htmlRodape .=    '<div class="murano"></div>';
+        $htmlRodape .= '</div>';
 
-    private function countAtualizacoesForumQuestao() {
-        $idusr = unserialize($_SESSION['USR'])["id"];
-        $fqpController = new ForumQuestaoParticipanteController();
-        $frrController = new ForumRespostaController();
-        $questoes = $fqpController->getQuestoesByParticipante($idusr);
-        $count = 0;
-
-        foreach ($questoes as $fqp)
-        {
-            $idfrq = $fqp->getFqp_questao();
-            $frr = $frrController->getMaisRecenteByQuestao($idfrq);
-
-            if ($frr && strtotime($fqp->getFqp_ultima_visualizacao()) < strtotime($frr->getFrr_data())) {
-                $count++;
-            }
-        }
-
-        return $count;
+        echo $htmlRodape;
     }
 
     public function getPerfilEscolaUsuario() {
@@ -306,6 +286,12 @@ class Template {
             return $usrEscola;
         else
             return false;
+    }
+
+    public function getIdUsuario() {
+        $usr = unserialize($_SESSION["USR"]);
+        $usrPerfil = $usr["id"];
+        return $usrPerfil;
     }
 }
 
