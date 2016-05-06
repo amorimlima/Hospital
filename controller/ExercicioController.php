@@ -100,27 +100,6 @@ class ExercicioController {
 		return $exe;
 	}
 
-	public function countExerciciosAlunoCompletos($idAluno)
-	{
-		$exe = $this->exercicioDAO->countExerciciosAlunoCompletos($idAluno);
-		return $exe;
-	}
-
-	public function countExerciciosProfessor($idProfessor)
-	{
-		$exercicios = 0;
-		$grupoController = new GrupoController();
-		$usuarioController = new UsuarioController();
-		$grupos = $grupoController->selectProfessor($idProfessor);
-		foreach ($grupos as $grupo) {
-			$alunosGrupo = $usuarioController->buscaUsuarioGrupo($grupo->getGrp_id());
-			foreach ($alunosGrupo as $aluno) {
-				$exercicios += $this->exercicioDAO->countExerciciosAluno($aluno['escola'], $aluno['serie']);
-			}
-		}
-		return $exercicios;
-	}
-
 	public function countExerciciosProfessorCompletos($idProfessor)
 	{
 		$exercicios = 0;

@@ -102,5 +102,41 @@
             $sql .= "where $idperiododao = '".$periododao->getPrd_id()."'";
             return $this->execute($sql);
         }
+
+        public function listarDisponiveisProfessorSerieSemGrupo($serie, $idProfessor)
+        {
+            $sql = "SELECT * FROM periodo p WHERE
+                        p.prd_id NOT IN (
+                            SELECT p2.prd_id FROM periodo p2
+                            JOIN grupo g ON g.grp_periodo = p2.prd_id
+                            WHERE g.grp_professor = ".$idProfessor." AND g.grp_serie = ".$serie.")";
+            $result = $this->retrieve($sql);
+            $lista = array();
+            while ($qr = mysqli_fetch_array($result))
+            {
+                $per = new Periodo();
+                $per->setPrd_id($qr["prd_id"]);
+                $per->setPrd_periodo($qr["prd_periodo"]);
+                array_push($lista, $per);   
+            }
+            return $lista;
+        }
+
+        public function listarDisponiveisProfessorSerie($serie, $idProfessor)
+        {
+            $sql = "SELECT * FROM periodo p
+                        JOIN grupo g ON g.grp_periodo = p.prd_id
+                        WHERE g.grp_professor = ".$idProfessor." AND g.grp_serie = ".$serie;
+            $result = $this->retrieve($sql);
+            $lista = array();
+            while ($qr = mysqli_fetch_array($result))
+            {
+                $per = new Periodo();
+                $per->setPrd_id($qr["prd_id"]);
+                $per->setPrd_periodo($qr["prd_periodo"]);
+                array_push($lista, $per);   
+            }
+            return $lista;
+        }
     }
 ?>

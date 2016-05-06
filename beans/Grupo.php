@@ -26,14 +26,10 @@ private $grp_professor;
 private $grp_serie;
 private $grp_periodo;
 
-
 public function Grupo()
 {
 
 }
-
-
-
 
 public function getGrp_id()
 {
@@ -88,12 +84,12 @@ public function setGrp_serie($val)
 {
 $this->grp_serie =  $val;
 }
+
 public function setGrp_periodo($val)
 {
-$this->grp_periodo =  $val;
+$this->grp_periodo = $val;
 }
-
-} 
+}
 
 ?>
 

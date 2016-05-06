@@ -51,13 +51,13 @@ switch ($_REQUEST["acao"]) {
 	case "listar":
 		$idEscola = $_REQUEST["id"];
 		$liberarCapituloController = new LiberarCapituloController();
-		$capitulos = $liberarCapituloController->selectByIdEscola($idEscola);
+		$capitulos = $liberarCapituloController->selectCapLiberadoByIdEscola($idEscola);
 		$result = Array();
 
 		foreach ($capitulos as $key => $cap) {
 			$capitulo = Array(
 				"id" 		=> utf8_encode($cap->getLbr_id()),
-				"capitulo" 	=> utf8_encode($cap->getLbr_capitulo()->getCpt_capitulo()),
+				"capitulo" 	=> utf8_encode($cap->getLbr_capitulo()),
 				"livro" 	=> utf8_encode($cap->getLbr_livro())
 			);
 

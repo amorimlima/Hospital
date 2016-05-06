@@ -94,6 +94,12 @@ class UsuarioController {
 	{
 		return $this->usuarioDAO->verificaCpf($cpf);
 	}
+
+	public function buscaAlunoSemGrupoBySerieEscola($serie, $idEscola)
+	{
+		$user = $this->usuarioDAO->buscaAlunoSemGrupoBySerieEscola($serie, $idEscola);
+		return $user;
+	}
 	
 	public function buscaProfessorByEscolaAndSerie($idEscola,$idSerie)
 	{
@@ -144,6 +150,11 @@ class UsuarioController {
 	{
 		$user = $this->usuarioDAO->updateSenhaByUser($user);
 		return $user;
+	}
+
+	public function adicionarAlunosGrupo($idGrupo, $alunos)
+	{
+		return $this->usuarioDAO->adicionarAlunosGrupo($idGrupo, $alunos);
 	}
 }
 ?>

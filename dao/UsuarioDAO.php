@@ -333,6 +333,26 @@ class UsuarioDAO extends DAO{
 		return $qr["total"];	
     }
     
+    public function buscaAlunoSemGrupoBySerieEscola($serie, $idEscola)
+    {
+        $sql = "SELECT * FROM usuario us
+                JOIN usuario_variavel uv ON us.usr_id = uv.usv_usuario
+                WHERE us.usr_perfil = 1 AND uv.usv_grupo IS NULL AND us.usr_escola = ".$idEscola." AND uv.usv_serie = ".$serie;
+        $result = $this->retrieve($sql);
+        $lista = array();
+        while ($qr = mysqli_fetch_array($result)){
+      
+            $user = array(
+                        'idUsuario' => $qr["usr_id"],
+                        'nome'      => $qr['usr_nome'],
+                        'imagem'    => $_SESSION['PATH_SYS']['imgp'].$qr['usr_imagem'],
+                        'idVariavel'=> $qr['usv_id']
+                    );
+            array_push($lista, $user);
+        }  
+        return $lista;
+    }
+
     public function buscaProfessorByEscolaAndSerie($idEscola, $idSerie){
 
 		$sql = "SELECT u.usr_id, u.usr_nome, g.grp_id, g.grp_periodo 
@@ -599,38 +619,81 @@ class UsuarioDAO extends DAO{
         return $usuario;
      }
 
-     public function buscarAlunosGrafico($par)
-     {
-        $sql = "SELECT * FROM usuario us ";
-        $join = "JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
-        $join .= "JOIN grupo g ON g.grp_id = uv.usv_grupo AND g.grp_serie = uv.usv_serie ";
-        $where = "WHERE g.grp_professor = ".$par['id']." AND us.usr_perfil = 1 ";
+    public function buscarAlunosGrafico($par)
+    {
+       $sql = "SELECT * FROM usuario us";
+       $join = " JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id";
+       $join .= " JOIN grupo g ON g.grp_id = uv.usv_grupo";
+       $where = " WHERE g.grp_professor = ".$par['id']." AND us.usr_perfil = 1";
+       if ($par['livro'] != 0){
+           $where .= " AND g.grp_serie = ".$par['livro'];
+       }
+       if ($par['capitulo'] != 0){
+           $join .= " JOIN liberar_capitulo lc ON lc.lbr_escola = us.usr_escola AND lc.lbr_livro = uv.usv_serie";
+           $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+       }
+       if ($par['sala'] != 0){
+           $where .= " AND g.grp_id = ".$par['sala'];
+       }
+
+       $sql = $sql.$join.$where;
+       $result = $this->retrieve($sql);
+       $lista = Array();
+
+       while ($qr = mysqli_fetch_array($result)){
+           $item = Array(
+               'id' => $qr['usr_id'],
+               'nome' => $qr['usr_nome'],
+               'perfil' => 'aluno',
+               'escola' => $qr['usr_escola'],
+               'serie' => $qr['usv_serie']
+           );
+           array_push($lista, $item);
+       }
+       return $lista;
+    }
+
+    public function buscarProfessoresGrafico($par)
+    {
+        $sql = "SELECT DISTINCT us.usr_id, us.usr_nome, us.usr_escola, uv.usv_serie FROM usuario us";
+        $join = " JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id";
+        $where = " WHERE us.usr_escola = ".$par['id']." AND us.usr_perfil = 2";
         if ($par['livro'] != 0){
-            $where .= "AND g.grp_serie = ".$par['livro']." ";
+            $join .= " JOIN grupo g ON g.grp_professor = us.usr_id";
+            $where .= " AND g.grp_serie = ".$par['livro'];
         }
         if ($par['capitulo'] != 0){
-            $join .= "JOIN liberar_capitulo lc ON lc.lbr_escola = us.usr_escola AND lc.lbr_livro = uv.usv_serie AND lc.lbr_capitulo = ".$par['capitulo']." ";
+            if ($par['livro'] == 0)
+                $join .= " JOIN grupo g ON g.grp_professor = us.usr_id";
+            $join .= " JOIN liberar_capitulo lc ON lc.lbr_escola = us.usr_escola AND lc.lbr_livro = g.grp_serie";
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
         }
-        if ($par['sala'] != 0){
-            $where .= "g.grp_id = ".$par['sala']." ";
-        }
-
+    
         $sql = $sql.$join.$where;
         $result = $this->retrieve($sql);
         $lista = Array();
-
+    
         while ($qr = mysqli_fetch_array($result)){
             $item = Array(
                 'id' => $qr['usr_id'],
                 'nome' => $qr['usr_nome'],
-                'perfil' => 'aluno',
+                'perfil' => 'professor',
                 'escola' => $qr['usr_escola'],
                 'serie' => $qr['usv_serie']
             );
             array_push($lista, $item);
         }
         return $lista;
-     }
+    }
+
+
+    public function adicionarAlunosGrupo($idGrupo, $alunos)
+    {
+        $sql = "UPDATE usuario_variavel SET usv_grupo = ".$idGrupo;
+        $sql .= " WHERE usv_id IN ".$alunos;
+
+        return $this->execute($sql);
+    }
 
      public function selectEmail($email){
         $sql  = "select * from usuario usr ";

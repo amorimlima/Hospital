@@ -62,6 +62,32 @@ switch ($_REQUEST["acao"]) {
 		echo json_encode($retorno);
 	break;
 
+	case 'listarDisponiveisProfessorSerieSemGrupo':
+		$periodos = $periodoController->listarDisponiveisProfessorSerieSemGrupo($_REQUEST['serie'], $_REQUEST['idProfessor']);
+		$retorno = array();
+		foreach ($periodos as $periodo) {
+			$p = Array(
+				"id" 	=> utf8_encode($periodo->getPrd_id()),
+				"periodo" => utf8_encode($periodo->getPrd_periodo())
+			);
+			array_push($retorno, $p);
+		}
+		echo json_encode($retorno);
+	break;
+	
+	case 'listarDisponiveisProfessorSerie':
+		$periodos = $periodoController->listarDisponiveisProfessorSerie($_REQUEST['serie'], $_REQUEST['idProfessor']);
+		$retorno = array();
+		foreach ($periodos as $periodo) {
+			$p = Array(
+				"id" 	=> utf8_encode($periodo->getPrd_id()),
+				"periodo" => utf8_encode($periodo->getPrd_periodo())
+			);
+			array_push($retorno, $p);
+		}
+		echo json_encode($retorno);
+	break;
+
 	default:
 		$retorno = Array("erro"=>true, "mensagem"=>"Parametro acao invalido");
 
