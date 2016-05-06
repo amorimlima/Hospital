@@ -67,6 +67,8 @@ $(document).ready(function(e) {
 	if ($('#idUsuario').length > 0)
 		usuario = new Usuario($('#idUsuario').val());
 
+	console.log(usuario);
+
 });
 
 function redireciona(pagina){
@@ -226,14 +228,14 @@ var Usuario = function (idUsuario) {
 		async: false,
 		success: function(data) {
 			dataUsuario = data;
-			this.id = dataUsuario.id;
-			this.nome = dataUsuario.nome;
-			this.perfil = dataUsuario.perfil;
-			this.escola = dataUsuario.escola;
-			this.imagem = dataUsuario.imagem;
-			this.id_variavel = dataUsuario.id_variavel;
-			this.serie = dataUsuario.serie;
-			this.grupo = dataUsuario.grupo;
+			self.id = dataUsuario.id;
+			self.nome = dataUsuario.nome;
+			self.perfil = dataUsuario.perfil;
+			self.escola = dataUsuario.escola;
+			self.imagem = dataUsuario.imagem;
+			self.id_variavel = dataUsuario.id_variavel;
+			self.serie = dataUsuario.serie;
+			self.grupo = dataUsuario.grupo;
 			
 			return this
 		}
