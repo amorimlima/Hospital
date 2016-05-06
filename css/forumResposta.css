@@ -45,7 +45,12 @@
     background-color: #FBE9DA;
     opacity: 0.7;
 }
-
+#containerCarregarRespostas {
+    text-align: center;
+}
+#fbTudoCarregado{
+    color: #ccc;
+}
 #box_topico{
     background:#fff;
     height:100px;	
@@ -75,9 +80,7 @@
     margin-bottom:11px;
     /*border:1px solid #FFFFFF;*/
 }
-.box_topico_resp:last-child {
-    margin-bottom: 0;
-}
+
 #campo_resp{
     background:#fff;
     height:130px;	

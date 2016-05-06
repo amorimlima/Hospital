@@ -85,7 +85,7 @@ class TemplateForum {
             $data   = $dataFuncao->dataTimeBRExibicao($value->getFrq_data());
             $views  = $value->getFrq_visualizacoes();
 
-            echo '<a onclick="incrementarVisualizacoes('.$idfrq.')" href="forumResposta.php?resp='.$idfrq.'" id="caixaQuestao'.$idfrq.'">';
+            echo '<a href="forumResposta.php?resp='.$idfrq.'" id="caixaQuestao'.$idfrq.'">';
             echo     '<div id="perg_box'.$idfrq.'" class="perg_box '.$caixaGrande.' row">';
             echo         '<div class="perg_box_1 col-xs-12 col-md-7 col-lg-7">';
             echo             '<p class="foto_aluno"><img src="imgp/'.$foto.'"></p>';

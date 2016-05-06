@@ -4,35 +4,31 @@ $(document).ready(function ()
     var idfrq = $("#idfrq").val();
     barraDeRolagem();
 
-	$("#txt_pesquisa_input").keyup(function (){
-			texto = $(this).val().toUpperCase();; 
-			var cont = 0;
-			
-			if (texto != ''){
-				$('#listaRecentes').css('display','none');
-				$('#listaPesquisa').css('display','block');
-				
-				$('.perguntaPesquisa').each(function(){
-					if($(this).html().toUpperCase().indexOf(texto)==-1) {
-						$(this).parent().css('display','none');
-					} else {
-						$(this).parent().css('display','block');
-						
-						if (cont%2 == 0) $(this).parent().css('background','#fdf0e7');
-							else $(this).parent().css('background','#ffffff');
-							
-						cont++;
-					}
-				});
-				
-			}else{
-				$('#listaRecentes').css('display','block');
-				$('#listaPesquisa').css('display','none');
-				
-			}
-			
-			
-			//autoCompleteRespostas($("#txt_pesquisa_input").val())
+    $("#txt_pesquisa_input").keyup(function (){
+        texto = $(this).val().toUpperCase();; 
+        var cont = 0;
+
+        if (texto != ''){
+            $('#listaRecentes').css('display','none');
+            $('#listaPesquisa').css('display','block');
+
+            $('.perguntaPesquisa').each(function(){
+                if($(this).html().toUpperCase().indexOf(texto)==-1) {
+                    $(this).parent().css('display','none');
+                } else {
+                    $(this).parent().css('display','block');
+
+                    if (cont%2 == 0) $(this).parent().css('background','#fdf0e7');
+                            else $(this).parent().css('background','#ffffff');
+
+                    cont++;
+                }
+            });
+        } else {
+            $('#listaRecentes').css('display','block');
+            $('#listaPesquisa').css('display','none');
+        }	
+	//autoCompleteRespostas($("#txt_pesquisa_input").val())
     });
 
 	$("body").delegate("#btn_responder", "click", function (){
@@ -51,6 +47,12 @@ $(document).ready(function ()
 	$("#btn_pronto").click(validarEnviarForumResposta);
 
     listarRespostas(idfrq,0);
+    
+    $("#btnCarregarFrr").click(function() {
+        var min = $(this).attr("data-min");
+        console.log(min);
+        listarRespostas(idfrq,min);
+    });
 });
 
 function atualizarVisitas(questao){
@@ -80,8 +82,8 @@ function listarRespostas(idfrq,min) {
         dataType: "json",
         data: "acao=selectRangeByQuestao&idfrq="+idfrq+"&min="+min,
         beforeSend: function () {
-            var html = "<div class=\"alert alert-warning\">Carregando respostas...</div>";
-            $("#box_Respostas").html(html);
+            $("#btnCarregarFrr").text("Carregando...");
+            $("#btnCarregarFrr").attr("disabled","disabled");
         },
         success: function(data) {
             var marginRight = "";
@@ -98,12 +100,9 @@ function listarRespostas(idfrq,min) {
             htmlFrr = "<div class=\"alert alert-danger\">Erro ao carregar as respostas.</div>";
         },
         complete: function () {
-            $("#box_Respostas").html(htmlFrr);
-            
-            if (verificarQtdeForumResposta())
-                console.log("Batata");
-            else
-                console.log("Arroz");
+            $("#fbCarregandoFrr").remove();
+            $("#box_Respostas").append(htmlFrr);
+            verificarQtdeForumResposta();
         }
     });
 }
@@ -121,7 +120,7 @@ function viewForumResposta(resposta, marginRight) {
     htmlFrr +=      "<div class=\"col-xs-11\">";
     htmlFrr +=          "<div class=\"dados_aluno\">";
     htmlFrr +=              "<span class=\"aluno_nome\">"+resposta.usuario.nome+"</span>";
-    htmlFrr +=              "<span class=\"aluno_data\">Respondido dia "+data+" às "+horario+".</span>";
+    htmlFrr +=              "<span class=\"aluno_data\">Respondido dia "+data+" às "+horario+"</span>";
     htmlFrr +=          "</div>";
     htmlFrr +=          "<div>";
     htmlFrr +=              "<p class=\"resp_aluno\">"+resposta.resposta+"</p>";
@@ -137,10 +136,15 @@ function verificarQtdeForumResposta() {
     var qtdeExibida = $(".box_topico_resp").length;
     var qtdeTotal = parseInt($("#frrQtde").val());
     
-    if (qtdeExibida < qtdeTotal)
-        return true;
-    else
-        return false;
+    if (qtdeExibida < qtdeTotal) {
+        $("#btnCarregarFrr").text("Carregar mais");
+        $("#btnCarregarFrr").removeAttr("disabled");
+        $("#btnCarregarFrr").attr("data-min",qtdeExibida);
+    } else {
+        $("#containerCarregarRespostas").html("<span id=\"fbTudoCarregado\">Todas as respostas carregadas</span>");
+    }
+    
+    $("#containerCarregarRespostas").show();
 }
 
 function validarEnviarForumResposta() {
@@ -158,16 +162,16 @@ function validarEnviarForumResposta() {
                 $("#btn_pronto").text("Aguarde...");
             },
             success: function (data){
-                var totalResposta = $("#totalResp"+questao).text();
                 var questao = $("#idfrq").val();
+                var frrVal = $("#frrQtde").val();
+                var frrQtde = ++frrVal;
                 
-                if (totalResposta == 1)
+                if (frrVal == 0)
                     $("#totalRespTexto"+questao).html('<span id="totalResp'+questao+'">1</span> Resposta');
                 else
-                    $("#totalRespTexto"+questao).html('<span id="totalResp'+questao+'">'+(++totalResposta)+'</span> Respostas');
-                var frrQtde = $("#frrQtde").val();
+                    $("#totalRespTexto"+questao).html('<span id="totalResp'+questao+'">'+frrQtde+'</span> Respostas');
                 
-                $("#frrQtde").val(++frrQtde);
+                $("#frrQtde").val(frrQtde);
                 getNovaForumResposta(data);
             }
         });
@@ -187,7 +191,7 @@ function getNovaForumResposta(resposta) {
             var marginRight = "";
             
             if (parseInt($("#frrQtde").val()) > 4)
-                marginRight = "margin_rght";
+                marginRight = "margin_right";
                 
             htmlFrr += viewForumResposta(data,marginRight);
         },

@@ -162,6 +162,10 @@ class TemplateForumResposta {
         $html .= "</div>";
         $html .= "<div id=\"box_Respostas_container\">";
         $html .=    "<div id=\"box_Respostas\">";
+        $html .=        "<div id=\"fbCarregandoFrr\" class=\"alert alert-warning\">Carregando respostas...</div>";
+        $html .=    "</div>";
+        $html .=    "<div id=\"containerCarregarRespostas\" style=\"display:none;\">";
+        $html .=        "<button id=\"btnCarregarFrr\" data-min=\"5\" type=\"button\" class=\"btn\">Carregar mais</button>";
         $html .=    "</div>";
         $html .= "</div>";
         $html .= "<div id=\"box_nova_resposta\">";

@@ -139,11 +139,10 @@ class ForumRespostaDAO extends DAO{
     
     public function selectRangeByQuestao($idfrqp, $min)
     {
-        $max = $min + 5;
         $sql  = "SELECT * FROM forum_resposta  ";
         $sql .= "WHERE frr_questao = {$idfrqp} ";
         $sql .= "ORDER BY frr_data DESC ";
-        $sql .= "LIMIT {$min}, {$max}; ";
+        $sql .= "LIMIT {$min}, 5; ";
         $respostas = [];
         $result = $this->retrieve($sql);
         

@@ -92,10 +92,6 @@ public function setGrp_periodo($val)
 {
 $this->grp_periodo =  $val;
 }
-public function setGrp_periodo($val)
-{
-$this->grp_periodo =  $val;
-}
 
 } 
 
