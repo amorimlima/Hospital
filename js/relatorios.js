@@ -37,7 +37,7 @@ function atribuirBarrasRolagem () {
 			enable:true
 		}
 	});
-};
+}
 
 function toggleGrafico(item)
 {
