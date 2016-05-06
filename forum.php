@@ -10,7 +10,6 @@ $templateGeral = new Template();
 $templateForum = new TemplateForum();
 $topicoController = new ForumTopicoController();
 $topicos = $topicoController->selectAtivos();
-$templateGeral->getPerfilEscolaUsuario();
 //print_r($topicos);
 ?>
 <!DOCTYPE html>
@@ -64,7 +63,7 @@ $templateGeral->getPerfilEscolaUsuario();
                                           ?>
                                         </select>
                                         <textarea id="box_pergunta" class="form-control" rows="5" placeholder="Digite aqui sua pergunta!"></textarea>
-                                        <button onClick="enviar()" id="btn_perguntar" class="btn_form btn_form_forum">PERGUNTAR</button>
+                                        <button onClick="enviar()" id="btn_perguntar" class="btn btn-primary btn_form btn_form_forum">PERGUNTAR</button>
                                     </div>
                                 </div>
                              </div>

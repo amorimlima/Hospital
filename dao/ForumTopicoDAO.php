@@ -107,15 +107,16 @@ class ForumTopicoDAO extends DAO{
         return $this->execute($sql);
     }
     
-    public function countTopicosPendentes($idesc)
+    public function countPendentesByEscola($idesc)
     {
         $sql  = "SELECT * FROM forum_questao frq ";
         $sql .= "JOIN forum_topico frt ON frq.frq_topico = frt.frt_id ";
         $sql .= "JOIN usuario usr ON frq.frq_usuario = usr.usr_id ";
         $sql .= "WHERE frt_status = 0 AND usr.usr_escola = {$idesc};";
         $result = $this->retrieve($sql);
-        $qr = mysqli_num_rows($result);
-        return $qr;
+        $count = mysqli_num_rows($result);
+        
+        return $count;
     }
 }
 ?>

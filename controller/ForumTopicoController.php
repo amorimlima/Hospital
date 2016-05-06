@@ -67,9 +67,9 @@ class ForumTopicoController {
 		return $this->forumTopicoDAO->aprovarTopico($idfrt);
 	}
         
-    public function countTopicosPendentes($idesc)
+    public function countPendentesByEscola($idesc)
     {
-        return $this->forumTopicoDAO->countTopicosPendentes($idesc);
+        return $this->forumTopicoDAO->countPendentesByEscola($idesc);
     }
 }
 ?>

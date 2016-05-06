@@ -24,7 +24,6 @@ $frqParticipante = new ForumQuestaoParticipanteController();
 date_default_timezone_set("America/Sao_Paulo");
 
 switch ($_REQUEST["acao"]) {
-
     case "listaQuestoesRecentes": {
 
             if ($_POST['texto'] != '') {
@@ -103,29 +102,30 @@ switch ($_REQUEST["acao"]) {
             } else
                 $foto = 'default.png';
 
-            $html = '<div id="box_topico" class="row">
-                 <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-                 	<img src="imgp/' . $foto . '">
-                 </p>
-              <div class="col-xs-11 col-md-11 col-lg-11">
-              	 <p class="dados_aluno">
-                 	<span class="aluno_nome">' . utf8_encode($usuario->getUsr_nome()) . '</span>
-                    <span class="aluno_data">Postado dia ' . $data . '</span>
-                 </p>
-                 <p>
-                   <span class="resp_aluno">' . utf8_encode($resp->getFrq_questao()) . '</span>
-                 </p>
-               </div>
-              </div>
-              <div id="box_Respostas_container">
-                <div id="box_Respostas">';
+            $html  = '<div id="box_topico" class="row">';
+            $html .=     '<p class="foto_aluno col-xs-1 col-md-1 col-lg-1">';
+            $html .=     	'<img src="imgp/' . $foto . '">';
+            $html .=     '</p>';
+            $html .=  '<div class="col-xs-11 col-md-11 col-lg-11">';
+            $html .=  	 '<p class="dados_aluno">';
+            $html .=     	'<span class="aluno_nome">' . utf8_encode($usuario->getUsr_nome()) . '</span>';
+            $html .=        '<span class="aluno_data">Postado dia ' . $data . '</span>';
+            $html .=     '</p>';
+            $html .=     '<p>';
+            $html .=       '<span class="resp_aluno">' . utf8_encode($resp->getFrq_questao()) . '</span>';
+            $html .=     '</p>';
+            $html .=   '</div>';
+            $html .=  '</div>';
+            $html .=  '<div id="box_Respostas_container">';
+            $html .=    '<div id="box_Respostas">';
+            
             $marginRight = "";
+            
             if (count($respostas) > 0) {
                 if (count($respostas) > 4) {
                     $marginRight = "margin_right";
                 }
                 foreach ($respostas as $r) {
-
                     $usuarioResposta = $userController->select($r->getFrr_usuario());
                     //$dataResposta = substr(str_replace(' ',' às ',$r->getFrr_data()),0,-3);
                     $dataResposta = $dataFuncao->dataTimeBRExibicao($r->getFrr_data());
@@ -137,7 +137,7 @@ switch ($_REQUEST["acao"]) {
 
                     $html .= '<div class="box_topico_resp ' . $marginRight . '">
 	                                <p class="foto_aluno col-xs-1 col-md-1 col-lg-1">
-	                                    <img src="imgp/"' . $foto . '">
+	                                    <img src="imgp/' . $foto . '">
 	                                 </p>
 	                                <div class="col-xs-11 col-md-11 col-lg-11">
 	                                    <div class="dados_aluno">
@@ -151,12 +151,6 @@ switch ($_REQUEST["acao"]) {
 	                                <div style="clear:both"></div> 
 	                            </div>';
                 }
-            }
-
-            if (file_exists("imgp/" . $usuarioResposta->getUsr_imagem())) {
-                $foto = $usuarioResposta->getUsr_imagem();
-            } else {
-                $foto = 'default.png';
             }
 
             $html .= ' <button id="btn_responder" class="btn_form btn_form_forum ' . $marginRight . '">RESPONDER</button>
@@ -189,8 +183,8 @@ switch ($_REQUEST["acao"]) {
             $resp->setFrr_usuario($_POST['usuario']);
             $resp->setFrr_data($data);
 
-            if ($respostasController->insert($resp)) {
-                $result = Array();
+            if ($request = $respostasController->insert($resp)) {
+                $result = Array("id"=>$request);
 
                 $frqParticipante->insertOrUpdateUltimaVisualizacao($resp->getFrr_questao(),$resp->getFrr_usuario(),$data);
             } else {
@@ -277,13 +271,12 @@ switch ($_REQUEST["acao"]) {
         $frt->setFrt_status($status);
 
         $request = $forumTopicoController->insertAndReturnId($frt);
-        $retorno = Array("erro" => false, "retorno" => Array());
+        $retorno = [];
 
         if ($frt) {
-            $retorno["retorno"] = Array("id" => $request, "perfil" => $perfilLogado);
+            $retorno= ["id" => $request, "perfil" => $perfilLogado];
         } else {
-            $retorno["erro"] = true;
-            $retorno["retorno"] = Array("mensagem" => "Erro ao inserir novo tópico");
+            $retorno = "Erro ao criar novo tópico.";
         }
 
         echo json_encode($retorno);
@@ -536,11 +529,94 @@ switch ($_REQUEST["acao"]) {
             echo "0";
         break;
     }
+    
+    case "selectRangeByQuestao": {
+        $frrController = new ForumRespostaController();
+        $usrController = new UsuarioController();
+        
+        $idfrq = $_GET["idfrq"];
+        $min = $_GET["min"];
+        
+        $respostas = $frrController->selectRangeByQuestao($idfrq, $min);
+        $lista = [];
+        
+        foreach ($respostas as $frr) {
+            $usr = $usrController->select($frr->getFrr_usuario());
+            $usrImagem = file_exists("imgp/".$usr->getUsr_imagem()) ? $usr->getUsr_imagem() : "default.png";
+            $resp = [
+                "id" => $frr->getFrr_id(),
+                "questao" => utf8_encode($frr->getFrr_questao()),
+                "usuario" => [
+                    "id" => $usr->getUsr_id(),
+                    "nome" => utf8_encode($usr->getUsr_nome()),
+                    "imagem" => $usrImagem
+                ],
+                "resposta" => utf8_encode($frr->getFrr_resposta()),
+                "data" => DatasFuncao::dataTimeBR($frr->getFrr_data()),
+                "anexo" => $frr->getFrr_anexo()
+            ];
+            
+            array_push($lista, $resp);
+        }
+        echo json_encode($lista);
+        
+        break;
+    }
+    
+    case "selectForumResposta": {
+        $frr = $respostasController->select($_GET["idfrr"]);
+        $usr = $userController->select($frr->getFrr_usuario());
+        
+        if ($frr) {
+            if (file_exists("imgp/" . $usr->getUsr_imagem()))
+                $foto = $usr->getUsr_imagem();
+            else
+                $foto = "default.png";
+            
+            $retorno = [
+                "id" => $frr->getFrr_id(),
+                "questao" => $frr->getFrr_questao(),
+                "usuario" => [
+                    "id" => $usr->getUsr_id(),
+                    "nome" => utf8_encode($usr->getUsr_nome()),
+                    "imagem" => $foto
+                ],
+                "resposta" => utf8_encode($frr->getFrr_resposta()),
+                "data" => DatasFuncao::dataTimeBR($frr->getFrr_data()),
+                "anexo" => $frr->getFrr_anexo()
+            ];
+        }
+        
+        echo json_encode($retorno);
+                
+        break;
+    }
     /*
      * Método para teste de funcionalidades
      */
     
-    case "teste": {
+    case "teste": { 
         
+        $frr = $respostasController->select($_GET["idfrr"]);
+        $usr = $userController->select($frr->getFrr_usuario());
+        
+        if ($frr) {
+            $retorno = [
+                "id" => $frr->getFrr_id(),
+                "questao" => $frr->getFrr_questao(),
+                "usuario" => [
+                    "id" => $usr->getUsr_id(),
+                    "nome" => utf8_encode($usr->getUsr_nome()),
+                    "imagem" => $usr->getUsr_imagem()
+                ],
+                "resposta" => utf8_encode($frr->getFrr_resposta()),
+                "data" => DatasFuncao::dataTimeBR($frr->getFrr_data()),
+                "anexo" => $frr->getFrr_anexo()
+            ];
+        }
+        print("<pre>");
+        echo json_encode($retorno);
+                
+        break;
     }
 }

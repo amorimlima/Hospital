@@ -1,34 +1,8 @@
-function listaRespostas(a){
-	var questao = a;
-    $.ajax({
-        url: "ajax/ForumAjax.php",
-        type: "post",
-        dataType: "html",
-        data: {
-            acao: "listaRespostaQuestao",
-            resp: a
-        },
-        success: function (a)
-        {
-            $('#questao').val(questao);
-        	$(".conteudoRespostas").html(a);
-            barraDeRolagem();
-        }
-    })
-}
-function barraDeRolagem () {
-    $("#resultadoPesq, #box_Respostas_container").mCustomScrollbar({
-        axis: "y",
-        scrollButtons: {
-            enable: !0
-        }
-    });
-}
-
 // Barra de rolagem personalizada
 $(document).ready(function ()
 {
-   barraDeRolagem();
+    var idfrq = $("#idfrq").val();
+    barraDeRolagem();
 
 	$("#txt_pesquisa_input").keyup(function (){
 			texto = $(this).val().toUpperCase();; 
@@ -74,36 +48,9 @@ $(document).ready(function ()
 		$(".dataResposta").text(dt), $("#campo_resp").css("display", "block")
     });
 
-	$("body").delegate("#btn_pronto", "click", function (){
-        usuarioId = $(this).attr("idAluno");
-		resposta = $("#resp_forum").val();
-		questao = $("#questao").val();
-		
-		if (resposta != ''){
-			$.ajax({
-				url: "ajax/ForumAjax.php",
-			    type: "post",
-			    dataType: "json",
-			    data: {
-			    	acao: "NovaRespostaQuestao",
-			        questao: questao,
-			        resposta: resposta,
-			        usuario: usuarioId
-			    },
-			    success: function (){
-			    	$("#respostaSucesso").css('display','block');
-			    	var totalResposta = $("#totalResp"+questao).text();
-					totalResposta++; 
-					if (totalResposta == 1)	$("#totalRespTexto"+questao).html('<span id="totalResp'+questao+'">1</span> Resposta');
-						else $("#totalRespTexto"+questao).html('<span id="totalResp'+questao+'">'+totalResposta+'</span> Respostas');
-			    	listaRespostas(questao)
-			    }
-			})
-		}else {
-			$('#respostaErroVazia').css('display','block');
-		}
-		return false;
-    })
+	$("#btn_pronto").click(validarEnviarForumResposta);
+
+    listarRespostas(idfrq,0);
 });
 
 function atualizarVisitas(questao){
@@ -113,4 +60,147 @@ function atualizarVisitas(questao){
 	if (total == 1)	$("#totalVisTexto"+questao).html('<span id="totalVis'+questao+'">1</span> Visualização');
 		else $("#totalVisTexto"+questao).html('<span id="totalVis'+questao+'">'+total+'</span> Visualizações');
 	return false;
+}
+
+function barraDeRolagem () {
+    $("#resultadoPesq, #box_Respostas_container").mCustomScrollbar({
+        axis: "y",
+        scrollButtons: {
+            enable: !0
+        }
+    });
+}
+
+function listarRespostas(idfrq,min) {
+    var htmlFrr = "";
+    
+    $.ajax({
+        url: "ajax/ForumAjax.php",
+        type: "GET",
+        dataType: "json",
+        data: "acao=selectRangeByQuestao&idfrq="+idfrq+"&min="+min,
+        beforeSend: function () {
+            var html = "<div class=\"alert alert-warning\">Carregando respostas...</div>";
+            $("#box_Respostas").html(html);
+        },
+        success: function(data) {
+            var marginRight = "";
+            if (data.length > 0) {
+                marginRight = data.length > 4 ? "margin_right" : "";
+                for (var a in data) {
+                    htmlFrr += viewForumResposta(data[a], marginRight);
+                }
+            } else {
+                htmlFrr = "<div class=\"alert alert-warning\">Nenhuma resposta encontrada.</div>";
+            }
+        },
+        error: function() {
+            htmlFrr = "<div class=\"alert alert-danger\">Erro ao carregar as respostas.</div>";
+        },
+        complete: function () {
+            $("#box_Respostas").html(htmlFrr);
+            
+            if (verificarQtdeForumResposta())
+                console.log("Batata");
+            else
+                console.log("Arroz");
+        }
+    });
+}
+
+function viewForumResposta(resposta, marginRight) {
+    var htmlFrr = "";
+    var data = resposta.data.split(" ")[0];
+    var datahorario = resposta.data.split(" ")[1];
+    var horario = datahorario.split(":")[0]+":"+datahorario.split(":")[1];
+
+    htmlFrr +=  "<div class=\"box_topico_resp "+marginRight+"\">";
+    htmlFrr +=      "<p class=\"foto_aluno col-xs-1\">";
+    htmlFrr +=          "<img src=\"imgp/"+resposta.usuario.imagem+"\" />";
+    htmlFrr +=      "</p>";
+    htmlFrr +=      "<div class=\"col-xs-11\">";
+    htmlFrr +=          "<div class=\"dados_aluno\">";
+    htmlFrr +=              "<span class=\"aluno_nome\">"+resposta.usuario.nome+"</span>";
+    htmlFrr +=              "<span class=\"aluno_data\">Respondido dia "+data+" às "+horario+".</span>";
+    htmlFrr +=          "</div>";
+    htmlFrr +=          "<div>";
+    htmlFrr +=              "<p class=\"resp_aluno\">"+resposta.resposta+"</p>";
+    htmlFrr +=          "</div>";
+    htmlFrr +=      "</div>";
+    htmlFrr +=      "<div style=\"clear: both;\"></div>";
+    htmlFrr +=  "</div>";
+
+    return htmlFrr;
+}
+
+function verificarQtdeForumResposta() {
+    var qtdeExibida = $(".box_topico_resp").length;
+    var qtdeTotal = parseInt($("#frrQtde").val());
+    
+    if (qtdeExibida < qtdeTotal)
+        return true;
+    else
+        return false;
+}
+
+function validarEnviarForumResposta() {
+    if ($("#resp_forum").val() != "") {
+        var dados = $("#formNovaResposta").serialize();
+        
+        $.ajax({
+            url: "ajax/ForumAjax.php",
+            type: "post",
+            dataType: "json",
+            data: dados,
+            beforeSend: function( ){
+                $("#resp_forum").attr("disabled","disabled");
+                $("#btn_pronto").attr("disabled","disabled");
+                $("#btn_pronto").text("Aguarde...");
+            },
+            success: function (data){
+                var totalResposta = $("#totalResp"+questao).text();
+                var questao = $("#idfrq").val();
+                
+                if (totalResposta == 1)
+                    $("#totalRespTexto"+questao).html('<span id="totalResp'+questao+'">1</span> Resposta');
+                else
+                    $("#totalRespTexto"+questao).html('<span id="totalResp'+questao+'">'+(++totalResposta)+'</span> Respostas');
+                var frrQtde = $("#frrQtde").val();
+                
+                $("#frrQtde").val(++frrQtde);
+                getNovaForumResposta(data);
+            }
+        });
+    } else {
+        $('#respostaErroVazia').fadeIn(200);
+    }
+}
+
+function getNovaForumResposta(resposta) {
+    var htmlFrr = "";
+    $.ajax({
+        url: "ajax/ForumAjax.php",
+        type: "GET",
+        dataType: "json",
+        data: "acao=selectForumResposta&idfrr="+resposta.id,
+        success: function(data) {
+            var marginRight = "";
+            
+            if (parseInt($("#frrQtde").val()) > 4)
+                marginRight = "margin_rght";
+                
+            htmlFrr += viewForumResposta(data,marginRight);
+        },
+        error: function() {
+            htmlFrr = "<div class=\"alert alert-danger\">Erro ao carregar a nova resposta.</div>"; 
+        },
+        complete: function () {
+            $("#respostaSucesso").fadeIn(200);
+            $("#box_Respostas").prepend(htmlFrr);
+            $("#resp_forum").val("");
+            $("#btn_pronto").text("Responder");
+            $("#resp_forum").removeAttr("disabled");
+            $("#btn_pronto").removeAttr("disabled");
+        }
+    });
 }

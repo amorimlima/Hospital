@@ -31,7 +31,7 @@ class ForumRespostaDAO extends DAO{
         $sql .= "'".$for->getFrr_questao()."',";
         $sql .= "'".$for->getFrr_anexo()."','".$for->getFrr_data()."')";
 		//echo $sql;
-    	return $this->execute($sql);
+    	return $this->executeAndReturnLastID($sql);
      }
      
      public function update($for)
@@ -135,6 +135,31 @@ class ForumRespostaDAO extends DAO{
         {
             return false;
         }
+    }
+    
+    public function selectRangeByQuestao($idfrqp, $min)
+    {
+        $max = $min + 5;
+        $sql  = "SELECT * FROM forum_resposta  ";
+        $sql .= "WHERE frr_questao = {$idfrqp} ";
+        $sql .= "ORDER BY frr_data DESC ";
+        $sql .= "LIMIT {$min}, {$max}; ";
+        $respostas = [];
+        $result = $this->retrieve($sql);
+        
+        while ($qr = mysqli_fetch_array($result)) {
+            $frr = new ForumResposta();
+            $frr->setFrr_id($qr["frr_id"]);
+            $frr->setFrr_questao($qr["frr_questao"]);
+            $frr->setFrr_usuario($qr["frr_usuario"]);
+            $frr->setFrr_resposta($qr["frr_resposta"]);
+            $frr->setFrr_data($qr["frr_data"]);
+            $frr->setFrr_anexo($qr["frr_anexo"]);
+            
+            array_push($respostas, $frr);
+        }
+        
+        return $respostas;
     }
 }
 ?>

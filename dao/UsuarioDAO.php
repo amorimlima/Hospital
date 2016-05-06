@@ -354,12 +354,12 @@ class UsuarioDAO extends DAO{
     }
 
     public function buscaProfessorByEscolaAndSerie($idEscola, $idSerie){
-    	
-		$sql = "SELECT u.usr_id, u.usr_nome, g.grp_id 
+
+		$sql = "SELECT u.usr_id, u.usr_nome, g.grp_id, g.grp_periodo 
 					FROM usuario_variavel as uv inner join 
 						(usuario as u inner join grupo as g on u.usr_id = g.grp_professor) 
 							on u.usr_id = usv_usuario 
-					WHERE u.usr_perfil = 2 and uv.usv_serie = $idSerie and  g.grp_escola = $idEscola";
+					WHERE u.usr_perfil = 2 and g.grp_escola = $idEscola and g.grp_serie = $idSerie";
 
 		//echo $sql;
 		
@@ -367,10 +367,14 @@ class UsuarioDAO extends DAO{
     	$lista = array();
         while ($qr = mysqli_fetch_array($result)){
       
+        	if ($qr['grp_periodo'] == 1) $periodo = 'Manhã';
+        		else $periodo = 'Tarde';
+        
 			$user = array(
 						'idUsuario' => $qr["usr_id"],
 						'nome'		=> $qr['usr_nome'],
-						'idGrupo'	=> $qr['grp_id']
+						'idGrupo'	=> $qr['grp_id'],
+						'periodo'	=> $periodo
 					);
             array_push($lista, $user);
         }  

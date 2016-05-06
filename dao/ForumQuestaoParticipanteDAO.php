@@ -179,5 +179,34 @@ class ForumQuestaoParticipanteDAO extends DAO
             return false;
         }
     }
+
+    public function countAtualizacoes($idusr)
+    {
+        $sql  = "SELECT frq_id FROM forum_questao frq ";
+        $sql .= "JOIN forum_questao_participante fqp ON fqp.fqp_questao = frq.frq_id AND fqp.fqp_usuario = {$idusr} ";
+        $sql .= "WHERE TIMEDIFF(fqp.fqp_ultima_visualizacao, (";
+        $sql .=     "SELECT MAX(frr_data) FROM forum_resposta";
+        $sql .= ")) < 0;";
+
+        $result = $this->retrieve($sql);
+        $count  = mysqli_num_rows($result);
+
+        return $count;
+    }
+
+    public function verificarAtualizacaoQuestao($idfrq,$idusr)
+    {
+        $sql  = "SELECT count(*) FROM forum_questao_participante fqp ";
+        $sql .= "WHERE fqp.fqp_questao = {$idfrp} ";
+        $sql .= "AND fqp.fqp_usuario = {$idusr} ";
+        $sql .= "AND TIMEDIFF(fqp.fqp_ultima_visualizacao, (";
+        $sql .=     "SELECT MAX(frr_data) FROM forum_resposta frr ";
+        $sql .=     "WHERE frr.frr_questao = {$idfrq} ";
+        $sql .= ")) < 0 LIMIT 1";
+
+        $result = $this->retrieve($sql);
+
+        return $result;
+    }
 }
 ?>

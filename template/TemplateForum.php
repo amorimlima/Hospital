@@ -121,49 +121,56 @@ class TemplateForum {
                     return "default.png";
             }
 
-            echo "<div id=\"box_questoes_pendentes_container\">";
-            echo    "<div id=\"box_questoes_pendentes\">";
+            $htmlPendentes  = "<div id=\"box_questoes_pendentes_container\">";
+            $htmlPendentes .=    "<div id=\"box_questoes_pendentes\">";
 
             if (count($questoesPendentes) > 0) {
                 foreach ($questoesPendentes as $questao) {
-                    echo "<div id=\"box_questao" . $questao->getFrq_id() . "\">";
-                    echo    "<div class=\"row perg_box\">";
-                    echo        "<div class=\"perg_box_1 col-xs-12 col-md-9\">";
-                    echo            "<p class=\"foto_aluno\"><img src=\"imgp/" . verificarImagem($questao->getFrq_usuario()->getUsr_imagem()) . "\"></p>";
-                    echo            "<p id=\"" . $questao->getFrq_id() . "\" class=\"perg_aluno questaoTexto\">" . utf8_encode($questao->getFrq_topico()->getFrt_topico()) . "</p>";
-                    echo            "<p class=\"nome_aluno\">Questão: " . utf8_encode($questao->getFrq_questao()) . "</p>";
-                    echo            "<p class=\"post_data\">Solicitante: " . $questao->getFrq_usuario()->getUsr_nome() . " | Solicitado dia " . $dataFuncao->dataTimeBRExibicao($questao->getFrq_data()) . "</p>";
-                    echo        "</div>";
-                    echo        "<div class=\"btns_container col-xs-12 col-md-3\">";
-                    echo            "<button type=\"button\" data-action=\"aceitar\" data-topico=\"" . $questao->getFrq_topico()->getFrt_id() . "\" id=\"btn_aceitar" . $questao->getFrq_id() . "\" class=\"btn btn-primary\">Aceitar Tópico</p>";
-                    echo            "<button type=\"button\" data-action=\"rejeitar\" data-topico=\"" . $questao->getFrq_topico()->getFrt_id() . "\" id=\"btn_rejeitar" . $questao->getFrq_id() . "\" class=\"btn\">Rejeitar tópico</p>";
-                    echo        "</div>";
-                    echo    "</div>";
-                    echo "</div>";
+                    $idfrq      = $questao->getFrq_id();
+                    $imagemFrq  = verificarImagem($questao->getFrq_usuario()->getUsr_imagem());
+                    $questaoFrq = utf8_encode($questao->getFrq_questao());
+                    $autorFrq   = utf8_encode($questao->getFrq_usuario()->getUsr_nome());
+                    $dataFrq    = $dataFuncao->dataTimeBRExibicao($questao->getFrq_data());
+                    $idfrt      = $questao->getFrq_topico()->getFrt_id();
+                    $topicoFrt  = utf8_encode($questao->getFrq_topico()->getFrt_topico());
+
+                    $htmlPendentes .= "<div id=\"box_questao{$idfrq}\">";
+                    $htmlPendentes .=    "<div class=\"row perg_box\">";
+                    $htmlPendentes .=        "<div class=\"perg_box_1 col-xs-12 col-md-9\">";
+                    $htmlPendentes .=            "<p class=\"foto_aluno\"><img src=\"imgp/{$imagemFrq}\"></p>";
+                    $htmlPendentes .=            "<p id=\"{$idfrq}\" class=\"perg_aluno questaoTexto\">{$topicoFrt}</p>";
+                    $htmlPendentes .=            "<p class=\"nome_aluno\">Questão: {$questaoFrq}</p>";
+                    $htmlPendentes .=            "<p class=\"post_data\">Solicitante: {$autorFrq} | Solicitado dia {$dataFrq}</p>";
+                    $htmlPendentes .=        "</div>";
+                    $htmlPendentes .=        "<div class=\"btns_container col-xs-12 col-md-3\">";
+                    $htmlPendentes .=            "<button type=\"button\" data-action=\"aceitar\" data-topico=\"{$idfrt}\" id=\"btn_aceitar{$idfrq}\" class=\"btn btn-primary\">Aceitar Tópico</p>";
+                    $htmlPendentes .=            "<button type=\"button\" data-action=\"rejeitar\" data-topico=\"{$idfrt}\" id=\"btn_rejeitar{$idfrq}\" class=\"btn\">Rejeitar tópico</p>";
+                    $htmlPendentes .=        "</div>";
+                    $htmlPendentes .=    "</div>";
+                    $htmlPendentes .= "</div>";
                 }
             } else {
-                echo "<div class=\"alert_container\">";
-                echo    "<div class=\"alert alert-warning\">Nenhum tópico ou questão pendente de aprovação.</div>";
-                echo "</div>";
+                $htmlPendentes .= "<div class=\"alert_container\">";
+                $htmlPendentes .=    "<div class=\"alert alert-warning\">Nenhum tópico ou questão pendente de aprovação.</div>";
+                $htmlPendentes .= "</div>";
             }
 
-            echo    "</div>";
-            echo "</div>";
+            $htmlPendentes .=    "</div>";
+            $htmlPendentes .= "</div>";
+
+            echo $htmlPendentes;
         }
     }
     
-    public function countTopicosPendentes() {
+    public function countPendentesByEscola() {
         $usr = unserialize($_SESSION['USR']);
         $usrEscola = $usr["escola"];
         $forumTopicoController = new ForumTopicoController();
-        $countFrtPendentes = intval($forumTopicoController->countTopicosPendentes($usrEscola));
+        $countFrtPendentes = intval($forumTopicoController->countPendentesByEscola($usrEscola));
         
-        if ($countFrtPendentes > 0)
-            return $countFrtPendentes;
-        else
-            return false;
-    }
-    
+        return $countFrtPendentes;
+    } 
+   
     public function mostrarAbasForum() {
         $usr = unserialize($_SESSION['USR']);
         $perfilLogado = $usr["perfil_id"];
@@ -174,7 +181,7 @@ class TemplateForum {
             echo "<p class=\"titulo_box_forum\" id=\"txt_topicos_pendentes\">";
             echo    "TÓPICOS PENDENTES ";
             
-            if ($this->countTopicosPendentes($usrEscola))
+            if ($this->countPendentesByEscola($usrEscola))
                 echo "<span class=\"badge\">Novo</span>";
             
             echo "</p>";

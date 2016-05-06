@@ -73,4 +73,15 @@ class ForumQuestaoParticipanteController
         $fqp = $this->forumQuestaoParticipanteDAO->getQuestoesByParticipante($idusr);
         return $fqp;
     }
+
+    public function countAtualizacoes($idusr)
+    {
+        $count = $this->forumQuestaoParticipanteDAO->countAtualizacoes($idusr);
+        return $count;
+    }
+
+    public function verificarAtualizacaoQuestao()
+    {
+        return;
+    }
 }

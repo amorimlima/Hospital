@@ -31,9 +31,6 @@ public function Grupo()
 
 }
 
-
-
-
 public function getGrp_id()
 {
 return $this->grp_id;
@@ -93,7 +90,6 @@ public function setGrp_periodo($val)
 $this->grp_periodo = $val;
 }
 
-} 
 
 ?>
 

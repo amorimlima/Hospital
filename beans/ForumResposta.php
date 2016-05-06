@@ -21,10 +21,10 @@ class ForumResposta
 private $frr_id;
 
 private $frr_usuario;
-private $frr_resposta;
 private $frr_questao;
-private $frr_anexo;
+private $frr_resposta;
 private $frr_data;
+private $frr_anexo;
 
 
 

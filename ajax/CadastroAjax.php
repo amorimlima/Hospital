@@ -26,20 +26,18 @@ switch ($_REQUEST["acao"]) {
        	$enderecoController = new EnderecoController();
 		$usuarioController = new UsuarioController();
 		
-//		if ($_POST['cpf'] != ''){
-//	        if ($usuarioController->verificaCpf($_POST['cpf']) > 0){
-//	        	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado!');
-//	        }	        	
-//        }else
-//         if ($enderecoController->verificaEmail($_POST['email']) > 0){
-//        	$result = Array('erro'=>true,'msg'=>'Email já cadastrado!');
-//        
-//        }else if ($usuarioController->verificaLogin($_POST["login"])){
-//        	$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
-//        }
+		if ($_POST['cpf'] != ''){
+	        if ($usuarioController->verificaCpf($_POST['cpf']) > 0){
+	        	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado!');
+	        }	        	
+        }else
+         if ($enderecoController->verificaEmail($_POST['email']) > 0){
+        	$result = Array('erro'=>true,'msg'=>'Email já cadastrado!');
+        
+        }else if ($usuarioController->verificaLogin($_POST["login"])){
+        	$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
+        }
 	
-		
-		
 		if ($result == ''){
 	       	$endereco = new Endereco();
 	        $endereco->setend_logradouro(utf8_decode($_POST["rua"]));
@@ -85,10 +83,6 @@ switch ($_REQUEST["acao"]) {
 		        	
 		        		if ($_POST['imagem'] != ''){
 				        	$imag = getimagesize("../temporaria/".$_POST["imagem"]);
-							//$xp = $imag[0];
-							//$yp = $imag[1];
-							//$ix = 350;
-							//$iy = ($ix * $y) / $x;
 						   	gerar_tumbs_real(100,100,100,"../temporaria/".$_POST["imagem"],"../imgm/".$_POST["imagem"]);
 						   	gerar_tumbs_real(65,65,100,"../temporaria/".$_POST["imagem"],"../imgp/".$_POST["imagem"]);
 				        }
@@ -96,7 +90,8 @@ switch ($_REQUEST["acao"]) {
 			        	$usuarioVarController = new UsuarioVariavelController();
 			        	$usuarioVar = new UsuarioVariavel();
 			        	$usuarioVar->setUsv_usuario($idUsuario);
-			        	$usuarioVar->setUsv_serie($_POST['serie']);
+			        	if (strlen($_POST['serie'])>1) $usuarioVar->setUsv_serie('null');
+			        	 else $usuarioVar->setUsv_serie($_POST['serie']);
 			        	$usuarioVar->setUsv_ano_letivo($_POST['ano']);
 			        	$usuarioVar->setUsv_serie($_POST['serie']);
 			        	$usuarioVar->setUsv_status('0');
@@ -144,6 +139,7 @@ switch ($_REQUEST["acao"]) {
 							$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
 							$grupo->setGrp_serie($sp[0]);
 							$grupo->setGrp_periodo($sp[1]);
+							
 							$grupoController->insert($grupo);
 						}
 			        }
@@ -475,7 +471,7 @@ switch ($_REQUEST["acao"]) {
     	if (count($professores) > 0){
     		$html .= '<option value="" disabled selected>Selecione um professor</option>';
     		foreach ($professores as $p){
-    			$html .= '<option value="'.$p['idUsuario'].'_'.$p['idGrupo'].'">'.utf8_encode($p['nome']).'</option>';
+    			$html .= '<option value="'.$p['idUsuario'].'_'.$p['idGrupo'].'">'.utf8_encode($p['nome']).' ('.$p['periodo'].') </option>';
     		}
     	}else $html .= '<option value="" disabled selected>Nenhum professor encontrado</option>';
     	
