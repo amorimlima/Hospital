@@ -129,16 +129,14 @@ class RegistroGaleriaDAO extends DAO{
     public function registroGaleriaCountAcessosEscola($escola)
     {
         $sql = "SELECT COUNT(*) FROM registro_galeria rg ";
-        $sql .= "JOIN usuario us ON us.usr_id = rg.rgg_usuario ";
-        $sql .= "WHERE rg.rgg_menu_galeria = 1 AND us.usr_perfil < 3 AND rg.rgg_escola = ".$escola;  
+        $sql .= "WHERE rg.rgg_menu_galeria = 1 AND rg.rgg_escola = ".$escola;  
         return $this->retrieve($sql)->fetch_row()[0];
     }
 
     public function registroGaleriaCountDownloadEscola($escola)
     {
         $sql =  "SELECT COUNT(*) FROM registro_galeria rg ";
-        $sql .= "JOIN usuario us ON us.usr_id = rg.rgg_usuario ";
-        $sql .= "WHERE rg.rgg_download_galeria = 1 AND us.usr_perfil < 3 AND rg.rgg_escola = ".$escola; 
+        $sql .= "WHERE rg.rgg_download_galeria = 1 AND rg.rgg_escola = ".$escola; 
         return $this->retrieve($sql)->fetch_row()[0];
     }
 

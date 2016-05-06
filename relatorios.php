@@ -29,10 +29,6 @@ $escolas = $escolaController->selectAll();
 
 $logado = unserialize($_SESSION['USR']);
 
-//$avaliacao = $avaliacaoController->selectAvaliacaoByGeral('69','2','5');
-//echo "<pre>";
-//print_r($avaliacao);
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -58,12 +54,6 @@ $logado = unserialize($_SESSION['USR']);
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
-    <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
-    <script src="js/funcoes.js"></script>
-    <script src="js/relatorios.js"></script>
   </head>
   <body>
   	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
@@ -81,7 +71,7 @@ $logado = unserialize($_SESSION['USR']);
                         	<div class="row">
                         		<div class="col-sm-12 col-md-9">
                         			<span class="header"></span>
-									<div id="conteudoPrincipal" class="conteudo_principal" style="display:none">
+									<div id="conteudoPrincipal" class="conteudo_principal" style="display: block">
 										<div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
 										<div class="tipo_grafico_picker_opcoes">
 											<div id="graficoGaleria" class="option_selected opcoes_graficos">Acessos e Downloads na Galeria (em %)</div>
@@ -94,7 +84,8 @@ $logado = unserialize($_SESSION['USR']);
 												</div>
 											</div>
 											<div id="grafico2" class="grafico" style="display: none;">
-												<div class="lista_itens_grafico">	
+												<div class="lista_itens_grafico">
+													Carregando...
 												</div>
 											</div>
                                         </div>
@@ -124,7 +115,7 @@ $logado = unserialize($_SESSION['USR']);
 									</div>
 									<div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
 									</div>
-									<div id="criarGrupoContainer" class="liberar_grupo_container">
+									<div id="criarGrupoContainer" class="liberar_grupo_container" style="display:none">
 										<form action="">
 				                        	<fieldset>
 				                        		<legend>Novo grupo</legend>
@@ -132,22 +123,15 @@ $logado = unserialize($_SESSION['USR']);
 				                        			<label for="">Série</label>
 				                        			<span>
 				                        				<select name="grp_serie" id="grp_serie">
-				                        					<?php
-					                        					$templateRelatorio->getSeriesCombobox();
-					                        				?>
+				                        					<option>Carregando...</option>
 				                        				</select>
 				                        			</span>
 				                        		</div>
 				                        		<div class="formfield formfield-s">
 				                        			<label for="">Período</label>
 				                        			<span>
-				                        				<select name="grp_periodo">
-				                        					<?php
-					                        					//$templateRelatorio->getPeriodosCombobox();
-					                        				?>
-					                        				<option value="1">Manhã</option>
-					                        				<option value="2">Tarde</option>
-					                        				<option value="3">Noite</option>
+				                        				<select name="grp_periodo" id="grp_periodo">
+				                        					<option>Carregando...</option>
 				                        				</select>
 				                        			</span>
 				                        		</div>
@@ -161,54 +145,15 @@ $logado = unserialize($_SESSION['USR']);
 				                        		<div class="formfield">
 				                        			<span>
 				                        				<div id="alunosContainer" class="checkbox-list checkbox-block-list">
-				                        					<!-- <input name="usr_id" value="1" type="checkbox" id="aluno1">
-				                        					<label for="aluno1" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-                        										Ana Carolina Ferreira Soares
-				                        					</label>
-				                        					<input name="usr_id" value="2" type="checkbox" id="aluno2">
-				                        					<label for="aluno2" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-				                        						Diego de Moraes Garcia
-				                        					</label>
-				                        					<input name="usr_id" value="3" type="checkbox" id="aluno3">
-				                        					<label for="aluno3" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-				                        						Diego de Moraes Garcia
-				                        					</label>
-				                        					<input name="usr_id" value="4" type="checkbox" id="aluno4">
-				                        					<label for="aluno4" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-				                        						Diego de Moraes Garcia
-				                        					</label>
-				                        					<input name="usr_id" value="5" type="checkbox" id="aluno5">
-				                        					<label for="aluno5" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-				                        						Diego de Moraes Garcia
-				                        					</label>
-				                        					<input name="usr_id" value="6" type="checkbox" id="aluno6">
-				                        					<label for="aluno6" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-				                        						Diego de Moraes Garcia
-				                        					</label>
-				                        					<input name="usr_id" value="7" type="checkbox" id="aluno7">
-				                        					<label for="aluno7" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-				                        						Diego de Moraes Garcia
-				                        					</label>
-				                        					<input name="usr_id" value="8" type="checkbox" id="aluno8">
-				                        					<label for="aluno8" class="checkbox-list-item checkbox-block">
-				                        						<img src="img/erro.png" alt="" />
-				                        						Diego de Moraes Garcia
-				                        					</label>-->
+				          									Carregando...
 				                        				</div>
 				                        			</span>
 				                        		</div>
 				                        	</fieldset>
 				                        	<fieldset>
 				                        		<div class="formbtns">
-				                        			<input type="reset" value="Limpar"/>
-				                        			<input type="submit" value="Enviar"/>
+				                        			<input type="reset" id="cancelarGrupo" value="Voltar"/>
+				                        			<input type="submit" id="salvarGrupo" value="Salvar"/>
 				                        		</div>
 				                        	</fieldset>
 				                        </form>
@@ -221,18 +166,16 @@ $logado = unserialize($_SESSION['USR']);
 											<h2>Gerar relatório</h2>
 											<label for="filtroLivro">Livro</label>
 											<select id="filtroLivro" class="filtrosSelect">
-												<?php $templateRelatorio->getLivros(); ?>
+												<?php //$templateRelatorio->getLivros($par); ?>
 											</select>
 											<label for="filtroCapitulo">Capítulo</label>
 											<select id="filtroCapitulo" class="filtrosSelect">
-												<?php $templateRelatorio->getCapitulos(); ?>
+												<?php //$templateRelatorio->getCapitulos($par); ?>
 											</select>
 											<label for="filtroSala">Sala</label>
 											<select id="filtroSala" class="filtrosSelect">
-												<?php $templateRelatorio->getSalas(); ?>
+												<?php //$templateRelatorio->getSalas($par); ?>
 											</select>
-											<button id="visualizarRelatorio">Visualizar</button>
-											<button id="baixarRelatorio" class="btn_primary">Baixar relatório</button>
 										</div>
 										<div class="legenda_grafico">
 											<h2>Legenda</h2>
@@ -250,6 +193,24 @@ $logado = unserialize($_SESSION['USR']);
 							</div>
                         </div>
                     </div>
+                    <div class="modal fade in" id="myModal" role="dialog" style="display: none;">
+                        <div class="modal-dialog modal-sm">
+                            <div class="borda_laranja">
+                                <div class="modal-body">
+                                    <div id="tipoMensagem"></div>
+                                    <div class="modal-body-container">
+                                        <div class="text-modal">
+                                            <p class="txt_laranja" id="modalTexto"></p>
+                                         </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal" class="btn btn_laranja botao_modal">OK</button>
+                                </div>
+                           	</div>
+                        </div>
+                    </div>
+                    <div class="modal-backdrop fade in" style="display: none;"></div>
                 </div>
             </div>
         </div>
@@ -283,6 +244,8 @@ $logado = unserialize($_SESSION['USR']);
     <script src="js/EstadoCidade.js"></script>
     <script src="js/funcoes.js"></script>
 	<script src="js/cadastro.js"></script>
+	<script src="js/relatorios.js"></script>
+	<script src="js/liberarCapitulos.js"></script>
 	<script src="js/goMobileUpload.js"></script>
     
     

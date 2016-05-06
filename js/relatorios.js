@@ -1,35 +1,23 @@
 "use strict";
 
 $(document).ready(function() {
-	listarAlunosSemGrupoBySerie($('#grp_serie').val());
 	gerarPickerTipoGrafico();
 	atribuirBarrasRolagem();
 	menuAtribuirCapitulo();
-	
-	$('#grp_serie').change(function(){
-		listarAlunosSemGrupoBySerie($(this).val());
-	})
+	var data = getDadosUsuario();
+	carregarGrafico(data);
+	carregarTodosFiltros(data);
+	filtrosChange();
+	botoesGrupo();
+	$('.botao_modal').click(function(){
+        hideModal();
+    });
+    voltarGrafico();
 });
 
-	
-function listarAlunosSemGrupoBySerie(idSerie) {
-	
-	$.ajax({
-		url: 'ajax/RelatoriosAjax.php',
-		type: 'GET',
-		data: {	'acao' : 'listarAlunosSemGrupo',
-				'idSerie' : idSerie},
-		dataType: 'json',
-		success: function(x) {
-			//montar o html no RelatoriosAjax.php
-			$('#alunosContainer').html(x);
-		}
-	});
-	
-}
-
 function gerarPickerTipoGrafico() {
-	$("#tipo_grafico_picker").click(function() {
+	$("#tipo_grafico_picker").click(function(event) {
+		event.stopPropagation();
 		$(this).toggleClass("picker_expanded");
 	});
 
@@ -40,10 +28,6 @@ function gerarPickerTipoGrafico() {
 	$("body").click(function() {
 		$("#tipo_grafico_picker").removeClass("picker_expanded");
 	});
-
-	$("#tipo_grafico_picker").click(function(event) {
-		event.stopPropagation();
-	});
 }
 
 function atribuirBarrasRolagem () {
@@ -53,9 +37,6 @@ function atribuirBarrasRolagem () {
 			enable:true
 		}
 	});
-	$("#alunosContainer").mCustomScrollbar({
-		axis: "y"
-	});
 }
 
 function toggleGrafico(item)
@@ -63,9 +44,13 @@ function toggleGrafico(item)
 	var texto = $(item).html();
 
 	$("#tipo_grafico_picker").removeClass("picker_expanded");
-	$(".tipo_grafico_picker_opcoes").children("div").not(item).removeClass("option_selected");
-	$(item).addClass("option_selected");
-	$("#tipo_grafico_picker").html(texto);
+	if (texto != $("#tipo_grafico_picker").html){
+		$(".tipo_grafico_picker_opcoes").children("div").not(item).removeClass("option_selected");
+		$(item).addClass("option_selected");
+		$("#tipo_grafico_picker").html(texto);
+		carregarGrafico(getDadosUsuario());
+	}
+	
 };
 
 function menuAtribuirCapitulo () {
@@ -99,22 +84,70 @@ function voltarGrafico()
 						viewEscola(escola);
 					}
 				});
-				carregarGrafico();
+				carregarGrafico(getDadosUsuario());
 			}
 			else
 			{
 				$('#box_perfil_selected').remove();
-				carregarGrafico();
+				carregarGrafico(getDadosUsuario());
 			}
 		}
-	})
-};
+	});
+}
 
-function carregarGrafico () {
-	var livro = $('#filtroLivro').val();
-	var capitulo = $('#filtroCapitulo').val();
-	var sala = $('#filtroSala').val();
-	var grafico = $('.option_selected ').attr('id');
+function filtrosChange () {
+
+	$(".filtrosSelect").change(function() {
+		carregarGrafico(getDadosUsuario());
+
+		var data = getDadosUsuario();
+		$(".filtrosSelect").not(this).each(function() {
+			carregaFiltro(data, this);
+		});
+	});
+}
+
+function carregarGrafico (data) {
+	$('.lista_itens_grafico').html("Carregando...");
+	data.acao = "carregaGrafico";
+	data.grafico = $('.option_selected ').attr('id');
+	$.ajax({
+		url: 'ajax/RelatoriosAjax.php',
+		type: 'GET',
+		data: data,
+		success: function(dados) {
+			$('.lista_itens_grafico').html(dados);
+		}
+	});
+}
+
+function carregaFiltro(data, filtro) {
+	var valor = $(filtro).val();
+	$(filtro).html("<option>Carregando...</option>");
+	data.filtro = filtro.id
+	data.acao = "carregaFiltro";
+	$.ajax({
+		url: "ajax/RelatoriosAjax.php",
+		type: "GET",
+		data: data,
+		success: function(d) {
+			console.log(d);
+			$(filtro).html(d);
+		},
+		complete: function() {
+			if (valor != null)
+				$(filtro).val(valor);
+		}
+	});
+}
+
+function carregarTodosFiltros(data) {
+	$('.filtrosSelect').each(function() {
+		carregaFiltro(data, this);
+	})
+}
+
+function getDadosUsuario () {
 	var perfil;
 	var id;
 	if ($('#box_perfil_selected').length > 0){
@@ -132,24 +165,27 @@ function carregarGrafico () {
 	else
 	{
 		perfil = usuario.perfil;
-		id = usuario.id;
+		if (perfil != 4)
+			id = usuario.id;
+		else
+			id = usuario.escola;
 	}
-		
-		
-	$.ajax({
-		url: 'ajax/RelatoriosAjax.php',
-		type: 'GET',
-		data: {	'acao' 		: 'carregaGrafico',
-				'livro' 	: livro,
-				'capitulo'	: capitulo,
-				'sala'		: sala,
-				'grafico'	: grafico,
-				'perfil'	: perfil,
-				'id'		: id},
-		success: function(dados) {
-			$('.lista_itens_grafico').html(dados);
-		}
-	});
+	var data = {
+		'livro' : $('#filtroLivro').val(),
+		'capitulo' : $('#filtroCapitulo').val(),
+		'sala' : $('#filtroSala').val(),
+		'perfil' : perfil,
+		'id' : id,
+	};
+
+	if (data.livro == null)
+		data.livro = 0;
+	if (data.capitulo == null)
+		data.capitulo = 0;
+	if (data.sala == null)
+		data.sala = 0;
+
+	return data;
 }
 
 function viewEscola(escola)
@@ -189,12 +225,177 @@ function viewProfessorSelected(professor)
 	htmlProfSelected +=			'<div class="nome_perfil_selected">'+professor.nome+'</div>';
 	htmlProfSelected +=			'<div class="dados_perfil_selected">Escola: '+professor.escola.nome+' | Entrada na escola: '+data_entrada+'</div>';
 	htmlProfSelected +=			'<div class="dados_perfil_selected">RG: '+rg+' | CPF: '+cpf+' | Data de nascimento: '+data_nascimento+'</div>';
-	htmlProfSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a></div>';
+	htmlProfSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span id="editar_grupos">Editar grupos</span></div>';
 	htmlProfSelected +=		'</div>';
 	htmlProfSelected +=	'</div>';
 
 	$(".tipo_grafico_picker_opcoes").after(htmlProfSelected);
-};
+	$('#editar_grupos').click(function() {
+		abrirEdicaoGrupo(professor.id);
+	});
+}
+
+function viewEscolaSelected(escola)
+{
+	var htmlEscSelected = "";
+	$("#box_perfil_selected").remove();
+
+	htmlEscSelected +=	'<div id="box_perfil_selected" class="box_perfil_selected ficha_dados">';
+	htmlEscSelected +=		'<div class="foto_perfil_selected"></div>';
+	htmlEscSelected +=		'<div class="info_perfil_selected">';
+	htmlEscSelected += 		'<input type="hidden" id="escola_id" id_escola="'+escola.id+'"/>';
+	htmlEscSelected +=			'<div class="nome_perfil_selected">'+escola.nome+'</div>';
+	htmlEscSelected +=			'<div class="razaoSocial_perfil_selected">Razão social: '+escola.razao_social+'</div>';
+	htmlEscSelected += 			'<div class="dados_perfil_selected">Tipo: '+escola.tipo_escola+' | Administração: '+escola.administracao+'</div>';
+	htmlEscSelected +=			'<div class="dados_perfil_selected">Cidade: '+escola.endereco.cidade+' | Estado: '+escola.endereco.uf+' | Site: '+escola.site+'</div>';
+	htmlEscSelected +=			'<div class="dados_perfil_selected">Diretor: '+escola.diretor.nome+' | E-mail: '+escola.diretor.email+'</div>';
+	htmlEscSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span class="lib_cap" id="lib_cap_'+escola.id+'" onclick="getCapitulosByEscola('+escola.id+')">Liberar capítulos</span></div>';
+	htmlEscSelected +=		'</div>';
+	htmlEscSelected +=	'</div>';
+
+	$(".tipo_grafico_picker_opcoes").after(htmlEscSelected);
+}
+
+function professorGetById(idProfessor) {
+	$.ajax({
+		url: "ajax/RelatoriosAjax.php",
+		type: "GET",
+		data: "acao=usuarioPorId&id="+idProfessor,
+		dataType: "json",
+		success: function(d) {
+			viewProfessorSelected(d);
+			carregarGrafico(getDadosUsuario());
+		}		
+	});
+}
+
+function escolaGetById(idEscola) {
+	$.ajax({
+		url: "ajax/RelatoriosAjax.php",
+		type: "GET",
+		data: "acao=escolaPorId&id="+idEscola,
+		dataType: "json",
+		success: function(d) {
+			viewEscolaSelected(d);
+			carregarGrafico(getDadosUsuario());
+		}		
+	});
+}
+
+function abrirEdicaoGrupo(idProfessor) {
+	$("#criarGrupoContainer").show();
+	$("#conteudoPrincipal").hide();
+	$('#alunosContainer').html("Carregando...");
+	$.ajax({
+		url: "ajax/SerieAjax.php",
+		data: {	'acao' : 'listarDisponiveisProfessor',
+				'idProfessor' : idProfessor},
+		dataType: "json",
+		success: function(dataSeries) {
+			var htmlSeries = "";
+			for (var i = 0; i < dataSeries.length; i++)
+				htmlSeries += '<option value="'+dataSeries[i].id+'">'+dataSeries[i].serie+'ª Série</option>';
+			$('#grp_serie').html(htmlSeries);
+			carregarPeriodosSerie(idProfessor);
+		}
+	});
+	$('#grp_serie').change(function() {
+		$('#alunosContainer').html("Carregando...");
+		carregarPeriodosSerie(idProfessor);
+	});
+
+}
+
+function carregarPeriodosSerie(idProfessor) {
+	$('#grp_periodo').html('<option>Carregando...</option>');
+	$.ajax({
+		url: "ajax/PeriodoAjax.php",
+		data: {	'acao' : 'listarDisponiveisProfessorSerie',
+				'idProfessor' : idProfessor,
+				'serie' : $('#grp_serie').val()},
+		dataType: "json",
+		success: function(dataPeriodos){
+			var htmlPeriodos = "";
+			for (var i = 0; i < dataPeriodos.length; i++){
+				htmlPeriodos += '<option value="'+dataPeriodos[i].id+'">'+dataPeriodos[i].periodo+'</option>'
+			}
+			$('#grp_periodo').html(htmlPeriodos);
+			carregarAluno();
+			$('#grp_periodo').change(function() {
+				carregarAluno();
+			})
+		}
+	});
+}
+
+function carregarAluno() {
+	$.ajax({
+		url: "ajax/UsuarioAjax.php",
+		data: {	'acao' : 'buscaAlunoSemGrupoBySerieEscola',
+				'serie' : $('#grp_serie').val(),
+				'idEscola' : $('#escola_id').attr('id_escola')},
+		dataType: 'json',
+		success: function(dataAlunos){
+			var htmlAlunos = '';
+			for (var i = 0; i < dataAlunos.length; i++){
+				htmlAlunos += 	'<input name="usr_id" value="'+dataAlunos[i].idVariavel+'" type="checkbox" class="aluno_grupo" id="aluno_'+dataAlunos[i].idUsuario+'">';
+				htmlAlunos += 	'<label for="aluno_'+dataAlunos[i].idUsuario+'" class="checkbox-list-item checkbox-block">';
+				htmlAlunos += 		'<img src="'+dataAlunos[i].imagem+'">';
+				htmlAlunos += 		dataAlunos[i].nome;
+				htmlAlunos += 	'</label>';
+			}
+			$('#alunosContainer').html(htmlAlunos);
+		}
+	});
+}
+
+function botoesGrupo() {
+	$('#cancelarGrupo').click(function() {
+		$('#grp_periodo').html('<option>Carregando...</option>');
+		$('#grp_serie').html('<option>Carregando...</option>');
+		$("#criarGrupoContainer").hide();
+		$("#conteudoPrincipal").show();
+	});
+
+	$('#salvarGrupo').click(function(e) {
+		e.preventDefault();
+		adicionarAlunosGrupo();
+	});
+}
+
+function adicionarAlunosGrupo() {
+	 var alunos = "";
+	$('.aluno_grupo:checked').each(function() {
+		if (alunos === "")
+			alunos = "(" + $(this).val();
+		else
+			alunos += ", " + $(this).val();
+	});
+	alunos += ")";
+	$.ajax({
+		url: "ajax/RelatoriosAjax.php",
+		data: {	'acao' : 'adicionarGrupoProfessorSeriePeriodo',
+				'alunos' : alunos,
+				'idProfessor' : $('#professor_id').attr('id_professor'),
+				'serie' : $('#grp_serie').val(),
+				'periodo' : $('#grp_periodo').val()},
+		type: "POST",
+		success: function() {
+		}
+	});
+
+	$('#tipoMensagem').removeClass();
+    $('#tipoMensagem').addClass("sucesso");
+    $("#modalTexto").html('Alunos atribuidos ao grupo!');
+    $('.modal').show();
+    $('.modal-backdrop').show();
+    $('#cancelarGrupo').trigger('click');
+}
+
+function hideModal(){
+    $('.modal-backdrop').hide();
+    $('.modal').hide();
+}
 
 // $(document).ready(function() {
 // 	voltarGrafico();

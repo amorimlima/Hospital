@@ -38,4 +38,14 @@ class PeriodoController
 	{
 		return $this->periodoDAO->delete($idperiodo);
 	}
+
+	public function listarDisponiveisProfessorSerieSemGrupo($serie, $idProfessor)
+	{
+		return $this->periodoDAO->listarDisponiveisProfessorSerieSemGrupo($serie, $idProfessor);
+	}
+
+	public function listarDisponiveisProfessorSerie($serie, $idProfessor)
+	{
+		return $this->periodoDAO->listarDisponiveisProfessorSerie($serie, $idProfessor);
+	}
 }
