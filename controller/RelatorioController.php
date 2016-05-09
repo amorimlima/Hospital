@@ -101,7 +101,7 @@ class RelatorioController {
 		$downloadsEscola = $this->registroGaleriaDAO->registroGaleriaCountDownloadEscola($par['id']);
 		
 		$pctAcessos = $acessosEscola > 0? $acessosProfessor/$acessosEscola : 0;
-		$pctDownloads = $downloadsEscola > 0? $dowloadsProfessor/$downloadsEscola : 0;
+		$pctDownloads = $downloadsEscola > 0? $downloadsProfessor/$downloadsEscola : 0;
 		$result = array(
 			'barra1' => $pctAcessos,
 			'barra2' => $pctDownloads);
