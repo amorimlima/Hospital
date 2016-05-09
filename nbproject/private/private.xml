@@ -5,13 +5,8 @@
         <group>
             <file>file:/C:/xampp/htdocs/Hospital/css/forumResposta.css</file>
             <file>file:/C:/xampp/htdocs/Hospital/ajax/ForumAjax.php</file>
-            <file>file:/C:/xampp/htdocs/Hospital/css/forum.css</file>
             <file>file:/C:/xampp/htdocs/Hospital/css/style.css</file>
-            <file>file:/C:/xampp/htdocs/Hospital/js/ForumResposta.js</file>
-            <file>file:/C:/xampp/htdocs/Hospital/dao/ForumRespostaDAO.php</file>
-            <file>file:/C:/xampp/htdocs/Hospital/controller/ForumRespostaController.php</file>
-            <file>file:/C:/xampp/htdocs/Hospital/template/TemplateForumResposta.php</file>
-            <file>file:/C:/xampp/htdocs/Hospital/controller/UsuarioController.php</file>
+            <file>file:/C:/xampp/htdocs/Hospital/js/Forum.js</file>
         </group>
     </open-files>
 </project-private>

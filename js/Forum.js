@@ -27,7 +27,6 @@ $(document).ready(function (e) {
         colorirDivs();
 
         //autoComplete($("#txt_pesquisa_input").val());
-
     });
     $("#topico").change(verificarForumTopico);
     $(".titulo_box_forum").click(function (e) {
@@ -103,6 +102,9 @@ function enviar() {
     var topico = $("#topico").val();
     var novoTopico;
 
+    $("#btn_perguntar").attr("disabled","disabled");
+    $("#btn_perguntar").text("Aguarde...");
+
     if ($("#box_novoTopico"))
         novoTopico = $("#box_novoTopico").val();
 
@@ -130,6 +132,8 @@ function enviar() {
         }
     } else {
         $("#forumErroVazia").css('display', 'block');
+        $("#btn_perguntar").removeAttr("disabled");
+        $("#btn_perguntar").text("Perguntar");
     }
 
     return false;
@@ -137,15 +141,12 @@ function enviar() {
 
 
 function criarNovoTopico(topico) {
-    var retorno;
-
     $.ajax({
         url: "ajax/ForumAjax.php",
         type: "POST",
         dataType: "json",
         data: "acao=novoTopico&topico=" + topico.novoTopico,
         beforeSend: function() {
-            $("#box_pergunta").attr("disabled", "disabled");
             $("#box_novoTopico").attr("disabled", "disabled");
         },
         success: function(data) {
@@ -153,11 +154,6 @@ function criarNovoTopico(topico) {
                 $("#topico").append("<option value="+data.id+">"+topico.novoTopico+"</option>");
             else
                 $("#forumNovoTopicoAluno").fadeIn(200);
-
-            $("#box_pergunta").val("");
-            $("#box_novoTopico").val("");
-            $("#box_pergunta").removeAttr("disabled");
-            $("#box_novoTopico").removeAttr("disabled");
 
             criarNovaQuestao(data.id, topico.text, data.perfil);
         }
@@ -175,14 +171,27 @@ function criarNovaQuestao(idtopico, questao, perfil) {
             "topico": idtopico,
             "txt": questao
         },
+        beforeSend: function() {
+            $("#box_pergunta").attr("disabled", "disabled");
+        },
         success: function (data) {
             if (perfil == 2 || perfil == 4) {
                 $('#box_alunos').prepend(data);
                 $("#forumPerguntaSucesso").fadeIn(200);
+            } else if (!perfil) {
+                $('#box_alunos').prepend(data);
+                $("#forumPerguntaSucesso").fadeIn(200);
             }
-
             colorirDivs();
             $("#topico option").eq(0).attr('selected', 'selected');
+        },
+        complete: function() {
+            $("#btn_perguntar").text("Perguntar");
+            $("#btn_perguntar").removeAttr("disabled");
+            $("#box_pergunta").val("");
+            $("#box_novoTopico").val("");
+            $("#box_pergunta").removeAttr("disabled");
+            $("#box_novoTopico").removeAttr("disabled");
         }
     });
 }
