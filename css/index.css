@@ -60,7 +60,9 @@ body {
 .form-group > .btn-primary:focus {
 	background-color: #cfd169;
 }
-
+#btLogar {
+    height: 43px;
+}
 .form-group > .btn-primary::before {
 	content: url(../img/ic_login.png);
 	position: absolute;
