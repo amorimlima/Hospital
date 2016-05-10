@@ -34,7 +34,7 @@ class TemplateForum {
         $dataFuncao = new DatasFuncao();
         $idusr = (unserialize($_SESSION["USR"])["id"]);
         $idesc = (unserialize($_SESSION["USR"])["escola"]);
-        $questoes;
+        $questoes = [];
 
         if ($idesc)
             $questoes = $forumController->selectAprovadasByEscola($idesc);
