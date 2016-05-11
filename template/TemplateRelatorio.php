@@ -3,18 +3,7 @@
 if(!isset($_SESSION['PATH_SYS'])){
    session_start();  
 }
-include_once($path['controller'].'EscolaController.php');
-include_once($path['controller'].'RegistroGaleriaController.php');
-include_once($path['controller'].'GrupoController.php');
-include_once($path['controller'].'UsuarioController.php');
-include_once($path['controller'].'ExercicioController.php');
-include_once($path['controller'].'RespostaMultiplaController.php');
-include_once($path['controller'].'GabaritoController.php');
-include_once($path['controller'].'LiberarCapituloController.php');
 include_once($path['controller'].'RelatorioController.php');
-include_once($path['controller'].'SerieController.php');
-include_once($path['beans'].'RegistroGaleria.php');
-include_once($path['beans'].'Grupo.php');
 $path = $_SESSION['PATH_SYS'];
 /**
  * Description of Template

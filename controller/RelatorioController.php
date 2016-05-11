@@ -60,6 +60,9 @@ class RelatorioController {
 		else if($par['grafico'] == 'graficoExercicios'){
 			return $this->barrasExercicios($par, $usuario);
 		}
+		else if ($par['grafico'] == 'graficoPrePos'){
+			return $this->barrasPrePos($par, $usuario);
+		}
 	}
 
 	public function barrasGaleria($par, $usuario)
@@ -203,6 +206,66 @@ class RelatorioController {
 		$result = array(
 			'barra1' => $pctCompletos,
 			'barra2' => $pctCorretos);
+		return $result;
+	}
+
+	public function barrasPrePos($par, $usuario)
+	{
+		if($par['perfil'] == 2)
+			return $this->prePosProfessor($par, $usuario);
+
+		else if($par['perfil'] == 4)
+			return $this->prePosEscola($par, $usuario);
+
+		else if($par['perfil'] == 3)
+			return $this->prePosHospital($par, $usuario);
+	}
+
+	public function prePosProfessor($par, $usuario)
+	{
+		$exerciciosPreTotais = $this->exercicioDAO->countPreTotaisUsuario($par, $usuario);
+		$exerciciosPreCorretos = $this->exercicioDAO->countPreCorretasUsuario($par, $usuario);
+		$exerciciosPosTotais = $this->exercicioDAO->countPosTotaisUsuario($par, $usuario);
+		$exerciciosPosCompleto = $this->exercicioDAO->countPosCorretasUsuario($par, $usuario);
+
+		$preCorretos = $exerciciosPreTotais > 0? $exerciciosPreCorretos / $exerciciosPreTotais : 0;
+		$posCorretos = $exerciciosPosTotais > 0? $exerciciosPosCompleto / $exerciciosPosTotais : 0;
+
+		$result = array(
+			'barra1' => $preCorretos,
+			'barra2' => $posCorretos);
+		return $result;
+	}
+
+	public function prePosEscola($par, $usuario)
+	{
+		$exerciciosPreTotais = $this->exercicioDAO->countPreTotaisProfessor($par, $usuario);
+		$exerciciosPreCorretos = $this->exercicioDAO->countPreCorretasProfessor($par, $usuario);
+		$exerciciosPosTotais = $this->exercicioDAO->countPosTotaisProfessor($par, $usuario);
+		$exerciciosPosCompleto = $this->exercicioDAO->countPosCorretasProfessor($par, $usuario);
+
+		$preCorretos = $exerciciosPreTotais > 0? $exerciciosPreCorretos / $exerciciosPreTotais : 0;
+		$posCorretos = $exerciciosPosTotais > 0? $exerciciosPosCompleto / $exerciciosPosTotais : 0;
+
+		$result = array(
+			'barra1' => $preCorretos,
+			'barra2' => $posCorretos);
+		return $result;
+	}
+
+	public function prePosHospital($par, $usuario)
+	{
+		$exerciciosPreTotais = $this->exercicioDAO->countPreTotaisEscola($par, $usuario);
+		$exerciciosPreCorretos = $this->exercicioDAO->countPreCorretasEscola($par, $usuario);
+		$exerciciosPosTotais = $this->exercicioDAO->countPosTotaisEscola($par, $usuario);
+		$exerciciosPosCompleto = $this->exercicioDAO->countPosCorretasEscola($par, $usuario);
+
+		$preCorretos = $exerciciosPreTotais > 0? $exerciciosPreCorretos / $exerciciosPreTotais : 0;
+		$posCorretos = $exerciciosPosTotais > 0? $exerciciosPosCompleto / $exerciciosPosTotais : 0;
+
+		$result = array(
+			'barra1' => $preCorretos,
+			'barra2' => $posCorretos);
 		return $result;
 	}
 

@@ -347,5 +347,267 @@ class ExercicioDAO extends DAO{
         return $qr;
     }
 
+    public function countPreTotaisUsuario($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pre'";
+        $where .= "AND lc.lbr_escola = ".$usuario['escola'];
+        $where .= " AND lc.lbr_livro = ".$usuario['serie'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+
+    public function countPreCorretasUsuario($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN resposta_multipla rm ON rm.rspm_exercicio = gb.gbt_exercicio AND rm.rspm_questao = gb.gbt_questao";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pre'";
+        $where .= " AND lc.lbr_escola = ".$usuario['escola'];
+        $where .= " AND lc.lbr_livro = ".$usuario['serie'];
+        $where .= " AND rm.rspm_usuario = ".$usuario['id'];
+        $where .= " AND rm.rspm_resposta = gb.gbt_resposta";
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPosTotaisUsuario($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pos'";
+        $where .= "AND lc.lbr_escola = ".$usuario['escola'];
+        $where .= " AND lc.lbr_livro = ".$usuario['serie'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPosCorretasUsuario($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN resposta_multipla rm ON rm.rspm_exercicio = gb.gbt_exercicio AND rm.rspm_questao = gb.gbt_questao";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pos'";
+        $where .= " AND lc.lbr_escola = ".$usuario['escola'];
+        $where .= " AND lc.lbr_livro = ".$usuario['serie'];
+        $where .= " AND rm.rspm_usuario = ".$usuario['id'];
+        $where .= " AND rm.rspm_resposta = gb.gbt_resposta";
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPreTotaisProfessor($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN grupo g ON g.grp_serie = av.ava_serie";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pre'";
+        $where .= " AND g.grp_professor = ".$usuario['id'];
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+            
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPreCorretasProfessor($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN grupo g ON g.grp_serie = av.ava_serie";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
+        $join .= " JOIN resposta_multipla rm ON rm.rspm_exercicio = gb.gbt_exercicio AND rm.rspm_questao = gb.gbt_questao AND rm.rspm_usuario = uv.usv_usuario";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pre'";
+        $where .= " AND g.grp_professor = ".$usuario['id'];
+        $where .= " AND rm.rspm_resposta = gb.gbt_resposta";
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+            
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPosTotaisProfessor($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN grupo g ON g.grp_serie = av.ava_serie";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pos'";
+        $where .= " AND g.grp_professor = ".$usuario['id'];
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+            
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPosCorretasProfessor($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN grupo g ON g.grp_serie = av.ava_serie";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
+        $join .= " JOIN resposta_multipla rm ON rm.rspm_exercicio = gb.gbt_exercicio AND rm.rspm_questao = gb.gbt_questao AND rm.rspm_usuario = uv.usv_usuario";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pos'";
+        $where .= " AND g.grp_professor = ".$usuario['id'];
+        $where .= " AND rm.rspm_resposta = gb.gbt_resposta";
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+        if ($par['sala'] != 0)
+            $where .= " AND g.grp_id = ".$par['sala'];
+            
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPreTotaisEscola($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN grupo g ON g.grp_serie = av.ava_serie";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
+        $join .= " JOIN usuario us ON us.usr_id = uv.usv_usuario";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pre'";
+        $where .= " AND us.usr_escola = ".$usuario['id'];
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+            
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPreCorretasEscola($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN grupo g ON g.grp_serie = av.ava_serie";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
+        $join .= " JOIN usuario us ON us.usr_id = uv.usv_usuario";
+        $join .= " JOIN resposta_multipla rm ON rm.rspm_exercicio = gb.gbt_exercicio AND rm.rspm_questao = gb.gbt_questao AND rm.rspm_usuario = uv.usv_usuario";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pre'";
+        $where .= " AND us.usr_escola = ".$usuario['id'];
+        $where .= " AND rm.rspm_resposta = gb.gbt_resposta";
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+            
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPosTotaisEscola($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN grupo g ON g.grp_serie = av.ava_serie";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
+        $join .= " JOIN usuario us ON us.usr_id = uv.usv_usuario";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pos'";
+        $where .= " AND us.usr_escola = ".$usuario['id'];
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+            
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
+
+    public function countPosCorretasEscola($par, $usuario)
+    {
+        $sql = "SELECT * FROM avaliacao av";
+        $join = " JOIN gabarito gb ON gb.gbt_exercicio = av.ava_exercicio";
+        $join .= " JOIN liberar_capitulo lc ON lc.lbr_capitulo = av.ava_capitulo AND lc.lbr_livro = av.ava_serie";
+        $join .= " JOIN grupo g ON g.grp_serie = av.ava_serie";
+        $join .= " JOIN usuario_variavel uv ON uv.usv_grupo = g.grp_id";
+        $join .= " JOIN usuario us ON us.usr_id = uv.usv_usuario";
+        $join .= " JOIN resposta_multipla rm ON rm.rspm_exercicio = gb.gbt_exercicio AND rm.rspm_questao = gb.gbt_questao AND rm.rspm_usuario = uv.usv_usuario";
+        $where = " WHERE av.ava_tipo_avaliacao LIKE 'Pos'";
+        $where .= " AND us.usr_escola = ".$usuario['id'];
+        $where .= " AND rm.rspm_resposta = gb.gbt_resposta";
+        if ($par['livro'] != 0)
+            $where .= " AND lc.lbr_livro = ".$par['livro'];
+        if ($par['capitulo'] != 0)
+            $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
+            
+
+        $sql = $sql.$join.$where;
+
+        $return = $this->retrieve($sql);
+        return mysqli_num_rows($return);
+    }
 }
 ?>

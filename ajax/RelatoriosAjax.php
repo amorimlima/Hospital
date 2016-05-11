@@ -90,6 +90,7 @@ switch ($_REQUEST["acao"]) {
 	break;
 
 	case 'carregaFiltro':
+		set_time_limit(0);
 		$templateRelatorio = new TemplateRelatorio();
 		$templateRelatorio->carregaFiltro($_REQUEST);
 	break;
