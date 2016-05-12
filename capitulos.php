@@ -7,6 +7,8 @@ include_once($path['template'].'Template.php');
 include_once($path['template'].'TemplateCapitulos.php');
 $templateGeral = new Template();
 $templateCapitulo = new TemplateCapitulos();
+
+$logado = unserialize($_SESSION['USR']);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -26,6 +28,7 @@ $templateCapitulo = new TemplateCapitulos();
   </head>
   <body>
   	<div id="container">
+        <input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
         <div class="row">
            <?php 
 				$templateGeral->topoSite();

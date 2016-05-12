@@ -132,4 +132,9 @@ switch ($_REQUEST["acao"]){
 		$exercicios = $exercicioController->selectByIdExercicio($_REQUEST['id']);
 		echo utf8_encode($exercicios->getExe_nome());
 		break;
+
+	case "exercicioSerieCapitulo":
+		$exercicios = $exercicioController->selectAllExercicioBySerieCapitulo($_REQUEST['serie'], $_REQUEST['capitulo']);
+		print_r(json_encode($exercicios));
+		break;
 }

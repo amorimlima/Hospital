@@ -13,6 +13,16 @@ $(document).ready(function (){
 		capitulo = parseInt(url.split("&")[1].split("=")[1]);
 	}
 
+
+	if (usuario.perfil == 1)
+		carregarAtividadesAluno(capitulo, ano);
+
+	else
+		carregarAtividades(capitulo, ano);	
+
+});
+
+function carregarAtividadesAluno (capitulo, ano) {
 	$.ajax({
     	url: 'ajax/ExerciciosAjax.php',
     	data: {	'acao' 		: 'verificaExercicio','capitulo': capitulo},
@@ -46,8 +56,28 @@ $(document).ready(function (){
     		}
     	}
     });
+}
 
-});
+function carregarAtividades (capitulo, ano) {
+	$.ajax({
+		url: 'ajax/ExerciciosAjax.php',
+    	data: {	'acao' 		: 'exercicioSerieCapitulo',
+    			'capitulo'	: capitulo,
+    			'serie'		: ano},
+    	dataType: 'json',
+    	success: function(d) {
+    		for (var i = 0; i < d.length; i++){
+    			var pathObjeto = 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].exe_nome.trim()+'/index.html';
+    			$('#obj_'+d[i].exe_id).click(function(){	
+    				console.log("click");
+    				$('#objeto').attr('src', pathObjeto).css({'display':'block'});
+
+					risizeObj();
+				});
+    		}
+    	}
+	});
+}
 
 function verificaExercicio(){
 	var url   = window.location.search.replace("?", "");
