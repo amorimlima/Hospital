@@ -458,6 +458,12 @@ a.accordion_info_toggler:visited {
 	color:red;
 }
 
+.regras_senha {
+    position: absolute;
+    right: -60%;
+    top: -85%;
+}
+
 /* Fim modal Bootstrap */
 
 /*Barra de rolagem com plugin JS */

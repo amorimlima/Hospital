@@ -370,11 +370,19 @@ $logado = unserialize($_SESSION['USR']);
                                                                 <input type="text" name="inputUsuarioAluno" id="inputUsuarioAluno" class="form_value form_text value_p formAluno obrigatorioAluno" msgVazio="O campo usuário é obrigatório" placeholder="Insira um usuário de usuário" required maxlength="10"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_p">
+                                                        <div class="form_celula_p" style="position: relative;">
                                                             <label for="inputSenhaAluno" class="form_info info_p">Senha<span class="asterisco">*</span></label>
                                                             <span class="input_container">
-                                                                <input type="password" name="inputSenhaAluno" id="inputSenhaAluno" class="form_value form_text value_p  formAluno obrigatorioAluno" msgVazio="O campo senha é obrigatório" placeholder="Insira uma senha" required maxlength="10"/>
+                                                                <input type="password" name="inputSenhaAluno" data-inputType="senha" id="inputSenhaAluno" class="form_value form_text value_p  formAluno obrigatorioAluno" msgVazio="O campo senha é obrigatório" placeholder="Insira uma senha" required maxlength="10"/>
                                                             </span>
+                                                            <div id="regrasSenhaAluno" class="panel panel-default regras_senha" style="display: none;">
+                                                                <div class="panel-body">
+                                                                    <p class="regra_char_esp text-danger">Caracter especial</p>
+                                                                    <p class="regra_char_mai text-danger">Maiúscula</p>
+                                                                    <p class="regra_char_min text-danger">Minúscula</p>
+                                                                    <p class="regra_length text-danger">Entre 6 e 10 caracteres</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputSenhaConfirmAluno" class="form_info info_p">Senha<span class="asterisco">*</span></label>
@@ -576,11 +584,19 @@ $logado = unserialize($_SESSION['USR']);
                                                                 <input type="text" name="inputUsuarioProf" id="inputUsuarioProf" class="form_value form_text value_p  formProf obrigatorioProf" placeholder="Insira um nome de usuário" required msgVazio="O campo usuário é obrigatório"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_p">
+                                                        <div class="form_celula_p" style="position: relative;">
                                                             <label for="inputSenhaProf" class="form_info info_p">Senha<span class="asterisco">*</span></label>
                                                             <span class="input_container">
-                                                                <input type="password" name="inputSenhaProf" id="inputSenhaProf" class="form_value form_text value_p  formProf obrigatorioProf" placeholder="Insira uma senha" required msgVazio="O campo senha é obrigatório" maxlength="10"/>
+                                                                <input type="password" name="inputSenhaProf" id="inputSenhaProf" data-inputType="senha" class="form_value form_text value_p  formProf obrigatorioProf" placeholder="Insira uma senha" required msgVazio="O campo senha é obrigatório" maxlength="10"/>
                                                             </span>
+                                                            <div id="regrasSenhaProf" class="panel panel-default regras_senha" style="display: none;">
+                                                                <div class="panel-body">
+                                                                    <p class="regra_char_esp text-danger">Caracter especial</p>
+                                                                    <p class="regra_char_mai text-danger">Maiúscula</p>
+                                                                    <p class="regra_char_min text-danger">Minúscula</p>
+                                                                    <p class="regra_length text-danger">Entre 6 e 10 caracteres</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputSenhaConfirmProf" class="form_info info_p">Senha<span class="asterisco">*</span></label>
@@ -741,11 +757,19 @@ $logado = unserialize($_SESSION['USR']);
                                                             	<input type="text" name="inputUsuarioEscola" id="inputUsuarioEscola" class="form_value form_text value_p formEscola obrigatorioEscola" msgVazio="O campo usuário é obrigatório" placeholder="Insira um nome de usuário" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_p">
+                                                        <div class="form_celula_p" style="position: relative;">
                                                             <label for="inputSenhaEscola" class="form_info info_p">Senha<span class="asterisco">*</span></label>
                                                             <span class="input_container">
-                                                                <input type="password" name="inputSenhaEscola" id="inputSenhaEscola" class="form_value form_text value_p formEscola obrigatorioEscola" msgVazio="O campo senha é obrigatório" placeholder="Insira uma senha" required maxlength="10"/>
+                                                                <input type="password" name="inputSenhaEscola" data-inputType="senha" id="inputSenhaEscola" class="form_value form_text value_p formEscola obrigatorioEscola" msgVazio="O campo senha é obrigatório" placeholder="Insira uma senha" required maxlength="10"/>
                                                             </span>
+                                                            <div id="regrasSenhaEscola" class="panel panel-default regras_senha" style="display: none;">
+                                                                <div class="panel-body">
+                                                                    <p class="regra_char_esp text-danger">Caracter especial</p>
+                                                                    <p class="regra_char_mai text-danger">Maiúscula</p>
+                                                                    <p class="regra_char_min text-danger">Minúscula</p>
+                                                                    <p class="regra_length text-danger">Entre 6 e 10 caracteres</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="form_celula_p value_last">
                                                             <label for="inputSenhaConfirmEscola" class="form_info info_p">Senha<span class="asterisco">*</span></label>
@@ -753,6 +777,7 @@ $logado = unserialize($_SESSION['USR']);
                                                                 <input type="password" name="inputSenhaConfirmEscola" id="inputSenhaConfirmEscola" class="form_value form_text value_p formEscola" placeholder="Confirme a senha" required maxlength="10"/>
                                                             </span>
                                                         </div>
+
                                                     </fieldset>
                                                     <div class="form_btns_container">
                                                         <input type="hidden" value="" class="form_btn btn_submit" id="idEscola" />
