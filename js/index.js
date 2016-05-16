@@ -193,7 +193,7 @@ function validarLogin() {
             data:{'usuario':user,'senha':senha},
             success:function(data){
                 if(data.erro == true) {
-                    alert(data.msg);
+                    $("#mensagemLoginInvalido").fadeIn(200);
                 } else {
                     if(data[0]){
                        localStorage.setItem("serie", data[0].serie); 

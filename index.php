@@ -306,6 +306,11 @@ $adms = $AdmController->selectAll();
 				$templateGeral->mensagemRetorno('mensagens','Cheque o email fornecido no cadastro para alterar a sua senha. Caso nenhuma mensagem da plataforma tenha chegado, verifique sua caixa de spam e lixeira.','alerta');
 			?>
 		</div>
+		<div id="mensagemLoginInvalido" class="modalMensagem" style="display:none">
+			<?php
+				$templateGeral->mensagemRetorno("mensagens","Login e/ou senha inválido(s).", "erro");
+			?>
+		</div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
