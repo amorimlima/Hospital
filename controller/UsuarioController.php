@@ -90,11 +90,16 @@ class UsuarioController {
 		return $this->usuarioDAO->verificaLogin($login);
 	}
 	
-	public function verificaCpf($cpf)
+	public function verificaCpfAluno($cpf)
 	{
-		return $this->usuarioDAO->verificaCpf($cpf);
+		return $this->usuarioDAO->verificaCpfAluno($cpf);
 	}
 
+	public function verificaCpfProfessor($cpf, $escola)
+	{
+		return $this->usuarioDAO->verificaCpfProfessor($cpf, $escola);
+	}
+	
 	public function buscaAlunoSemGrupoBySerieEscola($serie, $idEscola)
 	{
 		$user = $this->usuarioDAO->buscaAlunoSemGrupoBySerieEscola($serie, $idEscola);

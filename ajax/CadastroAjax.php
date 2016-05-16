@@ -26,19 +26,40 @@ switch ($_REQUEST["acao"]) {
        	$enderecoController = new EnderecoController();
 		$usuarioController = new UsuarioController();
 		
+		//Verificações o CPF
+		//cpf só poderá vir vazio se for cadastro de um aluno
 		if ($_POST['cpf'] != ''){
-	        if ($usuarioController->verificaCpf($_POST['cpf']) > 0){
-	        	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado!');
-	        }	        	
-        }else
-         if ($enderecoController->verificaEmail($_POST['email']) > 0){
-        	$result = Array('erro'=>true,'msg'=>'Email já cadastrado!');
-        
-        }else if ($usuarioController->verificaLogin($_POST["login"])){
-        	$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
+			//Confirma se está cadastrando um aluno e faz a verificação simples do cpf
+			if ($_POST['perfil'] == '1'){
+				$escola = $_POST['escola'];	//Salva na variavel $escola o valor vindo por ajax
+				//Verificação de CPF para alunos
+		    	if ($usuarioController->verificaCpfAluno($_POST['cpf']) > 0){
+		        	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado!');
+		    	}
+
+		    //Se for professor, pega o id da escola da sessão para verificar a disponibilidade do cpf em uma determinada escola
+	        }else{
+	        	$u = unserialize($_SESSION['USR']);
+				$escola = $u['escola'];
+	        	//chama o método de verficação do cpf do professor verificando a existencia do CPF em uma determinada escola.
+	        	if ($usuarioController->verificaCpfProfessor($_POST['cpf'], $escola) > 0){
+		        	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado nessa escola!');
+	        	}
+	        }        	
         }
-	
-		if ($result == ''){
+        
+        //Verificações de email e login. Só entrará no IF se não tiver erro no cpf.
+        if ($result == ''){
+	        if (($enderecoController->verificaEmail($_POST['email']) > 0) && $_POST['email'] != ''){
+	        	$result = Array('erro'=>true,'msg'=>'Email já cadastrado!');
+	        
+	        }else if ($usuarioController->verificaLogin($_POST["login"])){
+	        	$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
+	        }
+        }
+		
+       //Se não tiver nenhum erro, segue o cadastro. 
+       if ($result == ''){
 	       	$endereco = new Endereco();
 	        $endereco->setend_logradouro(utf8_decode($_POST["rua"]));
 	    	$endereco->setend_numero($_POST["numCasa"]);
@@ -68,13 +89,6 @@ switch ($_REQUEST["acao"]) {
 		        $usuario->setUsr_cpf($_POST['cpf']);
 		        $usuario->setUsr_nse($_POST['nse']);
 		        
-		        if ($_POST['perfil'] == '1'){
-		        	$escola = $_POST['escola'];
-		        }else {
-		        	$u = unserialize($_SESSION['USR']);
-					$escola = $u['escola'];
-		        }
-				
 		        $usuario->setUsr_escola($escola);
 		        $usuario->setUsr_perfil($_POST['perfil']);
 				$usuario->setUsr_imagem($_POST['imagem']);
@@ -103,11 +117,7 @@ switch ($_REQUEST["acao"]) {
 			        	$usuarioVar->setUsv_categoria_funcional('null');
 			        	
 			        	$usuarioVarController->insert($usuarioVar);
-			     //   	$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
-//	    		echo json_encode($result);
-//	    		exit;
-//	    		break;
-			        	
+	
 		        	if ($_POST['perfil'] == 2){
 
 		        		//Pega o id da escola pela sessão
@@ -161,6 +171,7 @@ switch ($_REQUEST["acao"]) {
     	$escolaController = new EscolaController();
      	$enderecoController = new EnderecoController();
      	$usuarioController = new UsuarioController();
+     	$usuarioVarController = new UsuarioVariavelController();
      	
       	if ($escolaController->verificaCnpj($_POST['cnpj']) > 0){
         	$result = Array('erro'=>true,'msg'=>'CNPJ já cadastrado!');
@@ -191,7 +202,7 @@ switch ($_REQUEST["acao"]) {
 	    	$enderecoController = new EnderecoController();
 	    	 
 	    	$idEndereco = $enderecoController->insert($endereco);
-	    	
+//	    	echo $idEndereco;
 	    	if($idEndereco){
 	    		
 	    		$escola = new Escola();
@@ -231,7 +242,12 @@ switch ($_REQUEST["acao"]) {
 					$_SESSION['idEscolaPre'] = $idEscola;
 				}
 				
-	    		if($usuarioController->insert($usuario)){
+	    		if($idUsuario = $usuarioController->insert($usuario)){
+	    			$usuarioVar = new UsuarioVariavel();
+		    		$usuarioVar->setUsv_usuario($idUsuario);
+		    		$usuarioVar->setUsv_status('0');
+		    		$usuarioVarController->insert($usuarioVar);
+		    		
 	    			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 	    		}else{
 	    			$result = Array('erro'=>true,'msg'=>'Erro ao cadastrar escola!');
@@ -258,17 +274,25 @@ switch ($_REQUEST["acao"]) {
         if ($_POST['perfil'] == '1'){
         	if ($_POST['cpf'] != $usuario->getUsr_cpf()){
         	
-        		if ($usuarioController->verificaCpf($_POST['cpf']) > 0)
+        		if ($usuarioController->verificaCpfAluno($_POST['cpf']) > 0)
         			$result = Array('erro'=>true,'msg'=>'CPF já cadastrado!');
         	}
-       	}elseif ($_POST['email'] != $endereco->getend_email()){
-         	if ($enderecoController->verificaEmail($_POST['email']) > 0){
-        		$result = Array('erro'=>true,'msg'=>'Email já acadastrado!');
-         	}
-        }else if ($_POST['login'] != $usuario->getUsr_login()){
-        	if ($usuarioController->verificaLogin($_POST["login"]))
-        		$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
-        }
+       	}
+       	if ($result == ''){
+       		if ($_POST['email'] != ''){
+	       		if ($_POST['email'] != $endereco->getend_email()){
+		         	if ($enderecoController->verificaEmail($_POST['email']) > 0){
+	        			$result = Array('erro'=>true,'msg'=>'Email já acadastrado!');
+	         		}
+	        	}
+       		}
+       	}
+       	if ($result == ''){
+	        if ($_POST['login'] != $usuario->getUsr_login()){
+	        	if ($usuarioController->verificaLogin($_POST["login"]))
+	        		$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
+	        }
+       	}
         
         
         
@@ -403,11 +427,13 @@ switch ($_REQUEST["acao"]) {
 	    	if ($enderecoController->verificaEmail($_POST['emailEscola']) > 0){
 	        	$result = Array('erro'=>true,'msg'=>'Email já cadastrado!');
 	    	}
-			        	//Login será vazio se estiver fazendo um pré-cadastro
-        }else if ($_POST["loginEscola"] != $usuario->getUsr_login()){
-        	if ($usuarioController->verificaLogin($_POST["loginEscola"])){
-        		$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
-        	}
+        }
+        if (!isset($result)){
+	        if ($_POST["loginEscola"] != $usuario->getUsr_login()){
+	        	if ($usuarioController->verificaLogin($_POST["loginEscola"])){
+	        		$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
+	        	}
+	        }
         }
     	
     	if (!isset($result)){
@@ -646,6 +672,18 @@ switch ($_REQUEST["acao"]) {
 			array_push($result, $grp);
 		}
 		echo json_encode($result);
+		break;
+	}
+	
+	case "excluirUsuario":{
+		$usuarioVarController = new UsuarioVariavelController();
+		if ($usuarioVarController->delete($_POST['idUsuarioVar'])){
+			$result = Array('erro' => false);
+		}else $result = Array('erro' => true, 'mensagem' => 'Erro ao exluir.');
+		
+		echo json_encode($result);
+		//echo 'exluir';
+		//print_r($_POST);
 		break;
 	}
 }

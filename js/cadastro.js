@@ -14,20 +14,6 @@ var ano = mydate.getYear()
 
 
 $(document).ready(function() {
-    $("[data-inputType='senha']").keyup(function() {
-        var perfil = this.id.slice(10);
-        verificarPadraoSenha(perfil);
-    });
-
-    $("[data-inputType='senha']").focus(function() {
-        var perfil = this.id.slice(10);
-        $("#regrasSenha"+perfil).fadeIn(200);
-    });
-
-    $("[data-inputType='senha']").blur(function() {
-        var perfil = this.id.slice(10);
-        $("#regrasSenha"+perfil).fadeOut(200);
-    });
 	
 	$('#update_cadastro').trigger('click');
 	
@@ -61,9 +47,10 @@ $(document).ready(function() {
         toggleActive: true
     });
     
+    //Quando carrega a página lista somente os alunos.
     listarAlunos();
-    listarProfessores();
-    listarEscolas();
+    //listarProfessores();
+    //listarEscolas();
    
     $('.btn_tab').click(function() {
 
@@ -144,6 +131,9 @@ $(document).ready(function() {
     		var acao = 'novoUsuario';
     	}
     	
+//    	console.log(acao);
+//    	console.log($('#inputSenhaAluno').attr('class'));
+    	
     	$('.obrigatorioAluno').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
     			if ($(this).attr('id') == 'inputTelResAluno'){	//Verifica se existe ao menos um telefone cadastrado!
@@ -172,12 +162,14 @@ $(document).ready(function() {
 	    	return false;
 	    }
     	
-    	if (validarCPF($("#inputCpfAluno").val()) == false){
-	    	$("#textoMensagemVazio").text('CPF inválido!');
-	    	$("#mensagemCampoVazio").show();
-	    	$("#inputCpfAluno").focus();
-	    	return false;
-	    }
+    	if ($("#inputCpfAluno").val() != ''){ 
+	    	if (validarCPF($("#inputCpfAluno").val()) == false){
+		    	$("#textoMensagemVazio").text('CPF inválido!');
+		    	$("#mensagemCampoVazio").show();
+		    	$("#inputCpfAluno").focus();
+		    	return false;
+		    }
+    	}
     	    	
     	if ($("#inputCepAluno").val().length < 10){
     		$("#textoMensagemVazio").text('CEP inválido!');
@@ -186,24 +178,28 @@ $(document).ready(function() {
     		return false;
     	}
     	
-    	if(validaEmail($("#inputEmailAluno").val()) == false){
-    		$("#textoMensagemVazio").text('Email inválido!');
-    		$("#mensagemCampoVazio").show();
-    		$("#inputEmailAluno").focus();
-    		return false;    		
+    	if ($("#inputEmailAluno").val() != ''){
+	    	if(validaEmail($("#inputEmailAluno").val()) == false){
+	    		$("#textoMensagemVazio").text('Email inválido!');
+	    		$("#mensagemCampoVazio").show();
+	    		$("#inputEmailAluno").focus();
+	    		return false;    		
+	    	}
     	}
     	
-    	
-    	if ($('#inputSenhaAluno').val() != $('#inputSenhaConfirmAluno').val()){
-			$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
-    		$("#mensagemCampoVazio").show();
-    		$('#inputSenhaAluno').focus();
-			return false;    		
-    	}else if (!validaSenha($('#inputSenhaAluno').val())){
-    		$("#textoMensagemVazio").text('Senha inválida');
-    		$("#mensagemCampoVazio").show();
-    		$('#inputSenhaAluno').focus();
-    		return false;
+    	//Senha pode vir vazia se for na edição.
+    	if ($('#inputSenhaAluno').val() != ''){ 
+	    	if ($('#inputSenhaAluno').val() != $('#inputSenhaConfirmAluno').val()){
+				$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
+	    		$("#mensagemCampoVazio").show();
+	    		$('#inputSenhaAluno').focus();
+				return false;    		
+	    	}else if (!validaSenha($('#inputSenhaAluno').val())){
+	    		$("#textoMensagemVazio").text('Senha inválida');
+	    		$("#mensagemCampoVazio").show();
+	    		$('#inputSenhaAluno').focus();
+	    		return false;
+	    	}
     	}
     	
     	
@@ -309,7 +305,8 @@ $(document).ready(function() {
     		$('#inputSenhaProf').addClass('obrigatorioProf');
     		var acao = 'novoUsuario';
     	}
-    	
+    	$("#inputNascimentoProf").val('10/10/2010');
+    	var seriesProfessor = '';
     	$('.obrigatorioProf').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
     			if ($(this).attr('id') == 'inputTelResProf'){	//Verifica se existe ao menos um telefone cadastrado!
@@ -332,6 +329,35 @@ $(document).ready(function() {
     	if ($("#mensagemCampoVazio").is(':visible')) return false;
     	
     	
+    	if (validaData($("#inputNascimentoProf").val()) == false){
+	    	$("#textoMensagemVazio").text('Data de nascimento inválida!');
+	    	$("#mensagemCampoVazio").show();
+	    	$("#inputNascimentoAluno").focus();
+	    	return false;
+	    }
+    	
+    	if (validarCPF($("#inputCpfProf").val()) == false){
+    		$("#textoMensagemVazio").text('CPF inválido!');
+    		$("#mensagemCampoVazio").show();
+    		$("#inputCpfAluno").focus();
+    		return false;
+    	}
+    	
+    	if ($("#inputCepProf").val().length < 10){
+    		$("#textoMensagemVazio").text('CEP inválido!');
+    		$("#mensagemCampoVazio").show();
+    		$("#inputCepAluno").focus();
+    		return false;
+    	}
+    	
+    	if(validaEmail($("#inputEmailProf").val()) == false){
+    		$("#textoMensagemVazio").text('Email inválido!');
+    		$("#mensagemCampoVazio").show();
+    		$("#inputEmailProf").focus();
+    		return false;    		
+    	}
+    	
+   	
     	//Verifica se alguma série foi selecionada e concatena todas em uma variavel
     	var seriesProfessor = '';
     	var seriesExcluir = '';
@@ -379,45 +405,20 @@ $(document).ready(function() {
     		seriesProfessor += seriesExcluir;
     	}
     	
-    	if (validaData($("#inputNascimentoProf").val()) == false){
-	    	$("#textoMensagemVazio").text('Data de nascimento inválida!');
-	    	$("#mensagemCampoVazio").show();
-	    	$("#inputNascimentoAluno").focus();
-	    	return false;
-	    }
-    	
-    	if (validarCPF($("#inputCpfProf").val()) == false){
-    		$("#textoMensagemVazio").text('CPF inválido!');
-    		$("#mensagemCampoVazio").show();
-    		$("#inputCpfAluno").focus();
-    		return false;
+    	//Senha pode vir vazia se for na edição.
+    	if ($('#inputSenhaProf').val() != ''){ 
+	    	if ($('#inputSenhaProf').val() != $('#inputSenhaConfirmProf').val()){
+				$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
+	    		$("#mensagemCampoVazio").show();
+	    		$('#inputSenhaProf').focus();
+				return false;    		
+	    	}else if (!validaSenha($('#inputSenhaProf').val())){
+				$("#textoMensagemVazio").text('Senha inválida');
+				$("#mensagemCampoVazio").show();
+				$('#inputSenhaProf').focus();
+				return false;
+			}
     	}
-    	
-    	if ($("#inputCepProf").val().length < 10){
-    		$("#textoMensagemVazio").text('CEP inválido!');
-    		$("#mensagemCampoVazio").show();
-    		$("#inputCepAluno").focus();
-    		return false;
-    	}
-    	
-    	if(validaEmail($("#inputEmailProf").val()) == false){
-    		$("#textoMensagemVazio").text('Email inválido!');
-    		$("#mensagemCampoVazio").show();
-    		$("#inputEmailAluno").focus();
-    		return false;    		
-    	}
-    	
-    	if ($('#inputSenhaProf').val() != $('#inputSenhaConfirmProf').val()){
-			$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
-    		$("#mensagemCampoVazio").show();
-    		$('#inputSenhaProf').focus();
-			return false;    		
-    	}else if (!validaSenha($('#inputSenhaProf').val())){
-			$("#textoMensagemVazio").text('Senha inválida');
-			$("#mensagemCampoVazio").show();
-			$('#inputSenhaProf').focus();
-			return false;
-		}
 
     	var nomeProfessor = $("#inputNomeProf").val();
     	var dataNascimentoProfessor = $("#inputNascimentoProf").val();
@@ -547,20 +548,23 @@ $(document).ready(function() {
     	if(validaEmail($("#inputEmailEscola").val()) == false){
     		$("#textoMensagemVazio").text('Email inválido!');
     		$("#mensagemCampoVazio").show();
-    		$("#inputEmailAluno").focus();
+    		$("#inputEmailEscola").focus();
     		return false;    		
     	}
-    	
-    	if ($('#inputSenhaEscola').val() != $('#inputSenhaConfirmEscola').val()){
-			$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
-    		$("#mensagemCampoVazio").show();
-    		$('#inputSenhaEscola').focus();
-			return false;    		
-    	}else if (!validaSenha($('#inputSenhaEscola').val())){
-    		$("#textoMensagemVazio").text('Senha inválida');
-    		$("#mensagemCampoVazio").show();
-    		$('#inputSenhaEscola').focus();
-    		return false;
+
+    	//Senha pode vir vazia se for na edição.
+    	if ($('#inputSenhaEscola').val() != ''){ 
+	    	if ($('#inputSenhaEscola').val() != $('#inputSenhaConfirmEscola').val()){
+				$("#textoMensagemVazio").text('Os campos senha e confirmação da senha devem ser iguais');
+	    		$("#mensagemCampoVazio").show();
+	    		$('#inputSenhaEscola').focus();
+				return false;    		
+	    	}else if (!validaSenha($('#inputSenhaEscola').val())){
+	    		$("#textoMensagemVazio").text('Senha inválida');
+	    		$("#mensagemCampoVazio").show();
+	    		$('#inputSenhaEscola').focus();
+	    		return false;
+	    	}
     	}
 
     	var nomeEscola = $("#inputNomeEscola").val();
@@ -690,6 +694,8 @@ $(document).ready(function() {
 		$('#inputTelComAluno').val($('#telComercial'+idUsuario).val());
 		$('#inputEmailAluno').val($('#email'+idUsuario).text());
 	    $('#inputUsuarioAluno').val($('#usuario'+idUsuario).text());
+	    $('#inputSenhaAluno').val('');
+	    $('#inputSenhaConfirmAluno').val('');
 		//alert($('#nascimento'+idUsuario).text());
 		
 		if ($('#imagem'+idUsuario).val() != '')	mostrarInputArquivo($('#imagem'+idUsuario).val(), 'imgp/'+$('#imagem'+idUsuario).val());
@@ -708,17 +714,67 @@ $(document).ready(function() {
 		$('#idEnderecoProfessor').val($(this).attr('idEndereco'));
 		$('#idProfessor').val(idUsuario);
 		$('#idUsuarioVariavelProfessor').val($(this).attr('idUsuarioVar'));
-		//$('#serieProf').val($('#serie'+idUsuario).val());
-		var series = $('#serie'+idUsuario).val();
-		var serieArray = series.split(';');
-		console.log(serieArray);
-		$('.seriesProfessor').prop('checked', false);
-		for (var i=0; i< serieArray.length; i++){
-			if (serieArray[i] != ''){
-				console.log(serieArray[i]);
-				$("#serieProf"+serieArray[i]).prop('checked', true);
-			}
-		}
+		
+		$('.divSerie').remove();
+		$('.divPeriodo').remove();
+
+		$.ajax({
+	        url:'ajax/cadastroAjax.php',
+	        type:'post',
+	        dataType:'json',
+	        data: {
+	            'acao': 'BuscaGruposByIdProfessor',
+	            'idProfessor': idUsuario
+	        },
+	        success:function(data){
+	        	
+	        	//Faz o for varrendo os resultados e criando o html. No primeiro coloca n campo fixo.
+	        	for (var i=0; i< data.length; i++){
+	    				//console.log(data[i]);
+	        			var fieldCount = i + 1;
+	        			
+	    				if (i > 0){
+
+	    					var idperiodoSelect = "#inputPeriodoProf"+fieldCount;
+	    				    var idserieSelect   = "#inputSerieProf"+fieldCount;
+	    				    var htmlSeries      = "";
+	    				    var htmlPeriod      = "";
+
+	    				    htmlSeries += '<div class="form_celula_p divSerie" style="height: 0;">';
+	    				    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
+	    				    htmlSeries +=     '<span class="select_container">';
+	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">';
+	    				    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
+	    				    htmlSeries +=         '</select>';
+	    				    htmlSeries +=     '</span>';
+	    				    htmlSeries += '</div>';
+
+	    				    htmlPeriod += '<div class="form_celula_p divPeriodo" style="height: 0;">';
+	    				    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
+	    				    htmlPeriod +=     '<span class="select_container">';
+	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">';
+	    				    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
+	    				    htmlPeriod +=         '</select>';
+	    				    htmlPeriod +=     '</span>';
+	    				    htmlPeriod += '</div>';
+
+	    				    $(htmlSeries+htmlPeriod).insertBefore("#acaoNovaSerieContainer");
+	    				    $(idperiodoSelect).parent().parent().animate({height: "40px"}, 200);
+	    				    $(idserieSelect).parent().parent().animate({height: "40px"}, 200);
+
+	    				    getSeries(idserieSelect,idperiodoSelect,data[i].idSerie);
+	    				    getPeriodos(idserieSelect, idperiodoSelect,data[i].idPeriodo);
+
+	    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
+	    				}else{
+		    				$('#inputSerieProf'+fieldCount).val(data[i].idSerie);
+	    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
+	    					$('#inputPeriodoProf'+fieldCount).val(data[i].idPeriodo);
+	    				}
+				
+	        }
+	        },
+	    });
 		
 		$('#inputNomeProf').val($('#updateProfInfo'+idUsuario).text());
 		//$('#selectSerieProf').val($('#serie'+idUsuario).val());
@@ -743,7 +799,9 @@ $(document).ready(function() {
 		$('#inputCidadeProf').val($('#cidade'+idUsuario).val());
 		$('#inputEmailProf').val($('#email'+idUsuario).text());
 	    $('#inputUsuarioProf').val($('#usuario'+idUsuario).text());
-		
+	    $('#inputSenhaProf').val('');
+	    $('#inputSenhaConfirmProf').val('');
+	    
 		if ($('#imagem'+idUsuario).val() != '')	mostrarInputArquivo($('#imagem'+idUsuario).val(), 'imgp/'+$('#imagem'+idUsuario).val());
 			else limparInputArquivo();	    
 		
@@ -783,6 +841,8 @@ $(document).ready(function() {
 		$('#inputEmailEscolaAntigo').val($('#email'+idUsuario).text());
 		$('#inputUsuarioEscola').val($('#usuario'+idUsuario).text());
 		$('#inputUsuarioEscolaAntigo').val($('#usuario'+idUsuario).text());
+		$('#inputSenhaEscola').val('');
+	    $('#inputSenhaConfirmEscola').val('');
 		
 		if ($('#imagem'+idUsuario).val() != '')	mostrarInputArquivo($('#imagem'+idUsuario).val(), 'imgp/'+$('#imagem'+idUsuario).val());
 			else limparInputArquivo();
@@ -795,7 +855,35 @@ $(document).ready(function() {
 	})
 	
 	$('body').delegate('.btnDelCadAluno, .btnDelCadProf, .btnDelCadEscola','click', function(){
-		alert('excluir!');
+		//alert(Excluir);
+		var idVar = $(this).attr('idUsuarioVariavel');
+		var idUsuario = $(this).attr('idUsuario');
+		console.log('............');
+		console.log(idVar);
+		console.log(idUsuario);
+//		return false;
+		$.ajax({
+	        url:'ajax/cadastroAjax.php',
+	        type:'post',
+	        dataType:'json',
+	        data: {
+	            'acao': 'excluirUsuario',
+	            'idUsuarioVar': idVar
+	        },
+	        success:function(retorno){
+	        	if (retorno.erro == false){
+	        		$(".updateUsuarioInfo"+idUsuario).trigger('click');
+		        	$(".updateUsuarioInfo"+idUsuario).hide();
+	        	}else{
+	        		$("#textoMensagemVazio").text(retorno.mensagem);
+			    	$("#mensagemCampoVazio").show();
+	        	}
+	        },
+	        error:function(retorno){
+	        	$("#textoMensagemVazio").text('Erro ao excluir!!');
+		    	$("#mensagemCampoVazio").show();
+	        }
+	    });
 		return false;
 	})
 
@@ -960,14 +1048,14 @@ function PerfilAluno(aluno) {
         
         html +=
         '<a href="#updateAlunoCont'+this.id+'" class="accordion_info_toggler updateAlunoToggler " data-toggle="collapse">'+
-            '<div class="accordion_info" id="updateAlunoInfo'+this.id+'">'+this.nome+'</div>'+
+            '<div class="accordion_info updateUsuarioInfo'+this.id+'" id="updateAlunoInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
         '<div class="accordion_content collapse" id="updateAlunoCont'+this.id+'">'+
             '<div class="content_col_info">';
 
         html +=
         	
-	    		'<input type="hidden" value="'+this.idSerie+'" id="serie'+this.id+'"/>'+
+	    		//'<input type="hidden" value="'+this.idSerie+'" id="serie'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idGrupo+'" id="grupo'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idAno+'" id="ano'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.rua+'" id="rua'+this.id+'"/>'+
@@ -1026,7 +1114,7 @@ function PerfilAluno(aluno) {
             '</div>'+
             '<div class="content_col_btns" '+posicao+'>'+
             	img+
-                '<button id="btnDelAluno'+this.id+'" class="section_btn btn_del_cad btnDelCadAluno">Excluir cadastro</button>'+
+                '<button id="btnDelAluno'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadAluno">Excluir cadastro</button>'+
                 '<button id="btnUpdateAluno'+this.id+'" class="section_btn btn_update_cad btnUpdateCadAluno"  idUsuario="'+this.id+'" idUsuarioVar="'+this.idUsuarioVar+'" idEndereco="'+this.idEndereco+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
@@ -1097,14 +1185,14 @@ function PerfilProfessor(professor) {
         
         html +=
         '<a href="#updateProfCont'+this.id+'" class="accordion_info_toggler updateProfToggler" data-toggle="collapse">'+
-            '<div class="accordion_info" id="updateProfInfo'+this.id+'">'+this.nome+'</div>'+
+            '<div class="accordion_info updateUsuarioInfo'+this.id+'" id="updateProfInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
         '<div class="accordion_content collapse" id="updateProfCont'+this.id+'">'+
             '<div class="content_col_info">';
             
         html +=
         	
-	        	'<input type="text" value="'+this.serie+'" id="serie'+this.id+'"/>'+
+	        	'<input type="hidden" value="'+this.serie+'" id="serie'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idGrupo+'" id="grupo'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idAno+'" id="ano'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.rua+'" id="rua'+this.id+'"/>'+
@@ -1162,7 +1250,7 @@ function PerfilProfessor(professor) {
             '</div>'+
             '<div class="content_col_btns" '+posicao+'>'+
             	img+
-                '<button id="btnDelProf'+this.id+'" class="section_btn btn_del_cad btnDelCadProf">Excluir cadastro</button>'+
+                '<button id="btnDelProf'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadProf">Excluir cadastro</button>'+
                 '<button id="btnUpdateProf'+this.id+'" class="section_btn btn_update_cad btnUpdateCadProf" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idUsuarioVar="'+this.idUsuarioVar+'" idGrupo="'+this.idSala+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
@@ -1170,10 +1258,6 @@ function PerfilProfessor(professor) {
         return html;
     }
 
-//    this.deletar = function() {
-//        $('#updateProfInfo'+this.id).parent('a').remove();
-//        $('#updateProfCont'+this.id).remove();
-//    }
 }
 
 function PerfilEscola(escola) {
@@ -1210,7 +1294,8 @@ function PerfilEscola(escola) {
     this.idAdm = escola.idAdm;
     this.idTipoEscola = escola.idTipoEscola;
     this.imagem = escola.imagem; 
-    	
+    this.idUsuarioVar = escola.idUsuarioVar;
+    
     this.gerarHTML = function () {
         var html = '';
         
@@ -1221,7 +1306,7 @@ function PerfilEscola(escola) {
         
         html +=
         '<a href="#updateEscCont'+this.id+'" class="accordion_info_toggler updateEscToggler" data-toggle="collapse">'+
-            '<div class="accordion_info" id="updateEscInfo'+this.id+'">'+this.nome+'</div>'+
+            '<div class="accordion_info updateUsuarioInfo'+this.id+'" id="updateEscInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
         '<div class="accordion_content collapse" id="updateEscCont'+this.id+'">'+
             '<div class="content_col_info">';
@@ -1279,8 +1364,8 @@ function PerfilEscola(escola) {
         html +=
             '</div>'+
             '<div class="content_col_btns">'+
-                '<button id="btnDelProf'+this.id+'" class="section_btn btn_del_cad btnDelCadEscola">Excluir cadastro</button>'+
-                '<button id="btnUpdateProf'+this.id+'" class="section_btn btn_update_cad btnUpdateCadEscola" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idEscola="'+this.idEscola+'">Alterar Dados</button>'+
+                '<button id="btnDelEscola'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadEscola">Excluir cadastro</button>'+
+                '<button id="btnUpdateEscola'+this.id+'" class="section_btn btn_update_cad btnUpdateCadEscola" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idEscola="'+this.idEscola+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
     
@@ -1429,7 +1514,7 @@ function expandSeriePeriodoProfessor(trigger) {
     htmlSeries += '<div class="form_celula_p" style="height: 0;">';
     htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
     htmlSeries +=     '<span class="select_container">';
-    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">';
+    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf" required msgVazio="O campo série é obrigatório">';
     htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
     htmlSeries +=         '</select>';
     htmlSeries +=     '</span>';
@@ -1438,7 +1523,7 @@ function expandSeriePeriodoProfessor(trigger) {
     htmlPeriod += '<div class="form_celula_p" style="height: 0;">';
     htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
     htmlPeriod +=     '<span class="select_container">';
-    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">';
+    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf" required>';
     htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
     htmlPeriod +=         '</select>';
     htmlPeriod +=     '</span>';
@@ -1564,40 +1649,4 @@ function atribuirEventosSerie(idserieSelect,idperiodoSelect) {
     $("[data-grupoAttr='serie']").change(function() {
         getPeriodos(this, idserieSelect,idperiodoSelect);
     });
-}
-
-function verificarPadraoSenha(perfil) {
-    var senha = $("#inputSenha"+perfil).val();
-    
-    if (/\W+/.test(senha)) {
-        $("#regrasSenha"+perfil).find(".regra_char_esp").removeClass("text-danger");
-        $("#regrasSenha"+perfil).find(".regra_char_esp").addClass("text-success");
-    } else{
-        $("#regrasSenha"+perfil).find(".regra_char_esp").addClass("text-danger");
-        $("#regrasSenha"+perfil).find(".regra_char_esp").removeClass("text-success");
-    }
-
-    if (/[A-Z]/.test(senha)) {
-        $("#regrasSenha"+perfil).find(".regra_char_mai").removeClass("text-danger");
-        $("#regrasSenha"+perfil).find(".regra_char_mai").addClass("text-success");
-    } else {
-        $("#regrasSenha"+perfil).find(".regra_char_mai").addClass("text-danger");
-        $("#regrasSenha"+perfil).find(".regra_char_mai").removeClass("text-success");
-    }
-
-    if (/[a-z]/.test(senha)) {
-        $("#regrasSenha"+perfil).find(".regra_char_min").removeClass("text-danger");
-        $("#regrasSenha"+perfil).find(".regra_char_min").addClass("text-success");
-    } else {
-        $("#regrasSenha"+perfil).find(".regra_char_min").addClass("text-danger");
-        $("#regrasSenha"+perfil).find(".regra_char_min").removeClass("text-success");
-    }
-
-    if (senha.length >= 6 && senha.length <= 10) {
-        $("#regrasSenha"+perfil).find(".regra_length").removeClass("text-danger");
-        $("#regrasSenha"+perfil).find(".regra_length").addClass("text-success");
-    } else {
-        $("#regrasSenha"+perfil).find(".regra_length").addClass("text-danger");
-        $("#regrasSenha"+perfil).find(".regra_length").removeClass("text-success");
-    }
 }

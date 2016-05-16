@@ -27,10 +27,10 @@ class UsuarioVariavelDAO extends DAO{
      public function insert($userv)
      {
         $sql  = "insert into  usuario_variavel (usv_usuario,usv_ano_letivo,usv_serie,usv_grau_instrucao,usv_categoria_funcional,usv_grupo,usv_status) values ";
-        $sql .= "(".$userv->getUsv_usuario().",".$userv->getUsv_ano_letivo().",";
-        $sql .= "'".$userv->getUsv_serie()."',".$userv->getUsv_grau_instrucao().",";
-        $sql .= "".$userv->getUsv_categoria_funcional().",".$userv->getUsv_grupo().",'".$userv->getUsv_status()."')";
-        //echo $sql;
+        $sql .= "(".$userv->getUsv_usuario().",'".$userv->getUsv_ano_letivo()."',";
+        $sql .= "'".$userv->getUsv_serie()."','".$userv->getUsv_grau_instrucao()."',";
+        $sql .= "'".$userv->getUsv_categoria_funcional()."','".$userv->getUsv_grupo()."','".$userv->getUsv_status()."')";
+//	    echo $sql;
     	return $this->executeAndReturnLastID($sql);
      }
      
@@ -48,15 +48,16 @@ class UsuarioVariavelDAO extends DAO{
         return $this->execute($sql);
      }
      
-     public function delete($iduserv)
+     public function delete($id)
      {
-         $sql = "delete from usuario_variavel where usv_id = ".$iduserv."";
+//         $sql = "delete from usuario_variavel where usv_id = ".$iduserv."";
+ 		$sql  = "update usuario_variavel set usv_status = '1' where usv_id = ".$id." limit 1";
     	return $this->execute($sql); 
      }
      
      public function select($iduserv)
      {
-        $sql = "select * from usuario_variavel where usv_id = ".$iduserv." ";
+        $sql = "select * from usuario_variavel where usv_id = ".$iduserv;
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
 
@@ -75,7 +76,7 @@ class UsuarioVariavelDAO extends DAO{
      
      public function selectFull()
      {
-        $sql = "select * from usuario_variavel";
+        $sql = "select * from usuario_variavel where usv_status = 0";
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
@@ -98,7 +99,7 @@ class UsuarioVariavelDAO extends DAO{
 
      public function selectByIdUsuario($iduser)
      {
-        $sql = "select * from usuario_variavel where usv_usuario = ".$iduser;
+        $sql = "select * from usuario_variavel where usv_usuario = ".$iduser." limit 1";
         $result = $this->retrieve($sql);
 
         $qr = mysqli_fetch_array($result);
