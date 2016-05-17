@@ -14,6 +14,20 @@ var ano = mydate.getYear()
 
 
 $(document).ready(function() {
+    $("[data-inputType='senha']").keyup(function() {
+        var perfil = this.id.slice(10);
+        verificarPadraoSenha(perfil);
+    });
+
+    $("[data-inputType='senha']").focus(function() {
+        var perfil = this.id.slice(10);
+        $("#regrasSenha"+perfil).fadeIn(200);
+    });
+
+    $("[data-inputType='senha']").blur(function() {
+        var perfil = this.id.slice(10);
+        $("#regrasSenha"+perfil).fadeOut(200);
+    });
 	
 	$('#update_cadastro').trigger('click');
 	
@@ -1650,3 +1664,41 @@ function atribuirEventosSerie(idserieSelect,idperiodoSelect) {
         getPeriodos(this, idserieSelect,idperiodoSelect);
     });
 }
+
+function verificarPadraoSenha(perfil) {
+    var senha = $("#inputSenha"+perfil).val();
+    
+    if (/\W+/.test(senha)) {
+        $("#regrasSenha"+perfil).find(".regra_char_esp").removeClass("text-danger");
+        $("#regrasSenha"+perfil).find(".regra_char_esp").addClass("text-success");
+    } else{
+        $("#regrasSenha"+perfil).find(".regra_char_esp").addClass("text-danger");
+        $("#regrasSenha"+perfil).find(".regra_char_esp").removeClass("text-success");
+    }
+
+    if (/[A-Z]/.test(senha)) {
+        $("#regrasSenha"+perfil).find(".regra_char_mai").removeClass("text-danger");
+        $("#regrasSenha"+perfil).find(".regra_char_mai").addClass("text-success");
+    } else {
+        $("#regrasSenha"+perfil).find(".regra_char_mai").addClass("text-danger");
+        $("#regrasSenha"+perfil).find(".regra_char_mai").removeClass("text-success");
+    }
+
+    if (/[a-z]/.test(senha)) {
+        $("#regrasSenha"+perfil).find(".regra_char_min").removeClass("text-danger");
+        $("#regrasSenha"+perfil).find(".regra_char_min").addClass("text-success");
+    } else {
+        $("#regrasSenha"+perfil).find(".regra_char_min").addClass("text-danger");
+        $("#regrasSenha"+perfil).find(".regra_char_min").removeClass("text-success");
+    }
+
+    if (senha.length >= 6 && senha.length <= 10) {
+        $("#regrasSenha"+perfil).find(".regra_length").removeClass("text-danger");
+        $("#regrasSenha"+perfil).find(".regra_length").addClass("text-success");
+    } else {
+        $("#regrasSenha"+perfil).find(".regra_length").addClass("text-danger");
+        $("#regrasSenha"+perfil).find(".regra_length").removeClass("text-success");
+    }
+}
+
+
