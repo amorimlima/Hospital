@@ -18,18 +18,19 @@ if(isset($_POST)){
 	$usuarioVariavelController = new UsuarioVariavelController();	
 
 	$user = $usuarioController->autenticaUsuario($usuario, $senha);
-	$userVariavel = $usuarioVariavelController->selectByIdUsuario($user['usr_id']);
 
 	if($user!=null){
-            $adm = [
-                'nome' => $user['usr_nome'],
-                'id' => $user['usr_id'],
-                'perfil' => $user['prf_perfil'],
-                'perfil_id' => $user['prf_id'],
-                'url' => $user['prf_url'],
-                'escola' => $user['usr_escola'],
-                'pagina' => utf8_encode($user['prf_pagina'])
-            ];
+
+		$userVariavel = $usuarioVariavelController->selectByIdUsuario($user['usr_id']);
+        $adm = [
+            'nome' => $user['usr_nome'],
+            'id' => $user['usr_id'],
+            'perfil' => $user['prf_perfil'],
+            'perfil_id' => $user['prf_id'],
+            'url' => $user['prf_url'],
+            'escola' => $user['usr_escola'],
+            'pagina' => utf8_encode($user['prf_pagina'])
+        ];
 
 
 
@@ -44,7 +45,6 @@ if(isset($_POST)){
 			array_push($result,array('serie'=>$adm[0]['serie']));
 		}
 	}else{
-
 		$result = Array('erro'=>true,'msg'=>'Usuário ou Senha Inválida!!');
 	}
 
