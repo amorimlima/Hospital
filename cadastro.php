@@ -141,9 +141,22 @@ $logado = unserialize($_SESSION['USR']);
                                     <div class="col-xs-12 col-md-2">
                                         <nav role="navigation" class="area_tabs_cadastro">
                                             <ul class="tabs_cadastro">
-                                                <li class="tab_cadastro tab_aluno" pagina="lista_btns_aluno"></li>
-                                                <li class="tab_cadastro tab_professor" pagina="lista_btns_professor"></li>
-                                                <li class="tab_cadastro tab_escola" pagina="lista_btns_escola"></li>
+                                                <li <?php if($logado['perfil'] == "Professor") {?> 
+                                                        class="tab_cadastro_professor tab_aluno tab_cadastro_ativo" 
+                                                    <?php }
+                                                          else{ ?>
+                                                          class="tab_cadastro tab_aluno tab_cadastro_ativo"
+                                                    <?php } ?>
+                                                    pagina="lista_btns_aluno"></li>
+                                                <li <?php if($logado['perfil'] == "Professor") {?> 
+                                                        class="tab_cadastro_professor tab_professor" 
+                                                    <?php }
+                                                          else{ ?>
+                                                          class="tab_cadastro tab_professor"
+                                                    <?php } ?> pagina="lista_btns_professor"></li>
+                                                <?php if($logado['perfil'] != "Professor") {?>
+                                                    <li class="tab_cadastro tab_escola" pagina="lista_btns_escola"></li>
+                                                <?php }?>
                                             </ul>
                                         </nav>
                                     </div>

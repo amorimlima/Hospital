@@ -1,5 +1,5 @@
 "use strict";
-var tabs = $('.tab_cadastro');
+var tabs = $('.tab_cadastro, .tab_cadastro_professor');
 var containers = $('.conteudo_tab');
 var btns = $('.btns_tabs');
 var primeiroAcesso = true;
