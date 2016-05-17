@@ -349,7 +349,6 @@ class UsuarioDAO extends DAO{
         $sql = "select count(*) as total 
         		from usuario INNER JOIN usuario_variavel ON usr_id = usv_usuario 
         		where usr_cpf = '$cpf' and usr_perfil = 2 and usr_escola = $escola AND usv_status = 0";
-//        echo $sql;
     	$result = $this->retrieve($sql);
 		$qr = mysqli_fetch_array($result);
 		return $qr["total"];	
