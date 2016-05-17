@@ -67,8 +67,6 @@ $(document).ready(function(e) {
 	if ($('#idUsuario').length > 0)
 		usuario = new Usuario($('#idUsuario').val());
 
-	console.log(usuario);
-
 });
 
 function redireciona(pagina){
