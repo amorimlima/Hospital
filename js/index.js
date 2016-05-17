@@ -201,9 +201,6 @@ function validarLogin() {
                     
                     window.location.href=data.url;                   
                 } 
-            },
-            error: function() {
-                $("#mensagemLoginInvalido").fadeIn(200);
             }
         });
     } else {
