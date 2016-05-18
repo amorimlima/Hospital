@@ -1676,7 +1676,7 @@ function verificarPadraoSenha(perfil) {
         $("#regrasSenha"+perfil).find(".regra_char_esp").removeClass("text-success");
     }
 
-    if (/[A-Z]/.test(senha)) {
+    if (/[0-9]/.test(senha)) {
         $("#regrasSenha"+perfil).find(".regra_char_mai").removeClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_char_mai").addClass("text-success");
     } else {
