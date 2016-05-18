@@ -14,53 +14,53 @@ $mensagemController = new MensagemController();
 $usuarioController = new UsuarioController();
 
 switch ($_POST["acao"]){
-    case "deleteMensagem":{      
+    case "deleteMensagem":{
         $idmens = $_POST["id"];
         $mensagem = $mensagemController->selectMensagem($idmens);
 		if($mensagem->getMsg_id()!=NULL){
-          $mensagemController->delete($_POST["id"]);  
+          $mensagemController->delete($_POST["id"]);
           $result = Array('ok'=>true,'msg'=>'<div class="alert alert-danger"><i class="fa fa-times"></i> Deletado com sucesso!</div>');
           echo json_encode($mensagem);
        	}else{
-          $mensagemController->deleteDefinitivo($_POST["id"]);  
+          $mensagemController->deleteDefinitivo($_POST["id"]);
           $result = Array('ok'=>true,'msg'=>'<div class="alert alert-danger"><i class="fa fa-times"></i> Deletado com sucesso!</div>');
           echo json_encode($mensagem);
         }
         break;
     }
 
-    case "reutauraMensagem":{      
+    case "reutauraMensagem":{
         $idmens = $_POST["id"];
-          $mensagemController->restaurar($_POST["id"]);  
+          $mensagemController->restaurar($_POST["id"]);
           $result = Array('ok'=>true,'msg'=>'<div class="alert alert-danger"><i class="fa fa-times"></i> Restaurada com sucesso!</div>');
           echo json_encode($result);
         break;
     }
-    
+
     case "deletadas":{
-        
+
 		$logado = unserialize($_SESSION['USR']);
         $mensagem = $mensagemController->deletadasByUsuario($logado['id']);
-		
-		
+
+
 		if (count($mensagem)>0){
-			
+
 			$userLogado = $logado['id'];
 			foreach ($mensagem as $value){
 				//Fazer uma comparação com o usuário logado para listar o outro e o tipo da mensagem!!
-				
+
 				if ($value->getMsg_destinatario() == $userLogado){
 					$usuario = $usuarioController->select($value->getMsg_remetente());
 					//$tipo = '(recebida)';
 				 }else{
 					$usuario = $usuarioController->select($value->getMsg_destinatario());
-					//$tipo = '(enviada)';	
+					//$tipo = '(enviada)';
 				 }
 				//$usuario = $usuarioController->select($value->getMsg_destinatario());
-				
+
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class="lixeira col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-					  <p class="msg_check col-md-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
-					  <div  onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')">			  
+					  <p class="msg_check col-md-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
+					  <div  onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')">
 						<p class="msg_nome col-md-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
 						<p class="msg_assunto col-md-7">'.utf8_encode($value->getMsg_assunto()).'</p>
 						<p class="msg_data col-md-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
@@ -72,11 +72,11 @@ switch ($_POST["acao"]){
 		}
         break;
     }
-    
+
     case "deletadasMobile":{
         $logado = unserialize($_SESSION['USR']);
         $mensagem = $mensagemController->deletadasByUsuario($logado['id']);
-		
+
 		$userLogado = $logado['id'];
 
         echo '<p class="row" id="linha_titulos">
@@ -93,16 +93,16 @@ switch ($_POST["acao"]){
 				}else{
 					$naolida = '';
 				}
-				
+
 				if ($value->getMsg_destinatario() == $userLogado){
 						$usuario = $usuarioController->select($value->getMsg_remetente());
 					 }else{
-						$usuario = $usuarioController->select($value->getMsg_destinatario());	
+						$usuario = $usuarioController->select($value->getMsg_destinatario());
 					 }
 
-					
+
 				echo'
-				
+
 				<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
 						  <p class="msg_nome_mobile  msg_check col-xs-1 col-md-1 col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
 						  <span onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')" >
@@ -112,18 +112,18 @@ switch ($_POST["acao"]){
 								<p class="msg_data_mobile col-xs-2 col-md-2 col-lg-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 							</div>
 						  </span>
-						
+
 						<div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'"></div>
 					</div>';
-						
+
 			}
 		}else {
 			echo '<div class="alert alert-warning" role="alert"><strong>Nenhuma mensagem em sua Lixeira.</strong></div>';
 		}
-		
+
         break;
     }
-    
+
     case "listaEnviadas":{
         $idUser = $_POST["id"];
         $mensagem = $mensagemController->listaEnviadas($idUser);
@@ -132,7 +132,7 @@ switch ($_POST["acao"]){
 			foreach ($mensagem as $value) {
 
 				if ($value->getDestinatarios() != ''){
-				$destinatarios = explode(',',$value->getDestinatarios());	
+				$destinatarios = explode(',',$value->getDestinatarios());
 
 				$usuario = $usuarioController->select($destinatarios[0]);
 
@@ -142,24 +142,24 @@ switch ($_POST["acao"]){
 
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" enviado col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
 						<p class="msg_check col-md-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
-						<div  onclick="EnviadasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">				  				  
+						<div  onclick="EnviadasDetalheFuncao('.utf8_encode($value->getMsg_id()).')">
 						  <p class="msg_nome col-md-2">'.utf8_encode($usrNome).'</p>
 						  <p class="msg_assunto col-md-7">'.utf8_encode($value->getMsg_assunto()).'</p>
 						  <p class="msg_data col-md-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 						</div>
 					</div>';
-				}		
-			}               
+				}
+			}
 		}else {
 			echo '<div class="alert alert-warning" role="alert"><strong>Nenhuma mensagem enviada.</strong></div>';
 		}
 		break;
     }
-	
-    
+
+
     case "listaEnviadosMobile":{
         $idmens = $_POST["id"];
-        
+
         $mensagem = $mensagemController->listaEnviadas($idmens);
 
          echo '<p class="row" id="linha_titulos">
@@ -169,10 +169,10 @@ switch ($_POST["acao"]){
                 <span class="col-xs-2 col-md-2" id="titulo_data">DATA</span>
               </p>';
 
-        if (count($mensagem)>0){ 
+        if (count($mensagem)>0){
 			foreach ($mensagem as $value) {
-				$usuario = $usuarioController->select($value->getMsg_destinatario());              
-					
+				$usuario = $usuarioController->select($value->getMsg_destinatario());
+
 				echo'<div id="msg_valores_'.$value->getMsg_id().'"   class="row col1-mobile msg_valores_'.$value->getMsg_id().'"  style="cursor:pointer">
 							<p class="msg_nome_mobile  msg_check col-xs-1 col-md-1 col-lg-1"><span class="check-box" id="'.$value->getMsg_id().'></span></p>
 							<span onclick="EnviadasMobileDetalheFuncao('.$value->getMsg_id().')">
@@ -191,10 +191,10 @@ switch ($_POST["acao"]){
 
         break;
     }
-    
+
     case "listaRecebidos":{
         $iduser = $_POST["id"];
-        
+
         $mensagem = $mensagemController->listaRecebidos($iduser);
 
 		if (count($mensagem)>0){
@@ -204,27 +204,27 @@ switch ($_POST["acao"]){
 					$naolida = 'msg_nao_lida';
 				}else{
 					$naolida = '';
-				}				
-				
+				}
+
 				echo'<div id="msg_valores_'.$value->getMsg_id().'" class=" recebido '.$naolida.' col1 row msg_valores_'.$value->getMsg_id().'" style="cursor:pointer">
-						  <p class="msg_check col-md-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>	
-						  <div onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')" > 			  
+						  <p class="msg_check col-md-1"><span class="check-box" id="'.$value->getMsg_id().'"></span></p>
+						  <div onclick="RecebidasDetalheFuncao('.$value->getMsg_id().')" >
 							<p class="msg_nome col-md-2">'.utf8_encode($usuario->getUsr_nome()).'</p>
 							<p class="msg_assunto col-md-7">'.utf8_encode($value->getMsg_assunto()).'</p>
 							<p class="msg_data col-md-2">'.date('d/m/Y',strtotime($value->getMsg_data())).'</p>
 						 </div>
-					  </div>';			
+					  </div>';
 			}
         }else {
 			echo '<div class="alert alert-warning" role="alert"><strong>Nenhuma mensagem em sua Caixa de Entrada.</strong></div>';
 		}
-			   
+
         break;
     }
-    
+
     case "listaRecebidosMobile":{
          $idmens = $_POST["id"];
-        
+
         $mensagem = $mensagemController->listaRecebidos($idmens);
 
         echo '<p class="row" id="linha_titulos">
@@ -252,23 +252,23 @@ switch ($_POST["acao"]){
 								  </div>
 								</span>
 							<div class="row msg_detalhe" id="abrir_msg_'.$value->getMsg_id().'">
-								
+
 							</div>
 						</div>';
 			}
 		}else {
 			echo '<div class="alert alert-warning" role="alert"><strong>Nenhuma mensagem em sua Caixa de Entrada.</strong></div>';
-		}		
+		}
          break;
     }
-    
+
     case "listaEnviadasDetalhe":{
 
-		$idmens = $_POST["id"];        
-        $mensagem = $mensagemController->detalhe($idmens);        
+		$idmens = $_POST["id"];
+        $mensagem = $mensagemController->detalhe($idmens);
 		$logado = unserialize($_SESSION['USR']);
 		$remetente = $logado['nome'];
-		$destinatarios = explode(',',$mensagem->getDestinatarios());		
+		$destinatarios = explode(',',$mensagem->getDestinatarios());
 		$dadosDestinatarios = array();
 		foreach ($destinatarios as $i => $value){
 			$usuario = $usuarioController->select($destinatarios[$i]);
@@ -284,44 +284,44 @@ switch ($_POST["acao"]){
 			'destinatarios'=>$dadosDestinatarios,
 			'mensagem'=>utf8_encode($mensagem->getMsg_mensagem())
 		);
-		
+
         print(json_encode($result));
-		   
+
         break;
     }
-    
+
     case "listaEnviadasMobileDetalhe":{
-        
+
         $idmens = $_POST["id"];
-        
+
         $mensagem = $mensagemController->detalhe($idmens);
-        
+
         $mensagem->getMsg_id();
-        
+
        echo '<p>'.utf8_encode($mensagem->getMsg_mensagem()).'</p>';
         //.$mensagem->getMsg_mensagem().
         break;
     }
-	
+
 	case "listaDeletadaMobileDetalhe":{
-        
+
         $idmens = $_POST["id"];
-        
+
         $mensagem = $mensagemController->detalhe($idmens);
-        
+
         $mensagem->getMsg_id();
-        
+
        echo '<p>'.utf8_encode($mensagem->getMsg_mensagem()).'</p>';
         //.$mensagem->getMsg_mensagem().
         break;
     }
-    
+
     case "listaRecebidasMobileDetalhe":{
         $idmens = $_POST["id"];
-        
+
         $mensagem = $mensagemController->detalhe($idmens);
         if($mensagem->getMsg_lida() == 'n'){
-            
+
             $mensagemController->msgLida($idmens);
             // $template->recebidos();
         }
@@ -330,23 +330,23 @@ switch ($_POST["acao"]){
         //.$mensagem->getMsg_mensagem().
         break;
     }
-    
-    
-    
+
+
+
     case "listaRecebidasDetalhe":{
         $idmens = $_POST["id"];
-        
+
         $mensagem = $mensagemController->detalhe($idmens);
         if($mensagem->getMsg_lida() == 'n'){
-            
+
             $mensagemController->msgLida($idmens);
         }
-		
+
 		$remetente = $usuarioController->select($mensagem->getMsg_remetente());
 		$logado = unserialize($_SESSION['USR']);
-       
-		$destinatarios = explode(',',$mensagem->getDestinatarios());		
-		
+
+		$destinatarios = explode(',',$mensagem->getDestinatarios());
+
 		$dadosDestinatarios = array();
 		foreach ($destinatarios as $i => $value){
 			$usuario = $usuarioController->select($destinatarios[$i]);
@@ -366,18 +366,18 @@ switch ($_POST["acao"]){
 			'assunto'=>utf8_encode($mensagem->getMsg_assunto()),
 			'mensagem'=>utf8_encode($mensagem->getMsg_mensagem())
 		);
-         
+
         print(json_encode($result));
-               
+
         break;
     }
-    
+
     case "recarrega":{
          $idmens = $_POST["id"];
          $valor = $mensagemController->count($idmens);
          $result = Array('qtd'=>$valor);
          echo json_encode($result);
-		 
+
 		 break;
     }
 
@@ -387,20 +387,20 @@ switch ($_POST["acao"]){
 
 		if(!empty($letras)){
 			$usuarios = $usuarioController->buscaUsuarioByLetraNome($letras,$logado['perfil_id'],$logado['escola']);
-		}		
+		}
 
 		$result = array();
 		foreach ($usuarios as $key => $value) {
 			$result[$key] = Array(
 				'nome'=>$value->getUsr_nome(),
 				'usuarioId'=>$value->getUsr_id()
-			);			
+			);
 		}
-   
-		echo json_encode($result);	
-		
+
+		echo json_encode($result);
+
 		break;
-	}  
+	}
 
 	case "inserirMensagem":{
 		$logado = unserialize($_SESSION['USR']);
@@ -426,8 +426,8 @@ switch ($_POST["acao"]){
 		$mensagem->setMsg_ativo("1");
 		$mensagem->setMsg_mensagem(utf8_decode($mensagemTxt));
 		$mensagem->setDestinatarios($destinatarios);
-		$msgRemetente = $mensagemController->insert($mensagem);		
-		
+		$msgRemetente = $mensagemController->insert($mensagem);
+
 		foreach ($destinatario as $i => $value) {
 
 			$mensagem = new Mensagem();
@@ -446,17 +446,13 @@ switch ($_POST["acao"]){
 
 			$msgDestinatario++;
 		}
-		
-		//print_r('$msgDestinatario '.$msgDestinatario);
-		//print_r('count($destinatario) '.count($destinatario));
-		//print_r('$msgRemetente '.$msgRemetente);
-		
+
 		if($msgDestinatario == count($destinatario) && $msgRemetente>0){
 			echo true;
 		}else{
 			echo false;
 		}
-		
+
 		break;
 	}
 
@@ -471,7 +467,7 @@ switch ($_POST["acao"]){
 		$msgDestinatario = 0;
 
 		$data = date("Y-m-d");
-		
+
 		foreach ($destinatarios as $i => $value) {
 
 			$mensagem = new Mensagem();
@@ -490,7 +486,7 @@ switch ($_POST["acao"]){
 
 			$msgDestinatario++;
 		}
-		
+
 		if($msgDestinatario == count($destinatarios) && $msgRemetente>0){
 			echo true;
 		}else{
@@ -499,12 +495,12 @@ switch ($_POST["acao"]){
 	 	break;
 	}
 
-	case "responder":{      
+	case "responder":{
 		$logado = unserialize($_SESSION['USR']);
         $idmens = $_POST["id"];
         $mensagem = $mensagemController->selectMensagem($idmens);
-		$destinatarios = explode(',',$mensagem->getDestinatarios());		
-		
+		$destinatarios = explode(',',$mensagem->getDestinatarios());
+
 		$dadosDestinatarios = array();
 		foreach ($destinatarios as $i => $value){
 			$usuario = $usuarioController->select($destinatarios[$i]);
@@ -524,11 +520,11 @@ switch ($_POST["acao"]){
 			'assunto'=>utf8_encode($mensagem->getMsg_assunto()),
 			'mensagem'=>utf8_encode($mensagem->getMsg_mensagem())
 		);
-         
+
         print(json_encode($result));
 
         break;
-    }     
+    }
 }
 
-?> 
+?>
