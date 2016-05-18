@@ -21,7 +21,9 @@ include_once($path['funcao'].'Thumbs.php');
 
 switch ($_REQUEST["acao"]) {
     case "novoUsuario":{
+    	print_r($_POST);
     	print_r(strlen($_POST['serie']));
+    	echo 'teste';
     	
     	$result = '';
        	$enderecoController = new EnderecoController();
@@ -41,9 +43,9 @@ switch ($_REQUEST["acao"]) {
 	       	$u = unserialize($_SESSION['USR']);
 			$escola = $u['escola'];
 	       	//chama o método de verficação do cpf do professor verificando a existencia do CPF em uma determinada escola.
-//	       	if ($usuarioController->verificaCpfProfessor($_POST['cpf'], $escola) > 0){
-//		       	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado nessa escola!');
-//	       	}
+	       	if ($usuarioController->verificaCpfProfessor($_POST['cpf'], $escola) > 0){
+		       	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado nessa escola!');
+	       	}
 	    }        	
                 
         //Verificações de email e login. Só entrará no IF se não tiver erro no cpf.
@@ -164,7 +166,7 @@ switch ($_REQUEST["acao"]) {
     
     case "cadastraEscola":{
     	
-    	//print_r($_POST);
+    	print_r($_POST);
     	$result = '';
     	$escolaController = new EscolaController();
      	$enderecoController = new EnderecoController();
@@ -241,11 +243,12 @@ switch ($_REQUEST["acao"]) {
 				}
 				
 	    		if($idUsuario = $usuarioController->insert($usuario)){
+	    			
 	    			$usuarioVar = new UsuarioVariavel();
 		    		$usuarioVar->setUsv_usuario($idUsuario);
 		    		$usuarioVar->setUsv_status('0');
 		    		$usuarioVarController->insert($usuarioVar);
-		    		
+		    		echo 'cadastrar usuario';
 	    			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 	    		}else{
 	    			$result = Array('erro'=>true,'msg'=>'Erro ao cadastrar escola!');
