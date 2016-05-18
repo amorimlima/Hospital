@@ -66,8 +66,11 @@ if(count($periodos)>0) {
 }
 
 $logado = unserialize($_SESSION['USR']);
+$class = $logado['perfil'] == "Professor"? "tab_cadastro_professor" : "tab_cadastro";
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -139,28 +142,19 @@ $logado = unserialize($_SESSION['USR']);
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-2">
-                                        <nav role="navigation" class="area_tabs_cadastro">
-                                            <ul class="tabs_cadastro">
-                                                <li <?php if($logado['perfil'] == "Professor") {?> 
-                                                        class="tab_cadastro_professor tab_aluno tab_cadastro_ativo" 
-                                                    <?php }
-                                                          else{ ?>
-                                                          class="tab_cadastro tab_aluno tab_cadastro_ativo"
-                                                    <?php } ?>
-                                                    pagina="lista_btns_aluno"></li>
-                                                <li <?php if($logado['perfil'] == "Professor") {?> 
-                                                        class="tab_cadastro_professor tab_professor" 
-                                                    <?php }
-                                                          else{ ?>
-                                                          class="tab_cadastro tab_professor"
-                                                    <?php } ?> pagina="lista_btns_professor"></li>
-                                                <?php if($logado['perfil'] != "Professor") {?>
-                                                    <li class="tab_cadastro tab_escola" pagina="lista_btns_escola"></li>
-                                                <?php }?>
-                                            </ul>
-                                        </nav>
+                                        <?php if($logado['perfil'] != "Aluno"){ ?>
+                                            <nav role="navigation" class="area_tabs_cadastro">
+                                                <ul class="tabs_cadastro">
+                                                    <li class="<?= $class; ?> tab_aluno tab_cadastro_ativo" pagina="lista_btns_aluno"></li>
+                                                    <li class="<?= $class; ?> tab_professor" pagina="lista_btns_professor"></li>
+                                                    <?php if($logado['perfil'] != "Professor"){ ?>
+                                                        <li class="<?= $class; ?> tab_escola" pagina="lista_btns_escola"></li>
+                                                    <?php }?>
+                                                </ul>
+                                            </nav>
+                                        <?php } ?>
                                     </div>
-                                    <div class="col-xs-12 col-md-10">
+                                    <div class="col-xs-12 <?php $logado['perfil'] == "Aluno" ? '' : "col-md-10" ?>">
                                         <section class="area_conteudo_tabs">
                                             <div class="conteudo_tab conteudo_aluno">
                                                 <form action="" class="form_cadastro cadastro_aluno cadastroAlunoContent" id="formCadastroAluno" style="display: none;">
@@ -316,7 +310,7 @@ $logado = unserialize($_SESSION['USR']);
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_g">
-                                                            <label for="inputEmailAluno" class="form_info info_p">E-mail<span class="asterisco">*</span></label>
+                                                            <label for="inputEmailAluno" class="form_info info_p">E-mail</label>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputEmailAluno" id="inputEmailAluno" class="form_value form_text value_p formAluno" required />
                                                             </span>
