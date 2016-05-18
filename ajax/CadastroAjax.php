@@ -21,32 +21,31 @@ include_once($path['funcao'].'Thumbs.php');
 
 switch ($_REQUEST["acao"]) {
     case "novoUsuario":{
+    	print_r(strlen($_POST['serie']));
+    	
     	$result = '';
        	$enderecoController = new EnderecoController();
 		$usuarioController = new UsuarioController();
 		
 		//Verificações o CPF
-		//cpf só poderá vir vazio se for cadastro de um aluno
-		if ($_POST['cpf'] != ''){
-			//Confirma se está cadastrando um aluno e faz a verificação simples do cpf
-			if ($_POST['perfil'] == '1'){
-				$escola = $_POST['escola'];	//Salva na variavel $escola o valor vindo por ajax
-				//Verificação de CPF para alunos
-		    	if ($usuarioController->verificaCpfAluno($_POST['cpf']) > 0){
-		        	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado!');
-		    	}
+		//Confirma se está cadastrando um aluno e faz a verificação simples do cpf
+		if ($_POST['perfil'] == '1'){
+			$escola = $_POST['escola'];	//Salva na variavel $escola o valor vindo por ajax
+			//Verificação de CPF para alunos 			//cpf só poderá vir vazio se for cadastro de um aluno
+		   	if (($_POST['cpf'] != '')  && ($usuarioController->verificaCpfAluno($_POST['cpf']) > 0)){
+		       	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado!');
+		   	}
 
-		    //Se for professor, pega o id da escola da sessão para verificar a disponibilidade do cpf em uma determinada escola
-	        }else{
-	        	$u = unserialize($_SESSION['USR']);
-				$escola = $u['escola'];
-	        	//chama o método de verficação do cpf do professor verificando a existencia do CPF em uma determinada escola.
-	        	if ($usuarioController->verificaCpfProfessor($_POST['cpf'], $escola) > 0){
-		        	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado nessa escola!');
-	        	}
-	        }        	
-        }
-        
+		//Se for professor, pega o id da escola da sessão para verificar a disponibilidade do cpf em uma determinada escola
+	    }else{
+	       	$u = unserialize($_SESSION['USR']);
+			$escola = $u['escola'];
+	       	//chama o método de verficação do cpf do professor verificando a existencia do CPF em uma determinada escola.
+//	       	if ($usuarioController->verificaCpfProfessor($_POST['cpf'], $escola) > 0){
+//		       	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado nessa escola!');
+//	       	}
+	    }        	
+                
         //Verificações de email e login. Só entrará no IF se não tiver erro no cpf.
         if ($result == ''){
 	        if (($enderecoController->verificaEmail($_POST['email']) > 0) && $_POST['email'] != ''){
@@ -687,4 +686,4 @@ switch ($_REQUEST["acao"]) {
 	}
 }
 
-?>
+?>	
