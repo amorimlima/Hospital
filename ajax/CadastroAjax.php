@@ -21,7 +21,6 @@ include_once($path['funcao'].'Thumbs.php');
 
 switch ($_REQUEST["acao"]) {
     case "novoUsuario":{
-
     	$result = '';
        	$enderecoController = new EnderecoController();
 		$usuarioController = new UsuarioController();
