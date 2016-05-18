@@ -77,7 +77,7 @@ class Template {
                                             if ($usrLogado['perfil_id'] == 1 && $menuId[0]=='exercicios'){
 
                                                 $usuarioVariavelController = new UsuarioVariavelController();
-                                                $exercicioController = new ExercicioController();                                               
+                                                $exercicioController = new ExercicioController();
                                                 $userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
                                                 $exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(), $logado['escola'],"");
                                                 $capitulos = Array();
