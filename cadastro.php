@@ -391,7 +391,7 @@ $logado = unserialize($_SESSION['USR']);
                                                             <div id="regrasSenhaAluno" class="panel panel-default regras_senha" style="display: none;">
                                                                 <div class="panel-body">
                                                                     <p class="regra_char_esp text-danger">Caracter especial</p>
-                                                                    <p class="regra_char_mai text-danger">Maiúscula</p>
+                                                                    <p class="regra_char_mai text-danger">Número</p>
                                                                     <p class="regra_char_min text-danger">Minúscula</p>
                                                                     <p class="regra_length text-danger">Entre 6 e 10 caracteres</p>
                                                                 </div>
@@ -605,7 +605,7 @@ $logado = unserialize($_SESSION['USR']);
                                                             <div id="regrasSenhaProf" class="panel panel-default regras_senha" style="display: none;">
                                                                 <div class="panel-body">
                                                                     <p class="regra_char_esp text-danger">Caracter especial</p>
-                                                                    <p class="regra_char_mai text-danger">Maiúscula</p>
+                                                                    <p class="regra_char_mai text-danger">Número</p>
                                                                     <p class="regra_char_min text-danger">Minúscula</p>
                                                                     <p class="regra_length text-danger">Entre 6 e 10 caracteres</p>
                                                                 </div>
@@ -778,7 +778,7 @@ $logado = unserialize($_SESSION['USR']);
                                                             <div id="regrasSenhaEscola" class="panel panel-default regras_senha" style="display: none;">
                                                                 <div class="panel-body">
                                                                     <p class="regra_char_esp text-danger">Caracter especial</p>
-                                                                    <p class="regra_char_mai text-danger">Maiúscula</p>
+                                                                    <p class="regra_char_mai text-danger">Número</p>
                                                                     <p class="regra_char_min text-danger">Minúscula</p>
                                                                     <p class="regra_length text-danger">Entre 6 e 10 caracteres</p>
                                                                 </div>
