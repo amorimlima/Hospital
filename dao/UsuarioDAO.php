@@ -540,14 +540,23 @@ class UsuarioDAO extends DAO{
           	case '4':{
           		$sql = 'SELECT es.*, us.usr_id, us.usr_nome, us.usr_login, us.usr_senha, us.usr_imagem, us.usr_nse,
           					   pf.prf_id, pf.prf_perfil, te.tps_tipo_escola, adm.adm_administracao, e.*, uv.usv_id
-						FROM `usuario` as us 
-							INNER JOIN escola as es ON us.usr_escola = es.esc_id
+						FROM `usuario` as us'; 
+				$join =   ' INNER JOIN escola as es ON us.usr_escola = es.esc_id
 							INNER JOIN perfil as pf ON us.usr_perfil = pf.prf_id
 							INNER JOIN tipo_escola as te ON es.esc_tipo_escola = te.tps_id
 							INNER JOIN administracao as adm ON es.esc_administracao = adm.adm_id
 							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
-							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-						WHERE us.usr_perfil = 4 and uv.usv_status = 0 order by us.usr_nome';
+							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario';
+				$where =  ' WHERE us.usr_perfil = 4 and uv.usv_status = 0';
+                $order =  ' order by us.usr_nome';
+                switch ($perfil['perfil_usr']) {
+                    case '4':
+                        $where .= " AND us.usr_id = ".$perfil['usr_id'];
+                        break;
+                    
+                    default:
+                        break;
+                }
           		break;
           	}
      	}
