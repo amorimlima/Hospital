@@ -21,10 +21,7 @@ include_once($path['funcao'].'Thumbs.php');
 
 switch ($_REQUEST["acao"]) {
     case "novoUsuario":{
-    	print_r($_POST);
-    	print_r(strlen($_POST['serie']));
-    	echo 'teste';
-    	
+    	    	
     	$result = '';
        	$enderecoController = new EnderecoController();
 		$usuarioController = new UsuarioController();
@@ -166,7 +163,6 @@ switch ($_REQUEST["acao"]) {
     
     case "cadastraEscola":{
     	
-    	print_r($_POST);
     	$result = '';
     	$escolaController = new EscolaController();
      	$enderecoController = new EnderecoController();
