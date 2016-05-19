@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 if(!isset($_SESSION['PATH_SYS'])){
-   require_once '_loadPaths.inc.php'; 
+   require_once '_loadPaths.inc.php';
 }
 
 
@@ -38,16 +38,16 @@ $logado = unserialize($_SESSION['USR']);
   	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
   	<div id="container">
         <div class="row">
-			<?php 
+			<?php
             	$templateGeral->topoSite();
-            ?>            
+            ?>
         </div>
         <div id="Conteudo_Area">
         	<div class="row">
-               <div class="col-xs-12 col-md-12 col-lg-12"  id="area_geral">   
+               <div class="col-xs-12 col-md-12 col-lg-12"  id="area_geral">
                     <div id="Conteudo_Area_box_Grande">
-                            <div id="box_msg_geral">                        	
-                                <div class="row">             					
+                            <div id="box_msg_geral">
+                                <div class="row">
                    					<div class="col-xs-12 col-sm-9 col-md-10 pull-right">
                                         <!-- Conteudo mensagem-->
                                         <div id="conteudo_mensagem">
@@ -58,7 +58,7 @@ $logado = unserialize($_SESSION['USR']);
                                                             <a href="#" onclick="novo()" id="btn_msg_novo"></a>
                                                             <a href="#" onclick="responder()" class="margin_ambas inativo" id="btn_msg_responder"></a>
                                                             <a href="#" onclick="restaurar()" class="margin_ambas inativo" id="btn_msg_restaurar"></a>
-                                                            <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>   
+                                                            <a href="#" onclick="deleteFuncao()" id="btn_msg_excluir"></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -90,7 +90,7 @@ $logado = unserialize($_SESSION['USR']);
                                                         <p id="ass_linha_para">
                                                             <span id="msg_para">PARA:</span>
                                                             <span id="ass_msg_para_nome"></span>
-                                                        </p>                                          
+                                                        </p>
                                                         <div id="ass_resposta_msg">
                                                             <textarea id="ass_msg_resp"></textarea>
                                                         </div>
@@ -112,11 +112,11 @@ $logado = unserialize($_SESSION['USR']);
                                                 <div class="campo_nova_mensagem" id="mensagem_para">
                                                     <div class="row">
                                                         <div class="col-xs-12 col-md-2 col-lg-2 nome_campo">PARA:</div>
-                                                        <div class="col-xs-12 col-md-10 col-lg-10">                 											
+                                                        <div class="col-xs-12 col-md-10 col-lg-10">
                                                             <form class="navbar-form navbar-left" role="search">
                                                                 <div class="form-group">
                                                                   <select class="selectpicker" name="para" multiple data-live-search="true" data-live-search-placeholder="Buscar" data-actions-box="true">
-                                                                    <optgroup id="caixa_nomes"> 
+                                                                    <optgroup id="caixa_nomes">
                                                                     </optgroup>
                                                                    </select>
                                                                 </div>
@@ -142,8 +142,8 @@ $logado = unserialize($_SESSION['USR']);
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                                
-                                    <div class="col-xs-12 col-sm-3 col-md-2 pull-left" id="box_msg_left">   
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3 col-md-2 pull-left" id="box_msg_left">
                                         <!--Menu geral-->
                                         <div id="mn_geral">
                                             <div id="btn_recebidos" onclick="recebidasFuncao()" class="btn_msg btn_msg_ativo">
@@ -155,42 +155,42 @@ $logado = unserialize($_SESSION['USR']);
                                                 <div class="box_text">ENVIADOS</div>
                                             </div>
                                             <div id="btn_excluidos" onclick="deletadas()" class="btn_msg">
-                                                <input type="hidden" name="delete" id="deletadas" value=""> 
+                                                <input type="hidden" name="delete" id="deletadas" value="">
                                             	<div class="box_img"><img id="excluidos_msg" src="img/icone_excluidos.png" alt=""/></div>
                                                 <div class="box_text">EXCLUÍDOS</div>
                                             </div>
-                                        </div>  
+                                        </div>
                                         <!--Menu mobile-->
-    									<div class="panel-group" id="mn_mobile" role="tablist" aria-multiselectable="true">  
+    									<div class="panel-group" id="mn_mobile" role="tablist" aria-multiselectable="true">
       									  <div class="panel">
                                             <div role="tab" id="headingOne">
                                                 <div onclick="recebidasFuncaoMobile()" id="btn_recebidos" class="btn_msg btn_msg_ativo panel-title collapsed" role="button" data-toggle="collapse" data-parent="#mn_mobile" href="#box-recebidas" aria-expanded="false" aria-controls="box-recebidas" data-target="#box-recebidas">
                                                   <span class="box_img"><img id="recebidas_msg" src="img/icone_recebidos.png" alt=""/></span>
                                                   <span>RECEBIDOS(<?php echo $templateMensagens->recebidos(); ?>)</span>
-                                                </div>                                          
+                                                </div>
                                             </div>
-                                        
+
                                             <div id="box-recebidas" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                               <div class="panel-body">
-                                                 <div class=" col-xs-12 col-md-12 col-lg-12">    
+                                                 <div class=" col-xs-12 col-md-12 col-lg-12">
                                                  	<div id="box_msg_recebidas_mobile"></div>
                                                  </div>
                                               </div>
                                             </div>
                                           </div>
-      
+
                                           <div class="panel">
                                             <div role="tab" id="headingTwo">
                                                 <div onclick="envidasFuncaoMobile()" id="btn_enviados" class="btn_msg btn_msg_ativo panel-title collapsed" role="button" data-toggle="collapse" data-parent="#mn_mobile" href="#box-enviados" aria-expanded="false" aria-controls="box-enviados" data-target="#box-enviados">
-                                                 	<span class="box_img"><img id="enviados_msg" src="img/icone_enviados.png" alt=""/></span> 	
+                                                 	<span class="box_img"><img id="enviados_msg" src="img/icone_enviados.png" alt=""/></span>
                                                   	<span>ENVIADOS</span>
                                                 </div>
-                                              
+
                                             </div>
-                                        
+
                                             <div id="box-enviados" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                               <div class="panel-body">
-                                                 <div class=" col-xs-12 col-md-12 col-lg-12">                                                            
+                                                 <div class=" col-xs-12 col-md-12 col-lg-12">
                                                     <div id="box_msg_enviadas_mobile">
                                                     </div>
                                                 </div>
@@ -208,7 +208,7 @@ $logado = unserialize($_SESSION['USR']);
                                               <div class="panel-body">
                                                 <div class="col-xs-12 col-md-12 col-lg-12">
                                                     <div id="box_msg_excluidas_mobile">
-                                                    
+
                                                     </div>
                                                 </div>
                                               </div>
@@ -216,7 +216,7 @@ $logado = unserialize($_SESSION['USR']);
                                           </div>
                                         </div>
                                     </div>
-                            	</div>                            
+                            	</div>
                             </div>
 
                         <!-- Modal -->
@@ -240,7 +240,7 @@ $logado = unserialize($_SESSION['USR']);
                             </div>
                         </div>-->
                         <!-- Fim do Modal -->
-                    </div>              	
+                    </div>
                 </div>
             </div>
         </div>
@@ -250,7 +250,7 @@ $logado = unserialize($_SESSION['USR']);
         ?>
         </footer>
     </div>
-	
+
 	<!--Sempre que for utilizar uma mensagem, criar uma div com a classe modalMensagem e com o display none-->
 	<div id="mensagemErroDeletar" class='modalMensagem' style="display:none">
 		<?php
@@ -290,6 +290,6 @@ $logado = unserialize($_SESSION['USR']);
     <script src="js/bootstrap-select/dist/js/bootstrap-select.js"></script>
     <script src="js/funcoes.js"></script>
 	<script src="js/Mensagem.js"></script>
-    
+
 </body>
 </html>

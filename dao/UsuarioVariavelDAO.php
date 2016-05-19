@@ -2,6 +2,7 @@
 if(!isset($_SESSION['PATH_SYS'])){
    require_once '_loadPaths.inc.php'; 
 }
+
 $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
@@ -27,10 +28,10 @@ class UsuarioVariavelDAO extends DAO{
      public function insert($userv)
      {
         $sql  = "insert into  usuario_variavel (usv_usuario,usv_ano_letivo,usv_serie,usv_grau_instrucao,usv_categoria_funcional,usv_grupo,usv_status) values ";
-        $sql .= "(".$userv->getUsv_usuario().",'".$userv->getUsv_ano_letivo()."',";
-        $sql .= "'".$userv->getUsv_serie()."','".$userv->getUsv_grau_instrucao()."',";
-        $sql .= "'".$userv->getUsv_categoria_funcional()."','".$userv->getUsv_grupo()."','".$userv->getUsv_status()."')";
-//	    echo $sql;
+        $sql .= "(".$userv->getUsv_usuario().",".$userv->getUsv_ano_letivo().",";
+        $sql .= "".$userv->getUsv_serie().",".$userv->getUsv_grau_instrucao().",";
+        $sql .= "".$userv->getUsv_categoria_funcional().",".$userv->getUsv_grupo().",".$userv->getUsv_status().")";
+
     	return $this->executeAndReturnLastID($sql);
      }
      
@@ -102,19 +103,20 @@ class UsuarioVariavelDAO extends DAO{
         $sql = "select * from usuario_variavel where usv_usuario = ".$iduser." limit 1";
         $result = $this->retrieve($sql);
 
-        $qr = mysqli_fetch_array($result);
+        if (mysqli_num_rows($result) > 0) {
+            $qr = mysqli_fetch_array($result);
 
-                $userv = new UsuarioVariavel();
-                $userv->setUsv_id($qr["usv_id"]);
-                $userv->setUsv_usuario($qr["usv_usuario"]);
-                $userv->setUsv_ano_letivo($qr["usv_ano_letivo"]);
-                //$userv->setUsv_serie($qr["usv_serie"]);
-                $userv->setUsv_grau_instrucao($qr["usv_grau_instrucao"]);
-                $userv->setUsv_categoria_funcional($qr["usv_categoria_funcional"]);
-                $userv->setUsv_grupo($qr["usv_grupo"]);
-                $userv->setUsv_status($qr["usv_status"]);
-                    
-        return $userv;
+                    $userv = new UsuarioVariavel();
+                    $userv->setUsv_id($qr["usv_id"]);
+                    $userv->setUsv_usuario($qr["usv_usuario"]);
+                    $userv->setUsv_ano_letivo($qr["usv_ano_letivo"]);
+                    //$userv->setUsv_serie($qr["usv_serie"]);
+                    $userv->setUsv_grau_instrucao($qr["usv_grau_instrucao"]);
+                    $userv->setUsv_categoria_funcional($qr["usv_categoria_funcional"]);
+                    $userv->setUsv_grupo($qr["usv_grupo"]);
+                    $userv->setUsv_status($qr["usv_status"]);
+                    return $userv;
+        }
      }
      
      public function removeGrupoByIdGrupo($idGrupo)

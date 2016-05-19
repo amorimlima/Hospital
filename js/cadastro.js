@@ -319,7 +319,7 @@ $(document).ready(function() {
     		$('#inputSenhaProf').addClass('obrigatorioProf');
     		var acao = 'novoUsuario';
     	}
-    	$("#inputNascimentoProf").val('10/10/2010');
+    	//$("#inputNascimentoProf").val('10/10/2010');
     	var seriesProfessor = '';
     	$('.obrigatorioProf').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
@@ -756,8 +756,8 @@ $(document).ready(function() {
 
 	    				    htmlSeries += '<div class="form_celula_p divSerie" style="height: 0;">';
 	    				    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
-	    				    htmlSeries +=     '<span class="select_container">';
-	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">';
+	    				    htmlSeries +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira							
+	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf " required msgVazio="O campo série é obrigatório">';
 	    				    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
 	    				    htmlSeries +=         '</select>';
 	    				    htmlSeries +=     '</span>';
@@ -765,8 +765,8 @@ $(document).ready(function() {
 
 	    				    htmlPeriod += '<div class="form_celula_p divPeriodo" style="height: 0;">';
 	    				    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
-	    				    htmlPeriod +=     '<span class="select_container">';
-	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">';
+	    				    htmlPeriod +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira
+	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf" required msgVazio="O campo período é obrigatório">';
 	    				    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
 	    				    htmlPeriod +=         '</select>';
 	    				    htmlPeriod +=     '</span>';
@@ -1694,7 +1694,7 @@ function verificarPadraoSenha(perfil) {
         $("#regrasSenha"+perfil).find(".regra_char_esp").removeClass("text-success");
     }
 
-    if (/[A-Z]/.test(senha)) {
+    if (/[0-9]/.test(senha)) {
         $("#regrasSenha"+perfil).find(".regra_char_mai").removeClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_char_mai").addClass("text-success");
     } else {
