@@ -253,7 +253,7 @@ $(document).ready(function() {
         var idEndereco = $("#idEnderecoAluno").val();
 
         $.ajax({
-            url:'ajax/cadastroAjax.php',
+            url:'ajax/CadastroAjax.php',
             type:'post',
             dataType:'json',
             data: {
@@ -467,7 +467,7 @@ $(document).ready(function() {
     	
     	
     	$.ajax({
-        	url:'ajax/cadastroAjax.php',
+        	url:'ajax/CadastroAjax.php',
         	type:'post',
         	dataType:'json',
         	data:{'acao':acao,
@@ -608,7 +608,7 @@ $(document).ready(function() {
     	var idUsuario = $("#idUsuarioEscola").val();
     	
     	$.ajax({
-    		url:'ajax/cadastroAjax.php',
+    		url:'ajax/CadastroAjax.php',
     		type:'post',
     		dataType:'json',
     		data:{
@@ -668,7 +668,7 @@ $(document).ready(function() {
     });
     
 	$("#cadastroImagem").goMobileUpload({
-		script : "ajax/cadastroAjax.php"
+		script : "ajax/CadastroAjax.php"
 	});
 	
 	
@@ -733,7 +733,7 @@ $(document).ready(function() {
 		$('.divPeriodo').remove();
 
 		$.ajax({
-	        url:'ajax/cadastroAjax.php',
+	        url:'ajax/CadastroAjax.php',
 	        type:'post',
 	        dataType:'json',
 	        data: {
@@ -877,7 +877,7 @@ $(document).ready(function() {
 		console.log(idUsuario);
 //		return false;
 		$.ajax({
-	        url:'ajax/cadastroAjax.php',
+	        url:'ajax/CadastroAjax.php',
 	        type:'post',
 	        dataType:'json',
 	        data: {
@@ -963,7 +963,7 @@ function listaProfessores(id){
 	}
 	
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'html',
         data: {
@@ -981,7 +981,7 @@ function listaProfessores(id){
 
 function listarEscolas(){
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'html',
         data: {
@@ -1060,11 +1060,14 @@ function PerfilAluno(aluno) {
         	else telefones = this.telComercial;
         }
         
+        var collapseContent = usuario.perfil == "1"? '' : 'data-toggle="collapse"';
+        var collapse = usuario.perfil == "1"? '' : 'collapse';
+
         html +=
-        '<a href="#updateAlunoCont'+this.id+'" class="accordion_info_toggler updateAlunoToggler " data-toggle="collapse">'+
+        '<a href="#updateAlunoCont'+this.id+'" class="accordion_info_toggler updateAlunoToggler " '+collapseContent+'>'+
             '<div class="accordion_info updateUsuarioInfo'+this.id+'" id="updateAlunoInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
-        '<div class="accordion_content collapse" id="updateAlunoCont'+this.id+'">'+
+        '<div class="accordion_content '+collapse+'" id="updateAlunoCont'+this.id+'">'+
             '<div class="content_col_info">';
 
         html +=
@@ -1127,9 +1130,10 @@ function PerfilAluno(aluno) {
         html +=
             '</div>'+
             '<div class="content_col_btns" '+posicao+'>'+
-            	img+
-                '<button id="btnDelAluno'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadAluno">Excluir cadastro</button>'+
-                '<button id="btnUpdateAluno'+this.id+'" class="section_btn btn_update_cad btnUpdateCadAluno"  idUsuario="'+this.id+'" idUsuarioVar="'+this.idUsuarioVar+'" idEndereco="'+this.idEndereco+'">Alterar Dados</button>'+
+            	img;
+                if (usuario.perfil != "1")
+                    html += '<button id="btnDelAluno'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadAluno">Excluir cadastro</button>';
+        html += '<button id="btnUpdateAluno'+this.id+'" class="section_btn btn_update_cad btnUpdateCadAluno"  idUsuario="'+this.id+'" idUsuarioVar="'+this.idUsuarioVar+'" idEndereco="'+this.idEndereco+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
         
@@ -1196,12 +1200,15 @@ function PerfilProfessor(professor) {
         	if (telefones != '') telefones += ' / '+this.telComercial;
         	else telefones = this.telComercial;
         }
+
+        var collapseContent = usuario.perfil == "2"? '' : 'data-toggle="collapse"';
+        var collapse = usuario.perfil == "2"? '' : 'collapse';
         
         html +=
-        '<a href="#updateProfCont'+this.id+'" class="accordion_info_toggler updateProfToggler" data-toggle="collapse">'+
+        '<a href="#updateProfCont'+this.id+'" class="accordion_info_toggler updateProfToggler" '+collapseContent+'>'+
             '<div class="accordion_info updateUsuarioInfo'+this.id+'" id="updateProfInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
-        '<div class="accordion_content collapse" id="updateProfCont'+this.id+'">'+
+        '<div class="accordion_content '+collapse+'" id="updateProfCont'+this.id+'">'+
             '<div class="content_col_info">';
             
         html +=
@@ -1263,9 +1270,10 @@ function PerfilProfessor(professor) {
         html +=
             '</div>'+
             '<div class="content_col_btns" '+posicao+'>'+
-            	img+
-                '<button id="btnDelProf'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadProf">Excluir cadastro</button>'+
-                '<button id="btnUpdateProf'+this.id+'" class="section_btn btn_update_cad btnUpdateCadProf" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idUsuarioVar="'+this.idUsuarioVar+'" idGrupo="'+this.idSala+'">Alterar Dados</button>'+
+            	img;
+                if (usuario.perfil != "2")
+                    html += '<button id="btnDelProf'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadProf">Excluir cadastro</button>';
+                html += '<button id="btnUpdateProf'+this.id+'" class="section_btn btn_update_cad btnUpdateCadProf" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idUsuarioVar="'+this.idUsuarioVar+'" idGrupo="'+this.idSala+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
     
@@ -1317,12 +1325,15 @@ function PerfilEscola(escola) {
         else if (this.status == 1) status = 'Ativado'
         else if (this.status == 2) status = 'Rejeitado'
         else status = '';
+
+        var collapseContent = usuario.perfil == "4"? '' : 'data-toggle="collapse"';
+        var collapse = usuario.perfil == "4"? '' : 'collapse';
         
         html +=
-        '<a href="#updateEscCont'+this.id+'" class="accordion_info_toggler updateEscToggler" data-toggle="collapse">'+
+        '<a href="#updateEscCont'+this.id+'" class="accordion_info_toggler updateEscToggler" '+collapseContent+'>'+
             '<div class="accordion_info updateUsuarioInfo'+this.id+'" id="updateEscInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
-        '<div class="accordion_content collapse" id="updateEscCont'+this.id+'">'+
+        '<div class="accordion_content '+collapse+'" id="updateEscCont'+this.id+'">'+
             '<div class="content_col_info">';
             
         html +=
@@ -1377,9 +1388,10 @@ function PerfilEscola(escola) {
         
         html +=
             '</div>'+
-            '<div class="content_col_btns">'+
-                '<button id="btnDelEscola'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadEscola">Excluir cadastro</button>'+
-                '<button id="btnUpdateEscola'+this.id+'" class="section_btn btn_update_cad btnUpdateCadEscola" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idEscola="'+this.idEscola+'">Alterar Dados</button>'+
+            '<div class="content_col_btns">';
+                if(usuario.perfil != "4")
+                    html += '<button id="btnDelEscola'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadEscola">Excluir cadastro</button>';
+                html +='<button id="btnUpdateEscola'+this.id+'" class="section_btn btn_update_cad btnUpdateCadEscola" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idEscola="'+this.idEscola+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
     
@@ -1418,12 +1430,14 @@ function tabNavigation(tabToShow) {
 function listarAlunos(){
 
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {
             'acao': 'listaUsuariosCompleto',
-            'perfil': '1'
+            'perfil': '1',
+            'perfil_usr' : usuario.perfil,
+            'usr_id' : usuario.perfil == 4? usuario.escola : usuario.id
         },
         success:function(alunos){
         	$('.update_aluno_accordion').html('');
@@ -1442,12 +1456,14 @@ function listarAlunos(){
 
 function listarProfessores(){
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {
             'acao': 'listaUsuariosCompleto',
-            'perfil': '2'
+            'perfil': '2',
+            'perfil_usr' : usuario.perfil,
+            'usr_id' : usuario.perfil == 4? usuario.escola : usuario.id
         },
         success:function(professores){
         	$('.update_prof_accordion').html('');
@@ -1467,12 +1483,14 @@ function listarProfessores(){
 function listarEscolas(){
 	
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {
             'acao': 'listaUsuariosCompleto',
-            'perfil': '4'
+            'perfil': '4',
+            'perfil_usr' : usuario.perfil,
+            'usr_id' : usuario.id
         },
         success:function(escolas){
         	$('.update_escola_accordion').html('');

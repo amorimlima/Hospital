@@ -67,6 +67,7 @@ if(count($periodos)>0) {
 
 $logado = unserialize($_SESSION['USR']);
 $class = $logado['perfil'] == "Professor"? "tab_cadastro_professor" : "tab_cadastro";
+$largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
 
 ?>
 
@@ -154,7 +155,7 @@ $class = $logado['perfil'] == "Professor"? "tab_cadastro_professor" : "tab_cadas
                                             </nav>
                                         <?php } ?>
                                     </div>
-                                    <div class="col-xs-12 <?php $logado['perfil'] == "Aluno" ? '' : "col-md-10" ?>">
+                                    <div class="col-xs-12 <?= $largura  ?>">
                                         <section class="area_conteudo_tabs">
                                             <div class="conteudo_tab conteudo_aluno">
                                                 <form action="" class="form_cadastro cadastro_aluno cadastroAlunoContent" id="formCadastroAluno" style="display: none;">
