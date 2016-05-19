@@ -21,7 +21,7 @@ include_once($path['funcao'].'Thumbs.php');
 
 switch ($_REQUEST["acao"]) {
     case "novoUsuario":{
-    	    	
+    	
     	$result = '';
        	$enderecoController = new EnderecoController();
 		$usuarioController = new UsuarioController();
@@ -104,7 +104,6 @@ switch ($_REQUEST["acao"]) {
 			        	if (strlen($_POST['serie'])>1) $usuarioVar->setUsv_serie('null');
 			        	 else $usuarioVar->setUsv_serie($_POST['serie']);
 			        	$usuarioVar->setUsv_ano_letivo($_POST['ano']);
-			        	$usuarioVar->setUsv_serie($_POST['serie']);
 			        	$usuarioVar->setUsv_status('0');
 			        	if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
 			        		else $usuarioVar->setUsv_grupo($_POST['grupo']);
@@ -243,8 +242,14 @@ switch ($_REQUEST["acao"]) {
 	    			$usuarioVar = new UsuarioVariavel();
 		    		$usuarioVar->setUsv_usuario($idUsuario);
 		    		$usuarioVar->setUsv_status('0');
+		    		$usuarioVar->setUsv_ano_letivo('null');
+		    		$usuarioVar->setUsv_categoria_funcional('null');
+		    		$usuarioVar->setUsv_grau_instrucao('null');
+		    		$usuarioVar->setUsv_grupo('null');
+		    		$usuarioVar->setUsv_serie('null');
 		    		$usuarioVarController->insert($usuarioVar);
-		    		echo 'cadastrar usuario';
+		    		
+//		    		echo 'cadastrar usuario';
 	    			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 	    		}else{
 	    			$result = Array('erro'=>true,'msg'=>'Erro ao cadastrar escola!');
