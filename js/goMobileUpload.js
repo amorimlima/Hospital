@@ -55,8 +55,9 @@
 			$(this).hide(500);
 			
 			$("#"+defaultOpcoes.iframe).load(function(){
-				
+				console.log('aqui');
 				var retorno = $(frames[defaultOpcoes.iframe].document).text();
+				console.lot(retorno);
 				var obj = jQuery.parseJSON(retorno);
 				
 				console.log('Objeto do retorno!!');
