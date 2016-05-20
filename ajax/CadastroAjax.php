@@ -352,8 +352,8 @@ switch ($_REQUEST["acao"]) {
 			$usuarioVar->setUsv_serie($_POST['serie']);
 			if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
 				else $usuarioVar->setUsv_grupo($_POST['grupo']);
-			$usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
-			$usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
+			// $usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
+			// $usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
 			$usuarioVar->setUsv_id($_POST['idUsuarioVar']);
 			$usuarioVarController->update($usuarioVar);
 			//print_r($usuarioVar);
