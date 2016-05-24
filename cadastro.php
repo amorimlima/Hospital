@@ -381,7 +381,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                                 <input type="text" name="inputUsuarioAluno" id="inputUsuarioAluno" class="form_value form_text value_p formAluno obrigatorioAluno" msgVazio="O campo usuário é obrigatório" placeholder="Insira um usuário de usuário" required maxlength="10"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_p">
+                                                        <div class="form_celula_p" style="display: none">
                                                             <label for="inputSenhaAtual" class="form_info info_p">Senha Atual</label>
                                                             <span class="input_container">
                                                                 <input type="password" name="inputSenhaAtual" id="inputSenhaAtual" class="form_value form_text value_p formAluno" placeholder="Insira a senha atual" maxlength="10"/>
@@ -415,7 +415,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                         <input type="hidden" value="" id="idEnderecoAluno" />
                                                         
                                                         <input type="button" value="Voltar" class="form_btn btn_reset" id="voltarAluno" /> 
-                                                        <?php if($logado['perfil'] != "Aluno"){ ?><input type="button" value="Limpar" onclick="limparCadastro('formAluno')" class="form_btn btn_reset" /><?php } ?>
+                                                        <input type="button" value="Limpar" onclick="limparCadastro('formAluno')" class="form_btn btn_reset" id="resetarAluno" />
                                                         <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroAluno" />
                                                     </div>
                                                 </form>

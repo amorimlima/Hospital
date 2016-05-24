@@ -211,7 +211,7 @@ $(document).ready(function() {
 	    		return false;
 	    	}
             if (!$('#inputSenhaAluno').hasClass('obrigatorioAluno') &&
-                !senhaAtualCorreta($('#inputSenhaAtual').val())){
+                (usuario.perfil == 1 && !senhaAtualCorreta($('#idAluno').val() , $('#inputSenhaAtual').val()))){
                 $("#textoMensagemVazio").text('Senha atual incorreta');
                 $("#mensagemCampoVazio").show();
                 $('#inputSenhaAtual').focus();
@@ -720,17 +720,25 @@ $(document).ready(function() {
 		$('.conteudo_aluno').find('.update_cadastro').hide();
 		$('#cadastroImagemUpload').appendTo("#spanImagemAluno");
 
+        //Esconder e Bloquear Campos
         $("#dados_escolares select").attr("disabled", "true");
         $("#inputNascimentoAluno").attr("disabled", "true");
         $("#inputRgAluno").attr("disabled", "true");
         $("#inputCpfAluno").attr("disabled", "true");
-
-        $("#inputUsuarioAluno").parent().parent().hide();
+        if (usuario.perfil == 1){
+            $("#inputUsuarioAluno").parent().parent().hide();
+            $("#inputSenhaAtual").parent().parent().show();
+        }
+        else
+            $("#inputUsuarioAluno").attr("disabled", "true");
         $("label[for=inputSenhaAluno] .asterisco").remove();
         $("label[for=inputSenhaConfirmAluno] .asterisco").remove();
+        $("#resetarAluno").hide();
+        
 		
 		return false;
 	})
+
 	$("body").delegate(".btnUpdateCadProf", "click", function (){
 		var idUsuario = $(this).attr('idUsuario');
 		
@@ -742,63 +750,63 @@ $(document).ready(function() {
 		$('.divSerie').remove();
 		$('.divPeriodo').remove();
 
-		$.ajax({
-	        url:'ajax/CadastroAjax.php',
-	        type:'post',
-	        dataType:'json',
-	        data: {
-	            'acao': 'BuscaGruposByIdProfessor',
-	            'idProfessor': idUsuario
-	        },
-	        success:function(data){
+		// $.ajax({
+	 //        url:'ajax/CadastroAjax.php',
+	 //        type:'post',
+	 //        dataType:'json',
+	 //        data: {
+	 //            'acao': 'BuscaGruposByIdProfessor',
+	 //            'idProfessor': idUsuario
+	 //        },
+	 //        success:function(data){
 	        	
-	        	//Faz o for varrendo os resultados e criando o html. No primeiro coloca n campo fixo.
-	        	for (var i=0; i< data.length; i++){
-	    				//console.log(data[i]);
-	        			var fieldCount = i + 1;
+	 //        	//Faz o for varrendo os resultados e criando o html. No primeiro coloca n campo fixo.
+	 //        	for (var i=0; i< data.length; i++){
+	 //    				//console.log(data[i]);
+	 //        			var fieldCount = i + 1;
 	        			
-	    				if (i > 0){
+	 //    				if (i > 0){
 
-	    					var idperiodoSelect = "#inputPeriodoProf"+fieldCount;
-	    				    var idserieSelect   = "#inputSerieProf"+fieldCount;
-	    				    var htmlSeries      = "";
-	    				    var htmlPeriod      = "";
+	 //    					var idperiodoSelect = "#inputPeriodoProf"+fieldCount;
+	 //    				    var idserieSelect   = "#inputSerieProf"+fieldCount;
+	 //    				    var htmlSeries      = "";
+	 //    				    var htmlPeriod      = "";
 
-	    				    htmlSeries += '<div class="form_celula_p divSerie" style="height: 0;">';
-	    				    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
-	    				    htmlSeries +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira							
-	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf " required msgVazio="O campo série é obrigatório">';
-	    				    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
-	    				    htmlSeries +=         '</select>';
-	    				    htmlSeries +=     '</span>';
-	    				    htmlSeries += '</div>';
+	 //    				    htmlSeries += '<div class="form_celula_p divSerie" style="height: 0;">';
+	 //    				    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
+	 //    				    htmlSeries +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira							
+	 //    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf " required msgVazio="O campo série é obrigatório">';
+	 //    				    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
+	 //    				    htmlSeries +=         '</select>';
+	 //    				    htmlSeries +=     '</span>';
+	 //    				    htmlSeries += '</div>';
 
-	    				    htmlPeriod += '<div class="form_celula_p divPeriodo" style="height: 0;">';
-	    				    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
-	    				    htmlPeriod +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira
-	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf" required msgVazio="O campo período é obrigatório">';
-	    				    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
-	    				    htmlPeriod +=         '</select>';
-	    				    htmlPeriod +=     '</span>';
-	    				    htmlPeriod += '</div>';
+	 //    				    htmlPeriod += '<div class="form_celula_p divPeriodo" style="height: 0;">';
+	 //    				    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
+	 //    				    htmlPeriod +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira
+	 //    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf" required msgVazio="O campo período é obrigatório">';
+	 //    				    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
+	 //    				    htmlPeriod +=         '</select>';
+	 //    				    htmlPeriod +=     '</span>';
+	 //    				    htmlPeriod += '</div>';
 
-	    				    $(htmlSeries+htmlPeriod).insertBefore("#acaoNovaSerieContainer");
-	    				    $(idperiodoSelect).parent().parent().animate({height: "40px"}, 200);
-	    				    $(idserieSelect).parent().parent().animate({height: "40px"}, 200);
+	 //    				    $(htmlSeries+htmlPeriod).insertBefore("#acaoNovaSerieContainer");
+	 //    				    $(idperiodoSelect).parent().parent().animate({height: "40px"}, 200);
+	 //    				    $(idserieSelect).parent().parent().animate({height: "40px"}, 200);
 
-	    				    getSeries(idserieSelect,idperiodoSelect,data[i].idSerie);
-	    				    getPeriodos(idserieSelect, idperiodoSelect,data[i].idPeriodo);
+	 //    				    getSeries(idserieSelect,idperiodoSelect,data[i].idSerie);
+	 //    				    getPeriodos(idserieSelect, idperiodoSelect,data[i].idPeriodo);
 
-	    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
-	    				}else{
-		    				$('#inputSerieProf'+fieldCount).val(data[i].idSerie);
-	    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
-	    					$('#inputPeriodoProf'+fieldCount).val(data[i].idPeriodo);
-	    				}
+	 //    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
+	 //    				}else{
+		//     				$('#inputSerieProf'+fieldCount).val(data[i].idSerie);
+	 //    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
+	 //    					$('#inputPeriodoProf'+fieldCount).val(data[i].idPeriodo);
+	 //    				}
 				
-	        }
-	        },
-	    });
+	 //        }
+	 //        },
+	 //    });
 		
 		$('#inputNomeProf').val($('#updateProfInfo'+idUsuario).text());
 		//$('#selectSerieProf').val($('#serie'+idUsuario).val());
@@ -921,19 +929,23 @@ $(document).ready(function() {
 }); //Fim
 
 function senhaAtualCorreta (idUsuario, senha) {
+    var r;
     $.ajax({
         url: "ajax/UsuarioAjax.php",
         type: "GET",
         data: { 'acao'      : 'verificaSenha',
                 'senha'     : senha,
                 'usuario'   : idUsuario},
-        complete: function(d) {
-            if (d)
-                return true;
+        async: false,
+        success: function(d) {
+            if (d.trim())
+                r = true;
             else
-                return false;
+                r = false;
         }
     });
+
+    return r;
 }
 
 function tabNavigation(tabToShow) {
@@ -1265,7 +1277,6 @@ function PerfilProfessor(professor) {
                 '<table border="0">'+
                 	'<tr class="content_info_row">'+
 		                '<td colspan="4"><span class="content_info_label">Escola: </span><span id="nomeEscola'+this.id+'" class="content_info_txt">'+ this.nomeEscola +'</span></td>'+
-		                '<td colspan="2"><span class="content_info_label">Sala: </span><span id="grupo'+this.id+'" idGrupo="'+this.idSala+'" class="content_info_txt">'+this.sala + '</span></td>'+
 		            '</tr>'+
 		            //'<tr class="content_info_row">'+
 		            //    '<td colspan="3"><span class="content_info_label">Categoria Funcional: </span><span id="categoria'+this.id+'" idCategoria="'+this.idCategoria+'" class="content_info_txt">'+ this.categoria +'</span></td>'+
@@ -1710,6 +1721,18 @@ function limparCadastro(classe){
 	if (classe == 'formAluno'){
 		listarEscolas();
 		$('.anoAtual').attr('selected','selected');
+
+        //Mostrar campos escondidos caso tenha-se editado um aluno anteriormente
+        $("#dados_escolares select").removeAttr("disabled");
+        $("#inputNascimentoAluno").removeAttr("disabled");
+        $("#inputRgAluno").removeAttr("disabled");
+        $("#inputCpfAluno").removeAttr("disabled");
+        $("#inputUsuarioAluno").removeAttr("disabled");
+        $("label[for=inputSenhaAluno]").append('<span class="asterisco">*</span>');
+        $("label[for=inputSenhaConfirmAluno]").append('<span class="asterisco">*</span>')
+        $("#resetarAluno").show();
+        $("#inputSenhaAtual").parent().parent.hide();
+
 	}else if (classe = 'formProf'){
 		$('.seriesProfessor').prop('checked',false);
 		$('.seriesProfessor').eq(0).prop('checked',true);
