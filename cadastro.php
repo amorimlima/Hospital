@@ -119,7 +119,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                 <!-- Conteúdo principal -->
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <section class="area_btns_tabs">
+                                        <?php if ($logado['perfil'] != "Aluno") { ?><section class="area_btns_tabs">
                                             <div class="btns_tabs btns_aluno">
                                                 <ul class="lista_btns lista_btns_aluno">
                                                     <li class="btn_tab btn_aluno btn_add_cadastro" onclick="limparCadastro('formAluno')">Novo cadastro</li>
@@ -138,7 +138,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                     <li class="btn_tab btn_escola btn_update_cadastro btn_tab_ativo">Atualizar cadastro</li>
                                                 </ul>
                                             </div>
-                                        </section>
+                                        </section><?php } ?>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -159,7 +159,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                         <section class="area_conteudo_tabs">
                                             <div class="conteudo_tab conteudo_aluno">
                                                 <form action="" class="form_cadastro cadastro_aluno cadastroAlunoContent" id="formCadastroAluno" style="display: none;">
-                                                    <fieldset class="form_divisao">
+                                                    <fieldset class="form_divisao" id="dados_escolares">
                                                         <legend class="form_divisao_titulo">Dados Escolares</legend>
                                                         <div class="form_celula_m">
                                                             <label for="selectEscolaAluno" class="form_info info_m">Escola<span class="asterisco">*</span></label>
@@ -316,7 +316,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                                 <input type="text" name="inputEmailAluno" id="inputEmailAluno" class="form_value form_text value_p formAluno" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_g">
+                                                        <div class="form_celula_g" style="height: auto">
                                                             <label for="cadastroImagem" class="form_info info_p">Foto</label>
                                                            
                                                              <span class="input_container spanImagem" id="spanImagemAluno">
@@ -325,7 +325,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
 		                                                        	<div id="cadastroImagem" class="divImagem"></div>
 			
 																	<div id="car"></div>
-																    <br><div id="imgUp" style="position:absolute"><img src="" width="150" height="150"/><br/></div>
+																    <div id="imgUp" style="position:relative"><img src="" width="150" height="150"/></div>
 																    <input name="imagem" type="hidden" id="imagem" value=""></td>
 															    </div>
 															</span>
@@ -405,7 +405,8 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                         <input type="hidden" value="" id="idUsuarioVariavelAluno" />
                                                         <input type="hidden" value="" id="idEnderecoAluno" />
                                                         
-                                                        <input type="button" value="Limpar" onclick="limparCadastro('formAluno')" class="form_btn btn_reset" />
+                                                        <input type="button" value="Voltar" class="form_btn btn_reset" id="voltarAluno" /> 
+                                                        <?php if($logado['perfil'] != "Aluno"){ ?><input type="button" value="Limpar" onclick="limparCadastro('formAluno')" class="form_btn btn_reset" /><?php } ?>
                                                         <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroAluno" />
                                                     </div>
                                                 </form>

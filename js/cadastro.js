@@ -675,7 +675,6 @@ $(document).ready(function() {
 	$("body").delegate(".btnUpdateCadAluno", "click", function (){
 		var idUsuario = $(this).attr('idUsuario');
 		//alert($('#professor'+idUsuario).attr('idProfessor'));
-		
 		$('#idAluno').val(idUsuario);
 		$('#idEnderecoAluno').val($(this).attr('idEndereco'));
 		$('#idUsuarioVariavelAluno').val($(this).attr('idUsuarioVar'));
@@ -718,6 +717,13 @@ $(document).ready(function() {
 		$('.conteudo_aluno').find('.form_cadastro').show();
 		$('.conteudo_aluno').find('.update_cadastro').hide();
 		$('#cadastroImagemUpload').appendTo("#spanImagemAluno");
+
+        $("#dados_escolares select").attr("disabled", "true");
+        $("#inputNascimentoAluno").attr("disabled", "true");
+        $("#inputRgAluno").attr("disabled", "true");
+        $("#inputCpfAluno").attr("disabled", "true");
+
+        $("#inputUsuarioAluno").parent().parent().hide();
 		
 		return false;
 	})
@@ -901,6 +907,11 @@ $(document).ready(function() {
 		return false;
 	})
 
+    $("#voltarAluno").click(function() {
+        $('.conteudo_aluno').find('.form_cadastro').hide();
+        $('.conteudo_aluno').find('.update_cadastro').show();
+    });
+
 }); //Fim
 
 function tabNavigation(tabToShow) {
@@ -1072,7 +1083,7 @@ function PerfilAluno(aluno) {
 
         html +=
         	
-	    		//'<input type="hidden" value="'+this.idSerie+'" id="serie'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.idSerie+'" id="serie'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idGrupo+'" id="grupo'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idAno+'" id="ano'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.rua+'" id="rua'+this.id+'"/>'+

@@ -270,8 +270,14 @@ span.select_container select:active {
     -moz-appearance: none;
    	appearance: none;
 }
+span.select_container select:disabled{
+    background-color: #F6F6F6;
+    color: #CCC;
+    background-image: none;
+    font-style: italic;
+}
 .form_btns_container {
-	width: 180px;
+	width: 276px;
 	height: auto;
 	margin: 0 auto;
 	text-align: center;
