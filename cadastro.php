@@ -381,6 +381,12 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                                 <input type="text" name="inputUsuarioAluno" id="inputUsuarioAluno" class="form_value form_text value_p formAluno obrigatorioAluno" msgVazio="O campo usuário é obrigatório" placeholder="Insira um usuário de usuário" required maxlength="10"/>
                                                             </span>
                                                         </div>
+                                                        <div class="form_celula_p">
+                                                            <label for="inputSenhaAtual" class="form_info info_p">Senha Atual</label>
+                                                            <span class="input_container">
+                                                                <input type="password" name="inputSenhaAtual" id="inputSenhaAtual" class="form_value form_text value_p formAluno" placeholder="Insira a senha atual" maxlength="10"/>
+                                                            </span>
+                                                        </div>
                                                         <div class="form_celula_p" style="position: relative;">
                                                             <label for="inputSenhaAluno" class="form_info info_p">Senha<span class="asterisco">*</span></label>
                                                             <span class="input_container">

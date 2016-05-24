@@ -145,18 +145,14 @@ $(document).ready(function() {
     		var acao = 'novoUsuario';
     	}
     	
-//    	console.log(acao);
-//    	console.log($('#inputSenhaAluno').attr('class'));
-    	
     	$('.obrigatorioAluno').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
-    			if ($(this).attr('id') == 'inputTelResAluno'){	//Verifica se existe ao menos um telefone cadastrado!
-    				if ($('#inputTelCelAluno').val() == '' && $('#inputTelComAluno').val() == ''){
+    			if ($(this).attr('id') == 'inputTelResAluno' &&
+                    $('#inputTelCelAluno').val() == '' && $('#inputTelComAluno').val() == ''){
     					$("#textoMensagemVazio").text('Pelo menos um número de telefone deve ser cadastrado');
     	        		$("#mensagemCampoVazio").show();
     	        		$(this).focus();
     					return false;
-    				}
     			}else{
 	    			$("#textoMensagemVazio").text($(this).attr('msgVazio'));
 	        		$("#mensagemCampoVazio").show();
@@ -214,6 +210,13 @@ $(document).ready(function() {
 	    		$('#inputSenhaAluno').focus();
 	    		return false;
 	    	}
+            if (!$('#inputSenhaAluno').hasClass('obrigatorioAluno') &&
+                !senhaAtualCorreta($('#inputSenhaAtual').val())){
+                $("#textoMensagemVazio").text('Senha atual incorreta');
+                $("#mensagemCampoVazio").show();
+                $('#inputSenhaAtual').focus();
+                return false;
+            }
     	}
     	
     	
@@ -674,7 +677,7 @@ $(document).ready(function() {
 	
 	$("body").delegate(".btnUpdateCadAluno", "click", function (){
 		var idUsuario = $(this).attr('idUsuario');
-		//alert($('#professor'+idUsuario).attr('idProfessor'));
+
 		$('#idAluno').val(idUsuario);
 		$('#idEnderecoAluno').val($(this).attr('idEndereco'));
 		$('#idUsuarioVariavelAluno').val($(this).attr('idUsuarioVar'));
@@ -709,7 +712,6 @@ $(document).ready(function() {
 	    $('#inputUsuarioAluno').val($('#usuario'+idUsuario).text());
 	    $('#inputSenhaAluno').val('');
 	    $('#inputSenhaConfirmAluno').val('');
-		//alert($('#nascimento'+idUsuario).text());
 		
 		if ($('#imagem'+idUsuario).val() != '')	mostrarInputArquivo($('#imagem'+idUsuario).val(), 'imgp/'+$('#imagem'+idUsuario).val());
 			else limparInputArquivo();	    
@@ -724,6 +726,8 @@ $(document).ready(function() {
         $("#inputCpfAluno").attr("disabled", "true");
 
         $("#inputUsuarioAluno").parent().parent().hide();
+        $("label[for=inputSenhaAluno] .asterisco").remove();
+        $("label[for=inputSenhaConfirmAluno] .asterisco").remove();
 		
 		return false;
 	})
@@ -915,6 +919,22 @@ $(document).ready(function() {
     listarEscolasPreCadastradas();
 
 }); //Fim
+
+function senhaAtualCorreta (idUsuario, senha) {
+    $.ajax({
+        url: "ajax/UsuarioAjax.php",
+        type: "GET",
+        data: { 'acao'      : 'verificaSenha',
+                'senha'     : senha,
+                'usuario'   : idUsuario},
+        complete: function(d) {
+            if (d)
+                return true;
+            else
+                return false;
+        }
+    });
+}
 
 function tabNavigation(tabToShow) {
 	

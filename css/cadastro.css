@@ -270,7 +270,8 @@ span.select_container select:active {
     -moz-appearance: none;
    	appearance: none;
 }
-span.select_container select:disabled{
+span.select_container select:disabled,
+span.input_container input:disabled{
     background-color: #F6F6F6;
     color: #CCC;
     background-image: none;
