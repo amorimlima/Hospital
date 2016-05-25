@@ -165,41 +165,23 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                     <fieldset class="form_divisao" id="dados_escolares">
                                                         <legend class="form_divisao_titulo">Dados Escolares</legend>
                                                         <div class="form_celula_m">
-                                                            <label for="selectEscolaAluno" class="form_info info_m">Escola<span class="asterisco">*</span></label>
-                                                            <span class="select_container">
-                                                                <select name="selectEscolaAluno" id="selectEscolaAluno" class="form_value form_select formAluno obrigatorioAluno" msgVazio="O campo escola é obrigatório" required onChange="listaProfessores('')">
-                                                                    <option value="" disabled selected>Selecione a escola</option>
-                                                                    <?php
-																		echo $escolasHtml;
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        
-                                                        <div class="form_celula_p">
-                                                            <label for="selectSerieAluno" class="form_info info_p">Série<span class="asterisco">*</span></label>
-                                                            <span class="select_container">
-                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_p formAluno obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores('')">
-                                                                    <option value="" disabled selected>Selecione a série</option>
-                                                                    <?php
-                                                                    	echo $serieHtml;
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                          
-                                                        <div class="form_celula_m">
                                                             <label for="selectProfessorAluno" class="form_info info_m">Professor<span class="asterisco">*</span></label>
                                                             <span class="select_container">
                                                                 <select name="selectProfessorAluno" id="selectProfessorAluno" class="form_value form_select value_m formAluno obrigatorioAluno" msgVazio="O campo professor é obrigatório" required>
-                                                                
-                                                                	<!--  ATENÇÂO - Se mudar o texto desse option precisa mudar em mais dois lugares no arquivo cadastro.js. -->
+                                                                    <!--  ATENÇÂO - Se mudar o texto desse option precisa mudar em mais dois lugares no arquivo cadastro.js. -->
                                                                     <option value="" disabled selected>Selecione primeiro a escola e a série</option>
-                                                                    
                                                                  </select>
                                                             </span>
                                                         </div>
-                                                        
+                                                        <div class="form_celula_m value_last">
+                                                            <label for="selectSerieAluno" class="form_info info_p">Série<span class="asterisco">*</span></label>
+                                                            <span class="select_container">
+                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_m formAluno obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores('')">
+                                                                    <option value="" disabled selected>Selecione a série</option>
+                                                                    <?= $serieHtml; ?>
+                                                                </select>
+                                                            </span>
+                                                        </div>
 														<div class="form_celula_p">
                                                             <label for="selectPeriodoAluno" class="form_info info_p">Ano Letivo<span class="asterisco">*</span></label>
                                                             <span class="select_container">
