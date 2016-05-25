@@ -1837,8 +1837,8 @@ function gerarHtmlEscolasPendentes(data)
         var collapseContent = usuario.perfil == "4"? '' : 'data-toggle="collapse"';
         var collapse = usuario.perfil == "4"? '' : 'collapse';
         html +=
-            '<a href="#confirmEscCont'+data[i].id+'" class="accordion_info_toggler updateEscToggler" '+collapseContent+'>'+
-                '<div class="accordion_info updateUsuarioInfo'+data[i].id+'" id="confirmEscInfo'+data[i].id+'">'+data[i].nome+'</div>'+
+            '<a href="#confirmEscCont'+data[i].id+'" class="accordion_info_toggler confirmEscToggler" '+collapseContent+'>'+
+                '<div class="accordion_info confirmEscInfo'+data[i].id+'" id="confirmEscInfo'+data[i].id+'">'+data[i].nome+'</div>'+
             '</a>'+
             '<div class="accordion_content '+collapse+'" id="confirmEscCont'+data[i].id+'">'+
                 '<div class="content_col_info">';
@@ -1912,8 +1912,15 @@ function listarEscolasPreCadastradas()
         success: function(data)
         {
             console.log(data);
-            var html = gerarHtmlEscolasPendentes(data);
-            $(".confirm_escola_accordion").html(html);
+            if(data)
+            {
+                var html = gerarHtmlEscolasPendentes(data);
+                $(".confirm_escola_accordion").html(html);
+            }
+            else
+            {
+                showAlertSemEscolasPendentes();
+            }
         },
         error: function(e)
         {
@@ -1937,10 +1944,11 @@ function rejeitarPreCadastroEscola(id)
         },
         success: function(data)
         {
-            $("#mensagemAprovado").fadeIn(200, function()
+            $("#mensagemRejeitado").fadeIn(200, function()
             {
                 $("#confirmEscInfo"+id).parent().remove();
                 $("#confirmEscCont"+id).remove();
+                countListaEscolaPendetes();
             });
         },
         error: function(e)
@@ -1972,9 +1980,10 @@ function confirmarPreCadastroEscola(id)
         },
         success: function(data)
         {
-            $("#mensagemRejeitado").fadeIn(200, function() {
+            $("#mensagemAprovado").fadeIn(200, function() {
                 $("#confirmEscInfo"+id).parent().remove();
                 $("#confirmEscCont"+id).remove();
+                countListaEscolaPendetes();
             });
         },
         error: function(e)
@@ -1989,4 +1998,17 @@ function confirmarPreCadastroEscola(id)
             $("#btnConfirmEscola"+id).text("Aceitar cadastro");
         }
     });
+}
+
+function countListaEscolaPendetes()
+{
+    if ($(".confirmEscToggler").length === 0)
+        showAlertSemEscolasPendentes();
+    else
+        return false;
+}
+
+function showAlertSemEscolasPendentes()
+{
+    $(".confirm_escola_accordion").html("<div class='alert alert-warning'>Nenhuma escola com cadastro pendente.</div>");
 }

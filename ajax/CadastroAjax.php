@@ -599,8 +599,7 @@ switch ($_REQUEST["acao"]) {
 				array_push($lista, $result);
 			}
 		} else {
-			$result = Array("status"=>false);
-			array_push($lista,$result);
+			$lista = false;
 		}
 		echo json_encode($lista);		
 		break;
