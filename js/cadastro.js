@@ -1614,6 +1614,17 @@ function limparCadastro(classe){
 	}else if (classe = 'formProf'){
 		$('.seriesProfessor').prop('checked',false);
 		$('.seriesProfessor').eq(0).prop('checked',true);
+
+        //Mostrar campos escondidos caso tenha-se editado um aluno anteriormente
+        $("#inputNascimentoProf").removeAttr("disabled");
+        $("#inputRgProf").removeAttr("disabled");
+        $("#inputCpfProf").removeAttr("disabled");
+        $("#inputUsuarioProf").removeAttr("disabled");
+        $("label[for=inputSenhaProf]").append('<span class="asterisco">*</span>');
+        $("label[for=inputSenhaConfirmProf]").append('<span class="asterisco">*</span>')
+        $("#resetarProf").show();
+        $("#inputSenhaAtualProf").parent().parent().hide();
+
 	}else if (classe == 'formEscola'){
 		//
 	}
