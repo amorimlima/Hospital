@@ -104,7 +104,7 @@ class UsuarioDAO extends DAO{
         $sql .= "usr_rg = '".$user->getUsr_rg()."',";
         $sql .= "usr_cpf = '".$user->getUsr_cpf()."',";
         $sql .= "usr_login = '".$user->getUsr_login()."',";
-        $sql .= "usr_senha = '".md5($user->getUsr_senha())."',";
+        $sql .= "usr_senha = '".$user->getUsr_senha()."',";
         $sql .= "usr_imagem = '".$user->getUsr_imagem()."'";
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
 //        echo $sql;
@@ -781,7 +781,7 @@ class UsuarioDAO extends DAO{
      public function updateSenhaByUser($user)
      {
         $sql  = "update usuario set ";
-        $sql .= "usr_senha = '".md5($user->getUsr_senha())."'";
+        $sql .= "usr_senha = '".$user->getUsr_senha()."'";
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
         return $this->execute($sql);
      }
