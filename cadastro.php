@@ -66,8 +66,8 @@ if(count($periodos)>0) {
 }
 
 $logado = unserialize($_SESSION['USR']);
-$class = $logado['perfil'] == "Professor"? "tab_cadastro_professor" : "tab_cadastro";
-$largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
+$class = $logado['perfil'] == "Professor" ? "tab_cadastro_professor" : "tab_cadastro";
+$largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "col-md-10";
 
 ?>
 
@@ -146,7 +146,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-2">
-                                        <?php if($logado['perfil'] != "Aluno"){ ?>
+                                        <?php if($logado['perfil'] != "Aluno" && $logado['perfil'] != "NEC"){ ?>
                                             <nav role="navigation" class="area_tabs_cadastro">
                                                 <ul class="tabs_cadastro">
                                                     <li class="<?= $class; ?> tab_aluno tab_cadastro_ativo" pagina="lista_btns_aluno"></li>
