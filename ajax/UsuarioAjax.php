@@ -61,7 +61,7 @@ switch ($_REQUEST["acao"]) {
 		}else{
 			$emailValidacao = $usuarioController->verificaEmail($email);
 			$user =  new Usuario();
-			$user->setUsr_senha($senha);
+			$user->setUsr_senha(md5($senha));
 			$user->setUsr_id($emailValidacao['id']);
 			$usuario = $usuarioController->updateSenhaByUser($user);
 			if($usuario){

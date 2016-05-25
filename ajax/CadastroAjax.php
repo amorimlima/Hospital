@@ -325,7 +325,8 @@ switch ($_REQUEST["acao"]) {
 	    	$imagemAntiga = $usuario->getUsr_imagem();
 	    	
 	    	$usuario->setUsr_login($_POST["login"]);
-	        if ($_POST["senha"] != '') $usuario->setUsr_senha($_POST["senha"]);
+	        if ($_POST["senha"] != '') 
+	        	$usuario->setUsr_senha(md5($_POST["senha"]));
 	        $usuario->setUsr_nome(utf8_decode($_POST['nome']));
 	        $usuario->setUsr_data_nascimento($dataFuncao->dataUSA($_POST['nascimento']));
 	        $usuario->setUsr_endereco($_POST['idEndereco']);
@@ -479,7 +480,8 @@ switch ($_REQUEST["acao"]) {
 	    	
 			$usuario->setUsr_nome(utf8_decode($_POST['nomeEscola']));
 	    	$usuario->setUsr_login($_POST["loginEscola"]);
-	    	if ($_POST["senhaEscola"] != '') $usuario->setUsr_senha($_POST["senhaEscola"]);
+	    	if ($_POST["senhaEscola"] != '') 
+	    		$usuario->setUsr_senha(md5($_POST["senhaEscola"]));
 	    	$usuario->setUsr_nse($_POST['nse']);
 	    	$usuarioController->update($usuario);
 	    	

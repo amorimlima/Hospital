@@ -128,7 +128,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                             </div>
                                             <div class="btns_tabs btns_professor" style="display: none;">
                                                 <ul class="lista_btns lista_btns_professor">
-                                                    <li class="btn_tab btn_professor btn_add_cadastro" onclick="limparCadastro('formProf')">Novo cadastro</li>
+                                                    <?php if ($logado['perfil'] != "Professor") { ?> <li class="btn_tab btn_professor btn_add_cadastro" onclick="limparCadastro('formProf')">Novo cadastro</li> <?php } ?>
                                                     <li class="btn_tab btn_professor btn_update_cadastro btn_tab_ativo">Atualizar cadastro</li>
                                                 </ul>
                                             </div>
@@ -165,6 +165,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                     <fieldset class="form_divisao" id="dados_escolares">
                                                         <legend class="form_divisao_titulo">Dados Escolares</legend>
                                                         <div class="form_celula_m">
+                                                            <input type="hidden" id="selectEscolaAluno"/>
                                                             <label for="selectProfessorAluno" class="form_info info_m">Professor<span class="asterisco">*</span></label>
                                                             <span class="select_container">
                                                                 <select name="selectProfessorAluno" id="selectProfessorAluno" class="form_value form_select value_m formAluno obrigatorioAluno" msgVazio="O campo professor é obrigatório" required>
@@ -493,7 +494,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                         <div class="form_celula_p">
                                                             <label for="inputCompCasaProf" class="form_info info_p">Complemento</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="inputCompCasaProf" id="inputCompCasaProf" class="form_value form_number value_p formProf" required />
+                                                                <input type="text" name="inputCompCasaProf" id="inputCompCasaProf" class="form_value form_number value_p formProf"/>
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
@@ -554,7 +555,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                             <span class="input_container spanImagem" id="spanImagemProfessor"></span>
                                                         </div>
                                                     </fieldset>
-                                                    <fieldset class="form_divisao">
+                                                    <fieldset class="form_divisao" id="divisao_grupo">
                                                         <legend class="form_divisao_titulo">Grupos</legend>
                                                         <div class="form_celula_p">
                                                             <label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>
@@ -578,10 +579,16 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                     </fieldset>
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Acesso</legend>
-                                                        <div class="form_celula_p">
+                                                        <div class="form_celula_p" style="display: none">
                                                             <label for="inputUsuarioProf" class="form_info info_p">Usuário<span class="asterisco">*</span></label>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputUsuarioProf" id="inputUsuarioProf" class="form_value form_text value_p  formProf obrigatorioProf" placeholder="Insira um nome de usuário" required msgVazio="O campo usuário é obrigatório"/>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form_celula_p">
+                                                            <label for="inputSenhaAtualProf" class="form_info info_p">Senha Atual</label>
+                                                            <span class="input_container">
+                                                                <input type="password" name="inputSenhaAtualProf" id="inputSenhaAtualProf" class="form_value form_text value_p  formProf" placeholder="Insira a senha atual"/>
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p" style="position: relative;">
@@ -613,8 +620,9 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                         <input type="hidden" value="" id="idEnderecoProfessor" class="formProf"/>
                                                         <!-- <input type="hidden" value="" id="serieProf" class="formProf"/> -->
                                                         
-                                                        <input type="reset" value="Limpar" class="form_btn btn_reset" />
-                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroProfessor" />
+                                                        <input type="button" value="Voltar" class="form_btn btn_reset" id="voltarProf" />
+                                                        <input type="reset" value="Limpar" class="form_btn btn_reset" id="resetarProf"/>
+                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroProf" />
                                                     </div>
                                                 </form>
                                                 <section class="update_cadastro update_prof cadastroProfContent" id="updateProfContainer">
