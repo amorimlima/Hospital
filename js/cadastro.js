@@ -253,7 +253,7 @@ $(document).ready(function() {
         var idEndereco = $("#idEnderecoAluno").val();
 
         $.ajax({
-            url:'ajax/cadastroAjax.php',
+            url:'ajax/CadastroAjax.php',
             type:'post',
             dataType:'json',
             data: {
@@ -319,7 +319,7 @@ $(document).ready(function() {
     		$('#inputSenhaProf').addClass('obrigatorioProf');
     		var acao = 'novoUsuario';
     	}
-    	$("#inputNascimentoProf").val('10/10/2010');
+    	//$("#inputNascimentoProf").val('10/10/2010');
     	var seriesProfessor = '';
     	$('.obrigatorioProf').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
@@ -467,7 +467,7 @@ $(document).ready(function() {
     	
     	
     	$.ajax({
-        	url:'ajax/cadastroAjax.php',
+        	url:'ajax/CadastroAjax.php',
         	type:'post',
         	dataType:'json',
         	data:{'acao':acao,
@@ -608,7 +608,7 @@ $(document).ready(function() {
     	var idUsuario = $("#idUsuarioEscola").val();
     	
     	$.ajax({
-    		url:'ajax/cadastroAjax.php',
+    		url:'ajax/CadastroAjax.php',
     		type:'post',
     		dataType:'json',
     		data:{
@@ -668,7 +668,7 @@ $(document).ready(function() {
     });
     
 	$("#cadastroImagem").goMobileUpload({
-		script : "ajax/cadastroAjax.php"
+		script : "ajax/CadastroAjax.php"
 	});
 	
 	
@@ -733,7 +733,7 @@ $(document).ready(function() {
 		$('.divPeriodo').remove();
 
 		$.ajax({
-	        url:'ajax/cadastroAjax.php',
+	        url:'ajax/CadastroAjax.php',
 	        type:'post',
 	        dataType:'json',
 	        data: {
@@ -756,8 +756,8 @@ $(document).ready(function() {
 
 	    				    htmlSeries += '<div class="form_celula_p divSerie" style="height: 0;">';
 	    				    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
-	    				    htmlSeries +=     '<span class="select_container">';
-	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">';
+	    				    htmlSeries +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira							
+	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf " required msgVazio="O campo série é obrigatório">';
 	    				    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
 	    				    htmlSeries +=         '</select>';
 	    				    htmlSeries +=     '</span>';
@@ -765,8 +765,8 @@ $(document).ready(function() {
 
 	    				    htmlPeriod += '<div class="form_celula_p divPeriodo" style="height: 0;">';
 	    				    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
-	    				    htmlPeriod +=     '<span class="select_container">';
-	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">';
+	    				    htmlPeriod +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira
+	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf" required msgVazio="O campo período é obrigatório">';
 	    				    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
 	    				    htmlPeriod +=         '</select>';
 	    				    htmlPeriod +=     '</span>';
@@ -877,7 +877,7 @@ $(document).ready(function() {
 		console.log(idUsuario);
 //		return false;
 		$.ajax({
-	        url:'ajax/cadastroAjax.php',
+	        url:'ajax/CadastroAjax.php',
 	        type:'post',
 	        dataType:'json',
 	        data: {
@@ -963,7 +963,7 @@ function listaProfessores(id){
 	}
 	
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'html',
         data: {
@@ -981,7 +981,7 @@ function listaProfessores(id){
 
 function listarEscolas(){
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'html',
         data: {
@@ -1418,7 +1418,7 @@ function tabNavigation(tabToShow) {
 function listarAlunos(){
 
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {
@@ -1442,7 +1442,7 @@ function listarAlunos(){
 
 function listarProfessores(){
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {
@@ -1467,7 +1467,7 @@ function listarProfessores(){
 function listarEscolas(){
 	
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {

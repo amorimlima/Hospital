@@ -29,9 +29,9 @@ class UsuarioVariavelDAO extends DAO{
      {
         $sql  = "insert into  usuario_variavel (usv_usuario,usv_ano_letivo,usv_serie,usv_grau_instrucao,usv_categoria_funcional,usv_grupo,usv_status) values ";
         $sql .= "(".$userv->getUsv_usuario().",".$userv->getUsv_ano_letivo().",";
-        $sql .= "'".$userv->getUsv_serie()."',".$userv->getUsv_grau_instrucao().",";
+        $sql .= "".$userv->getUsv_serie().",".$userv->getUsv_grau_instrucao().",";
         $sql .= "".$userv->getUsv_categoria_funcional().",".$userv->getUsv_grupo().",".$userv->getUsv_status().")";
-	    //echo $sql;
+
     	return $this->executeAndReturnLastID($sql);
      }
      

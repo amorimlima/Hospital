@@ -21,32 +21,30 @@ include_once($path['funcao'].'Thumbs.php');
 
 switch ($_REQUEST["acao"]) {
     case "novoUsuario":{
+    	
     	$result = '';
        	$enderecoController = new EnderecoController();
 		$usuarioController = new UsuarioController();
 		
 		//Verificações o CPF
-		//cpf só poderá vir vazio se for cadastro de um aluno
-		if ($_POST['cpf'] != ''){
-			//Confirma se está cadastrando um aluno e faz a verificação simples do cpf
-			if ($_POST['perfil'] == '1'){
-				$escola = $_POST['escola'];	//Salva na variavel $escola o valor vindo por ajax
-				//Verificação de CPF para alunos
-		    	if ($usuarioController->verificaCpfAluno($_POST['cpf']) > 0){
-		        	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado!');
-		    	}
+		//Confirma se está cadastrando um aluno e faz a verificação simples do cpf
+		if ($_POST['perfil'] == '1'){
+			$escola = $_POST['escola'];	//Salva na variavel $escola o valor vindo por ajax
+			//Verificação de CPF para alunos 			//cpf só poderá vir vazio se for cadastro de um aluno
+		   	if (($_POST['cpf'] != '')  && ($usuarioController->verificaCpfAluno($_POST['cpf']) > 0)){
+		       	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado!');
+		   	}
 
-		    //Se for professor, pega o id da escola da sessão para verificar a disponibilidade do cpf em uma determinada escola
-	        }else{
-	        	$u = unserialize($_SESSION['USR']);
-				$escola = $u['escola'];
-	        	//chama o método de verficação do cpf do professor verificando a existencia do CPF em uma determinada escola.
-	        	if ($usuarioController->verificaCpfProfessor($_POST['cpf'], $escola) > 0){
-		        	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado nessa escola!');
-	        	}
-	        }        	
-        }
-        
+		//Se for professor, pega o id da escola da sessão para verificar a disponibilidade do cpf em uma determinada escola
+	    }else{
+	       	$u = unserialize($_SESSION['USR']);
+			$escola = $u['escola'];
+	       	//chama o método de verficação do cpf do professor verificando a existencia do CPF em uma determinada escola.
+	       	if ($usuarioController->verificaCpfProfessor($_POST['cpf'], $escola) > 0){
+		       	$result = Array('erro'=>true,'msg'=>'CPF já cadastrado nessa escola!');
+	       	}
+	    }        	
+                
         //Verificações de email e login. Só entrará no IF se não tiver erro no cpf.
         if ($result == ''){
 	        if (($enderecoController->verificaEmail($_POST['email']) > 0) && $_POST['email'] != ''){
@@ -106,7 +104,6 @@ switch ($_REQUEST["acao"]) {
 			        	if (strlen($_POST['serie'])>1) $usuarioVar->setUsv_serie('null');
 			        	 else $usuarioVar->setUsv_serie($_POST['serie']);
 			        	$usuarioVar->setUsv_ano_letivo($_POST['ano']);
-			        	$usuarioVar->setUsv_serie($_POST['serie']);
 			        	$usuarioVar->setUsv_status('0');
 			        	if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
 			        		else $usuarioVar->setUsv_grupo($_POST['grupo']);
@@ -165,7 +162,6 @@ switch ($_REQUEST["acao"]) {
     
     case "cadastraEscola":{
     	
-    	//print_r($_POST);
     	$result = '';
     	$escolaController = new EscolaController();
      	$enderecoController = new EnderecoController();
@@ -242,11 +238,18 @@ switch ($_REQUEST["acao"]) {
 				}
 				
 	    		if($idUsuario = $usuarioController->insert($usuario)){
+	    			
 	    			$usuarioVar = new UsuarioVariavel();
 		    		$usuarioVar->setUsv_usuario($idUsuario);
 		    		$usuarioVar->setUsv_status('0');
+		    		$usuarioVar->setUsv_ano_letivo('null');
+		    		$usuarioVar->setUsv_categoria_funcional('null');
+		    		$usuarioVar->setUsv_grau_instrucao('null');
+		    		$usuarioVar->setUsv_grupo('null');
+		    		$usuarioVar->setUsv_serie('null');
 		    		$usuarioVarController->insert($usuarioVar);
 		    		
+//		    		echo 'cadastrar usuario';
 	    			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 	    		}else{
 	    			$result = Array('erro'=>true,'msg'=>'Erro ao cadastrar escola!');
@@ -349,8 +352,8 @@ switch ($_REQUEST["acao"]) {
 			$usuarioVar->setUsv_serie($_POST['serie']);
 			if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
 				else $usuarioVar->setUsv_grupo($_POST['grupo']);
-			$usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
-			$usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
+			// $usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
+			// $usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
 			$usuarioVar->setUsv_id($_POST['idUsuarioVar']);
 			$usuarioVarController->update($usuarioVar);
 			//print_r($usuarioVar);
@@ -687,4 +690,4 @@ switch ($_REQUEST["acao"]) {
 	}
 }
 
-?>
+?>	
