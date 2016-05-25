@@ -120,7 +120,7 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <?php if ($logado['perfil'] != "Aluno") { ?><section class="area_btns_tabs">
-                                            <div class="btns_tabs btns_aluno">
+                                            <div class="btns_tabs btns_aluno" <?php echo $logado["perfil"] === "NEC" ? "style='display: none;'" : "" ?> >
                                                 <ul class="lista_btns lista_btns_aluno">
                                                     <li class="btn_tab btn_aluno btn_add_cadastro" onclick="limparCadastro('formAluno')">Novo cadastro</li>
                                                     <li class="btn_tab btn_aluno btn_update_cadastro btn_tab_ativo" id="update_cadastro">Atualizar cadastro</li>
@@ -132,7 +132,7 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                                     <li class="btn_tab btn_professor btn_update_cadastro btn_tab_ativo">Atualizar cadastro</li>
                                                 </ul>
                                             </div>
-                                            <div class="btns_tabs btns_escola" style="display: none;">
+                                            <div class="btns_tabs btns_escola" <?php echo $logado["perfil"] != "NEC" ? "style='display: none;'" : "" ?> >
                                                 <ul class="lista_btns lista_btns_escola">
                                                     <?php if ($logado["perfil"] === "NEC") { ?>
                                                         <li class="btn_tab btn_escola btn_confirm_cadastro">Pré-cadastro</li>
@@ -160,7 +160,7 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                     </div>
                                     <div class="col-xs-12 <?= $largura  ?>">
                                         <section class="area_conteudo_tabs">
-                                            <div class="conteudo_tab conteudo_aluno">
+                                            <div class="conteudo_tab conteudo_aluno" <?= $logado["perfil"] === "NEC" ? "style='display: none;'" : "" ?> >
                                                 <form action="" class="form_cadastro cadastro_aluno cadastroAlunoContent" id="formCadastroAluno" style="display: none;">
                                                     <fieldset class="form_divisao" id="dados_escolares">
                                                         <legend class="form_divisao_titulo">Dados Escolares</legend>
@@ -631,7 +631,7 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                                     </div>
                                                 </section>
                                             </div>
-                                            <div class="conteudo_tab conteudo_escola" style="display: none;">
+                                            <div class="conteudo_tab conteudo_escola" <?= $logado["perfil"] != "NEC" ? "style='display: none;'" : "" ?> >
 
                                             <?php if ($logado["perfil"] === "NEC") { ?>
                                                 <section class="confirm_cadastro confirm_escola cadastroEscolaContent">
@@ -906,5 +906,14 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
     <script src="js/funcoes.js"></script>
 	<script src="js/cadastro.js"></script>
 	<script src="js/goMobileUpload.js"></script>
+
+    <?php if ($logado["perfil"] === "NEC") { ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".btn_escola.btn_update_cadastro").trigger("click");
+        });
+    </script>
+    <?php } ?>
+
 </body>
 </html>
