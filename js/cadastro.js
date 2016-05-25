@@ -1033,7 +1033,7 @@ function formatar(mascara, documento){
 function listaProfessores(id){
 
 	if ($('#selectEscolaAluno').val() == null || $('#selectSerieAluno').val() == null){
-		$('#selectProfessorAluno').html('<option value="" disabled selected>Selecione primeiro a escola e a série</option>');
+		$('#selectProfessorAluno').html('<option value="" disabled selected>Selecione primeiro a série</option>');
 		return false;
 	}
 	
@@ -1607,7 +1607,8 @@ function limparCadastro(classe){
         $("#inputCpfAluno").removeAttr("disabled");
         $("#inputUsuarioAluno").removeAttr("disabled");
         $("label[for=inputSenhaAluno]").append('<span class="asterisco">*</span>');
-        $("label[for=inputSenhaConfirmAluno]").append('<span class="asterisco">*</span>')
+        $("label[for=inputSenhaConfirmAluno]").append('<span class="asterisco">*</span>');
+        $('#selectEscolaAluno').val(usuario.escola);
         $("#resetarAluno").show();
         $("#inputSenhaAtual").parent().parent().hide();
 
