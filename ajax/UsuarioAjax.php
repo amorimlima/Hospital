@@ -70,6 +70,15 @@ switch ($_REQUEST["acao"]) {
 		}		
 		break;
 	}
+
+	case 'verificaSenha':
+		$usuarioController = new UsuarioController();
+		$user = $usuarioController->select($_REQUEST['usuario']);
+		if (md5($_REQUEST['senha']) == $user->getUsr_senha())
+			echo "true";
+		else
+			echo '';
+		break;
 }
 
 ?>

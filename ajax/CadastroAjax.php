@@ -656,7 +656,7 @@ switch ($_REQUEST["acao"]) {
 	}	
 	case "listaUsuariosCompleto":{
 		$usuarioController = new UsuarioController();
-		$usuarios = $usuarioController->buscaUsuarioCompletoByPerfil($_POST['perfil']);
+		$usuarios = $usuarioController->buscaUsuarioCompletoByPerfil($_POST);
 		echo json_encode($usuarios);
 		break;
 	}
