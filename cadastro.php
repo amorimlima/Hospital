@@ -66,8 +66,8 @@ if(count($periodos)>0) {
 }
 
 $logado = unserialize($_SESSION['USR']);
-$class = $logado['perfil'] == "Professor"? "tab_cadastro_professor" : "tab_cadastro";
-$largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
+$class = $logado['perfil'] == "Professor" ? "tab_cadastro_professor" : "tab_cadastro";
+$largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "col-md-10";
 
 ?>
 
@@ -146,7 +146,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-2">
-                                        <?php if($logado['perfil'] != "Aluno"){ ?>
+                                        <?php if($logado['perfil'] != "Aluno" && $logado['perfil'] != "NEC"){ ?>
                                             <nav role="navigation" class="area_tabs_cadastro">
                                                 <ul class="tabs_cadastro">
                                                     <li class="<?= $class; ?> tab_aluno tab_cadastro_ativo" pagina="lista_btns_aluno"></li>
@@ -550,7 +550,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                                 <input type="text" name="inputEmailProf" id="inputEmailProf" class="form_value form_text value_g  formProf obrigatorioProf" required msgVazio="O campo email é obrigatório"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_g">
+                                                        <div class="form_celula_g" style="height: auto">
                                                             <label for="cadastroImagem" class="form_info info_p">Foto</label>
                                                             <span class="input_container spanImagem" id="spanImagemProfessor"></span>
                                                         </div>
@@ -579,13 +579,13 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                     </fieldset>
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Acesso</legend>
-                                                        <div class="form_celula_p" style="display: none">
+                                                        <div class="form_celula_p">
                                                             <label for="inputUsuarioProf" class="form_info info_p">Usuário<span class="asterisco">*</span></label>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputUsuarioProf" id="inputUsuarioProf" class="form_value form_text value_p  formProf obrigatorioProf" placeholder="Insira um nome de usuário" required msgVazio="O campo usuário é obrigatório"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_p">
+                                                        <div class="form_celula_p" style="display: none">
                                                             <label for="inputSenhaAtualProf" class="form_info info_p">Senha Atual</label>
                                                             <span class="input_container">
                                                                 <input type="password" name="inputSenhaAtualProf" id="inputSenhaAtualProf" class="form_value form_text value_p  formProf" placeholder="Insira a senha atual"/>
@@ -762,7 +762,7 @@ $largura = $logado['perfil'] == "Aluno" ? '' : "col-md-10";
                                                                 <input type="text" name="inputEmailEscola" id="inputEmailEscola" class="form_value form_text value_g formEscola obrigatorioEscola" msgVazio="O campo email é obrigatório" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_g">
+                                                        <div class="form_celula_g" style="height: auto">
                                                             <label for="cadastroImagem" class="form_info info_p">Foto</label>
                                                             <span class="input_container spanImagem" id="spanImagemEscola"></span>
                                                         </div>
