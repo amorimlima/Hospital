@@ -299,7 +299,6 @@ switch ($_REQUEST["acao"]) {
         
         
        	if ($result == ''){
-       		
        		//$grupoController 		= 	new GrupoController();
 			$usuarioVarController	=	new UsuarioVariavelController();
 			//$grupo 		= 	$grupoController->select($_POST['grupo']);
@@ -325,7 +324,8 @@ switch ($_REQUEST["acao"]) {
 	    	$imagemAntiga = $usuario->getUsr_imagem();
 	    	
 	    	$usuario->setUsr_login($_POST["login"]);
-	        if ($_POST["senha"] != '') $usuario->setUsr_senha($_POST["senha"]);
+	        if ($_POST["senha"] != '') 
+	        	$usuario->setUsr_senha(md5($_POST["senha"]));
 	        $usuario->setUsr_nome(utf8_decode($_POST['nome']));
 	        $usuario->setUsr_data_nascimento($dataFuncao->dataUSA($_POST['nascimento']));
 	        $usuario->setUsr_endereco($_POST['idEndereco']);
@@ -347,9 +347,9 @@ switch ($_REQUEST["acao"]) {
 				}
 	    	}
 
-			$usuarioVar->setUsv_serie($_POST['serie']);
 			$usuarioVar->setUsv_ano_letivo($_POST['ano']);
-			$usuarioVar->setUsv_serie($_POST['serie']);
+			if ($_POST['serie'] != '')
+				$usuarioVar->setUsv_serie($_POST['serie']);
 			if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
 				else $usuarioVar->setUsv_grupo($_POST['grupo']);
 			// $usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
@@ -358,7 +358,7 @@ switch ($_REQUEST["acao"]) {
 			$usuarioVarController->update($usuarioVar);
 			//print_r($usuarioVar);
 			
-		    if ($_POST['perfil'] == 2){
+		    if ($_POST['perfil'] == 2 && $_POST['serie'] != ''){
 			    $grupoController = new GrupoController();
 			    //$grupo = $grupoController->select($_POST['idGrupo']);
 			    //$grupos = $grupoController->selectByProfessor($_POST['idUsuario']);
@@ -479,7 +479,8 @@ switch ($_REQUEST["acao"]) {
 	    	
 			$usuario->setUsr_nome(utf8_decode($_POST['nomeEscola']));
 	    	$usuario->setUsr_login($_POST["loginEscola"]);
-	    	if ($_POST["senhaEscola"] != '') $usuario->setUsr_senha($_POST["senhaEscola"]);
+	    	if ($_POST["senhaEscola"] != '') 
+	    		$usuario->setUsr_senha(md5($_POST["senhaEscola"]));
 	    	$usuario->setUsr_nse($_POST['nse']);
 	    	$usuarioController->update($usuario);
 	    	
@@ -597,8 +598,7 @@ switch ($_REQUEST["acao"]) {
 				array_push($lista, $result);
 			}
 		} else {
-			$result = Array("status"=>false);
-			array_push($lista,$result);
+			$lista = false;
 		}
 		echo json_encode($lista);		
 		break;
@@ -656,7 +656,7 @@ switch ($_REQUEST["acao"]) {
 	}	
 	case "listaUsuariosCompleto":{
 		$usuarioController = new UsuarioController();
-		$usuarios = $usuarioController->buscaUsuarioCompletoByPerfil($_POST['perfil']);
+		$usuarios = $usuarioController->buscaUsuarioCompletoByPerfil($_POST);
 		echo json_encode($usuarios);
 		break;
 	}
@@ -688,6 +688,12 @@ switch ($_REQUEST["acao"]) {
 		//print_r($_POST);
 		break;
 	}
+
+	case "getUsuarioVariavel":
+
+		$usuarioVarController = new UsuarioVariavelController();
+		print_r(json_encode($usuarioVarController->select($_POST['id'])));
+		break;
 }
 
 ?>	

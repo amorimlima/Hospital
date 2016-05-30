@@ -161,5 +161,10 @@ class UsuarioController {
 	{
 		return $this->usuarioDAO->adicionarAlunosGrupo($idGrupo, $alunos);
 	}
+
+	public function alunosPorProfessor($idProfessor)
+	{
+		return $this->usuarioDAO->alunosPorProfessor($idProfessor);
+	}
 }
 ?>

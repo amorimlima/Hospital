@@ -6,7 +6,8 @@ function listarEstadoCidade(id){	//Recebe o id do select
 		type: "GET",
 		async:false,
 		crossDomain: true,		
-		url: "js/estados&cidades.json"			
+		url: "js/estados&cidades.json",
+		dataType: "json"			
 		}).then(function(data) {
 			for(var f=0;f<data['estados'].length; f++)
 			{
@@ -24,7 +25,8 @@ function selectCidade(idEstado,idCidade){
 		type: "GET",
 		async:false,
 		crossDomain: true,		
-		url: "js/estados&cidades.json"			
+		url: "js/estados&cidades.json",
+		dataType: "json"			
 		}).then(function(data) { 			
 			for(var h=0;h<data['estados'].length; h++)
 			{										 

@@ -104,7 +104,7 @@ class UsuarioDAO extends DAO{
         $sql .= "usr_rg = '".$user->getUsr_rg()."',";
         $sql .= "usr_cpf = '".$user->getUsr_cpf()."',";
         $sql .= "usr_login = '".$user->getUsr_login()."',";
-        $sql .= "usr_senha = '".md5($user->getUsr_senha())."',";
+        $sql .= "usr_senha = '".$user->getUsr_senha()."',";
         $sql .= "usr_imagem = '".$user->getUsr_imagem()."'";
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
 //        echo $sql;
@@ -470,7 +470,7 @@ class UsuarioDAO extends DAO{
      
      public function buscaUsuarioCompletoByPerfil($perfil){
      	
-     	switch ($perfil){
+     	switch ($perfil['perfil']){
             //Perfil Aluno
             case '1':{
 	     		$sql = " SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
@@ -478,16 +478,33 @@ class UsuarioDAO extends DAO{
 	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome, 
 	     					   uv.usv_id, ano.ano_id, ano.ano_ano, s.sri_id, s.sri_serie as serie, 
 	     					   g.grp_id, g.grp_grupo, prof.usr_id AS idProfessor, prof.usr_nome AS nomeProfessor, e.*
-						FROM  `usuario` AS us
-							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
+						 FROM  `usuario` AS us";
+				$join =	  " INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
 							left OUTER JOIN escola AS es ON us.usr_escola = es.esc_id
 							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
 							left outer JOIN ano_letivo AS ano ON uv.usv_ano_letivo = ano.ano_id
 							left outer JOIN serie AS s ON uv.usv_serie = s.sri_id
 							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
 							left OUTER JOIN grupo AS g ON uv.usv_grupo = g.grp_id
-							left OUTER JOIN usuario AS prof ON g.grp_professor = prof.usr_id
-						WHERE us.usr_perfil = 1 and uv.usv_status = 0 order by us.usr_nome";
+							left OUTER JOIN usuario AS prof ON g.grp_professor = prof.usr_id";
+				$where =  " WHERE us.usr_perfil = 1 and uv.usv_status = 0";
+                $order =  " order by us.usr_nome";
+                switch ($perfil['perfil_usr']) {
+                    case '1':
+                        $where .= " AND us.usr_id = ".$perfil['usr_id'];
+                        break;
+
+                    case '2':
+                        $where .= " AND g.grp_professor = ".$perfil['usr_id'];
+                        break;
+                    
+                    case '4':
+                        $where .= " AND us.usr_escola = ".$perfil['usr_id'];
+                        break;
+
+                    default:
+                        break;
+                }
 	     		break;
    			}
 
@@ -496,35 +513,57 @@ class UsuarioDAO extends DAO{
 	     					   us.usr_cpf, us.usr_login, us.usr_senha, us.usr_imagem, 
 	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome,
 	     					   uv.usv_id, uv.usv_serie as serie, gi.*,cat.*, e.*
-						FROM usuario as us 
-							INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
+						FROM usuario as us"; 
+				$join =   " INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
 							left outer JOIN escola AS es ON us.usr_escola = es.esc_id
 							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
 							left JOIN grau_instrucao AS gi ON uv.usv_grau_instrucao = gi.grt_id
 							left JOIN categoria_funcional AS cat ON uv.usv_categoria_funcional = cat.ctf_id
-							left OUTER JOIN endereco AS e ON us.usr_endereco = e.end_id
-						WHERE us.usr_perfil = 2 and uv.usv_status = 0 order by us.usr_nome";
-	     		
-	     		//echo $sql;
+							left OUTER JOIN endereco AS e ON us.usr_endereco = e.end_id";
+				$where =  " WHERE us.usr_perfil = 2 and uv.usv_status = 0";
+                $order =  " order by us.usr_nome";
+                switch ($perfil['perfil_usr']) {
+                    case '2':
+                        $where .= " AND us.usr_id = ".$perfil['usr_id'];
+                        break;
+                    
+                    case '4':
+                        $where .= " AND us.usr_escola = ".$perfil['usr_id'];
+                        break;
+
+                    default:
+                        break;
+                }
 	     		break;
    			}
    			
           	case '4':{
           		$sql = 'SELECT es.*, us.usr_id, us.usr_nome, us.usr_login, us.usr_senha, us.usr_imagem, us.usr_nse,
           					   pf.prf_id, pf.prf_perfil, te.tps_tipo_escola, adm.adm_administracao, e.*, uv.usv_id
-						FROM `usuario` as us 
-							INNER JOIN escola as es ON us.usr_escola = es.esc_id
+						FROM `usuario` as us'; 
+				$join =   ' INNER JOIN escola as es ON us.usr_escola = es.esc_id
 							INNER JOIN perfil as pf ON us.usr_perfil = pf.prf_id
 							INNER JOIN tipo_escola as te ON es.esc_tipo_escola = te.tps_id
 							INNER JOIN administracao as adm ON es.esc_administracao = adm.adm_id
 							INNER JOIN endereco AS e ON us.usr_endereco = e.end_id
-							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
-						WHERE us.usr_perfil = 4 and uv.usv_status = 0 order by us.usr_nome';
+							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario';
+				$where =  ' WHERE us.usr_perfil = 4 and uv.usv_status = 0';
+                $order =  ' order by us.usr_nome';
+                switch ($perfil['perfil_usr']) {
+                    case '4':
+                        $where .= " AND us.usr_id = ".$perfil['usr_id'];
+                        break;
+                    
+                    default:
+                        break;
+                }
           		break;
           	}
      	}
      	
      	$lista = array();
+
+        $sql .= $join.$where.$order;
 
      	if ($sql != ''){
      		$dataFuncao = new DatasFuncao();
@@ -532,7 +571,6 @@ class UsuarioDAO extends DAO{
      		$result = $this->retrieve($sql);
      		
 	     	while ($qr = mysqli_fetch_array($result)){
-
     	 		$u = array(
 	        		'idUsuario'		=> ( isset($qr['usr_id']) ? $qr['usr_id'] : "" ),
 	        		'nomeUsuario'	=> ( isset($qr['usr_nome']) ? utf8_encode($qr['usr_nome']) : "" ),
@@ -743,7 +781,7 @@ class UsuarioDAO extends DAO{
      public function updateSenhaByUser($user)
      {
         $sql  = "update usuario set ";
-        $sql .= "usr_senha = '".md5($user->getUsr_senha())."'";
+        $sql .= "usr_senha = '".$user->getUsr_senha()."'";
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
         return $this->execute($sql);
      }

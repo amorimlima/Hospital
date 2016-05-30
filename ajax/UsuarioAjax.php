@@ -61,7 +61,7 @@ switch ($_REQUEST["acao"]) {
 		}else{
 			$emailValidacao = $usuarioController->verificaEmail($email);
 			$user =  new Usuario();
-			$user->setUsr_senha($senha);
+			$user->setUsr_senha(md5($senha));
 			$user->setUsr_id($emailValidacao['id']);
 			$usuario = $usuarioController->updateSenhaByUser($user);
 			if($usuario){
@@ -70,6 +70,15 @@ switch ($_REQUEST["acao"]) {
 		}		
 		break;
 	}
+
+	case 'verificaSenha':
+		$usuarioController = new UsuarioController();
+		$user = $usuarioController->select($_REQUEST['usuario']);
+		if (md5($_REQUEST['senha']) == $user->getUsr_senha())
+			echo "true";
+		else
+			echo '';
+		break;
 }
 
 ?>
