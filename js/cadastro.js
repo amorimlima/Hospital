@@ -381,29 +381,31 @@ $(document).ready(function() {
     	var serieErro = '';
 
     	//Percorre os selects dos grupos para montar a string e verificar erro
-    	// $("[data-grupoAttr='serie']").each(function() {
-    	// 	if (($(this).val() != 0) && ($(this).val() != null)){
+    	if(acao != 'editarUsuario'){
+            $("[data-grupoAttr='serie']").each(function() {
+                if (($(this).val() != 0) && ($(this).val() != null)){
 
-    	// 		var contador = $(this).attr('id').replace('inputSerieProf', '');
-    	// 		//Verifica se o campo não está vazio ou se já tem um erro na série.
-    	// 		if (($("#inputPeriodoProf"+contador).val() != '') && ($("#inputPeriodoProf"+contador).val() != null) && (serieErro == '')){
-    	// 			//Só haverá o atributo idGrupo na edição.
-    	// 			if ($(this).attr('idGrupo') != undefined){
-    	// 				seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+'-'+$(this).attr('idGrupo')+';';
-    	// 			}else{
-    	// 				seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+';';
-    	// 			}
-    	//  		}else{
-    	//  			serieErro = contador;
-    	//  		}
-    	// 	 }else{
-    	// 		 //Só vai acontecer na edição
-    	// 		 if ($(this).attr('idGrupo') != undefined){
-    	// 			 //monta string 'idGrupo-;' para futura exclusão.
-    	// 			 seriesExcluir += $(this).attr('idGrupo')+';';
-    	// 		 }
-    	// 	 }
-    	// })
+                    var contador = $(this).attr('id').replace('inputSerieProf', '');
+                    //Verifica se o campo não está vazio ou se já tem um erro na série.
+                    if (($("#inputPeriodoProf"+contador).val() != '') && ($("#inputPeriodoProf"+contador).val() != null) && (serieErro == '')){
+                        //Só haverá o atributo idGrupo na edição.
+                        if ($(this).attr('idGrupo') != undefined){
+                            seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+'-'+$(this).attr('idGrupo')+';';
+                        }else{
+                            seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+';';
+                        }
+                    }else{
+                        serieErro = contador;
+                    }
+                 }else{
+                     //Só vai acontecer na edição
+                     if ($(this).attr('idGrupo') != undefined){
+                         //monta string 'idGrupo-;' para futura exclusão.
+                         seriesExcluir += $(this).attr('idGrupo')+';';
+                     }
+                 }
+            })
+        }
     	
     	//Se teve erro de alguma série ficar vazia.
     	if (serieErro != ''){

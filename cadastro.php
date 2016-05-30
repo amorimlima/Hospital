@@ -425,7 +425,7 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                                                 <select name="perfil" id="perfil" class="form_value form_select value_m formProf obrigatorioProf" required msgVazio="O campo perfil é obrigatório">
                                                                     <option value='' disabled selected>Selecione o perfil</option>
                                                                     <option value='2'>Professor</option>
-                                                                    <option value='3'>Unidade Escolar</option>
+                                                                    <!-- <option value='3'>Unidade Escolar</option> -->
                                                                 </select>
                                                             </span>
                                                         </div>
