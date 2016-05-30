@@ -132,9 +132,9 @@ class EscolaDAO extends DAO{
         {
             $esc = new Escola();
             $esc->setesc_id($qr["esc_id"]);
-            $esc->setesc_razao_social($qr["esc_razao_social"]);
             $esc->setesc_nome($qr["esc_nome"]);
-            $esc->setesc_razao_social($qr["esc_nome"]);
+            $esc->setesc_razao_social($qr["esc_razao_social"]);
+
             $esc->setesc_cnpj($qr["esc_cnpj"]);
 
             $esc->setesc_endereco(new Endereco());
