@@ -425,7 +425,7 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                                                 <select name="perfil" id="perfil" class="form_value form_select value_m formProf obrigatorioProf" required msgVazio="O campo perfil é obrigatório">
                                                                     <option value='' disabled selected>Selecione o perfil</option>
                                                                     <option value='2'>Professor</option>
-                                                                    <option value='3'>Unidade Escolar</option>
+                                                                    <!-- <option value='3'>Unidade Escolar</option> -->
                                                                 </select>
                                                             </span>
                                                         </div>
@@ -657,7 +657,7 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                                                 <input type="text" name="inputRazaoEscola" id="inputRazaoEscola" class="form_value form_text value_g formEscola obrigatorioEscola" msgVazio="O campo razão social é obrigatório" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_m value_last">
+                                                        <div class="form_celula_m">
                                                             <label for="inputCodigoEscola" class="form_info info_m">NSE</label>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputNseEscola" id="inputNseEscola" class="form_value form_text value_m formEscola"/>
@@ -675,7 +675,7 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                                                 <input type="text" name="inputCnpjEscola" id="inputCnpjEscola" class="form_value form_text value_p  formEscola obrigatorioEscola formEscola"  msgVazio="O campo CNPJ é obrigatório" required maxlength='18' OnKeyPress="formatar('##.###.###/####-##', this)"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_p value_last">
+                                                        <div class="form_celula_p">
                                                             <label for="inputAdmEscola" class="form_info info_p">Administração<span class="asterisco">*</span></label>
                                                             <span class="select_container">
                                                                 <select name="inputAdmEscola" id="inputAdmEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo administração é obrigatório" required>
@@ -690,7 +690,7 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                                                 </select>
                                                             </span>
                                                         </div>
-														<div class="form_celula_p">
+														<div class="form_celula_p value_last">
                                                             <label for="inputTipoEscola" class="form_info info_p">Tipo de escola<span class="asterisco">*</span></label>
                                                             <span class="select_container">
                                                                 <select name="inputTipoEscola" id="inputTipoEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo tipo da escola é obrigatório" required>

@@ -381,29 +381,31 @@ $(document).ready(function() {
     	var serieErro = '';
 
     	//Percorre os selects dos grupos para montar a string e verificar erro
-    	$("[data-grupoAttr='serie']").each(function() {
-    		if (($(this).val() != 0) && ($(this).val() != null)){
+    	if(acao != 'editarUsuario'){
+            $("[data-grupoAttr='serie']").each(function() {
+                if (($(this).val() != 0) && ($(this).val() != null)){
 
-    			var contador = $(this).attr('id').replace('inputSerieProf', '');
-    			//Verifica se o campo não está vazio ou se já tem um erro na série.
-    			if (($("#inputPeriodoProf"+contador).val() != '') && ($("#inputPeriodoProf"+contador).val() != null) && (serieErro == '')){
-    				//Só haverá o atributo idGrupo na edição.
-    				if ($(this).attr('idGrupo') != undefined){
-    					seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+'-'+$(this).attr('idGrupo')+';';
-    				}else{
-    					seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+';';
-    				}
-    	 		}else{
-    	 			serieErro = contador;
-    	 		}
-    		 }else{
-    			 //Só vai acontecer na edição
-    			 if ($(this).attr('idGrupo') != undefined){
-    				 //monta string 'idGrupo-;' para futura exclusão.
-    				 seriesExcluir += $(this).attr('idGrupo')+';';
-    			 }
-    		 }
-    	})
+                    var contador = $(this).attr('id').replace('inputSerieProf', '');
+                    //Verifica se o campo não está vazio ou se já tem um erro na série.
+                    if (($("#inputPeriodoProf"+contador).val() != '') && ($("#inputPeriodoProf"+contador).val() != null) && (serieErro == '')){
+                        //Só haverá o atributo idGrupo na edição.
+                        if ($(this).attr('idGrupo') != undefined){
+                            seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+'-'+$(this).attr('idGrupo')+';';
+                        }else{
+                            seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+';';
+                        }
+                    }else{
+                        serieErro = contador;
+                    }
+                 }else{
+                     //Só vai acontecer na edição
+                     if ($(this).attr('idGrupo') != undefined){
+                         //monta string 'idGrupo-;' para futura exclusão.
+                         seriesExcluir += $(this).attr('idGrupo')+';';
+                     }
+                 }
+            })
+        }
     	
     	//Se teve erro de alguma série ficar vazia.
     	if (serieErro != ''){
@@ -413,7 +415,7 @@ $(document).ready(function() {
     		return false;
     	}
     	//Se nenhum grupo foi criado
-    	if (seriesProfessor == ''){
+    	if (seriesProfessor == '' && acao != 'editarUsuario'){
     		$("#textoMensagemVazio").text('Selecione ao menos uma grupo!');
     		$("#mensagemCampoVazio").show();
     		$("#inputSerieProf1").focus();
@@ -855,7 +857,6 @@ $(document).ready(function() {
         $("#inputUsuarioProf").attr("disabled", "true");
         if (usuario.perfil == 2){
             $('#perfil').attr("disabled", "true");
-            $('#divisao_grupo').hide();
             $("#inputUsuarioProf").parent().parent().hide();
             $("#inputSenhaAtualProf").parent().parent().show();
         }
@@ -863,6 +864,7 @@ $(document).ready(function() {
             $("#inputUsuarioProf").attr("disabled", "true");
         $("label[for=inputSenhaProf] .asterisco").remove();
         $("label[for=inputSenhaConfirmProf] .asterisco").remove();
+        $('#divisao_grupo').hide();
         $("#resetarProf").hide();
         
 		

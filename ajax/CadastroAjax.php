@@ -299,7 +299,6 @@ switch ($_REQUEST["acao"]) {
         
         
        	if ($result == ''){
-       		
        		//$grupoController 		= 	new GrupoController();
 			$usuarioVarController	=	new UsuarioVariavelController();
 			//$grupo 		= 	$grupoController->select($_POST['grupo']);
@@ -348,9 +347,9 @@ switch ($_REQUEST["acao"]) {
 				}
 	    	}
 
-			$usuarioVar->setUsv_serie($_POST['serie']);
 			$usuarioVar->setUsv_ano_letivo($_POST['ano']);
-			$usuarioVar->setUsv_serie($_POST['serie']);
+			if ($_POST['serie'] != '')
+				$usuarioVar->setUsv_serie($_POST['serie']);
 			if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
 				else $usuarioVar->setUsv_grupo($_POST['grupo']);
 			// $usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
@@ -359,7 +358,7 @@ switch ($_REQUEST["acao"]) {
 			$usuarioVarController->update($usuarioVar);
 			//print_r($usuarioVar);
 			
-		    if ($_POST['perfil'] == 2){
+		    if ($_POST['perfil'] == 2 && $_POST['serie'] != ''){
 			    $grupoController = new GrupoController();
 			    //$grupo = $grupoController->select($_POST['idGrupo']);
 			    //$grupos = $grupoController->selectByProfessor($_POST['idUsuario']);
@@ -689,6 +688,12 @@ switch ($_REQUEST["acao"]) {
 		//print_r($_POST);
 		break;
 	}
+
+	case "getUsuarioVariavel":
+
+		$usuarioVarController = new UsuarioVariavelController();
+		print_r(json_encode($usuarioVarController->select($_POST['id'])));
+		break;
 }
 
 ?>	
