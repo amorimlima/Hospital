@@ -662,8 +662,7 @@ class UsuarioDAO extends DAO{
      {
         $sql  = "SELECT * FROM usuario us ";
         $sql .= "LEFT OUTER JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
-        $sql .= "WHERE us.usr_id = ".$idUsuario;
-
+        $sql .= "WHERE uv.usv_status = 0 and us.usr_id = ".$idUsuario;
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
 
@@ -682,10 +681,12 @@ class UsuarioDAO extends DAO{
 
     public function buscarAlunosGrafico($par)
     {
+    	
        $sql = "SELECT * FROM usuario us";
        $join = " JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id";
        $join .= " JOIN grupo g ON g.grp_id = uv.usv_grupo";
        $where = " WHERE g.grp_professor = ".$par['id']." AND us.usr_perfil = 1 and uv.usv_status = 0";
+       
        if ($par['livro'] != 0){
            $where .= " AND g.grp_serie = ".$par['livro'];
        }
@@ -731,6 +732,7 @@ class UsuarioDAO extends DAO{
         }
     
         $sql = $sql.$join.$where;
+        //echo $sql;
         $result = $this->retrieve($sql);
         $lista = Array();
     
