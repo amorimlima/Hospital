@@ -350,8 +350,10 @@ switch ($_REQUEST["acao"]) {
 			$usuarioVar->setUsv_ano_letivo($_POST['ano']);
 			if ($_POST['serie'] != '')
 				$usuarioVar->setUsv_serie($_POST['serie']);
-			if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
-				else $usuarioVar->setUsv_grupo($_POST['grupo']);
+			if ($_POST['grupo'] == '') 
+				$usuarioVar->setUsv_grupo('null');
+			else 
+				$usuarioVar->setUsv_grupo($_POST['grupo']);
 			// $usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
 			// $usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
 			$usuarioVar->setUsv_id($_POST['idUsuarioVar']);
@@ -373,36 +375,24 @@ switch ($_REQUEST["acao"]) {
 					//e se tiver do tamanho 3 deve ser editado
 					if (count($grp) > 1 ){
 						
-						if ($grp[1] == 1) $periodo = 'Manhã';
-							else $periodo = 'Tarde';
+						if ($grp[1] == 1) 
+							$periodo = 'Manhã';
+						else 
+							$periodo = 'Tarde';
 						$nomeGrupo = $_POST['nome'].' - '.$grp[0].' '.$periodo;
-						
-						if (count($grp) > 2 ){
-							$grupo = $grupoController->select($grp[2]);
-							$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
-							$grupo->setGrp_serie($grp[0]);
-							$grupo->setGrp_periodo($grp[1]);
-							$grupoController->update($grupo);
-							
-						}else{
-							//Pega o id da escola pela sessão
-							if (!isset($escola)){ 
-		        				$u = unserialize($_SESSION['USR']);
-								$escola = $u['escola'];
-							}
-							
-							$grupo = new Grupo();
-							$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
-							$grupo->setGrp_serie($grp[0]);
-							$grupo->setGrp_periodo($grp[1]);
-							$grupo->setGrp_professor($_POST['idUsuario']);
-							$grupo->setGrp_escola($escola);
-							$grupoController->insert($grupo);
-							
+						//Pega o id da escola pela sessão
+						if (!isset($escola)){ 
+		        			$u = unserialize($_SESSION['USR']);
+							$escola = $u['escola'];
 						}
-					}else{
-						$grupoController->delete($grp[0]);
-						$usuarioVarController->removeGrupoByIdGrupo($grp[0]); 
+						
+						$grupo = new Grupo();
+						$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
+						$grupo->setGrp_serie($grp[0]);
+						$grupo->setGrp_periodo($grp[1]);
+						$grupo->setGrp_professor($_POST['idUsuario']);
+						$grupo->setGrp_escola($escola);
+						$grupoController->insert($grupo);
 					}
 				}
 			}
