@@ -1618,6 +1618,7 @@ function limparCadastro(classe){
         $("#inputSenhaAtual").parent().parent().hide();
 
 	}else if (classe = 'formProf'){
+        $('#divisao_grupo .form_celula_p').remove();
 		$('.seriesProfessor').prop('checked',false);
 		$('.seriesProfessor').eq(0).prop('checked',true);
 
