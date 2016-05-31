@@ -277,7 +277,7 @@ class EscolaDAO extends DAO{
     	
         $sql = "SELECT DISTINCT es.esc_id, es.esc_nome FROM escola es";
         $join = "";
-        $where = " where es.esc_status = 0 ";
+        $where = " where es.esc_status = 1 ";
         if ($par['livro'] != 0){
             $join .= " JOIN liberar_capitulo lc ON lc.lbr_escola = es.esc_id";
             $where .= " AND lc.lbr_livro = ".$par['livro'];
