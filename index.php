@@ -223,7 +223,13 @@ $adms = $AdmController->selectAll();
 	                                        </select>
 	                                    </span>
 	                                </div>
-	                                <div class="formfield formfield-g">
+	                                <div class="formfield formfield-s">
+	                                    <label for="login_escola">Login</label>
+	                                    <span>
+	                                        <input id="login_escola" name="login_escola" type="text" placeholder="Nome do Usuário" />
+	                                    </span>
+	                                </div>
+	                                <div class="formfield formfield-s">
 	                                    <label for="email">E-Mail</label>
 	                                    <span>
 	                                        <input id="email" name="end_email" type="text" placeholder="exemplo@escola.br" class="obrigatorio" msgVazio="O campo email é obrigatório"/>

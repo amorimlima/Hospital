@@ -99,7 +99,7 @@ function atribuirEventos() {
         	var telefoneEscola = $("#tel_comercial").val();
         	var codigoEscola = '';
         	var nse = '';
-        	var loginEscola = '';
+        	var loginEscola = $("#login_escola").val();
         	var senhaEscola = '';
         	
         	var nomeDiretor = $("#nome_diretor").val();
