@@ -25,7 +25,8 @@ $adms = $AdmController->selectAll();
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet" />
         <link href="css/modulos/formulario.css" rel="stylesheet" />
-        <link href="css/index.css" rel="stylesheet" /><!-- -->
+        <link href="css/index.css" rel="stylesheet" />
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
     </head>
     <body>
         <div id="container">
@@ -51,11 +52,11 @@ $adms = $AdmController->selectAll();
 		                                <form class="form center-block">
 		                                    <div class="form-group">
 		                                        <label for"usuario">USUÁRIO</label>
-		                                        <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" value="hcbAluno">
+		                                        <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" value="">
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <label for"usuario">SENHA</label>
-		                                        <input type="password" class="form-control input-lg form-actions" name="senha" id="senha" value="123">
+		                                        <input type="password" class="form-control input-lg form-actions" name="senha" id="senha" value="">
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <button class="btn btn-primary btn-lg" id="btLogar">Entrar</button>
@@ -80,7 +81,7 @@ $adms = $AdmController->selectAll();
 	            </div>	            
             </div>            
             <div id="form_recuperar_senha" class="row" style="<?=isset($_GET['recSenha']) == 'alt@'?'display:block':'display:none'?>" >
-            	<div class="formulario_panel">
+            	<div class="formulario_panel" style="margin-bottom: 220px;">
             		<form action="" id="formulario_recuperar_senha">
             			<fieldset>
             				<legend>Recuperar senha</legend>
