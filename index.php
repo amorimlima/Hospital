@@ -28,7 +28,7 @@ $adms = $AdmController->selectAll();
         <link href="css/index.css" rel="stylesheet" /><!-- -->
     </head>
     <body>
-        <div class="container">
+        <div id="container">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="logo-container">
@@ -36,41 +36,49 @@ $adms = $AdmController->selectAll();
                     </div>
                 </div>
             </div>
-            <div class="row" id="login" style="<?=(isset($_GET['recSenha']) == 'alt@' || $_GET['newPass'])?'display:none':'display:block'?>" >
-                <div class="col-md-2">&nbsp;</div>
-                <div class="col-md-4">
-                    <div class="login-panel-container">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <form class="form center-block">
-                                    <div class="form-group">
-                                        <label for"usuario">USUÁRIO</label>
-                                        <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" value="hcbAluno">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for"usuario">SENHA</label>
-                                        <input type="password" class="form-control input-lg form-actions" name="senha" id="senha" value="123">
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-primary btn-lg" id="btLogar">Entrar</button>
-                                    </div>
-                                </form>
-                                <div class="link">
-                                    <a href="index.php?recSenha=alt@">Esqueceu a senha?</a>
-                                </div>
-                            </div>
-                        </div>
+            <div id="Conteudo_Area" style="<?=(isset($_GET['recSenha']) == 'alt@' || $_GET['newPass'])?'display:none':'display:block'?>">
+	            <div class="row" id="login">
+	                <div class="col-md-8">
+	                	<div id="Conteudo_Area_box_left">
+							<img id="abertura" src="img/abertura_Ca.png">
+						</div>
+	                </div>
+	                <div class="col-md-4">
+	                	<div id="Conteudo_Area_box_right">
+		                    <div class="login-panel-container">
+		                        <div class="panel panel-default">
+		                            <div class="panel-body">
+		                                <form class="form center-block">
+		                                    <div class="form-group">
+		                                        <label for"usuario">USUÁRIO</label>
+		                                        <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" value="hcbAluno">
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label for"usuario">SENHA</label>
+		                                        <input type="password" class="form-control input-lg form-actions" name="senha" id="senha" value="123">
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <button class="btn btn-primary btn-lg" id="btLogar">Entrar</button>
+		                                    </div>
+		                                </form>
+		                                <div class="link">
+		                                    <a href="index.php?recSenha=alt@">Esqueceu a senha?</a>
+		                                </div>
+		                            </div>
+		                        </div>
 
-                        <div class="link">
-                            <p>Gostou do projeto e deseja fazer parte? <br /><a class="link_pre_cadastro" id="link_pre_cadastro" href="#">Solicite o cadastro da sua escola!</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="pratinha"></div>
-                </div>
-                <div class="col-md-2">&nbsp;</div>
-            </div>
+		                        <div class="link">
+		                            <p>Gostou do projeto e deseja fazer parte? <br /><a class="link_pre_cadastro" id="link_pre_cadastro" href="#">Solicite o cadastro da sua escola!</a></p>
+		                        </div>
+		                    </div>
+		                </div>
+	                </div><!-- 
+	                <div class="col-md-4">
+	                    <div class="pratinha"></div>
+	                </div> -->
+	                <div class="col-md-2">&nbsp;</div>
+	            </div>	            
+            </div>            
             <div id="form_recuperar_senha" class="row" style="<?=isset($_GET['recSenha']) == 'alt@'?'display:block':'display:none'?>" >
             	<div class="formulario_panel">
             		<form action="" id="formulario_recuperar_senha">
@@ -268,8 +276,11 @@ $adms = $AdmController->selectAll();
                     </div>
                 </div>
             </div>
-        </div>
-        
+            <footer>
+		        <div class="row" id="rodape"></div>
+		        <div id="margin"></div>
+		    </footer>
+        </div>        
         <div id="mensagemCampoVazio" class='modalMensagem' style="display:none">
 			<?php
 				$templateGeral->mensagemRetorno('mensagens','<span id="textoMensagemVazio"></span>','erro');

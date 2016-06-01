@@ -1,5 +1,5 @@
 body {
-	background: linear-gradient(#fff, #fff 70%, #f7f7f4 70%, #f7f7f4 100%);
+	/*background: linear-gradient(#fff, #fff 70%, #f7f7f4 70%, #f7f7f4 100%);*/
 }
 .container {
 	position: relative;
@@ -90,13 +90,23 @@ body {
 	height: 398px;
 	background: url(../img/pratinha.png) no-repeat center;
 }
-.formulario_panel {
-	width: 100%;
-	height: auto;
-	padding: 30px 0 30px 50px;
-	background-color: #fff;
-	border: 2px dotted #7db930;
+
+#abertura{
+	height: 591px;
 }
+#margin{
+	height: 30px;
+}
+
+.formulario_panel {
+    width: 100%;
+    height: auto;
+    padding: 30px 30px 50px;
+    background-color: #fff;
+    border: 2px dotted #7db930;
+    margin-bottom: 220px;
+}
+
 .form_barra {
 	overflow: hidden;
 }
