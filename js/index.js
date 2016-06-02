@@ -99,7 +99,7 @@ function atribuirEventos() {
         	var telefoneEscola = $("#tel_comercial").val();
         	var codigoEscola = '';
         	var nse = '';
-        	var loginEscola = '';
+        	var loginEscola = $("#login_escola").val();
         	var senhaEscola = '';
         	
         	var nomeDiretor = $("#nome_diretor").val();
@@ -167,13 +167,13 @@ function atribuirEventos() {
 function toggleFormPreCadastro() {
     switch (estado) {
         case "login":
-            $("#login").hide();
+            $("#Conteudo_Area").hide();
             $("#form_pre_cadastro").show();
 
             estado = "cadastro";
         break;
         case "cadastro":
-            $("#login").show();
+            $("#Conteudo_Area").show();
             $("#form_pre_cadastro").hide();
 
             estado = "login";

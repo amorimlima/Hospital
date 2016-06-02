@@ -107,8 +107,6 @@ switch ($_REQUEST["acao"]) {
 			        	$usuarioVar->setUsv_status('0');
 			        	if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
 			        		else $usuarioVar->setUsv_grupo($_POST['grupo']);
-//			        	$usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
-//			        	$usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
 			        	$usuarioVar->setUsv_grau_instrucao('null');
 			        	$usuarioVar->setUsv_categoria_funcional('null');
 			        	
@@ -197,7 +195,6 @@ switch ($_REQUEST["acao"]) {
 	    	$enderecoController = new EnderecoController();
 	    	 
 	    	$idEndereco = $enderecoController->insert($endereco);
-//	    	echo $idEndereco;
 	    	if($idEndereco){
 	    		
 	    		$escola = new Escola();
@@ -249,7 +246,6 @@ switch ($_REQUEST["acao"]) {
 		    		$usuarioVar->setUsv_serie('null');
 		    		$usuarioVarController->insert($usuarioVar);
 		    		
-//		    		echo 'cadastrar usuario';
 	    			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 	    		}else{
 	    			$result = Array('erro'=>true,'msg'=>'Erro ao cadastrar escola!');
@@ -271,8 +267,6 @@ switch ($_REQUEST["acao"]) {
 		
 		$endereco 	= 	$enderecoController->select($_POST['idEndereco']);
     	$usuario 	= 	$usuarioController->select($_POST['idUsuario']);
-    	//print_r($usuario);
-    	//Verifica se foi alterado e depois se esses dados não estão cadastrados para outros usuários.
         if ($_POST['perfil'] == '1'){
         	if ($_POST['cpf'] != $usuario->getUsr_cpf()){
         	
@@ -554,8 +548,24 @@ switch ($_REQUEST["acao"]) {
 	}
 	case "listaPendentes": {
 		$escolasController = new EscolaController();
+		$envioDocController = new EnvioDocumentoController();
 		$pre_cadastros = $escolasController->selectPendentes();
 		$lista = Array();
+
+		function getDocumentoByEscolaPendente($envioDocController, $idesc) {
+			$documento = [];
+			if ($objDocumento = $envioDocController->selectDocPorEscola($idesc)) {
+				$documento = [
+					"id" => $objDocumento->getEnv_id(),
+					"idEscola" => $objDocumento->getEnv_idEscola(),
+					"idRemetente" => $objDocumento->getEnv_idRemetente(),
+					"idDestinatario" => $objDocumento->getEnv_idDestinatario(),
+					"url" => $objDocumento->getEnv_url(),
+				];
+			}
+
+			return $documento;
+		}
 
 		if ( count($pre_cadastros) > 0 ) {
 			foreach($pre_cadastros as $escola => $valor) {
@@ -587,6 +597,7 @@ switch ($_REQUEST["acao"]) {
 						"id" 			=> utf8_encode($valor->getEsc_administracao()->getadm_id()),
 						"administracao"	=> utf8_encode($valor->getEsc_administracao()->getadm_administracao())
 					),
+					"documento" 	=> getDocumentoByEscolaPendente($envioDocController, $valor->getEsc_id()),
 					"status"		=> utf8_encode($valor->getEsc_status()),
 					"site"			=> utf8_encode($valor->getEsc_site()),
 					"diretor"		=> utf8_encode($valor->getEsc_nome_diretor()),

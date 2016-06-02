@@ -5,8 +5,9 @@ $(document).ready(function() {
 	atribuirBarrasRolagem();
 	menuAtribuirCapitulo();
 	var data = getDadosUsuario();
+	var data2 = getDadosUsuario();
 	carregarGrafico(data);
-	carregarTodosFiltros(data);
+	carregarTodosFiltros(data2);
 	filtrosChange();
 	botoesGrupo();
 	botaoModal();
@@ -106,17 +107,22 @@ function filtrosChange () {
 }
 
 function carregarGrafico (data) {
+	var d = data
+	
 	$('.lista_itens_grafico').html("Carregando...");
-	data.acao = "carregaGrafico";
-	data.grafico = $('.option_selected ').attr('id');
+	d.acao = "carregaGrafico";
+	d.grafico = $('.option_selected ').attr('id');
+	
 	$.ajax({
 		url: 'ajax/RelatoriosAjax.php',
 		type: 'GET',
-		data: data,
+		data: d,
 		success: function(dados) {
 			$('.lista_itens_grafico').html(dados);
+			return false;
 		}
 	});
+	return false;
 }
 
 function carregaFiltro(data, filtro) {
@@ -146,16 +152,18 @@ function carregarTodosFiltros(data) {
 }
 
 function getDadosUsuario () {
-	var perfil;
+	var perfil = 3;//Padrão
 	var id;
 	if ($('#box_perfil_selected').length > 0){
 		if ($('#professor_id').length > 0)
 		{
+			console.log('perfil = 2');
 			perfil = 2;
 			id = $('#professor_id').attr('id_professor');
 		}
 		else
 		{
+			console.log('perfil = 4');
 			perfil = 4;
 			id = $('#escola_id').attr('id_escola');
 		}
@@ -168,6 +176,9 @@ function getDadosUsuario () {
 		else
 			id = usuario.escola;
 	}
+	
+	
+	
 	var data = {
 		'livro' : $('#filtroLivro').val(),
 		'capitulo' : $('#filtroCapitulo').val(),

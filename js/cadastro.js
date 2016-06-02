@@ -1836,6 +1836,7 @@ function verificarPadraoSenha(perfil)
 
 function gerarHtmlEscolasPendentes(data)
 {
+     console.log(data);
     var html = "";
     for (var i in data)
     {
@@ -1869,6 +1870,7 @@ function gerarHtmlEscolasPendentes(data)
                 '<input type="hidden" value="'+data[i].cidade+'" id="cidade'+data[i].id+'"/>'+
                 '<input type="hidden" value="'+data[i].cep+'" id="cep'+data[i].id+'"/>'+
                 '<input type="hidden" value="'+data[i].imagem+'" id="imagem'+data[i].id+'"/>'+
+                '<input type="hidden" value="'+(data[i].documento.url ? data[i].documento.url : "")+'" id="arquivo'+data[i].id+'"/>'+
 
                 '<table border="0">'+
                     '<tr class="content_info_row">'+
@@ -1901,7 +1903,8 @@ function gerarHtmlEscolasPendentes(data)
                         '<td colspan="6"><span class="content_info_label">Site:</span> <span class="content_info_txt">'+data[i].site+'</span></td>'+
                     '</tr>'+
                     '<tr class="content_info_row">'+
-                        '<td colspan="6"><span class="content_info_label">Status:</span> <span class="content_info_txt">'+status+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">Status:</span> <span class="content_info_txt">'+status+'</span></td>'+
+                        (data[i].documento.url ? '<td colspan="3"><span class="content_info_label">PDF Pesquisa:</span> <span class="content_info_txt"><a href="arquivos/'+data[i].documento.url+'" class="link block">Clique aqui</a></span></td>' : '')+
                     '</tr>'+
                 '</table>';
 

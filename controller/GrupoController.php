@@ -26,7 +26,11 @@ class GrupoController {
 	
 	public function insert($gru)
 	{
-		return $this->grupoDAO->insert($gru);
+		$existeGrupo = $this->grupoDAO->listarProfessorSeriePeriodo($gru->getGrp_professor(), $gru->getGrp_serie(), $gru->getGrp_periodo());
+		if (!$existeGrupo['id'])
+			return $this->grupoDAO->insert($gru);
+		else
+			return(0);
 	}
 	
 	public function update($gru)

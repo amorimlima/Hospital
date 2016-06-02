@@ -21,29 +21,35 @@ class TemplateRelatorio{
 
 	public function carregaGrafico($par)
 	{
+//		print_r($par);
 		$relatorioController = new RelatorioController();
 		$listados = $relatorioController->getListaVisualizacao($par);
-		foreach ($listados as $listado) {
-			$barrasGrafico = $relatorioController->getBarrasUsuario ($par, $listado);
-			echo '<div onclick="'.$listado['perfil'].'GetById('.$listado['id'].')">';
-			echo 	'<div class="row">';
-			echo 		'<div class="col-md-4">';
-			echo 			'<div class="grafico_desc" id="listado_id_'.utf8_encode($listado['id']).'">';
-			echo 				'<div>';
-			echo 					'<span>'.utf8_encode($listado['nome']).'</span>';
-			echo 				'</div>';
-			echo 			'</div>';
-			echo 		'</div>';
-			echo 		'<div class="col-md-8">';
-			echo 			'<div class="grafico_chart">';
-			echo 				'<svg class="chart">';
-			echo 					'<rect y="0" width="'.($barrasGrafico['barra1'] * 100).'%" height="18" class="chart_acesso"></rect>';
-			echo 					'<rect y="22" width="'.($barrasGrafico['barra2'] * 100).'%" height="18" class="chart_download"></rect>';
-			echo 				'</svg>';
-			echo 			'</div>';
-			echo 		'</div>';
-			echo 	'</div>';
-			echo '</div>';
+		
+		if (count($listados) > 0){
+			foreach ($listados as $listado) {
+				$barrasGrafico = $relatorioController->getBarrasUsuario ($par, $listado);
+				echo '<div onclick="'.$listado['perfil'].'GetById('.$listado['id'].')">';
+				echo 	'<div class="row">';
+				echo 		'<div class="col-md-4">';
+				echo 			'<div class="grafico_desc" id="listado_id_'.utf8_encode($listado['id']).'">';
+				echo 				'<div>';
+				echo 					'<span>'.utf8_encode($listado['nome']).'</span>';
+				echo 				'</div>';
+				echo 			'</div>';
+				echo 		'</div>';
+				echo 		'<div class="col-md-8">';
+				echo 			'<div class="grafico_chart">';
+				echo 				'<svg class="chart">';
+				echo 					'<rect y="0" width="'.($barrasGrafico['barra1'] * 100).'%" height="18" class="chart_acesso"></rect>';
+				echo 					'<rect y="22" width="'.($barrasGrafico['barra2'] * 100).'%" height="18" class="chart_download"></rect>';
+				echo 				'</svg>';
+				echo 			'</div>';
+				echo 		'</div>';
+				echo 	'</div>';
+				echo '</div>';
+			}
+		}else{
+			echo "Nenhum resultado encontrado";
 		}
 	}
 
