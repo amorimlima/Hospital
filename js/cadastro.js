@@ -1904,7 +1904,7 @@ function gerarHtmlEscolasPendentes(data)
                     '</tr>'+
                     '<tr class="content_info_row">'+
                         '<td colspan="3"><span class="content_info_label">Status:</span> <span class="content_info_txt">'+status+'</span></td>'+
-                        (data[i].documento.url ? '<td colspan="3"><span class="content_info_label">PDF Pesquisa:</span> <span class="content_info_txt"><a href="arquivos/'+data[i].documento.url+'" class="link block">Batata</a></span></td>' : '')+
+                        (data[i].documento.url ? '<td colspan="3"><span class="content_info_label">PDF Pesquisa:</span> <span class="content_info_txt"><a href="arquivos/'+data[i].documento.url+'" class="link block">Clique aqui</a></span></td>' : '')+
                     '</tr>'+
                 '</table>';
 
