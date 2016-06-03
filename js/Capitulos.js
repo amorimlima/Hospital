@@ -69,9 +69,7 @@ function carregarAtividades (capitulo, ano) {
     		for (var i = 0; i < d.length; i++){
     			var pathObjeto = 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].exe_nome.trim()+'/index.html';
     			$('#obj_'+d[i].exe_id).click(function(){	
-    				console.log("click");
     				$('#objeto').attr('src', pathObjeto).css({'display':'block'});
-
 					risizeObj();
 				});
     		}
