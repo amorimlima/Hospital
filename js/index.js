@@ -271,7 +271,6 @@ function alterarSenha(){
         dataType:'json',
         data:{'acao':'alterarSenha','senha':newPass,'confPass':confPass,'email':email},
         success:function(data){
-            console.log(data);
             if(data =='campo_vazio'){
                 $('#mensagemErroCampoNull').css('display','block');
             }

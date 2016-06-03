@@ -135,7 +135,6 @@ function carregaFiltro(data, filtro) {
 		type: "GET",
 		data: data,
 		success: function(d) {
-			console.log(d);
 			$(filtro).html(d);
 		},
 		complete: function() {
@@ -157,13 +156,13 @@ function getDadosUsuario () {
 	if ($('#box_perfil_selected').length > 0){
 		if ($('#professor_id').length > 0)
 		{
-			console.log('perfil = 2');
+			//console.log('perfil = 2');
 			perfil = 2;
 			id = $('#professor_id').attr('id_professor');
 		}
 		else
 		{
-			console.log('perfil = 4');
+			//console.log('perfil = 4');
 			perfil = 4;
 			id = $('#escola_id').attr('id_escola');
 		}
