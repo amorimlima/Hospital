@@ -16,21 +16,10 @@ use Dompdf\Dompdf;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
-$str = $_SERVER['QUERY_STRING'];
+$param = $_SERVER['QUERY_STRING'];
+$host = $_SERVER["HTTP_HOST"];
 
-/**
- *
- * Para testar em local, descomentar a linha abaixo
- *
-**/
-//$file = file_get_contents("http://localhost:8080/Hospital/pesquisa_pdf.php?".$str);
-
-/**
- *
- * Para testar em local, comentar a linha abaixo
- *
-**/
-$file = file_get_contents("http://187.73.149.26:8080//Hospital/pesquisa_pdf.php?".$str);
+$file = file_get_contents("http://{$host}/Hospital/pesquisa_pdf.php?{$param}");
 
 $dompdf->load_html($file);
 
