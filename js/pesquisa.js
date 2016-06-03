@@ -69,9 +69,37 @@ function atribuirEventos() {
             $("#ideb").addClass("obrigatorio");
         }
     });
+
+    $(".botao_modal").click(voltarParaPaginaLogin);
 }
 
 function enviarFormulario() {
-    var form = $("#pesquisa_escola").serialize();    
-    window.location.href = "pesquisa_pdf.php?"+form;
+    var form = $("#pesquisa_escola").serialize();
+
+    $.ajax({
+        url: "gerarPDF.php",
+        type: "GET",
+        dataType: "json",
+        data: form,
+        beforeSend: function() {
+            $("#enviar_pesquisa_escola").prop("disabled",true);
+            $("#limpar_pesquisa_escola").prop("disabled",true);
+            $("#enviar_pesquisa_escola").val("Aguarde...");
+        },
+        success: function() {
+            $("#mensagemPesquisaSalvaComSucesso").fadeIn(200);
+        },
+        error: function() {
+            $("#mensagemErroAoEnviarPesquisa").fadeIn(200);
+        },
+        complete: function() {
+            $("#enviar_pesquisa_escola").prop("disabled",false);
+            $("#limpar_pesquisa_escola").prop("disabled",false);
+            $("#limpar_pesquisa_escola").trigger("click");
+        }
+    });
+}
+
+function voltarParaPaginaLogin() {
+    window.location.href = "index.php";
 }
