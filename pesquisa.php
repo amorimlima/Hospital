@@ -1,4 +1,10 @@
 <?php
+if(!isset($_SESSION['PATH_SYS'])){
+   require_once '_loadPaths.inc.php'; 
+}
+
+$path = $_SESSION['PATH_SYS'];
+include_once($path['template'].'Template.php');
 
 $titulos = [
     "reuniao_de_pais"        => "a) Participam das reuniões de pais",
@@ -12,6 +18,7 @@ $titulos = [
     "acompanha_curriculo"    => "i) Acompanham os conteúdos curriculares trabalhados em sala de aula para poder ajudar os filhos nos estudos"
 ];
 
+$templateGeral = new Template();
 ?>
 
 <html>
@@ -197,13 +204,23 @@ $titulos = [
                         </fieldset>
                         <fieldset>
                             <div class="formbtns">
-                                <input type="reset" value="Limpar"/>
+                                <input type="reset" id="limpar_pesquisa_escola" value="Limpar"/>
                                 <input type="button" id="enviar_pesquisa_escola" class="btn_primary" data-form="formulario_pre_cadastro" value="Enviar" />
                             </div>
                         </fieldset>
                     </form>
                 </div>
             </div>
+        </div>
+        <div id="mensagemPesquisaSalvaComSucesso" class="modalMensagem" style="display:none">
+            <?php
+                $templateGeral->mensagemRetorno("mensagens","Pesquisa salva com sucesso.", "sucesso");
+            ?>
+        </div>
+        <div id="mensagemErroAoEnviarPesquisa" class="modalMensagem" style="display:none">
+            <?php
+                $templateGeral->mensagemRetorno("mensagens","Ocorreu um erro ao enviar a pesquisa.", "erro");
+            ?>
         </div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

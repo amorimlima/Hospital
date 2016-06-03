@@ -381,23 +381,31 @@ $(document).ready(function() {
     	var serieErro = '';
 
     	//Percorre os selects dos grupos para montar a string e verificar erro
-        $("[data-grupoAttr='serie']").each(function() {
-            if (($(this).val() != 0) && ($(this).val() != null)){
-                var contador = $(this).attr('id').replace('inputSerieProf', '');
-                //Verifica se o campo não está vazio ou se já tem um erro na série.
-                if (($("#inputPeriodoProf"+contador).val() != '') && ($("#inputPeriodoProf"+contador).val() != null) && (serieErro == '')){
-                    seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+';';
-                }else{
-                    serieErro = contador;
-                }
-             }else{
-                 //Só vai acontecer na edição
-                 if ($(this).attr('idGrupo') != undefined){
-                     //monta string 'idGrupo-;' para futura exclusão.
-                     seriesExcluir += $(this).attr('idGrupo')+';';
+    	if(acao != 'editarUsuario'){
+            $("[data-grupoAttr='serie']").each(function() {
+                if (($(this).val() != 0) && ($(this).val() != null)){
+
+                    var contador = $(this).attr('id').replace('inputSerieProf', '');
+                    //Verifica se o campo não está vazio ou se já tem um erro na série.
+                    if (($("#inputPeriodoProf"+contador).val() != '') && ($("#inputPeriodoProf"+contador).val() != null) && (serieErro == '')){
+                        //Só haverá o atributo idGrupo na edição.
+                        if ($(this).attr('idGrupo') != undefined){
+                            seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+'-'+$(this).attr('idGrupo')+';';
+                        }else{
+                            seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+';';
+                        }
+                    }else{
+                        serieErro = contador;
+                    }
+                 }else{
+                     //Só vai acontecer na edição
+                     if ($(this).attr('idGrupo') != undefined){
+                         //monta string 'idGrupo-;' para futura exclusão.
+                         seriesExcluir += $(this).attr('idGrupo')+';';
+                     }
                  }
-             }
-        })
+            })
+        }
     	
     	//Se teve erro de alguma série ficar vazia.
     	if (serieErro != ''){
@@ -777,11 +785,7 @@ $(document).ready(function() {
 	    				    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
 	    				    htmlSeries +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira							
 	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf " required msgVazio="O campo série é obrigatório">';
-                            htmlSeries +=             '<option value="1">1</option>';
-                            htmlSeries +=             '<option value="2">2</option>';
-                            htmlSeries +=             '<option value="3">3</option>';
-                            htmlSeries +=             '<option value="4">4</option>';
-	    				    htmlSeries +=             '<option value="5">5</option>';
+	    				    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
 	    				    htmlSeries +=         '</select>';
 	    				    htmlSeries +=     '</span>';
 	    				    htmlSeries += '</div>';
@@ -790,8 +794,7 @@ $(document).ready(function() {
 	    				    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
 	    				    htmlPeriod +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira
 	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf" required msgVazio="O campo período é obrigatório">';
-                            htmlPeriod +=             '<option value="1">Manhã</option>';
-	    				    htmlPeriod +=             '<option value="2">Tarde</option>';
+	    				    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
 	    				    htmlPeriod +=         '</select>';
 	    				    htmlPeriod +=     '</span>';
 	    				    htmlPeriod += '</div>';
@@ -800,20 +803,14 @@ $(document).ready(function() {
 	    				    $(idperiodoSelect).parent().parent().animate({height: "40px"}, 200);
 	    				    $(idserieSelect).parent().parent().animate({height: "40px"}, 200);
 
-	    				    // getSeries(idserieSelect,idperiodoSelect,data[i].idSerie);
-	    				    // getPeriodos(idserieSelect, idperiodoSelect,data[i].idPeriodo);
+	    				    getSeries(idserieSelect,idperiodoSelect,data[i].idSerie);
+	    				    getPeriodos(idserieSelect, idperiodoSelect,data[i].idPeriodo);
 
-	    					$('#inputSerieProf'+fieldCount).val(data[i].idSerie);
-                            $('#inputSerieProf'+fieldCount).attr("disabled", "true");
-                            $('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
-                            $('#inputPeriodoProf'+fieldCount).val(data[i].idPeriodo);
-                            $('#inputPeriodoProf'+fieldCount).attr("disabled", "true");
+	    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
 	    				}else{
 		    				$('#inputSerieProf'+fieldCount).val(data[i].idSerie);
-                            $('#inputSerieProf'+fieldCount).attr("disabled", "true");
 	    					$('#inputSerieProf'+fieldCount).attr('idGrupo',data[i].idGrupo);
 	    					$('#inputPeriodoProf'+fieldCount).val(data[i].idPeriodo);
-                            $('#inputPeriodoProf'+fieldCount).attr("disabled", "true");
 	    				}
 				
 	        }
@@ -862,12 +859,12 @@ $(document).ready(function() {
             $('#perfil').attr("disabled", "true");
             $("#inputUsuarioProf").parent().parent().hide();
             $("#inputSenhaAtualProf").parent().parent().show();
-            $('#divisao_grupo').hide();
         }
         else
             $("#inputUsuarioProf").attr("disabled", "true");
         $("label[for=inputSenhaProf] .asterisco").remove();
         $("label[for=inputSenhaConfirmProf] .asterisco").remove();
+        $('#divisao_grupo').hide();
         $("#resetarProf").hide();
         
 		
@@ -1028,12 +1025,12 @@ function formatar(mascara, documento){
     var i = documento.value.length;
     var saida = mascara.substring(0,1);
     var texto = mascara.substring(i)
-    
+
     if (texto.substring(0,1) != saida){
        documento.value += texto.substring(0,1);
     }
-  	  
-  }
+	  
+}
 
 function listaProfessores(id){
 
@@ -1626,13 +1623,9 @@ function limparCadastro(classe){
         $("#inputRgProf").removeAttr("disabled");
         $("#inputCpfProf").removeAttr("disabled");
         $("#inputUsuarioProf").removeAttr("disabled");
-        if ($("label[for=inputSenhaProf] .asterisco").length == 0)
-        {
-            $("label[for=inputSenhaProf]").append('<span class="asterisco">*</span>');
-            $("label[for=inputSenhaConfirmProf]").append('<span class="asterisco">*</span>');
-        }
+        $("label[for=inputSenhaProf]").append('<span class="asterisco">*</span>');
+        $("label[for=inputSenhaConfirmProf]").append('<span class="asterisco">*</span>')
         $("#resetarProf").show();
-        $('#divisao_grupo').show();
         $("#inputSenhaAtualProf").parent().parent().hide();
 
 	}else if (classe == 'formEscola'){
@@ -1876,6 +1869,7 @@ function gerarHtmlEscolasPendentes(data)
                 '<input type="hidden" value="'+data[i].cidade+'" id="cidade'+data[i].id+'"/>'+
                 '<input type="hidden" value="'+data[i].cep+'" id="cep'+data[i].id+'"/>'+
                 '<input type="hidden" value="'+data[i].imagem+'" id="imagem'+data[i].id+'"/>'+
+                '<input type="hidden" value="'+(data[i].documento.url ? data[i].documento.url : "")+'" id="arquivo'+data[i].id+'"/>'+
 
                 '<table border="0">'+
                     '<tr class="content_info_row">'+
@@ -1908,7 +1902,8 @@ function gerarHtmlEscolasPendentes(data)
                         '<td colspan="6"><span class="content_info_label">Site:</span> <span class="content_info_txt">'+data[i].site+'</span></td>'+
                     '</tr>'+
                     '<tr class="content_info_row">'+
-                        '<td colspan="6"><span class="content_info_label">Status:</span> <span class="content_info_txt">'+status+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">Status:</span> <span class="content_info_txt">'+status+'</span></td>'+
+                        (data[i].documento.url ? '<td colspan="3"><span class="content_info_label">PDF Pesquisa:</span> <span class="content_info_txt"><a href="arquivos/'+data[i].documento.url+'" target="_blank" class="link block">Clique aqui</a></span></td>' : '')+
                     '</tr>'+
                 '</table>';
 
@@ -1932,7 +1927,6 @@ function listarEscolasPreCadastradas()
         data: "acao=listaPendentes",
         success: function(data)
         {
-            console.log(data);
             if(data)
             {
                 var html = gerarHtmlEscolasPendentes(data);

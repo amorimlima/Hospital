@@ -4,7 +4,7 @@ require_once 'dompdf/autoload.inc.php';
 
 
 if(!isset($_SESSION['PATH_SYS'])){
-   require_once '_loadPaths.inc.php'; 
+   require_once '_loadPaths.inc.php';
 }
 
 $path = $_SESSION['PATH_SYS'];
@@ -16,9 +16,25 @@ use Dompdf\Dompdf;
 
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
-//$html = file_get_contents('pesquisa.php?'.$data;);
+$param = $_SERVER['QUERY_STRING'];
+$host = $_SERVER["HTTP_HOST"];
 
-$dompdf->loadHtml("<html>".$_GET["html"]."</html>");
+$opts = Array(
+	"http" => Array(
+		"method" => "POST",
+		"header" => "Content-type: application/x-www-form-urlencoded\r\n"
+		            . "Content-Length: " . strlen($param) . "\r\n",
+		"content" => $param
+	)
+);
+
+$context = stream_context_create($opts);
+
+$folder = (substr($_SERVER["HTTP_HOST"],0,5) == "local") ? "Hospital/" : "";
+
+$file = file_get_contents("http://{$host}/{$folder}pesquisa_pdf.php",false,$context);
+
+$dompdf->load_html($file);
 
 // (Optional) Setup the paper size and orientation
 $dompdf->setPaper('A4', 'portrait');
@@ -42,8 +58,10 @@ if($arquivo){
     $env->setVisto(0);
 
 	$envioDocumentoControler->insert($env);
-}
 
-echo '<script>window.location.href = "pesquisa.php?ok";</script>';
+	echo json_encode(["status" => "Arquivo gerado com sucesso"]);
+} else {
+	throw new Exception("Ocorreu um erro ao gerar o arquivo pdf.");
+}
 
 ?>

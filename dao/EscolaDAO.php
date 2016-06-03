@@ -274,9 +274,10 @@ class EscolaDAO extends DAO{
 
     public function buscarEscolasGrafico($par)
     {
+    	
         $sql = "SELECT DISTINCT es.esc_id, es.esc_nome FROM escola es";
         $join = "";
-        $where = "";
+        $where = " where es.esc_status = 1 ";
         if ($par['livro'] != 0){
             $join .= " JOIN liberar_capitulo lc ON lc.lbr_escola = es.esc_id";
             $where .= " AND lc.lbr_livro = ".$par['livro'];
@@ -286,8 +287,9 @@ class EscolaDAO extends DAO{
                 $join .= " JOIN liberar_capitulo lc ON lc.lbr_escola = es.esc_id";
             $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
         }
-    
+    	
         $sql = $sql.$join.$where;
+//        echo $sql;
         $result = $this->retrieve($sql);
         $lista = Array();
     
@@ -301,6 +303,7 @@ class EscolaDAO extends DAO{
             );
             array_push($lista, $item);
         }
+
         return $lista;
     }
 }

@@ -107,8 +107,6 @@ switch ($_REQUEST["acao"]) {
 			        	$usuarioVar->setUsv_status('0');
 			        	if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
 			        		else $usuarioVar->setUsv_grupo($_POST['grupo']);
-//			        	$usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
-//			        	$usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
 			        	$usuarioVar->setUsv_grau_instrucao('null');
 			        	$usuarioVar->setUsv_categoria_funcional('null');
 			        	
@@ -197,7 +195,6 @@ switch ($_REQUEST["acao"]) {
 	    	$enderecoController = new EnderecoController();
 	    	 
 	    	$idEndereco = $enderecoController->insert($endereco);
-//	    	echo $idEndereco;
 	    	if($idEndereco){
 	    		
 	    		$escola = new Escola();
@@ -249,7 +246,6 @@ switch ($_REQUEST["acao"]) {
 		    		$usuarioVar->setUsv_serie('null');
 		    		$usuarioVarController->insert($usuarioVar);
 		    		
-//		    		echo 'cadastrar usuario';
 	    			$result = Array('erro'=>false,'msg'=>'Cadastrou com sucesso!');
 	    		}else{
 	    			$result = Array('erro'=>true,'msg'=>'Erro ao cadastrar escola!');
@@ -271,8 +267,6 @@ switch ($_REQUEST["acao"]) {
 		
 		$endereco 	= 	$enderecoController->select($_POST['idEndereco']);
     	$usuario 	= 	$usuarioController->select($_POST['idUsuario']);
-    	//print_r($usuario);
-    	//Verifica se foi alterado e depois se esses dados não estão cadastrados para outros usuários.
         if ($_POST['perfil'] == '1'){
         	if ($_POST['cpf'] != $usuario->getUsr_cpf()){
         	
@@ -350,10 +344,8 @@ switch ($_REQUEST["acao"]) {
 			$usuarioVar->setUsv_ano_letivo($_POST['ano']);
 			if ($_POST['serie'] != '')
 				$usuarioVar->setUsv_serie($_POST['serie']);
-			if ($_POST['grupo'] == '') 
-				$usuarioVar->setUsv_grupo('null');
-			else 
-				$usuarioVar->setUsv_grupo($_POST['grupo']);
+			if ($_POST['grupo'] == '') $usuarioVar->setUsv_grupo('null');
+				else $usuarioVar->setUsv_grupo($_POST['grupo']);
 			// $usuarioVar->setUsv_grau_instrucao($_POST['grauInstrucao']);
 			// $usuarioVar->setUsv_categoria_funcional($_POST['categoria']);
 			$usuarioVar->setUsv_id($_POST['idUsuarioVar']);
@@ -375,24 +367,36 @@ switch ($_REQUEST["acao"]) {
 					//e se tiver do tamanho 3 deve ser editado
 					if (count($grp) > 1 ){
 						
-						if ($grp[1] == 1) 
-							$periodo = 'Manhã';
-						else 
-							$periodo = 'Tarde';
+						if ($grp[1] == 1) $periodo = 'Manhã';
+							else $periodo = 'Tarde';
 						$nomeGrupo = $_POST['nome'].' - '.$grp[0].' '.$periodo;
-						//Pega o id da escola pela sessão
-						if (!isset($escola)){ 
-		        			$u = unserialize($_SESSION['USR']);
-							$escola = $u['escola'];
-						}
 						
-						$grupo = new Grupo();
-						$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
-						$grupo->setGrp_serie($grp[0]);
-						$grupo->setGrp_periodo($grp[1]);
-						$grupo->setGrp_professor($_POST['idUsuario']);
-						$grupo->setGrp_escola($escola);
-						$grupoController->insert($grupo);
+						if (count($grp) > 2 ){
+							$grupo = $grupoController->select($grp[2]);
+							$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
+							$grupo->setGrp_serie($grp[0]);
+							$grupo->setGrp_periodo($grp[1]);
+							$grupoController->update($grupo);
+							
+						}else{
+							//Pega o id da escola pela sessão
+							if (!isset($escola)){ 
+		        				$u = unserialize($_SESSION['USR']);
+								$escola = $u['escola'];
+							}
+							
+							$grupo = new Grupo();
+							$grupo->setGrp_grupo(utf8_decode($nomeGrupo));
+							$grupo->setGrp_serie($grp[0]);
+							$grupo->setGrp_periodo($grp[1]);
+							$grupo->setGrp_professor($_POST['idUsuario']);
+							$grupo->setGrp_escola($escola);
+							$grupoController->insert($grupo);
+							
+						}
+					}else{
+						$grupoController->delete($grp[0]);
+						$usuarioVarController->removeGrupoByIdGrupo($grp[0]); 
 					}
 				}
 			}
@@ -544,8 +548,24 @@ switch ($_REQUEST["acao"]) {
 	}
 	case "listaPendentes": {
 		$escolasController = new EscolaController();
+		$envioDocController = new EnvioDocumentoController();
 		$pre_cadastros = $escolasController->selectPendentes();
 		$lista = Array();
+
+		function getDocumentoByEscolaPendente($envioDocController, $idesc) {
+			$documento = [];
+			if ($objDocumento = $envioDocController->selectDocPorEscola($idesc)) {
+				$documento = [
+					"id" => $objDocumento->getEnv_id(),
+					"idEscola" => $objDocumento->getEnv_idEscola(),
+					"idRemetente" => $objDocumento->getEnv_idRemetente(),
+					"idDestinatario" => $objDocumento->getEnv_idDestinatario(),
+					"url" => $objDocumento->getEnv_url(),
+				];
+			}
+
+			return $documento;
+		}
 
 		if ( count($pre_cadastros) > 0 ) {
 			foreach($pre_cadastros as $escola => $valor) {
@@ -577,6 +597,7 @@ switch ($_REQUEST["acao"]) {
 						"id" 			=> utf8_encode($valor->getEsc_administracao()->getadm_id()),
 						"administracao"	=> utf8_encode($valor->getEsc_administracao()->getadm_administracao())
 					),
+					"documento" 	=> getDocumentoByEscolaPendente($envioDocController, $valor->getEsc_id()),
 					"status"		=> utf8_encode($valor->getEsc_status()),
 					"site"			=> utf8_encode($valor->getEsc_site()),
 					"diretor"		=> utf8_encode($valor->getEsc_nome_diretor()),

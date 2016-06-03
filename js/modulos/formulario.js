@@ -13,7 +13,7 @@ function Formulario(attr) {
     this.aoInvalidar = attr.aoInvalidar ? attr.aoInvalidar : function () {return false;};
 
     this.aplicarMascaras = function () {
-        $("#" + self.idFormulario).find(".cep").mask("99999-999");
+        $("#" + self.idFormulario).find(".cep").mask("99.999-999");
         $("#" + self.idFormulario).find(".tel").mask("(99) 9999-9999");
         $("#" + self.idFormulario).find(".cel").mask("(99) 99999-9999");
         $("#" + self.idFormulario).find(".cpf").mask("999.999.999-99");
