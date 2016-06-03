@@ -17,8 +17,10 @@ use Dompdf\Dompdf;
 // instantiate and use the dompdf class
 $dompdf = new Dompdf();
 //$html = file_get_contents('pesquisa.php?'.$data;);
+$str = $_SERVER['QUERY_STRING'];
+$file = file_get_contents("http://localhost:8080/Hospital/pesquisa_pdf.php?".$str);
 
-$dompdf->loadHtml("<html>".$_GET["html"]."</html>");
+$dompdf->load_html($file);
 
 // (Optional) Setup the paper size and orientation
 $dompdf->setPaper('A4', 'portrait');
@@ -42,8 +44,10 @@ if($arquivo){
     $env->setVisto(0);
 
 	$envioDocumentoControler->insert($env);
-}
 
-echo '<script>window.location.href = "pesquisa.php?ok";</script>';
+	echo json_encode(["status" => "Arquivo gerado com sucesso"]);
+} else {
+	throw new Exception("Ocorreu um erro ao gerar o arquivo pdf.");
+}
 
 ?>
