@@ -400,14 +400,3 @@ function adicionarAlunosGrupo() {
     $('.modal-backdrop').show();
     $('#cancelarGrupo').trigger('click');
 }
-
-function botaoModal() {
-	$('.botao_modal').click(function(){
-        hideModal();
-    });
-}
-
-function hideModal(){
-    $('.modal-backdrop').hide();
-    $('.modal').hide();
-}
