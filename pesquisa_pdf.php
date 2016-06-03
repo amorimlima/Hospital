@@ -1,39 +1,39 @@
 <?php
 
 // Tipo da escola
-$tipo_educacao_infantil 	= isset($_GET["tipo_educacao_infantil"]) ? "<li>Educação infantil</li>" : "";
-$tipo_ensino_fund_1 		= isset($_GET["tipo_ensino_fund_1"]) ? "<li>Ensino Fundamental I</li>" : "";
-$tipo_ensino_fund_2 		= isset($_GET["tipo_ensino_fund_2"]) ? "<li>Ensino Fundamental II</li>" : "";
-$tipo_ensino_medio 			= isset($_GET["tipo_ensino_medio"]) ? "<li>Ensino Médio</li>" : "";
-$tipo_tecnico_profissional 	= isset($_GET["tipo_tecnico_profissional"]) ? "<li>Ensino técnico profissionalizante</li>" : "";
-$tipo_formacao_professores 	= isset($_GET["tipo_formacao_professores"]) ? "<li>Formação de professores</li>" : "";
-$tipo_outro_especificacao 	= isset($_GET["tipo_outro_especificacao"]) ? "<li>{$_GET["tipo_outro_especificacao"]}</li>" : "";
+$tipo_educacao_infantil 	= isset($_REQUEST["tipo_educacao_infantil"]) ? "<li>Educação infantil</li>" : "";
+$tipo_ensino_fund_1 		= isset($_REQUEST["tipo_ensino_fund_1"]) ? "<li>Ensino Fundamental I</li>" : "";
+$tipo_ensino_fund_2 		= isset($_REQUEST["tipo_ensino_fund_2"]) ? "<li>Ensino Fundamental II</li>" : "";
+$tipo_ensino_medio 			= isset($_REQUEST["tipo_ensino_medio"]) ? "<li>Ensino Médio</li>" : "";
+$tipo_tecnico_profissional 	= isset($_REQUEST["tipo_tecnico_profissional"]) ? "<li>Ensino técnico profissionalizante</li>" : "";
+$tipo_formacao_professores 	= isset($_REQUEST["tipo_formacao_professores"]) ? "<li>Formação de professores</li>" : "";
+$tipo_outro_especificacao 	= isset($_REQUEST["tipo_outro_especificacao"]) ? "<li>{$_REQUEST["tipo_outro_especificacao"]}</li>" : "";
 
 // Dados gerais da escola
-$ideb 					= isset($_GET["ideb_nulo"]) ? "Não fornecido" : $_GET["ideb"];
-$projetos_anteriores 	= isset($_GET["projetos_anteriores_null"]) ? "Não participou de nenhum projeto" : $_GET["projetos_anteriores"];
-$sala_info 				= $_GET["sala_info"] == 1 ? "Sim" : "Não";
-$acesso_internet 		= ($_GET["sala_info"] == 1 && $_GET["acesso_internet"] == 1) ? "Sim" : "Não";
+$ideb 					= isset($_REQUEST["ideb_nulo"]) ? "Não fornecido" : $_REQUEST["ideb"];
+$projetos_anteriores 	= isset($_REQUEST["projetos_anteriores_null"]) ? "Não participou de nenhum projeto" : $_REQUEST["projetos_anteriores"];
+$sala_info 				= $_REQUEST["sala_info"] == 1 ? "Sim" : "Não";
+$acesso_internet 		= ($_REQUEST["sala_info"] == 1 && $_REQUEST["acesso_internet"] == 1) ? "Sim" : "Não";
 
 // Questões familiares
-$atividades_familiares 	= (isset($_GET["atividades_familia"]) && $_GET["atividades_familia"] == 1) ? $_GET["atividades_familiares"] : "Não";
+$atividades_familiares 	= (isset($_REQUEST["atividades_familia"]) && $_REQUEST["atividades_familia"] == 1) ? $_REQUEST["atividades_familiares"] : "Não";
 
 // Dados sobre os pais
-$reuniao_de_pais 		= $_GET["reuniao_de_pais"];
-$procura_professor 		= $_GET["procura_professor"];
-$atividades_extra 		= $_GET["atividades_extra"];
-$reforco_rec 			= $_GET["reforco_rec"];
-$recursos_basicos 		= $_GET["recursos_basicos"];
-$atividades_recreativas = $_GET["atividades_recreativas"];
-$canais_comunicacao 	= $_GET["canais_comunicacao"];
-$auxilia_filhos 		= $_GET["auxilia_filhos"];
-$acompanha_curriculo 	= $_GET["acompanha_curriculo"];
+$reuniao_de_pais 		= $_REQUEST["reuniao_de_pais"];
+$procura_professor 		= $_REQUEST["procura_professor"];
+$atividades_extra 		= $_REQUEST["atividades_extra"];
+$reforco_rec 			= $_REQUEST["reforco_rec"];
+$recursos_basicos 		= $_REQUEST["recursos_basicos"];
+$atividades_recreativas = $_REQUEST["atividades_recreativas"];
+$canais_comunicacao 	= $_REQUEST["canais_comunicacao"];
+$auxilia_filhos 		= $_REQUEST["auxilia_filhos"];
+$acompanha_curriculo 	= $_REQUEST["acompanha_curriculo"];
 
 // Dados sobre a participação no projeto
-$motivos_participacao 	= $_GET["motivos_participacao"];
-$acesso_plataforma 		= isset($_GET["acesso_plataforma"]) ? "Sim" : "Não";
-$download_offline 		= isset($_GET["download_offline"]) ? "Sim" : "Não";
-$download_impressao 	= isset($_GET["download_impressao"]) ? "Sim" : "Não";
+$motivos_participacao 	= $_REQUEST["motivos_participacao"];
+$acesso_plataforma 		= isset($_REQUEST["acesso_plataforma"]) ? "Sim" : "Não";
+$download_offline 		= isset($_REQUEST["download_offline"]) ? "Sim" : "Não";
+$download_impressao 	= isset($_REQUEST["download_impressao"]) ? "Sim" : "Não";
 
 $info_salas = [];
 $info_salas["1º ano"] = [];
@@ -45,10 +45,10 @@ $info_salas["5º ano"] = [];
 foreach ($info_salas as $ano => $vetor) {
 	$num_ano = substr($ano, 0, 1);
 
-	array_push($info_salas[$ano], $_GET["total_alunos_" . $num_ano . "ano"]);
-	array_push($info_salas[$ano], $_GET["total_alunos_part_" . $num_ano . "ano"]);
-	array_push($info_salas[$ano], $_GET["total_salas_" . $num_ano . "ano"]);
-	array_push($info_salas[$ano], $_GET["total_salas_part_" . $num_ano . "ano"]);
+	array_push($info_salas[$ano], $_REQUEST["total_alunos_" . $num_ano . "ano"]);
+	array_push($info_salas[$ano], $_REQUEST["total_alunos_part_" . $num_ano . "ano"]);
+	array_push($info_salas[$ano], $_REQUEST["total_salas_" . $num_ano . "ano"]);
+	array_push($info_salas[$ano], $_REQUEST["total_salas_part_" . $num_ano . "ano"]);
 }
 ?>
 <html>
@@ -95,7 +95,7 @@ foreach ($info_salas as $ano => $vetor) {
 										<?= $sala_info ?>
 									</div>
 
-									<?php if ($_GET["sala_info"] == 1) { ?>
+									<?php if ($_REQUEST["sala_info"] == 1) { ?>
 
 									<div>
 										<span>Acesso à internet:</span>
@@ -110,10 +110,10 @@ foreach ($info_salas as $ano => $vetor) {
 								<div class="info_content">
 									<div>
 										<div>A escola possui atividades para aumentar o envolvimeno da família?</div>
-										<div><?= ($_GET["atividades_familia"] == 1 ? "Sim" : "Não") ?></div>
+										<div><?= ($_REQUEST["atividades_familia"] == 1 ? "Sim" : "Não") ?></div>
 									</div>
 
-									<?php if ($_GET["atividades_familia"] == 1) { ?>
+									<?php if ($_REQUEST["atividades_familia"] == 1) { ?>
 
 									<div>
 										<?= $atividades_familiares ?>
