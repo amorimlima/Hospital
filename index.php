@@ -181,7 +181,7 @@ $adms = $AdmController->selectAll();
 	                                <div class="formfield formfield-s">
 	                                    <label for="cep">CEP</label>
 	                                    <span>
-	                                        <input class="cep obrigatorio" id="cep" name="end_cep" type="text" placeholder="00000-000" msgVazio="O campo CEP é obrigatório" />
+	                                        <input class="cep obrigatorio" id="cep" name="end_cep" type="text" placeholder="00.000-000" msgVazio="O campo CEP é obrigatório" />
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-g">
