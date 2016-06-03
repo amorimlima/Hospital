@@ -1836,7 +1836,6 @@ function verificarPadraoSenha(perfil)
 
 function gerarHtmlEscolasPendentes(data)
 {
-     console.log(data);
     var html = "";
     for (var i in data)
     {
@@ -1928,7 +1927,6 @@ function listarEscolasPreCadastradas()
         data: "acao=listaPendentes",
         success: function(data)
         {
-            console.log(data);
             if(data)
             {
                 var html = gerarHtmlEscolasPendentes(data);

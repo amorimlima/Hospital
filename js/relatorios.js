@@ -160,7 +160,6 @@ function getDadosUsuario () {
 		}
 		else
 		{
-			console.log('perfil = 4');
 			perfil = 4;
 			id = $('#escola_id').attr('id_escola');
 		}
@@ -196,7 +195,7 @@ function getDadosUsuario () {
 
 function viewEscola(escola)
 {
-	var htmlEscSelected = "";
+	var htmlEscSelected = "";	
 
 	htmlEscSelected +=	'<div id="box_perfil_selected" class="box_perfil_selected ficha_dados">';
 	htmlEscSelected +=		'<div class="foto_perfil_selected"></div>';
@@ -229,7 +228,7 @@ function viewProfessorSelected(professor)
 	htmlProfSelected += 	'<input type="hidden" id="professor_id" id_professor="'+professor.id+'"/>';
 	htmlProfSelected += 	'<input type="hidden" id="escola_id" id_escola="'+professor.escola+'"/>';
 	htmlProfSelected +=			'<div class="nome_perfil_selected">'+professor.nome+'</div>';
-	htmlProfSelected +=			'<div class="dados_perfil_selected">Escola: '+professor.escola.nome+' | Entrada na escola: '+data_entrada+'</div>';
+	htmlProfSelected +=			'<div class="dados_perfil_selected">Escola: '+professor.escola_nome+' | Entrada na escola: '+data_entrada+'</div>';
 	htmlProfSelected +=			'<div class="dados_perfil_selected">RG: '+rg+' | CPF: '+cpf+' | Data de nascimento: '+data_nascimento+'</div>';
 	htmlProfSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span id="editar_grupos">Editar grupos</span></div>';
 	htmlProfSelected +=		'</div>';

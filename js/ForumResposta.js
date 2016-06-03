@@ -50,7 +50,6 @@ $(document).ready(function ()
     
     $("#btnCarregarFrr").click(function() {
         var min = $(this).attr("data-min");
-        console.log(min);
         listarRespostas(idfrq,min);
     });
 });
