@@ -19,7 +19,6 @@ $titulos = [
 ];
 
 $templateGeral = new Template();
-
 ?>
 
 <html>
