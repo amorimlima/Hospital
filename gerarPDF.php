@@ -18,8 +18,9 @@ use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 $param = $_SERVER['QUERY_STRING'];
 $host = $_SERVER["HTTP_HOST"];
+$folder = (substr($_SERVER["HTTP_HOST"],0,5) == "local") ? "Hospital/" : "";
 
-$file = file_get_contents("http://{$host}/Hospital/pesquisa_pdf.php?{$param}");
+$file = file_get_contents("http://{$host}/{$folder}pesquisa_pdf.php?{$param}");
 
 $dompdf->load_html($file);
 
