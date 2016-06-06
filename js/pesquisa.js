@@ -77,7 +77,7 @@ function enviarFormulario() {
     var form = $("#pesquisa_escola").serialize();
 
     $.ajax({
-        url: "gerarPDF.php",
+        url: "geradorJSON.php",
         type: "POST",
         dataType: "json",
         data: form,
@@ -86,8 +86,9 @@ function enviarFormulario() {
             $("#limpar_pesquisa_escola").prop("disabled",true);
             $("#enviar_pesquisa_escola").val("Aguarde...");
         },
-        success: function() {
+        success: function(d) {
             $("#mensagemPesquisaSalvaComSucesso").fadeIn(200);
+            console.log(d);
         },
         error: function() {
             $("#mensagemErroAoEnviarPesquisa").fadeIn(200);

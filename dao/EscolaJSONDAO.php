@@ -26,8 +26,9 @@ class EscolaJSONDAO extends DAO{
 
     public function insert($ejs)
     {
-        $sql  = "insert into escola_json (ejs_escola, ejs_string) values ";
-        $sql .= "('".$ejs->getEjs_escola()."''".$ejs->getEjs_string()."')";
+        $sql  = "insert into escola_json (esj_escola, esj_string) values ";
+        $sql .= "('".$ejs->getEjs_escola()."', '".$ejs->getEjs_string()."')";
+        echo $sql;
         return $this->execute($sql);
     }
 
