@@ -78,7 +78,7 @@ function enviarFormulario() {
 
     $.ajax({
         url: "gerarPDF.php",
-        type: "GET",
+        type: "POST",
         dataType: "json",
         data: form,
         beforeSend: function() {
