@@ -28,7 +28,6 @@ class EscolaJSONDAO extends DAO{
     {
         $sql  = "insert into escola_json (esj_escola, esj_string) values ";
         $sql .= "('".$ejs->getEjs_escola()."', '".$ejs->getEjs_string()."')";
-        echo $sql;
         return $this->execute($sql);
     }
 
@@ -79,6 +78,18 @@ class EscolaJSONDAO extends DAO{
     {
         $sql = "INSERT INTO escola_json (ejs_escola, ejs_string) VALUES ('{$ejs->getEjs_escola()}', '{$ejs->getEjs_string}')";
         return $this->executeAndReturnLastID($sql);
+    }
+
+    public function selectByIdEscola($idesc)
+    {
+        $sql = "SELECT * FROM escola_json WHERE esj_escola = {$idesc}";
+        $result = $this->retrieve($sql);
+
+        if ($qr = mysqli_fetch_array($result))
+            return ["esj_id" => $qr["esj_id"], "ejs_escola" => $qr["esj_escola"], "esj_string" => $qr["esj_string"]];
+        else
+            return false;
+
     }
 }
 ?>

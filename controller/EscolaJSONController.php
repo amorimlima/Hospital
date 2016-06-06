@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['PATH_SYS'])){
-   session_start();  
+   session_start();
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'EscolaJSONDAO.php');
@@ -17,34 +17,34 @@ include_once($path['dao'].'EscolaJSONDAO.php');
  */
 class EscolaJSONController {
     //put your code here
-    
+
     private $escolaJSONDAO;
     public function __construct()
 	{
 		$this->escolaJSONDAO = new EscolaJSONDAO(new DataAccess());
 	}
-	
+
 	public function insert($ejs)
 	{
 		return $this->escolaJSONDAO->insert($ejs);
 	}
-	
+
 	public function update($ejs)
 	{
 		return $this->escolaJSONDAO->update($ejs);
 	}
-	
+
 	public function delete($idejs)
 	{
 		return $this->escolaJSONDAO->delete($idejs);
 	}
-	
+
 	public function select($idejs)
 	{
 		$ejs = $this->escolaJSONDAO->select($idejs);
 		return $ejs;
 	}
-	
+
 	public function selectAll()
 	{
 		$ejs = $this->escolaJSONDAO->selectFull();
@@ -54,6 +54,11 @@ class EscolaJSONController {
 	public function insertAndReturnId($ejs)
 	{
 		return $this->escolaJSONDAO->insertAndReturnId($ejs);
+	}
+
+	public function selectByIdEscola($idesc)
+	{
+		return $this->escolaJSONDAO->selectByIdEscola($idesc);
 	}
 }
 ?>

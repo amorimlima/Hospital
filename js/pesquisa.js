@@ -77,10 +77,10 @@ function enviarFormulario() {
     var form = $("#pesquisa_escola").serialize();
 
     $.ajax({
-        url: "geradorJSON.php",
+        url: "ajax/EscolaJSONAjax.php",
         type: "POST",
         dataType: "json",
-        data: form,
+        data: "acao=novoPreCadastro&"+form,
         beforeSend: function() {
             $("#enviar_pesquisa_escola").prop("disabled",true);
             $("#limpar_pesquisa_escola").prop("disabled",true);
