@@ -24,38 +24,38 @@ class EscolaJSONDAO extends DAO{
         parent::__construct($da);
     }
 
-    public function insert($ejs)
+    public function insert($esj)
     {
         $sql  = "insert into escola_json (esj_escola, esj_string) values ";
-        $sql .= "('".$ejs->getEjs_escola()."', '".$ejs->getEjs_string()."')";
+        $sql .= "('".$esj->getEjs_escola()."', '".$esj->getEjs_string()."')";
         return $this->execute($sql);
     }
 
-    public function update($ejs)
+    public function update($esj)
     {
-        $sql  = "update escola_json set ejs_string = '".$ejs->getEjs_string()."',";
-        $sql .= "where ejs_id = ".$ejs->getEjs_id()." limit 1";
+        $sql  = "update escola_json set esj_string = '".$esj->getEsj_string()."',";
+        $sql .= "where esj_id = ".$esj->getEsj_id()." limit 1";
         return $this->execute($sql);
     }
 
-    public function delete($idejs)
+    public function delete($idesj)
     {
-        $sql = "delete from escola_json where ejs_id = ".$idejs."";
+        $sql = "delete from escola_json where esj_id = ".$idesj."";
         return $this->execute($sql);
     }
 
-    public function select($idejs)
+    public function select($idesj)
     {
-        $sql = "select * from escola_json where ejs_id = ".$idejs." ";
+        $sql = "select * from escola_json where esj_id = ".$idesj." ";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
 
-        $ejs = new EscolaJSON();
-        $ejs->setEjs_id($qr["ejs_id"]);
-        $ejs->setEjs_escola($qr["ejs_escola"]);
-        $ejs->setEjs_string($qr["ejs_string"]);
+        $esj = new EscolaJSON();
+        $esj->setEsj_id($qr["esj_id"]);
+        $esj->setEsj_escola($qr["esj_escola"]);
+        $esj->setEsj_string($qr["esj_string"]);
 
-        return $ejs;
+        return $esj;
     }
 
     public function selectFull()
@@ -65,18 +65,18 @@ class EscolaJSONDAO extends DAO{
         $lista = array();
         while ($qr = mysqli_fetch_array($result))
         {
-            $ejs = new EscolaJSON();
-            $ejs->setEjs_id($qr["ejs_id"]);
-            $ejs->setEjs_escola($qr["ejs_escola"]);
-            $ejs->setEjs_string($qr["ejs_string"]);
-            array_push($lista, $ejs);
+            $esj = new EscolaJSON();
+            $esj->setEsj_id($qr["esj_id"]);
+            $esj->setEsj_escola($qr["esj_escola"]);
+            $esj->setEsj_string($qr["esj_string"]);
+            array_push($lista, $esj);
         }
         return $lista;
     }
 
-    public function insertAndReturnId($ejs)
+    public function insertAndReturnId($esj)
     {
-        $sql = "INSERT INTO escola_json (ejs_escola, ejs_string) VALUES ('{$ejs->getEjs_escola()}', '{$ejs->getEjs_string}')";
+        $sql = "INSERT INTO escola_json (esj_escola, esj_string) VALUES ('{$esj->getEsj_escola()}', '{$esj->getEsj_string}')";
         return $this->executeAndReturnLastID($sql);
     }
 
@@ -86,7 +86,14 @@ class EscolaJSONDAO extends DAO{
         $result = $this->retrieve($sql);
 
         if ($qr = mysqli_fetch_array($result))
-            return ["esj_id" => $qr["esj_id"], "ejs_escola" => $qr["esj_escola"], "esj_string" => $qr["esj_string"]];
+        {
+            $esj = new EscolaJSON();
+            $esj->setEsj_id($qr["esj_id"]);
+            $esj->setEsj_escola($qr["esj_escola"]);
+            $esj->setEsj_string($qr["esj_string"]);
+
+            return $esj;
+        }
         else
             return false;
 
