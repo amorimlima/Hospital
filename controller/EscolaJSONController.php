@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['PATH_SYS'])){
-   session_start();  
+   session_start();
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['dao'].'EscolaJSONDAO.php');
@@ -17,43 +17,49 @@ include_once($path['dao'].'EscolaJSONDAO.php');
  */
 class EscolaJSONController {
     //put your code here
-    
+
     private $escolaJSONDAO;
     public function __construct()
 	{
 		$this->escolaJSONDAO = new EscolaJSONDAO(new DataAccess());
 	}
-	
-	public function insert($ejs)
+
+	public function insert($esj)
 	{
-		return $this->escolaJSONDAO->insert($ejs);
-	}
-	
-	public function update($ejs)
-	{
-		return $this->escolaJSONDAO->update($ejs);
-	}
-	
-	public function delete($idejs)
-	{
-		return $this->escolaJSONDAO->delete($idejs);
-	}
-	
-	public function select($idejs)
-	{
-		$ejs = $this->escolaJSONDAO->select($idejs);
-		return $ejs;
-	}
-	
-	public function selectAll()
-	{
-		$ejs = $this->escolaJSONDAO->selectFull();
-		return $ejs;
+		return $this->escolaJSONDAO->insert($esj);
 	}
 
-	public function insertAndReturnId($ejs)
+	public function update($esj)
 	{
-		return $this->escolaJSONDAO->insertAndReturnId($ejs);
+		return $this->escolaJSONDAO->update($esj);
+	}
+
+	public function delete($idesj)
+	{
+		return $this->escolaJSONDAO->delete($idesj);
+	}
+
+	public function select($idesj)
+	{
+		$esj = $this->escolaJSONDAO->select($idesj);
+		return $esj;
+	}
+
+	public function selectAll()
+	{
+		$esj = $this->escolaJSONDAO->selectFull();
+		return $esj;
+	}
+
+	public function insertAndReturnId($esj)
+	{
+		return $this->escolaJSONDAO->insertAndReturnId($esj);
+	}
+
+	public static function selectByIdEscola($idesc)
+	{
+		$esjDAO = new EscolaJSONDAO(new DataAccess());
+		return $esjDAO->selectByIdEscola($idesc)->getEsj_string();
 	}
 }
 ?>
