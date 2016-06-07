@@ -42,8 +42,10 @@ switch ($_REQUEST["acao"])
 			$dompdf = new Dompdf();
 
 			$host = $_SERVER["HTTP_HOST"];
+			echo $host;
+			die();
 
-			$folder = (substr($_SERVER["HTTP_HOST"],0,5) == "local") ? "Hospital/" : "";
+			$folder = ($_SERVER["HTTP_HOST"] == "187.73.149.26:8080" ? "" : "Hospital/";
 			$file = file_get_contents("http://{$host}/{$folder}pesquisa_pdf.php?idesc=".$_GET["idesc"]);
 
 			// Carrega o conteúdo da página
