@@ -43,7 +43,7 @@ switch ($_REQUEST["acao"])
 
 			$host = $_SERVER["HTTP_HOST"];
 
-			$folder = (substr($_SERVER["HTTP_HOST"],0,5) == "local") ? "Hospital/" : "";
+			$folder = (strpos($_SERVER["HTTP_HOST"],"calhost") ? "Hospital/" : "");
 			$file = file_get_contents("http://{$host}/{$folder}pesquisa_pdf.php?idesc=".$_GET["idesc"]);
 
 			// Carrega o conteúdo da página
