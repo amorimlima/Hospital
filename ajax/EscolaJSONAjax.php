@@ -62,12 +62,13 @@ switch ($_REQUEST["acao"])
 			$rand = rand(1,500);
 			$rand2 = rand(1,500);
 			$nomeCrip = md5("arquivo".$rand.$rand2);
-			
-			if($arquivo){
+
+			if ($arquivo)
+			{
 				file_put_contents($path['arquivos'].$nomeCrip.'.pdf',$arquivo);
 
 				$env = new EnvioDocumento();
-			    $env->setEnv_idEscola($_SESSION['idEscolaPre']);
+			    $env->setEnv_idEscola($_GET['idesc']);
 			    $env->setEnv_idRemetente(1);
 			    $env->setEnv_idDestinatario(4);
 			    $env->setEnv_url($nomeCrip.'.pdf');
@@ -76,14 +77,11 @@ switch ($_REQUEST["acao"])
 				$envioDocumentoControler->insert($env);
 
 				echo json_encode(["status" => "Arquivo gerado com sucesso", "arquivo" => $nomeCrip.".pdf"]);
-			} else {
+			} else
 				throw new Exception("Ocorreu um erro ao gerar o arquivo pdf.");
-			}
 		}
 		else
-		{
 			throw new Exception("Parâmetro 'idesc' ausente.", 1);
-		}
 
 		break;
 	}
