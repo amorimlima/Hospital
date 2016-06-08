@@ -1837,10 +1837,13 @@ function verificarPadraoSenha(perfil)
 function gerarHtmlEscolasPendentes(data)
 {
     var html = "";
+
     for (var i in data)
     {
         var status = "";
+        var arquivo = "";
 
+        // Verificar o status da escola
         if (data[i].status == 0)
             status = 'Inativo'
         else if (data[i].status == 1)
@@ -1848,8 +1851,16 @@ function gerarHtmlEscolasPendentes(data)
         else if (data[i].status == 2)
             status = 'Rejeitado'
 
+        // Verificar se já existe um arquivo pdf gerado. Se não, atribuir evento para gerar.
+        if (data[i].documento.url !== undefined)
+            arquivo = "<a id='arquivo"+data[i].id+"' target='_blank' href='arquivos/"+data[i].documento.url+"' class='link'>Clique aqui</a>";
+        else
+            arquivo = "<span id='arquivo"+data[i].id+"' class='link' onclick='getArquivoPesquisaByEscolaPendente(\""+data[i].id+"\")'>Clique aqui</span>";
+
         var collapseContent = usuario.perfil == "4"? '' : 'data-toggle="collapse"';
         var collapse = usuario.perfil == "4"? '' : 'collapse';
+
+        // Itens do acordeon com as escolas
         html +=
             '<a href="#confirmEscCont'+data[i].id+'" class="accordion_info_toggler confirmEscToggler" '+collapseContent+'>'+
                 '<div class="accordion_info confirmEscInfo'+data[i].id+'" id="confirmEscInfo'+data[i].id+'">'+data[i].nome+'</div>'+
@@ -1857,24 +1868,11 @@ function gerarHtmlEscolasPendentes(data)
             '<div class="accordion_content '+collapse+'" id="confirmEscCont'+data[i].id+'">'+
                 '<div class="content_col_info">';
 
+        // Tabela contendo os dados da escola
         html +=
-                //Campos hiddens de dados
-                '<input type="hidden" value="'+data[i].nse+'" id="nse'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+data[i].codigo+'" id="codigo'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+data[i].rua+'" id="rua'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+data[i].bairro+'" id="bairro'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+data[i].numero+'" id="numero'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+data[i].complemento+'" id="complemento'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+data[i].estado+'" id="estado'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+data[i].cidade+'" id="cidade'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+data[i].cep+'" id="cep'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+data[i].imagem+'" id="imagem'+data[i].id+'"/>'+
-                '<input type="hidden" value="'+(data[i].documento.url ? data[i].documento.url : "")+'" id="arquivo'+data[i].id+'"/>'+
-
                 '<table border="0">'+
                     '<tr class="content_info_row">'+
                         '<td colspan="6"><span class="content_info_label">Razão Social: </span><span id="razao'+data[i].id+'" class="content_info_txt">'+ data[i].razaoSocial +'</span></td>'+
-                        //'<td colspan="2"><span class="content_info_label">Sala: </span><span class="content_info_txt">'+data[i].sala + '</span></td>'+
                     '</tr>'+
                     '<tr class="content_info_row">'+
                         '<td colspan="2"><span class="content_info_label">CNPJ: </span><span id="cnpj'+data[i].id+'" class="content_info_txt">'+data[i].cnpj+'</span></td>'+
@@ -1903,7 +1901,7 @@ function gerarHtmlEscolasPendentes(data)
                     '</tr>'+
                     '<tr class="content_info_row">'+
                         '<td colspan="3"><span class="content_info_label">Status:</span> <span class="content_info_txt">'+status+'</span></td>'+
-                        (data[i].documento.url ? '<td colspan="3"><span class="content_info_label">PDF Pesquisa:</span> <span class="content_info_txt"><a href="arquivos/'+data[i].documento.url+'" target="_blank" class="link block">Clique aqui</a></span></td>' : '')+
+                        '<td colspan="3"><span class="content_info_label">PDF Pesquisa:</span> '+arquivo+'</td>'+
                     '</tr>'+
                 '</table>';
 
@@ -2026,4 +2024,41 @@ function countListaEscolaPendetes()
 function showAlertSemEscolasPendentes()
 {
     $(".confirm_escola_accordion").html("<div class='alert alert-warning'>Nenhuma escola com cadastro pendente.</div>");
+}
+
+function getArquivoPesquisaByEscolaPendente(idesc)
+{
+    $.ajax({
+        url: "ajax/EscolaJSONAjax.php",
+        type: "GET",
+        dataType: "json",
+        data: "acao=getAquivoPdf&idesc="+idesc,
+        beforeSend: function()
+        {
+            $("#arquivo"+idesc).text("Aguarde...");
+            $("#arquivo"+idesc).css("pointer-events","none");
+        },
+        success: function(data)
+        {
+            showArquivoPesquisaGerado(idesc, data.arquivo);
+        },
+        error: function()
+        {
+            console.error("Erro ao gerar arquivo");
+        },
+        complete: function()
+        {
+            $("#arquivo"+idesc).text("Ver arquivo");
+            $("#arquivo"+idesc).css("pointer-events","auto");
+        }
+    });
+}
+
+function showArquivoPesquisaGerado(idesc, arquivo)
+{
+    var url = window.location.href;
+    var path = url.slice(0, url.lastIndexOf("/"))+"/arquivos/"+arquivo;
+
+    $("#arquivo"+idesc).attr("onclick","showArquivoPesquisaGerado('"+idesc+"','"+arquivo+"')");
+    window.open(path, "_blank");
 }

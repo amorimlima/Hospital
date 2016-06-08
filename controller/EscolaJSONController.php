@@ -24,41 +24,42 @@ class EscolaJSONController {
 		$this->escolaJSONDAO = new EscolaJSONDAO(new DataAccess());
 	}
 
-	public function insert($ejs)
+	public function insert($esj)
 	{
-		return $this->escolaJSONDAO->insert($ejs);
+		return $this->escolaJSONDAO->insert($esj);
 	}
 
-	public function update($ejs)
+	public function update($esj)
 	{
-		return $this->escolaJSONDAO->update($ejs);
+		return $this->escolaJSONDAO->update($esj);
 	}
 
-	public function delete($idejs)
+	public function delete($idesj)
 	{
-		return $this->escolaJSONDAO->delete($idejs);
+		return $this->escolaJSONDAO->delete($idesj);
 	}
 
-	public function select($idejs)
+	public function select($idesj)
 	{
-		$ejs = $this->escolaJSONDAO->select($idejs);
-		return $ejs;
+		$esj = $this->escolaJSONDAO->select($idesj);
+		return $esj;
 	}
 
 	public function selectAll()
 	{
-		$ejs = $this->escolaJSONDAO->selectFull();
-		return $ejs;
+		$esj = $this->escolaJSONDAO->selectFull();
+		return $esj;
 	}
 
-	public function insertAndReturnId($ejs)
+	public function insertAndReturnId($esj)
 	{
-		return $this->escolaJSONDAO->insertAndReturnId($ejs);
+		return $this->escolaJSONDAO->insertAndReturnId($esj);
 	}
 
-	public function selectByIdEscola($idesc)
+	public static function selectByIdEscola($idesc)
 	{
-		return $this->escolaJSONDAO->selectByIdEscola($idesc);
+		$esjDAO = new EscolaJSONDAO(new DataAccess());
+		return $esjDAO->selectByIdEscola($idesc)->getEsj_string();
 	}
 }
 ?>

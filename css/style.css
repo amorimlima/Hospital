@@ -31,6 +31,11 @@ p,a{
 .align-left{
 	text-align:left;
 }
+.link:hover, .link:focus, .link:active {
+	color: #23527c;
+	text-decoration: underline;
+	cursor: pointer;
+}
 
 a, a:visited, a:focus, a:active, a:hover{
     outline:0 none !important;

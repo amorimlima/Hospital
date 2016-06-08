@@ -141,6 +141,7 @@
 	z-index: 999;
     width: 22px;
     height: 22px;
+    cursor: pointer;
 }
 .obj_icone_ativo{
 	position: absolute;
