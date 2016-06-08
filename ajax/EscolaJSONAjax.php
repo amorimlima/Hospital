@@ -10,7 +10,6 @@ include_once($path['controller'].'EnvioDocumentoController.php');
 require_once '../dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
 
-
 switch ($_REQUEST["acao"])
 {
 	case "novoPreCadastro":
