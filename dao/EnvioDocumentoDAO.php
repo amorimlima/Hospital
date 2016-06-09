@@ -31,7 +31,7 @@ class EnvioDocumentoDAO extends DAO{
         $sql .= "(".$env->getEnv_idEscola().",";
         $sql .= "".$env->getEnv_idRemetente().",".$env->getEnv_idDestinatario().",";
         $sql .= "'".$env->getEnv_url()."','".$env->getVisto()."')";
-    	return $this->executeAndReturnLastID($sql);
+    	return $this->execute($sql);
      }
      
      public function update($env)
