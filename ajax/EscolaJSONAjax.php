@@ -8,6 +8,7 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['controller'].'EscolaJSONController.php');
 include_once($path['controller'].'EnvioDocumentoController.php');
 require_once '../dompdf/autoload.inc.php';
+require_once '../pesquisa_pdf.php';
 use Dompdf\Dompdf;
 
 
@@ -44,22 +45,11 @@ switch ($_REQUEST["acao"])
 				$dompdf = new Dompdf();
 				$host = $_SERVER["HTTP_HOST"];
 				$folder = ($_SERVER["HTTP_HOST"] == "187.73.149.26:8080" ? "" : "Hospital/");
-				$url = "http://{$host}/{$folder}pesquisa_pdf.php?idesc=".$_GET["idesc"];
-
-				// Iniciar o CURL
-				$fileReader = curl_init();
-
-				// Configurar a leitura e o retorno da URL
-				curl_setopt($fileReader, CURLOPT_URL, $url);
-				curl_setopt($fileReader, CURLOPT_HEADER, 0);
-				curl_setopt($fileReader, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($fileReader, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0');
-
-				// Executa a leitura da URL
-				$file = curl_exec($fileReader);
+				//$url = "http://{$host}/{$folder}pesquisa_pdf.php?idesc=".$_GET["idesc"];
+				$url = gerarPDF();
 
 				// Carrega o conteúdo da página
-				$dompdf->load_html($file);
+				$dompdf->load_html($url);
 
 				// Define o tamanho da página para A4 e orientação para retrato
 				$dompdf->setPaper('A4', 'portrait');
@@ -68,7 +58,7 @@ switch ($_REQUEST["acao"])
 				$dompdf->render();
 
 				// Exporta o arquivo
-				$arquivo = $dompdf->output("arquivo.pdf", array("Attachment" => true));
+				$arquivo = $dompdf->output("arquivo.pdf", ["Attachment" => true]);
 
 				// Gera um nome criptografado para o arquivo
 				$rand = rand(1,500);
@@ -82,7 +72,7 @@ switch ($_REQUEST["acao"])
 					$env = new EnvioDocumento();
 				    $env->setEnv_idEscola($_GET['idesc']);
 				    $env->setEnv_idRemetente(1);
-				    $env->setEnv_idDestinatario(4);
+				    $env->setEnv_idDestinatario(1);
 				    $env->setEnv_url($nomeCrip.'.pdf');
 				    $env->setVisto(0);
 
