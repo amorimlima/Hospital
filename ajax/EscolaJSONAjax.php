@@ -71,8 +71,8 @@ switch ($_REQUEST["acao"])
 
 					$env = new EnvioDocumento();
 				    $env->setEnv_idEscola($_GET['idesc']);
-				    $env->setEnv_idRemetente(null);
-				    $env->setEnv_idDestinatario(null);
+				    $env->setEnv_idRemetente(1);
+				    $env->setEnv_idDestinatario(1);
 				    $env->setEnv_url($nomeCrip.'.pdf');
 				    $env->setVisto(0);
 
