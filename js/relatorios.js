@@ -80,9 +80,9 @@ function voltarGrafico()
 					dataType: 'json',
 					success: function(escola) {
 						viewEscola(escola);
+						carregarGrafico(getDadosUsuario());
 					}
 				});
-				carregarGrafico(getDadosUsuario());
 			}
 			else
 			{
