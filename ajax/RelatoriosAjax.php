@@ -64,8 +64,11 @@ switch ($_REQUEST["acao"]) {
 		$idUsuario = $_REQUEST["id"];
 		$usuario = $usuarioController->select($idUsuario);
 		$retorno = "";
-
+		
 		if ($usuario) {
+			$escolaController = new EscolaController();
+			$escola = $escolaController->select($usuario->getUsr_escola());
+				
 			$retorno = Array(
 				"id" 					=> utf8_encode($usuario->getUsr_id()),
 				"nome" 					=> utf8_encode($usuario->getUsr_nome()),
@@ -77,7 +80,8 @@ switch ($_REQUEST["acao"]) {
 				"cpf" 					=> utf8_encode($usuario->getUsr_cpf()),
 				"login" 				=> utf8_encode($usuario->getUsr_login()),
 				"imagem" 				=> $path["arquivos"].utf8_encode($usuario->getUsr_imagem()),
-				"nse" 					=> utf8_encode($usuario->getUsr_nse())
+				"nse" 					=> utf8_encode($usuario->getUsr_nse()),
+				"escola_nome"           =>  utf8_encode($escola->getEsc_nome())
 			);
 		}
 

@@ -66,8 +66,12 @@ if(count($periodos)>0) {
 }
 
 $logado = unserialize($_SESSION['USR']);
+$class = $logado['perfil'] == "Professor" ? "tab_cadastro_professor" : "tab_cadastro";
+$largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "col-md-10";
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -115,8 +119,8 @@ $logado = unserialize($_SESSION['USR']);
                                 <!-- Conteúdo principal -->
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <section class="area_btns_tabs">
-                                            <div class="btns_tabs btns_aluno">
+                                        <?php if ($logado['perfil'] != "Aluno") { ?><section class="area_btns_tabs">
+                                            <div class="btns_tabs btns_aluno" <?php echo $logado["perfil"] === "NEC" ? "style='display: none;'" : "" ?> >
                                                 <ul class="lista_btns lista_btns_aluno">
                                                     <li class="btn_tab btn_aluno btn_add_cadastro" onclick="limparCadastro('formAluno')">Novo cadastro</li>
                                                     <li class="btn_tab btn_aluno btn_update_cadastro btn_tab_ativo" id="update_cadastro">Atualizar cadastro</li>
@@ -124,84 +128,61 @@ $logado = unserialize($_SESSION['USR']);
                                             </div>
                                             <div class="btns_tabs btns_professor" style="display: none;">
                                                 <ul class="lista_btns lista_btns_professor">
-                                                    <li class="btn_tab btn_professor btn_add_cadastro" onclick="limparCadastro('formProf')">Novo cadastro</li>
+                                                    <?php if ($logado['perfil'] != "Professor") { ?> <li class="btn_tab btn_professor btn_add_cadastro" onclick="limparCadastro('formProf')">Novo cadastro</li> <?php } ?>
                                                     <li class="btn_tab btn_professor btn_update_cadastro btn_tab_ativo">Atualizar cadastro</li>
                                                 </ul>
                                             </div>
-                                            <div class="btns_tabs btns_escola" style="display: none;">
+                                            <div class="btns_tabs btns_escola" <?php echo $logado["perfil"] != "NEC" ? "style='display: none;'" : "" ?> >
                                                 <ul class="lista_btns lista_btns_escola">
-                                                    <li class="btn_tab btn_escola btn_add_cadastro" onclick="limparCadastro('formEscola')">Novo cadastro</li>
+                                                    <?php if ($logado["perfil"] === "NEC") { ?>
+                                                        <li class="btn_tab btn_escola btn_confirm_cadastro">Pré-cadastro</li>
+                                                        <li class="btn_tab btn_escola btn_add_cadastro" onclick="limparCadastro('formEscola')">Novo cadastro</li>
+                                                    <?php } ?>
                                                     <li class="btn_tab btn_escola btn_update_cadastro btn_tab_ativo">Atualizar cadastro</li>
                                                 </ul>
                                             </div>
-                                        </section>
+                                        </section><?php } ?>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-2">
-                                        <nav role="navigation" class="area_tabs_cadastro">
-                                            <ul class="tabs_cadastro">
-                                                <li <?php if($logado['perfil'] == "Professor") {?> 
-                                                        class="tab_cadastro_professor tab_aluno tab_cadastro_ativo" 
-                                                    <?php }
-                                                          else{ ?>
-                                                          class="tab_cadastro tab_aluno tab_cadastro_ativo"
-                                                    <?php } ?>
-                                                    pagina="lista_btns_aluno"></li>
-                                                <li <?php if($logado['perfil'] == "Professor") {?> 
-                                                        class="tab_cadastro_professor tab_professor" 
-                                                    <?php }
-                                                          else{ ?>
-                                                          class="tab_cadastro tab_professor"
-                                                    <?php } ?> pagina="lista_btns_professor"></li>
-                                                <?php if($logado['perfil'] != "Professor") {?>
-                                                    <li class="tab_cadastro tab_escola" pagina="lista_btns_escola"></li>
-                                                <?php }?>
-                                            </ul>
-                                        </nav>
+                                        <?php if($logado['perfil'] != "Aluno" && $logado['perfil'] != "NEC"){ ?>
+                                            <nav role="navigation" class="area_tabs_cadastro">
+                                                <ul class="tabs_cadastro">
+                                                    <li class="<?= $class; ?> tab_aluno tab_cadastro_ativo" pagina="lista_btns_aluno"></li>
+                                                    <li class="<?= $class; ?> tab_professor" pagina="lista_btns_professor"></li>
+                                                    <?php if($logado['perfil'] != "Professor"){ ?>
+                                                        <li class="<?= $class; ?> tab_escola" pagina="lista_btns_escola"></li>
+                                                    <?php }?>
+                                                </ul>
+                                            </nav>
+                                        <?php } ?>
                                     </div>
-                                    <div class="col-xs-12 col-md-10">
+                                    <div class="col-xs-12 <?= $largura  ?>">
                                         <section class="area_conteudo_tabs">
-                                            <div class="conteudo_tab conteudo_aluno">
+                                            <div class="conteudo_tab conteudo_aluno" <?= $logado["perfil"] === "NEC" ? "style='display: none;'" : "" ?> >
                                                 <form action="" class="form_cadastro cadastro_aluno cadastroAlunoContent" id="formCadastroAluno" style="display: none;">
-                                                    <fieldset class="form_divisao">
+                                                    <fieldset class="form_divisao" id="dados_escolares">
                                                         <legend class="form_divisao_titulo">Dados Escolares</legend>
                                                         <div class="form_celula_m">
-                                                            <label for="selectEscolaAluno" class="form_info info_m">Escola<span class="asterisco">*</span></label>
-                                                            <span class="select_container">
-                                                                <select name="selectEscolaAluno" id="selectEscolaAluno" class="form_value form_select formAluno obrigatorioAluno" msgVazio="O campo escola é obrigatório" required onChange="listaProfessores('')">
-                                                                    <option value="" disabled selected>Selecione a escola</option>
-                                                                    <?php
-																		echo $escolasHtml;
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                        
-                                                        <div class="form_celula_p">
-                                                            <label for="selectSerieAluno" class="form_info info_p">Série<span class="asterisco">*</span></label>
-                                                            <span class="select_container">
-                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_p formAluno obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores('')">
-                                                                    <option value="" disabled selected>Selecione a série</option>
-                                                                    <?php
-                                                                    	echo $serieHtml;
-                                                                    ?>
-                                                                </select>
-                                                            </span>
-                                                        </div>
-                                                          
-                                                        <div class="form_celula_m">
+                                                            <input type="hidden" id="selectEscolaAluno"/>
                                                             <label for="selectProfessorAluno" class="form_info info_m">Professor<span class="asterisco">*</span></label>
                                                             <span class="select_container">
                                                                 <select name="selectProfessorAluno" id="selectProfessorAluno" class="form_value form_select value_m formAluno obrigatorioAluno" msgVazio="O campo professor é obrigatório" required>
-                                                                
-                                                                	<!--  ATENÇÂO - Se mudar o texto desse option precisa mudar em mais dois lugares no arquivo cadastro.js. -->
+                                                                    <!--  ATENÇÂO - Se mudar o texto desse option precisa mudar em mais dois lugares no arquivo cadastro.js. -->
                                                                     <option value="" disabled selected>Selecione primeiro a escola e a série</option>
-                                                                    
                                                                  </select>
                                                             </span>
                                                         </div>
-                                                        
+                                                        <div class="form_celula_m value_last">
+                                                            <label for="selectSerieAluno" class="form_info info_p">Série<span class="asterisco">*</span></label>
+                                                            <span class="select_container">
+                                                                <select name="selectSerieAluno" id="selectSerieAluno" class="form_value form_select value_m formAluno obrigatorioAluno" msgVazio="O campo série é obrigatório" required onChange="listaProfessores('')">
+                                                                    <option value="" disabled selected>Selecione a série</option>
+                                                                    <?= $serieHtml; ?>
+                                                                </select>
+                                                            </span>
+                                                        </div>
 														<div class="form_celula_p">
                                                             <label for="selectPeriodoAluno" class="form_info info_p">Ano Letivo<span class="asterisco">*</span></label>
                                                             <span class="select_container">
@@ -241,7 +222,7 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="inputRgAluno" class="form_info info_p">RG<span class="asterisco">*</span></label>
                                                             <span class="input_container">
-                                                                <input type="text" name="inputRgAluno" id="inputRgAluno" class="form_value form_text value_p formAluno obrigatorioAluno" msgVazio="O campo RG é obrigatório" required />
+                                                                <input type="text" name="inputRgAluno" id="inputRgAluno" class="form_value form_text value_p formAluno obrigatorioAluno" OnKeyPress="formatar('##.###.###', this)" maxlength="10"  msgVazio="O campo RG é obrigatório" required />
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
@@ -316,12 +297,12 @@ $logado = unserialize($_SESSION['USR']);
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_g">
-                                                            <label for="inputEmailAluno" class="form_info info_p">E-mail<span class="asterisco">*</span></label>
+                                                            <label for="inputEmailAluno" class="form_info info_p">E-mail</label>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputEmailAluno" id="inputEmailAluno" class="form_value form_text value_p formAluno" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_g">
+                                                        <div class="form_celula_g" style="height: auto">
                                                             <label for="cadastroImagem" class="form_info info_p">Foto</label>
                                                            
                                                              <span class="input_container spanImagem" id="spanImagemAluno">
@@ -330,7 +311,7 @@ $logado = unserialize($_SESSION['USR']);
 		                                                        	<div id="cadastroImagem" class="divImagem"></div>
 			
 																	<div id="car"></div>
-																    <br><div id="imgUp" style="position:absolute"><img src="" width="150" height="150"/><br/></div>
+																    <div id="imgUp" style="position:relative"><img src="" width="150" height="150"/></div>
 																    <input name="imagem" type="hidden" id="imagem" value=""></td>
 															    </div>
 															</span>
@@ -383,6 +364,12 @@ $logado = unserialize($_SESSION['USR']);
                                                                 <input type="text" name="inputUsuarioAluno" id="inputUsuarioAluno" class="form_value form_text value_p formAluno obrigatorioAluno" msgVazio="O campo usuário é obrigatório" placeholder="Insira um usuário de usuário" required maxlength="10"/>
                                                             </span>
                                                         </div>
+                                                        <div class="form_celula_p" style="display: none">
+                                                            <label for="inputSenhaAtual" class="form_info info_p">Senha Atual</label>
+                                                            <span class="input_container">
+                                                                <input type="password" name="inputSenhaAtual" id="inputSenhaAtual" class="form_value form_text value_p formAluno" placeholder="Insira a senha atual" maxlength="10"/>
+                                                            </span>
+                                                        </div>
                                                         <div class="form_celula_p" style="position: relative;">
                                                             <label for="inputSenhaAluno" class="form_info info_p">Senha<span class="asterisco">*</span></label>
                                                             <span class="input_container">
@@ -410,7 +397,8 @@ $logado = unserialize($_SESSION['USR']);
                                                         <input type="hidden" value="" id="idUsuarioVariavelAluno" />
                                                         <input type="hidden" value="" id="idEnderecoAluno" />
                                                         
-                                                        <input type="button" value="Limpar" onclick="limparCadastro('formAluno')" class="form_btn btn_reset" />
+                                                        <input type="button" value="Voltar" class="form_btn btn_reset" id="voltarAluno" /> 
+                                                        <input type="button" value="Limpar" onclick="limparCadastro('formAluno')" class="form_btn btn_reset" id="resetarAluno" />
                                                         <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroAluno" />
                                                     </div>
                                                 </form>
@@ -437,7 +425,7 @@ $logado = unserialize($_SESSION['USR']);
                                                                 <select name="perfil" id="perfil" class="form_value form_select value_m formProf obrigatorioProf" required msgVazio="O campo perfil é obrigatório">
                                                                     <option value='' disabled selected>Selecione o perfil</option>
                                                                     <option value='2'>Professor</option>
-                                                                    <option value='3'>Unidade Escolar</option>
+                                                                    <!-- <option value='3'>Unidade Escolar</option> -->
                                                                 </select>
                                                             </span>
                                                         </div>
@@ -482,7 +470,7 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="inputRgProf" class="form_info info_p">RG<span class="asterisco">*</span></label>
                                                             <span class="input_container">
-                                                                <input type="text" name="inputRgProf" id="inputRgProf" class="form_value form_text value_p formProf obrigatorioProf" required msgVazio="O campo RG é obrigatório"/>
+                                                                <input type="text" name="inputRgProf" id="inputRgProf" class="form_value form_text value_p formProf obrigatorioProf" required OnKeyPress="formatar('##.###.###', this)" maxlength="10" msgVazio="O campo RG é obrigatório"/>
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
@@ -506,7 +494,7 @@ $logado = unserialize($_SESSION['USR']);
                                                         <div class="form_celula_p">
                                                             <label for="inputCompCasaProf" class="form_info info_p">Complemento</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="inputCompCasaProf" id="inputCompCasaProf" class="form_value form_number value_p formProf" required />
+                                                                <input type="text" name="inputCompCasaProf" id="inputCompCasaProf" class="form_value form_number value_p formProf"/>
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
@@ -562,12 +550,12 @@ $logado = unserialize($_SESSION['USR']);
                                                                 <input type="text" name="inputEmailProf" id="inputEmailProf" class="form_value form_text value_g  formProf obrigatorioProf" required msgVazio="O campo email é obrigatório"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_g">
+                                                        <div class="form_celula_g" style="height: auto">
                                                             <label for="cadastroImagem" class="form_info info_p">Foto</label>
                                                             <span class="input_container spanImagem" id="spanImagemProfessor"></span>
                                                         </div>
                                                     </fieldset>
-                                                    <fieldset class="form_divisao">
+                                                    <fieldset class="form_divisao" id="divisao_grupo">
                                                         <legend class="form_divisao_titulo">Grupos</legend>
                                                         <div class="form_celula_p">
                                                             <label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>
@@ -595,6 +583,12 @@ $logado = unserialize($_SESSION['USR']);
                                                             <label for="inputUsuarioProf" class="form_info info_p">Usuário<span class="asterisco">*</span></label>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputUsuarioProf" id="inputUsuarioProf" class="form_value form_text value_p  formProf obrigatorioProf" placeholder="Insira um nome de usuário" required msgVazio="O campo usuário é obrigatório"/>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form_celula_p" style="display: none">
+                                                            <label for="inputSenhaAtualProf" class="form_info info_p">Senha Atual</label>
+                                                            <span class="input_container">
+                                                                <input type="password" name="inputSenhaAtualProf" id="inputSenhaAtualProf" class="form_value form_text value_p  formProf" placeholder="Insira a senha atual"/>
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p" style="position: relative;">
@@ -626,8 +620,9 @@ $logado = unserialize($_SESSION['USR']);
                                                         <input type="hidden" value="" id="idEnderecoProfessor" class="formProf"/>
                                                         <!-- <input type="hidden" value="" id="serieProf" class="formProf"/> -->
                                                         
-                                                        <input type="reset" value="Limpar" class="form_btn btn_reset" />
-                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroProfessor" />
+                                                        <input type="button" value="Voltar" class="form_btn btn_reset" id="voltarProf" />
+                                                        <input type="reset" value="Limpar" class="form_btn btn_reset" id="resetarProf"/>
+                                                        <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroProf" />
                                                     </div>
                                                 </form>
                                                 <section class="update_cadastro update_prof cadastroProfContent" id="updateProfContainer">
@@ -636,7 +631,17 @@ $logado = unserialize($_SESSION['USR']);
                                                     </div>
                                                 </section>
                                             </div>
-                                            <div class="conteudo_tab conteudo_escola" style="display: none;">
+                                            <div class="conteudo_tab conteudo_escola" <?= $logado["perfil"] != "NEC" ? "style='display: none;'" : "" ?> >
+
+                                            <?php if ($logado["perfil"] === "NEC") { ?>
+                                                <section class="confirm_cadastro confirm_escola cadastroEscolaContent">
+                                                    <h2 class="section_header update_cad_escola_header">Escolas pré-cadastradas</h2>
+                                                    <div class="accordion_cad_container confirm_escola_accordion">
+                                                        <!-- Content generated by JavaScript -->
+                                                    </div>
+                                                </section>
+                                            <?php } ?>
+
                                                 <form action="" class="form_cadastro cadastro_escola cadastroEscolaContent" id="formCadastroEscola" style="display: none;">
                                                     <fieldset class="form_divisao">
                                                         <legend class="form_divisao_titulo">Dados</legend>
@@ -652,7 +657,7 @@ $logado = unserialize($_SESSION['USR']);
                                                                 <input type="text" name="inputRazaoEscola" id="inputRazaoEscola" class="form_value form_text value_g formEscola obrigatorioEscola" msgVazio="O campo razão social é obrigatório" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_m value_last">
+                                                        <div class="form_celula_m">
                                                             <label for="inputCodigoEscola" class="form_info info_m">NSE</label>
                                                             <span class="input_container">
                                                                 <input type="text" name="inputNseEscola" id="inputNseEscola" class="form_value form_text value_m formEscola"/>
@@ -670,7 +675,7 @@ $logado = unserialize($_SESSION['USR']);
                                                                 <input type="text" name="inputCnpjEscola" id="inputCnpjEscola" class="form_value form_text value_p  formEscola obrigatorioEscola formEscola"  msgVazio="O campo CNPJ é obrigatório" required maxlength='18' OnKeyPress="formatar('##.###.###/####-##', this)"/>
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_p value_last">
+                                                        <div class="form_celula_p">
                                                             <label for="inputAdmEscola" class="form_info info_p">Administração<span class="asterisco">*</span></label>
                                                             <span class="select_container">
                                                                 <select name="inputAdmEscola" id="inputAdmEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo administração é obrigatório" required>
@@ -685,7 +690,7 @@ $logado = unserialize($_SESSION['USR']);
                                                                 </select>
                                                             </span>
                                                         </div>
-														<div class="form_celula_p">
+														<div class="form_celula_p value_last">
                                                             <label for="inputTipoEscola" class="form_info info_p">Tipo de escola<span class="asterisco">*</span></label>
                                                             <span class="select_container">
                                                                 <select name="inputTipoEscola" id="inputTipoEscola" class="form_value form_select value_p obrigatorioEscola"  msgVazio="O campo tipo da escola é obrigatório" required>
@@ -757,7 +762,7 @@ $logado = unserialize($_SESSION['USR']);
                                                                 <input type="text" name="inputEmailEscola" id="inputEmailEscola" class="form_value form_text value_g formEscola obrigatorioEscola" msgVazio="O campo email é obrigatório" required />
                                                             </span>
                                                         </div>
-                                                        <div class="form_celula_g">
+                                                        <div class="form_celula_g" style="height: auto">
                                                             <label for="cadastroImagem" class="form_info info_p">Foto</label>
                                                             <span class="input_container spanImagem" id="spanImagemEscola"></span>
                                                         </div>
@@ -801,7 +806,7 @@ $logado = unserialize($_SESSION['USR']);
                                                         <input type="submit" value="Enviar" class="form_btn btn_submit" id="cadastroEscola" />
                                                     </div>
                                                 </form>
-                                                <section class="update_cadastro update_escola cadastroProfContent" id="updateEscolaContainer">
+                                                <section class="update_cadastro update_escola cadastroEscolaContent" id="updateEscolaContainer">
                                                     <h2 class="section_header update_cad_escola_header">Atualizar Cadastro</h2>
                                                     <div class="accordion_cad_container update_escola_accordion">
                                                        
@@ -879,7 +884,17 @@ $logado = unserialize($_SESSION['USR']);
 		<?php
 			$templateGeral->mensagemRetorno('mensagens','<span id="textoMensagemImagem"></span>','erro');
 		?>
-	</div>	
+	</div>
+    <div id="mensagemAprovado" class="modalMensagem" style="display:none;">
+        <?php
+            $templateGeral->mensagemRetorno("mensagens","Cadastro aprovado com sucesso.", "sucesso");
+        ?>
+    </div>
+    <div id="mensagemRejeitado" class="modalMensagem" style="display:none;">
+        <?php
+            $templateGeral->mensagemRetorno("mensagens","Cadastro rejeitado com sucesso.", "sucesso");
+        ?>
+    </div>
       
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -891,5 +906,14 @@ $logado = unserialize($_SESSION['USR']);
     <script src="js/funcoes.js"></script>
 	<script src="js/cadastro.js"></script>
 	<script src="js/goMobileUpload.js"></script>
+
+    <?php if ($logado["perfil"] === "NEC") { ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".btn_escola.btn_update_cadastro").trigger("click");
+        });
+    </script>
+    <?php } ?>
+
 </body>
 </html>

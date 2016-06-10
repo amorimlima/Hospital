@@ -25,10 +25,11 @@ $adms = $AdmController->selectAll();
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet" />
         <link href="css/modulos/formulario.css" rel="stylesheet" />
-        <link href="css/index.css" rel="stylesheet" /><!-- -->
+        <link href="css/index.css" rel="stylesheet" />
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <div class="container">
+        <div id="container">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="logo-container">
@@ -36,43 +37,51 @@ $adms = $AdmController->selectAll();
                     </div>
                 </div>
             </div>
-            <div class="row" id="login" style="<?=(isset($_GET['recSenha']) == 'alt@' || $_GET['newPass'])?'display:none':'display:block'?>" >
-                <div class="col-md-2">&nbsp;</div>
-                <div class="col-md-4">
-                    <div class="login-panel-container">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <form class="form center-block">
-                                    <div class="form-group">
-                                        <label for"usuario">USUÁRIO</label>
-                                        <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" value="hcbAluno">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for"usuario">SENHA</label>
-                                        <input type="password" class="form-control input-lg form-actions" name="senha" id="senha" value="123">
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-primary btn-lg" id="btLogar">Entrar</button>
-                                    </div>
-                                </form>
-                                <div class="link">
-                                    <a href="index.php?recSenha=alt@">Esqueceu a senha?</a>
-                                </div>
-                            </div>
-                        </div>
+            <div id="Conteudo_Area" style="<?=(isset($_GET['recSenha']) == 'alt@' || $_GET['newPass'])?'display:none':'display:block'?>">
+	            <div class="row" id="login">
+	                <div class="col-md-8">
+	                	<div id="Conteudo_Area_box_left">
+							<img id="abertura" src="img/abertura_Ca.png">
+						</div>
+	                </div>
+	                <div class="col-md-4">
+	                	<div id="Conteudo_Area_box_right">
+		                    <div class="login-panel-container">
+		                        <div class="panel panel-default">
+		                            <div class="panel-body">
+		                                <form class="form center-block">
+		                                    <div class="form-group">
+		                                        <label for"usuario">USUÁRIO</label>
+		                                        <input type="text" class="form-control input-lg form-actions" name="usuario" id="usuario" value="">
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label for"usuario">SENHA</label>
+		                                        <input type="password" class="form-control input-lg form-actions" name="senha" id="senha" value="">
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <button class="btn btn-primary btn-lg" id="btLogar">Entrar</button>
+		                                    </div>
+		                                </form>
+		                                <div class="link">
+		                                    <a href="index.php?recSenha=alt@">Esqueceu a senha?</a>
+		                                </div>
+		                            </div>
+		                        </div>
 
-                        <div class="link">
-                            <p>Gostou do projeto e deseja fazer parte? <br /><a class="link_pre_cadastro" id="link_pre_cadastro" href="#">Solicite o cadastro da sua escola!</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="pratinha"></div>
-                </div>
-                <div class="col-md-2">&nbsp;</div>
-            </div>
+		                        <div class="link">
+		                            <p>Gostou do projeto e deseja fazer parte? <br /><a class="link_pre_cadastro" id="link_pre_cadastro" href="#">Solicite o cadastro da sua escola!</a></p>
+		                        </div>
+		                    </div>
+		                </div>
+	                </div><!-- 
+	                <div class="col-md-4">
+	                    <div class="pratinha"></div>
+	                </div> -->
+	                <div class="col-md-2">&nbsp;</div>
+	            </div>	            
+            </div>            
             <div id="form_recuperar_senha" class="row" style="<?=isset($_GET['recSenha']) == 'alt@'?'display:block':'display:none'?>" >
-            	<div class="formulario_panel">
+            	<div class="formulario_panel" style="margin-bottom: 220px;">
             		<form action="" id="formulario_recuperar_senha">
             			<fieldset>
             				<legend>Recuperar senha</legend>
@@ -172,7 +181,7 @@ $adms = $AdmController->selectAll();
 	                                <div class="formfield formfield-s">
 	                                    <label for="cep">CEP</label>
 	                                    <span>
-	                                        <input class="cep obrigatorio" id="cep" name="end_cep" type="text" placeholder="00000-000" msgVazio="O campo CEP é obrigatório" />
+	                                        <input class="cep obrigatorio" id="cep" name="end_cep" type="text" placeholder="00.000-000" msgVazio="O campo CEP é obrigatório" />
 	                                    </span>
 	                                </div>
 	                                <div class="formfield formfield-g">
@@ -215,7 +224,13 @@ $adms = $AdmController->selectAll();
 	                                        </select>
 	                                    </span>
 	                                </div>
-	                                <div class="formfield formfield-g">
+	                                <div class="formfield formfield-s">
+	                                    <label for="login_escola">Login</label>
+	                                    <span>
+	                                        <input id="login_escola" name="login_escola" type="text" placeholder="Nome do Usuário" />
+	                                    </span>
+	                                </div>
+	                                <div class="formfield formfield-s">
 	                                    <label for="email">E-Mail</label>
 	                                    <span>
 	                                        <input id="email" name="end_email" type="text" placeholder="exemplo@escola.br" class="obrigatorio" msgVazio="O campo email é obrigatório"/>
@@ -268,8 +283,11 @@ $adms = $AdmController->selectAll();
                     </div>
                 </div>
             </div>
-        </div>
-        
+            <footer>
+		        <div class="row" id="rodape"></div>
+		        <div id="margin"></div>
+		    </footer>
+        </div>        
         <div id="mensagemCampoVazio" class='modalMensagem' style="display:none">
 			<?php
 				$templateGeral->mensagemRetorno('mensagens','<span id="textoMensagemVazio"></span>','erro');

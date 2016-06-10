@@ -437,7 +437,6 @@ function buscaNomeDestinatario(){
 			dataType:'json',
 			data:{'acao':'listaDestinatario','letrasDigitadas':letrasDigitadas,'opcao':'letras'},
 			success:function(data){
-				console.log(data.length);
 				if (data.length > 0){
 					for(a in data){
 						var nome = data[a].nome;

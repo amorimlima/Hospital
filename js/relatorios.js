@@ -5,11 +5,11 @@ $(document).ready(function() {
 	atribuirBarrasRolagem();
 	menuAtribuirCapitulo();
 	var data = getDadosUsuario();
+	var data2 = getDadosUsuario();
 	carregarGrafico(data);
-	carregarTodosFiltros(data);
+	carregarTodosFiltros(data2);
 	filtrosChange();
 	botoesGrupo();
-	botaoModal();
     voltarGrafico();
 });
 
@@ -106,17 +106,22 @@ function filtrosChange () {
 }
 
 function carregarGrafico (data) {
+	var d = data
+	
 	$('.lista_itens_grafico').html("Carregando...");
-	data.acao = "carregaGrafico";
-	data.grafico = $('.option_selected ').attr('id');
+	d.acao = "carregaGrafico";
+	d.grafico = $('.option_selected ').attr('id');
+	
 	$.ajax({
 		url: 'ajax/RelatoriosAjax.php',
 		type: 'GET',
-		data: data,
+		data: d,
 		success: function(dados) {
 			$('.lista_itens_grafico').html(dados);
+			return false;
 		}
 	});
+	return false;
 }
 
 function carregaFiltro(data, filtro) {
@@ -129,7 +134,6 @@ function carregaFiltro(data, filtro) {
 		type: "GET",
 		data: data,
 		success: function(d) {
-			console.log(d);
 			$(filtro).html(d);
 		},
 		complete: function() {
@@ -146,7 +150,7 @@ function carregarTodosFiltros(data) {
 }
 
 function getDadosUsuario () {
-	var perfil;
+	var perfil = 3;//Padrão
 	var id;
 	if ($('#box_perfil_selected').length > 0){
 		if ($('#professor_id').length > 0)
@@ -168,6 +172,9 @@ function getDadosUsuario () {
 		else
 			id = usuario.escola;
 	}
+	
+	
+	
 	var data = {
 		'livro' : $('#filtroLivro').val(),
 		'capitulo' : $('#filtroCapitulo').val(),
@@ -188,7 +195,7 @@ function getDadosUsuario () {
 
 function viewEscola(escola)
 {
-	var htmlEscSelected = "";
+	var htmlEscSelected = "";	
 
 	htmlEscSelected +=	'<div id="box_perfil_selected" class="box_perfil_selected ficha_dados">';
 	htmlEscSelected +=		'<div class="foto_perfil_selected"></div>';
@@ -221,7 +228,7 @@ function viewProfessorSelected(professor)
 	htmlProfSelected += 	'<input type="hidden" id="professor_id" id_professor="'+professor.id+'"/>';
 	htmlProfSelected += 	'<input type="hidden" id="escola_id" id_escola="'+professor.escola+'"/>';
 	htmlProfSelected +=			'<div class="nome_perfil_selected">'+professor.nome+'</div>';
-	htmlProfSelected +=			'<div class="dados_perfil_selected">Escola: '+professor.escola.nome+' | Entrada na escola: '+data_entrada+'</div>';
+	htmlProfSelected +=			'<div class="dados_perfil_selected">Escola: '+professor.escola_nome+' | Entrada na escola: '+data_entrada+'</div>';
 	htmlProfSelected +=			'<div class="dados_perfil_selected">RG: '+rg+' | CPF: '+cpf+' | Data de nascimento: '+data_nascimento+'</div>';
 	htmlProfSelected +=			'<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span id="editar_grupos">Editar grupos</span></div>';
 	htmlProfSelected +=		'</div>';
@@ -388,15 +395,4 @@ function adicionarAlunosGrupo() {
     $('.modal').show();
     $('.modal-backdrop').show();
     $('#cancelarGrupo').trigger('click');
-}
-
-function botaoModal() {
-	$('.botao_modal').click(function(){
-        hideModal();
-    });
-}
-
-function hideModal(){
-    $('.modal-backdrop').hide();
-    $('.modal').hide();
 }

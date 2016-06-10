@@ -6,7 +6,6 @@ $path = $_SESSION['PATH_SYS'];
 
 include_once($path['controller'] . 'GaleriaController.php');
 include_once($path['controller'] . 'CategoriaGaleriaController.php');
-include_once($path['controller'] . 'UsuarioController.php');
 include_once($path['controller'] . 'RegistroGaleriaController.php');
 include_once($path['beans'] . 'Galeria.php');
 include_once($path['beans'] . 'CategoriaGaleria.php');
@@ -17,7 +16,6 @@ include_once($path['funcao'] . 'DatasFuncao.php');
 $template = new TemplateGaleria();
 $galeriaController = new GaleriaController();
 $categoriaGaleriaController = new CategoriaGaleriaController();
-$userController = new UsuarioController();
 $registroGaleriaController = new RegistroGaleriaController();
 
 $maxSize = 30000000; //Tamanho máximo de arquivo 30Mb

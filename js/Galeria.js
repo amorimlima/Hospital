@@ -257,7 +257,6 @@ function contagemVisualizacoes (id) {
         }
     });
 
-    console.log(d);
     return d;
 };
 
@@ -315,7 +314,6 @@ function postarPreCadastro () {
 
 function postarSugestao () {
     var mensagem = $('#link_arquivo').val() + '\n' +$('#descricao_arquivo').val();
-    console.log(mensagem);
     if (sugestaoCompleta())
     {
         $.ajax({

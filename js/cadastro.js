@@ -145,18 +145,14 @@ $(document).ready(function() {
     		var acao = 'novoUsuario';
     	}
     	
-//    	console.log(acao);
-//    	console.log($('#inputSenhaAluno').attr('class'));
-    	
     	$('.obrigatorioAluno').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
-    			if ($(this).attr('id') == 'inputTelResAluno'){	//Verifica se existe ao menos um telefone cadastrado!
-    				if ($('#inputTelCelAluno').val() == '' && $('#inputTelComAluno').val() == ''){
+    			if ($(this).attr('id') == 'inputTelResAluno' &&
+                    $('#inputTelCelAluno').val() == '' && $('#inputTelComAluno').val() == ''){
     					$("#textoMensagemVazio").text('Pelo menos um número de telefone deve ser cadastrado');
     	        		$("#mensagemCampoVazio").show();
     	        		$(this).focus();
     					return false;
-    				}
     			}else{
 	    			$("#textoMensagemVazio").text($(this).attr('msgVazio'));
 	        		$("#mensagemCampoVazio").show();
@@ -214,6 +210,13 @@ $(document).ready(function() {
 	    		$('#inputSenhaAluno').focus();
 	    		return false;
 	    	}
+            if (!$('#inputSenhaAluno').hasClass('obrigatorioAluno') &&
+                (usuario.perfil == 1 && !senhaAtualCorreta($('#idAluno').val() , $('#inputSenhaAtual').val()))){
+                $("#textoMensagemVazio").text('Senha atual incorreta');
+                $("#mensagemCampoVazio").show();
+                $('#inputSenhaAtual').focus();
+                return false;
+            }
     	}
     	
     	
@@ -253,7 +256,7 @@ $(document).ready(function() {
         var idEndereco = $("#idEnderecoAluno").val();
 
         $.ajax({
-            url:'ajax/cadastroAjax.php',
+            url:'ajax/CadastroAjax.php',
             type:'post',
             dataType:'json',
             data: {
@@ -310,7 +313,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $("#cadastroProfessor").click(function(){
+    $("#cadastroProf").click(function(){
     
     	if ($('#idProfessor').val() != ''){
     		$('#inputSenhaProf').removeClass('obrigatorioProf');
@@ -319,7 +322,7 @@ $(document).ready(function() {
     		$('#inputSenhaProf').addClass('obrigatorioProf');
     		var acao = 'novoUsuario';
     	}
-    	$("#inputNascimentoProf").val('10/10/2010');
+    	//$("#inputNascimentoProf").val('10/10/2010');
     	var seriesProfessor = '';
     	$('.obrigatorioProf').each(function(){
     		if ($(this).val() == '' || $(this).val() == null ){
@@ -378,29 +381,31 @@ $(document).ready(function() {
     	var serieErro = '';
 
     	//Percorre os selects dos grupos para montar a string e verificar erro
-    	$("[data-grupoAttr='serie']").each(function() {
-    		if (($(this).val() != 0) && ($(this).val() != null)){
+    	if(acao != 'editarUsuario'){
+            $("[data-grupoAttr='serie']").each(function() {
+                if (($(this).val() != 0) && ($(this).val() != null)){
 
-    			var contador = $(this).attr('id').replace('inputSerieProf', '');
-    			//Verifica se o campo não está vazio ou se já tem um erro na série.
-    			if (($("#inputPeriodoProf"+contador).val() != '') && ($("#inputPeriodoProf"+contador).val() != null) && (serieErro == '')){
-    				//Só haverá o atributo idGrupo na edição.
-    				if ($(this).attr('idGrupo') != undefined){
-    					seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+'-'+$(this).attr('idGrupo')+';';
-    				}else{
-    					seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+';';
-    				}
-    	 		}else{
-    	 			serieErro = contador;
-    	 		}
-    		 }else{
-    			 //Só vai acontecer na edição
-    			 if ($(this).attr('idGrupo') != undefined){
-    				 //monta string 'idGrupo-;' para futura exclusão.
-    				 seriesExcluir += $(this).attr('idGrupo')+';';
-    			 }
-    		 }
-    	})
+                    var contador = $(this).attr('id').replace('inputSerieProf', '');
+                    //Verifica se o campo não está vazio ou se já tem um erro na série.
+                    if (($("#inputPeriodoProf"+contador).val() != '') && ($("#inputPeriodoProf"+contador).val() != null) && (serieErro == '')){
+                        //Só haverá o atributo idGrupo na edição.
+                        if ($(this).attr('idGrupo') != undefined){
+                            seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+'-'+$(this).attr('idGrupo')+';';
+                        }else{
+                            seriesProfessor += $(this).val()+'-'+$("#inputPeriodoProf"+contador).val()+';';
+                        }
+                    }else{
+                        serieErro = contador;
+                    }
+                 }else{
+                     //Só vai acontecer na edição
+                     if ($(this).attr('idGrupo') != undefined){
+                         //monta string 'idGrupo-;' para futura exclusão.
+                         seriesExcluir += $(this).attr('idGrupo')+';';
+                     }
+                 }
+            })
+        }
     	
     	//Se teve erro de alguma série ficar vazia.
     	if (serieErro != ''){
@@ -410,7 +415,7 @@ $(document).ready(function() {
     		return false;
     	}
     	//Se nenhum grupo foi criado
-    	if (seriesProfessor == ''){
+    	if (seriesProfessor == '' && acao != 'editarUsuario'){
     		$("#textoMensagemVazio").text('Selecione ao menos uma grupo!');
     		$("#mensagemCampoVazio").show();
     		$("#inputSerieProf1").focus();
@@ -432,6 +437,13 @@ $(document).ready(function() {
 				$('#inputSenhaProf').focus();
 				return false;
 			}
+            if (!$('#inputSenhaAluno').hasClass('obrigatorioProf') &&
+                (usuario.perfil == 2 && !senhaAtualCorreta($('#idProfessor').val() , $('#inputSenhaAtualProf').val()))){
+                $("#textoMensagemVazio").text('Senha atual incorreta');
+                $("#mensagemCampoVazio").show();
+                $('#inputSenhaAtual').focus();
+                return false;
+            }
     	}
 
     	var nomeProfessor = $("#inputNomeProf").val();
@@ -467,7 +479,7 @@ $(document).ready(function() {
     	
     	
     	$.ajax({
-        	url:'ajax/cadastroAjax.php',
+        	url:'ajax/CadastroAjax.php',
         	type:'post',
         	dataType:'json',
         	data:{'acao':acao,
@@ -608,7 +620,7 @@ $(document).ready(function() {
     	var idUsuario = $("#idUsuarioEscola").val();
     	
     	$.ajax({
-    		url:'ajax/cadastroAjax.php',
+    		url:'ajax/CadastroAjax.php',
     		type:'post',
     		dataType:'json',
     		data:{
@@ -668,14 +680,13 @@ $(document).ready(function() {
     });
     
 	$("#cadastroImagem").goMobileUpload({
-		script : "ajax/cadastroAjax.php"
+		script : "ajax/CadastroAjax.php"
 	});
 	
 	
 	$("body").delegate(".btnUpdateCadAluno", "click", function (){
 		var idUsuario = $(this).attr('idUsuario');
-		//alert($('#professor'+idUsuario).attr('idProfessor'));
-		
+
 		$('#idAluno').val(idUsuario);
 		$('#idEnderecoAluno').val($(this).attr('idEndereco'));
 		$('#idUsuarioVariavelAluno').val($(this).attr('idUsuarioVar'));
@@ -710,7 +721,6 @@ $(document).ready(function() {
 	    $('#inputUsuarioAluno').val($('#usuario'+idUsuario).text());
 	    $('#inputSenhaAluno').val('');
 	    $('#inputSenhaConfirmAluno').val('');
-		//alert($('#nascimento'+idUsuario).text());
 		
 		if ($('#imagem'+idUsuario).val() != '')	mostrarInputArquivo($('#imagem'+idUsuario).val(), 'imgp/'+$('#imagem'+idUsuario).val());
 			else limparInputArquivo();	    
@@ -718,9 +728,26 @@ $(document).ready(function() {
 		$('.conteudo_aluno').find('.form_cadastro').show();
 		$('.conteudo_aluno').find('.update_cadastro').hide();
 		$('#cadastroImagemUpload').appendTo("#spanImagemAluno");
+
+        //Esconder e Bloquear Campos
+        $("#dados_escolares select").attr("disabled", "true");
+        $("#inputNascimentoAluno").attr("disabled", "true");
+        $("#inputRgAluno").attr("disabled", "true");
+        $("#inputCpfAluno").attr("disabled", "true");
+        if (usuario.perfil == 1){
+            $("#inputUsuarioAluno").parent().parent().hide();
+            $("#inputSenhaAtual").parent().parent().show();
+        }
+        else
+            $("#inputUsuarioAluno").attr("disabled", "true");
+        $("label[for=inputSenhaAluno] .asterisco").remove();
+        $("label[for=inputSenhaConfirmAluno] .asterisco").remove();
+        $("#resetarAluno").hide();
+        
 		
 		return false;
 	})
+
 	$("body").delegate(".btnUpdateCadProf", "click", function (){
 		var idUsuario = $(this).attr('idUsuario');
 		
@@ -733,7 +760,7 @@ $(document).ready(function() {
 		$('.divPeriodo').remove();
 
 		$.ajax({
-	        url:'ajax/cadastroAjax.php',
+	        url:'ajax/CadastroAjax.php',
 	        type:'post',
 	        dataType:'json',
 	        data: {
@@ -756,8 +783,8 @@ $(document).ready(function() {
 
 	    				    htmlSeries += '<div class="form_celula_p divSerie" style="height: 0;">';
 	    				    htmlSeries +=     '<label for="" class="form_info info_p">Série<span class="asterisco">*</span></label>';
-	    				    htmlSeries +=     '<span class="select_container">';
-	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo série é obrigatório">';
+	    				    htmlSeries +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira							
+	    				    htmlSeries +=         '<select name="" id="inputSerieProf'+fieldCount+'" data-grupoAttr="serie" name="grp_serie" class="form_value form_select value_p formProf " required msgVazio="O campo série é obrigatório">';
 	    				    htmlSeries +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
 	    				    htmlSeries +=         '</select>';
 	    				    htmlSeries +=     '</span>';
@@ -765,8 +792,8 @@ $(document).ready(function() {
 
 	    				    htmlPeriod += '<div class="form_celula_p divPeriodo" style="height: 0;">';
 	    				    htmlPeriod +=     '<label for="" class="form_info info_p">Período<span class="asterisco">*</span></label>';
-	    				    htmlPeriod +=     '<span class="select_container">';
-	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf obrigatorioProf" required msgVazio="O campo período é obrigatório">';
+	    				    htmlPeriod +=     '<span class="select_container">';												//ATENÇÃO: Não colocar classe obrigatorioProf nesse select. A verificação dele é feita de outra maneira
+	    				    htmlPeriod +=         '<select name="" id="inputPeriodoProf'+fieldCount+'" data-grupoAttr="periodo" name="grp_periodo" class="form_value form_select value_p formProf" required msgVazio="O campo período é obrigatório">';
 	    				    htmlPeriod +=             '<option value="" disabled hidden selected style="font-style: italic;">Carregando...</option>';
 	    				    htmlPeriod +=         '</select>';
 	    				    htmlPeriod +=     '</span>';
@@ -822,6 +849,24 @@ $(document).ready(function() {
 		$('.conteudo_professor').find('.form_cadastro').show();
         $('.conteudo_professor').find('.update_cadastro').hide();
         $('#cadastroImagemUpload').appendTo("#spanImagemProfessor");
+
+        //Bloqueio de campos        
+        $('#inputNascimentoProf').attr("disabled", "true");
+        $('#inputRgProf').attr("disabled", "true");
+        $('#inputCpfProf').attr("disabled", "true");
+        $("#inputUsuarioProf").attr("disabled", "true");
+        if (usuario.perfil == 2){
+            $('#perfil').attr("disabled", "true");
+            $("#inputUsuarioProf").parent().parent().hide();
+            $("#inputSenhaAtualProf").parent().parent().show();
+        }
+        else
+            $("#inputUsuarioProf").attr("disabled", "true");
+        $("label[for=inputSenhaProf] .asterisco").remove();
+        $("label[for=inputSenhaConfirmProf] .asterisco").remove();
+        $('#divisao_grupo').hide();
+        $("#resetarProf").hide();
+        
 		
 		return false;
 	})
@@ -877,7 +922,7 @@ $(document).ready(function() {
 		console.log(idUsuario);
 //		return false;
 		$.ajax({
-	        url:'ajax/cadastroAjax.php',
+	        url:'ajax/CadastroAjax.php',
 	        type:'post',
 	        dataType:'json',
 	        data: {
@@ -901,7 +946,39 @@ $(document).ready(function() {
 		return false;
 	})
 
+    $("#voltarAluno").click(function() {
+        $('.conteudo_aluno').find('.form_cadastro').hide();
+        $('.conteudo_aluno').find('.update_cadastro').show();
+    });
+
+    $("#voltarProf").click(function() {
+        $('.conteudo_professor').find('.form_cadastro').hide();
+        $('.conteudo_professor').find('.update_cadastro').show();
+    });
+
+    listarEscolasPreCadastradas();
+
 }); //Fim
+
+function senhaAtualCorreta (idUsuario, senha) {
+    var r;
+    $.ajax({
+        url: "ajax/UsuarioAjax.php",
+        type: "GET",
+        data: { 'acao'      : 'verificaSenha',
+                'senha'     : senha,
+                'usuario'   : idUsuario},
+        async: false,
+        success: function(d) {
+            if (d.trim())
+                r = true;
+            else
+                r = false;
+        }
+    });
+
+    return r;
+}
 
 function tabNavigation(tabToShow) {
 	
@@ -948,22 +1025,22 @@ function formatar(mascara, documento){
     var i = documento.value.length;
     var saida = mascara.substring(0,1);
     var texto = mascara.substring(i)
-    
+
     if (texto.substring(0,1) != saida){
        documento.value += texto.substring(0,1);
     }
-  	  
-  }
+	  
+}
 
 function listaProfessores(id){
 
 	if ($('#selectEscolaAluno').val() == null || $('#selectSerieAluno').val() == null){
-		$('#selectProfessorAluno').html('<option value="" disabled selected>Selecione primeiro a escola e a série</option>');
+		$('#selectProfessorAluno').html('<option value="" disabled selected>Selecione primeiro a série</option>');
 		return false;
 	}
 	
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'html',
         data: {
@@ -981,7 +1058,7 @@ function listaProfessores(id){
 
 function listarEscolas(){
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'html',
         data: {
@@ -1060,16 +1137,19 @@ function PerfilAluno(aluno) {
         	else telefones = this.telComercial;
         }
         
+        var collapseContent = usuario.perfil == "1"? '' : 'data-toggle="collapse"';
+        var collapse = usuario.perfil == "1"? '' : 'collapse';
+
         html +=
-        '<a href="#updateAlunoCont'+this.id+'" class="accordion_info_toggler updateAlunoToggler " data-toggle="collapse">'+
+        '<a href="#updateAlunoCont'+this.id+'" class="accordion_info_toggler updateAlunoToggler " '+collapseContent+'>'+
             '<div class="accordion_info updateUsuarioInfo'+this.id+'" id="updateAlunoInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
-        '<div class="accordion_content collapse" id="updateAlunoCont'+this.id+'">'+
+        '<div class="accordion_content '+collapse+'" id="updateAlunoCont'+this.id+'">'+
             '<div class="content_col_info">';
 
         html +=
         	
-	    		//'<input type="hidden" value="'+this.idSerie+'" id="serie'+this.id+'"/>'+
+	    		'<input type="hidden" value="'+this.idSerie+'" id="serie'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idGrupo+'" id="grupo'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.idAno+'" id="ano'+this.id+'"/>'+
 	    		'<input type="hidden" value="'+this.rua+'" id="rua'+this.id+'"/>'+
@@ -1127,9 +1207,10 @@ function PerfilAluno(aluno) {
         html +=
             '</div>'+
             '<div class="content_col_btns" '+posicao+'>'+
-            	img+
-                '<button id="btnDelAluno'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadAluno">Excluir cadastro</button>'+
-                '<button id="btnUpdateAluno'+this.id+'" class="section_btn btn_update_cad btnUpdateCadAluno"  idUsuario="'+this.id+'" idUsuarioVar="'+this.idUsuarioVar+'" idEndereco="'+this.idEndereco+'">Alterar Dados</button>'+
+            	img;
+                if (usuario.perfil != "1")
+                    html += '<button id="btnDelAluno'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadAluno">Excluir cadastro</button>';
+        html += '<button id="btnUpdateAluno'+this.id+'" class="section_btn btn_update_cad btnUpdateCadAluno"  idUsuario="'+this.id+'" idUsuarioVar="'+this.idUsuarioVar+'" idEndereco="'+this.idEndereco+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
         
@@ -1196,12 +1277,15 @@ function PerfilProfessor(professor) {
         	if (telefones != '') telefones += ' / '+this.telComercial;
         	else telefones = this.telComercial;
         }
+
+        var collapseContent = usuario.perfil == "2"? '' : 'data-toggle="collapse"';
+        var collapse = usuario.perfil == "2"? '' : 'collapse';
         
         html +=
-        '<a href="#updateProfCont'+this.id+'" class="accordion_info_toggler updateProfToggler" data-toggle="collapse">'+
+        '<a href="#updateProfCont'+this.id+'" class="accordion_info_toggler updateProfToggler" '+collapseContent+'>'+
             '<div class="accordion_info updateUsuarioInfo'+this.id+'" id="updateProfInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
-        '<div class="accordion_content collapse" id="updateProfCont'+this.id+'">'+
+        '<div class="accordion_content '+collapse+'" id="updateProfCont'+this.id+'">'+
             '<div class="content_col_info">';
             
         html +=
@@ -1225,7 +1309,6 @@ function PerfilProfessor(professor) {
                 '<table border="0">'+
                 	'<tr class="content_info_row">'+
 		                '<td colspan="4"><span class="content_info_label">Escola: </span><span id="nomeEscola'+this.id+'" class="content_info_txt">'+ this.nomeEscola +'</span></td>'+
-		                '<td colspan="2"><span class="content_info_label">Sala: </span><span id="grupo'+this.id+'" idGrupo="'+this.idSala+'" class="content_info_txt">'+this.sala + '</span></td>'+
 		            '</tr>'+
 		            //'<tr class="content_info_row">'+
 		            //    '<td colspan="3"><span class="content_info_label">Categoria Funcional: </span><span id="categoria'+this.id+'" idCategoria="'+this.idCategoria+'" class="content_info_txt">'+ this.categoria +'</span></td>'+
@@ -1263,9 +1346,10 @@ function PerfilProfessor(professor) {
         html +=
             '</div>'+
             '<div class="content_col_btns" '+posicao+'>'+
-            	img+
-                '<button id="btnDelProf'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadProf">Excluir cadastro</button>'+
-                '<button id="btnUpdateProf'+this.id+'" class="section_btn btn_update_cad btnUpdateCadProf" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idUsuarioVar="'+this.idUsuarioVar+'" idGrupo="'+this.idSala+'">Alterar Dados</button>'+
+            	img;
+                if (usuario.perfil != "2")
+                    html += '<button id="btnDelProf'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadProf">Excluir cadastro</button>';
+                html += '<button id="btnUpdateProf'+this.id+'" class="section_btn btn_update_cad btnUpdateCadProf" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idUsuarioVar="'+this.idUsuarioVar+'" idGrupo="'+this.idSala+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
     
@@ -1317,12 +1401,15 @@ function PerfilEscola(escola) {
         else if (this.status == 1) status = 'Ativado'
         else if (this.status == 2) status = 'Rejeitado'
         else status = '';
+
+        var collapseContent = usuario.perfil == "4"? '' : 'data-toggle="collapse"';
+        var collapse = usuario.perfil == "4"? '' : 'collapse';
         
         html +=
-        '<a href="#updateEscCont'+this.id+'" class="accordion_info_toggler updateEscToggler" data-toggle="collapse">'+
+        '<a href="#updateEscCont'+this.id+'" class="accordion_info_toggler updateEscToggler" '+collapseContent+'>'+
             '<div class="accordion_info updateUsuarioInfo'+this.id+'" id="updateEscInfo'+this.id+'">'+this.nome+'</div>'+
         '</a>'+
-        '<div class="accordion_content collapse" id="updateEscCont'+this.id+'">'+
+        '<div class="accordion_content '+collapse+'" id="updateEscCont'+this.id+'">'+
             '<div class="content_col_info">';
             
         html +=
@@ -1377,9 +1464,10 @@ function PerfilEscola(escola) {
         
         html +=
             '</div>'+
-            '<div class="content_col_btns">'+
-                '<button id="btnDelEscola'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadEscola">Excluir cadastro</button>'+
-                '<button id="btnUpdateEscola'+this.id+'" class="section_btn btn_update_cad btnUpdateCadEscola" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idEscola="'+this.idEscola+'">Alterar Dados</button>'+
+            '<div class="content_col_btns">';
+                if(usuario.perfil != "4")
+                    html += '<button id="btnDelEscola'+this.id+'" idUsuarioVariavel="'+this.idUsuarioVar+'" idUsuario="'+this.id+'" class="section_btn btn_del_cad btnDelCadEscola">Excluir cadastro</button>';
+                html +='<button id="btnUpdateEscola'+this.id+'" class="section_btn btn_update_cad btnUpdateCadEscola" idUsuario="'+this.id+'" idEndereco="'+this.idEndereco+'" idEscola="'+this.idEscola+'">Alterar Dados</button>'+
             '</div>'+
         '</div>';
     
@@ -1418,12 +1506,14 @@ function tabNavigation(tabToShow) {
 function listarAlunos(){
 
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {
             'acao': 'listaUsuariosCompleto',
-            'perfil': '1'
+            'perfil': '1',
+            'perfil_usr' : usuario.perfil,
+            'usr_id' : usuario.perfil == 4? usuario.escola : usuario.id
         },
         success:function(alunos){
         	$('.update_aluno_accordion').html('');
@@ -1442,12 +1532,14 @@ function listarAlunos(){
 
 function listarProfessores(){
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {
             'acao': 'listaUsuariosCompleto',
-            'perfil': '2'
+            'perfil': '2',
+            'perfil_usr' : usuario.perfil,
+            'usr_id' : usuario.perfil == 4? usuario.escola : usuario.id
         },
         success:function(professores){
         	$('.update_prof_accordion').html('');
@@ -1464,15 +1556,19 @@ function listarProfessores(){
     });	
 }
 
+
+
 function listarEscolas(){
 	
 	$.ajax({
-        url:'ajax/cadastroAjax.php',
+        url:'ajax/CadastroAjax.php',
         type:'post',
         dataType:'json',
         data: {
             'acao': 'listaUsuariosCompleto',
-            'perfil': '4'
+            'perfil': '4',
+            'perfil_usr' : usuario.perfil,
+            'usr_id' : usuario.id
         },
         success:function(escolas){
         	$('.update_escola_accordion').html('');
@@ -1505,9 +1601,33 @@ function limparCadastro(classe){
 	if (classe == 'formAluno'){
 		listarEscolas();
 		$('.anoAtual').attr('selected','selected');
+
+        //Mostrar campos escondidos caso tenha-se editado um aluno anteriormente
+        $("#dados_escolares select").removeAttr("disabled");
+        $("#inputNascimentoAluno").removeAttr("disabled");
+        $("#inputRgAluno").removeAttr("disabled");
+        $("#inputCpfAluno").removeAttr("disabled");
+        $("#inputUsuarioAluno").removeAttr("disabled");
+        $("label[for=inputSenhaAluno]").append('<span class="asterisco">*</span>');
+        $("label[for=inputSenhaConfirmAluno]").append('<span class="asterisco">*</span>');
+        $('#selectEscolaAluno').val(usuario.escola);
+        $("#resetarAluno").show();
+        $("#inputSenhaAtual").parent().parent().hide();
+
 	}else if (classe = 'formProf'){
 		$('.seriesProfessor').prop('checked',false);
 		$('.seriesProfessor').eq(0).prop('checked',true);
+
+        //Mostrar campos escondidos caso tenha-se editado um aluno anteriormente
+        $("#inputNascimentoProf").removeAttr("disabled");
+        $("#inputRgProf").removeAttr("disabled");
+        $("#inputCpfProf").removeAttr("disabled");
+        $("#inputUsuarioProf").removeAttr("disabled");
+        $("label[for=inputSenhaProf]").append('<span class="asterisco">*</span>');
+        $("label[for=inputSenhaConfirmProf]").append('<span class="asterisco">*</span>')
+        $("#resetarProf").show();
+        $("#inputSenhaAtualProf").parent().parent().hide();
+
 	}else if (classe == 'formEscola'){
 		//
 	}
@@ -1665,40 +1785,280 @@ function atribuirEventosSerie(idserieSelect,idperiodoSelect) {
     });
 }
 
-function verificarPadraoSenha(perfil) {
+function verificarPadraoSenha(perfil)
+{
     var senha = $("#inputSenha"+perfil).val();
-    
-    if (/\W+/.test(senha)) {
+
+    if (/\W+/.test(senha))
+    {
         $("#regrasSenha"+perfil).find(".regra_char_esp").removeClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_char_esp").addClass("text-success");
-    } else{
+    }
+    else
+    {
         $("#regrasSenha"+perfil).find(".regra_char_esp").addClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_char_esp").removeClass("text-success");
     }
 
-    if (/[0-9]/.test(senha)) {
+    if (/[0-9]/.test(senha))
+    {
         $("#regrasSenha"+perfil).find(".regra_char_mai").removeClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_char_mai").addClass("text-success");
-    } else {
+    }
+    else
+    {
         $("#regrasSenha"+perfil).find(".regra_char_mai").addClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_char_mai").removeClass("text-success");
     }
 
-    if (/[a-z]/.test(senha)) {
+    if (/[a-z]/.test(senha))
+    {
         $("#regrasSenha"+perfil).find(".regra_char_min").removeClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_char_min").addClass("text-success");
-    } else {
+    }
+    else
+    {
         $("#regrasSenha"+perfil).find(".regra_char_min").addClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_char_min").removeClass("text-success");
     }
 
-    if (senha.length >= 6 && senha.length <= 10) {
+    if (senha.length >= 6 && senha.length <= 10)
+    {
         $("#regrasSenha"+perfil).find(".regra_length").removeClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_length").addClass("text-success");
-    } else {
+    }
+    else
+    {
         $("#regrasSenha"+perfil).find(".regra_length").addClass("text-danger");
         $("#regrasSenha"+perfil).find(".regra_length").removeClass("text-success");
     }
 }
 
+function gerarHtmlEscolasPendentes(data)
+{
+    var html = "";
 
+    for (var i in data)
+    {
+        var status = "";
+        var arquivo = "";
+
+        // Verificar o status da escola
+        if (data[i].status == 0)
+            status = 'Inativo'
+        else if (data[i].status == 1)
+            status = 'Ativo'
+        else if (data[i].status == 2)
+            status = 'Rejeitado'
+
+        // Verificar se já existe um arquivo pdf gerado. Se não, atribuir evento para gerar.
+        if (data[i].documento.url !== undefined)
+            arquivo = "<a id='arquivo"+data[i].id+"' target='_blank' href='arquivos/"+data[i].documento.url+"' class='link'>Clique aqui</a>";
+        else
+            arquivo = "<span id='arquivo"+data[i].id+"' class='link' onclick='getArquivoPesquisaByEscolaPendente(\""+data[i].id+"\")'>Clique aqui</span>";
+
+        var collapseContent = usuario.perfil == "4"? '' : 'data-toggle="collapse"';
+        var collapse = usuario.perfil == "4"? '' : 'collapse';
+
+        // Itens do acordeon com as escolas
+        html +=
+            '<a href="#confirmEscCont'+data[i].id+'" class="accordion_info_toggler confirmEscToggler" '+collapseContent+'>'+
+                '<div class="accordion_info confirmEscInfo'+data[i].id+'" id="confirmEscInfo'+data[i].id+'">'+data[i].nome+'</div>'+
+            '</a>'+
+            '<div class="accordion_content '+collapse+'" id="confirmEscCont'+data[i].id+'">'+
+                '<div class="content_col_info">';
+
+        // Tabela contendo os dados da escola
+        html +=
+                '<table border="0">'+
+                    '<tr class="content_info_row">'+
+                        '<td colspan="6"><span class="content_info_label">Razão Social: </span><span id="razao'+data[i].id+'" class="content_info_txt">'+ data[i].razaoSocial +'</span></td>'+
+                    '</tr>'+
+                    '<tr class="content_info_row">'+
+                        '<td colspan="2"><span class="content_info_label">CNPJ: </span><span id="cnpj'+data[i].id+'" class="content_info_txt">'+data[i].cnpj+'</span></td>'+
+                        '<td colspan="2"><span class="content_info_label">Administração: </span><span id="adm'+data[i].id+'" idAdm="'+data[i].administracao.id+'" class="content_info_txt">'+data[i].administracao.administracao+'</span></td>'+
+                        '<td colspan="2"><span class="content_info_label">Tipo: </span><span id="tipo'+data[i].id+'" idTipo="'+data[i].tipo.id+'" class="content_info_txt">'+data[i].tipo.tipo_escola + '</span></td>'+
+                    '</tr>'+
+                    '<tr class="content_info_row">'+
+                        '<td colspan="6"><span class="content_info_label">Endereço:</span> <span class="content_info_txt">'+
+                            data[i].endereco.logradouro + ', ' + data[i].endereco.numero + (data[i].endereco.complemento != '' ? ', '+data[i].endereco.complemento : '') + ' - ' + data[i].endereco.bairro + ' - ' + data[i].endereco.cidade + ', ' + data[i].endereco.uf +'. CEP: '+data[i].endereco.cep+
+                        '</span></td>'+
+                    '</tr>'+
+                    '<tr class="content_info_row">'+
+                        '<td colspan="3"><span class="content_info_label">Tel.:</span> <span id="telefone'+data[i].id+'" class="content_info_txt">'+data[i].endereco.tel_res+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">Email:</span> <span id="email'+data[i].id+'" class="content_info_txt">'+data[i].endereco.email+'</span></td>'+
+                    '</tr>'+
+                    '<tr class="content_info_row">'+
+                        '<td colspan="3"><span class="content_info_label">Diretor:</span> <span class="content_info_txt">'+data[i].diretor+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">Email:</span> <span class="content_info_txt">'+data[i].emailDiretor+'</span></td>'+
+                    '</tr>'+
+                    '<tr class="content_info_row">'+
+                        '<td colspan="3"><span class="content_info_label">Coordenador:</span> <span class="content_info_txt">'+data[i].coordenador+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">Email:</span> <span class="content_info_txt">'+data[i].emailCoord+'</span></td>'+
+                    '</tr>'+
+                    '<tr class="content_info_row">'+
+                        '<td colspan="6"><span class="content_info_label">Site:</span> <span class="content_info_txt">'+data[i].site+'</span></td>'+
+                    '</tr>'+
+                    '<tr class="content_info_row">'+
+                        '<td colspan="3"><span class="content_info_label">Status:</span> <span class="content_info_txt">'+status+'</span></td>'+
+                        '<td colspan="3"><span class="content_info_label">PDF Pesquisa:</span> '+arquivo+'</td>'+
+                    '</tr>'+
+                '</table>';
+
+        html +=
+            '</div>'+
+            '<div class="content_col_btns">';
+                html += '<button id="btnRejectEscola'+data[i].id+'" class="section_btn btn_del_cad btnDelCadEscola" onclick="rejeitarPreCadastroEscola(\''+data[i].id+'\')">Rejeitar cadastro</button>';
+                html += '<button id="btnConfirmEscola'+data[i].id+'" class="section_btn btn_update_cad btnConfirmCadEscola" onclick="confirmarPreCadastroEscola(\''+data[i].id+'\')">Aceitar cadastro</button>'+
+            '</div>'+
+        '</div>';
+    }
+    return html;
+}
+
+function listarEscolasPreCadastradas()
+{
+    $.ajax({
+        url:'ajax/CadastroAjax.php',
+        type:'post',
+        dataType:'json',
+        data: "acao=listaPendentes",
+        success: function(data)
+        {
+            if(data)
+            {
+                var html = gerarHtmlEscolasPendentes(data);
+                $(".confirm_escola_accordion").html(html);
+            }
+            else
+            {
+                showAlertSemEscolasPendentes();
+            }
+        },
+        error: function(e)
+        {
+            console.log(e);
+        }
+    });
+}
+
+function rejeitarPreCadastroEscola(id)
+{
+    $.ajax({
+        url:'ajax/CadastroAjax.php',
+        type:'post',
+        dataType:'json',
+        data: "acao=reject&id="+id,
+        beforeSend: function() {
+            $("#btnRejectEscola"+id).attr("disabled","disabled");
+            $("#btnConfirmEscola"+id).attr("disabled","disabled");
+            $("#btnRejectEscola"+id).text("Carregando...");
+            $("#btnConfirmEscola"+id).text("Carregando...");
+        },
+        success: function(data)
+        {
+            $("#mensagemRejeitado").fadeIn(200, function()
+            {
+                $("#confirmEscInfo"+id).parent().remove();
+                $("#confirmEscCont"+id).remove();
+                countListaEscolaPendetes();
+            });
+        },
+        error: function(e)
+        {
+            console.log(e);
+        },
+        complete: function()
+        {
+            $("#btnRejectEscola"+id).removeAttr("disabled");
+            $("#btnConfirmEscola"+id).removeAttr("disabled");
+            $("#btnRejectEscola"+id).text("Rejeitar cadastro");
+            $("#btnConfirmEscola"+id).text("Aceitar cadastro");
+        },
+    });
+}
+
+function confirmarPreCadastroEscola(id)
+{
+    $.ajax({
+        url:'ajax/CadastroAjax.php',
+        type:'post',
+        dataType:'json',
+        data: "acao=confirm&id="+id,
+        beforeSend: function() {
+            $("#btnRejectEscola"+id).attr("disabled","disabled");
+            $("#btnConfirmEscola"+id).attr("disabled","disabled");
+            $("#btnRejectEscola"+id).text("Carregando...");
+            $("#btnConfirmEscola"+id).text("Carregando...");
+        },
+        success: function(data)
+        {
+            $("#mensagemAprovado").fadeIn(200, function() {
+                $("#confirmEscInfo"+id).parent().remove();
+                $("#confirmEscCont"+id).remove();
+                countListaEscolaPendetes();
+            });
+        },
+        error: function(e)
+        {
+            console.log(e);
+        },
+        complete: function()
+        {
+            $("#btnRejectEscola"+id).removeAttr("disabled");
+            $("#btnConfirmEscola"+id).removeAttr("disabled");
+            $("#btnRejectEscola"+id).text("Rejeitar cadastro");
+            $("#btnConfirmEscola"+id).text("Aceitar cadastro");
+        }
+    });
+}
+
+function countListaEscolaPendetes()
+{
+    if ($(".confirmEscToggler").length === 0)
+        showAlertSemEscolasPendentes();
+    else
+        return false;
+}
+
+function showAlertSemEscolasPendentes()
+{
+    $(".confirm_escola_accordion").html("<div class='alert alert-warning'>Nenhuma escola com cadastro pendente.</div>");
+}
+
+function getArquivoPesquisaByEscolaPendente(idesc)
+{
+    $.ajax({
+        url: "ajax/EscolaJSONAjax.php",
+        type: "GET",
+        dataType: "json",
+        data: "acao=getAquivoPdf&idesc="+idesc,
+        beforeSend: function()
+        {
+            $("#arquivo"+idesc).text("Aguarde...");
+            $("#arquivo"+idesc).css("pointer-events","none");
+        },
+        success: function(data)
+        {
+            showArquivoPesquisaGerado(idesc, data.arquivo);
+        },
+        error: function()
+        {
+            console.error("Erro ao gerar arquivo");
+        },
+        complete: function()
+        {
+            $("#arquivo"+idesc).text("Ver arquivo");
+            $("#arquivo"+idesc).css("pointer-events","auto");
+        }
+    });
+}
+
+function showArquivoPesquisaGerado(idesc, arquivo)
+{
+    var url = window.location.href;
+    var path = url.slice(0, url.lastIndexOf("/"))+"/arquivos/"+arquivo;
+
+    $("#arquivo"+idesc).attr("onclick","showArquivoPesquisaGerado('"+idesc+"','"+arquivo+"')");
+    window.open(path, "_blank");
+}

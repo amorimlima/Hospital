@@ -13,7 +13,7 @@ function Formulario(attr) {
     this.aoInvalidar = attr.aoInvalidar ? attr.aoInvalidar : function () {return false;};
 
     this.aplicarMascaras = function () {
-        $("#" + self.idFormulario).find(".cep").mask("99999-999");
+        $("#" + self.idFormulario).find(".cep").mask("99.999-999");
         $("#" + self.idFormulario).find(".tel").mask("(99) 9999-9999");
         $("#" + self.idFormulario).find(".cel").mask("(99) 99999-9999");
         $("#" + self.idFormulario).find(".cpf").mask("999.999.999-99");
@@ -48,36 +48,6 @@ function Formulario(attr) {
                 $(this).removeClass("input_faltando");
             }
         });
-
-//        $("#" + self.idFormulario).find("input[type=number]").not(":disabled").each(function() {
-//        	//console.log($(this).attr('id'));
-//            if ($(this).val() === "") {
-//                $(this).addClass("input_faltando");
-//                statusForm = 1;
-//            } else {
-//                $(this).removeClass("input_faltando");
-//            }
-//        });
-
-//        $("#" + self.idFormulario).find("select").not(":disabled").each(function() {
-        	//console.log($(this).attr('id'));
-//            if ($(this).find(":selected").val() === "0" || $(this).find(":selected").val() === "") {
-//                $(this).addClass("input_faltando");
-//                statusForm = 1;
-//            } else {
-//                $(this).removeClass("input_faltando");
-//            }
-//        });
-//
-//        $("#" + self.idFormulario+" .obrigatorio").find("textarea").not(":disabled").each(function() {
-//        	
-//            if ($(this).val() === "") {
-//                $(this).addClass("input_faltando");
-//                statusForm = 1;
-//            } else {
-//                $(this).removeClass("input_faltando");
-//            }
-//        });
 
         if (statusForm === 0) {
             self.aoValidar();

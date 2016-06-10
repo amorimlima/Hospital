@@ -31,10 +31,10 @@ function carregarAtividadesAluno (capitulo, ano) {
     		for (var i = 0; i < d.length; i++){
     			if (d[i].completo == "N"){
     				$('#objeto').attr('src','Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html').css({'display':'block'});
-    				var pathObjeto = 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html';
+    				$('#obj_'+d[i].id_exercicio).attr('pathObjeto', 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html');
     				$('#obj_'+d[i].id_exercicio).click(function(){	
 
-    					$('#objeto').attr('src', pathObjeto).css({'display':'block'});
+    					$('#objeto').attr('src', $(this).attr('pathObjeto')).css({'display':'block'});
 
 						risizeObj();
 
@@ -44,10 +44,10 @@ function carregarAtividadesAluno (capitulo, ano) {
     			else
     			{
     				$('#obj_'+d[i].id_exercicio).css('background', 'url("img/circulo_parabens.png") no-repeat');
-    				var pathObjeto = 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html';
+    				$('#obj_'+d[i].id_exercicio).attr('pathObjeto', 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html');
     				$('#obj_'+d[i].id_exercicio).click(function(){	
 
-    					$('#objeto').attr('src', pathObjeto).css({'display':'block'});
+    					$('#objeto').attr('src', $(this).attr('pathObjeto')).css({'display':'block'});
 
 						risizeObj();
 
@@ -66,12 +66,11 @@ function carregarAtividades (capitulo, ano) {
     			'serie'		: ano},
     	dataType: 'json',
     	success: function(d) {
+            console.log(d);
     		for (var i = 0; i < d.length; i++){
-    			var pathObjeto = 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].exe_nome.trim()+'/index.html';
+    			$('#obj_'+d[i].exe_id).attr('pathObjeto', 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].exe_nome.trim()+'/index.html');
     			$('#obj_'+d[i].exe_id).click(function(){	
-    				console.log("click");
-    				$('#objeto').attr('src', pathObjeto).css({'display':'block'});
-
+    				$('#objeto').attr('src', $(this).attr('pathObjeto')).css({'display':'block'});
 					risizeObj();
 				});
     		}
