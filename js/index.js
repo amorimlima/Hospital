@@ -192,7 +192,7 @@ function validarLogin() {
             dataType:'json',
             data:{'usuario':user,'senha':senha},
             success:function(data){
-                if(data.erro == true) {
+                if(data.erro == true || !data) {
                     $("#mensagemLoginInvalido").fadeIn(200);
                 } else {
                     if(data[0]){

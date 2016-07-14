@@ -32,12 +32,10 @@ function carregarAtividadesAluno (capitulo, ano) {
     			if (d[i].completo == "N"){
     				$('#objeto').attr('src','Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html').css({'display':'block'});
     				$('#obj_'+d[i].id_exercicio).attr('pathObjeto', 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html');
-    				$('#obj_'+d[i].id_exercicio).click(function(){	
-
+    				
+                    $('#obj_'+d[i].id_exercicio).click(function(){	
     					$('#objeto').attr('src', $(this).attr('pathObjeto')).css({'display':'block'});
-
 						risizeObj();
-
 					});
     				break;
     			}
@@ -45,7 +43,8 @@ function carregarAtividadesAluno (capitulo, ano) {
     			{
     				$('#obj_'+d[i].id_exercicio).css('background', 'url("img/circulo_parabens.png") no-repeat');
     				$('#obj_'+d[i].id_exercicio).attr('pathObjeto', 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html');
-    				$('#obj_'+d[i].id_exercicio).click(function(){	
+
+      				$('#obj_'+d[i].id_exercicio).click(function(){	
 
     					$('#objeto').attr('src', $(this).attr('pathObjeto')).css({'display':'block'});
 

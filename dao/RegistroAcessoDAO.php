@@ -53,8 +53,9 @@ class RegistroAcessoDAO extends DAO{
 		$sql .= "rgc_fim = '".$rg->getRgc_fim()."' ";
 		$sql .= "where rgc_id = ".$rg->getRgc_id()." limit 1";
 		echo $sql;
-		return $this->execute($sql);
+		return $this->executeAndReturnLastID($sql);
 	}
+
 	public function gravaRegistroAcesso(RegistroAcesso $rg){
 		$sql = "insert into registro_acesso (";
 		$sql .= "rgc_usuario,";

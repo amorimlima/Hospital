@@ -285,7 +285,9 @@ $adms = $AdmController->selectAll();
             </div>
             <footer>
 		        <div class="row" id="rodape"></div>
-		        <div id="margin"></div>
+		        <div class="logo_murano_container">
+					<div class="murano"></div>
+				</div>
 		    </footer>
         </div>        
         <div id="mensagemCampoVazio" class='modalMensagem' style="display:none">
