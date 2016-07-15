@@ -180,11 +180,8 @@ class Template {
 
                                                 echo $htmlMenuForum;
                                             } else {
-                                                if ($menuId[0] == "galeria") {
-                                                    echo'<a href="#" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
-                                                } else {
-                                                    echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
-                                                }
+                                                
+                                                echo'<a href="'.$menu->getBtn_menu().'" id="mn_'.$menuId[0].'" class="mn_a_menu"></a>';
                                             }
                                             echo'</li>';
                                         }

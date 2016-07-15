@@ -55,10 +55,8 @@ switch ($_REQUEST["acao"]){
 	case "iniciaExercicio":{
 
 		$verifiacaExeAcesso = $registroAcessoController->selectExeByAlunoRegistro($_REQUEST["exercicio"],$usuario);
-
 		if($verifiacaExeAcesso == 0){
 			$registroAcesso = "";
-
 			if(isset($_SESSION["EXERCICIO_ATUAL"])){
 				$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_SESSION["EXERCICIO_ATUAL"]);
 			}
@@ -82,19 +80,19 @@ switch ($_REQUEST["acao"]){
 					);
 				}
 			}
-
+		}else{
+			$_SESSION["EXERCICIO_ATUAL"] = $_REQUEST["exercicio"];
 		}	
 		
 		break;
 	}
 	
-	case "finalizaExercicio":{	
-		$registroAcesso = $registroAcessoController->selectRegistroByUserExe($_REQUEST["exercicio"],$usuario);
-
-		//$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_REQUEST["exercicio"]);
-		//print_r($registroAcesso);
-
+	case "finalizaExercicio":{		
+		$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_SESSION["EXERCICIO_ATUAL"]);
+		$registroAcesso->setRgc_exercicio($_SESSION["EXERCICIO_ATUAL"]);
 		$registroAcesso->setRgc_fim(date("Y-m-d H:i:s"));
+		$registroAcesso->setRgc_usuario($usuario);
+		
 		if($registroAcessoController->editaRegistroAcesso($registroAcesso)){
 			$result = Array(
 					'erro'=>false

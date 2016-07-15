@@ -104,6 +104,7 @@ function finalizaParticipacaoExercicio(exercicio){
 			'acao':'finalizaExercicio',
 			'exercicio':exercicio},
 		success:function(data){
+			console.log(data);
 			if(data.erro){
 			alert("Ocorreu um erro em executar ação  do Exercício.");	
 			}

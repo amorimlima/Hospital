@@ -460,7 +460,7 @@ class UsuarioDAO extends DAO{
 
 	public function buscaFotoByIdUsuario($id)
      {
-        $sql = "select usr_imagem from usuario where uv.usv_status = 0 and usr_id = ".$id;
+        $sql = "select usr_imagem from usuario where usr_id = ".$id;
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
     	

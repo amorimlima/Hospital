@@ -51,11 +51,11 @@ class RegistroAcessoDAO extends DAO{
 	public function editaRegistroAcesso(RegistroAcesso $rg){
 		$sql = "update registro_acesso set ";
 		$sql .= "rgc_fim = '".$rg->getRgc_fim()."' ";
-		$sql .= "where rgc_id = ".$rg->getRgc_id()." limit 1";
+		$sql .= "where rgc_exercicio = ".$rg->getRgc_exercicio()." and rgc_usuario=".$rg->getRgc_usuario()." limit 1";
 		echo $sql;
 		return $this->execute($sql);
 	}
-	
+
 	public function gravaRegistroAcesso(RegistroAcesso $rg){
 		$sql = "insert into registro_acesso (";
 		$sql .= "rgc_usuario,";
@@ -67,6 +67,7 @@ class RegistroAcessoDAO extends DAO{
 		$sql .= "".$rg->getRgc_exercicio().",";
 		$sql .= "'".$rg->getRgc_inicio()."',";
 		$sql .= "'".$rg->getRgc_fim()."')";
+		echo $sql;
 		return $this->executeAndReturnLastID($sql);
 	}
 
@@ -76,23 +77,6 @@ class RegistroAcessoDAO extends DAO{
         $result = $this->retrieve($sql);
         $qr = mysqli_num_rows($result);
         return $qr;
-    }
-
-    public function selectRegistroByUserExe($idExercicio,$idUsuario)
-    {
-        $sql = "select * from registro_acesso where rgc_exercicio = ".$idExercicio." and rgc_usuario=".$idUsuario;        
-        $registroAcesso = null;
-		$result = $this->retrieve($sql);
-		if(mysqli_num_rows($result)>0){
-			$qr = mysqli_fetch_array($result);
-			$registroAcesso = new RegistroAcesso();
-			$registroAcesso->setRgc_id($qr["rgc_id"]);
-			$registroAcesso->setRgc_usuario($qr["rgc_usuario"]);
-			$registroAcesso->setRgc_exercicio($qr["rgc_exercicio"]);
-			$registroAcesso->setRgc_inicio($qr["rgc_inicio"]);
-			$registroAcesso->setRgc_fim($qr["rgc_fim"]);
-		}
-		return $registroAcesso;
-    }
+    } 
 }
 
