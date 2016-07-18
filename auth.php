@@ -18,8 +18,9 @@ if(isset($_POST)){
 	$usuarioVariavelController = new UsuarioVariavelController();	
 
 	$user = $usuarioController->autenticaUsuario($usuario, $senha);
+	//print_r($user);
 
-	if($user!=null){
+	if($user!=null || !empty($user)){
 
 		$userVariavel = $usuarioVariavelController->selectByIdUsuario($user['usr_id']);
         $adm = [

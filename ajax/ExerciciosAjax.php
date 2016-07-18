@@ -59,7 +59,9 @@ switch ($_REQUEST["acao"]){
 				}
 
 				if($value['exe_tipo']==2){
+					$verificaPrePos=0;
 					$exercicioVerProntoMultipla = $exercicioController->selectExercicioProntoMultipla($value['exe_id'], $logado['id']);
+
 					$numQuestao = $exercicioController->selectCountExercicioNumQuestoes($value['exe_id']);
 					if($numQuestao == 0){
 						$verificaPrePos = $exercicioController->selecionaExePrePos($value['exe_id']);
@@ -69,7 +71,8 @@ switch ($_REQUEST["acao"]){
 					// print_r($verificaPrePos);
 					// echo "-----";
 					// print_r($exercicioVerProntoMultipla);
-					// echo "<br>";
+					// echo "--- nq=";
+					// print_r($numQuestao);
 
 					if(($numQuestao != 0) && ($numQuestao == $exercicioVerProntoMultipla)){
 						$result = Array(

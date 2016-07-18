@@ -35,11 +35,9 @@ function carregarAtividadesAluno (capitulo, ano) {
     		for (var i = 0; i < d.length; i++){
     			if (d[i].completo == "N") {
     				$('#obj_'+d[i].id_exercicio).attr('pathObjeto', 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html');
-
-    				$('#obj_'+d[i].id_exercicio).click(function(){
-                        console.log(this);
+    				
+                    $('#obj_'+d[i].id_exercicio).click(function(){	
     					$('#objeto').attr('src', $(this).attr('pathObjeto')).css({'display':'block'});
-
 						risizeObj();
 					});
 

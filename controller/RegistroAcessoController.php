@@ -29,6 +29,11 @@ class RegistroAcessoController {
 	{
 		return $this->registroAcessoDao->selectExeByAlunoRegistro($idExercicio,$idUsuario);
 	}	
+
+	public function selectRegistroByUserExe($idExercicio,$idUsuario)
+	{
+		return $this->registroAcessoDao->selectRegistroByUserExe($idExercicio,$idUsuario);
+	}
 	
 
 }

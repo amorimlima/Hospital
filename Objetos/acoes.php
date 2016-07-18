@@ -55,19 +55,22 @@ switch ($_REQUEST["acao"]){
 	case "iniciaExercicio":{
 
 		$verifiacaExeAcesso = $registroAcessoController->selectExeByAlunoRegistro($_REQUEST["exercicio"],$usuario);
+
 		if($verifiacaExeAcesso == 0){
-			if($_SESSION["EXERCICIO_ATUAL"]){
+			$registroAcesso = "";
+
+			if(isset($_SESSION["EXERCICIO_ATUAL"])){
 				$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_SESSION["EXERCICIO_ATUAL"]);
-			}else{
-				$registroAcesso = null;
 			}
-			if($registroAcesso == null){
+
+			if($registroAcesso == ""){
 				$registroAcesso = new RegistroAcesso();
 				$registroAcesso->setRgc_usuario($usuario);
 				$registroAcesso->setRgc_exercicio($_POST["exercicio"]);
 				$registroAcesso->setRgc_inicio(date("Y-m-d H:i:s"));
 				$registroAcesso->setRgc_fim('0000-00-00 00:00:00');
 				$id = $registroAcessoController->gravaRegistroAcesso($registroAcesso);
+
 				if($id){
 					$_SESSION["EXERCICIO_ATUAL"] = $id;
 					$result = Array(
@@ -85,10 +88,12 @@ switch ($_REQUEST["acao"]){
 		break;
 	}
 	
-	case "finalizaExercicio":{		
-		$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_SESSION["EXERCICIO_ATUAL"]);
-		//echo json_encode($registroAcesso);
-		//die();
+	case "finalizaExercicio":{	
+		$registroAcesso = $registroAcessoController->selectRegistroByUserExe($_REQUEST["exercicio"],$usuario);
+
+		//$registroAcesso = $registroAcessoController->listaRegistroAcessoByIdExercicio($_REQUEST["exercicio"]);
+		//print_r($registroAcesso);
+
 		$registroAcesso->setRgc_fim(date("Y-m-d H:i:s"));
 		if($registroAcessoController->editaRegistroAcesso($registroAcesso)){
 			$result = Array(

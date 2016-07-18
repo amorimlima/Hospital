@@ -52,13 +52,13 @@ $(document).ready(function(e) {
 
 	$('#mn_galeria').click(function(){
 		$.ajax({
-			url:'ajax/GaleriaAjax.php',
+			url:'ajax/galeriaajax.php',
 			type:'post',
-			dataType:'text',
-			data:{'acao':'registroGaleria','menu':'1','download':'0'},
+			datatype:'text',
+			data:{'acao':'registrogaleria','menu':'1','download':'0'},
 			success:function(data)
 			{
-				window.location.href = "galeria.php";
+				//window.location.href = "galeria.php";
 			}
 		});
 	});

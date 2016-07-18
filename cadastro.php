@@ -220,9 +220,9 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p">
-                                                            <label for="inputRgAluno" class="form_info info_p">RG<span class="asterisco">*</span></label>
+                                                            <label for="inputRgAluno" class="form_info info_p">RG</label>
                                                             <span class="input_container">
-                                                                <input type="text" name="inputRgAluno" id="inputRgAluno" class="form_value form_text value_p formAluno obrigatorioAluno" OnKeyPress="formatar('##.###.###', this)" maxlength="10"  msgVazio="O campo RG é obrigatório" required />
+                                                                <input type="text" name="inputRgAluno" id="inputRgAluno" class="form_value form_text value_p formAluno" OnKeyPress="formatar('##.###.###', this)" maxlength="10"/>
                                                             </span>
                                                         </div>
                                                         <div class="form_celula_p value_last">
