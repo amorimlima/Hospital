@@ -1,5 +1,8 @@
+var atividades;
+
 $(document).ready(function (){
-	posicionarBolinhas();	
+	posicionarBolinhas();
+    atribuirEventos();
 
 	var contador = 0;
 	verificaExercicio();
@@ -13,44 +16,43 @@ $(document).ready(function (){
 		capitulo = parseInt(url.split("&")[1].split("=")[1]);
 	}
 
-
 	if (usuario.perfil == 1)
 		carregarAtividadesAluno(capitulo, ano);
-
 	else
-		carregarAtividades(capitulo, ano);	
+		carregarAtividades(capitulo, ano);
 
+
+    $("#objeto").load(atualizarPercursoCapitulo);
 });
 
 function carregarAtividadesAluno (capitulo, ano) {
 	$.ajax({
     	url: 'ajax/ExerciciosAjax.php',
-    	data: {	'acao' 		: 'verificaExercicio','capitulo': capitulo},
+    	data: {	'acao' : 'verificaExercicio', 'capitulo' : capitulo },
     	dataType: 'json',
     	success: function(d) {
+            atividades = d;
     		for (var i = 0; i < d.length; i++){
-    			if (d[i].completo == "N"){
-    				$('#objeto').attr('src','Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html').css({'display':'block'});
+    			if (d[i].completo == "N") {
     				$('#obj_'+d[i].id_exercicio).attr('pathObjeto', 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html');
-    				$('#obj_'+d[i].id_exercicio).click(function(){	
 
+    				$('#obj_'+d[i].id_exercicio).click(function(){
+                        console.log(this);
     					$('#objeto').attr('src', $(this).attr('pathObjeto')).css({'display':'block'});
 
 						risizeObj();
-
 					});
+
     				break;
-    			}
-    			else
-    			{
+    			} else {
     				$('#obj_'+d[i].id_exercicio).css('background', 'url("img/circulo_parabens.png") no-repeat');
     				$('#obj_'+d[i].id_exercicio).attr('pathObjeto', 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].nome_exercicio.trim()+'/index.html');
-    				$('#obj_'+d[i].id_exercicio).click(function(){	
 
+    				$('#obj_'+d[i].id_exercicio).click(function(){
+                        console.log(this);
     					$('#objeto').attr('src', $(this).attr('pathObjeto')).css({'display':'block'});
 
 						risizeObj();
-
 					});
     			}
     		}
@@ -68,8 +70,8 @@ function carregarAtividades (capitulo, ano) {
     	success: function(d) {
             console.log(d);
     		for (var i = 0; i < d.length; i++){
-    			$('#obj_'+d[i].exe_id).attr('pathObjeto', 'Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].exe_nome.trim()+'/index.html');
-    			$('#obj_'+d[i].exe_id).click(function(){	
+    			$('#obj_'+d[i].exe_id).attr('pathObjeto', 'http://187.73.149.26:8080/Objetos/'+ano+'ano/'+capitulo+'capitulo/'+d[i].exe_nome.trim()+'/index.html');
+    			$('#obj_'+d[i].exe_id).click(function(){
     				$('#objeto').attr('src', $(this).attr('pathObjeto')).css({'display':'block'});
 					risizeObj();
 				});
@@ -82,8 +84,7 @@ function verificaExercicio(){
 	var url   = window.location.search.replace("?", "");
 	var items = url.split("=");
 	var capitulo = parseInt(items[1]);
-	if(items[0] != 'ano')
-	{
+	if(items[0] != 'ano') {
 		$.ajax({
     	    url: "ajax/ExerciciosAjax.php",
     	    type: "post",
@@ -102,7 +103,7 @@ function verificaExercicio(){
     	    		}else{
     	    			$('#obj_'+data[i].id_exercicio).css('background', 'url(img/circulo_parabens.png) no-repeat');
     	    		}
-    	    			
+
     	    	}
     	    	if (capituloCompleto){
     	    		$('#btn_exercicio_'+capitulo+'_parabens_brilho').css("display", "block");
@@ -140,7 +141,40 @@ function posicionarBolinhas () {
 
 	for (var i = 0; i < $(".obj_icone").length; i++){
 		var pos = curvaExercicios.getRelativePosition(i*1/($(".obj_icone").length-1));
+
 		$(".obj_icone")[i].style.left = pos[0] + "px";
 		$(".obj_icone")[i].style.bottom = pos[1] + "px";
 	}
+}
+
+function isCapituloFinalizado() {
+    var bolinhas = document.querySelectorAll(".obj_icone");
+
+    for (var i = 0; i < bolinhas.length; i++) {
+        if (bolinhas[i].style.background.includes("img/circulo_avancar_cap_1.png")) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function atualizarPercursoCapitulo() {
+    var bolinhas = document.querySelectorAll("#caminho .obj_icone");
+
+    for (var i = 0; i < bolinhas.length; i++) {
+        if (bolinhas[i].style.background.includes("img/circulo_avancar_cap_1.png")) {
+            bolinhas[i].style.background = "url(img/circulo_parabens.png) no-repeat";
+            break;
+        }
+    }
+
+    if (isCapituloFinalizado()) {
+        console.info("Capítulo finalizado");
+    } else {
+        console.info("Capítulo não finalizado");
+    }
+}
+
+function atribuirEventos() {
 }

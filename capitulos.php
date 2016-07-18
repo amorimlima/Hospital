@@ -39,7 +39,7 @@ $logado = unserialize($_SESSION['USR']);
                 <div class="col-xs-12 col-md-12 col-lg-8">
                		<div  id="Conteudo_Area_box_left">
                         <a href="#">
-                           <?=$templateCapitulo->listaExercicios("ok")?>	
+                           <?= $templateCapitulo->listaExercicios("ok") ?>	
                         </a>
                     </div>
                 </div>

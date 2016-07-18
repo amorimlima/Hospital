@@ -1,7 +1,7 @@
 <?php
 
 	if(!isset($_SESSION['PATH_SYS'])){
-	   session_start();  
+	   session_start();
 	}
 
 	$path = $_SESSION['PATH_SYS'];
@@ -16,61 +16,57 @@
 	 * @author MuranoDesign
 	 */
 
-	class TemplateCapitulos{
+	class TemplateCapitulos {
 
 		public static $path;
-		
-		function __construct()
-		{
+
+		function __construct() {
 			self::$path = $_SESSION['URL_SYS'];
 		}
-	        
-		public function listaExercicios($introducao)
-		{	
 
-			$usuarioVariavelController = new UsuarioVariavelController();	
+		public function listaExercicios($introducao) {
+
+			$usuarioVariavelController = new UsuarioVariavelController();
 			$exercicioController = new ExercicioController();
 
 			$logado = unserialize($_SESSION['USR']);
 			$capitulo = $_GET['capitulo'];
 			$userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
 
-			if($logado['perfil'] == "Aluno"){
+			if ($logado['perfil'] == "Aluno") {
 				$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(), $logado['escola'],  $capitulo);
-				if(!empty($exercicios)){
+
+				if(!empty($exercicios))
 					$bool = true;
-				}else{
+				else
 					$bool = false;
-				}
-			}else if(($logado['perfil'] == "Unidade Escolar") || ($logado['perfil'] == "Professor")){
+			} elseif (($logado['perfil'] == "Unidade Escolar") || ($logado['perfil'] == "Professor")) {
 				$ano = $_GET['ano'];
 				$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($ano, $logado['escola'],  $capitulo);
-				if(!empty($exercicios)){
+
+				if (!empty($exercicios))
 					$bool = true;
-				}else{
+				else
 					$bool = false;
-				}
-			}else{
+			} else {
 				$ano = $_GET['ano'];
 				$exercicios = $exercicioController->selectAllExercicioBySerieCapitulo($ano, $capitulo);
 				$bool = true;
 			}
 
-			if($bool == true){
-
+			if ($bool == true) {
 				foreach ($exercicios as $i => $value) {
-					if($introducao== 'ok' && $value['exe_ordem']==1){
-						echo '<iframe id="objeto" src="Objetos/'.$value['drt_nome'].$value['exe_nome'].'/index.html" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>';
-					}else if ($introducao=='n_ok'){
+					if($introducao == 'ok' && $value['exe_ordem']==1)
+						echo '<iframe id="objeto" src="http://187.73.149.26:8080/Objetos/'.$value['drt_nome'].$value['exe_nome'].'/index.html" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>';
+					else if ($introducao=='n_ok')
 						echo '<span id="obj_'.$value['exe_id'].'" class="obj_icone"></span>';
-					}
 				}
-			}else{
+			} else {
 				return $erro = "erro";
 			}
 		}
 
-		public function listaFundo(){
+		public function listaFundo() {
 			switch ($_GET['capitulo']) {
 				case '1':
 					$cssMapa = Array(
@@ -81,7 +77,7 @@
 
 					return $cssMapa;
 				break;
-				
+
 				case '2':
 					$cssMapa = Array(
 						'idFundo'  => 'id="btn_exercicio_2"',
