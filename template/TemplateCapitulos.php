@@ -57,7 +57,7 @@
 			if ($bool == true) {
 				foreach ($exercicios as $i => $value) {
 					if($introducao == 'ok' && $value['exe_ordem']==1)
-						echo '<iframe id="objeto" src="http://187.73.149.26:8080/Objetos/'.$value['drt_nome'].$value['exe_nome'].'/index.html" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>';
+						echo '<iframe id="objeto" src="Objetos/'.$value['drt_nome'].$value['exe_nome'].'/index.html" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" msallowfullscreen="true"></iframe>';
 					else if ($introducao=='n_ok')
 						echo '<span id="obj_'.$value['exe_id'].'" class="obj_icone"></span>';
 				}
