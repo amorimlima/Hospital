@@ -11,6 +11,7 @@ $(document).ready(function() {
 	filtrosChange();
 	botoesGrupo();
     voltarGrafico();
+    atribuirEventosModal();
 });
 
 function gerarPickerTipoGrafico() {
@@ -65,32 +66,33 @@ function menuAtribuirCapitulo () {
 
 function voltarGrafico()
 {
-	$("#btn_voltar").click(function() {
-		$('.lista_itens_grafico').empty();
-		if ($('#box_perfil_selected').length > 0){
-			if($('#professor_id').length > 0 )
-			{
-				var escolaId = $('#escola_id').attr('id_escola');
-				$('#box_perfil_selected').remove();
-				$.ajax({
-					url: 'ajax/RelatoriosAjax.php',
-					type: 'GET',
-					data: {	'acao' : 'escolaPorId',
-							'id' : escolaId},
-					dataType: 'json',
-					success: function(escola) {
-						viewEscola(escola);
-						carregarGrafico(getDadosUsuario());
-					}
-				});
-			}
-			else
-			{
-				$('#box_perfil_selected').remove();
-				carregarGrafico(getDadosUsuario());
-			}
-		}
-	});
+    $("#btn_voltar").click(function() {
+        $('.lista_itens_grafico').empty();
+        if ($('#box_perfil_selected').length > 0) {
+            if($('#professor_id').length > 0 ) {
+                var escolaId = $('#escola_id').attr('id_escola');
+                $('#box_perfil_selected').remove();
+                $.ajax({
+                    url: 'ajax/RelatoriosAjax.php',
+                    type: 'GET',
+                    data: {
+                        'acao' : 'escolaPorId',
+                        'id'   : escolaId
+                    },
+                    dataType: 'json',
+                    success: function(escola) {
+                        $("#grafInfoPerfisListados").text("Professores");
+                        viewEscola(escola);
+                        carregarGrafico(getDadosUsuario());
+                    }
+                });
+            } else {
+                $("#grafInfoPerfisListados").text("Escolas");
+                $('#box_perfil_selected').remove();
+                carregarGrafico(getDadosUsuario());
+            }
+        }
+    });
 }
 
 function filtrosChange () {
@@ -116,10 +118,16 @@ function carregarGrafico (data) {
 		url: 'ajax/RelatoriosAjax.php',
 		type: 'GET',
 		data: d,
+                beforeSend: function() {
+                    $("#grafInfoCountPerfisListados").text("(Carregando...)");
+                },
 		success: function(dados) {
 			$('.lista_itens_grafico').html(dados);
 			return false;
-		}
+		},
+                complete: function() {
+                    countPerfisListados();
+                }
 	});
 	return false;
 }
@@ -268,9 +276,10 @@ function professorGetById(idProfessor) {
 		data: "acao=usuarioPorId&id="+idProfessor,
 		dataType: "json",
 		success: function(d) {
+                        $("#grafInfoPerfisListados").text("Alunos");
 			viewProfessorSelected(d);
 			carregarGrafico(getDadosUsuario());
-		}		
+		}	
 	});
 }
 
@@ -281,6 +290,7 @@ function escolaGetById(idEscola) {
 		data: "acao=escolaPorId&id="+idEscola,
 		dataType: "json",
 		success: function(d) {
+                        $("#grafInfoPerfisListados").text("Professores");
 			viewEscolaSelected(d);
 			carregarGrafico(getDadosUsuario());
 		}		
@@ -395,4 +405,148 @@ function adicionarAlunosGrupo() {
     $('.modal').show();
     $('.modal-backdrop').show();
     $('#cancelarGrupo').trigger('click');
+}
+
+function getDadosDoUsuario(idusr) {   
+    $("#userInfoModalBg").fadeIn(400);
+    $("#userInfoModal").animate({top: "20%"}, 400);
+
+    $.ajax({
+        url: "ajax/UsuarioAjax.php",
+        type: "GET",
+        dataType: "json",
+        crossDomain: false,
+        data: "acao=dadosGenericos&id=" + idusr,
+        success: function(data) { viewUserBasicInfo(data); },
+        error: function(e) { console.error("Erro" + " /// " + e.txtStatus); }
+    });
+}
+
+function viewUserBasicInfo(userData) {
+    $("#userInfoModal").html(gerarHtmlUserBasicInfo(userData))
+}
+
+function gerarHtmlUserBasicInfo(userData) {
+    var htmlInfos = "";
+    
+    // Cabeçalho
+    htmlInfos += "<div class='user-info-modal-header'>";
+    htmlInfos +=    "<h2>" + userData.perfil.tipo + "</h2>";
+    htmlInfos +=    "<span class='glyphicon glyphicon-remove ic-close-user-info-modal' onclick='closeUserInfoModal()'></span>";
+    htmlInfos += "</div>";
+
+    // Corpo
+    htmlInfos += "<div class='user-info-modal-body'>";
+    htmlInfos +=    "<div class='row'>";
+    htmlInfos +=        "<div class='col-md-8'>";
+    htmlInfos +=            "<p class='user-info'>";
+    htmlInfos +=                "<span class='user-info-label'>Nome: </span>";
+    htmlInfos +=                "<span class='user-info-value'>" + userData.nome + "</span>";
+    htmlInfos +=            "</p>";
+
+    if (userData.perfil.id == 1) {
+        htmlInfos += "<p class='user-info'>";
+        htmlInfos +=    "<span class='user-info-label'>Escola: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.escola.nome + "</span>";
+        htmlInfos += "</p>";
+        htmlInfos += "<p class='user-info'>";
+        htmlInfos +=    "<span class='user-info-label'>Localização: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.endereco.cidade + " - " + userData.endereco.uf + "</span>";
+        htmlInfos += "</p>";
+        htmlInfos += "<p class='user-info'>";
+        htmlInfos +=    "<span class='user-info-label'>Grupo: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.grupo.nome + "</span><br />";
+        htmlInfos +=    "<span class='user-info-label'>Professor: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.grupo.professor + "</span> <br />";
+        htmlInfos +=    "<span class='user-info-label'>Período: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + (userData.grupo.periodo == 1 ? "Manhã" : "Tarde") + "</span> | ";
+        htmlInfos +=    "<span class='user-info-label'>Série: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.grupo.serie + "&#170; série</span>";
+        htmlInfos += "</p>";
+        
+        $("#userInfoModal").find(".user-info-modal-header > h2").text("Aluno");
+    } else if (userData.perfil.id == 2) {
+        htmlInfos += "<p class='user-info'>";
+        htmlInfos +=    "<span class='user-info-label'>Escola: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.escola.nome + "</span>";
+        htmlInfos += "</p>";
+        htmlInfos += "<p class='user-info'>";
+        htmlInfos +=    "<span class='user-info-label'>Localização: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.endereco.cidade + " - " + userData.endereco.uf + "</span>";
+        htmlInfos += "</p>";
+        htmlInfos += "<p class='user-info'>";
+        htmlInfos +=    "<span class='user-info-label'>Grupo: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.grupo.nome + "</span> <br />";
+        htmlInfos +=    "<span class='user-info-label'>Período: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + (userData.grupo.periodo == 1 ? "Manhã" : "Tarde") + "</span> | ";
+        htmlInfos +=    "<span class='user-info-label'>Série: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.grupo.serie + "&#170; série</span>";
+        htmlInfos += "</p>";
+
+        $("#userInfoModal").find(".user-info-modal-header > h2").text("Professor");
+    } else if (userData.perfil.id == 4) {
+        htmlInfos += "<p class='user-info'>";
+        htmlInfos +=    "<span class='user-info-label'>NSE: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.nse + "</span>";
+        htmlInfos += "</p>";
+        htmlInfos += "<p class='user-info'>";
+        htmlInfos +=    "<span class='user-info-label'>Localização: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.endereco.cidade + " - " + userData.endereco.uf + "</span>";
+        htmlInfos += "</p>";
+        htmlInfos += "<p class='user-info'>";
+        htmlInfos +=    "<span class='user-info-label'>Professores: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.numero_professores + "</span> | ";
+        htmlInfos +=    "<span class='user-info-label'>Alunos: </span>";
+        htmlInfos +=    "<span class='user-info-value'>" + userData.numero_alunos + "</span>";
+        htmlInfos += "</p>";
+
+        $("#userInfoModal").find(".user-info-modal-header > h2").text("Escola");
+    } else {
+        console.info("Usuário NEC");
+    }
+    
+    htmlInfos +=        "</div>";
+    htmlInfos +=        "<div class='col-md-4'>";
+    htmlInfos +=            "<div class='user-info-foto'>";
+    htmlInfos +=                "<img src='imgp/" + userData.imagem + "' title='" + userData.nome + "' alt='" + userData.nome + "' height='auto' max-width='80px' />";
+    htmlInfos +=            "</div>";
+    htmlInfos +=        "</div>";
+    htmlInfos +=        "<div class='user-info-btns'>";
+    htmlInfos +=            "<button type='button' class='btn_primary'>Ver dados cadastrais</button>";
+    htmlInfos +=        "</div>";
+    htmlInfos +=    "</div>";
+    htmlInfos += "</div>";
+
+    return htmlInfos;
+}
+
+function closeUserInfoModal() {
+    $("#userInfoModal").animate({top: "10%"}, 400);
+    $("#userInfoModal").parent().fadeOut(400, function() {
+        $("#userInfoModal").html("<p class='text-center'>Carregando...</p>");
+    });
+}
+
+function atribuirEventosModal() {
+    document.onkeyup = function(evt) {
+        if (evt.keyCode == 27)
+            closeUserInfoModal();
+    };
+
+    document.getElementById("userInfoModalBg")
+            .onclick = closeUserInfoModal;
+
+    document.getElementById("userInfoModal")
+            .onclick = function(evt) {
+                evt.stopPropagation() 
+    };
+}
+
+function countPerfisListados() {
+    var perfis = $(".lista_itens_grafico")
+                    .filter(":visible")
+                    .children("div");
+    
+    $("#grafInfoCountPerfisListados").text("(" + perfis.length + ")");
+            
 }

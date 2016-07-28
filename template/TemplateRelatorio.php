@@ -28,13 +28,21 @@ class TemplateRelatorio{
 		if (count($listados) > 0){
 			foreach ($listados as $listado) {
 				$barrasGrafico = $relatorioController->getBarrasUsuario ($par, $listado);
-				echo '<div onclick="'.$listado['perfil'].'GetById('.$listado['id'].')">';
+				echo '<div>';
 				echo 	'<div class="row">';
 				echo 		'<div class="col-md-4">';
 				echo 			'<div class="grafico_desc" id="listado_id_'.utf8_encode($listado['id']).'">';
-				echo 				'<div>';
+				echo 				'<div onclick="'.$listado['perfil'].'GetById('.$listado['id'].')">';
 				echo 					'<span>'.utf8_encode($listado['nome']).'</span>';
 				echo 				'</div>';
+                                echo                            '<div class="bts-chart">';
+                                echo                                    '<div class="bt-chart" onclick="getDadosDoUsuario('. $listado["idusuario"] .')">';
+                                echo                                        '<span class="glyphicon glyphicon-eye-open"></span>';
+                                echo                                    '</div>';
+                                echo                                    '<div class="bt-chart">';
+                                echo                                        '<span class="glyphicon glyphicon-edit"></span>';
+                                echo                                    '</div>';
+                                echo                            '</div>';
 				echo 			'</div>';
 				echo 		'</div>';
 				echo 		'<div class="col-md-8">';

@@ -66,7 +66,6 @@ $(document).ready(function(e) {
 	//Busca e armazena o usuário ativo
 	if ($('#idUsuario').length > 0)
 		usuario = new Usuario($('#idUsuario').val());
-
 });
 
 function redireciona(pagina){

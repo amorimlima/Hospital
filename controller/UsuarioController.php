@@ -166,5 +166,9 @@ class UsuarioController {
 	{
 		return $this->usuarioDAO->alunosPorProfessor($idProfessor);
 	}
+
+	public function getFullDataById($idusr) {
+		return $this->usuarioDAO->getFullDataById($idusr);
+	}
 }
 ?>

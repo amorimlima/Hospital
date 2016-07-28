@@ -79,6 +79,16 @@ switch ($_REQUEST["acao"]) {
 		else
 			echo '';
 		break;
+
+
+	case "dadosGenericos":
+		$usrController = new UsuarioController();
+		$idusr = $_GET["id"];
+		$usr = $usrController->getFullDataById($idusr);
+                
+		echo json_encode($usr);
+
+	break;
 }
 
 ?>
