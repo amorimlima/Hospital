@@ -101,17 +101,18 @@
 }
 .chart_acesso {
 	fill: #6db43b;
-        transition: width 0.4s ease-in-out;
 }
 .chart_acesso:hover {
 	fill: #8ac362;
 }
 .chart_download {
 	fill: #c4f2bc;
-        transition: width 0.4s ease-in-out;
 }
 .chart_download:hover {
 	fill: #d0f5c9;
+}
+.chart > rect {
+    transition: width 0.4s ease-in-out;
 }
 .infos_grafico {
 	position: absolute;
@@ -164,12 +165,11 @@
 
 .form_filtros {
 	position: relative;
-	text-align: right;
 	height: 433px;
 	background-color: #daf2da;
 	padding: 20px;
 }
-.form_filtros > h2 {
+.form_filtros h2 {
 	text-align: left;
 	display: block;
 	font-weight: 700;
@@ -439,49 +439,58 @@ button:hover {
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
 }
-.user-info-modal > .user-info-modal-header {
+.user-info-modal-header {
     margin-bottom: 15px;
 }
-.user-info-modal > .user-info-modal-header > .ic-close-user-info-modal {
+.ic-close-user-info-modal {
     position: absolute;
     top: 15px;
     right: 15px;
     cursor: pointer;
 }
-.user-info-modal > .user-info-modal-header > h2 {
+.user-info-modal-header > h2 {
     margin: 0;
     font-size: 24px;
     color: #A0A0A0;
 }
-.user-info-modal > .user-info-modal-body .user-info {
+.user-info {
     margin-bottom: 10px;
 }
-.user-info-modal > .user-info-modal-body .user-info:last-of-type {
+.user-info:last-of-type {
     margin-bottom: 0;
 }
 
-.user-info-modal > .user-info-modal-body .user-info-label {
+.user-info-label {
     font-size: 14px;
     color: #A0A0A0;
     margin-right: 5px;
 }
 
-.user-info-modal > .user-info-modal-body .user-info-value {
+.user-info-value {
     font-size: 16px;
     color: #666;
     margin-right: 10px;
 }
-.user-info-modal > .user-info-modal-body .user-info-label:not(:first-of-type) {
+.user-info-label:not(:first-of-type) {
     margin-left: 10px;
 }
-.user-info-modal > .user-info-modal-body br + .user-info-label:not(:first-of-type) {
+br + .user-info-label:not(:first-of-type) {
     margin-left: 0;
 }
 
-.user-info-modal > .user-info-modal-body .user-info-foto {
+.user-info-foto {
     margin-bottom: 15px;
     text-align: right;
 }
+
+/* Count de usuários cadastrados */
+#countUsrByPerfil {
+    margin-top: 25px;
+}
+.form_filtros .user-info-label {
+    color: #45871e;
+}
+
 /*Barra de rolagem com plugin JS */
 	.mCSB_inside > .mCSB_container {
 	   margin-right: 0px !important;

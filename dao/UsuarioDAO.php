@@ -789,7 +789,7 @@ class UsuarioDAO extends DAO{
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
         return $this->execute($sql);
      }
-
+     
      public function getFullDataById($idusr) {
         $sqlUsr  = "select * from usuario usr ";
         $sqlUsr .=     "join endereco end on usr.usr_endereco = end.end_id ";
@@ -883,5 +883,26 @@ class UsuarioDAO extends DAO{
 
         return $usr;
      }
+
+    public function getCountUsuarioPorPerfil() {
+        $query  = "select count(*) as count from usuario ";
+        $query .= "where usr_perfil in (1,2,4) ";
+        $query .= "group by usr_perfil ";
+        $query .= "order by usr_perfil asc";
+        
+        $counts = $this->retrieve($query);
+        $list = [];
+        $retorno = [];
+        
+        while ($qr = mysqli_fetch_array($counts)) {
+            array_push($list,$qr);
+        }
+        
+        $retorno["alunos"]      = intval($list[0]["count"]);
+        $retorno["professores"] = intval($list[1]["count"]);
+        $retorno["escolas"]     = intval($list[2]["count"]);
+        
+        return $retorno;
+    }
 }
 ?>

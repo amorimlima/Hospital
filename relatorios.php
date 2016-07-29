@@ -179,6 +179,12 @@ $logado = unserialize($_SESSION['USR']);
                                             <select id="filtroSala" class="filtrosSelect">
                                                 <?php //$templateRelatorio->getSalas($par);  ?>
                                             </select>
+                                            
+                                            <?php 
+                                            if ($logado["perfil_id"] == 3) {
+                                                $templateRelatorio->printCountUsuariosPorPerfil();
+                                            }
+                                            ?>
                                         </div>
                                         <div class="legenda_grafico">
                                             <h2>Legenda</h2>

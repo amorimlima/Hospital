@@ -127,6 +127,7 @@ function carregarGrafico (data) {
 		},
                 complete: function() {
                     countPerfisListados();
+                    animateCharts();
                 }
 	});
 	return false;
@@ -549,4 +550,37 @@ function countPerfisListados() {
     
     $("#grafInfoCountPerfisListados").text("(" + perfis.length + ")");
             
+}
+
+function animateCharts() {
+    document.querySelectorAll(".chart").forEach(function(chart) {
+        var chart1 = chart.children[0];
+        var chart2 = chart.children[0];
+        var animation;
+ 
+        function start() {
+            var s1o = parseFloat(chart1.getAttribute("width").slice(0, chart1.getAttribute("width").indexOf("%")));
+            var s1 = parseFloat(chart1.getAttribute("data-value"));
+            var s2o = parseFloat(chart1.getAttribute("width").slice(0, chart1.getAttribute("width").indexOf("%")));
+            var s2 = parseFloat(chart1.getAttribute("data-value"));
+
+            chart1.setAttribute("width", calc(s1, s1o));
+            chart2.setAttribute("width", calc(s2, s2o));
+
+            s1o = parseFloat(chart1.getAttribute("width").slice(0, chart1.getAttribute("width").indexOf("%")));
+            s2o = parseFloat(chart2.getAttribute("width").slice(0, chart2.getAttribute("width").indexOf("%")));
+            
+            if (s1o >= s1 && s2o >= s2) {
+                chart1.setAttribute("width", chart1.getAttribute("data-value") + "%");
+                chart1.setAttribute("width", chart2.getAttribute("data-value") + "%");
+                window.cancelAnimationFrame(animation);
+            }
+        }
+        
+        function calc(s, s0) {
+            return (s + ((s - s0) / Math.pow(10, 5))) + "%";
+        }
+
+        animation = window.requestAnimationFrame(start);
+    });
 }

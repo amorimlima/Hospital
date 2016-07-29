@@ -4,6 +4,7 @@ if(!isset($_SESSION['PATH_SYS'])){
    session_start();  
 }
 include_once($path['controller'].'RelatorioController.php');
+include_once($path['controller'].'UsuarioController.php');
 $path = $_SESSION['PATH_SYS'];
 /**
  * Description of Template
@@ -48,8 +49,8 @@ class TemplateRelatorio{
 				echo 		'<div class="col-md-8">';
 				echo 			'<div class="grafico_chart">';
 				echo 				'<svg class="chart">';
-				echo 					'<rect y="0" width="'.($barrasGrafico['barra1'] * 100).'%" height="18" class="chart_acesso"></rect>';
-				echo 					'<rect y="22" width="'.($barrasGrafico['barra2'] * 100).'%" height="18" class="chart_download"></rect>';
+				echo 					'<rect y="0" width="0%" data-value="' . ($barrasGrafico['barra1'] * 100) . '" height="18" class="chart_acesso"></rect>';
+				echo 					'<rect y="22" width="0%" data-value="' . ($barrasGrafico['barra2'] * 100). '" height="18" class="chart_download"></rect>';
 				echo 				'</svg>';
 				echo 			'</div>';
 				echo 		'</div>';
@@ -97,6 +98,32 @@ class TemplateRelatorio{
 			echo '<option value="'.$sala['id'].'">'.utf8_encode($sala['nome']).'</option>';
 		}
 	}
+        
+        public function printCountUsuariosPorPerfil() {
+            $usrCtrl = new UsuarioController();
+            $count = $usrCtrl->getCountUsuarioPorPerfil();
+            $total = $count["alunos"] + $count["professores"] + $count["escolas"];
+            
+            echo "<div id='countUsrByPerfil'>";
+            echo    "<h2>Usuários cadastrados</h2>";
+            echo    "<p id='countByAluno' class='countByPerfil'>";
+            echo        "<span class='user-info-label'>Alunos: </span>";
+            echo        "<span class='user-info-value'>" . $count["alunos"] . "</span>";
+            echo    "</p>";
+            echo    "<p id='countByProfessor='countByPerfil'>";
+            echo        "<span class='user-info-label'>Professores: </span>";
+            echo        "<span class='user-info-value'>" . $count["professores"] . "</span>";
+            echo    "</p>";
+            echo    "<p id='countByEscola' class='countByPerfil'>";
+            echo        "<span class='user-info-label'>Escolas: </span>";
+            echo        "<span class='user-info-value'>" . $count["escolas"] . "</span>";
+            echo    "</p>";
+            echo    "<p id='countTotal' class='countByPerfil'>";
+            echo        "<span class='user-info-label'>Total: </span>";
+            echo        "<span class='user-info-value'>" . $total . "</span>";
+            echo    "</p>";
+            echo "</div>";
+        }
 
 }
 
