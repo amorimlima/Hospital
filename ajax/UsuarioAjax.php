@@ -93,10 +93,6 @@ switch ($_REQUEST["acao"]) {
             echo '';
         break;
 
-
-    /**
-     * @param id ID do usuário a ser buscado
-     */
     case "dadosGenericos":
         $usrController = new UsuarioController();
         $idusr = $_GET["id"];

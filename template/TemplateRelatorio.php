@@ -37,7 +37,7 @@ class TemplateRelatorio{
 				echo 					'<span>'.utf8_encode($listado['nome']).'</span>';
 				echo 				'</div>';
                                 echo                            '<div class="bts-chart">';
-                                echo                                    '<div class="bt-chart" onclick="getDadosDoUsuario('. $listado["idusuario"] .')">';
+                                echo                                    '<div class="bt-chart" onclick="getDadosDoUsuario('. $listado["idusuario"] .', viewUserBasicInfo)">';
                                 echo                                        '<span class="glyphicon glyphicon-eye-open"></span>';
                                 echo                                    '</div>';
                                 echo                                    '<a href="cadastro.php?perfil=' . $listado["perfil"] . '&usuario=' . $listado["idusuario"] . '">';
@@ -101,6 +101,10 @@ class TemplateRelatorio{
 		}
 	}
         
+        /**
+         * Imprime a contagem de usuários cadastrados por perfil <br>
+         * e o total de usuários cadastrados para o usuário NEC
+         */
         public function printCountUsuariosPorPerfil() {
             $usrCtrl = new UsuarioController();
             $count = $usrCtrl->getCountUsuarioPorPerfil();

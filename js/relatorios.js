@@ -407,7 +407,14 @@ function adicionarAlunosGrupo() {
     $('#cancelarGrupo').trigger('click');
 }
 
-function getDadosDoUsuario(idusr) {   
+/**
+ * Faz a requisição dos dados do usuário selecionado e executa a função de
+ * callback
+ * 
+ * @param {Number, String} idusr Id do usuário a ser buscado
+ * @param {Object} callback Função a ser chamada no método success()
+ */
+function getDadosDoUsuario(idusr, callback) {   
     $("#userInfoModalBg").fadeIn(400);
     $("#userInfoModal").animate({top: "20%"}, 400);
 
@@ -417,15 +424,26 @@ function getDadosDoUsuario(idusr) {
         dataType: "json",
         crossDomain: false,
         data: "acao=dadosGenericos&id=" + idusr,
-        success: function(data) { viewUserBasicInfo(data); },
+        success: function(data) { callback(data); },
         error: function(e) { console.error("Erro" + " /// " + e.txtStatus); }
     });
 }
 
+/**
+ * Insere o html das informações báscas do usuário selecionado
+ * 
+ * @param {Object} userData Objeto JSON com os dados do usuário
+ */
 function viewUserBasicInfo(userData) {
     $("#userInfoModal").html(gerarHtmlUserBasicInfo(userData))
 }
 
+/**
+ * Cria o html com os dados básicos do usuário selecionado
+ * 
+ * @param {Object} userData Objeto JSON com os dados do usuário
+ * @returns {String} HTML do conteúdo do modal
+ */
 function gerarHtmlUserBasicInfo(userData) {
     var htmlInfos = "";
     
@@ -522,6 +540,9 @@ function gerarHtmlUserBasicInfo(userData) {
     return htmlInfos;
 }
 
+/**
+ * Fecha o modal#userInfoModal
+ */
 function closeUserInfoModal() {
     $("#userInfoModal").animate({top: "10%"}, 400);
     $("#userInfoModal").parent().fadeOut(400, function() {
@@ -529,6 +550,12 @@ function closeUserInfoModal() {
     });
 }
 
+/**
+ * Atribui os eventos referentes ao modal#userInfoModal: <br>
+ * - Ao clicar na div#userInfoModalBg, o modal fecha <br>
+ * - Ao pressionar a tecla "Esc", o modal fecha <br>
+ * - Ao clicar sobre o modal#userInfoModal, o evento de click é anulado
+ */
 function atribuirEventosModal() {
     document.onkeyup = function(evt) {
         if (evt.keyCode == 27)
@@ -544,6 +571,10 @@ function atribuirEventosModal() {
     };
 }
 
+/**
+ * Faz a contagem dos perfis listados no relatório e exibe no
+ * span#grafInfoCountPerfisListados
+ */
 function countPerfisListados() {
     var perfis = $(".lista_itens_grafico")
                     .filter(":visible")
