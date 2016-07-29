@@ -391,19 +391,21 @@ button:hover {
     right: 0;
     cursor: pointer;
 }
-.bts-chart > .bt-chart {
+.bts-chart > * {
+    display: block;
     height: 50%;
     width: 30px;
     padding: 7px;
 }
-.bts-chart > .bt-chart:hover {
+.bts-chart > *:hover {
     background-color: #F9F9F9;
+    color: #23527c;
 }
 
-.bts-chart > .bt-chart:nth-child(2):hover {
+.bts-chart > *:nth-child(2):hover {
     border-bottom: 1px solid #ccc;
 }
-.lista_itens_grafico > div:last-child .bts-chart > .bt-chart:nth-child(2):hover {
+.lista_itens_grafico > div:last-child .bts-chart > *:nth-child(2):hover {
     border-bottom: none;
 }
 .user-info-btns {
