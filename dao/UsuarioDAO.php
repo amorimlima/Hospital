@@ -794,6 +794,7 @@ class UsuarioDAO extends DAO{
         $sqlUsr  = "select * from usuario usr ";
         $sqlUsr .=     "join endereco end on usr.usr_endereco = end.end_id ";
         $sqlUsr .=     "join perfil prf on usr.usr_perfil = prf.prf_id ";
+        $sqlUsr .=     "join escola esc on usr.usr_escola = esc.esc_id ";
         $sqlUsr .= "where usr_id = {$idusr};";
 
         // Pega os dados básicos do usuário
@@ -811,6 +812,11 @@ class UsuarioDAO extends DAO{
                     "cidade"    => utf8_encode($qr["end_cidade"]),
                     "uf"        => utf8_encode($qr["end_uf"]),
                     "bairro"    => utf8_encode($qr["end_bairro"])
+                ],
+                "escola"            => [
+                    "id"            => intval($qr["esc_id"]),
+                    "nome"          => utf8_encode($qr["esc_nome"]),
+                    "razao_social"  => utf8_encode($qr["esc_razao_social"])
                 ]
             ];
         } else {
@@ -818,9 +824,8 @@ class UsuarioDAO extends DAO{
         }
 
         if (intval($qr["usr_perfil"]) == 1) { // Se for aluno, pega os dados da escola, do grupo e do professor
-            $queryAluno  = "select esc.*, usv.*, grp.*, usr2.* from usuario usr1 ";
+            $queryAluno  = "select usv.*, grp.*, usr2.* from usuario usr1 ";
             $queryAluno .=     "join usuario_variavel usv on usv.usv_usuario = usr1.usr_id ";
-            $queryAluno .=     "join escola esc on usr1.usr_escola = esc.esc_id ";
             $queryAluno .=     "join grupo grp on usv.usv_grupo = grp.grp_id ";
             $queryAluno .=     "join usuario usr2 on grp.grp_professor = usr2.usr_id ";
             $queryAluno .= "where usr1.usr_id = {$idusr};";
@@ -828,10 +833,6 @@ class UsuarioDAO extends DAO{
             $dados = mysqli_fetch_array($this->retrieve($queryAluno));
 
             if (!empty($dados)) {
-                $usr["escola"] = [
-                    "razao_social"  => utf8_encode($dados["esc_razao_social"]),
-                    "nome"          => utf8_encode($dados["esc_nome"])
-                ];
                 $usr["grupo"] = [
                     "professor" => utf8_encode($dados["usr_nome"]),
                     "nome"      => utf8_encode($dados["grp_grupo"]),
@@ -843,17 +844,12 @@ class UsuarioDAO extends DAO{
             }
         } elseif (intval($qr["usr_perfil"]) == 2) { // Se for professor, pega os dados da escola e do grupo
             $queryProfessor  = "select * from usuario usr ";
-            $queryProfessor .=     "join escola esc on usr.usr_escola = esc.esc_id ";
             $queryProfessor .=     "join grupo grp on grp.grp_professor = usr.usr_id ";
             $queryProfessor .= "where usr.usr_id = {$idusr};";
 
             $dados = mysqli_fetch_array($this->retrieve($queryProfessor));
 
             if (!empty($dados)) {
-                $usr["escola"] = [
-                    "razao_social"  => utf8_encode($dados["esc_razao_social"]),
-                    "nome"          => utf8_encode($dados["esc_nome"])
-                ];
                 $usr["grupo"] = [
                     "nome"      => utf8_encode($dados["grp_grupo"]),
                     "serie"     => $dados["grp_serie"],
@@ -873,7 +869,7 @@ class UsuarioDAO extends DAO{
             $queryEscola .= "from escola esc where esc.esc_id = {$qr["usr_escola"]} limit 1";
 
             $dados = mysqli_fetch_array($this->retrieve($queryEscola));
-            
+
             $usr["nse"]                 = $qr["usr_nse"];
             $usr["numero_professores"]  = intval($dados["count_prof"]);
             $usr["numero_alunos"]       = intval($dados["count_aluno"]);
@@ -889,19 +885,19 @@ class UsuarioDAO extends DAO{
         $query .= "where usr_perfil in (1,2,4) ";
         $query .= "group by usr_perfil ";
         $query .= "order by usr_perfil asc";
-        
+
         $counts = $this->retrieve($query);
         $list = [];
         $retorno = [];
-        
+
         while ($qr = mysqli_fetch_array($counts)) {
             array_push($list,$qr);
         }
-        
+
         $retorno["alunos"]      = intval($list[0]["count"]);
         $retorno["professores"] = intval($list[1]["count"]);
         $retorno["escolas"]     = intval($list[2]["count"]);
-        
+
         return $retorno;
     }
 }

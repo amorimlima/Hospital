@@ -225,10 +225,10 @@ var Usuario = function (idUsuario) {
 		async: false,
 		success: function(data) {
 			dataUsuario = data;
-			self.id = dataUsuario.id;
+			self.id = parseInt(dataUsuario.id);
 			self.nome = dataUsuario.nome;
-			self.perfil = dataUsuario.perfil;
-			self.escola = dataUsuario.escola;
+			self.perfil = parseInt(dataUsuario.perfil);
+			self.escola = parseInt(dataUsuario.escola);
 			self.imagem = dataUsuario.imagem;
 			self.id_variavel = dataUsuario.id_variavel;
 			self.serie = dataUsuario.serie;

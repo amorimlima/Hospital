@@ -353,7 +353,7 @@ button:hover {
 }
 
 .box_perfil_selected {
-	background-color: #FFFAFA;
+	background-color: #fff;
 	border: 1px solid #f2f2f2;
     padding: 5px 10px 10px;
 }
