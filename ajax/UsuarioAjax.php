@@ -11,7 +11,7 @@ include_once($path["beans"] . "UsuarioVariavel.php");
 
 /**
  * Chamadas ajax referentes a questões envolvendo perfis e usuários
- * 
+ *
  * Acões possíveis:
  *      "usuarioGeral": retorna os dados de um usuário específico
  *      "buscaAlunoSemGrupoBySerieEscola": retorna os alunos sem grupo
@@ -108,6 +108,13 @@ switch ($_REQUEST["acao"]) {
         
         echo json_encode($count);
         
+        break;
+
+    case "getUsrEscolaByEscola":
+        $usrCtrl = new UsuarioController();
+        $usr = $usrCtrl->getUsrEscolaByEscola($_GET["id"]);
+
+        echo json_encode($usr);
         break;
 }
 ?>

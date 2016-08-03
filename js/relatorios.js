@@ -64,36 +64,25 @@ function menuAtribuirCapitulo () {
     });
 }
 
+/**
+ * Volta para a listagem anterior de gráficos de relatório.
+ */
 function voltarGrafico()
 {
     $("#btn_voltar").click(function() {
+        var idusuario   = parseInt(document.getElementById("idusuario").value);
+        var idescola    = parseInt(document.getElementById("idescola").value);
+        var idperfil    = parseInt(document.getElementById("idperfil").value);
+
         $('.lista_itens_grafico').empty();
 
-        if ($('#box_perfil_selected').length > 0) {
-            if($('#professor_id').length > 0 ) {
-                var escolaId = $('#escola_id').attr('id_escola');
-                $('#box_perfil_selected').remove();
-                $.ajax({
-                    url: 'ajax/RelatoriosAjax.php',
-                    type: 'GET',
-                    data: {
-                        'acao' : 'escolaPorId',
-                        'id'   : escolaId
-                    },
-                    dataType: 'json',
-                    success: function(escola) {
-                        $("#grafInfoPerfisListados").text("Professores");
-                        viewEscola(escola);
-                        carregarGrafico(getDadosUsuario());
-                    }
-                });
-            } else {
-                $("#grafInfoPerfisListados").text("Escolas");
-                $('#box_perfil_selected').remove();
-                carregarGrafico(getDadosUsuario());
-            }
+        if (idperfil == 2 && (usuario.perfil == 3 || usuario.perfil == 4)) {
+            getUsrEscolaByEscola(idescola, viewUserSelected);
+        } else if (idperfil == 4 && usuario.perfil == 3) {
+            $("#box_perfil_selected").remove();
+            carregarGrafico(getDadosUsuario());
+            $("#grafInfoPerfisListados").text("Escolas");
         }
-
     });
 }
 
@@ -197,104 +186,6 @@ function getDadosUsuario () {
         data.sala = 0;
 
     return data;
-}
-
-function viewEscola(escola)
-{
-    var htmlEscSelected = "";
-
-    htmlEscSelected +=
-    htmlEscSelected +=      '<div class="foto_perfil_selected"></div>';
-    htmlEscSelected +=      '<input type="hidden" id="escola_id" id_escola="'+escola.id+'"/>';
-    htmlEscSelected +=      '<div class="info_perfil_selected">';
-    htmlEscSelected +=          '<div class="nome_perfil_selected">'+escola.nome+'</div>';
-    htmlEscSelected +=          '<div class="razaoSocial_perfil_selected">Razão social: '+escola.razao_social+'</div>';
-    htmlEscSelected +=          '<div class="dados_perfil_selected">Tipo: '+escola.tipo_escola+' | Administração: '+escola.administracao+'</div>';
-    htmlEscSelected +=          '<div class="dados_perfil_selected">Cidade: '+escola.endereco.cidade+' | Estado: '+escola.endereco.uf+' | Site: '+escola.site+'</div>';
-    htmlEscSelected +=          '<div class="dados_perfil_selected">Diretor: '+escola.diretor.nome+' | E-mail: '+escola.diretor.email+'</div>';
-    htmlEscSelected +=          '<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span class="lib_cap" id="lib_cap_'+escola.id+'" onclick="getCapitulosByEscola('+escola.id+')">Liberar capítulos</span></div>';
-    htmlEscSelected +=      '</div>';
-    htmlEscSelected +=  '</div>';
-
-    $(".tipo_grafico_picker_opcoes").after(htmlEscSelected);
-}
-
-function viewProfessorSelected(professor)
-{
-    var htmlProfSelected = "";
-    var data_nascimento = professor.data_nascimento.split("-")[2]+"/"+professor.data_nascimento.split("-")[1]+"/"+professor.data_nascimento.split("-")[0];
-    var data_entrada = professor.data_entrada_escola.split("-")[2]+"/"+professor.data_entrada_escola.split("-")[1]+"/"+professor.data_entrada_escola.split("-")[0];
-    var rg = professor.rg.slice(0,2)+"."+professor.rg.slice(2,5)+"."+professor.rg.slice(5,8)+"-"+professor.rg.slice(8);
-    var cpf = professor.cpf.slice(0,3)+"."+professor.cpf.slice(3,6)+"."+professor.cpf.slice(6,9)+"-"+professor.cpf.slice(9);
-
-    $("#box_perfil_selected").remove();
-    $("#grafInfoPerfisListados").text("Alunos");
-
-    htmlProfSelected += '<div id="box_perfil_selected" class="box_perfil_selected ficha_dados">';
-    htmlProfSelected +=     '<div class="foto_perfil_selected"></div>';
-    htmlProfSelected +=     '<div clas="info_perfil_selected">';
-    htmlProfSelected +=     '<input type="hidden" id="professor_id" id_professor="'+professor.id+'"/>';
-    htmlProfSelected +=     '<input type="hidden" id="escola_id" id_escola="'+professor.escola+'"/>';
-    htmlProfSelected +=         '<div class="nome_perfil_selected">'+professor.nome+'</div>';
-    htmlProfSelected +=         '<div class="dados_perfil_selected">Escola: '+professor.escola_nome+' | Entrada na escola: '+data_entrada+'</div>';
-    htmlProfSelected +=         '<div class="dados_perfil_selected">RG: '+rg+' | CPF: '+cpf+' | Data de nascimento: '+data_nascimento+'</div>';
-    htmlProfSelected +=         '<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span id="editar_grupos">Editar grupos</span></div>';
-    htmlProfSelected +=     '</div>';
-    htmlProfSelected += '</div>';
-
-    $(".tipo_grafico_picker_opcoes").after(htmlProfSelected);
-    $('#editar_grupos').click(function() {
-            abrirEdicaoGrupo(professor.id);
-    });
-}
-
-function viewEscolaSelected(escola)
-{
-    var htmlEscSelected = "";
-
-    $("#grafInfoPerfisListados").text("Professores");
-    $("#box_perfil_selected").remove();
-
-    htmlEscSelected +=  '<div id="box_perfil_selected" class="box_perfil_selected ficha_dados">';
-    htmlEscSelected +=      '<div class="foto_perfil_selected"></div>';
-    htmlEscSelected +=      '<div class="info_perfil_selected">';
-    htmlEscSelected +=      '<input type="hidden" id="escola_id" id_escola="'+escola.id+'"/>';
-    htmlEscSelected +=          '<div class="nome_perfil_selected">'+escola.nome+'</div>';
-    htmlEscSelected +=          '<div class="razaoSocial_perfil_selected">Razão social: '+escola.razao_social+'</div>';
-    htmlEscSelected +=          '<div class="dados_perfil_selected">Tipo: '+escola.tipo_escola+' | Administração: '+escola.administracao+'</div>';
-    htmlEscSelected +=          '<div class="dados_perfil_selected">Cidade: '+escola.endereco.cidade+' | Estado: '+escola.endereco.uf+' | Site: '+escola.site+'</div>';
-    htmlEscSelected +=          '<div class="dados_perfil_selected">Diretor: '+escola.diretor.nome+' | E-mail: '+escola.diretor.email+'</div>';
-    htmlEscSelected +=          '<div class="acoes_perfil_selected"><a href="cadastro.php"><span>Ver dados cadastrais</span></a> | <span class="lib_cap" id="lib_cap_'+escola.id+'" onclick="getCapitulosByEscola('+escola.id+')">Liberar capítulos</span></div>';
-    htmlEscSelected +=      '</div>';
-    htmlEscSelected +=  '</div>';
-
-    $(".tipo_grafico_picker_opcoes").after(htmlEscSelected);
-}
-
-function professorGetById(idProfessor) {
-    $.ajax({
-        url: "ajax/RelatoriosAjax.php",
-        type: "GET",
-        data: "acao=usuarioPorId&id="+idProfessor,
-        dataType: "json",
-        success: function(d) {
-            viewProfessorSelected(d);
-            carregarGrafico(getDadosUsuario());
-        }
-    });
-}
-
-function escolaGetById(idEscola) {
-    $.ajax({
-        url: "ajax/RelatoriosAjax.php",
-        type: "GET",
-        data: "acao=escolaPorId&id="+idEscola,
-        dataType: "json",
-        success: function(d) {
-            viewEscolaSelected(d);
-            carregarGrafico(getDadosUsuario());
-        }
-    });
 }
 
 function abrirEdicaoGrupo(idProfessor) {
@@ -432,10 +323,30 @@ function getDadosDoUsuario(idusr, callback) {
         url: "ajax/UsuarioAjax.php",
         type: "GET",
         dataType: "json",
-        crossDomain: false,
         data: "acao=dadosGenericos&id=" + idusr,
         success: function(data) { console.log(data); callback(data); },
         error: function(e) { console.error("Erro" + " /// " + e.txtStatus); }
+    });
+}
+
+/**
+ * Pega os dados do usuário tipo escola associado à escola passada
+ *
+ * @param {String, Number} idescola Id da escola a ser buscada
+ * @param {Object} callback Função a ser chamada no método success()
+ */
+function getUsrEscolaByEscola(idescola, callback) {
+    $.ajax({
+        url: 'ajax/UsuarioAjax.php',
+        type: 'GET',
+        data: {
+            'acao' : 'getUsrEscolaByEscola',
+            'id'   : idescola
+        },
+        dataType: 'json',
+        success: function(escola) {
+            callback(escola);
+        }
     });
 }
 
@@ -445,7 +356,7 @@ function getDadosDoUsuario(idusr, callback) {
  * @param {Object} userData Objeto JSON com os dados do usuário
  */
 function viewUserBasicInfo(userData) {
-    $("#userInfoModal").html(gerarHtmlUserBasicInfo(userData))
+    $("#userInfoModal").html(gerarHtmlUserBasicInfo(userData));
 }
 
 /**
@@ -516,49 +427,6 @@ function gerarHtmlUserBasicInfo(userData) {
     return htmlInfos;
 }
 
-/**
- * Fecha o modal#userInfoModal
- */
-function closeUserInfoModal() {
-    $("#userInfoModal").animate({top: "10%"}, 400);
-    $("#userInfoModal").parent().fadeOut(400, function() {
-        $("#userInfoModal").html("<p class='text-center'>Carregando...</p>");
-    });
-}
-
-/**
- * Atribui os eventos referentes ao modal#userInfoModal: <br>
- * - Ao clicar na div#userInfoModalBg, o modal fecha <br>
- * - Ao pressionar a tecla "Esc", o modal fecha <br>
- * - Ao clicar sobre o modal#userInfoModal, o evento de click é anulado
- */
-function atribuirEventosModal() {
-    document.onkeyup = function(evt) {
-        if (evt.keyCode == 27)
-            closeUserInfoModal();
-    };
-
-    document.getElementById("userInfoModalBg")
-            .onclick = closeUserInfoModal;
-
-    document.getElementById("userInfoModal")
-            .onclick = function(evt) {
-                evt.stopPropagation();
-    };
-}
-
-/**
- * Faz a contagem dos perfis listados no relatório e exibe no
- * span#grafInfoCountPerfisListados
- */
-function countPerfisListados() {
-    var perfis = $(".lista_itens_grafico")
-                    .filter(":visible")
-                    .children("div");
-
-    $("#grafInfoCountPerfisListados").text("(" + perfis.length + ")");
-}
-
 
 /**
  * Gera o html base com as informações básicas do usuário <br>
@@ -568,6 +436,13 @@ function countPerfisListados() {
  */
 function viewUserSelected(usr) {
     var html = "";
+
+    if (usr.perfil.id == 2)
+        $("#grafInfoPerfisListados").text("Alunos");
+    else if (usr.perfil.id == 4)
+        $("#grafInfoPerfisListados").text("Professores");
+    else
+        $("#grafInfoPerfisListados").text("Escolas");
 
     $("#box_perfil_selected").remove();
 
@@ -603,6 +478,16 @@ function viewUserSelected(usr) {
 
     $(".tipo_grafico_picker_opcoes").after(html);
     carregarGrafico(getDadosUsuario());
+}
+
+/**
+ * Fecha o modal#userInfoModal
+ */
+function closeUserInfoModal() {
+    $("#userInfoModal").animate({top: "10%"}, 400);
+    $("#userInfoModal").parent().fadeOut(400, function() {
+        $("#userInfoModal").html("<p class='text-center'>Carregando...</p>");
+    });
 }
 
 /**
@@ -661,4 +546,37 @@ function gerarHtmlBasicInfoEscola(usr) {
     html += "</p>";
 
     return html;
+}
+
+/**
+ * Atribui os eventos referentes ao modal#userInfoModal: <br>
+ * - Ao clicar na div#userInfoModalBg, o modal fecha <br>
+ * - Ao pressionar a tecla "Esc", o modal fecha <br>
+ * - Ao clicar sobre o modal#userInfoModal, o evento de click é anulado
+ */
+function atribuirEventosModal() {
+    document.onkeyup = function(evt) {
+        if (evt.keyCode == 27)
+            closeUserInfoModal();
+    };
+
+    document.getElementById("userInfoModalBg")
+            .onclick = closeUserInfoModal;
+
+    document.getElementById("userInfoModal")
+            .onclick = function(evt) {
+                evt.stopPropagation();
+    };
+}
+
+/**
+ * Faz a contagem dos perfis listados no relatório e exibe no
+ * span#grafInfoCountPerfisListados
+ */
+function countPerfisListados() {
+    var perfis = $(".lista_itens_grafico")
+                    .filter(":visible")
+                    .children("div");
+
+    $("#grafInfoCountPerfisListados").text("(" + perfis.length + ")");
 }

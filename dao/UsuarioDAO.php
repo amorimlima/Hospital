@@ -881,10 +881,11 @@ class UsuarioDAO extends DAO{
      }
 
     public function getCountUsuarioPorPerfil() {
-        $query  = "select count(*) as count from usuario ";
-        $query .= "where usr_perfil in (1,2,4) ";
-        $query .= "group by usr_perfil ";
-        $query .= "order by usr_perfil asc";
+        $query  = "select count(*) as count from usuario usr ";
+        $query .=     "join escola esc on usr.usr_escola = esc.esc_id ";
+        $query .= "where usr_perfil in (1,2,4) and esc.esc_status = 1 ";
+        $query .= "group by usr.usr_perfil ";
+        $query .= "order by usr.usr_perfil asc";
 
         $counts = $this->retrieve($query);
         $list = [];
@@ -897,6 +898,49 @@ class UsuarioDAO extends DAO{
         $retorno["alunos"]      = intval($list[0]["count"]);
         $retorno["professores"] = intval($list[1]["count"]);
         $retorno["escolas"]     = intval($list[2]["count"]);
+
+        return $retorno;
+    }
+
+    public function getUsrEscolaByEscola($idesc) {
+        $query  = "select esc.*, usr.*, prf.*, end.*, (";
+        $query .=     "select count(usr1.usr_id) from usuario usr1 ";
+        $query .=     "where usr1.usr_escola = {$idesc} and usr1.usr_perfil = 2";
+        $query .= ") as count_professores, (";
+        $query .=     "select count(usr2.usr_id) from usuario usr2 ";
+        $query .=     "where usr2.usr_escola = {$idesc} and usr2.usr_perfil = 1";
+        $query .= ") as count_alunos ";
+        $query .= "from escola esc ";
+        $query .=     "join usuario usr on usr.usr_escola = esc.esc_id ";
+        $query .=     "join endereco end on usr.usr_endereco = end.end_id ";
+        $query .=     "join perfil prf on usr.usr_perfil = prf.prf_id ";
+        $query .= "where usr.usr_perfil = 4 and esc.esc_id = {$idesc} limit 1";
+
+        $result = $this->retrieve($query);
+        $retorno = [];
+
+        if ($qr = mysqli_fetch_array($result)) {
+            $retorno["id"]                  = intval($qr["usr_id"]);
+            $retorno["nome"]                = utf8_encode($qr["usr_nome"]);
+            $retorno["imagem"]              = ($qr["usr_imagem"] != "" ? $qr["usr_imagem"] : "default.png");
+            $retorno["nse"]                 = $qr["usr_nse"];
+            $retorno["numero_professores"]  = intval($qr["count_professores"]);
+            $retorno["numero_alunos"]       = intval($qr["count_alunos"]);
+            $retorno["perfil"]              = [
+                "id"    => intval($qr["prf_id"]),
+                "tipo"  => utf8_encode($qr["prf_perfil"])
+            ];
+            $retorno["escola"]              = [
+                "id"            => intval($qr["esc_id"]),
+                "nome"          => utf8_encode($qr["esc_nome"]),
+                "razao_social"  => utf8_encode($qr["esc_razao_social"])
+            ];
+            $retorno["endereco"]            = [
+                "bairro"    => utf8_encode($qr["end_bairro"]),
+                "cidade"    => utf8_encode($qr["end_cidade"]),
+                "uf"        => utf8_encode($qr["end_uf"])
+            ];
+        }
 
         return $retorno;
     }
