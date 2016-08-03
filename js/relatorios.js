@@ -327,7 +327,7 @@ function getDadosDoUsuario(idusr, callback) {
         type: "GET",
         dataType: "json",
         data: "acao=dadosGenericos&id=" + idusr,
-        success: function(data) { console.log(data); callback(data); },
+        success: function(data) { callback(data); },
         error: function(e) { console.error("Erro" + " /// " + e.txtStatus); }
     });
 }
