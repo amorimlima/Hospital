@@ -120,6 +120,9 @@ function carregarGrafico (data) {
                     countPerfisListados();
                 }
     });
+
+    calcularAlturaMaximaListagem();
+
     return false;
 }
 
@@ -383,32 +386,14 @@ function gerarHtmlUserBasicInfo(userData) {
     htmlInfos +=                "<span class='user-info-value'>" + userData.nome + "</span>";
     htmlInfos +=            "</p>";
 
-    if (userData.perfil.id == 1) {
-        htmlInfos += "<p class='user-info'>";
-        htmlInfos +=    "<span class='user-info-label'>Escola: </span>";
-        htmlInfos +=    "<span class='user-info-value'>" + userData.escola.nome + "</span>";
-        htmlInfos += "</p>";
-        htmlInfos += "<p class='user-info'>";
-        htmlInfos +=    "<span class='user-info-label'>Localização: </span>";
-        htmlInfos +=    "<span class='user-info-value'>" + userData.endereco.cidade + " - " + userData.endereco.uf + "</span>";
-        htmlInfos += "</p>";
-        htmlInfos += "<p class='user-info'>";
-        htmlInfos +=    "<span class='user-info-label'>Grupo: </span>";
-        htmlInfos +=    "<span class='user-info-value'>" + userData.grupo.nome + "</span><br />";
-        htmlInfos +=    "<span class='user-info-label'>Professor: </span>";
-        htmlInfos +=    "<span class='user-info-value'>" + userData.grupo.professor + "</span> <br />";
-        htmlInfos +=    "<span class='user-info-label'>Período: </span>";
-        htmlInfos +=    "<span class='user-info-value'>" + (userData.grupo.periodo == 1 ? "Manhã" : "Tarde") + "</span> | ";
-        htmlInfos +=    "<span class='user-info-label'>Série: </span>";
-        htmlInfos +=    "<span class='user-info-value'>" + userData.grupo.serie + "&#170; série</span>";
-        htmlInfos += "</p>";
-    } else if (userData.perfil.id == 2) {
+    if (userData.perfil.id == 1)
+        htmlInfos += gerarHtmlBasicInfoAluno(userData);
+    else if (userData.perfil.id == 2)
         htmlInfos += gerarHtmlBasicInfoProfessor(userData);
-    } else if (userData.perfil.id == 4) {
+    else if (userData.perfil.id == 4)
         htmlInfos += gerarHtmlBasicInfoEscola(userData);
-    } else {
+    else
         console.info("Usuário NEC");
-    }
 
     htmlInfos +=        "</div>";
     htmlInfos +=        "<div class='col-md-4'>";
@@ -432,7 +417,7 @@ function gerarHtmlUserBasicInfo(userData) {
  * Gera o html base com as informações básicas do usuário <br>
  * selecionado e solicita o resto de acordo com o perfil.
  *
- * @param {Object} JSON com os dados do usuário
+ * @param {Object} usr JSON com os dados do usuário
  */
 function viewUserSelected(usr) {
     var html = "";
@@ -458,8 +443,8 @@ function viewUserSelected(usr) {
     html +=                 "</div>";
 
     html += usr.perfil.id === 2 ?
-                gerarHtmlBasicInfoProfessor(usr) :
-                gerarHtmlBasicInfoEscola(usr);
+            gerarHtmlBasicInfoProfessor(usr) :
+            gerarHtmlBasicInfoEscola(usr);
 
     html +=             "</div>";
     html +=             "<div class='col-md-4'>";
@@ -488,6 +473,38 @@ function closeUserInfoModal() {
     $("#userInfoModal").parent().fadeOut(400, function() {
         $("#userInfoModal").html("<p class='text-center'>Carregando...</p>");
     });
+}
+
+/**
+ * Gera o html com as informações básicas do usuário <br>
+ * do tipo "Aluno".
+ *
+ * @param {Object} JSON com os dados do aluno
+ * @returns {String} HTML com as informações básicas do aluno
+ */
+function gerarHtmlBasicInfoAluno(usr) {
+    var html = "";
+
+    html += "<p class='user-info'>";
+    html +=    "<span class='user-info-label'>Escola: </span>";
+    html +=    "<span class='user-info-value'>" + usr.escola.nome + "</span>";
+    html += "</p>";
+    html += "<p class='user-info'>";
+    html +=    "<span class='user-info-label'>Localização: </span>";
+    html +=    "<span class='user-info-value'>" + usr.endereco.cidade + " - " + usr.endereco.uf + "</span>";
+    html += "</p>";
+    html += "<p class='user-info'>";
+    html +=    "<span class='user-info-label'>Grupo: </span>";
+    html +=    "<span class='user-info-value'>" + usr.grupo.nome + "</span><br />";
+    html +=    "<span class='user-info-label'>Professor: </span>";
+    html +=    "<span class='user-info-value'>" + usr.grupo.professor + "</span> <br />";
+    html +=    "<span class='user-info-label'>Período: </span>";
+    html +=    "<span class='user-info-value'>" + (usr.grupo.periodo == 1 ? "Manhã" : "Tarde") + "</span> | ";
+    html +=    "<span class='user-info-label'>Série: </span>";
+    html +=    "<span class='user-info-value'>" + usr.grupo.serie + "&#170; série</span>";
+    html += "</p>";
+
+    return html;
 }
 
 /**
@@ -521,7 +538,7 @@ function gerarHtmlBasicInfoProfessor(usr) {
 }
 
 /**
- * Gera o html com as informações básicas do usuário
+ * Gera o html com as informações básicas do usuário <br>
  * do tipo "Escola".
  *
  * @param {Object} JSON com os dados da escola
@@ -570,7 +587,7 @@ function atribuirEventosModal() {
 }
 
 /**
- * Faz a contagem dos perfis listados no relatório e exibe no
+ * Faz a contagem dos perfis listados no relatório e exibe no <br>
  * span#grafInfoCountPerfisListados
  */
 function countPerfisListados() {
@@ -579,4 +596,18 @@ function countPerfisListados() {
                     .children("div");
 
     $("#grafInfoCountPerfisListados").text("(" + perfis.length + ")");
+}
+
+/**
+ * Calcula a altura disponível para a listagem dos gráficos de <br>
+ * relatório e seta como altura máxima do container
+ */
+function calcularAlturaMaximaListagem() {
+    var alturaPicker = $("#tipo_grafico_picker").outerHeight();
+    var alturaCabecalho = $("#box_perfil_selected").outerHeight();
+    var alturaInfos = $("#infosGraficos").outerHeight();
+    var alturaTotal = $("#conteudoPrincipal").innerHeight() - 35;
+    var altura = alturaTotal - (alturaPicker + alturaCabecalho + alturaInfos);
+
+    $("#listagemRelatorio").css("max-height", altura + "px");
 }

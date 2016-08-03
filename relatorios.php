@@ -77,7 +77,7 @@ $logado = unserialize($_SESSION['USR']);
                                             <div id="graficoExercicios" class="opcoes_graficos">Exercícios (em %)</div>
                                             <div id="graficoPrePos" class="opcoes_graficos">Pré e Pós Avaliação (em %)</div>
                                         </div>
-                                        <div class="listagem_perfis_graficos">
+                                        <div id="listagemRelatorio" class="listagem_perfis_graficos">
                                             <div id="grafico1" class="grafico">
                                                 <div class="lista_itens_grafico">
                                                     <?php //$templateRelatorio->graficoEscolas();  ?>
@@ -89,7 +89,7 @@ $logado = unserialize($_SESSION['USR']);
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="infos_grafico">
+                                        <div id="infosGraficos" class="infos_grafico">
                                             <img src="img/ic_voltar_g.png" id="btn_voltar" class="btn_voltar">
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -261,9 +261,9 @@ $logado = unserialize($_SESSION['USR']);
         <script src="bootstrap/js/bootstrap-datepicker.js"></script>
         <script src="js/EstadoCidade.js"></script>
         <script src="js/funcoes.js"></script>
-        <script src="js/cadastro.js"></script>
-        <script src="js/relatorios.js"></script>
-        <script src="js/liberarCapitulos.js"></script>
+        <script src="js/cadastro.js" async></script>
+        <script src="js/relatorios.js" async></script>
+        <script src="js/liberarCapitulos.js" async></script>
         <script src="js/goMobileUpload.js"></script>
 
     </body>
