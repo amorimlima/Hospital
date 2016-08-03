@@ -72,9 +72,16 @@
 }
 .grafico_desc {
 	height: 60px;
-	padding: 20px 10px;
+	padding: 0 45px 0 10px;
 	background-color: #f2f2f2;
 	cursor: pointer;
+        border-bottom: 1px solid #ccc;
+}
+.lista_itens_grafico > div:last-child .grafico_desc {
+    border-bottom: none;
+}
+.grafico_desc > div:first-child {
+    padding: 20px 0;
 }
 .grafico_desc > div > span {
 	font-size: 12px;
@@ -103,6 +110,9 @@
 }
 .chart_download:hover {
 	fill: #d0f5c9;
+}
+.chart > rect {
+    transition: width 0.4s ease-in-out;
 }
 .infos_grafico {
 	position: absolute;
@@ -155,12 +165,11 @@
 
 .form_filtros {
 	position: relative;
-	text-align: right;
 	height: 433px;
 	background-color: #daf2da;
 	padding: 20px;
 }
-.form_filtros > h2 {
+.form_filtros h2 {
 	text-align: left;
 	display: block;
 	font-weight: 700;
@@ -322,7 +331,7 @@ table.liberar_capitulos_table > tbody > tr > td > span.cap_liberado {
 	width: 90%;
 	text-align: right;
 }
-.liberar_capitulo_container > div > button {
+button {
 	display: inline-block;
 	width: auto;
 	margin-left: 5px;
@@ -333,18 +342,18 @@ table.liberar_capitulos_table > tbody > tr > td > span.cap_liberado {
 	font-weight: 600;
 	border-radius: 4px;
 }
-.liberar_capitulo_container > div > button:hover {
+button:hover {
 	background-color: #F2F2F2;
 }
-.liberar_capitulo_container > div > .btn_primary {
+.btn_primary {
 	background-color: #d3ee91;
 }
-.liberar_capitulo_container > div > .btn_primary:hover {
+.btn_primary:hover {
 	background-color: #b5e247;
 }
 
 .box_perfil_selected {
-	background-color: #FFFAFA;
+	background-color: #fff;
 	border: 1px solid #f2f2f2;
     padding: 5px 10px 10px;
 }
@@ -369,6 +378,121 @@ table.liberar_capitulos_table > tbody > tr > td > span.cap_liberado {
 	width: calc(100% + 26px);
 	margin-top: 10px;
 }
+
+.grafico_desc:hover > .bts-chart {
+    display: block;
+}
+
+.bts-chart {
+    display: none;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.bts-chart > * {
+    display: block;
+    height: 50%;
+    width: 30px;
+    padding: 7px;
+}
+.bts-chart > *:hover {
+    background-color: #F9F9F9;
+    color: #23527c;
+}
+
+.bts-chart > *:nth-child(2):hover {
+    border-bottom: 1px solid #ccc;
+}
+.lista_itens_grafico > div:last-child .bts-chart > *:nth-child(2):hover {
+    border-bottom: none;
+}
+.user-info-btns {
+    text-align: right;
+}
+
+/* Modal de informações do usuário selecionado */
+
+.user-info-modal-bg {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+}
+.user-info-modal {
+    /* Dimensões e posicionamento */
+    position: fixed;
+    width: 600px;
+    height: auto;
+    top: 10%;
+    left: 50%;
+    margin-left: -300px;
+    z-index: inherit;
+    
+    /* Estilo */
+    padding: 20px 30px;
+    border: 2px dashed #6db43b;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+}
+.user-info-modal-header {
+    margin-bottom: 15px;
+}
+.ic-close-user-info-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+.user-info-modal-header > h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #A0A0A0;
+}
+.user-info {
+    margin-bottom: 10px;
+}
+.user-info:last-of-type {
+    margin-bottom: 0;
+}
+
+.user-info-label {
+    font-size: 14px;
+    color: #A0A0A0;
+    margin-right: 5px;
+}
+
+.user-info-value {
+    font-size: 16px;
+    color: #666;
+    margin-right: 10px;
+}
+.user-info-label:not(:first-of-type) {
+    margin-left: 10px;
+}
+br + .user-info-label:not(:first-of-type) {
+    margin-left: 0;
+}
+
+.user-info-foto {
+    margin-bottom: 15px;
+    text-align: right;
+}
+
+/* Count de usuários cadastrados */
+#countUsrByPerfil {
+    margin-top: 25px;
+}
+.form_filtros .user-info-label {
+    color: #45871e;
+}
+
 /*Barra de rolagem com plugin JS */
 	.mCSB_inside > .mCSB_container {
 	   margin-right: 0px !important;

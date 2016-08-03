@@ -4,6 +4,7 @@ if(!isset($_SESSION['PATH_SYS'])){
    session_start();  
 }
 include_once($path['controller'].'RelatorioController.php');
+include_once($path['controller'].'UsuarioController.php');
 $path = $_SESSION['PATH_SYS'];
 /**
  * Description of Template
@@ -12,46 +13,60 @@ $path = $_SESSION['PATH_SYS'];
  */
 
 class TemplateRelatorio{
-	public static $path;
+    public static $path;
 
-	function __construct()
-	{
-		self::$path = $_SESSION['URL_SYS'];
-	}
+    function __construct()
+    {
+            self::$path = $_SESSION['URL_SYS'];
+    }
 
-	public function carregaGrafico($par)
-	{
-//		print_r($par);
-		$relatorioController = new RelatorioController();
-		$listados = $relatorioController->getListaVisualizacao($par);
-		
-		if (count($listados) > 0){
-			foreach ($listados as $listado) {
-				$barrasGrafico = $relatorioController->getBarrasUsuario ($par, $listado);
-				echo '<div onclick="'.$listado['perfil'].'GetById('.$listado['id'].')">';
-				echo 	'<div class="row">';
-				echo 		'<div class="col-md-4">';
-				echo 			'<div class="grafico_desc" id="listado_id_'.utf8_encode($listado['id']).'">';
-				echo 				'<div>';
-				echo 					'<span>'.utf8_encode($listado['nome']).'</span>';
-				echo 				'</div>';
-				echo 			'</div>';
-				echo 		'</div>';
-				echo 		'<div class="col-md-8">';
-				echo 			'<div class="grafico_chart">';
-				echo 				'<svg class="chart">';
-				echo 					'<rect y="0" width="'.($barrasGrafico['barra1'] * 100).'%" height="18" class="chart_acesso"></rect>';
-				echo 					'<rect y="22" width="'.($barrasGrafico['barra2'] * 100).'%" height="18" class="chart_download"></rect>';
-				echo 				'</svg>';
-				echo 			'</div>';
-				echo 		'</div>';
-				echo 	'</div>';
-				echo '</div>';
-			}
-		}else{
-			echo "Nenhum resultado encontrado";
-		}
-	}
+    public function carregaGrafico($par)
+    {
+        $relatorioController = new RelatorioController();
+        $listados = $relatorioController->getListaVisualizacao($par);
+
+        if (count($listados) > 0){
+            foreach ($listados as $listado) {
+                $barrasGrafico = $relatorioController->getBarrasUsuario ($par, $listado);
+                echo '<div>';
+                echo 	'<div class="row">';
+                echo        '<div class="col-md-4">';
+                echo 		'<div class="grafico_desc" id="listado_id_'.utf8_encode($listado['id']).'">';
+
+                if ($listado["perfil"] == "aluno")
+                    echo            '<div>';
+                else
+                    echo            '<div onclick="getDadosDoUsuario(' . $listado["idusuario"] . ', viewUserSelected)")>';
+
+                echo 			'<span>'.utf8_encode($listado['nome']).'</span>';
+                echo                '</div>';
+                echo                '<div class="bts-chart">';
+                echo                    '<div class="bt-chart" onclick="showModalUserBasicInfo(' . $listado["idusuario"] . ')">';
+                echo                        '<span class="glyphicon glyphicon-eye-open"></span>';
+                echo                    '</div>';
+                echo                    '<a href="cadastro.php?perfil=' . $listado["perfil"] . '&usuario=' . $listado["idusuario"] . '">';
+                echo                        '<div class="bt-chart">';
+                echo                            '<span class="glyphicon glyphicon-edit"></span>';
+                echo                        '</div>';
+                echo                    '</a>';
+                echo                '</div>';
+                echo            '</div>';
+                echo        '</div>';
+                echo        '<div class="col-md-8">';
+                echo            '<div class="grafico_chart">';
+                echo                '<svg class="chart">';
+                echo                    '<rect y="0" width="' . ($barrasGrafico['barra1'] * 100) . '%" height="18" class="chart_acesso"></rect>';
+                echo                    '<rect y="22" width="' . ($barrasGrafico['barra2'] * 100) . '%" height="18" class="chart_download"></rect>';
+                echo                '</svg>';
+                echo            '</div>';
+                echo        '</div>';
+                echo 	'</div>';
+                echo '</div>';
+            }
+        }else{
+            echo "Nenhum resultado encontrado";
+        }
+    }
 
 	public function carregaFiltro($par)
 	{
@@ -89,6 +104,36 @@ class TemplateRelatorio{
 			echo '<option value="'.$sala['id'].'">'.utf8_encode($sala['nome']).'</option>';
 		}
 	}
+        
+    /**
+     * Imprime a contagem de usuários cadastrados por perfil <br>
+     * e o total de usuários cadastrados para o usuário NEC
+     */
+    public function printCountUsuariosPorPerfil() {
+        $usrCtrl = new UsuarioController();
+        $count = $usrCtrl->getCountUsuarioPorPerfil();
+        $total = $count["alunos"] + $count["professores"] + $count["escolas"];
+
+        echo "<div id='countUsrByPerfil'>";
+        echo    "<h2>Usuários cadastrados</h2>";
+        echo    "<p id='countByAluno' class='countByPerfil'>";
+        echo        "<span class='user-info-label'>Alunos: </span>";
+        echo        "<span class='user-info-value'>" . $count["alunos"] . "</span>";
+        echo    "</p>";
+        echo    "<p id='countByProfessor='countByPerfil'>";
+        echo        "<span class='user-info-label'>Professores: </span>";
+        echo        "<span class='user-info-value'>" . $count["professores"] . "</span>";
+        echo    "</p>";
+        echo    "<p id='countByEscola' class='countByPerfil'>";
+        echo        "<span class='user-info-label'>Escolas: </span>";
+        echo        "<span class='user-info-value'>" . $count["escolas"] . "</span>";
+        echo    "</p>";
+        echo    "<p id='countTotal' class='countByPerfil'>";
+        echo        "<span class='user-info-label'>Total: </span>";
+        echo        "<span class='user-info-value'>" . $total . "</span>";
+        echo    "</p>";
+        echo "</div>";
+    }
 
 }
 

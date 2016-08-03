@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['PATH_SYS'])){
-   session_start();  
+   session_start();
 }
 $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
@@ -17,15 +17,15 @@ include_once($path['funcao'].'DatasFuncao.php');
 /**
  * Description of UsuarioDAO
  *
- * @author Kevyn
+ * @author Kevyn, Lucas
  */
 class UsuarioDAO extends DAO{
     //put your code here
-    
+
     public function  __construct($da) {
         parent::__construct($da);
      }
-     
+
      public function insertComID(Usuario $user)
      {
      	$sql  = "insert into usuario (";
@@ -59,7 +59,7 @@ class UsuarioDAO extends DAO{
      	//echo $sql;
      	return $this->execute($sql);
      }
-     
+
      public function insert($user)
      {
          $sql  = "insert into usuario (";
@@ -91,7 +91,7 @@ class UsuarioDAO extends DAO{
 //		 echo $sql;
     	 return $this->executeAndReturnLastID($sql);
      }
-     
+
      public function update($user)
      {
         $sql  = "update usuario set usr_nome = '".$user->getUsr_nome()."',";
@@ -110,16 +110,16 @@ class UsuarioDAO extends DAO{
 //        echo $sql;
         return $this->execute($sql);
      }
-     
-     
-     
+
+
+
      public function select($iduser)
      {
         $sql = "select * from usuario where usr_id = ".$iduser;
 		//echo $sql;
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
-        
+
                 $user = new Usuario();
                 $user->setUsr_id($qr["usr_id"]);
                 $user->setUsr_nome($qr["usr_nome"]);
@@ -134,11 +134,11 @@ class UsuarioDAO extends DAO{
                 $user->setUsr_imagem($qr["usr_imagem"]);
                 $user->setUsr_login($qr["usr_login"]);
             	$user->setUsr_senha($qr["usr_senha"]);
-              	
+
             	//print_r($user);
     	return $user;
      }
-     
+
 //     public function selectbyPerfil($idescola){
 //        $sql = "select * from usuario where usr_perfil <> 6 and usr_escola = ".$idescola."";
 //    	$result = $this->retrieve($sql);
@@ -161,8 +161,8 @@ class UsuarioDAO extends DAO{
 //            	$user->setUsr_senha($qr["usr_senha"]);
 //            	$user->setUsr_imagem($qr["usr_imagem"]);
 //                array_push($lista, $user);
-//                
-//        }	
+//
+//        }
 //    	return $lista;
 //     }
 
@@ -185,7 +185,7 @@ class UsuarioDAO extends DAO{
         while ($qr = mysqli_fetch_array($result))
     	{
 
-        
+
                 $user = new Usuario();
                 $user->setUsr_id($qr["usr_id"]);
                 $user->setUsr_nome($qr["usr_nome"]);
@@ -201,19 +201,19 @@ class UsuarioDAO extends DAO{
             	$user->setUsr_senha($qr["usr_senha"]);
             	$user->setUsr_imagem($qr["usr_imagem"]);
                 array_push($lista, $user);
-                
-        }	
+
+        }
     	return $lista;
      }
 
 
     public function selectByPerfilUsuario($p){
         //$sql = "select * from usuario where usr_perfil = $p";
-        $sql = "SELECT us.* 
+        $sql = "SELECT us.*
 				FROM usuario AS us
 					INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
 				WHERE us.usr_perfil = $p AND uv.usv_status =0";
-        
+
         $result = $this->retrieve($sql);
         $lista = array();
         while ($qr = mysqli_fetch_array($result))
@@ -245,11 +245,11 @@ class UsuarioDAO extends DAO{
     	//echo $qr["usr_id"];
     	return intval($qr["usr_id"]+1);
     }
-     
+
 	public function autenticaUsuario($usuario,$senha){
-		$sql = "select * 
-				from usuario 
-					inner join perfil ON usr_perfil = prf_id 
+		$sql = "select *
+				from usuario
+					inner join perfil ON usr_perfil = prf_id
 					inner join usuario_variavel ON usr_id = usv_usuario
 				where usr_login = '".$usuario."' and usr_senha = '".$senha."' and usv_status = 0 limit 1 ";
 		$user = array();
@@ -267,22 +267,22 @@ class UsuarioDAO extends DAO{
     			'usr_imagem'=> $qr["usr_imagem"]
 			);
 		}
-		
+
 		//print_r($u);
 		return $user;
 	}
-	
+
 	public function buscaUsuarioByLetraNome($letraDigitada,$perfil_id,$escola){
-		
-		$sql = "select * from usuario inner join usuario_variavel on usr_id = usv_usuario 
-        		where usv_status = 0  and usr_nome like '%".$letraDigitada."%'";	
+
+		$sql = "select * from usuario inner join usuario_variavel on usr_id = usv_usuario
+        		where usv_status = 0  and usr_nome like '%".$letraDigitada."%'";
 
         switch ($perfil_id) {
             //Perfil Aluno
             case 1:
                 $sql .=" AND usr_perfil IN ( 1,2 ) AND usr_escola =".$escola;
                 break;
-            
+
             //Perfil Professor
             case 2:
                 $sql .=" AND ((usr_perfil IN ( 1,2 ) AND usr_escola =".$escola.") OR usr_perfil = 3)";
@@ -304,7 +304,7 @@ class UsuarioDAO extends DAO{
 		$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysqli_fetch_array($result))
-    	{        
+    	{
 			$user = new Usuario();
 			$user->setUsr_id($qr["usr_id"]);
 			$user->setUsr_nome($qr["usr_nome"]);
@@ -317,44 +317,44 @@ class UsuarioDAO extends DAO{
 			$user->setUsr_rg($qr["usr_rg"]);
 			$user->setUsr_cpf($qr["usr_cpf"]);
 			$user->setUsr_imagem($qr["usr_imagem"]);
-			array_push($lista, $user);                
+			array_push($lista, $user);
         }
     	return $lista;
-     }	
-	
+     }
+
     public function verificaLogin($login)
     {
-        $sql = "select count(*) as total 
-        		from usuario INNER JOIN usuario_variavel ON usr_id = usv_usuario 
+        $sql = "select count(*) as total
+        		from usuario INNER JOIN usuario_variavel ON usr_id = usv_usuario
         		where usr_login = '$login' AND usv_status =0";
 
     	$result = $this->retrieve($sql);
 		$qr = mysqli_fetch_array($result);
-		return $qr["total"];	
+		return $qr["total"];
     }
- 
+
 	public function verificaCpfAluno($cpf)
     {
-        $sql = "select count(*) as total 
-        		from usuario INNER JOIN usuario_variavel ON usr_id = usv_usuario 
+        $sql = "select count(*) as total
+        		from usuario INNER JOIN usuario_variavel ON usr_id = usv_usuario
         		where usr_cpf = '$cpf' and usr_perfil = 1 AND usv_status =0";
         //echo $sql;
     	$result = $this->retrieve($sql);
 		$qr = mysqli_fetch_array($result);
-		return $qr["total"];	
+		return $qr["total"];
     }
-    
+
     public function verificaCpfProfessor($cpf, $escola)
     {
-        $sql = "select count(*) as total 
-        		from usuario INNER JOIN usuario_variavel ON usr_id = usv_usuario 
+        $sql = "select count(*) as total
+        		from usuario INNER JOIN usuario_variavel ON usr_id = usv_usuario
         		where usr_cpf = '$cpf' and usr_perfil = 2 and usr_escola = '$escola' AND usv_status = 0";
     	$result = $this->retrieve($sql);
 		$qr = mysqli_fetch_array($result);
-		return $qr["total"];	
+		return $qr["total"];
     }
-    
-    
+
+
     public function buscaAlunoSemGrupoBySerieEscola($serie, $idEscola)
     {
         $sql = "SELECT * FROM usuario us
@@ -363,7 +363,7 @@ class UsuarioDAO extends DAO{
         $result = $this->retrieve($sql);
         $lista = array();
         while ($qr = mysqli_fetch_array($result)){
-      
+
             $user = array(
                         'idUsuario' => $qr["usr_id"],
                         'nome'      => $qr['usr_nome'],
@@ -371,27 +371,27 @@ class UsuarioDAO extends DAO{
                         'idVariavel'=> $qr['usv_id']
                     );
             array_push($lista, $user);
-        }  
+        }
         return $lista;
     }
 
     public function buscaProfessorByEscolaAndSerie($idEscola, $idSerie){
 
-		$sql = "SELECT u.usr_id, u.usr_nome, g.grp_id, g.grp_periodo 
-					FROM usuario_variavel as uv inner join 
-						(usuario as u inner join grupo as g on u.usr_id = g.grp_professor) 
-							on u.usr_id = usv_usuario 
+		$sql = "SELECT u.usr_id, u.usr_nome, g.grp_id, g.grp_periodo
+					FROM usuario_variavel as uv inner join
+						(usuario as u inner join grupo as g on u.usr_id = g.grp_professor)
+							on u.usr_id = usv_usuario
 					WHERE uv.usv_status = 0 and u.usr_perfil = 2 and g.grp_escola = $idEscola and g.grp_serie = $idSerie";
 
 		//echo $sql;
-		
+
     	$result = $this->retrieve($sql);
     	$lista = array();
         while ($qr = mysqli_fetch_array($result)){
-      
+
         	if ($qr['grp_periodo'] == 1) $periodo = 'Manhã';
         		else $periodo = 'Tarde';
-        
+
 			$user = array(
 						'idUsuario' => $qr["usr_id"],
 						'nome'		=> $qr['usr_nome'],
@@ -399,7 +399,7 @@ class UsuarioDAO extends DAO{
 						'periodo'	=> $periodo
 					);
             array_push($lista, $user);
-        }  
+        }
 		return $lista;
 	}
 
@@ -463,20 +463,20 @@ class UsuarioDAO extends DAO{
         $sql = "select usr_imagem from usuario where usr_id = ".$id;
     	$result = $this->retrieve($sql);
     	$qr = mysqli_fetch_array($result);
-    	
+
     	return $qr["usr_imagem"];
-        
+
      }
-     
+
      public function buscaUsuarioCompletoByPerfil($perfil){
-     	
+
      	switch ($perfil['perfil']){
             //Perfil Aluno
             case '1':{
-	     		$sql = " SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
+	     		$sql = " SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg,
 	     					   us.usr_cpf, us.usr_login, us.usr_senha, us.usr_imagem,
-	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome, 
-	     					   uv.usv_id, ano.ano_id, ano.ano_ano, s.sri_id, s.sri_serie as serie, 
+	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome,
+	     					   uv.usv_id, ano.ano_id, ano.ano_ano, s.sri_id, s.sri_serie as serie,
 	     					   g.grp_id, g.grp_grupo, prof.usr_id AS idProfessor, prof.usr_nome AS nomeProfessor, e.*
 						 FROM  `usuario` AS us";
 				$join =	  " INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
@@ -497,7 +497,7 @@ class UsuarioDAO extends DAO{
                     case '2':
                         $where .= " AND g.grp_professor = ".$perfil['usr_id'];
                         break;
-                    
+
                     case '4':
                         $where .= " AND us.usr_escola = ".$perfil['usr_id'];
                         break;
@@ -509,11 +509,11 @@ class UsuarioDAO extends DAO{
    			}
 
           	case '2':{
-	     		$sql = "SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg, 
-	     					   us.usr_cpf, us.usr_login, us.usr_senha, us.usr_imagem, 
+	     		$sql = "SELECT us.usr_id, us.usr_nome, us.usr_data_nascimento, us.usr_rg,
+	     					   us.usr_cpf, us.usr_login, us.usr_senha, us.usr_imagem,
 	     					   pf.prf_id, pf.prf_perfil, es.esc_id, es.esc_razao_social, es.esc_nome,
 	     					   uv.usv_id, uv.usv_serie as serie, gi.*,cat.*, e.*
-						FROM usuario as us"; 
+						FROM usuario as us";
 				$join =   " INNER JOIN perfil AS pf ON us.usr_perfil = pf.prf_id
 							left outer JOIN escola AS es ON us.usr_escola = es.esc_id
 							INNER JOIN usuario_variavel AS uv ON us.usr_id = uv.usv_usuario
@@ -526,7 +526,7 @@ class UsuarioDAO extends DAO{
                     case '2':
                         $where .= " AND us.usr_id = ".$perfil['usr_id'];
                         break;
-                    
+
                     case '4':
                         $where .= " AND us.usr_escola = ".$perfil['usr_id'];
                         break;
@@ -536,11 +536,11 @@ class UsuarioDAO extends DAO{
                 }
 	     		break;
    			}
-   			
+
           	case '4':{
           		$sql = 'SELECT es.*, us.usr_id, us.usr_nome, us.usr_login, us.usr_senha, us.usr_imagem, us.usr_nse,
           					   pf.prf_id, pf.prf_perfil, te.tps_tipo_escola, adm.adm_administracao, e.*, uv.usv_id
-						FROM `usuario` as us'; 
+						FROM `usuario` as us';
 				$join =   ' INNER JOIN escola as es ON us.usr_escola = es.esc_id
 							INNER JOIN perfil as pf ON us.usr_perfil = pf.prf_id
 							INNER JOIN tipo_escola as te ON es.esc_tipo_escola = te.tps_id
@@ -553,23 +553,23 @@ class UsuarioDAO extends DAO{
                     case '4':
                         $where .= " AND us.usr_id = ".$perfil['usr_id'];
                         break;
-                    
+
                     default:
                         break;
                 }
           		break;
           	}
      	}
-     	
+
      	$lista = array();
 
         $sql .= $join.$where.$order;
 
      	if ($sql != ''){
      		$dataFuncao = new DatasFuncao();
-     		
+
      		$result = $this->retrieve($sql);
-     		
+
 	     	while ($qr = mysqli_fetch_array($result)){
     	 		$u = array(
 	        		'idUsuario'		=> ( isset($qr['usr_id']) ? $qr['usr_id'] : "" ),
@@ -609,7 +609,7 @@ class UsuarioDAO extends DAO{
 	        		'complemento' 	=> ( isset($qr['end_complemento']) ? utf8_encode($qr['end_complemento']) : "" ),
 	        		'cep' 			=> ( isset($qr['end_cep']) ? $qr['end_cep'] : "" ),
 	        		'bairro' 		=> ( isset($qr['end_bairro']) ? utf8_encode($qr['end_bairro']) : "" ),
-	        		'cidade'		=> ( isset($qr['end_cidade']) ? utf8_encode($qr['end_cidade']) : "" ),	
+	        		'cidade'		=> ( isset($qr['end_cidade']) ? utf8_encode($qr['end_cidade']) : "" ),
 		      		'uf'			=> ( isset($qr['end_uf']) ? $qr['end_uf'] : "" ),
 	        		'pais' 			=> ( isset($qr['end_pais']) ? $qr['end_pais'] : "" ),
 					'telResidencial'=> ( isset($qr['end_telefone_residencial']) ? $qr['end_telefone_residencial'] : "" ),
@@ -632,8 +632,8 @@ class UsuarioDAO extends DAO{
 	     	//print_r($lista);
      	}
 	    return $lista;
-     	
-	     	
+
+
      }
 
      public function buscaUsuarioGrupo($grupo)
@@ -641,7 +641,7 @@ class UsuarioDAO extends DAO{
         $sql  = "SELECT * FROM usuario us ";
         $sql .= "JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id ";
         $sql .= "WHERE uv.usv_status = 0 and uv.usv_grupo = ".$grupo;
-        
+
         $result = $this->retrieve($sql);
         $lista = array();
 
@@ -681,12 +681,12 @@ class UsuarioDAO extends DAO{
 
     public function buscarAlunosGrafico($par)
     {
-    	
+
        $sql = "SELECT * FROM usuario us";
        $join = " JOIN usuario_variavel uv ON uv.usv_usuario = us.usr_id";
        $join .= " JOIN grupo g ON g.grp_id = uv.usv_grupo";
        $where = " WHERE g.grp_professor = ".$par['id']." AND us.usr_perfil = 1 and uv.usv_status = 0";
-       
+
        if ($par['livro'] != 0){
            $where .= " AND g.grp_serie = ".$par['livro'];
        }
@@ -705,6 +705,7 @@ class UsuarioDAO extends DAO{
        while ($qr = mysqli_fetch_array($result)){
            $item = Array(
                'id' => $qr['usr_id'],
+               'idusuario' => $qr["usr_id"],
                'nome' => $qr['usr_nome'],
                'perfil' => 'aluno',
                'escola' => $qr['usr_escola'],
@@ -730,15 +731,16 @@ class UsuarioDAO extends DAO{
             $join .= " JOIN liberar_capitulo lc ON lc.lbr_escola = us.usr_escola AND lc.lbr_livro = g.grp_serie";
             $where .= " AND lc.lbr_capitulo = ".$par['capitulo'];
         }
-    
+
         $sql = $sql.$join.$where;
         //echo $sql;
         $result = $this->retrieve($sql);
         $lista = Array();
-    
+
         while ($qr = mysqli_fetch_array($result)){
             $item = Array(
                 'id' => $qr['usr_id'],
+                'idusuario' => $qr["usr_id"],
                 'nome' => $qr['usr_nome'],
                 'perfil' => 'professor',
                 'escola' => $qr['usr_escola'],
@@ -762,9 +764,9 @@ class UsuarioDAO extends DAO{
         $sql  = "select * from usuario usr ";
         $sql .= "join endereco end ON usr.usr_endereco = end.end_id ";
         $sql .= "where end_email = '". $email."' limit 1";
-       
+
         $result = $this->retrieve($sql);
-            
+
         if(mysqli_num_rows($result)>0){
             $qr = mysqli_fetch_array($result);
             $usuario = array(
@@ -777,7 +779,7 @@ class UsuarioDAO extends DAO{
             return $usuario;
         }else{
             return 0;
-        }       
+        }
      }
 
      public function updateSenhaByUser($user)
@@ -787,5 +789,160 @@ class UsuarioDAO extends DAO{
         $sql .= " where usr_id = ".$user->getUsr_id()." limit 1";
         return $this->execute($sql);
      }
+     
+     public function getFullDataById($idusr) {
+        $sqlUsr  = "select * from usuario usr ";
+        $sqlUsr .=     "join endereco end on usr.usr_endereco = end.end_id ";
+        $sqlUsr .=     "join perfil prf on usr.usr_perfil = prf.prf_id ";
+        $sqlUsr .=     "join escola esc on usr.usr_escola = esc.esc_id ";
+        $sqlUsr .= "where usr_id = {$idusr};";
+
+        // Pega os dados básicos do usuário
+        if ($qr = mysqli_fetch_array($this->retrieve($sqlUsr))) {
+            $usr = [
+                "id"                => intval($qr["usr_id"]),
+                "nome"              => utf8_encode($qr["usr_nome"]),
+                "data_nascimento"   => $qr["usr_data_nascimento"],
+                "imagem"            => ($qr["usr_imagem"] != "" ? $qr["usr_imagem"] : "default.png"),
+                "perfil"            => [
+                    "id"    => intval($qr["prf_id"]),
+                    "tipo"  => utf8_encode($qr["prf_perfil"])
+                ],
+                "endereco"          => [
+                    "cidade"    => utf8_encode($qr["end_cidade"]),
+                    "uf"        => utf8_encode($qr["end_uf"]),
+                    "bairro"    => utf8_encode($qr["end_bairro"])
+                ],
+                "escola"            => [
+                    "id"            => intval($qr["esc_id"]),
+                    "nome"          => utf8_encode($qr["esc_nome"]),
+                    "razao_social"  => utf8_encode($qr["esc_razao_social"])
+                ]
+            ];
+        } else {
+            return [];
+        }
+
+        if (intval($qr["usr_perfil"]) == 1) { // Se for aluno, pega os dados da escola, do grupo e do professor
+            $queryAluno  = "select usv.*, grp.*, usr2.* from usuario usr1 ";
+            $queryAluno .=     "join usuario_variavel usv on usv.usv_usuario = usr1.usr_id ";
+            $queryAluno .=     "join grupo grp on usv.usv_grupo = grp.grp_id ";
+            $queryAluno .=     "join usuario usr2 on grp.grp_professor = usr2.usr_id ";
+            $queryAluno .= "where usr1.usr_id = {$idusr};";
+
+            $dados = mysqli_fetch_array($this->retrieve($queryAluno));
+
+            if (!empty($dados)) {
+                $usr["grupo"] = [
+                    "professor" => utf8_encode($dados["usr_nome"]),
+                    "nome"      => utf8_encode($dados["grp_grupo"]),
+                    "serie"     => $dados["grp_serie"],
+                    "periodo"   => $dados["grp_periodo"]
+                ];
+            } else {
+                return [];
+            }
+        } elseif (intval($qr["usr_perfil"]) == 2) { // Se for professor, pega os dados da escola e do grupo
+            $queryProfessor  = "select * from usuario usr ";
+            $queryProfessor .=     "join grupo grp on grp.grp_professor = usr.usr_id ";
+            $queryProfessor .= "where usr.usr_id = {$idusr};";
+
+            $dados = mysqli_fetch_array($this->retrieve($queryProfessor));
+
+            if (!empty($dados)) {
+                $usr["grupo"] = [
+                    "nome"      => utf8_encode($dados["grp_grupo"]),
+                    "serie"     => $dados["grp_serie"],
+                    "periodo"   => $dados["grp_periodo"]
+                ];
+            } else {
+                return [];
+            }
+        } elseif (intval($qr["usr_perfil"]) == 4) { // Se for escola, pega o nse, a quantidade de aluno e de professores
+            $queryEscola  = "select (";
+            $queryEscola .=     "select count(usr1.usr_id) from usuario usr1 ";
+            $queryEscola .=         "where usr1.usr_escola = esc.esc_id and usr1.usr_perfil = 2";
+            $queryEscola .= ") as count_prof, (";
+            $queryEscola .=     "select count(usr2.usr_id) from usuario usr2 ";
+            $queryEscola .=         "where usr2.usr_escola = esc.esc_id and usr2.usr_perfil = 1";
+            $queryEscola .= ") as count_aluno ";
+            $queryEscola .= "from escola esc where esc.esc_id = {$qr["usr_escola"]} limit 1";
+
+            $dados = mysqli_fetch_array($this->retrieve($queryEscola));
+
+            $usr["nse"]                 = $qr["usr_nse"];
+            $usr["numero_professores"]  = intval($dados["count_prof"]);
+            $usr["numero_alunos"]       = intval($dados["count_aluno"]);
+        } else {
+            return [];
+        }
+
+        return $usr;
+     }
+
+    public function getCountUsuarioPorPerfil() {
+        $query  = "select count(*) as count from usuario usr ";
+        $query .=     "join escola esc on usr.usr_escola = esc.esc_id ";
+        $query .= "where usr_perfil in (1,2,4) and esc.esc_status = 1 ";
+        $query .= "group by usr.usr_perfil ";
+        $query .= "order by usr.usr_perfil asc";
+
+        $counts = $this->retrieve($query);
+        $list = [];
+        $retorno = [];
+
+        while ($qr = mysqli_fetch_array($counts)) {
+            array_push($list,$qr);
+        }
+
+        $retorno["alunos"]      = intval($list[0]["count"]);
+        $retorno["professores"] = intval($list[1]["count"]);
+        $retorno["escolas"]     = intval($list[2]["count"]);
+
+        return $retorno;
+    }
+
+    public function getUsrEscolaByEscola($idesc) {
+        $query  = "select esc.*, usr.*, prf.*, end.*, (";
+        $query .=     "select count(usr1.usr_id) from usuario usr1 ";
+        $query .=     "where usr1.usr_escola = {$idesc} and usr1.usr_perfil = 2";
+        $query .= ") as count_professores, (";
+        $query .=     "select count(usr2.usr_id) from usuario usr2 ";
+        $query .=     "where usr2.usr_escola = {$idesc} and usr2.usr_perfil = 1";
+        $query .= ") as count_alunos ";
+        $query .= "from escola esc ";
+        $query .=     "join usuario usr on usr.usr_escola = esc.esc_id ";
+        $query .=     "join endereco end on usr.usr_endereco = end.end_id ";
+        $query .=     "join perfil prf on usr.usr_perfil = prf.prf_id ";
+        $query .= "where usr.usr_perfil = 4 and esc.esc_id = {$idesc} limit 1";
+
+        $result = $this->retrieve($query);
+        $retorno = [];
+
+        if ($qr = mysqli_fetch_array($result)) {
+            $retorno["id"]                  = intval($qr["usr_id"]);
+            $retorno["nome"]                = utf8_encode($qr["usr_nome"]);
+            $retorno["imagem"]              = ($qr["usr_imagem"] != "" ? $qr["usr_imagem"] : "default.png");
+            $retorno["nse"]                 = $qr["usr_nse"];
+            $retorno["numero_professores"]  = intval($qr["count_professores"]);
+            $retorno["numero_alunos"]       = intval($qr["count_alunos"]);
+            $retorno["perfil"]              = [
+                "id"    => intval($qr["prf_id"]),
+                "tipo"  => utf8_encode($qr["prf_perfil"])
+            ];
+            $retorno["escola"]              = [
+                "id"            => intval($qr["esc_id"]),
+                "nome"          => utf8_encode($qr["esc_nome"]),
+                "razao_social"  => utf8_encode($qr["esc_razao_social"])
+            ];
+            $retorno["endereco"]            = [
+                "bairro"    => utf8_encode($qr["end_bairro"]),
+                "cidade"    => utf8_encode($qr["end_cidade"]),
+                "uf"        => utf8_encode($qr["end_uf"])
+            ];
+        }
+
+        return $retorno;
+    }
 }
 ?>

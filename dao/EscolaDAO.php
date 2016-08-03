@@ -275,7 +275,7 @@ class EscolaDAO extends DAO{
     public function buscarEscolasGrafico($par)
     {
     	
-        $sql = "SELECT DISTINCT es.esc_id, es.esc_nome FROM escola es";
+        $sql = "SELECT DISTINCT es.esc_id, es.esc_nome FROM escola es ";
         $join = "";
         $where = " where es.esc_status = 1 ";
         if ($par['livro'] != 0){
@@ -291,15 +291,21 @@ class EscolaDAO extends DAO{
         $sql = $sql.$join.$where;
 //        echo $sql;
         $result = $this->retrieve($sql);
+        
+        
         $lista = Array();
     
         while ($qr = mysqli_fetch_array($result)){
+            $sqlusr = "select usr.usr_id from usuario usr where usr.usr_escola = {$qr["esc_id"]} and usr.usr_perfil = 4 limit 1";
+            $user = mysqli_fetch_array($this->retrieve($sqlusr));
+            
             $item = Array(
-                'id' => $qr['esc_id'],
-                'nome' => $qr['esc_nome'],
-                'perfil' => 'escola',
-                'escola' => $qr['esc_id'],
-                'serie' => ""
+                'idusuario' => $user['usr_id'],
+                'id'        => $qr['esc_id'],
+                'nome'      => $qr['esc_nome'],
+                'perfil'    => 'escola',
+                'escola'    => $qr['esc_id'],
+                'serie'     => ""
             );
             array_push($lista, $item);
         }

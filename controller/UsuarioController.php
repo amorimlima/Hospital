@@ -166,5 +166,17 @@ class UsuarioController {
 	{
 		return $this->usuarioDAO->alunosPorProfessor($idProfessor);
 	}
+
+	public function getFullDataById($idusr) {
+		return $this->usuarioDAO->getFullDataById($idusr);
+	}
+
+    public function getCountUsuarioPorPerfil() {
+        return $this->usuarioDAO->getCountUsuarioPorPerfil();
+    }
+
+    public function getUsrEscolaByEscola($idesc) {
+    	return $this->usuarioDAO->getUsrEscolaByEscola($idesc);
+    }
 }
 ?>
