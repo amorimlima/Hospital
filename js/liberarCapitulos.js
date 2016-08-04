@@ -13,6 +13,7 @@ function getCapitulosByEscola(idEscola)
 
 function viewCapitulosLiberados(idEscola,capitulos)
 {
+	closeUserInfoModal();
 	var htmlTable = '<h1>Liberar capítulos</h1>';
 
 	htmlTable += '<table id="liberarCapitulosTable" class="liberar_capitulos_table">';
