@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION['PATH_SYS'])){
-   require_once '_loadPaths.inc.php'; 
+   require_once '_loadPaths.inc.php';
 }
 
 $path = $_SESSION['PATH_SYS'];
@@ -41,7 +41,7 @@ $templateGeral = new Template();
                 opacity: 1;
             }
         }
-        
+
         @keyframes fade-out {
             0% {
                 opacity: 1;
@@ -60,12 +60,23 @@ $templateGeral = new Template();
                 top: 20%;
             }
         }
-        
+
+
+        ::-moz-selection {
+            color: #ffffff;
+            background: #728C07;
+        }
+
+        ::selection {
+            color: #ffffff;
+            background: #728C07;
+        }
+
         h2 {
             color: #ccc;
             margin-top: 0;
         }
-        
+
         p {
             font-size: 16px;
             margin-bottom: 10px;
@@ -74,7 +85,7 @@ $templateGeral = new Template();
         p:last-child {
             margin-bottom: 0;
         }
-        
+
         .link-area {
             margin: 20px 0;
         }
@@ -316,11 +327,13 @@ $templateGeral = new Template();
     <script type="text/javascript" src="js/lib/jquery.maskedinput.js"></script>
     <script type="text/javascript" src="js/modulos/formulario.js"></script>
     <script type="text/javascript" src="js/pesquisa.js" async></script>
-    
+
     <script type="text/javascript">
         function fecharModal() {
             $("#modalDocsDownload").animate({"top": "10%"}, 400);
-            $("#modalDocsDownloadBg").animate({"opacity": "0"}, 400);
+            $("#modalDocsDownloadBg").animate({"opacity": "0"}, 400, function() {
+                $("#modalDocsDownloadBg").remove();
+            });
         }
     </script>
 </html>
