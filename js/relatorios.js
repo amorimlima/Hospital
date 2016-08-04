@@ -192,6 +192,7 @@ function getDadosUsuario () {
 }
 
 function abrirEdicaoGrupo(idProfessor) {
+    closeUserInfoModal();
     $("#criarGrupoContainer").show();
     $("#conteudoPrincipal").hide();
     $('#alunosContainer').html("Carregando...");
@@ -360,6 +361,7 @@ function getUsrEscolaByEscola(idescola, callback) {
  */
 function viewUserBasicInfo(userData) {
     $("#userInfoModal").html(gerarHtmlUserBasicInfo(userData));
+    atribuirEventosModal();
 }
 
 /**
@@ -392,8 +394,6 @@ function gerarHtmlUserBasicInfo(userData) {
         htmlInfos += gerarHtmlBasicInfoProfessor(userData);
     else if (userData.perfil.id == 4)
         htmlInfos += gerarHtmlBasicInfoEscola(userData);
-    else
-        console.info("Usuário NEC");
 
     htmlInfos +=        "</div>";
     htmlInfos +=        "<div class='col-md-4'>";
@@ -401,12 +401,17 @@ function gerarHtmlUserBasicInfo(userData) {
     htmlInfos +=                "<img src='imgp/" + userData.imagem + "' title='" + userData.nome + "' alt='" + userData.nome + "' height='auto' max-width='80px' />";
     htmlInfos +=            "</div>";
     htmlInfos +=        "</div>";
-    htmlInfos +=        "<div class='user-info-btns'>";
-    htmlInfos +=            "<a href='cadastro.php?perfil=" + userData.perfil.id + "&usuario=" + userData.id + "'>";
-    htmlInfos +=                "<span>Ver dados cadastrais</span>";
-    htmlInfos +=            "</a>";
-    htmlInfos +=        "</div>";
     htmlInfos +=    "</div>";
+    htmlInfos += "</div>";
+    htmlInfos += "<div class='user-info-modal-footer'>";
+
+    if (userData.perfil.id == 1)
+        htmlInfos += gerarHtmlFooterBasicInfoAluno(userData);
+    else if (userData.perfil.id == 2)
+        htmlInfos += gerarHtmlFooterBasicInfoProfessor(userData);
+    else if (userData.perfil.id == 4)
+        htmlInfos += gerarHtmlFooterBasicInfoEscola(userData);
+
     htmlInfos += "</div>";
 
     return htmlInfos;
@@ -452,11 +457,15 @@ function viewUserSelected(usr) {
     html +=                     "<img src='imgp/" + usr.imagem + "' title='" + usr.nome + "' alt='" + usr.nome + "' height='auto' max-width='80px' />";
     html +=                 "</div>";
     html +=             "</div>";
-    html +=             "<div class='user-info-btns'>";
-    html +=                 "<a href='cadastro.php?perfil=" + usr.perfil.id + "&usuario=" + usr.id + "'>";
-    html +=                     "<span>Ver dados cadastrais</span>";
-    html +=                 "</a>";
-    html +=             "</div>";
+    html +=         "</div>";
+    html +=     "</div>";
+    html +=     "<div class='user-info-modal-footer'>";
+    html +=         "<div class='user-info-btns'>";
+
+    html += usr.perfil.id == 2 ?
+            gerarHtmlFooterBasicInfoProfessor(usr) :
+            gerarHtmlFooterBasicInfoEscola(usr);
+
     html +=         "</div>";
     html +=     "</div>";
     html += "</div>";
@@ -566,6 +575,75 @@ function gerarHtmlBasicInfoEscola(usr) {
 }
 
 /**
+ * Gera o html do rodapé das informações básicas do usuário <br>
+ * do tipo "Escola".
+ *
+ * @param {Object} JSON com os dados da escola
+ * @returns {String} HTML do rodapé das informações básicas da escola
+ */
+function gerarHtmlFooterBasicInfoAluno(usr) {
+    var html = "";
+
+    if (usuario.perfil == 4 || usuario.perfil == 2) { // Verificar se o usuário logado é do tipo "Escola" ou "Professor"
+        html += "<div class='user-info-btns'>";
+        html +=     "<a href='cadastro.php'>";
+        html +=         "<span class='link' onclick='closeUserInfoModal()'>Ver dados cadastrais</span>";
+        html +=     "</a>";
+        html += "</div>";
+    }
+
+    return html;
+}
+
+/**
+ * Gera o html do rodapé das informações básicas do usuário <br>
+ * do tipo "Professor".
+ *
+ * @param {Object} JSON com os dados do professor
+ * @returns {String} HTML do rodapé das informações básicas do professor
+ */
+function gerarHtmlFooterBasicInfoProfessor(usr) {
+    var html = "";
+
+    if (usuario.perfil == 4) { // Verificar se o usuário logado é do tipo "Escola"
+        html += "<div class='user-info-btns'>";
+        html +=     "<a href='cadastro.php'>";
+        html +=         "<span class='link' onclick='closeUserInfoModal()'>Ver dados cadastrais</span>";
+        html +=     "</a>";
+        html +=     " | ";
+        html +=     "<span id='editar_grupos' class='link' onclick='abrirEdicaoGrupo(" + usr.id + ")'>Editar grupos</span>";
+        html += "</div>";
+    }
+
+    return html;
+}
+
+/**
+ * Gera o html do rodapé das informações básicas do usuário <br>
+ * do tipo "Aluno".
+ *
+ * @param {Object} JSON com os dados do aluno
+ * @returns {String} HTML do rodapé das informações básicas do aluno
+ */
+function gerarHtmlFooterBasicInfoEscola(usr) {
+    var html = "";
+
+    if (usuario.perfil == 3) { // Verificar se usuário logado é do tipo "NEC"
+        html += "<div class='user-info-btns'>";
+        html +=     "<a href='cadastro.php'>";
+        html +=         "<span class='link' onclick='closeUserInfoModal()'>Ver dados cadastrais</span>";
+        html +=     "</a>";
+        html +=     " | ";
+        html +=     "<span id='lib_cap_" + usr.escola.id + "' class='link' onclick='getCapitulosByEscola(" + usr.escola.id + ")'>";
+        html +=         "Liberar capítulos";
+        html +=     "</span>";
+        html += "</div>";
+    }
+
+    return html;
+}
+
+/**
  * Atribui os eventos referentes ao modal#userInfoModal: <br>
  * - Ao clicar na div#userInfoModalBg, o modal fecha <br>
  * - Ao pressionar a tecla "Esc", o modal fecha <br>
@@ -573,7 +651,7 @@ function gerarHtmlBasicInfoEscola(usr) {
  */
 function atribuirEventosModal() {
     document.onkeyup = function(evt) {
-        if (evt.keyCode == 27)
+        if (evt.keyCode == 27) // Verificar se a tecla apertada é a Esc
             closeUserInfoModal();
     };
 
@@ -603,11 +681,11 @@ function countPerfisListados() {
  * relatório e seta como altura máxima do container
  */
 function calcularAlturaMaximaListagem() {
-    var alturaPicker = $("#tipo_grafico_picker").outerHeight();
+    var alturaPicker    = $("#tipo_grafico_picker").outerHeight();
     var alturaCabecalho = $("#box_perfil_selected").outerHeight();
-    var alturaInfos = $("#infosGraficos").outerHeight();
-    var alturaTotal = $("#conteudoPrincipal").innerHeight() - 35;
-    var altura = alturaTotal - (alturaPicker + alturaCabecalho + alturaInfos);
+    var alturaInfos     = $("#infosGraficos").outerHeight();
+    var alturaTotal     = $("#conteudoPrincipal").innerHeight() - 35;
+    var altura  = alturaTotal - (alturaPicker + alturaCabecalho + alturaInfos);
 
     $("#listagemRelatorio").css("max-height", altura + "px");
 }
