@@ -11,7 +11,7 @@ function atribuirEventos() {
         idBtnEnviar: "enviar_pesquisa_escola",
         idBtnCancelar: null,
         aoValidar: function () {
-            enviarFormulario();
+            abrirModal("modalDocsUpload");
         },
         aoInvalidar: function () {
             return;
@@ -103,4 +103,49 @@ function enviarFormulario() {
 
 function voltarParaPaginaLogin() {
     window.location.href = "index.php";
+}
+
+// Documentos para pré-cadastro
+function abrirModal(idmodal) {
+    var modal = document.getElementById(idmodal);
+    var bg = document.getElementById("modalDocsBg");
+
+    bg.classList.remove("hidden");
+    bg.classList.remove("fade-out");
+    bg.classList.add("fade-in");
+    modal.classList.remove("hidden");
+    modal.classList.remove("modal-doc-out");
+    modal.classList.add("modal-doc-in");
+}
+
+function fecharModal(idmodal) {
+    var modal = document.getElementById(idmodal);
+    var bg = document.getElementById("modalDocsBg");
+
+    bg.classList.remove("fade-in");
+    bg.classList.add("fade-out");
+    modal.classList.remove("modal-doc-in");
+    modal.classList.add("modal-doc-out");
+
+    bg.addEventListener("webkitAnimationEnd",
+        function(evt) {
+            toggleVisibility(this);
+            toggleVisibility(modal);
+    });
+    bg.addEventListener("animationend",
+        function(evt) {
+            toggleVisibility(this);
+            toggleVisibility(modal);
+    });
+}
+
+function verificarArquivo() {
+    fecharModal('modalDocsUpload');
+}
+
+function toggleVisibility(element) {
+    if (window.getComputedStyle(element).opacity == "0") {
+        element.classList.remove("visible");
+        element.classList.add("hidden");
+    }
 }

@@ -30,104 +30,29 @@ $templateGeral = new Template();
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet" />
         <link href="css/pesquisa.css" rel="stylesheet" />
-
-        <style>
-
-        @keyframes fade-in {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fade-out {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @keyframes modal {
-            0% {
-                top: 10%;
-            }
-
-            100% {
-                top: 20%;
-            }
-        }
-
-
-        ::-moz-selection {
-            color: #ffffff;
-            background: #728C07;
-        }
-
-        ::selection {
-            color: #ffffff;
-            background: #728C07;
-        }
-
-        h2 {
-            color: #ccc;
-            margin-top: 0;
-        }
-
-        p {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        p:last-child {
-            margin-bottom: 0;
-        }
-
-        .link-area {
-            margin: 20px 0;
-        }
-        .link {
-            font-size: 14px;
-        }
-
-        #modalDocsDownloadBg {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background-color: rgba(0,0,0,.4);
-            animation: fade-in 0.4s ease-in-out;
-            z-index: 8;
-        }
-
-        #modalDocsDownload {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            width: 600px;
-            margin-left: -300px;
-            padding: 20px;
-            background-color: #fff;
-            border: 2px dotted #728C07;
-            animation: modal 0.4s ease-in-out;
-        }
-
-        </style>
     </head>
     <body>
-        <div id="modalDocsDownloadBg">
-            <div id="modalDocsDownload">
-                <h2>Quase lá...</h2>
+        <div id="modalDocsBg">
+            <div id="modalDocsDownload" class="modal-doc modal-doc-in">
+                <h2>Documentos para cadastro</h2>
                 <p>Antes de prosseguirmos com seu registro de interesse, pedimos que realize o download e preencha os documentos abaixo.</p>
-                <p>Não se esqueça de inseri-los ao final do formulário a seguir.</p>
+                <p>Não se esqueça de inserir o arquivo <span class="text-danger text-uppercase">{{a definir}}</span> preenchido ao final do formulário a seguir.</p>
                 <p class="text-center link-area">
                     <a href="arquivos/DocsEscola.zip">
-                        <span class="link text-uppercase" onclick="fecharModal()">Clique aqui para fazer o download</span>
+                        <span class="link text-uppercase" onclick="fecharModal('modalDocsDownload')">Clique aqui para fazer o download</span>
                     </a>
+                </p>
+            </div>
+            <div id="modalDocsUpload" class="modal-doc hidden">
+                <h2>Documentos para cadastro</h2>
+                <p>Para finalizar o seu registro de interesse, insira o arquivo <span class="text-danger text-uppercase">{{a definir}}</span> preenchido.</p>
+                <p class="text-center link-area">
+                    <label for="inputDocUpload">
+                        <span class="link text-uppercase">Clique aqui para inserir o arquivo</span>
+                    </label>
+                </p>
+                <p class="text-center link-area">
+                    <button type="button" class="btn_primary" onclick="verificarArquivo()">Finalizar</button>
                 </p>
             </div>
         </div>
@@ -299,6 +224,7 @@ $templateGeral = new Template();
                                 </span>
                             </div>
                             <?php } ?>
+                            <div class="hidden"><input type="file" id="inputDocUpload" name="documento" /></div>
                             <div style="visibility: hidden; display: inline-block; width: 30%;"></div>
                         </fieldset>
                         <fieldset>
@@ -327,15 +253,6 @@ $templateGeral = new Template();
     <script type="text/javascript" src="js/lib/jquery.maskedinput.js"></script>
     <script type="text/javascript" src="js/modulos/formulario.js"></script>
     <script type="text/javascript" src="js/pesquisa.js" async></script>
-
-    <script type="text/javascript">
-        function fecharModal() {
-            $("#modalDocsDownload").animate({"top": "10%"}, 400);
-            $("#modalDocsDownloadBg").animate({"opacity": "0"}, 400, function() {
-                $("#modalDocsDownloadBg").remove();
-            });
-        }
-    </script>
 </html>
 
 
