@@ -9,11 +9,13 @@
  * Description of EscolaJSON
  *
  * @author Lucas
+ * @author Diego
  */
 class EscolaJSON {
 	private $esj_id;
 	private $esj_escola;
 	private $esj_string;
+	private $esj_arquivo;
 
 	public function EscolaJSON() {}
 
@@ -29,6 +31,10 @@ class EscolaJSON {
 		return $this->esj_string;
 	}
 
+	public function getEsj_arquivo() {
+		return $this->esj_arquivo;
+	}
+
 
 	public function setEsj_id($id) {
 		$this->esj_id = $id;
@@ -40,6 +46,10 @@ class EscolaJSON {
 
 	public function setEsj_string($string) {
 		$this->esj_string = $string;
+	}
+
+	public function setEsj_arquivo($string) {
+		$this->esj_arquivo = $string;
 	}
 }
 

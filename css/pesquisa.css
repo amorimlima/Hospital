@@ -382,3 +382,7 @@ p:last-child {
     top: 10%;
     animation: modal-out 0.4s ease-out;
 }
+
+#fileName {
+    display: block;
+}

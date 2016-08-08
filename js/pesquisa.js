@@ -71,6 +71,9 @@ function atribuirEventos() {
     });
 
     $(".botao_modal").click(voltarParaPaginaLogin);
+    $("#inputDocUpload").change(function() {
+        updateFileUploadView(this);
+    });
 }
 
 function enviarFormulario() {
@@ -87,8 +90,8 @@ function enviarFormulario() {
             $("#enviar_pesquisa_escola").val("Aguarde...");
         },
         success: function(d) {
-            $("#mensagemPesquisaSalvaComSucesso").fadeIn(200);
             console.log(d);
+            uploadDocumentoPreCadastro(d.idesj);
         },
         error: function() {
             $("#mensagemErroAoEnviarPesquisa").fadeIn(200);
@@ -149,3 +152,85 @@ function toggleVisibility(element) {
         element.classList.add("hidden");
     }
 }
+
+function hasFile(input) {
+    if (input.files.length > 0)
+        return true;
+    else
+        return false;
+}
+
+function updateFileUploadView(input) {
+    var fileName = document.getElementById("fileName");
+    var getFileTrigger = document.getElementById("getFileTrigger");
+    var btnFinalizar = document.getElementById("btnFinalizar");
+
+    if(hasFile(input)) {
+        fileName.classList.remove("hidden");
+
+        if (input.files[0].type == "application/msword" ||
+            input.files[0].type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+            fileName.innerText = input.files[0].name;
+            fileName.classList.add("text-success");
+            fileName.classList.remove("text-danger");
+            getFileTrigger.innerText = "Alterar arquivo";
+            btnFinalizar.disabled = false;
+        } else {
+            fileName.innerText = "Formato de arquivo inválido.";
+            fileName.classList.remove("text-success");
+            fileName.classList.add("text-danger");
+            getFileTrigger.innerText = "Clique aqui para inserir o arquivo";
+            btnFinalizar.disabled = true;
+        }
+    } else {
+        fileName.innerText = "{{Arquivo}}";
+        fileName.classList.add("hidden");
+        getFileTrigger.innerText = "Clique aqui para inserir o arquivo";
+        btnFinalizar.disabled = true;
+    }
+}
+
+function uploadDocumentoPreCadastro(idesj) {
+    var inputDocUpload = document.getElementById("inputDocUpload");
+    var file = inputDocUpload.files[0];
+
+    var formData = new FormData();
+    formData.append("acao", "uploadArquivoPreCadastro");
+    formData.append("arquivo", file);
+    formData.append("idesj", idesj);
+    
+    $.ajax({
+        url         : "ajax/EscolaJSONAjax.php",
+        type        : "POST",
+        dataType    : "json",
+        contentType : "multipart/form-data",
+        data        : formData,
+        processData : false,
+        success     : function(d) {
+            console.log(d);
+            $("#mensagemPesquisaSalvaComSucesso").fadeIn(200);
+        },
+        error       : function(error) {
+            console.error(error.textStatus + "///" + error.errorThrown);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

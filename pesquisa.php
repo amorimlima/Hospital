@@ -47,12 +47,13 @@ $templateGeral = new Template();
                 <h2>Documentos para cadastro</h2>
                 <p>Para finalizar o seu registro de interesse, insira o arquivo <span class="text-danger text-uppercase">{{a definir}}</span> preenchido.</p>
                 <p class="text-center link-area">
+                    <span id="fileName" class="hidden text-uppercase text-success">{{Nome do arquivo}}</span>
                     <label for="inputDocUpload">
-                        <span class="link text-uppercase">Clique aqui para inserir o arquivo</span>
+                        <span id="getFileTrigger" class="link text-uppercase">Clique aqui para inserir o arquivo</span>
                     </label>
                 </p>
                 <p class="text-center link-area">
-                    <button type="button" class="btn_primary" onclick="verificarArquivo()">Finalizar</button>
+                    <button id="btnFinalizar" disabled type="button" class="btn_primary" onclick="enviarFormulario()">Finalizar</button>
                 </p>
             </div>
         </div>
