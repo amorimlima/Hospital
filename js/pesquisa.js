@@ -90,7 +90,6 @@ function enviarFormulario() {
             $("#enviar_pesquisa_escola").val("Aguarde...");
         },
         success: function(d) {
-            console.log(d);
             uploadDocumentoPreCadastro(d.idesj);
         },
         error: function() {
@@ -109,6 +108,11 @@ function voltarParaPaginaLogin() {
 }
 
 // Documentos para pré-cadastro
+
+/**
+ * Exibe o modal passado como parâmetro
+ * @param {String, Number} idmodal Id do elemento do modal
+ */
 function abrirModal(idmodal) {
     var modal = document.getElementById(idmodal);
     var bg = document.getElementById("modalDocsBg");
@@ -121,6 +125,10 @@ function abrirModal(idmodal) {
     modal.classList.add("modal-doc-in");
 }
 
+/**
+ * Fecha o modal passado como parâmetro
+ * @param {String, Number} idmodal Id do elemento do modal
+ */
 function fecharModal(idmodal) {
     var modal = document.getElementById(idmodal);
     var bg = document.getElementById("modalDocsBg");
@@ -142,10 +150,10 @@ function fecharModal(idmodal) {
     });
 }
 
-function verificarArquivo() {
-    fecharModal('modalDocsUpload');
-}
-
+/**
+ * Exibe ou esconde o elemento dependendo do valor de sua "opacity"
+ * @param {Object} element Elemento a ser manipulado
+ */
 function toggleVisibility(element) {
     if (window.getComputedStyle(element).opacity == "0") {
         element.classList.remove("visible");
@@ -153,13 +161,24 @@ function toggleVisibility(element) {
     }
 }
 
+/**
+ * Verifica se há algum arquivo no input passado como parâmetro
+ * @param {Object} input Input do tipo file a ser analisado
+ * @returns {Boolean}
+ */
 function hasFile(input) {
     if (input.files.length > 0)
         return true;
     else
         return false;
 }
-
+/**
+ * Verifica há algum arquivo selecionado. <br>
+ * Se houver, verifica se é um arquivo Word. Caso não seja, exibe um erro. <br>
+ * Se não houver nenhum arquivo, volta o modal para o estado inicial.
+ * @param {Object} input
+ * @see #hasFile()
+ */
 function updateFileUploadView(input) {
     var fileName = document.getElementById("fileName");
     var getFileTrigger = document.getElementById("getFileTrigger");
@@ -190,6 +209,12 @@ function updateFileUploadView(input) {
     }
 }
 
+/**
+ * Faz a requisição para salvar o documento <br>
+ * e atualizar o registro no banco de dados. <br>
+ * Finaliza o processo de pré-cadastro.
+ * @param {String, Number} idesj Id do registro no banco com a pesquisa da escola.
+ */
 function uploadDocumentoPreCadastro(idesj) {
     var inputDocUpload = document.getElementById("inputDocUpload");
     var file = inputDocUpload.files[0];
@@ -198,16 +223,18 @@ function uploadDocumentoPreCadastro(idesj) {
     formData.append("acao", "uploadArquivoPreCadastro");
     formData.append("arquivo", file);
     formData.append("idesj", idesj);
-    
+
     $.ajax({
         url         : "ajax/EscolaJSONAjax.php",
         type        : "POST",
         dataType    : "json",
-        contentType : "multipart/form-data",
-        data        : formData,
+        mimeType    : "multipart/form-data",
+        contentType : false,
+        cache       : false,
         processData : false,
+        data        : formData,
         success     : function(d) {
-            console.log(d);
+            fecharModal("modalDocsUpload");
             $("#mensagemPesquisaSalvaComSucesso").fadeIn(200);
         },
         error       : function(error) {

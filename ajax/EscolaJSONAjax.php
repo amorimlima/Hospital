@@ -86,31 +86,45 @@ switch ($_REQUEST["acao"]) {
         }
 
     case "uploadArquivoPreCadastro": {
-        $escJSONController = new EscolaJSONController();
-        $arquivo = $_FILES["arquivo"];
+        $esjController = new EscolaJSONController();
+        
+        // Id do registro da escola na tabela escola_json
         $idesj = $_POST["idesj"];
-
-        $nomeArquivo = "_" . md5(uniqid(rand(), true)) . "." . pathinfo($arquivo["name"], PATHINFO_EXTENSION);
-        $arquivoTemporario = $arquivo["tmp_name"];
+        
+        //Nome aleatório do arquivo a ser salvo no servidor
+        $nomeArquivo = "_" . md5(uniqid(rand(), true)) . "." . pathinfo($_FILES["arquivo"]["name"], PATHINFO_EXTENSION);
+        $arquivoTemporario = $_FILES["arquivo"]["tmp_name"];
         $local = $path["arquivos"];
-
+        
         $esj = new EscolaJSON();
         $esj->setEsj_id($idesj);
         $esj->setEsj_arquivo($nomeArquivo);
 
-        $retorno = [];
+        // JSON a ser retornado para o cliente
+        $retorno = ["status"=>1, "mensagem"=>"", "registro"=>""];
 
-        if ($escolaJSONController->salvarDocumentoPreCadastro($esj)) {
-            move_uploaded_file($arquivoTemporario, $local . $nomeArquivo);
-
-            $retorno["status"] = 1;
-            $retorno["mensagem"] = "Arquivo salvo com sucesso";
-        } else {
+        // Tenta atualizar o registro no banco de dados para inserir o nome do arquivo
+        try {
+            $esjController->salvarDocumentoPreCadastro($esj);
+            $retorno["registro"] = "Registro atualizado com sucesso.";
+        } catch(Exception $e) {
             $retorno["status"] = 0;
-            $retorno["mensagem"] = "Erro ao inserir o arquivo: ".utf8_encode($e->getMessage());   
+            $retorno["registro"] = "Erro ao atualizar o registro: {$e->getMessage()}";
         }
-
-        echo json_encode($retorno);
+        
+        /*
+         * Tenta mover o arquivo inserido pelo cliente para o servidor e retorna
+         * para o cliente um objeto json com o resultado da requisição
+         */
+        try {
+            move_uploaded_file($arquivoTemporario, $local.$nomeArquivo);
+            $retorno["mensagem"] = "Arquivo movido com sucesso.";
+        } catch(Exception $e) {
+            $retorno["status"] = 0;
+            $retorno["mensagem"] = "Erro ao mover arquivo: {$e->getMessage()}";
+        } finally {
+            echo json_encode($retorno);
+        }
 
         break;
     }

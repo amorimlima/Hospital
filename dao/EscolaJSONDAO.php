@@ -100,13 +100,20 @@ class EscolaJSONDAO extends DAO{
             return false;
 
     }
-    
+
+    /**
+     * Atualiza o registro da escola_json no banco, inserindo o arquivo .doc<br>
+     * inserido pela escola ao final da pesquisa de pré-cadastro. 
+     * 
+     * @param Object $esj Modelo da escola_json a ser atualizada
+     * @return Boolean
+     */
     public function salvarDocumentoPreCadastro($esj) {
-        $sql  = "UPDATE escola_json ";
-        $sql .= "SET esj_arquivo = '" . $esj->getEsj_arquivo() . "' ";
-        $sql .= "WHERE esj_id = {$esj->getEsj_id()} limit 1";
-        
-        return $this->executeAndReturnLastID($sql);
+        $sql  = "UPDATE escola_json SET ";
+        $sql .=     "esj_arquivo = '" . $esj->getEsj_arquivo() .  "' ";
+        $sql .= "WHERE esj_id = " . $esj->getEsj_id() . " limit 1";
+
+        return $this->execute($sql);
     }
 }
 ?>
