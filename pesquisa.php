@@ -255,25 +255,3 @@ $templateGeral = new Template();
     <script type="text/javascript" src="js/modulos/formulario.js"></script>
     <script type="text/javascript" src="js/pesquisa.js" async></script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

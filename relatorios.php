@@ -73,9 +73,9 @@ $logado = unserialize($_SESSION['USR']);
                                     <div id="conteudoPrincipal" class="conteudo_principal" style="display: block">
                                         <div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
                                         <div class="tipo_grafico_picker_opcoes">
-                                            <div id="graficoGaleria" class="option_selected opcoes_graficos">Acessos e Downloads na Galeria (em %)</div>
-                                            <div id="graficoExercicios" class="opcoes_graficos">Exercícios (em %)</div>
-                                            <div id="graficoPrePos" class="opcoes_graficos">Pré e Pós Avaliação (em %)</div>
+                                            <div id="graficoGaleria" class="option_selected opcoes_graficos" data-grafico="1">Acessos e Downloads na Galeria (em %)</div>
+                                            <div id="graficoExercicios" class="opcoes_graficos" data-grafico="2">Exercícios (em %)</div>
+                                            <div id="graficoPrePos" class="opcoes_graficos" data-grafico="3">Pré e Pós Avaliação (em %)</div>
                                         </div>
                                         <div id="listagemRelatorio" class="listagem_perfis_graficos">
                                             <div id="grafico1" class="grafico">
