@@ -61,5 +61,9 @@ class EscolaJSONController {
 		$esjDAO = new EscolaJSONDAO(new DataAccess());
 		return $esjDAO->selectByIdEscola($idesc)->getEsj_string();
 	}
+        
+        public function salvarDocumentoPreCadastro($esj) {
+            return $this->escolaJSONDAO->salvarDocumentoPreCadastro($esj);
+        }
 }
 ?>

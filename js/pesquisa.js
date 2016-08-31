@@ -11,7 +11,7 @@ function atribuirEventos() {
         idBtnEnviar: "enviar_pesquisa_escola",
         idBtnCancelar: null,
         aoValidar: function () {
-            enviarFormulario();
+            abrirModal("modalDocsUpload");
         },
         aoInvalidar: function () {
             return;
@@ -71,6 +71,9 @@ function atribuirEventos() {
     });
 
     $(".botao_modal").click(voltarParaPaginaLogin);
+    $("#inputDocUpload").change(function() {
+        updateFileUploadView(this);
+    });
 }
 
 function enviarFormulario() {
@@ -87,8 +90,7 @@ function enviarFormulario() {
             $("#enviar_pesquisa_escola").val("Aguarde...");
         },
         success: function(d) {
-            $("#mensagemPesquisaSalvaComSucesso").fadeIn(200);
-            console.log(d);
+            uploadDocumentoPreCadastro(d.idesj);
         },
         error: function() {
             $("#mensagemErroAoEnviarPesquisa").fadeIn(200);
@@ -104,3 +106,158 @@ function enviarFormulario() {
 function voltarParaPaginaLogin() {
     window.location.href = "index.php";
 }
+
+// Documentos para pré-cadastro
+
+/**
+ * Exibe o modal passado como parâmetro
+ * @param {String, Number} idmodal Id do elemento do modal
+ */
+function abrirModal(idmodal) {
+    var modal = document.getElementById(idmodal);
+    var bg = document.getElementById("modalDocsBg");
+
+    bg.classList.remove("hidden");
+    bg.classList.remove("fade-out");
+    bg.classList.add("fade-in");
+    modal.classList.remove("hidden");
+    modal.classList.remove("modal-doc-out");
+    modal.classList.add("modal-doc-in");
+}
+
+/**
+ * Fecha o modal passado como parâmetro
+ * @param {String, Number} idmodal Id do elemento do modal
+ */
+function fecharModal(idmodal) {
+    var modal = document.getElementById(idmodal);
+    var bg = document.getElementById("modalDocsBg");
+
+    bg.classList.remove("fade-in");
+    bg.classList.add("fade-out");
+    modal.classList.remove("modal-doc-in");
+    modal.classList.add("modal-doc-out");
+
+    bg.addEventListener("webkitAnimationEnd",
+        function(evt) {
+            toggleVisibility(this);
+            toggleVisibility(modal);
+    });
+    bg.addEventListener("animationend",
+        function(evt) {
+            toggleVisibility(this);
+            toggleVisibility(modal);
+    });
+}
+
+/**
+ * Exibe ou esconde o elemento dependendo do valor de sua "opacity"
+ * @param {Object} element Elemento a ser manipulado
+ */
+function toggleVisibility(element) {
+    if (window.getComputedStyle(element).opacity == "0") {
+        element.classList.remove("visible");
+        element.classList.add("hidden");
+    }
+}
+
+/**
+ * Verifica se há algum arquivo no input passado como parâmetro
+ * @param {Object} input Input do tipo file a ser analisado
+ * @returns {Boolean}
+ */
+function hasFile(input) {
+    if (input.files.length > 0)
+        return true;
+    else
+        return false;
+}
+/**
+ * Verifica há algum arquivo selecionado. <br>
+ * Se houver, verifica se é um arquivo Word. Caso não seja, exibe um erro. <br>
+ * Se não houver nenhum arquivo, volta o modal para o estado inicial.
+ * @param {Object} input
+ * @see #hasFile()
+ */
+function updateFileUploadView(input) {
+    var fileName = document.getElementById("fileName");
+    var getFileTrigger = document.getElementById("getFileTrigger");
+    var btnFinalizar = document.getElementById("btnFinalizar");
+
+    if(hasFile(input)) {
+        fileName.classList.remove("hidden");
+
+        if (input.files[0].type == "application/msword" ||
+            input.files[0].type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+            fileName.innerText = input.files[0].name;
+            fileName.classList.add("text-success");
+            fileName.classList.remove("text-danger");
+            getFileTrigger.innerText = "Alterar arquivo";
+            btnFinalizar.disabled = false;
+        } else {
+            fileName.innerText = "Formato de arquivo inválido.";
+            fileName.classList.remove("text-success");
+            fileName.classList.add("text-danger");
+            getFileTrigger.innerText = "Clique aqui para inserir o arquivo";
+            btnFinalizar.disabled = true;
+        }
+    } else {
+        fileName.innerText = "{{Arquivo}}";
+        fileName.classList.add("hidden");
+        getFileTrigger.innerText = "Clique aqui para inserir o arquivo";
+        btnFinalizar.disabled = true;
+    }
+}
+
+/**
+ * Faz a requisição para salvar o documento <br>
+ * e atualizar o registro no banco de dados. <br>
+ * Finaliza o processo de pré-cadastro.
+ * @param {String, Number} idesj Id do registro no banco com a pesquisa da escola.
+ */
+function uploadDocumentoPreCadastro(idesj) {
+    var inputDocUpload = document.getElementById("inputDocUpload");
+    var file = inputDocUpload.files[0];
+
+    var formData = new FormData();
+    formData.append("acao", "uploadArquivoPreCadastro");
+    formData.append("arquivo", file);
+    formData.append("idesj", idesj);
+
+    $.ajax({
+        url         : "ajax/EscolaJSONAjax.php",
+        type        : "POST",
+        dataType    : "json",
+        mimeType    : "multipart/form-data",
+        contentType : false,
+        cache       : false,
+        processData : false,
+        data        : formData,
+        success     : function(d) {
+            fecharModal("modalDocsUpload");
+            $("#mensagemPesquisaSalvaComSucesso").fadeIn(200);
+        },
+        error       : function(error) {
+            console.error(error.textStatus + "///" + error.errorThrown);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

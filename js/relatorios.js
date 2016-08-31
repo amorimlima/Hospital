@@ -21,7 +21,9 @@ function gerarPickerTipoGrafico() {
     });
 
     $(".tipo_grafico_picker_opcoes").children("div").click(function() {
-        toggleGrafico(this);
+        var grafico = $(this).attr("data-grafico");
+
+        toggleGrafico(this, grafico);
     });
 
     $("body").click(function() {
@@ -36,9 +38,15 @@ function atribuirBarrasRolagem () {
             enable:true
         }
     });
+    $("#envioDocumentosLista").mCustomScrollbar({
+      axis: "y",
+      scrollButtons: {
+        enable: true
+      }
+    });
 }
 
-function toggleGrafico(item)
+function toggleGrafico(item, grafico)
 {
     var texto = $(item).html();
 
@@ -48,6 +56,7 @@ function toggleGrafico(item)
         $(item).addClass("option_selected");
         $("#tipo_grafico_picker").html(texto);
         carregarGrafico(getDadosUsuario());
+        updateLegendaGrafico(grafico);
     }
 
 };
@@ -655,12 +664,16 @@ function atribuirEventosModal() {
             closeUserInfoModal();
     };
 
-    document.getElementById("userInfoModalBg")
-            .onclick = closeUserInfoModal;
+    document.getElementById("userInfoModalBg").onclick = closeUserInfoModal;
 
-    document.getElementById("userInfoModal")
-            .onclick = function(evt) {
-                evt.stopPropagation();
+    document.getElementById("envioDocModalBg").onclick = closeEnvioDocModal;
+
+    document.getElementById("userInfoModal").onclick = function(evt) {
+      evt.stopPropagation();
+    };
+
+    document.getElementById("envioDocModal").onclick = function(evt) {
+      evt.stopPropagation();
     };
 }
 
@@ -688,4 +701,50 @@ function calcularAlturaMaximaListagem() {
     var altura  = alturaTotal - (alturaPicker + alturaCabecalho + alturaInfos);
 
     $("#listagemRelatorio").css("max-height", altura + "px");
+}
+
+/**
+ * Atualiza a legenda dos gráficos dependendo do tipo de relatório solicitado.
+ * @param {String, Number} grafico  Número do gráfico, na ordem que aparece <br>
+ *                                  no picker
+ */
+function updateLegendaGrafico(grafico) {
+    var legenda = $("#legendaGrafico1")[0];
+    var valores = { "legenda1": "", "legenda2": "" };
+    var html = "";
+
+    if (grafico == 1) {
+        valores.legenda1 = "Quantidade de acessos à galeria";
+        valores.legenda2 = "Quantidade de downloads de conteúdo";
+    } else if (grafico == 2) {
+        valores.legenda1 = "Exercícios completados";
+        valores.legenda2 = "Exercícios corretos";
+    } else if (grafico == 3) {
+        valores.legenda1 = "Acertos em pré-avaliações";
+        valores.legenda2 = "Acertos em pós-avaliações";
+    }
+
+    html += "<div>";
+    html +=     "<img src='img/leg_graf_acessos.png' alt='" + valores.legenda1 + "' />";
+    html +=     "<span>" + valores.legenda1 + "</span>";
+    html += "</div>";
+    html += "<div>";
+    html +=     "<img src='img/leg_graf_downloads.png' alt='" + valores.legenda2 + "' />";
+    html +=     "<span>" + valores.legenda2 + "</span>";
+    html += "</div>";
+
+    $(legenda).html(html);
+}
+
+/* Envio de documentos */
+function showModalEnvioDoc() {
+  $("#envioDocModalBg").fadeIn(400);
+  $("#envioDocModal").animate({top: "20%"}, 400);
+}
+
+function closeEnvioDocModal() {
+    $("#envioDocModal").animate({top: "10%"}, 400);
+    $("#envioDocModal").parent().fadeOut(400, function() {
+        $("#envioDocModal").html("<p class='text-center'>Carregando...</p>");
+    });
 }

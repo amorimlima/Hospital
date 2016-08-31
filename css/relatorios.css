@@ -414,7 +414,8 @@ button:hover {
 
 /* Modal de informações do usuário selecionado */
 
-.user-info-modal-bg {
+.user-info-modal-bg,
+.envio-doc-modal-bg {
     display: none;
     position: fixed;
     top: 0;
@@ -424,7 +425,8 @@ button:hover {
     height: 100%;
     background: rgba(0, 0, 0, .4);
 }
-.user-info-modal {
+.user-info-modal,
+.envio-doc-modal {
     /* Dimensões e posicionamento */
     position: fixed;
     width: 600px;
@@ -433,7 +435,7 @@ button:hover {
     left: 50%;
     margin-left: -300px;
     z-index: inherit;
-    
+
     /* Estilo */
     padding: 20px 30px;
     border: 2px dashed #6db43b;
@@ -441,7 +443,8 @@ button:hover {
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
 }
-.user-info-modal-header {
+.user-info-modal-header,
+.envio-doc-modal-header {
     margin-bottom: 15px;
 }
 .ic-close-user-info-modal {
@@ -450,7 +453,8 @@ button:hover {
     right: 15px;
     cursor: pointer;
 }
-.user-info-modal-header > h2 {
+.user-info-modal-header > h2,
+.envio-doc-modal-header > h2 {
     margin: 0;
     font-size: 24px;
     color: #A0A0A0;
