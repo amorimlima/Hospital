@@ -38,6 +38,12 @@ function atribuirBarrasRolagem () {
             enable:true
         }
     });
+    $("#envioDocumentosLista").mCustomScrollbar({
+      axis: "y",
+      scrollButtons: {
+        enable: true
+      }
+    });
 }
 
 function toggleGrafico(item, grafico)
@@ -658,12 +664,16 @@ function atribuirEventosModal() {
             closeUserInfoModal();
     };
 
-    document.getElementById("userInfoModalBg")
-            .onclick = closeUserInfoModal;
+    document.getElementById("userInfoModalBg").onclick = closeUserInfoModal;
 
-    document.getElementById("userInfoModal")
-            .onclick = function(evt) {
-                evt.stopPropagation();
+    document.getElementById("envioDocModalBg").onclick = closeEnvioDocModal;
+
+    document.getElementById("userInfoModal").onclick = function(evt) {
+      evt.stopPropagation();
+    };
+
+    document.getElementById("envioDocModal").onclick = function(evt) {
+      evt.stopPropagation();
     };
 }
 
@@ -722,6 +732,19 @@ function updateLegendaGrafico(grafico) {
     html +=     "<img src='img/leg_graf_downloads.png' alt='" + valores.legenda2 + "' />";
     html +=     "<span>" + valores.legenda2 + "</span>";
     html += "</div>";
-    
+
     $(legenda).html(html);
+}
+
+/* Envio de documentos */
+function showModalEnvioDoc() {
+  $("#envioDocModalBg").fadeIn(400);
+  $("#envioDocModal").animate({top: "20%"}, 400);
+}
+
+function closeEnvioDocModal() {
+    $("#envioDocModal").animate({top: "10%"}, 400);
+    $("#envioDocModal").parent().fadeOut(400, function() {
+        $("#envioDocModal").html("<p class='text-center'>Carregando...</p>");
+    });
 }
