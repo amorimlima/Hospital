@@ -660,19 +660,25 @@ function gerarHtmlFooterBasicInfoEscola(usr) {
  */
 function atribuirEventosModal() {
     document.onkeyup = function(evt) {
-        if (evt.keyCode == 27) // Verificar se a tecla apertada é a Esc
-            closeUserInfoModal();
+        if (evt.keyCode == 27) {// Verificar se a tecla apertada é a Esc
+          closeUserInfoModal();
+          closeEnvioDocModal();
+          closeFormNovoEnvioDocModal();
+        }
     };
-
     document.getElementById("userInfoModalBg").onclick = closeUserInfoModal;
-
     document.getElementById("envioDocModalBg").onclick = closeEnvioDocModal;
-
+    document.getElementById("formEnvioDocModalBg").onclick = closeFormNovoEnvioDocModal;
     document.getElementById("userInfoModal").onclick = function(evt) {
       evt.stopPropagation();
     };
-
     document.getElementById("envioDocModal").onclick = function(evt) {
+      evt.stopPropagation();
+    };
+    document.getElementById("formEnvioDocModal").onclick = function(evt) {
+      evt.stopPropagation();
+    };
+    document.getElementById("formEnvioDocModal").onclick = function(evt) {
       evt.stopPropagation();
     };
 }
@@ -740,11 +746,87 @@ function updateLegendaGrafico(grafico) {
 function showModalEnvioDoc() {
   $("#envioDocModalBg").fadeIn(400);
   $("#envioDocModal").animate({top: "20%"}, 400);
+  $("#envioDocListaDestinatarios").mCustomScrollbar({
+    axis: "y",
+    scrollButtons: {
+      enable: true
+    }
+  });
+}
+
+function showModalNovoEnvioDoc() {
+  $("#formEnvioDocModalBg").fadeIn(400);
+  $("#formEnvioDocModal").animate({top: "20%"}, 400);
 }
 
 function closeEnvioDocModal() {
     $("#envioDocModal").animate({top: "10%"}, 400);
     $("#envioDocModal").parent().fadeOut(400, function() {
-        $("#envioDocModal").html("<p class='text-center'>Carregando...</p>");
+        sairRetornoEnvioDoc();
+    });
+}
+
+function getRetornoEnvioDoc() {
+  $("#envioDocModal .envio-doc-modal-content").eq(0).hide();
+  $("#envioDocModal .envio-doc-modal-content").eq(1).show();
+  setTimeout(viewRetornoEnvioDoc, 400);
+}
+
+function viewRetornoEnvioDoc() {
+  var html =
+  '<div class="envio-doc-modal-content">'+
+    '<div class="envio-doc-modal-header">'+
+      '<h2>Retorno de documento</h2>'+
+    '</div>'+
+    '<div class="envio-doc-modal-body">'+
+      '<h3 name="assunto_documento">Re: Assunto do documento</h3>'+
+      '<h6>Respondido em <span name="data_envio">00/00/0000</span> às <span name="horario_envio">00:00</span></h6>'+
+      '<h6>Escola: <span name="nome_escola">Nome do destinatário</span></h6>'+
+      '<h5>Comentário</h5>'+
+      '<p name="descricao_documento">'+
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec diam enim, pellentesque eu tortor vitae, ultrices aliquet enim. Aenean molestie diam velit, eget imperdiet justo viverra at. Sed nec tempor dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras auctor molestie sodales. Fusce vestibulum elit magna, a luctus dui porta vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et sed.'+
+      '</p>'+
+      '<p name="download_documento">'+
+        '<span class="glyphicon glyphicon-download-alt"></span>'+
+        '<a href="#">Download do documento</a>'+
+      '</p>'+
+      '<p name="voltar">'+
+        '<span class="glyphicon glyphicon-arrow-left"></span>'+
+        '<span class="link" onclick="sairRetornoEnvioDoc()">Voltar</span>'+
+      '</p>'+
+    '</div>'+
+  '</div>';
+
+  $("#envioDocModal .envio-doc-modal-content").eq(1).hide();
+  $("#envioDocModal").append(html);
+}
+
+function sairRetornoEnvioDoc() {
+  $("#envioDocModal .envio-doc-modal-content").eq(2).remove();
+  $("#envioDocModal .envio-doc-modal-content").eq(0).show();
+}
+
+function filtrarDestinatarios() {
+  var lista = $("#envioDocListaDestinatarios").find(".envio-doc");
+  var texto = $("#filtroDestinatarios").val().toLowerCase();
+
+  if (texto !== ""){
+    $(lista).each(function(i) {
+      if ($(lista).eq(i).find(".envio-doc-title").text()
+          .trim().toLowerCase().indexOf(texto) >= 0) {
+        $(lista).eq(i).show();
+      } else {
+        $(lista).eq(i).hide();
+      }
+    })
+  } else {
+    $(lista).show();
+  }
+}
+
+function closeFormNovoEnvioDocModal() {
+    $("#formEnvioDocModal").animate({top: "10%"}, 400);
+    $("#formEnvioDocModal").parent().fadeOut(400, function() {
+        // sairRetornoEnvioDoc();
     });
 }

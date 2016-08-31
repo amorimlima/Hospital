@@ -30,6 +30,7 @@ h4 {
   border-top: 1px solid #cfcfcf;
   padding: 10px 0;
   height: 379px;
+  overflow: hidden;
 }
 .envio-doc {
   margin: 5px 0;
@@ -43,7 +44,7 @@ h4 {
 .envio-doc-header > span {
   display: block;
   float: left;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 .envio-doc-title {
   width: 75%;
@@ -62,6 +63,7 @@ h4 {
   width: 100%;
   clear: both;
 }
+
 .envio-doc-icones {
   font-size: 16px;
 }
@@ -102,6 +104,48 @@ h4 {
   left: -10px;
   top: 25px;
 }
+.envio-doc-modal::after {
+  content: "";
+  display: block;
+  width: 100%;
+  clear: both;
+}
+
+.envio-doc-modal .envio-doc-panel {
+  margin-bottom: 0;
+}
+
+.envio-doc-modal .envio-doc-lista {
+  height: 184px;
+}
+
+.envio-doc-modal h3 {
+  margin-bottom: 5px;
+}
+.envio-doc-modal h5 {
+  margin-bottom: 5px;
+  color: #999;
+  font-size: 16px;
+}
+.envio-doc-modal h6 {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #999;
+}
+.envio-doc-modal h6:last-of-type {
+  margin-bottom: 20px;
+}
+.envio-doc-modal .envio-doc-modal-body p {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+.envio-doc-modal .envio-doc-modal-body p:last-child {
+  margin-bottom: 0;
+}
+.envio-doc-modal .envio-doc-modal-body p > .glyphicon {
+  margin-right: 5px;
+}
+
 .envio-doc-icones > .text-success,
 .icon-label > span.text-success {
   color: #4b9c4c;
@@ -135,16 +179,16 @@ h4 {
       </form>
       <div class="envio-doc-header">
         <span class="envio-doc-title">
-          <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel vulputate ex, a pulvinar urna metus.</strong>
+          <strong>Assunto do documento</strong>
         </span>
-        <span class="envio-doc-date text-right">10/08/2016</span>
+        <span class="envio-doc-date text-right">00/00/0000</span>
       </div>
       <div class="envio-doc-label">
         <div class="envio-doc-icones">
           <span class="glyphicon glyphicon-align-left">
             <span class="icon-label">Este documento possui descrição</span>
           </span>
-          <span class="glyphicon glyphicon-alert text-danger">
+          <span class="glyphicon glyphicon-exclamation-sign text-danger">
             <span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>
           </span>
           <span class="glyphicon glyphicon-upload text-success">
@@ -167,9 +211,9 @@ h4 {
   </div>
 </div>
 <div id="envioDocumentosActions">
-  <div class="envio-doc-btns">
+  <div class="envio-doc-btns text-right">
     <button type="button" class="btn" onclick="">Finalizar</button>
-    <button type="button" class="btn btn-primary" onclick="">Novo envio</button>
+    <button type="button" class="btn btn-primary" onclick="showModalNovoEnvioDoc()">Novo envio</button>
   </div>
 </div>
 <!-- TESTE -->
