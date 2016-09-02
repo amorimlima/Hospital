@@ -38,7 +38,7 @@ function atribuirBarrasRolagem () {
             enable:true
         }
     });
-    $("#envioDocumentosLista").mCustomScrollbar({
+    $(".envio-doc-lista").mCustomScrollbar({
       axis: "y",
       scrollButtons: {
         enable: true
@@ -654,33 +654,35 @@ function gerarHtmlFooterBasicInfoEscola(usr) {
 
 /**
  * Atribui os eventos referentes ao modal#userInfoModal: <br>
- * - Ao clicar na div#userInfoModalBg, o modal fecha <br>
+ * - Ao clicar no bg, o modal fecha <br>
  * - Ao pressionar a tecla "Esc", o modal fecha <br>
  * - Ao clicar sobre o modal#userInfoModal, o evento de click é anulado
  */
 function atribuirEventosModal() {
-    document.onkeyup = function(evt) {
-        if (evt.keyCode == 27) {// Verificar se a tecla apertada é a Esc
-          closeUserInfoModal();
-          closeEnvioDocModal();
-          closeFormNovoEnvioDocModal();
-        }
-    };
-    document.getElementById("userInfoModalBg").onclick = closeUserInfoModal;
-    document.getElementById("envioDocModalBg").onclick = closeEnvioDocModal;
-    document.getElementById("formEnvioDocModalBg").onclick = closeFormNovoEnvioDocModal;
-    document.getElementById("userInfoModal").onclick = function(evt) {
-      evt.stopPropagation();
-    };
-    document.getElementById("envioDocModal").onclick = function(evt) {
-      evt.stopPropagation();
-    };
-    document.getElementById("formEnvioDocModal").onclick = function(evt) {
-      evt.stopPropagation();
-    };
-    document.getElementById("formEnvioDocModal").onclick = function(evt) {
-      evt.stopPropagation();
-    };
+    $(document).keyup(function(evt) {
+      if (evt.keyCode == 27) { // Veririficar se a tecla apertada é a "Esc"
+        closeUserInfoModal();
+        closeEnvioDocModal();
+        closeFormNovoEnvioDocModal();
+      }
+    });
+
+    $("#userInfoModalBg").click(function(evt) {
+      closeUserInfoModal();
+    });
+
+    // Fecha os modais ao clicar no bg.
+    $(".modal-generic").each(function(i) {
+      $(".modal-generic").eq(i).parent().click(function(evt) {
+        closeEnvioDocModal();
+        closeFormNovoEnvioDocModal();
+      });
+    });
+
+    // Evitar fechar o modal ao clicar nele.
+    $(".modal-generic").click(function(evt) {
+        evt.stopPropagation();
+    });
 }
 
 /**
@@ -756,11 +758,11 @@ function showModalEnvioDoc() {
 
 function showModalNovoEnvioDoc() {
   $("#formEnvioDocModalBg").fadeIn(400);
-  $("#formEnvioDocModal").animate({top: "20%"}, 400);
+  $("#formEnvioDocModal").animate({top: "0"}, 400);
 }
 
 function closeEnvioDocModal() {
-    $("#envioDocModal").animate({top: "10%"}, 400);
+    $("#envioDocModal").animate({top: "-5%"}, 400);
     $("#envioDocModal").parent().fadeOut(400, function() {
         sairRetornoEnvioDoc();
     });
@@ -806,26 +808,122 @@ function sairRetornoEnvioDoc() {
   $("#envioDocModal .envio-doc-modal-content").eq(0).show();
 }
 
-function filtrarDestinatarios() {
-  var lista = $("#envioDocListaDestinatarios").find(".envio-doc");
-  var texto = $("#filtroDestinatarios").val().toLowerCase();
+function filtrarPanelList() {
+  var lista = $("#filtrarPanelList").next().find(".envio-doc");
+  var texto = $("#filtrarPanelList").val().toLowerCase();
 
   if (texto !== ""){
     $(lista).each(function(i) {
       if ($(lista).eq(i).find(".envio-doc-title").text()
-          .trim().toLowerCase().indexOf(texto) >= 0) {
+          .trim().toLowerCase().indexOf(texto) >= 0)
         $(lista).eq(i).show();
-      } else {
+      else
         $(lista).eq(i).hide();
-      }
     })
   } else {
     $(lista).show();
   }
 }
 
+function viewFormNovoEnvioDocumento(form) {
+  var html = buildFormNovoEnvioDocumento;
+  showModalNovoEnvioDoc();
+  $("#formEnvioDocModal").html(html);
+}
+
+function buildFormNovoEnvioDocumento(escolas) {
+  var html = "";
+
+  html += '<div class="envio-doc-content">';
+  html +=   '<div class="envio-doc-modal-header">';
+  html +=     '<h2>Envio de documento</h2>';
+  html +=   '</div>';
+  html +=   '<div class="envio-doc-modal-body">';
+  html +=     '<form id="formularioEnvioNovoDoc" method="post" enctype="multipart/form-data">';
+  html +=       '<fieldset>';
+  html +=         '<legend>Cadastro de documento</legend>';
+  html +=         '<div class="formfield">';
+  html +=           '<label>Assunto</label>';
+  html +=           '<span>';
+  html +=             '<input type="text" maxlength="100" placeholder="Digite o assunto do documento" />';
+  html +=           '</span>';
+  html +=         '</div>';
+  html +=         '<div class="formfield">';
+  html +=           '<label>Descrição</label>';
+  html +=           '<span>';
+  html +=             '<textarea type="text" maxlength="500" placeholder="Digite a descrição do documento (opcional)"></textarea>';
+  html +=           '</span>';
+  html +=         '</div>';
+  html +=         '<div class="formfield">';
+  html +=           '<label for="">Arquivo</label>';
+  html +=           '<span>';
+  html +=             '<span>';
+  html +=               '<input type="file" name="file_arquivo" id="file_arquivo">';
+  html +=             '</span>';
+  html +=             '<div>';
+  html +=               '<label class="file" for="file_arquivo">';
+  html +=                 '<input type="button" data-for="file_arquivo" value="Selecionar arquivo" />';
+  html +=                 '<span data-for="file_arquivo">Selecione um arquivo</span>';
+  html +=               '</label>';
+  html +=             '</div>';
+  html +=           '</span>';
+  html +=         '</div>';
+  html +=         '<div class="formfield">';
+  html +=           '<label for="">Retorno</label>';
+  html +=           '<span>';
+  html +=             '<div>';
+  html +=               '<input type="checkbox" name="tipo_arquivo" value="0" id="tipo_arquivo_link"/>';
+  html +=               '<label for="tipo_arquivo_link">Solicitar um retorno das escolas</label>';
+  html +=             '</div>';
+  html +=           '</span>';
+  html +=         '</div>';
+  html +=         '<div class="envio-doc-panel">';
+  html +=           '<h4>Destinatários</h4>';
+  html +=           '<input id="filtroDestinatarios" onkeyup="filtrarPanelList(\'filtroDestinatarios\')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />';
+  html +=           '<div id="listaDestinatarios" class="envio-doc-lista">';
+  html +=             '<div class="item-container">Carregando...</span>';
+  html +=           '</div>';
+  html +=         '</div>';
+  html +=       '</fieldset>';
+  html +=       '<fieldset>';
+  html +=         '<div class="formbtns">';
+  html +=           '<button type="button" class="btn btn-primary" onclick="enviarFormulario()">Enviar</button>';
+  html +=         '</div>';
+  html +=       '</fieldset>';
+  html +=     '</form>';
+  html +=   '</div>';
+  html += '</div>';
+
+  return html;
+}
+
+function buildListaSelectDestinatarios(escolas) {
+  var html = "";
+  for (var i in escolas) {
+    html += '<div class="envio-doc item-container item-check-container">';
+    html +=   '<div class="envio-doc-header">';
+    html +=     '<input id="esc'+escolas[i].id+'" type="checkbox" value="">';
+    html +=     '<label for="esc'+escolas[i].id+'" name="nome_destinatario" class="envio-doc-title">';
+    html +=       escolas[i].nome;
+    html +=     '</label>';
+    html +=   '</div>';
+    html +=   '<div class="envio-doc-label"></div>';
+    html += '</div>';
+  }
+  return html;
+}
+
+function getEscolas(callback) {
+  $.ajax({
+    url: "ajax/CadastroAjax.php",
+    type: "GET",
+    dataType: "json",
+    data: "acao=listaEscolas"
+  });
+}
+
 function closeFormNovoEnvioDocModal() {
-    $("#formEnvioDocModal").animate({top: "10%"}, 400);
+    $("#formEnvioDocModal").animate({top: "-5%"}, 400);
     $("#formEnvioDocModal").parent().fadeOut(400, function() {
         // sairRetornoEnvioDoc();
     });

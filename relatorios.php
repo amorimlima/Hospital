@@ -234,7 +234,7 @@ $logado = unserialize($_SESSION['USR']);
 
         <!-- Modal de visualização das infos básicas do usuário -->
 
-        <div id="userInfoModalBg" class="user-info-modal-bg">
+        <div id="userInfoModalBg" class="user-info-modal-bg" data-component="modal">
             <div id="userInfoModal" class="user-info-modal">
                 <p class="text-center">Carregando...</p>
             </div>
@@ -263,7 +263,7 @@ $logado = unserialize($_SESSION['USR']);
 
         <div id="envioDocModalBg" class="envio-doc-modal-bg">
           <!-- Envio existente -->
-          <div id="envioDocModal" class="envio-doc-modal">
+          <div id="envioDocModal" class="envio-doc-modal" data-component="modal">
             <div class="envio-doc-modal-content">
               <div class="envio-doc-modal-header">
                 <h2>Documento enviado</h2>
@@ -311,9 +311,6 @@ $logado = unserialize($_SESSION['USR']);
                 </div>
               </div>
             </div>
-            <div class="envio-doc-modal-content" style="display:none;">
-              <p class="text-center">Carregando...</p>
-            </div>
           </div>
         </div>
 
@@ -321,31 +318,8 @@ $logado = unserialize($_SESSION['USR']);
         <!-- Modal novo envio de documento -->
         <div id="formEnvioDocModalBg" class="envio-doc-modal-bg">
           <!-- Formulário novo envio -->
-          <div id="formEnvioDocModal" class="envio-doc-modal">
-            <div class="envio-doc-content">
-              <div class="envio-doc-modal-header">
-                <h2>Envio de documento</h2>
-              </div>
-              <div class="envio-doc-modal-body">
-                <form id="formEnvioDoc" method="post" enctype="multipart/form-data">
-                  <fieldset>
-                    <legend>Cadastro de novo envio</legend>
-                    <div class="formfield">
-                      <label>Assunto</label>
-                      <span>
-                        <input type="text" maxlength="100" placeholder="Digite o assunto do documento" />
-                      </span>
-                    </div>
-                    <div class="formfield">
-                      <label>Descrição</label>
-                      <span>
-                        <textarea type="text" maxlength="500" placeholder="Digite a descrição do documento (opcional)"></textarea>
-                      </span>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
-            </div>
+          <div id="formEnvioDocModal" class="modal-generic">
+            <p class="text-center">Carregando...</p>
           </div>
         </div>
 
