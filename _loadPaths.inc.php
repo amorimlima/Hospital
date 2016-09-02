@@ -30,6 +30,7 @@ $_LOAD_PATH_SYS['imgg']       		  = $_LOAD_PATH_SYS['home'].'imgg'.$_PATH_SEPARA
 $_LOAD_PATH_SYS['imgp']       		  = $_LOAD_PATH_SYS['home'].'imgp'.$_PATH_SEPARATOR;
 $_LOAD_PATH_SYS['arquivos']   		  = $_LOAD_PATH_SYS['home'].'arquivos'.$_PATH_SEPARATOR;
 $_LOAD_PATH_SYS['arquivos_galeria']   = $_LOAD_PATH_SYS['home'].'arquivos_galeria'.$_PATH_SEPARATOR;
+$_LOAD_PATH_SYS['documentos']   	  = $_LOAD_PATH_SYS['home'].'documentos'.$_PATH_SEPARATOR;
 $_LOAD_PATH_SYS['miniaturas'] 		  = $_LOAD_PATH_SYS['home'].'miniaturas'.$_PATH_SEPARATOR;
 $_LOAD_PATH_SYS['temporaria'] 		  = $_LOAD_PATH_SYS['home'].'temporaria'.$_PATH_SEPARATOR;
 $_LOAD_PATH_SYS['images']     		  = $_LOAD_PATH_SYS['home'].'images'.$_PATH_SEPARATOR;
