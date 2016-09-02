@@ -466,6 +466,10 @@ button:hover {
     top: -2px;
 }
 
+.modal-generic input[type="checkbox"]:checked + label::before {
+    content: url(../img/checkbox_form_h.png);
+}
+
 .user-info-modal-bg,
 .envio-doc-modal-bg {
     display: none;

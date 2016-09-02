@@ -326,10 +326,13 @@ $logado = unserialize($_SESSION['USR']);
     </body>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.mask.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.maskedinput.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
     <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
     <script src="bootstrap/js/bootstrap-datepicker.js"></script>
+    <script src="js/modulos/formulario.js"></script>
     <script src="js/EstadoCidade.js"></script>
     <script src="js/funcoes.js"></script>
     <script src="js/cadastro.js" async></script>

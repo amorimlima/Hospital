@@ -1,5 +1,7 @@
 "use strict";
 
+var formNovoEnvioDoc;
+
 $(document).ready(function() {
     gerarPickerTipoGrafico();
     atribuirBarrasRolagem();
@@ -774,6 +776,18 @@ function getRetornoEnvioDoc() {
   setTimeout(viewRetornoEnvioDoc, 400);
 }
 
+function getEscolas(callback) {
+  $.ajax({
+    url: "ajax/RelatoriosAjax.php",
+    type: "GET",
+    dataType: "json",
+    data: "acao=listarEscolas",
+    success: function(escolas) {
+      callback(escolas);
+    }
+  });
+}
+
 function viewRetornoEnvioDoc() {
   var html =
   '<div class="envio-doc-modal-content">'+
@@ -808,9 +822,9 @@ function sairRetornoEnvioDoc() {
   $("#envioDocModal .envio-doc-modal-content").eq(0).show();
 }
 
-function filtrarPanelList() {
-  var lista = $("#filtrarPanelList").next().find(".envio-doc");
-  var texto = $("#filtrarPanelList").val().toLowerCase();
+function filtrarPanelList(input) {
+  var lista = $("#"+input).next().find(".envio-doc");
+  var texto = $("#"+input).val().toLowerCase();
 
   if (texto !== ""){
     $(lista).each(function(i) {
@@ -829,6 +843,7 @@ function viewFormNovoEnvioDocumento(form) {
   var html = buildFormNovoEnvioDocumento;
   showModalNovoEnvioDoc();
   $("#formEnvioDocModal").html(html);
+  getEscolas(viewListaSelectDestinatarios);
 }
 
 function buildFormNovoEnvioDocumento(escolas) {
@@ -844,25 +859,25 @@ function buildFormNovoEnvioDocumento(escolas) {
   html +=         '<legend>Cadastro de documento</legend>';
   html +=         '<div class="formfield">';
   html +=           '<label>Assunto</label>';
-  html +=           '<span>';
-  html +=             '<input type="text" maxlength="100" placeholder="Digite o assunto do documento" />';
+  html +=           '<span>'
+  html +=             '<input id="docAssunto" name="doc_assunto" class="obrigatorio" type="text" maxlength="100" placeholder="Digite o assunto do documento" />';
   html +=           '</span>';
   html +=         '</div>';
   html +=         '<div class="formfield">';
   html +=           '<label>Descrição</label>';
   html +=           '<span>';
-  html +=             '<textarea type="text" maxlength="500" placeholder="Digite a descrição do documento (opcional)"></textarea>';
+  html +=             '<textarea id="docDescricao" name="doc_descricao" class="obrigatorio" type="text" maxlength="500" placeholder="Digite a descrição do documento (opcional)"></textarea>';
   html +=           '</span>';
   html +=         '</div>';
   html +=         '<div class="formfield">';
   html +=           '<label for="">Arquivo</label>';
   html +=           '<span>';
   html +=             '<span>';
-  html +=               '<input type="file" name="file_arquivo" id="file_arquivo">';
+  html +=               '<input name="doc_arquivo" type="file" id="docArquivo">';
   html +=             '</span>';
   html +=             '<div>';
-  html +=               '<label class="file" for="file_arquivo">';
-  html +=                 '<input type="button" data-for="file_arquivo" value="Selecionar arquivo" />';
+  html +=               '<label class="file" for="docArquivo">';
+  html +=                 '<input type="button" onclick="$(\'#docArquivo\').trigger(\'click\')" value="Selecionar arquivo" />';
   html +=                 '<span data-for="file_arquivo">Selecione um arquivo</span>';
   html +=               '</label>';
   html +=             '</div>';
@@ -872,14 +887,14 @@ function buildFormNovoEnvioDocumento(escolas) {
   html +=           '<label for="">Retorno</label>';
   html +=           '<span>';
   html +=             '<div>';
-  html +=               '<input type="checkbox" name="tipo_arquivo" value="0" id="tipo_arquivo_link"/>';
+  html +=               '<input id="doeRetorno" type="checkbox" name="tipo_arquivo" value="0" id="tipo_arquivo_link"/>';
   html +=               '<label for="tipo_arquivo_link">Solicitar um retorno das escolas</label>';
   html +=             '</div>';
   html +=           '</span>';
   html +=         '</div>';
   html +=         '<div class="envio-doc-panel">';
   html +=           '<h4>Destinatários</h4>';
-  html +=           '<input id="filtroDestinatarios" onkeyup="filtrarPanelList(\'filtroDestinatarios\')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />';
+  html +=           '<input id="inputFiltroDest" onkeyup="filtrarPanelList(\'inputFiltroDest\')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />';
   html +=           '<div id="listaDestinatarios" class="envio-doc-lista">';
   html +=             '<div class="item-container">Carregando...</span>';
   html +=           '</div>';
@@ -887,7 +902,7 @@ function buildFormNovoEnvioDocumento(escolas) {
   html +=       '</fieldset>';
   html +=       '<fieldset>';
   html +=         '<div class="formbtns">';
-  html +=           '<button type="button" class="btn btn-primary" onclick="enviarFormulario()">Enviar</button>';
+  html +=           '<button id="submitNovoDocEnvio" type="button" class="btn btn-primary" onclick="validarFormNovoDocumentoEnvio()">Enviar</button>';
   html +=         '</div>';
   html +=       '</fieldset>';
   html +=     '</form>';
@@ -902,8 +917,8 @@ function buildListaSelectDestinatarios(escolas) {
   for (var i in escolas) {
     html += '<div class="envio-doc item-container item-check-container">';
     html +=   '<div class="envio-doc-header">';
-    html +=     '<input id="esc'+escolas[i].id+'" type="checkbox" value="">';
-    html +=     '<label for="esc'+escolas[i].id+'" name="nome_destinatario" class="envio-doc-title">';
+    html +=     '<input name="doe_destinatario[]" id="esc'+escolas[i].id+'" type="checkbox" value="'+escolas[i].id+'">';
+    html +=     '<label for="esc'+escolas[i].id+'" class="envio-doc-title">';
     html +=       escolas[i].nome;
     html +=     '</label>';
     html +=   '</div>';
@@ -913,13 +928,10 @@ function buildListaSelectDestinatarios(escolas) {
   return html;
 }
 
-function getEscolas(callback) {
-  $.ajax({
-    url: "ajax/CadastroAjax.php",
-    type: "GET",
-    dataType: "json",
-    data: "acao=listaEscolas"
-  });
+function viewListaSelectDestinatarios(escolas) {
+  var html = buildListaSelectDestinatarios(escolas);
+  $("#listaDestinatarios").html(html);
+  $("#listaDestinatarios").mCustomScrollbar({"axis":"y","scrollButtons":{"enable": true}});
 }
 
 function closeFormNovoEnvioDocModal() {
@@ -928,3 +940,111 @@ function closeFormNovoEnvioDocModal() {
         // sairRetornoEnvioDoc();
     });
 }
+
+function validarFormNovoDocumentoEnvio() {
+  debugger;
+  var destinatariosValido = false;
+  var valido = true;
+
+  // Verifica se nenhuma escola está selecionada
+  $("#listaDestinatarios").find("input:checkbox").each(function(i) {
+    if ($("#listaDestinatarios").find("input:checkbox").eq(i).is(":checked")) {
+      destinatariosValido = true;
+    }
+  });
+
+  // Verifica se o assunto do documento está vazio
+  if ($("#docAssunto").val() == "") {
+    $("#docAssunto").addClass("input_faltando");
+    valido = false;
+  } else {
+    $("#docAssunto").removeClass("input_faltando");
+  }
+
+  // Verifica se o arquivo está vazio
+  if ($("#docArquivo")[0].files.length == 0) {
+    $("#docArquivo").parent().parent().addClass("input_faltando");
+    valido = false;
+  } else {
+    $("#docArquivo").parent().parent().removeClass("input_faltando");
+  }
+
+  if (!destinatariosValido) {
+    $("#listaDestinatarios").addClass("input_faltando");
+    valido = false;
+  } else {
+    $("#listaDestinatarios").removeClass("input_faltando");
+  }
+
+  if (valido && destinatariosValido) {
+    var docAssunto = $("#docAssunto").val();
+    var docDescricao = $("#docDescricao").val();
+    var docArquivo = $("#docArquivo")[0].files[0];
+    var doeRetorno = $("#doeRetorno").val();
+    var doeDestinatarios = [];
+
+    $("#listaDestinatarios").find("input:checkbox:checked").each(function(i) {
+      doeDestinatarios.push($("#listaDestinatarios").find("input:checkbox:checked").eq(i).val());
+    });
+
+    postNovoDocumentoEnvio(docAssunto, docDescricao, docArquivo, doeDestinatarios, doeRetorno);
+  }
+}
+
+function postNovoDocumentoEnvio(assunto, descricao, arquivo, destinatarios, retorno) {
+  debugger;
+  var idDocumento;
+  var formData = new FormData();
+
+  formData.append("acao", "postDocumento");
+  formData.append("assunto", assunto);
+  formData.append("descricao", descricao);
+  formData.append("arquivo", arquivo);
+
+  // Postar documento
+  $.ajax({
+    url: "ajax/DocumentosAjax.php",
+    type: "POST",
+    data: formData,
+    crossDomain: true,
+    contentType: "multipart/form-data",
+    success: function(data) {
+      console.log("postou");
+      idDocumento = data;
+    }
+  });
+
+  // Criar envio
+  $.ajax({
+    url: "ajax/DocumentosAjax.php",
+    type: "POST",
+    data: "acao=postEnvio&destinatarios=" + destinatarios.toString() + "&retorno=" + retorno,
+    success: function(data) {
+      console.log(data);
+    }
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

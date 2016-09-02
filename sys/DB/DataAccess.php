@@ -15,7 +15,8 @@ class DataAccess
            // $this->connect = mysqli_connect('localhost','root','jogoshcb');
             //mysqli_select_db($this->connect, 'hcb_criancas') or die(mysql_error());
 			
-			$this->connect = mysqli_connect('187.73.149.26:3306','root','jogoshcb','hcb_criancas_teste');//
+			//$this->connect = mysqli_connect('187.73.149.26:3306','root','jogoshcb','hcb_criancas_teste');//
+			$this->connect = mysqli_connect('localhost','root','root','hcb_criancas');//
             if(mysqli_connect_errno()){
                 echo "Failed to connect to MySQL: " . mysqli_connect_error();
             }      
