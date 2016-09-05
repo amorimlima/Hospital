@@ -4,7 +4,7 @@ require_once /* $_SESSION['BASE_URL'] */'../_loadPaths.inc.php';
 
 $path = $_SESSION['PATH_SYS'];
 
-include_once($path['controller'] . 'DocumentosController.php');
+include_once($path['controller'] . 'DocumentoController.php');
 include_once($path['controller'] . 'DocumentoEnvioController.php');
 include_once($path['controller'] . 'DocumentoRetornoController.php');
 include_once($path['beans'] . 'Documento.php');
@@ -12,8 +12,8 @@ include_once($path['beans'] . 'DocumentoEnvio.php');
 include_once($path['beans'] . 'DocumentoRetorno.php');
 include_once($path['funcao'] . 'DatasFuncao.php');
 
-$documentosController = new DocumentosController();
-$documentosEnvioController = new DocumentosEnvioController();
+$documentosController = new DocumentoController();
+$documentosEnvioController = new DocumentoEnvioController();
 
 $maxSize = 30000000; //Tamanho máximo de arquivo 30Mb
 
@@ -27,7 +27,7 @@ switch ($_REQUEST['acao']) {
         $documento->setDoc_descricao(utf8_decode($descricao));
 
         $nomeArquivo = "_".md5(uniqid(rand(),true)).'.'.pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION);
-        $arquivo_temporario = $_FILES["file_arquivo"]["tmp_name"];
+        $arquivo_temporario = $_FILES["arquivo"]["tmp_name"];
         $local = $path['documentos'];
 
         if (filesize($arquivo_temporario) > $maxSize)
@@ -74,6 +74,60 @@ switch ($_REQUEST['acao']) {
         $documentosRetorno->setDor_envio($envio);
 
         $documentoRetornoController->insert($documentosRetorno);
+
+        break;
+
+    // case 'getDocumento':
+
+    //     if(isset($_REQUEST['id']))
+    //         $result = $documentoController->listarkey($_REQUEST['id']);
+    //         echo json_encode($result);
+
+    //     else
+    //         $result = $documentoController->listarTodos();
+    //         echo json_encode($result);
+
+    //     break;
+
+    case 'getEnvio':
+
+        if(isset($_REQUEST['id'])){
+            $result = $documentoEnvioController->listarkey($_REQUEST['id']);
+            echo json_encode($result);
+        }
+
+        else{
+            $result = $documentoEnvioController->listarTodos();
+            echo json_encode($result);
+        }
+
+        break;
+
+    case 'getRetorno':
+
+        if(isset($_REQUEST['id'])){
+            $result = $documentoRetornoController->listarkey($_REQUEST['id']);
+            echo json_encode($result);
+        }
+
+        else{
+            $result = $documentoRetornoController->listarTodos();
+            echo json_encode($result);
+        }
+
+        break;
+
+    case 'getEnvioEscola':
+
+        $result = $documentoEnvioController->listarEscola($_REQUEST['idEscola']);
+        echo json_encode($result);
+
+        break;
+
+    case 'getRetornoEscola':
+
+        $result = $documentoRetornoController->listarEscola($_REQUEST['idEscola']);
+        echo json_encode($result);
 
         break;
 }

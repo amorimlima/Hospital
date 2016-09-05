@@ -14,7 +14,7 @@
     *
     */
 
-    class Documento
+    class Documentos
     {
     private $doc_id;
 
