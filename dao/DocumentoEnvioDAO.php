@@ -42,7 +42,7 @@ class DocumentoEnvioDAO extends DAO{
     {
         $sql =  "insert into documento_envio ( doe_documento,doe_destinatario,doe_data_envio,doe_visto,doe_retorno )values";
         $sql .= "( '".$documentoenvio->getDoe_documento()."','".$documentoenvio->getDoe_destinatario()."','".$documentoenvio->getDoe_data_envio()."','".$documentoenvio->getDoe_visto()."','".$documentoenvio->getDoe_retorno()."')";
-        return $this->execute($sql);
+        return $this->executeAndReturnLastID($sql);
     }
 
     // **********************
@@ -52,7 +52,7 @@ class DocumentoEnvioDAO extends DAO{
     public function deleteDocumentoEnvio($iddocumentoenvio)
     {
         $sql = "delete from documento_envio where doe_id = $iddocumentoenvio";
-        return $this->execute($sql);
+        return $this->executeAndReturnLastID($sql);
     }
 
     // **********************
@@ -123,7 +123,26 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         $sql .= "CURDATE(), ";
         $sql .= "'".$doe->getDoe_retorno()."')";
         echo $sql;
-        return $this->execute($sql);
+        return $this->executeAndReturnLastID($sql);
+    }
+
+    public function listarEscola($idEscola)
+    {
+        $sql = "SELECT * FROM documento_envio WHERE doe_destinatario = ".$idEscola;
+        $lista = array();
+        $result = $this->retrieve($sql);
+        while ($qr = mysqli_fetch_array($result)){
+            $documentoenvio= new DocumentoEnvio();
+            $documentoenvio->setDoe_id($qr['doe_id']);
+            $documentoenvio->setDoe_documento($qr['doe_documento']);
+            $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
+            $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
+            $documentoenvio->setDoe_visto($qr['doe_visto']);
+            $documentoenvio->setDoe_retorno($qr['doe_retorno']);
+
+            array_push($lista,$documentoenvio);
+        };
+        return $lista;
     }
 }
 ?>

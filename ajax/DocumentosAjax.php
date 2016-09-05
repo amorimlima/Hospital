@@ -43,7 +43,8 @@ switch ($_REQUEST['acao']) {
         if (!$_SESSION['cadastro'] == "excedeu")
         {
             $documento->setDoc_documento("arquivos_galeria/".$nomeImage);
-            $documentosController->insertDocumentos($documento);
+            $result = $documentosController->insertDocumentos($documento);
+            echo json_encode($result);
             $_SESSION['cadastro'] = "ok";
         }
 
@@ -54,12 +55,16 @@ switch ($_REQUEST['acao']) {
 		$destinatario = $_REQUEST['destinatario'];
 		$retorno      = $_REQUEST['retorno'];
 
-		$documentoEnvio = new DocumentoEnvio();
-		$documentoEnvio->setDoe_documento($documento);
-		$documentoEnvio->setDoe_destinatario($destinatario);
-		$documentoEnvio->setDoe_retorno($retorno);
+        $destinatario = $destinatario.explode(',');
 
-		$documentoEnvioController->insertParcial($documentoEnvio);
+        for ($i = 0; $i < $destinatario.sizeof(); $i++) { 
+            $documentoEnvio = new DocumentoEnvio();
+            $documentoEnvio->setDoe_documento($documento);
+            $documentoEnvio->setDoe_destinatario($destinatario[$i]);
+            $documentoEnvio->setDoe_retorno($retorno);
+
+            $documentoEnvioController->insertParcial($documentoEnvio);
+        }
 
 		break;
 
@@ -92,12 +97,12 @@ switch ($_REQUEST['acao']) {
     case 'getEnvio':
 
         if(isset($_REQUEST['id'])){
-            $result = $documentoEnvioController->listarkey($_REQUEST['id']);
+            $result = $documentoEnvioController->selectByIdDocumentoEnvio($_REQUEST['id']);
             echo json_encode($result);
         }
 
         else{
-            $result = $documentoEnvioController->listarTodos();
+            $result = $documentoEnvioController->selectAllDocumentoEnvio();
             echo json_encode($result);
         }
 
@@ -106,12 +111,12 @@ switch ($_REQUEST['acao']) {
     case 'getRetorno':
 
         if(isset($_REQUEST['id'])){
-            $result = $documentoRetornoController->listarkey($_REQUEST['id']);
+            $result = $documentoRetornoController->selectByIdDocumentoRetorno($_REQUEST['id']);
             echo json_encode($result);
         }
 
         else{
-            $result = $documentoRetornoController->listarTodos();
+            $result = $documentoRetornoController->selectAllDocumentoRetorno();
             echo json_encode($result);
         }
 
