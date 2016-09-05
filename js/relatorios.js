@@ -849,65 +849,78 @@ function viewFormNovoEnvioDocumento(form) {
 function buildFormNovoEnvioDocumento(escolas) {
   var html = "";
 
-  html += '<div class="envio-doc-content">';
-  html +=   '<div class="envio-doc-modal-header">';
-  html +=     '<h2>Envio de documento</h2>';
-  html +=   '</div>';
-  html +=   '<div class="envio-doc-modal-body">';
-  html +=     '<form id="formularioEnvioNovoDoc" method="post" enctype="multipart/form-data">';
-  html +=       '<fieldset>';
-  html +=         '<legend>Cadastro de documento</legend>';
-  html +=         '<div class="formfield">';
-  html +=           '<label>Assunto</label>';
-  html +=           '<span>'
-  html +=             '<input id="docAssunto" name="doc_assunto" class="obrigatorio" type="text" maxlength="100" placeholder="Digite o assunto do documento" />';
-  html +=           '</span>';
-  html +=         '</div>';
-  html +=         '<div class="formfield">';
-  html +=           '<label>Descrição</label>';
-  html +=           '<span>';
-  html +=             '<textarea id="docDescricao" name="doc_descricao" class="obrigatorio" type="text" maxlength="500" placeholder="Digite a descrição do documento (opcional)"></textarea>';
-  html +=           '</span>';
-  html +=         '</div>';
-  html +=         '<div class="formfield">';
-  html +=           '<label for="">Arquivo</label>';
-  html +=           '<span>';
-  html +=             '<span>';
-  html +=               '<input name="doc_arquivo" type="file" id="docArquivo">';
-  html +=             '</span>';
-  html +=             '<div>';
-  html +=               '<label class="file" for="docArquivo">';
-  html +=                 '<input type="button" onclick="$(\'#docArquivo\').trigger(\'click\')" value="Selecionar arquivo" />';
-  html +=                 '<span data-for="file_arquivo">Selecione um arquivo</span>';
-  html +=               '</label>';
-  html +=             '</div>';
-  html +=           '</span>';
-  html +=         '</div>';
-  html +=         '<div class="formfield">';
-  html +=           '<label for="">Retorno</label>';
-  html +=           '<span>';
-  html +=             '<div>';
-  html +=               '<input id="doeRetorno" type="checkbox" name="tipo_arquivo" value="0" id="tipo_arquivo_link"/>';
-  html +=               '<label for="tipo_arquivo_link">Solicitar um retorno das escolas</label>';
-  html +=             '</div>';
-  html +=           '</span>';
-  html +=         '</div>';
-  html +=         '<div class="envio-doc-panel">';
-  html +=           '<h4>Destinatários</h4>';
-  html +=           '<input id="inputFiltroDest" onkeyup="filtrarPanelList(\'inputFiltroDest\')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />';
-  html +=           '<div id="listaDestinatarios" class="envio-doc-lista">';
-  html +=             '<div class="item-container">Carregando...</span>';
-  html +=           '</div>';
-  html +=         '</div>';
-  html +=       '</fieldset>';
-  html +=       '<fieldset>';
-  html +=         '<div class="formbtns">';
-  html +=           '<button id="submitNovoDocEnvio" type="button" class="btn btn-primary" onclick="validarFormNovoDocumentoEnvio()">Enviar</button>';
-  html +=         '</div>';
-  html +=       '</fieldset>';
-  html +=     '</form>';
-  html +=   '</div>';
-  html += '</div>';
+  html+= '<div class="envio-doc-content">';
+  html+=   '<div class="envio-doc-modal-header">';
+  html+=     '<h2>Envio de documento</h2>';
+  html+=   '</div>';
+  html+=   '<div class="envio-doc-modal-body">';
+  html+=     '<form id="formNovoDoc" method="post" enctype="multipart/form-data">';
+  html+=       '<fieldset>';
+  html+=         '<legend>Cadastro de documento</legend>';
+  html+=         '<div class="formfield">';
+  html+=           '<label>Assunto</label>';
+  html+=           '<span>';
+  html+=             '<input id="docAssunto" name="assunto" class="obrigatorio" type="text" maxlength="100" placeholder="Digite o assunto do documento" />';
+  html+=           '</span>';
+  html+=         '</div>';
+  html+=         '<div class="formfield">';
+  html+=           '<label>Descrição</label>';
+  html+=           '<span>';
+  html+=             '<textarea id="docDescricao" name="descricao" class="obrigatorio" type="text" maxlength="500" placeholder="Digite a descrição do documento (opcional)"></textarea>';
+  html+=           '</span>';
+  html+=         '</div>';
+  html+=         '<div class="formfield">';
+  html+=           '<label for="">Arquivo</label>';
+  html+=           '<span>';
+  html+=             '<span>';
+  html+=               '<input name="doc_arquivo" type="file" id="docArquivo">';
+  html+=             '</span>';
+  html+=             '<div>';
+  html+=               '<label class="file" for="docArquivo">';
+  html+=                 '<input type="button" onclick="$(\'#docArquivo\').trigger(\'click\')" value="Selecionar arquivo" />';
+  html+=                 '<span data-for="file_arquivo">Selecione um arquivo</span>';
+  html+=               '</label>';
+  html+=             '</div>';
+  html+=           '</span>';
+  html+=         '</div>';
+  html+=         '<div class="formfield">';
+  html+=           '<label for="">Retorno</label>';
+  html+=           '<span>';
+  html+=             '<div>';
+  html+=               '<input id="doeRetorno" type="checkbox" name="tipo_arquivo" value="0" id="tipo_arquivo_link"/>';
+  html+=               '<label for="tipo_arquivo_link">Solicitar um retorno das escolas</label>';
+  html+=             '</div>';
+  html+=           '</span>';
+  html+=         '</div>';
+  html+=         '<div class="envio-doc-panel">';
+  html+=           '<h4>Destinatários</h4>';
+  html+=           '<input id="inputFiltroDest" onkeyup="filtrarPanelList(\'inputFiltroDest\')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />';
+  html+=           '<div id="listaDestinatarios" class="envio-doc-lista">';
+  html+=             '<div class="item-container">Carregando...</span>';
+  html+=           '</div>';
+  html+=         '</div>';
+  html+=       '</fieldset>';
+  html+=       '<fieldset>';
+  html+=         '<div class="formbtns">';
+  html+=           '<button id="submitNovoDocEnvio" type="button" class="btn btn-primary" onclick="validarFormNovoDocumentoEnvio()">Enviar</button>';
+  html+=         '</div>';
+  html+=       '</fieldset>';
+  html+=     '</form>';
+  html+=     '<div class="hidden">';
+  html+=       '<form id="docForm" action="ajax/DocumentosAjax.php" method="POST" enctype="multipart/form-data">';
+  html+=         '<input type="hidden" name="acao" value="postDocumento" />';
+  html+=         '<input type="hidden" name="assunto" value="" />';
+  html+=         '<input type="hidden" name="descricao" value="" />';
+  html+=       '</form>';
+  html+=       '<form id="envioDocForm" action="ajax/DocumentosAjax.php" method="POST">';
+  html+=         '<input type="hidden" name="acao" value="postEnvio" >';
+  html+=         '<input type="hidden" name="documento" value="" />';
+  html+=         '<input type="hidden" name="destinatarios" value="" />';
+  html+=         '<input type="hidden" name="retorno" value="" />';
+  html+=       '</form>';
+  html+=     '</div>';
+  html+=   '</div>';
+  html+= '</div>';
 
   return html;
 }
@@ -977,41 +990,33 @@ function validarFormNovoDocumentoEnvio() {
   }
 
   if (valido && destinatariosValido) {
-    var docAssunto = $("#docAssunto").val();
-    var docDescricao = $("#docDescricao").val();
+    var form = document.getElementById("docForm");
     var docArquivo = $("#docArquivo")[0].files[0];
-    var doeRetorno = $("#doeRetorno").val();
     var doeDestinatarios = [];
 
-    $("#listaDestinatarios").find("input:checkbox:checked").each(function(i) {
-      doeDestinatarios.push($("#listaDestinatarios").find("input:checkbox:checked").eq(i).val());
-    });
+    $(form).find("input[name='assunto']").val($("#docAssunto").val());
+    $(form).find("input[name='descricao']").val($("#docDescricao").val());
 
-    postNovoDocumentoEnvio(docAssunto, docDescricao, docArquivo, doeDestinatarios, doeRetorno);
+    var formData = new FormData(form);
+    formData.append("arquivo", docArquivo);
+
+    envioDocumento.postDoc(formData, createEnvioDocumento);
   }
 }
 
-function postNovoDocumentoEnvio(assunto, descricao, arquivo, destinatarios, retorno) {
-  debugger;
-  var idDocumento;
-  var formData = new FormData();
+function createEnvioDocumento(documento) {
+  var form = document.getElementById("envioDocForm");
+  var listaDestinatarios = [];
 
-  formData.append("acao", "postDocumento");
-  formData.append("assunto", assunto);
-  formData.append("descricao", descricao);
-  formData.append("arquivo", arquivo);
+  $("#listaDestinatarios input:checkbox:checked").each(function(i) {
+    doeDestinatarios.push($("#listaDestinatarios input:checkbox:checked").eq(i).val());
+  });
 
-  envioDocumento.postDoc(formData, envioDocumento.postEnvio);
+  $(form).find("input[name='documento']").val(documento);
+  $(form).find("input[name='destinatarios']").val(doeDestinatarios.toString);
 
-  // Criar envio
-  // $.ajax({
-  //   url: "ajax/DocumentosAjax.php",
-  //   type: "POST",
-  //   data: "acao=postEnvio&destinatarios=" + destinatarios.toString() + "&retorno=" + retorno,
-  //   success: function(data) {
-  //     console.log(data);
-  //   }
-  // });
+  console.log($(form).serialize);
+  //envioDocumento.postEnvio(formData, envioDocumento.postEnvio);
 }
 
 var envioDocumento = {
@@ -1022,21 +1027,30 @@ var envioDocumento = {
       type: "POST",
       data: dados,
       dataType: "json",
-      mimeType: "multipart/form-data",
       contentType: false,
       cache: false,
       processData: false,
       error: function(e) {
-        console.log(e.errorThrown + " // " + e.message);
+        console.log(e.errorThrown + " // " + e.txtMessage);
       },
       success: function(data) {
-        console.log(data);
-        callback(data);
+        callback(data.documento);
       }
     });
   },
-  postEnvio: function(iddoc) {
-    console.log(documento)
+  postEnvio: function(dados) {
+    $.ajax({
+      url: "ajax/DocumentosAjax.php",
+      type: "POST",
+      data: dados,
+      dataType: "json",
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        console.log(data);
+      }
+    })
   },
   postRetorno: function(iddoc,idenvio) {
 

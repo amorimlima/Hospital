@@ -253,6 +253,11 @@ $logado = unserialize($_SESSION['USR']);
             $templateGeral->mensagemRetorno('livros', 'Capítulo bloqueado com sucesso!', 'sucesso');
             ?>
         </div>
+        <div id="mensagemSucessoEnvioDoc" class="modalMensagem" style="display: none;" >
+            <?php
+            $template->mensagemRetorno("livros", "Documento enviado com sucesso", "sucesso");
+            ?>
+        </div>
 
         <!--  Modal envio documentos -->
 
