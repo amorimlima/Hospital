@@ -47,7 +47,7 @@ switch ($_REQUEST['acao']) {
         {
             $documento->setDoc_arquivo("documentos/".$nomeArquivo);
             $result = $documentosController->insertDocumentos($documento);
-            echo json_encode(["documento" => $result]);
+            echo $result;
             $_SESSION['cadastro'] = "ok";
         }
 
@@ -57,17 +57,19 @@ switch ($_REQUEST['acao']) {
 		$documento    = $_REQUEST['documento'];
 		$destinatario = $_REQUEST['destinatario'];
 		$retorno      = $_REQUEST['retorno'];
+        $feedback     = ["envios" => []];
 
-        $destinatario = $destinatario.explode(',');
+        $destinatario = explode(',',$destinatario);
 
-        for ($i = 0; $i < $destinatario.sizeof(); $i++) { 
+        for ($i = 0; $i < count($destinatario); $i++) {
             $documentoEnvio = new DocumentoEnvio();
             $documentoEnvio->setDoe_documento($documento);
             $documentoEnvio->setDoe_destinatario($destinatario[$i]);
             $documentoEnvio->setDoe_retorno($retorno);
 
-            $documentoEnvioController->insertParcial($documentoEnvio);
+            $documentosEnvioController->insertParcial($documentoEnvio);
         }
+        echo 1;
 
 		break;
 

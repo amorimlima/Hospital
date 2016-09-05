@@ -888,7 +888,7 @@ function buildFormNovoEnvioDocumento(escolas) {
   html+=           '<span>';
   html+=             '<div>';
   html+=               '<input id="doeRetorno" type="checkbox" name="tipo_arquivo" value="0" id="tipo_arquivo_link"/>';
-  html+=               '<label for="tipo_arquivo_link">Solicitar um retorno das escolas</label>';
+  html+=               '<label for="doeRetorno">Solicitar um retorno das escolas</label>';
   html+=             '</div>';
   html+=           '</span>';
   html+=         '</div>';
@@ -915,7 +915,7 @@ function buildFormNovoEnvioDocumento(escolas) {
   html+=       '<form id="envioDocForm" action="ajax/DocumentosAjax.php" method="POST">';
   html+=         '<input type="hidden" name="acao" value="postEnvio" >';
   html+=         '<input type="hidden" name="documento" value="" />';
-  html+=         '<input type="hidden" name="destinatarios" value="" />';
+  html+=         '<input type="hidden" name="destinatario" value="" />';
   html+=         '<input type="hidden" name="retorno" value="" />';
   html+=       '</form>';
   html+=     '</div>';
@@ -992,11 +992,12 @@ function validarFormNovoDocumentoEnvio() {
     var form = document.getElementById("docForm");
     var docArquivo = $("#docArquivo")[0].files[0];
     var doeDestinatarios = [];
+    var formData;
 
     $(form).find("input[name='assunto']").val($("#docAssunto").val());
     $(form).find("input[name='descricao']").val($("#docDescricao").val());
 
-    var formData = new FormData(form);
+    formData = new FormData(form);
     formData.append("arquivo", docArquivo);
 
     envioDocumento.postDoc(formData, createEnvioDocumento);
@@ -1005,18 +1006,20 @@ function validarFormNovoDocumentoEnvio() {
 
 function createEnvioDocumento(documento) {
   var form = document.getElementById("envioDocForm");
-  console.log(documento);
   var listaDestinatarios = [];
 
   $("#listaDestinatarios input:checkbox:checked").each(function(i) {
     listaDestinatarios.push($("#listaDestinatarios input:checkbox:checked").eq(i).val());
   });
 
-  $(form).find("input[name='documento']").val(documento.documento);
-  $(form).find("input[name='destinatarios']").val(listaDestinatarios.toString());
+  console.log(listaDestinatarios.toString());
 
-  console.log($(form).serialize());
-  //envioDocumento.postEnvio(formData, envioDocumento.postEnvio);
+  $(form).find("input[name='documento']").val(documento.trim());
+  $(form).find("input[name='destinatario']").val(listaDestinatarios.toString());
+  $(form).find("input[name='retorno']").val($("#doeRetorno").is(":checked") ? 1 : 0);
+
+  //console.log($(form).serialize());
+  envioDocumento.postEnvio($(form).serialize());
 }
 
 var envioDocumento = {
@@ -1026,7 +1029,6 @@ var envioDocumento = {
       url: envioDocumento.url,
       type: "POST",
       data: dados,
-      dataType: "json",
       contentType: false,
       cache: false,
       processData: false,
@@ -1040,10 +1042,9 @@ var envioDocumento = {
   },
   postEnvio: function(dados) {
     $.ajax({
-      url: "ajax/DocumentosAjax.php",
+      url: envioDocumento.url,
       type: "POST",
       data: dados,
-      dataType: "json",
       error: function(e) {
         console.log(e.errorThrown + " // " + e.txtMessage);
       },
@@ -1052,8 +1053,18 @@ var envioDocumento = {
       }
     });
   },
-  postRetorno: function(iddoc,idenvio) {
-
+  postRetorno: function(dados) {
+    $.ajax({
+      url: envioDocumento.url,
+      type: "POST",
+      data: dados,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        console.log(data);
+      }
+    });
   },
   getEnvios: function() {
 

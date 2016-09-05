@@ -122,7 +122,6 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         $sql .= "'".$doe->getDoe_destinatario()."', ";
         $sql .= "CURDATE(), ";
         $sql .= "'".$doe->getDoe_retorno()."')";
-        echo $sql;
         return $this->executeAndReturnLastID($sql);
     }
 
