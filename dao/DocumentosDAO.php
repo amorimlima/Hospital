@@ -21,7 +21,7 @@ class DocumentosDAO extends DAO{
         $sql .= "'".$doc->getDoc_descricao()."', ";
         $sql .= "'".$doc->getDoc_arquivo()."')";
 
-    	return $this->execute($sql);
+    	return $this->executeAndReturnLastID($sql);
      }
 
      public function update($doc)

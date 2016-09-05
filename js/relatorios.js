@@ -955,7 +955,6 @@ function closeFormNovoEnvioDocModal() {
 }
 
 function validarFormNovoDocumentoEnvio() {
-  debugger;
   var destinatariosValido = false;
   var valido = true;
 
@@ -1006,16 +1005,17 @@ function validarFormNovoDocumentoEnvio() {
 
 function createEnvioDocumento(documento) {
   var form = document.getElementById("envioDocForm");
+  console.log(documento);
   var listaDestinatarios = [];
 
   $("#listaDestinatarios input:checkbox:checked").each(function(i) {
-    doeDestinatarios.push($("#listaDestinatarios input:checkbox:checked").eq(i).val());
+    listaDestinatarios.push($("#listaDestinatarios input:checkbox:checked").eq(i).val());
   });
 
-  $(form).find("input[name='documento']").val(documento);
-  $(form).find("input[name='destinatarios']").val(doeDestinatarios.toString);
+  $(form).find("input[name='documento']").val(documento.documento);
+  $(form).find("input[name='destinatarios']").val(listaDestinatarios.toString());
 
-  console.log($(form).serialize);
+  console.log($(form).serialize());
   //envioDocumento.postEnvio(formData, envioDocumento.postEnvio);
 }
 
@@ -1034,7 +1034,7 @@ var envioDocumento = {
         console.log(e.errorThrown + " // " + e.txtMessage);
       },
       success: function(data) {
-        callback(data.documento);
+        callback(data);
       }
     });
   },
@@ -1050,7 +1050,7 @@ var envioDocumento = {
       success: function(data) {
         console.log(data);
       }
-    })
+    });
   },
   postRetorno: function(iddoc,idenvio) {
 

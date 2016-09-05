@@ -14,7 +14,7 @@
     *
     */
 
-    class Documentos
+    class Documento
     {
     private $doc_id;
 
@@ -25,7 +25,6 @@
 
 public function Documento()
 {
-
 }
 
 
