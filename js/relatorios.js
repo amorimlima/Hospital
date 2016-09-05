@@ -1001,30 +1001,59 @@ function postNovoDocumentoEnvio(assunto, descricao, arquivo, destinatarios, reto
   formData.append("descricao", descricao);
   formData.append("arquivo", arquivo);
 
-  // Postar documento
-  $.ajax({
-    url: "ajax/DocumentosAjax.php",
-    type: "POST",
-    data: formData,
-    crossDomain: true,
-    contentType: "multipart/form-data",
-    success: function(data) {
-      console.log("postou");
-      idDocumento = data;
-    }
-  });
+  envioDocumento.postDoc(formData, envioDocumento.postEnvio);
 
   // Criar envio
-  $.ajax({
-    url: "ajax/DocumentosAjax.php",
-    type: "POST",
-    data: "acao=postEnvio&destinatarios=" + destinatarios.toString() + "&retorno=" + retorno,
-    success: function(data) {
-      console.log(data);
-    }
-  });
+  // $.ajax({
+  //   url: "ajax/DocumentosAjax.php",
+  //   type: "POST",
+  //   data: "acao=postEnvio&destinatarios=" + destinatarios.toString() + "&retorno=" + retorno,
+  //   success: function(data) {
+  //     console.log(data);
+  //   }
+  // });
 }
 
+var envioDocumento = {
+  url: "ajax/DocumentosAjax.php",
+  postDoc: function(dados, callback) {
+    $.ajax({
+      url: envioDocumento.url,
+      type: "POST",
+      data: dados,
+      dataType: "json",
+      mimeType: "multipart/form-data",
+      contentType: false,
+      cache: false,
+      processData: false,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.message);
+      },
+      success: function(data) {
+        console.log(data);
+        callback(data);
+      }
+    });
+  },
+  postEnvio: function(iddoc) {
+    console.log(documento)
+  },
+  postRetorno: function(iddoc,idenvio) {
+
+  },
+  getEnvios: function() {
+
+  },
+  getEnviosByEscola: function(idescola) {
+
+  },
+  getRetornosByEnvio: function(idenvio) {
+
+  },
+  getRetornosByEscola: function(idenvio, idescola) {
+
+  }
+}
 
 
 

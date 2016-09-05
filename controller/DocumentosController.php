@@ -19,6 +19,11 @@ class DocumentosController {
 		return $this->documentosDAO->insert($doc);
 	}
 
+	public function update($doc)
+	{
+		return $this->documentosDAO->update($doc);
+	}
+
 }
 
 ?>

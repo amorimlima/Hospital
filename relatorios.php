@@ -281,7 +281,7 @@ $logado = unserialize($_SESSION['USR']);
                 </p>
                 <div class="envio-doc-panel">
                   <h4>Destinatários</h4>
-                  <input id="filtroDestinatarios" onkeyup="filtrarDestinatarios()" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />
+                  <input id="filtroDestinatarios" onkeyup="filtrarPanelList('filtroDestinatarios')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />
                   <div id="envioDocListaDestinatarios" class="envio-doc-lista">
 
                     <?php for ($a = 0; $a < 4; $a++) { ?>

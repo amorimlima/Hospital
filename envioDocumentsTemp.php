@@ -161,7 +161,7 @@ h4 {
 <h3>Envio de documentos</h3>
 <div class="envio-doc-panel">
   <h4>Documentos enviados</h3>
-  <input class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />
+  <input id="filtroEnviosDoc" onkeyup="filtrarPanelList('filtroEnviosDoc')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />
   <div id="envioDocumentosLista" class="envio-doc-lista">
 
     <?php for ($i = 0; $i < 10; $i++) { ?>
@@ -179,7 +179,7 @@ h4 {
       </form>
       <div class="envio-doc-header">
         <span class="envio-doc-title">
-          <strong>Assunto do documento</strong>
+          <strong>Assunto do documento <?= $i ?>, <?= pow($i,2) ?> e <?=  pow($i, 3) ?></strong>
         </span>
         <span class="envio-doc-date text-right">00/00/0000</span>
       </div>

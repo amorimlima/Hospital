@@ -12,44 +12,45 @@ include_once($path['beans'] . 'DocumentoEnvio.php');
 include_once($path['beans'] . 'DocumentoRetorno.php');
 include_once($path['funcao'] . 'DatasFuncao.php');
 
-$documentosController = new DocumentosController();
-$documentosEnvioController = new DocumentosEnvioController();
+$documentosController = new DocumentoController();
+$documentosEnvioController = new DocumentoEnvioController();
 
 $maxSize = 30000000; //Tamanho máximo de arquivo 30Mb
 
 switch ($_REQUEST['acao']) {
-	case 'postDocumento':
-		$assunto = $_REQUEST['assunto'];
-        $descricao = $_REQUEST['descricao'];
-
+	case 'postDocumento': {
         $documento = new Documento();
-        $documento->setDoc_assunto(utf8_decode($assunto));
-        $documento->setDoc_descricao(utf8_decode($descricao));
+        $documento->setDoc_assunto($_REQUEST['assunto']);
+        $documento->setDoc_descricao($_REQUEST['descricao']);
+        $retorno = [];
 
-        $nomeArquivo = "_".md5(uniqid(rand(),true)).'.'.pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION);
-        $arquivo_temporario = $_FILES["file_arquivo"]["tmp_name"];
-        $local = $path['documentos'];
+        $nomeArquivo = "_" . md5(uniqid(rand(), true)) . '.' . pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION);
+        $arquivoTemporario = $_FILES["arquivo"]["tmp_name"];
 
-        if (filesize($arquivo_temporario) > $maxSize)
-        {
-            $_SESSION['cadastro'] = "excedeu";
-        }
-        else
-        {
-            move_uploaded_file($arquivo_temporario, $local.$nomeImage);
-            $arquivo = $local.$nomeImage;
+        if (filesize($arquivoTemporario) > $maxSize) {
+            $retorno["erro"] = true;
+            $retorno["mensagem"] = "O tamanho do arquivo excede o limite (30mb)";
+        } else {
+            move_uploaded_file($arquivoTemporario, $path["documentos"].$nomeArquivo);
+            $documento->setDoc_documento("arquivos_galeria/".$nomeArquivo);
+
+            try {
+                $doc_id = $documentosController->insert($documento);
+                $retorno["erro"] = false;
+                $retorno["mensagem"] = "Arquivo enviado com sucesso";
+                $retorno["documento"] = intval($doc_id);
+            } catch (Exception $e) {
+                $retorno["erro"] = true;
+                $retorno["mensagem"] = "Ocorreu um erro ao enviar o arquivo: ".$e->getMessage();
+            }
         }
 
-        if (!$_SESSION['cadastro'] == "excedeu")
-        {
-            $documento->setDoc_documento("arquivos_galeria/".$nomeImage);
-            $documentosController->insert($documento);
-            $_SESSION['cadastro'] = "ok";
-        }
+        echo json_encode($retorno);
 
 		break;
-	
-	case 'postEnvio':
+    }
+
+	case 'postEnvio': {
 		$documento    = $_REQUEST['documento'];
 		$destinatario = $_REQUEST['destinatario'];
 		$retorno      = $_REQUEST['retorno'];
@@ -62,8 +63,9 @@ switch ($_REQUEST['acao']) {
 		$documentoEnvioController->insert($documentoEnvio);
 
 		break;
+    }
 
-    case 'postRetorno':
+    case 'postRetorno': {
         $documento  = $_REQUEST['documento'];
         $remetente  = $_REQUEST['remetente'];
         $envio      = $_REQUEST['envio'];
@@ -76,5 +78,6 @@ switch ($_REQUEST['acao']) {
         $documentoRetornoController->insert($documentosRetorno);
 
         break;
+    }
 }
 ?>
