@@ -43,7 +43,8 @@ switch ($_REQUEST['acao']) {
         if (!$_SESSION['cadastro'] == "excedeu")
         {
             $documento->setDoc_documento("arquivos_galeria/".$nomeImage);
-            $documentosController->insertDocumentos($documento);
+            $result = $documentosController->insertDocumentos($documento);
+            echo json_encode($result);
             $_SESSION['cadastro'] = "ok";
         }
 
