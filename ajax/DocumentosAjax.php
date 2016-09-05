@@ -43,7 +43,7 @@ switch ($_REQUEST['acao']) {
         if (!$_SESSION['cadastro'] == "excedeu")
         {
             $documento->setDoc_documento("arquivos_galeria/".$nomeImage);
-            $documentosController->insert($documento);
+            $documentosController->insertDocumentos($documento);
             $_SESSION['cadastro'] = "ok";
         }
 
@@ -59,7 +59,7 @@ switch ($_REQUEST['acao']) {
 		$documentoEnvio->setDoe_destinatario($destinatario);
 		$documentoEnvio->setDoe_retorno($retorno);
 
-		$documentoEnvioController->insert($documentoEnvio);
+		$documentoEnvioController->insertParcial($documentoEnvio);
 
 		break;
 
@@ -73,7 +73,7 @@ switch ($_REQUEST['acao']) {
         $documentosRetorno->setDor_remetente($remetente);
         $documentosRetorno->setDor_envio($envio);
 
-        $documentoRetornoController->insert($documentosRetorno);
+        $documentoRetornoController->insertParcial($documentosRetorno);
 
         break;
 

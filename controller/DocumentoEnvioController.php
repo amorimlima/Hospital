@@ -56,5 +56,10 @@ class DocumentoEnvioController {
         $documentoenvio = $this->documentoenvioDAO->selectAllDocumentoEnvio();
         return  $documentoenvio;
     }
+
+    public function insertParcial($documentoEnvio)
+    {
+        return $this->documentoenvioDAO->insertParcial($documentoEnvio);
+    }
 }
 ?>

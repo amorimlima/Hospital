@@ -55,5 +55,10 @@ class DocumentoRetornoController {
         $documentoretorno = $this->documentoretornoDAO->selectAllDocumentoRetorno();
         return  $documentoretorno;
     }
+
+    public function insertParcial($documentoRetorno)
+    {
+        return $this->documentoretornoDAO->insertParcial($documentoRetorno);
+    }
 }
 ?>
