@@ -61,5 +61,10 @@ class DocumentoEnvioController {
     {
         return $this->documentoenvioDAO->insertParcial($documentoEnvio);
     }
+
+    public function listarEscola($idEscola)
+    {
+        return $this->documentoenvioDAO->listarEscole($idEscola);
+    }
 }
 ?>

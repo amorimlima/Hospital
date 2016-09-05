@@ -42,7 +42,7 @@ class DocumentoDAO extends DAO{
     {
         $sql =  "insert into documento ( doc_assunto,doc_descricao,doc_arquivo )values";
         $sql .= "( '".$documentos->getDoc_assunto()."','".$documentos->getDoc_descricao()."','".$documentos->getDoc_arquivo()."')";
-        return $this->execute($sql);
+        return $this->executeAndReturnLastID($sql);
     }
 
     // **********************
@@ -52,7 +52,7 @@ class DocumentoDAO extends DAO{
     public function deleteDocumentos($iddocumentos)
     {
         $sql = "delete from documento where doc_id = $iddocumentos";
-        return $this->execute($sql);
+        return $this->executeAndReturnLastID($sql);
     }
 
     // **********************
@@ -106,7 +106,7 @@ $sql .= "doc_descricao = '".$documentos->getDoc_descricao()."',";
 $sql .= "doc_arquivo = '".$documentos->getDoc_arquivo()."',";
 
         $sql .= "where doc_id = '".$documentos->getDoc_id()."'";
-        return $this->execute($sql);
+        return $this->executeAndReturnLastID($sql);
     }
 }
 ?>
