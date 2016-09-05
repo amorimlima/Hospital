@@ -60,5 +60,15 @@ class DocumentoRetornoController {
     {
         return $this->documentoretornoDAO->insertParcial($documentoRetorno);
     }
+
+    public function listarEscola($idEscola)
+    {
+        return $this->documentoretornoDAO->listarEscola($idEscola);
+    }
+
+    public function visualizar($idRetorno)
+    {
+        return $this->documentoretornoDAO->visualizar($idRetorno);
+    }
 }
 ?>

@@ -122,13 +122,12 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         $sql .= "'".$doe->getDoe_destinatario()."', ";
         $sql .= "CURDATE(), ";
         $sql .= "'".$doe->getDoe_retorno()."')";
-        echo $sql;
         return $this->executeAndReturnLastID($sql);
     }
 
     public function listarEscola($idEscola)
     {
-        $sql = "SELECT * FROM documento_envio WHERE doe_destinatario = ".$idEscola;
+        $sql = "SELECT * FROM documento_envio WHERE doe_destinatario = ".$idEscola." ORDER BY doe_data_envio DESC";
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
@@ -143,6 +142,12 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
             array_push($lista,$documentoenvio);
         };
         return $lista;
+    }
+
+    public function visualizar($idEnvio)
+    {
+        $sql = "UPDATE FROM documento_envio SET doe_visto = 1 WHERE doe_id = ".$idEnvio;
+        return $this->executeAndReturnLastID($sql);
     }
 }
 ?>

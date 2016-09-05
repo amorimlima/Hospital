@@ -64,7 +64,12 @@ class DocumentoEnvioController {
 
     public function listarEscola($idEscola)
     {
-        return $this->documentoenvioDAO->listarEscole($idEscola);
+        return $this->documentoenvioDAO->listarEscola($idEscola);
+    }
+
+    public function visualizar($idEnvio)
+    {
+        return $this->documentoenvioDAO->visualizar($idEnvio);
     }
 }
 ?>

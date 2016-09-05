@@ -135,5 +135,23 @@ switch ($_REQUEST['acao']) {
         echo json_encode($result);
 
         break;
+
+    case 'visualizarEnvio':
+        $result = $documentoEnvioController->visualizar($_REQUEST['idEnvio']);
+        echo json_encode($result);
+
+        break;
+
+    case 'visualizarRetorno':
+        $result = $documentoRetornoController->visualizar($_REQUEST['idRetorno']);
+        echo json_encode($result);
+
+        break;
+
+    case 'rejeitarRetorno':
+        $result = $documentoRetornoController->rejeitar($_REQUEST['idRetorno']);
+        echo json_encode($result);
+
+        break;
 }
 ?>
