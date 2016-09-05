@@ -114,5 +114,16 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         $sql .= "where doe_id = '".$documentoenvio->getDoe_id()."'";
         return $this->execute($sql);
     }
+
+    public function insertParcial($doe)
+    {
+        $sql  = "insert into documento_envio (doe_documento, doe_destinatario, doe_data_envio, doe_retorno) values ";
+        $sql .= "('".$doe->getDoe_documento()."', ";
+        $sql .= "'".$doe->getDoe_destinatario()."', ";
+        $sql .= "CURDATE(), ";
+        $sql .= "'".$doe->getDoe_retorno()."')";
+        echo $sql;
+        return $this->execute($sql);
+    }
 }
 ?>

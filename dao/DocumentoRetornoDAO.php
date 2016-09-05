@@ -117,5 +117,16 @@ $sql .= "dor_data = '".$documentoretorno->getDor_data()."',";
         $sql .= "where dor_id = '".$documentoretorno->getDor_id()."'";
         return $this->execute($sql);
     }
+
+    public function insertParcial($dor)
+     {
+        $sql  = "insert into documento_retorno (dor_documento, dor_remetente, dor_envio, dor_data) values ";
+        $sql .= "('".$dor->getDor_documento()."', ";
+        $sql .= "'".$dor->getDor_emetente()."', ";
+        $sql .= "'".$dor->getDor_envio()."', ";
+        $sql .= "CURDATE()) ";
+        echo $sql;
+        return $this->execute($sql);
+     }
 }
 ?>
