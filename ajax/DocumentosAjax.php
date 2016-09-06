@@ -197,8 +197,12 @@ switch ($_REQUEST['acao']) {
         break;
 
     case 'enviosPorDocumento':
-
         $result = $documentoEnvioController->listarDocumento($_REQUEST['idDocumento']);
+        $retorno = [
+            "id" => $result->getDoe_id(),
+            "data_envio" => DatasFuncao::dataTimeBRExibicao($result->getDoe_data_envio()),
+        ];
+        
         echo json_encode($result);
 
         break;

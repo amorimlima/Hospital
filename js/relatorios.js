@@ -84,7 +84,7 @@ var envioDocs = {
     $.ajax({
       url: envioDocs.url,
       type: "GET",
-      data: "acao=getEnvioDocumento&idDocumento=" + iddocumento,
+      data: "acao=enviosPorDocumento&idDocumento=" + iddocumento,
       error: function(e) {
         console.log(e.errorThrown + " // " + e.txtMessage);
       },
