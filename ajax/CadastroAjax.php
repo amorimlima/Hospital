@@ -47,10 +47,10 @@ switch ($_REQUEST["acao"]) {
                 
         //Verificações de email e login. Só entrará no IF se não tiver erro no cpf.
         if ($result == ''){
-	        if (($enderecoController->verificaEmail($_POST['email']) > 0) && $_POST['email'] != ''){
+	        /*if (($enderecoController->verificaEmail($_POST['email']) > 0) && $_POST['email'] != ''){
 	        	$result = Array('erro'=>true,'msg'=>'Email já cadastrado!');
 	        
-	        }else if ($usuarioController->verificaLogin($_POST["login"])){
+	        }else*/ if ($usuarioController->verificaLogin($_POST["login"])){
 	        	$result = Array('erro'=>true,'msg'=>'Nome de usuário já cadastrado!');
 	        }
         }
