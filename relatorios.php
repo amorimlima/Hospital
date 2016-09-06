@@ -118,9 +118,11 @@ $logado = unserialize($_SESSION['USR']);
                                     </div>
                                     <div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
                                     </div>
+                                    <?php if($logado["perfil_id"] == 3 || $logado["perfil_id"] == 4) { ?>
                                     <div id="envioDocumentosContainer" class="envio_documentos_container" style="display:block">
                                       <?php include_once("envioDocumentsTemp.php"); ?>
                                     </div>
+                                    <?php } ?>
                                     <div id="criarGrupoContainer" class="liberar_grupo_container" style="display:none">
                                         <form action="">
                                             <fieldset>

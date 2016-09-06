@@ -151,9 +151,22 @@ switch ($_REQUEST['acao']) {
         break;
 
     case 'getEnvioEscola':
-
-        $result = $documentoEnvioController->listarEscola($_REQUEST['idEscola']);
-        echo json_encode($result);
+        $result = $documentosEnvioController->listarEscola($_REQUEST['idEscola']);
+        $retorno = [];
+        
+        foreach($result as $doe) {
+            array_push($retorno, [
+                "id" => intval($doe->getDoe_id()),
+                "destinatario" => intval($doe->getDoe_destinatario()),
+                "data_envio" => DatasFuncao::dataTimeBRExibicao($doe->getDoe_data_envio()),
+                "visto" => intval($doe->getDoe_visto()),
+                "retorno" => intval($doe->getDoe_retorno()),
+                "documento" => [
+                    "id" => $doe->getDoe_documento()
+                ]
+            ]);
+        }
+        echo json_encode($retorno);
 
         break;
 
@@ -183,8 +196,7 @@ switch ($_REQUEST['acao']) {
         break;
 
     case 'enviosDocumento':
-
-        $result = $documentoEnvioController->listarDocumento($_REQUEST['idDocumento']);
+        $result = $documentosEnvioController->listarDocumento($_REQUEST['idDocumento']);
         echo json_encode($result);
 
         break;

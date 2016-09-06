@@ -60,14 +60,38 @@ var envioDocs = {
       }
     })
   },
-  getDocumentosRecebidos: function(idescola, callback) {
-
+  getDocumentosRecebidos: function(callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "GET",
+      data: "acao=getEnvioEscola&idEscola=" + usuario.escola,
+      dataType: "json",
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data);
+      }
+    });
   },
   getRetornosByDocumento: function(idenvio) {
 
   },
   getRetornosByDocumentoAndEscola: function(idenvio, idescola) {
 
+  },
+  getEnvioByDocumento: function(iddocumento, callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "GET",
+      data: "acao=getEnvioDocumento&idDocumento=" + iddocumento,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data);
+      }
+    })
   }
 }
 
@@ -85,7 +109,7 @@ $(document).ready(function() {
     atribuirEventosModal();
 
     // TESTE
-    viewDocumentosEnviados();
+    getDadosEnvioDocumentos();
 });
 
 function gerarPickerTipoGrafico() {
@@ -1091,6 +1115,13 @@ function createEnvioDocumento(documento) {
   envioDocs.postEnvio($(form).serialize(), function() {closeFormNovoEnvioDocModal()});
 }
 
+function getDadosEnvioDocumentos() {
+  if (usuario.perfil == 3)
+    viewDocumentosEnviados();
+  else if (usuario.perfil == 4)
+    viewDocumentosRecebidos();
+}
+
 function viewDocumentosEnviados() {
   envioDocs.getDocumentosEnviados(function(data) {
     var html = "";
@@ -1157,36 +1188,32 @@ function viewDocumentosRecebidos() {
         html += '<div class="envio-doc" onclick="verEnvioDocumento(0)">';
         html +=  '<div class="envio-doc-header">';
         html +=    '<span class="envio-doc-title">';
-        html += '<strong>Nome do documento</strong>';
+
+        if (data[i].visto)
+          html +=        '<strong>Nome do documento</strong>';
+        else
+          html +=        'Nome do documento';
+
         html +=    '</span>';
-        html +=    '<span class="envio-doc-date text-right">10/09/2016</span>';
+        html +=    '<span class="envio-doc-date text-right">' + data[i].data_envio+ '</span>';
         html +=  '</div>';
         html +=  '<div class="envio-doc-label">';
         html +=    '<div class="envio-doc-icones">';
         html +=      '<span class="glyphicon glyphicon-align-left">';
         html +=        '<span class="icon-label">Este documento possui descrição</span>';
         html +=      '</span>';
-        html +=      '<span class="glyphicon glyphicon-exclamation-sign text-danger">';
-        html +=        '<span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>';
-        html +=      '</span>';
-        html +=      '<span class="glyphicon glyphicon-upload text-success">';
-        html +=        '<span class="icon-label text-success">Retorno enviado</span>';
-        html +=      '</span>';
-        html +=      '<span class="glyphicon glyphicon-upload">';
-        html +=        '<span class="icon-label">Retorno não enviado</span>';
-        html +=      '</span>';
 
-        // if (data[i].documento_envio.retorno) {
-        //   if (data[i].verificadores.retornos_pendentes) {
-        //     html +=      '<span class="glyphicon glyphicon-record">';
-        //     html +=        '<span class="icon-label">Retornos pendentes</span>';
-        //     html +=      '</span>';
-        //   } else {
-        //     html +=      '<span class="glyphicon glyphicon-ok-circle text-success">';
-        //     html +=        '<span class="icon-label text-success">Sem retornos pendentes</span>';
-        //     html +=      '</span>';
-        //   }
-        // }
+        if (data[i].retorno) {
+          html +=      '<span class="glyphicon glyphicon-exclamation-sign text-danger">';
+          html +=        '<span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>';
+          html +=      '</span>';
+          html +=      '<span class="glyphicon glyphicon-upload text-success">';
+          html +=        '<span class="icon-label text-success">Retorno enviado</span>';
+          html +=      '</span>';
+          html +=      '<span class="glyphicon glyphicon-upload">';
+          html +=        '<span class="icon-label">Retorno não enviado</span>';
+          html +=      '</span>';
+        }
 
         html +=    '</div>';
         html +=  '</div>';
@@ -1206,6 +1233,10 @@ function viewDocumentosRecebidos() {
       }
     });
   });
+}
+
+function verEnvioDocumento(id) {
+
 }
 
 
