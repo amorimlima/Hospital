@@ -163,7 +163,7 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
 
     public function listarDocumento($idDocumento)
     {
-        $sql = "SELECT * FROM documento_envio WHERE doe_documento = ".$idDocumento." ORDER BY doe_data_envio DESC";
+        $sql = "SELECT * FROM documento_envio doe JOIN documento doc ON doe.doe_documento = doc.doc_id WHERE doe_documento = ".$idDocumento." ORDER BY doe_data_envio DESC";
         $lista = array();
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
