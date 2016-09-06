@@ -70,5 +70,10 @@ class DocumentoRetornoController {
     {
         return $this->documentoretornoDAO->visualizar($idRetorno);
     }
+
+    public function listarDocumento($idDocumento)
+    {
+        return $this->documentoretornoDAO->listarDocumento($idDocumento);
+    }
 }
 ?>

@@ -149,5 +149,24 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         $sql = "UPDATE FROM documento_envio SET doe_visto = 1 WHERE doe_id = ".$idEnvio;
         return $this->executeAndReturnLastID($sql);
     }
+
+    public function listarDocumento($idDocumento)
+    {
+        $sql = "SELECT * FROM documento_envio WHERE doe_documento = ".$idDocumento." ORDER BY doe_data_envio DESC";
+        $lista = array();
+        $result = $this->retrieve($sql);
+        while ($qr = mysqli_fetch_array($result)){
+            $documentoenvio= new DocumentoEnvio();
+            $documentoenvio->setDoe_id($qr['doe_id']);
+            $documentoenvio->setDoe_documento($qr['doe_documento']);
+            $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
+            $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
+            $documentoenvio->setDoe_visto($qr['doe_visto']);
+            $documentoenvio->setDoe_retorno($qr['doe_retorno']);
+
+            array_push($lista,$documentoenvio);
+        };
+        return $lista;
+    }
 }
 ?>

@@ -181,5 +181,13 @@ switch ($_REQUEST['acao']) {
         echo json_encode($result);
 
         break;
+
+    case 'enviosDocumento':
+
+        $result = $documentoEnvioController->listarDocumento($_REQUEST['idDocumento']);
+        echo json_encode($result);
+
+        break;
+
 }
 ?>
