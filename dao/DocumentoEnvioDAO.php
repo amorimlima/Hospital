@@ -126,19 +126,31 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
 
     public function listarEscola($idEscola)
     {
-        $sql = "SELECT * FROM documento_envio WHERE doe_destinatario = ".$idEscola." ORDER BY doe_data_envio DESC";
+        $sql = "SELECT *, IF(doe.doe_retorno = 1 AND dor.dor_id IS NULL, 0, 1) as retorno_pendente FROM documento_envio doe ";
+        $sql .= "LEFT JOIN documento_retorno dor ON dor.dor_envio = doe.doe_id ";
+        $sql .= "JOIN documento doc ON doc.doc_id = doe.doe_documento "
+        $sql .= "WHERE doe_destinatario = ".$idEscola." ORDER BY doe_data_envio DESC";
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
             $documentoenvio= new DocumentoEnvio();
             $documentoenvio->setDoe_id($qr['doe_id']);
-            $documentoenvio->setDoe_documento($qr['doe_documento']);
+            $documentoenvio->setDoe_documento(new Documento());
+            $documentoenvio->getDoe_documento()->setDoc_id($qr["doc_id"]);
+            $documentoenvio->getDoe_documento()->setDoc_assunto($qr["doc_assunto"]);
+            $documentoenvio->getDoe_documento()->setDoc_descricao($qr["doc_descricao"]);
             $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
             $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
             $documentoenvio->setDoe_visto($qr['doe_visto']);
             $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
-            array_push($lista,$documentoenvio);
+            array_push($lista, [
+                "documento_envio" => $doe,
+                "verificadores" => [
+                    "retorno_pendente" => intval($qr["retorno_pendente"]),
+                    "retorno_rejeitado" => intval($qr["dor_rejeitado"]))
+                ]
+            ]);
         };
         return $lista;
     }
@@ -154,18 +166,19 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         $sql = "SELECT * FROM documento_envio WHERE doe_documento = ".$idDocumento." ORDER BY doe_data_envio DESC";
         $lista = array();
         $result = $this->retrieve($sql);
-        while ($qr = mysqli_fetch_array($result)){
+        $qr = mysqli_fetch_array($result);
             $documentoenvio= new DocumentoEnvio();
             $documentoenvio->setDoe_id($qr['doe_id']);
-            $documentoenvio->setDoe_documento($qr['doe_documento']);
+            $documentoenvio->setDoe_documento(new Documento());
+            $documentoenvio->getDoe_documento()->setDoc_id($qr["doc_id"]);
+            $documentoenvio->getDoe_documento()->setDoc_assunto($qr["doc_assunto"]);
+            $documentoenvio->getDoe_documento()->setDoc_descricao($qr["doc_descricao"]);
             $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
             $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
             $documentoenvio->setDoe_visto($qr['doe_visto']);
             $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
-            array_push($lista,$documentoenvio);
-        };
-        return $lista;
+        return $documentoenvio;
     }
 }
 ?>
