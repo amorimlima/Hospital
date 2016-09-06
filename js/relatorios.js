@@ -1154,31 +1154,21 @@ function viewDocumentosRecebidos() {
     var html = "";
     if (data.length > 0) {
       for (var i in data) {
-        html += '<div class="envio-doc" onclick="verEnvioDocumento(\''+data[i].documento_envio.documento.id+'\')">';
+        html += '<div class="envio-doc" onclick="verEnvioDocumento(0)">';
         html +=  '<div class="envio-doc-header">';
         html +=    '<span class="envio-doc-title">';
-
-        if (data[i].verificadores.retornos_nao_vistos)
-          html +=      '<strong>' + data[i].documento_envio.documento.assunto + '</strong>';
-        else
-          html +=      data[i].documento_envio.documento.assunto;
-
+        html += '<strong>Nome do documento</strong>';
         html +=    '</span>';
-        html +=    '<span class="envio-doc-date text-right">'+data[i].documento_envio.data_envio+'</span>';
+        html +=    '<span class="envio-doc-date text-right">10/09/2016</span>';
         html +=  '</div>';
         html +=  '<div class="envio-doc-label">';
         html +=    '<div class="envio-doc-icones">';
-
-        if (data[i].documento_envio.documento.descricao) {
-          html +=      '<span class="glyphicon glyphicon-align-left">';
-          html +=        '<span class="icon-label">Este documento possui descrição</span>';
-          html +=      '</span>';
-        }
-
-        /*
+        html +=      '<span class="glyphicon glyphicon-align-left">';
+        html +=        '<span class="icon-label">Este documento possui descrição</span>';
+        html +=      '</span>';
         html +=      '<span class="glyphicon glyphicon-exclamation-sign text-danger">';
         html +=        '<span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>';
-        html +=      '</span>';*/
+        html +=      '</span>';
         html +=      '<span class="glyphicon glyphicon-upload text-success">';
         html +=        '<span class="icon-label text-success">Retorno enviado</span>';
         html +=      '</span>';
