@@ -201,9 +201,16 @@ switch ($_REQUEST['acao']) {
         $retorno = [
             "id" => $result->getDoe_id(),
             "data_envio" => DatasFuncao::dataTimeBRExibicao($result->getDoe_data_envio()),
+            "retorno" => $result->getDoe_retorno(),
+            "documento" => [
+                "id" => $result->getDoe_documento()->getDoc_id(),
+                "assunto" => utf8_encode($result->getDoe_documento()->getDoc_assunto()),
+                "descricao" => utf8_encode($result->getDoe_documento()->getDoc_descricao()),
+                "arquivo" => $result->getDoe_documento()->getDoc_arquivo()
+            ]
         ];
-        
-        echo json_encode($result);
+
+        echo json_encode($retorno);
 
         break;
 

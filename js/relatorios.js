@@ -85,6 +85,7 @@ var envioDocs = {
       url: envioDocs.url,
       type: "GET",
       data: "acao=enviosPorDocumento&idDocumento=" + iddocumento,
+      dataType: "json",
       error: function(e) {
         console.log(e.errorThrown + " // " + e.txtMessage);
       },
@@ -1127,7 +1128,7 @@ function viewDocumentosEnviados() {
     var html = "";
     if (data.length > 0) {
       for (var i in data) {
-        html += '<div class="envio-doc" onclick="verEnvioDocumento(\''+data[i].documento_envio.documento.id+'\')">';
+        html += '<div class="envio-doc" onclick="viewEnvioDocumento(\''+data[i].documento_envio.documento.id+'\')">';
         html +=  '<div class="envio-doc-header">';
         html +=    '<span class="envio-doc-title">';
 
@@ -1235,10 +1236,68 @@ function viewDocumentosRecebidos() {
   });
 }
 
-function verEnvioDocumento(id) {
+function verEnvioDocumento(envio) {
+  var html = "";
+  showModalNovoEnvioDoc();
 
+
+
+
+            // <div class="envio-doc" onclick="getRetornoEnvioDoc()">
+            //   <div class="envio-doc-header">
+            //     <span name="nome_destinatario" class="envio-doc-title">
+            //       <?= $nomes[$a]; ?>
+            //     </span>
+            //   </div>
+            //   <div class="envio-doc-label">
+            //     <div class="envio-doc-icones">
+            //       <span class="glyphicon glyphicon-record">
+            //         <span class="icon-label">Retorno pendente</span>
+            //       </span>
+            //       <span class="glyphicon glyphicon-ok-circle text-success">
+            //         <span class="icon-label text-success">Retorno recebido</span>
+            //       </span>
+            //       <span class="glyphicon glyphicon-comment">
+            //         <span class="icon-label">Este retorno possui comentário</span>
+            //       </span>
+            //     </div>
+            //   </div>
+            // </div>
 }
 
+function viewEnvioDocumento(id) {
+  showModalEnvioDoc();
+  envioDocs.getEnvioByDocumento(id, function(doe) {
+    var html = "";
+
+    html += '<div class="envio-doc-modal-content">';
+    html +=   '<div class="envio-doc-modal-header">';
+    html +=     '<h2>Documento enviado</h2>';
+    html +=   '</div>';
+    html +=   '<div class="envio-doc-modal-body">';
+    html +=     '<h3 name="assunto_documento">' + doe.documento.assunto + '</h3>';
+    html +=     '<h6>Enviado em <span name="data_envio">' + doe.data_envio + '</span></h6>';
+    html +=     '<h5>Descrição</h5>';
+    html +=     '<p name="descricao_documento">';
+    html +=       doe.documento.descricao;
+    html +=     '</p>';
+    html +=     '<p name="download_documento">';
+    html +=       '<span class="glyphicon glyphicon-download-alt"></span>';
+    html +=       '<a href="'+doe.documento.arquivo+'">Download do documento</a>';
+    html +=     '</p>';
+    html +=     '<div class="envio-doc-panel">';
+    html +=       '<h4>Destinatários</h4>';
+    html +=       '<input id="filtroDestinatarios" onkeyup="filtrarPanelList(\'filtroDestinatarios\')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />';
+    html +=       '<div id="envioDocListaDestinatarios" class="envio-doc-lista">';
+    html +=         '<div class="alert alert-warning">Carregando destinatários...</div>';
+    html +=       '</div>';
+    html +=     '</div>';
+    html +=   '</div>';
+    html += '</div>';
+
+    $("#envioDocModal").html(html);
+  });
+}
 
 
 

@@ -128,7 +128,7 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
     {
         $sql = "SELECT *, IF(doe.doe_retorno = 1 AND dor.dor_id IS NULL, 0, 1) as retorno_pendente FROM documento_envio doe ";
         $sql .= "LEFT JOIN documento_retorno dor ON dor.dor_envio = doe.doe_id ";
-        $sql .= "JOIN documento doc ON doc.doc_id = doe.doe_documento "
+        $sql .= "JOIN documento doc ON doc.doc_id = doe.doe_documento ";
         $sql .= "WHERE doe_destinatario = ".$idEscola." ORDER BY doe_data_envio DESC";
         $lista = array();
         $result = $this->retrieve($sql);
@@ -148,7 +148,7 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
                 "documento_envio" => $doe,
                 "verificadores" => [
                     "retorno_pendente" => intval($qr["retorno_pendente"]),
-                    "retorno_rejeitado" => intval($qr["dor_rejeitado"]))
+                    "retorno_rejeitado" => intval($qr["dor_rejeitado"])
                 ]
             ]);
         };
