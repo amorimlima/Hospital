@@ -22,15 +22,12 @@ switch ($_REQUEST['acao']) {
 		$assunto = $_REQUEST['assunto'];
         $descricao = $_REQUEST['descricao'];
 
-        $_SESSION["cadastro"] = "";
-
         $documento = new Documento();
-        $documento->setDoc_assunto($assunto);
-        $documento->setDoc_descricao($descricao);
+        $documento->setDoc_assunto(utf8_decode($assunto));
+        $documento->setDoc_descricao(utf8_decode($descricao));
 
         $nomeArquivo = "_".md5(uniqid(rand(),true)).'.'.pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION);
         $arquivo_temporario = $_FILES["arquivo"]["tmp_name"];
-
         $local = $path['documentos'];
 
         if (filesize($arquivo_temporario) > $maxSize)
@@ -39,15 +36,15 @@ switch ($_REQUEST['acao']) {
         }
         else
         {
-            move_uploaded_file($arquivo_temporario, $local.$nomeArquivo);
+            move_uploaded_file($arquivo_temporario, $local.$nomeImage);
             $arquivo = $local.$nomeImage;
         }
 
         if (!$_SESSION['cadastro'] == "excedeu")
         {
-            $documento->setDoc_arquivo("documentos/".$nomeArquivo);
+            $documento->setDoc_documento("arquivos_galeria/".$nomeImage);
             $result = $documentosController->insertDocumentos($documento);
-            echo $result;
+            echo json_encode($result);
             $_SESSION['cadastro'] = "ok";
         }
 
@@ -57,19 +54,17 @@ switch ($_REQUEST['acao']) {
 		$documento    = $_REQUEST['documento'];
 		$destinatario = $_REQUEST['destinatario'];
 		$retorno      = $_REQUEST['retorno'];
-        $feedback     = ["envios" => []];
 
-        $destinatario = explode(',',$destinatario);
+        $destinatario = $destinatario.explode(',');
 
-        for ($i = 0; $i < count($destinatario); $i++) {
+        for ($i = 0; $i < $destinatario.sizeof(); $i++) { 
             $documentoEnvio = new DocumentoEnvio();
             $documentoEnvio->setDoe_documento($documento);
             $documentoEnvio->setDoe_destinatario($destinatario[$i]);
             $documentoEnvio->setDoe_retorno($retorno);
 
-            $documentosEnvioController->insertParcial($documentoEnvio);
+            $documentoEnvioController->insertParcial($documentoEnvio);
         }
-        echo 1;
 
 		break;
 
@@ -99,29 +94,6 @@ switch ($_REQUEST['acao']) {
 
     //     break;
 
-    case "getDocumentosEnviados":
-        $envios = $documentosController->selectDocumentosEnviados();
-        $retorno = [];
-        //foreach($envios["documento_envio"] as $envio) {
-        foreach ($envios as $envio) {
-            array_push($retorno, [
-                "documento_envio" => [
-                    "id" => intval($envio["documento_envio"]->getDoe_id()),
-                    "data_envio" => DatasFuncao::dataTimeBRExibicao($envio["documento_envio"]->getDoe_data_envio()),
-                    "visto" => $envio["documento_envio"]->getDoe_visto(),
-                    "retorno" => intval($envio["documento_envio"]->getDoe_retorno()),
-                    "documento" => [
-                        "id" => intval($envio["documento_envio"]->getDoe_documento()->getDoc_id()),
-                        "assunto" => utf8_encode($envio["documento_envio"]->getDoe_documento()->getDoc_assunto()),
-                        "descricao" => intval($envio["documento_envio"]->getDoe_documento()->getDoc_descricao())
-                    ]
-                ],
-                "verificadores" => $envio["verificadores"]
-            ]);
-        }
-
-        echo json_encode($retorno);
-    break;
     case 'getEnvio':
 
         if(isset($_REQUEST['id'])){

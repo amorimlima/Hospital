@@ -86,16 +86,16 @@ $documentoretorno->setDor_data($qr['dor_data']);
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
-        $documentoretorno= new DocumentoRetorno();
-        $documentoretorno->setDor_id($qr['dor_id']);
-$documentoretorno->setDor_documento($qr['dor_documento']);
-$documentoretorno->setDor_remetente($qr['dor_remetente']);
-$documentoretorno->setDor_envio($qr['dor_envio']);
-$documentoretorno->setDor_visto($qr['dor_visto']);
-$documentoretorno->setDor_rejeitado($qr['dor_rejeitado']);
-$documentoretorno->setDor_data($qr['dor_data']);
+            $documentoretorno= new DocumentoRetorno();
+            $documentoretorno->setDor_id($qr['dor_id']);
+            $documentoretorno->setDor_documento($qr['dor_documento']);
+            $documentoretorno->setDor_remetente($qr['dor_remetente']);
+            $documentoretorno->setDor_envio($qr['dor_envio']);
+            $documentoretorno->setDor_visto($qr['dor_visto']);
+            $documentoretorno->setDor_rejeitado($qr['dor_rejeitado']);
+            $documentoretorno->setDor_data($qr['dor_data']);
 
-        array_push($lista,$documentoretorno);
+            array_push($lista,$documentoretorno);
         };
         return $lista;
     }
@@ -108,11 +108,11 @@ $documentoretorno->setDor_data($qr['dor_data']);
     {
         $sql = "update documento_retorno set ";
         $sql .= "dor_documento = '".$documentoretorno->getDor_documento()."',";
-$sql .= "dor_remetente = '".$documentoretorno->getDor_remetente()."',";
-$sql .= "dor_envio = '".$documentoretorno->getDor_envio()."',";
-$sql .= "dor_visto = '".$documentoretorno->getDor_visto()."',";
-$sql .= "dor_rejeitado = '".$documentoretorno->getDor_rejeitado()."',";
-$sql .= "dor_data = '".$documentoretorno->getDor_data()."',";
+        $sql .= "dor_remetente = '".$documentoretorno->getDor_remetente()."',";
+        $sql .= "dor_envio = '".$documentoretorno->getDor_envio()."',";
+        $sql .= "dor_visto = '".$documentoretorno->getDor_visto()."',";
+        $sql .= "dor_rejeitado = '".$documentoretorno->getDor_rejeitado()."',";
+        $sql .= "dor_data = '".$documentoretorno->getDor_data()."',";
 
         $sql .= "where dor_id = '".$documentoretorno->getDor_id()."'";
         return $this->execute($sql);
@@ -128,5 +128,39 @@ $sql .= "dor_data = '".$documentoretorno->getDor_data()."',";
         echo $sql;
         return $this->execute($sql);
      }
+
+    public function listarEscola($idEscola)
+    {
+        $sql = "SELECT * FROM documento_retorno WHERE dor_remetente = ".$idEscola." ORDER BY dor_data DESC";
+        $lista = array();
+        $result = $this->retrieve($sql);
+        while ($qr = mysqli_fetch_array($result)){
+            $documentoretorno= new DocumentoRetorno();
+            $documentoretorno->setDor_id($qr['dor_id']);
+            $documentoretorno->setDor_documento($qr['dor_documento']);
+            $documentoretorno->setDor_remetente($qr['dor_remetente']);
+            $documentoretorno->setDor_envio($qr['dor_envio']);
+            $documentoretorno->setDor_visto($qr['dor_visto']);
+            $documentoretorno->setDor_rejeitado($qr['dor_rejeitado']);
+            $documentoretorno->setDor_data($qr['dor_data']);
+
+            array_push($lista,$documentoretorno);
+        };
+
+        return $lista;
+
+    }
+
+    public function visualizar($idRetorno)
+    {
+        $sql = "UPDATE FROM documento_retorno SET dor_visto = 1 WHERE dor_id = ".$idEnvio;
+        return $this->executeAndReturnLastID($sql);
+    } 
+
+    public function rejeitar($idRetorno)
+    {
+        $sql = "UPDATE FROM documento_retorno SET dor_rejeitado = 1 WHERE dor_id = ".$idEnvio;
+        return $this->executeAndReturnLastID($sql);
+    } 
 }
 ?>

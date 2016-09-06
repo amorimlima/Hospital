@@ -163,51 +163,7 @@ h4 {
   <h4>Documentos enviados</h3>
   <input id="filtroEnviosDoc" onkeyup="filtrarPanelList('filtroEnviosDoc')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />
   <div id="envioDocumentosLista" class="envio-doc-lista">
-
-    <?php for ($i = 0; $i < 10; $i++) { ?>
-    <div class="envio-doc">
-      <form>
-        <input type="hidden" name="doc_envio" value="" />
-        <input type="hidden" name="doc_assunto" value="" />
-        <input type="hidden" name="doc_descricao" value="" />
-        <input type="hidden" name="doc_arquivo" value="" />
-        <input type="hidden" name="doe_id" value="" />
-        <input type="hidden" name="doe_destinatario" value="" />
-        <input type="hidden" name="doe_data_envio" value="" />
-        <input type="hidden" name="doe_visto" value="" />
-        <input type="hidden" name="doe_retorno" value="" />
-      </form>
-      <div class="envio-doc-header">
-        <span class="envio-doc-title">
-          <strong>Assunto do documento <?= $i ?>, <?= pow($i,2) ?> e <?=  pow($i, 3) ?></strong>
-        </span>
-        <span class="envio-doc-date text-right">00/00/0000</span>
-      </div>
-      <div class="envio-doc-label">
-        <div class="envio-doc-icones">
-          <span class="glyphicon glyphicon-align-left">
-            <span class="icon-label">Este documento possui descrição</span>
-          </span>
-          <span class="glyphicon glyphicon-exclamation-sign text-danger">
-            <span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>
-          </span>
-          <span class="glyphicon glyphicon-upload text-success">
-            <span class="icon-label text-success">Retorno enviado</span>
-          </span>
-          <span class="glyphicon glyphicon-upload">
-            <span class="icon-label">Retorno não enviado</span>
-          </span>
-          <span class="glyphicon glyphicon-record">
-            <span class="icon-label">Retornos pendentes</span>
-          </span>
-          <span class="glyphicon glyphicon-ok-circle text-success">
-            <span class="icon-label text-success">Sem retornos pendentes</span>
-          </span>
-        </div>
-      </div>
-    </div>
-    <?php } ?>
-
+    <div class="alert alert-warning">Carregando...</div>
   </div>
 </div>
 <div id="envioDocumentosActions">

@@ -2,6 +2,75 @@
 
 var formNovoEnvioDoc;
 
+var envioDocs = {
+  url: "ajax/DocumentosAjax.php",
+  postDoc: function(dados, callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "POST",
+      data: dados,
+      contentType: false,
+      cache: false,
+      processData: false,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data);
+      }
+    });
+  },
+  postEnvio: function(dados, callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "POST",
+      data: dados,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data);
+      }
+    });
+  },
+  postRetorno: function(dados, callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "POST",
+      data: dados,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data);
+      }
+    });
+  },
+  getDocumentosEnviados: function(callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "GET",
+      data: "acao=getDocumentosEnviados",
+      dataType: "json",
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data)
+      }
+    })
+  },
+  getEnviosByEscola: function(idescola) {
+
+  },
+  getRetornosByDocumento: function(idenvio) {
+
+  },
+  getRetornosByDocumentoAndEscola: function(idenvio, idescola) {
+
+  }
+}
+
 $(document).ready(function() {
     gerarPickerTipoGrafico();
     atribuirBarrasRolagem();
@@ -14,6 +83,9 @@ $(document).ready(function() {
     botoesGrupo();
     voltarGrafico();
     atribuirEventosModal();
+
+    // TESTE
+    viewDocumentosEnviados();
 });
 
 function gerarPickerTipoGrafico() {
@@ -40,12 +112,12 @@ function atribuirBarrasRolagem () {
             enable:true
         }
     });
-    $(".envio-doc-lista").mCustomScrollbar({
-      axis: "y",
-      scrollButtons: {
-        enable: true
-      }
-    });
+    // $(".envio-doc-lista").mCustomScrollbar({
+    //   axis: "y",
+    //   scrollButtons: {
+    //     enable: true
+    //   }
+    // });
 }
 
 function toggleGrafico(item, grafico)
@@ -1000,7 +1072,7 @@ function validarFormNovoDocumentoEnvio() {
     formData = new FormData(form);
     formData.append("arquivo", docArquivo);
 
-    envioDocumento.postDoc(formData, createEnvioDocumento);
+    envioDocs.postDoc(formData, createEnvioDocumento);
   }
 }
 
@@ -1012,75 +1084,139 @@ function createEnvioDocumento(documento) {
     listaDestinatarios.push($("#listaDestinatarios input:checkbox:checked").eq(i).val());
   });
 
-  console.log(listaDestinatarios.toString());
-
   $(form).find("input[name='documento']").val(documento.trim());
   $(form).find("input[name='destinatario']").val(listaDestinatarios.toString());
   $(form).find("input[name='retorno']").val($("#doeRetorno").is(":checked") ? 1 : 0);
 
-  //console.log($(form).serialize());
-  envioDocumento.postEnvio($(form).serialize());
+  envioDocs.postEnvio($(form).serialize(), function() {closeFormNovoEnvioDocModal()});
 }
 
-var envioDocumento = {
-  url: "ajax/DocumentosAjax.php",
-  postDoc: function(dados, callback) {
-    $.ajax({
-      url: envioDocumento.url,
-      type: "POST",
-      data: dados,
-      contentType: false,
-      cache: false,
-      processData: false,
-      error: function(e) {
-        console.log(e.errorThrown + " // " + e.txtMessage);
-      },
-      success: function(data) {
-        callback(data);
+function viewDocumentosEnviados() {
+  envioDocs.getDocumentosEnviados(function(data) {
+    var html = "";
+    if (data.length > 0) {
+      for (var i in data) {
+        html += '<div class="envio-doc" onclick="verEnvioDocumento(\''+data[i].documento_envio.documento.id+'\')">';
+        html +=  '<div class="envio-doc-header">';
+        html +=    '<span class="envio-doc-title">';
+
+        if (data[i].verificadores.retornos_nao_vistos)
+          html +=      '<strong>' + data[i].documento_envio.documento.assunto + '</strong>';
+        else
+          html +=      data[i].documento_envio.documento.assunto;
+
+        html +=    '</span>';
+        html +=    '<span class="envio-doc-date text-right">'+data[i].documento_envio.data_envio+'</span>';
+        html +=  '</div>';
+        html +=  '<div class="envio-doc-label">';
+        html +=    '<div class="envio-doc-icones">';
+
+        if (data[i].documento_envio.documento.descricao) {
+          html +=      '<span class="glyphicon glyphicon-align-left">';
+          html +=        '<span class="icon-label">Este documento possui descrição</span>';
+          html +=      '</span>';
+        }
+
+        if (data[i].documento_envio.retorno) {
+          if (data[i].verificadores.retornos_pendentes) {
+            html +=      '<span class="glyphicon glyphicon-record">';
+            html +=        '<span class="icon-label">Retornos pendentes</span>';
+            html +=      '</span>';
+          } else {
+            html +=      '<span class="glyphicon glyphicon-ok-circle text-success">';
+            html +=        '<span class="icon-label text-success">Sem retornos pendentes</span>';
+            html +=      '</span>';
+          }
+        }
+
+        html +=    '</div>';
+        html +=  '</div>';
+        html += '</div>';
+      }
+    } else {
+      html += '<div class="alert alert-warning">';
+      html +=   'Ainda não há nenhum documento enviado';
+      html += '</div>';
+    }
+
+    $("#envioDocumentosLista").html(html);
+    $("#envioDocumentosLista").mCustomScrollbar({
+      axis: "y",
+      scrollButtons: {
+        enable: true
       }
     });
-  },
-  postEnvio: function(dados) {
-    $.ajax({
-      url: envioDocumento.url,
-      type: "POST",
-      data: dados,
-      error: function(e) {
-        console.log(e.errorThrown + " // " + e.txtMessage);
-      },
-      success: function(data) {
-        console.log(data);
-      }
-    });
-  },
-  postRetorno: function(dados) {
-    $.ajax({
-      url: envioDocumento.url,
-      type: "POST",
-      data: dados,
-      error: function(e) {
-        console.log(e.errorThrown + " // " + e.txtMessage);
-      },
-      success: function(data) {
-        console.log(data);
-      }
-    });
-  },
-  getEnvios: function() {
-
-  },
-  getEnviosByEscola: function(idescola) {
-
-  },
-  getRetornosByEnvio: function(idenvio) {
-
-  },
-  getRetornosByEscola: function(idenvio, idescola) {
-
-  }
+  });
 }
 
+function viewDocumentosRecebidos() {
+  envioDocs.getDocumentosRecebidos(function(data) {
+    var html = "";
+    if (data.length > 0) {
+      for (var i in data) {
+        html += '<div class="envio-doc" onclick="verEnvioDocumento(\''+data[i].documento_envio.documento.id+'\')">';
+        html +=  '<div class="envio-doc-header">';
+        html +=    '<span class="envio-doc-title">';
 
+        if (data[i].verificadores.retornos_nao_vistos)
+          html +=      '<strong>' + data[i].documento_envio.documento.assunto + '</strong>';
+        else
+          html +=      data[i].documento_envio.documento.assunto;
+
+        html +=    '</span>';
+        html +=    '<span class="envio-doc-date text-right">'+data[i].documento_envio.data_envio+'</span>';
+        html +=  '</div>';
+        html +=  '<div class="envio-doc-label">';
+        html +=    '<div class="envio-doc-icones">';
+
+        if (data[i].documento_envio.documento.descricao) {
+          html +=      '<span class="glyphicon glyphicon-align-left">';
+          html +=        '<span class="icon-label">Este documento possui descrição</span>';
+          html +=      '</span>';
+        }
+
+        /*
+        html +=      '<span class="glyphicon glyphicon-exclamation-sign text-danger">';
+        html +=        '<span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>';
+        html +=      '</span>';*/
+        html +=      '<span class="glyphicon glyphicon-upload text-success">';
+        html +=        '<span class="icon-label text-success">Retorno enviado</span>';
+        html +=      '</span>';
+        html +=      '<span class="glyphicon glyphicon-upload">';
+        html +=        '<span class="icon-label">Retorno não enviado</span>';
+        html +=      '</span>';
+
+        // if (data[i].documento_envio.retorno) {
+        //   if (data[i].verificadores.retornos_pendentes) {
+        //     html +=      '<span class="glyphicon glyphicon-record">';
+        //     html +=        '<span class="icon-label">Retornos pendentes</span>';
+        //     html +=      '</span>';
+        //   } else {
+        //     html +=      '<span class="glyphicon glyphicon-ok-circle text-success">';
+        //     html +=        '<span class="icon-label text-success">Sem retornos pendentes</span>';
+        //     html +=      '</span>';
+        //   }
+        // }
+
+        html +=    '</div>';
+        html +=  '</div>';
+        html += '</div>';
+      }
+    } else {
+      html += '<div class="alert alert-warning">';
+      html +=   'Nenhum documento recebido até agora.';
+      html += '</div>';
+    }
+
+    $("#envioDocumentosLista").html(html);
+    $("#envioDocumentosLista").mCustomScrollbar({
+      axis: "y",
+      scrollButtons: {
+        enable: true
+      }
+    });
+  });
+}
 
 
 
