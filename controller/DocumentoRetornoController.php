@@ -14,7 +14,6 @@
 *
 */
 
-session_start();
 $path = $_SESSION['PATH_SYS'];
 
 include_once($path['dao'].'DocumentoRetornoDAO.php');
