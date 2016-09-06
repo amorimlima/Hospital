@@ -98,6 +98,31 @@ switch ($_REQUEST["acao"]) {
 		$templateRelatorio = new TemplateRelatorio();
 		$templateRelatorio->carregaFiltro($_REQUEST);
 	break;
+
+	case "listarEscolas":
+		$escCtrl = new EscolaController();
+		$escolas = $escCtrl->selectAtivas();
+
+		for ($i = 0; $i < count($escolas); $i++) {
+			$escolas[$i] = [
+				"id" => intval($escolas[$i]->getEsc_id()),
+				"razao_social" => utf8_encode($escolas[$i]->getEsc_razao_social()),
+				"nome" => utf8_encode($escolas[$i]->getEsc_nome()),
+				"cnpj" => $escolas[$i]->getEsc_cnpj(),
+				"endereco" => $escolas[$i]->getEsc_endereco()->getEnd_id(),
+				"tipo_escola" => $escolas[$i]->getEsc_tipo_escola()->getTps_id(),
+				"administracao" => $escolas[$i]->getEsc_administracao()->getAdm_id(),
+				"status" => $escolas[$i]->getEsc_status(),
+				"site" => utf8_encode($escolas[$i]->getEsc_site()),
+				"nome_diretor" => utf8_encode($escolas[$i]->getEsc_nome_diretor()),
+				"email_diretor" => $escolas[$i]->getEsc_email_diretor(),
+				"nome_coordenador" => utf8_encode($escolas[$i]->getEsc_nome_coordenador()),
+				"email_coordenador" => $escolas[$i]->getEsc_email_coordenador(),
+				"codigo" => $escolas[$i]->getEsc_codigo()
+			];
+		}
+		echo json_encode($escolas);
+	break;
 	
 	default:
 		$result = Array("erro"=>true, "mensagem"=>"Parametro 'acao' invalido.", "acao" => $_REQUEST['acao']);

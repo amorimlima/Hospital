@@ -57,5 +57,10 @@ class DocumentoController {
         $documentos = $this->documentosDAO->selectAllDocumentos();
         return  $documentos;
     }
+    
+    public function selectDocumentosEnviados()
+    {
+        return $this->documentosDAO->selectDocumentoEnviados();
+    }
 }
 ?>

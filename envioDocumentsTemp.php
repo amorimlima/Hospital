@@ -30,6 +30,7 @@ h4 {
   border-top: 1px solid #cfcfcf;
   padding: 10px 0;
   height: 379px;
+  overflow: hidden;
 }
 .envio-doc {
   margin: 5px 0;
@@ -43,7 +44,7 @@ h4 {
 .envio-doc-header > span {
   display: block;
   float: left;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 .envio-doc-title {
   width: 75%;
@@ -62,6 +63,7 @@ h4 {
   width: 100%;
   clear: both;
 }
+
 .envio-doc-icones {
   font-size: 16px;
 }
@@ -102,6 +104,48 @@ h4 {
   left: -10px;
   top: 25px;
 }
+.envio-doc-modal::after {
+  content: "";
+  display: block;
+  width: 100%;
+  clear: both;
+}
+
+.envio-doc-modal .envio-doc-panel {
+  margin-bottom: 0;
+}
+
+.envio-doc-modal .envio-doc-lista {
+  height: 184px;
+}
+
+.envio-doc-modal h3 {
+  margin-bottom: 5px;
+}
+.envio-doc-modal h5 {
+  margin-bottom: 5px;
+  color: #999;
+  font-size: 16px;
+}
+.envio-doc-modal h6 {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #999;
+}
+.envio-doc-modal h6:last-of-type {
+  margin-bottom: 20px;
+}
+.envio-doc-modal .envio-doc-modal-body p {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+.envio-doc-modal .envio-doc-modal-body p:last-child {
+  margin-bottom: 0;
+}
+.envio-doc-modal .envio-doc-modal-body p > .glyphicon {
+  margin-right: 5px;
+}
+
 .envio-doc-icones > .text-success,
 .icon-label > span.text-success {
   color: #4b9c4c;
@@ -117,59 +161,15 @@ h4 {
 <h3>Envio de documentos</h3>
 <div class="envio-doc-panel">
   <h4>Documentos enviados</h3>
-  <input class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />
+  <input id="filtroEnviosDoc" onkeyup="filtrarPanelList('filtroEnviosDoc')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />
   <div id="envioDocumentosLista" class="envio-doc-lista">
-
-    <?php for ($i = 0; $i < 10; $i++) { ?>
-    <div class="envio-doc">
-      <form>
-        <input type="hidden" name="doc_envio" value="" />
-        <input type="hidden" name="doc_assunto" value="" />
-        <input type="hidden" name="doc_descricao" value="" />
-        <input type="hidden" name="doc_arquivo" value="" />
-        <input type="hidden" name="doe_id" value="" />
-        <input type="hidden" name="doe_destinatario" value="" />
-        <input type="hidden" name="doe_data_envio" value="" />
-        <input type="hidden" name="doe_visto" value="" />
-        <input type="hidden" name="doe_retorno" value="" />
-      </form>
-      <div class="envio-doc-header">
-        <span class="envio-doc-title">
-          <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel vulputate ex, a pulvinar urna metus.</strong>
-        </span>
-        <span class="envio-doc-date text-right">10/08/2016</span>
-      </div>
-      <div class="envio-doc-label">
-        <div class="envio-doc-icones">
-          <span class="glyphicon glyphicon-align-left">
-            <span class="icon-label">Este documento possui descrição</span>
-          </span>
-          <span class="glyphicon glyphicon-alert text-danger">
-            <span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>
-          </span>
-          <span class="glyphicon glyphicon-upload text-success">
-            <span class="icon-label text-success">Retorno enviado</span>
-          </span>
-          <span class="glyphicon glyphicon-upload">
-            <span class="icon-label">Retorno não enviado</span>
-          </span>
-          <span class="glyphicon glyphicon-record">
-            <span class="icon-label">Retornos pendentes</span>
-          </span>
-          <span class="glyphicon glyphicon-ok-circle text-success">
-            <span class="icon-label text-success">Sem retornos pendentes</span>
-          </span>
-        </div>
-      </div>
-    </div>
-    <?php } ?>
-
+    <div class="alert alert-warning">Carregando...</div>
   </div>
 </div>
 <div id="envioDocumentosActions">
-  <div class="envio-doc-btns">
+  <div class="envio-doc-btns text-right">
     <button type="button" class="btn" onclick="">Finalizar</button>
-    <button type="button" class="btn btn-primary" onclick="">Novo envio</button>
+    <button type="button" class="btn btn-primary" onclick="viewFormNovoEnvioDocumento()">Novo envio</button>
   </div>
 </div>
 <!-- TESTE -->

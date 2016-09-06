@@ -283,3 +283,7 @@ legend {
 .formbtns > input[type="button"].btn_primary:active {
     background-color: #D1CF7D;
 }
+.input_faltando {
+    border: 1px solid #e35f0f !important;
+    border-radius: 4px;
+}
