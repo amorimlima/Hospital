@@ -60,7 +60,7 @@ var envioDocs = {
       }
     })
   },
-  getEnviosByEscola: function(idescola) {
+  getDocumentosRecebidos: function(idescola, callback) {
 
   },
   getRetornosByDocumento: function(idenvio) {
