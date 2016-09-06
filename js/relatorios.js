@@ -1,5 +1,76 @@
 "use strict";
 
+var formNovoEnvioDoc;
+
+var envioDocs = {
+  url: "ajax/DocumentosAjax.php",
+  postDoc: function(dados, callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "POST",
+      data: dados,
+      contentType: false,
+      cache: false,
+      processData: false,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data);
+      }
+    });
+  },
+  postEnvio: function(dados, callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "POST",
+      data: dados,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data);
+      }
+    });
+  },
+  postRetorno: function(dados, callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "POST",
+      data: dados,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data);
+      }
+    });
+  },
+  getDocumentosEnviados: function(callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "GET",
+      data: "acao=getDocumentosEnviados",
+      dataType: "json",
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data)
+      }
+    })
+  },
+  getDocumentosRecebidos: function(idescola, callback) {
+
+  },
+  getRetornosByDocumento: function(idenvio) {
+
+  },
+  getRetornosByDocumentoAndEscola: function(idenvio, idescola) {
+
+  }
+}
+
 $(document).ready(function() {
     gerarPickerTipoGrafico();
     atribuirBarrasRolagem();
@@ -12,6 +83,9 @@ $(document).ready(function() {
     botoesGrupo();
     voltarGrafico();
     atribuirEventosModal();
+
+    // TESTE
+    viewDocumentosEnviados();
 });
 
 function gerarPickerTipoGrafico() {
@@ -38,12 +112,12 @@ function atribuirBarrasRolagem () {
             enable:true
         }
     });
-    $("#envioDocumentosLista").mCustomScrollbar({
-      axis: "y",
-      scrollButtons: {
-        enable: true
-      }
-    });
+    // $(".envio-doc-lista").mCustomScrollbar({
+    //   axis: "y",
+    //   scrollButtons: {
+    //     enable: true
+    //   }
+    // });
 }
 
 function toggleGrafico(item, grafico)
@@ -654,27 +728,35 @@ function gerarHtmlFooterBasicInfoEscola(usr) {
 
 /**
  * Atribui os eventos referentes ao modal#userInfoModal: <br>
- * - Ao clicar na div#userInfoModalBg, o modal fecha <br>
+ * - Ao clicar no bg, o modal fecha <br>
  * - Ao pressionar a tecla "Esc", o modal fecha <br>
  * - Ao clicar sobre o modal#userInfoModal, o evento de click é anulado
  */
 function atribuirEventosModal() {
-    document.onkeyup = function(evt) {
-        if (evt.keyCode == 27) // Verificar se a tecla apertada é a Esc
-            closeUserInfoModal();
-    };
+    $(document).keyup(function(evt) {
+      if (evt.keyCode == 27) { // Veririficar se a tecla apertada é a "Esc"
+        closeUserInfoModal();
+        closeEnvioDocModal();
+        closeFormNovoEnvioDocModal();
+      }
+    });
 
-    document.getElementById("userInfoModalBg").onclick = closeUserInfoModal;
+    $("#userInfoModalBg").click(function(evt) {
+      closeUserInfoModal();
+    });
 
-    document.getElementById("envioDocModalBg").onclick = closeEnvioDocModal;
+    // Fecha os modais ao clicar no bg.
+    $(".modal-generic").each(function(i) {
+      $(".modal-generic").eq(i).parent().click(function(evt) {
+        closeEnvioDocModal();
+        closeFormNovoEnvioDocModal();
+      });
+    });
 
-    document.getElementById("userInfoModal").onclick = function(evt) {
-      evt.stopPropagation();
-    };
-
-    document.getElementById("envioDocModal").onclick = function(evt) {
-      evt.stopPropagation();
-    };
+    // Evitar fechar o modal ao clicar nele.
+    $(".modal-generic").click(function(evt) {
+        evt.stopPropagation();
+    });
 }
 
 /**
@@ -740,11 +822,409 @@ function updateLegendaGrafico(grafico) {
 function showModalEnvioDoc() {
   $("#envioDocModalBg").fadeIn(400);
   $("#envioDocModal").animate({top: "20%"}, 400);
+  $("#envioDocListaDestinatarios").mCustomScrollbar({
+    axis: "y",
+    scrollButtons: {
+      enable: true
+    }
+  });
+}
+
+function showModalNovoEnvioDoc() {
+  $("#formEnvioDocModalBg").fadeIn(400);
+  $("#formEnvioDocModal").animate({top: "0"}, 400);
 }
 
 function closeEnvioDocModal() {
-    $("#envioDocModal").animate({top: "10%"}, 400);
+    $("#envioDocModal").animate({top: "-5%"}, 400);
     $("#envioDocModal").parent().fadeOut(400, function() {
-        $("#envioDocModal").html("<p class='text-center'>Carregando...</p>");
+        sairRetornoEnvioDoc();
     });
 }
+
+function getRetornoEnvioDoc() {
+  $("#envioDocModal .envio-doc-modal-content").eq(0).hide();
+  $("#envioDocModal .envio-doc-modal-content").eq(1).show();
+  setTimeout(viewRetornoEnvioDoc, 400);
+}
+
+function getEscolas(callback) {
+  $.ajax({
+    url: "ajax/RelatoriosAjax.php",
+    type: "GET",
+    dataType: "json",
+    data: "acao=listarEscolas",
+    success: function(escolas) {
+      callback(escolas);
+    }
+  });
+}
+
+function viewRetornoEnvioDoc() {
+  var html =
+  '<div class="envio-doc-modal-content">'+
+    '<div class="envio-doc-modal-header">'+
+      '<h2>Retorno de documento</h2>'+
+    '</div>'+
+    '<div class="envio-doc-modal-body">'+
+      '<h3 name="assunto_documento">Re: Assunto do documento</h3>'+
+      '<h6>Respondido em <span name="data_envio">00/00/0000</span> às <span name="horario_envio">00:00</span></h6>'+
+      '<h6>Escola: <span name="nome_escola">Nome do destinatário</span></h6>'+
+      '<h5>Comentário</h5>'+
+      '<p name="descricao_documento">'+
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec diam enim, pellentesque eu tortor vitae, ultrices aliquet enim. Aenean molestie diam velit, eget imperdiet justo viverra at. Sed nec tempor dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras auctor molestie sodales. Fusce vestibulum elit magna, a luctus dui porta vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et sed.'+
+      '</p>'+
+      '<p name="download_documento">'+
+        '<span class="glyphicon glyphicon-download-alt"></span>'+
+        '<a href="#">Download do documento</a>'+
+      '</p>'+
+      '<p name="voltar">'+
+        '<span class="glyphicon glyphicon-arrow-left"></span>'+
+        '<span class="link" onclick="sairRetornoEnvioDoc()">Voltar</span>'+
+      '</p>'+
+    '</div>'+
+  '</div>';
+
+  $("#envioDocModal .envio-doc-modal-content").eq(1).hide();
+  $("#envioDocModal").append(html);
+}
+
+function sairRetornoEnvioDoc() {
+  $("#envioDocModal .envio-doc-modal-content").eq(2).remove();
+  $("#envioDocModal .envio-doc-modal-content").eq(0).show();
+}
+
+function filtrarPanelList(input) {
+  var lista = $("#"+input).next().find(".envio-doc");
+  var texto = $("#"+input).val().toLowerCase();
+
+  if (texto !== ""){
+    $(lista).each(function(i) {
+      if ($(lista).eq(i).find(".envio-doc-title").text()
+          .trim().toLowerCase().indexOf(texto) >= 0)
+        $(lista).eq(i).show();
+      else
+        $(lista).eq(i).hide();
+    })
+  } else {
+    $(lista).show();
+  }
+}
+
+function viewFormNovoEnvioDocumento(form) {
+  var html = buildFormNovoEnvioDocumento;
+  showModalNovoEnvioDoc();
+  $("#formEnvioDocModal").html(html);
+  getEscolas(viewListaSelectDestinatarios);
+}
+
+function buildFormNovoEnvioDocumento(escolas) {
+  var html = "";
+
+  html+= '<div class="envio-doc-content">';
+  html+=   '<div class="envio-doc-modal-header">';
+  html+=     '<h2>Envio de documento</h2>';
+  html+=   '</div>';
+  html+=   '<div class="envio-doc-modal-body">';
+  html+=     '<form id="formNovoDoc" method="post" enctype="multipart/form-data">';
+  html+=       '<fieldset>';
+  html+=         '<legend>Cadastro de documento</legend>';
+  html+=         '<div class="formfield">';
+  html+=           '<label>Assunto</label>';
+  html+=           '<span>';
+  html+=             '<input id="docAssunto" name="assunto" class="obrigatorio" type="text" maxlength="100" placeholder="Digite o assunto do documento" />';
+  html+=           '</span>';
+  html+=         '</div>';
+  html+=         '<div class="formfield">';
+  html+=           '<label>Descrição</label>';
+  html+=           '<span>';
+  html+=             '<textarea id="docDescricao" name="descricao" class="obrigatorio" type="text" maxlength="500" placeholder="Digite a descrição do documento (opcional)"></textarea>';
+  html+=           '</span>';
+  html+=         '</div>';
+  html+=         '<div class="formfield">';
+  html+=           '<label for="">Arquivo</label>';
+  html+=           '<span>';
+  html+=             '<span>';
+  html+=               '<input name="doc_arquivo" type="file" id="docArquivo">';
+  html+=             '</span>';
+  html+=             '<div>';
+  html+=               '<label class="file" for="docArquivo">';
+  html+=                 '<input type="button" onclick="$(\'#docArquivo\').trigger(\'click\')" value="Selecionar arquivo" />';
+  html+=                 '<span data-for="file_arquivo">Selecione um arquivo</span>';
+  html+=               '</label>';
+  html+=             '</div>';
+  html+=           '</span>';
+  html+=         '</div>';
+  html+=         '<div class="formfield">';
+  html+=           '<label for="">Retorno</label>';
+  html+=           '<span>';
+  html+=             '<div>';
+  html+=               '<input id="doeRetorno" type="checkbox" name="tipo_arquivo" value="0" id="tipo_arquivo_link"/>';
+  html+=               '<label for="doeRetorno">Solicitar um retorno das escolas</label>';
+  html+=             '</div>';
+  html+=           '</span>';
+  html+=         '</div>';
+  html+=         '<div class="envio-doc-panel">';
+  html+=           '<h4>Destinatários</h4>';
+  html+=           '<input id="inputFiltroDest" onkeyup="filtrarPanelList(\'inputFiltroDest\')" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />';
+  html+=           '<div id="listaDestinatarios" class="envio-doc-lista">';
+  html+=             '<div class="item-container">Carregando...</span>';
+  html+=           '</div>';
+  html+=         '</div>';
+  html+=       '</fieldset>';
+  html+=       '<fieldset>';
+  html+=         '<div class="formbtns">';
+  html+=           '<button id="submitNovoDocEnvio" type="button" class="btn btn-primary" onclick="validarFormNovoDocumentoEnvio()">Enviar</button>';
+  html+=         '</div>';
+  html+=       '</fieldset>';
+  html+=     '</form>';
+  html+=     '<div class="hidden">';
+  html+=       '<form id="docForm" action="ajax/DocumentosAjax.php" method="POST" enctype="multipart/form-data">';
+  html+=         '<input type="hidden" name="acao" value="postDocumento" />';
+  html+=         '<input type="hidden" name="assunto" value="" />';
+  html+=         '<input type="hidden" name="descricao" value="" />';
+  html+=       '</form>';
+  html+=       '<form id="envioDocForm" action="ajax/DocumentosAjax.php" method="POST">';
+  html+=         '<input type="hidden" name="acao" value="postEnvio" >';
+  html+=         '<input type="hidden" name="documento" value="" />';
+  html+=         '<input type="hidden" name="destinatario" value="" />';
+  html+=         '<input type="hidden" name="retorno" value="" />';
+  html+=       '</form>';
+  html+=     '</div>';
+  html+=   '</div>';
+  html+= '</div>';
+
+  return html;
+}
+
+function buildListaSelectDestinatarios(escolas) {
+  var html = "";
+  for (var i in escolas) {
+    html += '<div class="envio-doc item-container item-check-container">';
+    html +=   '<div class="envio-doc-header">';
+    html +=     '<input name="doe_destinatario[]" id="esc'+escolas[i].id+'" type="checkbox" value="'+escolas[i].id+'">';
+    html +=     '<label for="esc'+escolas[i].id+'" class="envio-doc-title">';
+    html +=       escolas[i].nome;
+    html +=     '</label>';
+    html +=   '</div>';
+    html +=   '<div class="envio-doc-label"></div>';
+    html += '</div>';
+  }
+  return html;
+}
+
+function viewListaSelectDestinatarios(escolas) {
+  var html = buildListaSelectDestinatarios(escolas);
+  $("#listaDestinatarios").html(html);
+  $("#listaDestinatarios").mCustomScrollbar({"axis":"y","scrollButtons":{"enable": true}});
+}
+
+function closeFormNovoEnvioDocModal() {
+    $("#formEnvioDocModal").animate({top: "-5%"}, 400);
+    $("#formEnvioDocModal").parent().fadeOut(400, function() {
+        // sairRetornoEnvioDoc();
+    });
+}
+
+function validarFormNovoDocumentoEnvio() {
+  var destinatariosValido = false;
+  var valido = true;
+
+  // Verifica se nenhuma escola está selecionada
+  $("#listaDestinatarios").find("input:checkbox").each(function(i) {
+    if ($("#listaDestinatarios").find("input:checkbox").eq(i).is(":checked")) {
+      destinatariosValido = true;
+    }
+  });
+
+  // Verifica se o assunto do documento está vazio
+  if ($("#docAssunto").val() == "") {
+    $("#docAssunto").addClass("input_faltando");
+    valido = false;
+  } else {
+    $("#docAssunto").removeClass("input_faltando");
+  }
+
+  // Verifica se o arquivo está vazio
+  if ($("#docArquivo")[0].files.length == 0) {
+    $("#docArquivo").parent().parent().addClass("input_faltando");
+    valido = false;
+  } else {
+    $("#docArquivo").parent().parent().removeClass("input_faltando");
+  }
+
+  if (!destinatariosValido) {
+    $("#listaDestinatarios").addClass("input_faltando");
+    valido = false;
+  } else {
+    $("#listaDestinatarios").removeClass("input_faltando");
+  }
+
+  if (valido && destinatariosValido) {
+    var form = document.getElementById("docForm");
+    var docArquivo = $("#docArquivo")[0].files[0];
+    var doeDestinatarios = [];
+    var formData;
+
+    $(form).find("input[name='assunto']").val($("#docAssunto").val());
+    $(form).find("input[name='descricao']").val($("#docDescricao").val());
+
+    formData = new FormData(form);
+    formData.append("arquivo", docArquivo);
+
+    envioDocs.postDoc(formData, createEnvioDocumento);
+  }
+}
+
+function createEnvioDocumento(documento) {
+  var form = document.getElementById("envioDocForm");
+  var listaDestinatarios = [];
+
+  $("#listaDestinatarios input:checkbox:checked").each(function(i) {
+    listaDestinatarios.push($("#listaDestinatarios input:checkbox:checked").eq(i).val());
+  });
+
+  $(form).find("input[name='documento']").val(documento.trim());
+  $(form).find("input[name='destinatario']").val(listaDestinatarios.toString());
+  $(form).find("input[name='retorno']").val($("#doeRetorno").is(":checked") ? 1 : 0);
+
+  envioDocs.postEnvio($(form).serialize(), function() {closeFormNovoEnvioDocModal()});
+}
+
+function viewDocumentosEnviados() {
+  envioDocs.getDocumentosEnviados(function(data) {
+    var html = "";
+    if (data.length > 0) {
+      for (var i in data) {
+        html += '<div class="envio-doc" onclick="verEnvioDocumento(\''+data[i].documento_envio.documento.id+'\')">';
+        html +=  '<div class="envio-doc-header">';
+        html +=    '<span class="envio-doc-title">';
+
+        if (data[i].verificadores.retornos_nao_vistos)
+          html +=      '<strong>' + data[i].documento_envio.documento.assunto + '</strong>';
+        else
+          html +=      data[i].documento_envio.documento.assunto;
+
+        html +=    '</span>';
+        html +=    '<span class="envio-doc-date text-right">'+data[i].documento_envio.data_envio+'</span>';
+        html +=  '</div>';
+        html +=  '<div class="envio-doc-label">';
+        html +=    '<div class="envio-doc-icones">';
+
+        if (data[i].documento_envio.documento.descricao) {
+          html +=      '<span class="glyphicon glyphicon-align-left">';
+          html +=        '<span class="icon-label">Este documento possui descrição</span>';
+          html +=      '</span>';
+        }
+
+        if (data[i].documento_envio.retorno) {
+          if (data[i].verificadores.retornos_pendentes) {
+            html +=      '<span class="glyphicon glyphicon-record">';
+            html +=        '<span class="icon-label">Retornos pendentes</span>';
+            html +=      '</span>';
+          } else {
+            html +=      '<span class="glyphicon glyphicon-ok-circle text-success">';
+            html +=        '<span class="icon-label text-success">Sem retornos pendentes</span>';
+            html +=      '</span>';
+          }
+        }
+
+        html +=    '</div>';
+        html +=  '</div>';
+        html += '</div>';
+      }
+    } else {
+      html += '<div class="alert alert-warning">';
+      html +=   'Ainda não há nenhum documento enviado';
+      html += '</div>';
+    }
+
+    $("#envioDocumentosLista").html(html);
+    $("#envioDocumentosLista").mCustomScrollbar({
+      axis: "y",
+      scrollButtons: {
+        enable: true
+      }
+    });
+  });
+}
+
+function viewDocumentosRecebidos() {
+  envioDocs.getDocumentosRecebidos(function(data) {
+    var html = "";
+    if (data.length > 0) {
+      for (var i in data) {
+        html += '<div class="envio-doc" onclick="verEnvioDocumento(0)">';
+        html +=  '<div class="envio-doc-header">';
+        html +=    '<span class="envio-doc-title">';
+        html += '<strong>Nome do documento</strong>';
+        html +=    '</span>';
+        html +=    '<span class="envio-doc-date text-right">10/09/2016</span>';
+        html +=  '</div>';
+        html +=  '<div class="envio-doc-label">';
+        html +=    '<div class="envio-doc-icones">';
+        html +=      '<span class="glyphicon glyphicon-align-left">';
+        html +=        '<span class="icon-label">Este documento possui descrição</span>';
+        html +=      '</span>';
+        html +=      '<span class="glyphicon glyphicon-exclamation-sign text-danger">';
+        html +=        '<span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>';
+        html +=      '</span>';
+        html +=      '<span class="glyphicon glyphicon-upload text-success">';
+        html +=        '<span class="icon-label text-success">Retorno enviado</span>';
+        html +=      '</span>';
+        html +=      '<span class="glyphicon glyphicon-upload">';
+        html +=        '<span class="icon-label">Retorno não enviado</span>';
+        html +=      '</span>';
+
+        // if (data[i].documento_envio.retorno) {
+        //   if (data[i].verificadores.retornos_pendentes) {
+        //     html +=      '<span class="glyphicon glyphicon-record">';
+        //     html +=        '<span class="icon-label">Retornos pendentes</span>';
+        //     html +=      '</span>';
+        //   } else {
+        //     html +=      '<span class="glyphicon glyphicon-ok-circle text-success">';
+        //     html +=        '<span class="icon-label text-success">Sem retornos pendentes</span>';
+        //     html +=      '</span>';
+        //   }
+        // }
+
+        html +=    '</div>';
+        html +=  '</div>';
+        html += '</div>';
+      }
+    } else {
+      html += '<div class="alert alert-warning">';
+      html +=   'Nenhum documento recebido até agora.';
+      html += '</div>';
+    }
+
+    $("#envioDocumentosLista").html(html);
+    $("#envioDocumentosLista").mCustomScrollbar({
+      axis: "y",
+      scrollButtons: {
+        enable: true
+      }
+    });
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
