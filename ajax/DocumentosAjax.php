@@ -13,7 +13,8 @@ include_once($path['beans'] . 'DocumentoRetorno.php');
 include_once($path['funcao'] . 'DatasFuncao.php');
 
 $documentosController = new DocumentoController();
-$documentosEnvioController = new DocumentoEnvioController();
+$documentoEnvioController = new DocumentoEnvioController();
+$documentoRetornoController = new DocumentoRetornoController();
 
 $maxSize = 30000000; //Tamanho máximo de arquivo 30Mb
 
@@ -151,7 +152,7 @@ switch ($_REQUEST['acao']) {
         break;
 
     case 'getEnvioEscola':
-        $result = $documentosEnvioController->listarEscola($_REQUEST['idEscola']);
+        $result = $documentoEnvioController->listarEscola($_REQUEST['idEscola']);
         $retorno = [];
         
         foreach($result as $doe) {
@@ -195,8 +196,16 @@ switch ($_REQUEST['acao']) {
 
         break;
 
-    case 'enviosDocumento':
-        $result = $documentosEnvioController->listarDocumento($_REQUEST['idDocumento']);
+    case 'enviosPorDocumento':
+
+        $result = $documentoEnvioController->listarDocumento($_REQUEST['idDocumento']);
+        echo json_encode($result);
+
+        break;
+
+    case 'retornosPorDocumentoDoEnvio':
+
+        $result = $documentoRetornoController->listarDocumento($_REQUEST['idDocumento']);
         echo json_encode($result);
 
         break;
