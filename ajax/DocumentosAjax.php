@@ -197,5 +197,24 @@ switch ($_REQUEST['acao']) {
 
         break;
 
+    case 'pendenciasEscola':
+        $pendenciaRetorno = $documentoEnvioController->isPendenciaRetornoEscola($_REQUEST['idEscola']);
+
+        echo ($pendenciaRetorno);
+
+        break;
+
+    case 'pendenciasHospital':
+        $pendenciasRetorno = $documentoRetornoController->isPendenciasRetornoHospital();
+
+        echo ($pendenciasRetorno);
+        
+        break;
+
+    default:
+        echo "Erro: Serviço não reconhecido!";
+
+        break;
+
 }
 ?>

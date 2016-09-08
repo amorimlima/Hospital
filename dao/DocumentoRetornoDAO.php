@@ -184,5 +184,13 @@ $documentoretorno->setDor_data($qr['dor_data']);
         return $lista;
 
     }
+
+    public function isPendenciasRetornoHospital()
+    {
+        $sql = "SELECT dor_visto FROM documento_retorno ORDER BY dor_visto DESC LIMIT 1";
+        $result = $this->retrieve($sql);
+        $qr = mysqli_fetch_array($result);
+        return $qr["dor_visto"]; 
+    }
 }
 ?>
