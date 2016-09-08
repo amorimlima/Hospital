@@ -74,7 +74,10 @@ class DocumentoRetornoController {
     {
         return $this->documentoretornoDAO->listarDocumento($idDocumento);
     }
-
+    
+    public function getRetornosByEscolaAndEnvio($idesc, $iddoe) {
+        return $this->documentoretornoDAO->getRetornosByEscolaAndEnvio($idesc, $iddoe);
+    }
     public function isPendenciasRetornoHospital()
     {
         return $this->documentoretornoDAO->isPendenciasRetornoHospital();

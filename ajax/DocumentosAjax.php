@@ -152,9 +152,29 @@ switch ($_REQUEST['acao']) {
         break;
 
     case 'getEnvioEscola':
-
         $result = $documentoEnvioController->listarEscola($_REQUEST['idEscola']);
-        echo json_encode($result[0]);
+        $retorno = [];
+        
+        
+        foreach($result as $doe) {
+            array_push($retorno, [
+                "id" => intval($doe["documento_envio"]->getDoe_id()),
+                "destinatario" => intval($doe["documento_envio"]->getDoe_destinatario()),
+                "data_envio" => DatasFuncao::dataTimeBRExibicao($doe["documento_envio"]->getDoe_data_envio()),
+                "visto" => intval($doe["documento_envio"]->getDoe_visto()),
+                "retorno" => intval($doe["documento_envio"]->getDoe_retorno()),
+                "documento" => [
+                    "id" => intval($doe["documento_envio"]->getDoe_documento()->getDoc_id()),
+                    "assunto" => utf8_encode($doe["documento_envio"]->getDoe_documento()->getDoc_assunto()),
+                    "descricao" => utf8_encode($doe["documento_envio"]->getDoe_documento()->getDoc_descricao()),
+                    "arquivo" => $doe["documento_envio"]->getDoe_documento()->getDoc_arquivo()
+                ],
+                "retorno_pendente" => intval($doe["verificadores"]["retorno_pendente"]),
+                "retorno_rejeitado" => intval($doe["verificadores"]["retorno_rejeitado"])
+            ]);
+        }
+
+        echo json_encode($retorno);
 
         break;
 
@@ -184,9 +204,20 @@ switch ($_REQUEST['acao']) {
         break;
 
     case 'enviosPorDocumento':
-
         $result = $documentoEnvioController->listarDocumento($_REQUEST['idDocumento']);
-        echo json_encode($result);
+        $retorno = [
+            "id" => $result->getDoe_id(),
+            "data_envio" => DatasFuncao::dataTimeBRExibicao($result->getDoe_data_envio()),
+            "retorno" => $result->getDoe_retorno(),
+            "documento" => [
+                "id" => $result->getDoe_documento()->getDoc_id(),
+                "assunto" => utf8_encode($result->getDoe_documento()->getDoc_assunto()),
+                "descricao" => utf8_encode($result->getDoe_documento()->getDoc_descricao()),
+                "arquivo" => $result->getDoe_documento()->getDoc_arquivo()
+            ]
+        ];
+
+        echo json_encode($retorno);
 
         break;
 
@@ -195,6 +226,65 @@ switch ($_REQUEST['acao']) {
         $result = $documentoRetornoController->listarDocumento($_REQUEST['idDocumento']);
         echo json_encode($result);
 
+        break;
+    
+    case "destinatariosPorDocumento":
+        $result = $documentoEnvioController->getEnviosByDocumento($_REQUEST['idDocumento']);
+        $retorno = [];
+
+        foreach($result as $envio) {
+            $dados = [
+                "id" => intval($envio["envio"]->getDoe_id()),
+                "documento" => intval($envio["envio"]->getDoe_documento()),
+                "destinatario" => [
+                    "id" => intval($envio["envio"]->getDoe_destinatario()->getEsc_id()),
+                    "nome" => utf8_encode($envio["envio"]->getDoe_destinatario()->getEsc_nome())
+                ],
+                "data_envio" => DatasFuncao::dataTimeBRExibicao($envio["envio"]->getDoe_data_envio()),
+                "visto" => intval($envio["envio"]->getDoe_visto()),
+            ];
+            
+            if (intval($envio["envio"]->getDoe_retorno())) {
+                $dados["retorno"] = [];
+                
+                if ($envio["retorno"] != null) {
+                   array_push($dados["retorno"], [
+                       "id" => intval($envio["retorno"]->getDor_id()),
+                       "documento" => [
+                            "id" => intval($envio["retorno"]->getDor_documento()->getDoc_id()),
+                            "descricao" => intval($envio["retorno"]->getDor_documento()->getDoc_descricao())
+                       ],
+                       "rejeitado" => intval($envio["retorno"]->getDor_rejeitado()),
+                       "visto" => intval($envio["retorno"])->getDor_visto()
+                   ]);
+                }
+            } else {
+                $dados["retorno"] = 0;
+            }
+            
+            array_push($retorno, $dados);
+        }
+
+        echo json_encode($retorno);
+        
+        break;
+        
+        case "retornosPorEnvioEscola": 
+            $result = $documentoRetornoController->getRetornosByEscolaAndEnvio($_GET["idEscola"], $_GET["idEnvio"]);
+            $retorno = [];
+            
+            foreach($result as $dor) {
+                array_push($retorno, [
+                    "id" => intval($dor->getDor_id()),
+                    "documento" => intval($dor->getDor_documento()),
+                    "remetente" => intval($dor->getDor_remetente()),
+                    "envio" => intval($dor_getDor_envio()),
+                    "visto" => intval($dor_getDor_visto()),
+                    "rejeitado" => intval($dor_getDor_rejeitado())
+                ]);
+            }
+            
+            echo json_encode($retorno);
         break;
 
     case 'pendenciasEscola':

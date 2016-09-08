@@ -18,6 +18,8 @@ $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
 include_once($path['beans'].'DocumentoEnvio.php');
+include_once($path["beans"]."Escola.php");
+include_once($path["beans"]."DocumentoRetorno.php");
 
 
 /**
@@ -126,12 +128,14 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
 
     public function listarEscola($idEscola)
     {
-        $sql = "SELECT *, IF(doe.doe_retorno = 1 AND dor.dor_id IS NULL, 0, 1) as retorno_pendente FROM documento_envio doe ";
+        $sql = "SELECT *, IF(doe.doe_retorno = 1 AND dor.dor_id IS NULL, 1, 0) as retorno_pendente FROM documento_envio doe ";
         $sql .= "LEFT JOIN documento_retorno dor ON dor.dor_envio = doe.doe_id ";
         $sql .= "JOIN documento doc ON doc.doc_id = doe.doe_documento ";
         $sql .= "WHERE doe_destinatario = ".$idEscola." ORDER BY doe_data_envio DESC";
+
         $lista = array();
         $result = $this->retrieve($sql);
+        
         while ($qr = mysqli_fetch_array($result)){
             $documentoenvio= new DocumentoEnvio();
             $documentoenvio->setDoe_id($qr['doe_id']);
@@ -139,13 +143,14 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
             $documentoenvio->getDoe_documento()->setDoc_id($qr["doc_id"]);
             $documentoenvio->getDoe_documento()->setDoc_assunto($qr["doc_assunto"]);
             $documentoenvio->getDoe_documento()->setDoc_descricao($qr["doc_descricao"]);
+            $documentoenvio->getDoe_documento()->setDoc_arquivo($qr["doc_arquivo"]);
             $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
             $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
             $documentoenvio->setDoe_visto($qr['doe_visto']);
             $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
             array_push($lista, [
-                "documento_envio" => $doe,
+                "documento_envio" => $documentoenvio,
                 "verificadores" => [
                     "retorno_pendente" => intval($qr["retorno_pendente"]),
                     "retorno_rejeitado" => intval($qr["dor_rejeitado"])
@@ -179,6 +184,50 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
             $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
         return $documentoenvio;
+    }
+    
+    public function getEnviosByDocumento($doc_id) {
+        $sql  = "select doe.*, esc.esc_id, esc.esc_nome, dor.dor_id, dor.dor_rejeitado, doc.doc_id, doc.doc_descricao is null as doc_descricao, dor.dor_visto ";
+        $sql .= "from documento_envio doe ";
+        $sql .=	"join escola esc on doe.doe_destinatario = esc.esc_id ";
+        $sql .=    "left join documento_retorno dor on doe.doe_id = dor.dor_documento ";
+        $sql .=    "left join documento doc on dor.dor_documento = doc.doc_id ";
+        $sql .= "where doe.doe_documento = {$doc_id};";
+        
+        $result = $this->retrieve($sql);
+        $retorno = [];
+
+        while ($qr = mysqli_fetch_array($result)) {
+            $doe = new DocumentoEnvio();
+            $doe->setDoe_id($qr["doe_id"]);
+            $doe->setDoe_data_envio($qr["doe_data_envio"]);
+            $doe->setDoe_documento($qr["doe_documento"]);
+            $doe->setDoe_retorno($qr["doe_retorno"]);
+            $doe->setDoe_visto($qr["doe_visto"]);
+            $doe->setDoe_destinatario(new Escola());
+            $doe->getDoe_destinatario()->setEsc_id($qr["esc_id"]);
+            $doe->getDoe_destinatario()->setEsc_nome($qr["esc_nome"]);
+            
+            $dados = ["envio" => $doe];
+            
+            if ($qr["dor_id"] == null) {
+                $dor = new DocumentoRetorno();
+                $dor->setDor_id($qr["dor_id"]);
+                $dor->setDor_visto($qr["dor_visto"]);
+                $dor->setDor_rejeitado($qr["dor_rejeitado"]);
+                $dor->setDor_documento(new Documento());
+                $dor->getDor_documento()->setDoc_id($qr["doc_id"]);
+                $dor->getDor_documento()->setDoc_descricao($qr["doc_descricao"]);
+                
+                array_push($dados, ["retorno" => $dor]);
+            } else {
+                array_push($dados, ["retorno" => false]);
+            }
+            
+            array_push($retorno, $dados);
+        }
+        
+        return $retorno;
     }
 
     public function isPendenciaRetornoEscola($idEscola)
