@@ -220,6 +220,47 @@ switch ($_REQUEST['acao']) {
         echo json_encode($result);
 
         break;
+    
+    case "destinatariosPorDocumento":
+        $result = $documentoEnvioController->getEnviosByDocumento($_REQUEST['idDocumento']);
+        $retorno = [];
+
+        foreach($result as $envio) {
+            $dados = [
+                "id" => intval($envio["envio"]->getDoe_id()),
+                "documento" => intval($envio["envio"]->getDoe_documento()),
+                "destinatario" => [
+                    "id" => intval($envio["envio"]->getDoe_destinatario()->getEsc_id()),
+                    "nome" => utf8_encode($envio["envio"]->getDoe_destinatario()->getEsc_nome())
+                ],
+                "data_envio" => DatasFuncao::dataTimeBRExibicao($envio["envio"]->getDoe_data_envio()),
+                "visto" => intval($envio["envio"]->getDoe_visto()),
+            ];
+            
+            if (intval($envio["envio"]->getDoe_retorno())) {
+                $dados["retorno"] = [];
+                
+                if ($envio["retorno"] != null) {
+                   array_push($dados["retorno"], [
+                       "id" => intval($envio["retorno"]->getDor_id()),
+                       "documento" => [
+                            "id" => intval($envio["retorno"]->getDor_documento()->getDoc_id()),
+                            "descricao" => intval($envio["retorno"]->getDor_documento()->getDoc_descricao())
+                       ],
+                       "rejeitado" => intval($envio["retorno"]->getDor_rejeitado()),
+                       "visto" => intval($envio["retorno"])->getDor_visto()
+                   ]);
+                }
+            } else {
+                $dados["retorno"] = 0;
+            }
+            
+            array_push($retorno, $dados);
+        }
+
+        echo json_encode($retorno);
+        
+        break;
 
 }
 ?>

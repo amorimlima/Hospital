@@ -74,12 +74,6 @@ var envioDocs = {
       }
     });
   },
-  getRetornosByDocumento: function(idenvio) {
-
-  },
-  getRetornosByDocumentoAndEscola: function(idenvio, idescola) {
-
-  },
   getEnvioByDocumento: function(iddocumento, callback) {
     $.ajax({
       url: envioDocs.url,
@@ -93,6 +87,20 @@ var envioDocs = {
         callback(data);
       }
     })
+  },
+  getDestinatariosByDocumento: function(iddocumento, callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "GET",
+      data: "acao=destinatariosPorDocumento&idDocumento="+iddocumento,
+      dataType: "json",
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage)
+      },
+      success: function(data) {
+        callback(data);
+      }
+    });
   }
 }
 
@@ -1239,34 +1247,11 @@ function viewDocumentosRecebidos() {
 function verEnvioDocumento(envio) {
   var html = "";
   showModalNovoEnvioDoc();
-
-
-
-
-            // <div class="envio-doc" onclick="getRetornoEnvioDoc()">
-            //   <div class="envio-doc-header">
-            //     <span name="nome_destinatario" class="envio-doc-title">
-            //       <?= $nomes[$a]; ?>
-            //     </span>
-            //   </div>
-            //   <div class="envio-doc-label">
-            //     <div class="envio-doc-icones">
-            //       <span class="glyphicon glyphicon-record">
-            //         <span class="icon-label">Retorno pendente</span>
-            //       </span>
-            //       <span class="glyphicon glyphicon-ok-circle text-success">
-            //         <span class="icon-label text-success">Retorno recebido</span>
-            //       </span>
-            //       <span class="glyphicon glyphicon-comment">
-            //         <span class="icon-label">Este retorno possui comentário</span>
-            //       </span>
-            //     </div>
-            //   </div>
-            // </div>
 }
 
 function viewEnvioDocumento(id) {
   showModalEnvioDoc();
+
   envioDocs.getEnvioByDocumento(id, function(doe) {
     var html = "";
 
@@ -1296,6 +1281,72 @@ function viewEnvioDocumento(id) {
     html += '</div>';
 
     $("#envioDocModal").html(html);
+
+    envioDocs.getDestinatariosByDocumento(doe.documento.id, function(envios) {
+      var html = "";
+
+      for (var i = 0; i < envios.length; i++) {
+        if (envios[i].retorno && envios[i].retorno.length > )
+          html += '<div class="envio-doc" onclick="getRetornoEnvioDoc()">';
+        else
+          html += '<div class="envio-doc">';
+
+        html +=   '<div class="envio-doc-header">';
+        html +=     '<span name="nome_destinatario" class="envio-doc-title">';
+
+        if (envios[i].visto)
+          html += envios[i].destinatario.nome
+        else
+          html +=     '<strong>' + envios[i].destinatario.nome + '</strong>';
+
+        html +=     '</span>';
+        html +=   '</div>';
+        html +=   '<div class="envio-doc-label">';
+        html +=     '<div class="envio-doc-icones">';
+
+        if (envios[i].retorno) {
+          if (envios[i].retorno.length > 0) {
+            if (envios[i].retorno.documento.descricao) {
+              // Retorno possui comentário (campo 'doc_descricao' no banco)
+              html +=       '<span class="glyphicon glyphicon-comment">';
+              html +=         '<span class="icon-label">Este retorno possui comentário</span>';
+              html +=       '</span>';
+            }
+
+            if (!envios[i].retorno.rejeitado) {
+              // Retorno recebido e não rejeitado (pelo menos ainda)
+              html +=       '<span class="glyphicon glyphicon-ok-circle text-success">';
+              html +=         '<span class="icon-label text-success">Retorno recebido</span>';
+              html +=       '</span>';
+            } else {
+              // Retorno rejeitado e, portanto, pendente
+              html +=      '<span class="glyphicon glyphicon-exclamation-sign text-danger">';
+              html +=        '<span class="icon-label text-danger">Retorno rejeitado</span>';
+              html +=      '</span>';
+              html +=       '<span class="glyphicon glyphicon-record">';
+              html +=         '<span class="icon-label">Retorno pendente</span>';
+              html +=       '</span>';
+            }
+          } else {
+            html +=       '<span class="glyphicon glyphicon-record">';
+            html +=         '<span class="icon-label">Retorno pendente</span>';
+            html +=       '</span>';
+          }
+        }
+
+        html +=     '</div>';
+        html +=   '</div>';
+        html += '</div>';
+      }
+
+      $("#envioDocListaDestinatarios").html(html);
+      $("#envioDocListaDestinatarios").mCustomScrollbar({
+        axis: "y",
+        scrollButtons: {
+          enable: true
+        }
+      });
+    });
   });
 }
 

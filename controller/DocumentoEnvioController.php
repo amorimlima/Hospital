@@ -75,5 +75,10 @@ class DocumentoEnvioController {
     {
         return $this->documentoenvioDAO->listarDocumento($idDocumento);
     }
+    
+    public function getEnviosByDocumento($doc_id)
+    {   
+        return $this->documentoenvioDAO->getEnviosByDocumento($doc_id);
+    }
 }
 ?>
