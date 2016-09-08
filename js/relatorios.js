@@ -1286,7 +1286,7 @@ function viewEnvioDocumento(id) {
       var html = "";
 
       for (var i = 0; i < envios.length; i++) {
-        if (envios[i].retorno && envios[i].retorno.length > )
+        if (envios[i].retorno && envios[i].retorno.length > 0)
           html += '<div class="envio-doc" onclick="getRetornoEnvioDoc()">';
         else
           html += '<div class="envio-doc">';
