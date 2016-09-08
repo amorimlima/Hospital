@@ -146,5 +146,23 @@ $sql .= "doc_arquivo = '".$documentos->getDoc_arquivo()."',";
         
         return $retorno;
     }
+    
+    
+    public function selectDocumentoByEnvio($idenvio) {
+        $sql  = "select doc.* from documento doc ";
+        $sql .= "join documento_envio doe on doe.doe_documento = doc.doc_id ";
+        $sql .= "where doe.doe_id = {$idenvio};";
+        
+        $result = $this->retrieve($sql);
+        
+        $qr = mysqli_fetch_array($result);
+        $doc = new Documento();
+        $doc->setDoc_id($qr["doc_id"]);
+        $doc->setDoc_assunto($qr["doc_assunto"]);
+        $doc->setDoc_descricao($qr["doc_descricao"]);
+        $doc->setDoc_arquivo($qr["doc_arquivo"]);
+        
+        return $doc;
+    }
 }
 ?>

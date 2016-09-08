@@ -62,16 +62,17 @@ class DocumentoEnvioDAO extends DAO{
 
     function selectByIdDocumentoEnvio($iddocumentoenvio)
     {
-        $sql = "select * from documento_envio where doe_id = ". $iddocumentoenvio."limit 1 ";
+        $sql = "select * from documento_envio dor ";
+        $sql .= "where doe_id = ". $iddocumentoenvio." limit 1 ";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
         $documentoenvio= new DocumentoEnvio();
         $documentoenvio->setDoe_id($qr['doe_id']);
-$documentoenvio->setDoe_documento($qr['doe_documento']);
-$documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
-$documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
-$documentoenvio->setDoe_visto($qr['doe_visto']);
-$documentoenvio->setDoe_retorno($qr['doe_retorno']);
+        $documentoenvio->setDoe_documento($qr['doe_documento']);
+        $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
+        $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
+        $documentoenvio->setDoe_visto($qr['doe_visto']);
+        $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
         return $documentoenvio;
     }

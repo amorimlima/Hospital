@@ -47,7 +47,7 @@ class DocumentoEnvioController {
     }
 
     public function selectByIdDocumentoEnvio($idDocumentoEnvio){
-        $documentoenvio = $this->documentoenvioDAO->selectByIdDocumentoEnvio($iddocumentoenvio);
+        $documentoenvio = $this->documentoenvioDAO->selectByIdDocumentoEnvio($idDocumentoEnvio);
         return  $documentoenvio;
     }
 

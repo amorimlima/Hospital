@@ -127,6 +127,7 @@ switch ($_REQUEST['acao']) {
 
         if(isset($_REQUEST['id'])){
             $result = $documentoEnvioController->selectByIdDocumentoEnvio($_REQUEST['id']);
+            
             echo json_encode($result);
         }
 
@@ -141,10 +142,28 @@ switch ($_REQUEST['acao']) {
 
         if(isset($_REQUEST['id'])){
             $result = $documentoRetornoController->selectByIdDocumentoRetorno($_REQUEST['id']);
-            echo json_encode($result);
-        }
+            $retorno = [
+                "id" => $result->getDor_id(),
+                "documento" => [
+                    "id" =>  intval($result->getDor_documento()->getDoc_id()),
+                    "assunto" => utf8_encode($result->getDor_documento()->getDoc_assunto()),
+                    "descricao" => utf8_encode($result->getDor_documento()->getDoc_descricao()),
+                    "arquivo" => $result->getDor_documento()->getDoc_arquivo()
+                ],
+                "remetente" => intval($result->getDor_remetente()),
+                "envio" => [
+                    "id" => intval($result->getDor_envio()->getDoe_id()),
+                    "documento" => intval($result->getDor_envio()->getDoe_documento())
+                ],
+                "visto" => intval($result->getDor_visto()),
+                "rejeitado" => intval($result->getDor_rejeitado()),
+                "data" => DatasFuncao::dataTimeBRExibicao($result->getDor_data())
+            ];
+            
 
-        else{
+            echo json_encode($retorno);
+
+        }else{
             $result = $documentoRetornoController->selectAllDocumentoRetorno();
             echo json_encode($result);
         }
@@ -276,11 +295,17 @@ switch ($_REQUEST['acao']) {
             foreach($result as $dor) {
                 array_push($retorno, [
                     "id" => intval($dor->getDor_id()),
-                    "documento" => intval($dor->getDor_documento()),
+                    "documento" => [
+                        "id" => intval($dor->getDor_documento()->getDoc_id()),
+                        "assunto" => utf8_encode($dor->getDor_documento()->getDoc_assunto()),
+                        "descricao" =>utf8_encode($dor->getDor_documento()->getDoc_descricao()),
+                        "arquivo" => $dor->getDor_documento()->getDoc_arquivo()
+                    ],
                     "remetente" => intval($dor->getDor_remetente()),
-                    "envio" => intval($dor_getDor_envio()),
-                    "visto" => intval($dor_getDor_visto()),
-                    "rejeitado" => intval($dor_getDor_rejeitado())
+                    "envio" => intval($dor->getDor_envio()),
+                    "visto" => intval($dor->getDor_visto()),
+                    "rejeitado" => intval($dor->getDor_rejeitado()),
+                    "data" => DatasFuncao::dataTimeBRExibicao($dor->getDor_data())
                 ]);
             }
             
@@ -300,6 +325,18 @@ switch ($_REQUEST['acao']) {
         echo ($pendenciasRetorno);
         
         break;
+    
+    case "documentoPorEnvio":
+        $doc = $documentosController->selectDocumentoByEnvio($_GET["idenvio"]);
+        $retorno = [
+            "id" => intval($doc->getDoc_id()),
+            "assunto" => utf8_encode($doc->getDoc_assunto()),
+            "descricao" => utf8_encode($doc->getDoc_descricao()),
+            "arquivo" => $doc->getDoc_arquivo()
+        ];
+        
+        echo json_encode($retorno);
+    break;
 
     default:
         echo "Erro: Serviço não reconhecido!";
