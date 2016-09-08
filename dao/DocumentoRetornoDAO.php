@@ -121,11 +121,10 @@ $documentoretorno->setDor_data($qr['dor_data']);
      {
         $sql  = "insert into documento_retorno (dor_documento, dor_remetente, dor_envio, dor_data) values ";
         $sql .= "('".$dor->getDor_documento()."', ";
-        $sql .= "'".$dor->getDor_emetente()."', ";
+        $sql .= "'".$dor->getDor_remetente()."', ";
         $sql .= "'".$dor->getDor_envio()."', ";
         $sql .= "CURDATE()) ";
-        echo $sql;
-        return $this->execute($sql);
+        return $this->executeAndReturnLastID($sql);
      }
 
     public function listarEscola($idEscola)

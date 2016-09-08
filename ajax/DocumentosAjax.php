@@ -83,8 +83,8 @@ switch ($_REQUEST['acao']) {
         $documentosRetorno->setDor_documento($documento);
         $documentosRetorno->setDor_remetente($remetente);
         $documentosRetorno->setDor_envio($envio);
-
-        $documentoRetornoController->insertParcial($documentosRetorno);
+        $result = $documentoRetornoController->insertParcial($documentosRetorno);
+        echo $result;
 
         break;
 
