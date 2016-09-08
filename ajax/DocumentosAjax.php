@@ -262,20 +262,20 @@ switch ($_REQUEST['acao']) {
                 "data_envio" => DatasFuncao::dataTimeBRExibicao($envio["envio"]->getDoe_data_envio()),
                 "visto" => intval($envio["envio"]->getDoe_visto()),
             ];
-            
+
             if (intval($envio["envio"]->getDoe_retorno())) {
                 $dados["retorno"] = [];
                 
                 if ($envio["retorno"] != null) {
-                   array_push($dados["retorno"], [
+                   $dados["retorno"] = [
                        "id" => intval($envio["retorno"]->getDor_id()),
                        "documento" => [
                             "id" => intval($envio["retorno"]->getDor_documento()->getDoc_id()),
                             "descricao" => intval($envio["retorno"]->getDor_documento()->getDoc_descricao())
                        ],
                        "rejeitado" => intval($envio["retorno"]->getDor_rejeitado()),
-                       "visto" => intval($envio["retorno"])->getDor_visto()
-                   ]);
+                       "visto" => intval($envio["retorno"]->getDor_visto())
+                   ];
                 }
             } else {
                 $dados["retorno"] = 0;
@@ -283,7 +283,6 @@ switch ($_REQUEST['acao']) {
             
             array_push($retorno, $dados);
         }
-
         echo json_encode($retorno);
         
         break;

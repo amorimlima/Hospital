@@ -191,7 +191,7 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         $sql  = "select doe.*, esc.esc_id, esc.esc_nome, dor.dor_id, dor.dor_rejeitado, doc.doc_id, doc.doc_descricao is null as doc_descricao, dor.dor_visto ";
         $sql .= "from documento_envio doe ";
         $sql .=	"join escola esc on doe.doe_destinatario = esc.esc_id ";
-        $sql .=    "left join documento_retorno dor on doe.doe_id = dor.dor_documento ";
+        $sql .=    "left join documento_retorno dor on doe.doe_id = dor.dor_envio ";
         $sql .=    "left join documento doc on dor.dor_documento = doc.doc_id ";
         $sql .= "where doe.doe_documento = {$doc_id};";
         
@@ -211,7 +211,7 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
             
             $dados = ["envio" => $doe];
             
-            if ($qr["dor_id"] == null) {
+            if ($qr["dor_id"] != null) {
                 $dor = new DocumentoRetorno();
                 $dor->setDor_id($qr["dor_id"]);
                 $dor->setDor_visto($qr["dor_visto"]);
@@ -220,9 +220,9 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
                 $dor->getDor_documento()->setDoc_id($qr["doc_id"]);
                 $dor->getDor_documento()->setDoc_descricao($qr["doc_descricao"]);
                 
-                array_push($dados, ["retorno" => $dor]);
+                $dados["retorno"] = $dor;
             } else {
-                array_push($dados, ["retorno" => false]);
+                $dados["retorno"] = false;
             }
             
             array_push($retorno, $dados);

@@ -1426,7 +1426,8 @@ function viewEnvioDocumento(id) {
       var html = "";
 
       for (var i = 0; i < envios.length; i++) {
-        if (envios[i].retorno && envios[i].retorno.length > 0)
+        console.log(envios[i].retorno);
+        if (envios[i].retorno)
           html += '<div class="envio-doc" onclick="getRetornoEnvioDoc(' + envios[i].retorno.id + ')">';
         else
           html += '<div class="envio-doc">';
@@ -1445,7 +1446,7 @@ function viewEnvioDocumento(id) {
         html +=     '<div class="envio-doc-icones">';
 
         if (envios[i].retorno) {
-          if (envios[i].retorno.length > 0) {
+          if (envios[i].retorno.id != undefined) {
             if (envios[i].retorno.documento.descricao) {
               // Retorno possui comentário (campo 'doc_descricao' no banco)
               html +=       '<span class="glyphicon glyphicon-comment">';
@@ -1642,7 +1643,7 @@ function getRetornoEnvioDoc(id) {
     html +=     '</p>';
     html +=     '<p>';
     html +=       '<span class="glyphicon glyphicon-arrow-left"></span>';
-    html +=       '<span class="link" onclick="verEnvioRecebido(' + dor.envio.documento + ')">Voltar</span>';
+    html +=       '<span class="link" onclick="verEnvioRecebido()">Voltar</span>';
     html +=     '</p>';
     html +=   '</div>';
     html += '</div>';
