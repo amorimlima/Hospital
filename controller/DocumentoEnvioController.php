@@ -80,5 +80,15 @@ class DocumentoEnvioController {
     {   
         return $this->documentoenvioDAO->getEnviosByDocumento($doc_id);
     }
+    
+    public function isPendenciaRetornoEscola($idEscola)
+    {
+        return $this->documentoenvioDAO->isPendenciaRetornoEscola($idEscola);
+    }
+
+    public function isPendenciasRetornoHospital()
+    {
+        return $this->documentoenvioDAO->isPendenciasRetornoHospital();
+    }
 }
 ?>
