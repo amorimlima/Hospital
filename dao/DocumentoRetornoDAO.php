@@ -184,5 +184,28 @@ $documentoretorno->setDor_data($qr['dor_data']);
         return $lista;
 
     }
+    
+    public function getRetornosByEscolaAndEnvio($idesc, $iddoe) {
+        $sql  = "select * from documento_retorno dor ";
+        $sql .= "where dor_envio = 52 and dor_remetente = 69;";
+        
+        $result = $this->retrieve($sql);
+        $retorno = [];
+        
+        while($qr = mysqli_fetch_array($result)) {
+            $dor = new DocumentoRetorno();
+            $dor->setDor_id($qr["dor_id"]);
+            $dor->setDor_data($qr["dor_data"]);
+            $dor->setDor_envio($qr["dor_envio"]);
+            $dor->setDor_remetente($qr["dor_remetente"]);
+            $dor->setDor_documento($qr["dor_documento"]);
+            $dor->setDor_rejeitado($qr["dor_rejeitado"]);
+            $dor->setDor_visto($qr["dor_visto"]);
+            
+            array_push($retorno, $dor);
+        }
+        
+        return $retorno;
+    }
 }
 ?>
