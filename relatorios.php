@@ -44,6 +44,7 @@ $logado = unserialize($_SESSION['USR']);
         <link rel="stylesheet" type="text/css" href="css/modulos/formulario.css">
         <link rel="stylesheet" type="text/css" href="css/box-modal.css">
         <link rel="stylesheet" type="text/css" href="css/relatorios.css">
+        <link rel="stylesheet" type="text/css" href="css/documento.css">
         <link href='http://fonts.googleapis.com/css?family=Overlock:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="js/malihu.3.0.3/mCustomScrollbar.css" />
@@ -297,6 +298,7 @@ $logado = unserialize($_SESSION['USR']);
     <script src="js/funcoes.js"></script>
     <script src="js/cadastro.js" async></script>
     <script src="js/relatorios.js" async></script>
+    <script src="js/documento.js" async></script>
     <script src="js/liberarCapitulos.js" async></script>
     <script src="js/goMobileUpload.js"></script>
 </html>
