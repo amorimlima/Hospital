@@ -46,7 +46,7 @@ class DocumentoRetornoController {
     }
 
     public function selectByIdDocumentoRetorno($idDocumentoRetorno){
-        $documentoretorno = $this->documentoretornoDAO->selectByIdDocumentoRetorno($iddocumentoretorno);
+        $documentoretorno = $this->documentoretornoDAO->selectByIdDocumentoRetorno($idDocumentoRetorno);
         return  $documentoretorno;
     }
 
@@ -58,6 +58,11 @@ class DocumentoRetornoController {
     public function insertParcial($documentoRetorno)
     {
         return $this->documentoretornoDAO->insertParcial($documentoRetorno);
+    }
+    
+    public function rejeitar($idRetorno)
+    {
+        return $this->documentoretornoDAO->rejeitar($idRetorno);
     }
 
     public function listarEscola($idEscola)
