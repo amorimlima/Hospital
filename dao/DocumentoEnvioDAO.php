@@ -245,10 +245,14 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
 
     public function isPendenciaRetornoEscola($idEscola)
     {
-        $sql = "SELECT MAX(dor.dor_id IS NULL OR dor.dor_rejeitado) AS pendencia FROM documento_envio doe LEFT JOIN documento_retorno dor ON dor.dor_envio = doe.doe_id WHERE doe.doe_destinatario = ".$idEscola." GROUP BY doe.doe_id ORDER BY pendencia DESC LIMIT 1";
+        $sql = "SELECT MAX(IF(doe.doe_retorno = 1 AND (dor.dor_id IS NULL), 1, 0)) AS pendencia, MIN(dor.dor_rejeitado) as rejeitado FROM documento_envio doe LEFT JOIN documento_retorno dor ON dor.dor_envio = doe.doe_id WHERE doe.doe_destinatario = 72 GROUP BY doe.doe_id ORDER BY pendencia DESC";
         $result = $this->retrieve($sql);
-        $qr = mysqli_fetch_array($result);
-        return $qr["pendencia"]; 
+        while($qr = mysqli_fetch_array($result)){
+            if ($qr["pendencia"] == 1 || $qr["rejeitado"] == 1)
+                return 1;
+        }
+
+        return 0; 
     }
 
     public function isPendenciasRetornoHospital()

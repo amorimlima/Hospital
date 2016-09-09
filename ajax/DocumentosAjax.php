@@ -285,9 +285,9 @@ switch ($_REQUEST['acao']) {
                     "id" => intval($dor->getDor_id()),
                     "documento" => intval($dor->getDor_documento()),
                     "remetente" => intval($dor->getDor_remetente()),
-                    "envio" => intval($dor_getDor_envio()),
-                    "visto" => intval($dor_getDor_visto()),
-                    "rejeitado" => intval($dor_getDor_rejeitado())
+                    "envio" => intval($dor->getDor_envio()),
+                    "visto" => intval($dor->getDor_visto()),
+                    "rejeitado" => intval($dor->getDor_rejeitado())
                 ]);
             }
             

@@ -186,7 +186,7 @@ class DocumentoRetornoDAO extends DAO{
     public function listarDocumento($idDocumento)
     {
         $sql = "SELECT * FROM documento_retorno ";
-        $sql .= "JOIN documento_envio ON doe_id = dor_envio";
+        $sql .= "JOIN documento_envio ON doe_id = dor_envio ";
         $sql .= "WHERE dor_documento = ".$idDocumento." ORDER BY dor_data DESC";
         $lista = array();
         $result = $this->retrieve($sql);
@@ -239,10 +239,10 @@ class DocumentoRetornoDAO extends DAO{
 
     public function isPendenciasRetornoHospital()
     {
-        $sql = "SELECT dor_visto FROM documento_retorno ORDER BY dor_visto DESC LIMIT 1";
+        $sql = "SELECT dor_visto FROM documento_retorno ORDER BY dor_visto ASC LIMIT 1";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
-        return $qr["dor_visto"];
+        return 1 - $qr["dor_visto"];
     }
 }
 ?>
