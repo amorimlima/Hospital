@@ -110,16 +110,12 @@ $sql .= "doc_arquivo = '".$documentos->getDoc_arquivo()."',";
     
     public function selectDocumentoEnviados()
     {
-        $sql  = "select doc.doc_id, doc.doc_assunto, doc.doc_descricao is not null and doc.doc_descricao <> '' as doc_descricao,  doe.*, ( ";
-        $sql .=     "select count(dor2.dor_id) > 0 from documento_envio doe2 join documento_retorno dor2 on dor2.dor_envio = doe2.doe_id ";
-        $sql .= ") > 0  as  doe_retornos, ( ";
-        $sql .=    "select count(dor3.dor_id) > 0 from documento_envio doe3 join documento_retorno dor3 on dor3.dor_envio = doe3.doe_id where doe3.doe_visto = 0 ";
-        $sql .= ") as doe_retornos_nao_vistos, (select count(doe4.doe_id) from documento_envio doe4 where doe4.doe_documento = doc.doc_id) ";
-        $sql .=    "- (select count(dor4.dor_id) from documento_retorno dor4 join documento_envio doe5 on dor4.dor_envio = doe5.doe_id where doe5.doe_documento = doc.doc_id) > 0 ";
-        $sql .= "as doe_retornos_pendentes ";
-        $sql .= "from documento doc ";
-        $sql .=    "join documento_envio doe on doe.doe_documento = doc.doc_id ";
-        $sql .= "group by doe.doe_documento order by doe.doe_data_envio desc;";
+        $sql  = "   SELECT doe_id, doe_data_envio, doe_visto, doe_retorno, doc_id, doc_assunto, doc_descricao, ";
+        $sql .= "   MAX(IF(doe_retorno = 1 AND dor_id IS NULL, 1, 0)) as retornos_pendentes, MAX(IF(doe_retorno = 1 AND dor_visto = 0, 1, 0)) as retornos_nao_vistos ";
+        $sql .= "   FROM documento_envio ";
+        $sql .= "   JOIN documento ON doe_documento = doc_id ";
+        $sql .= "   LEFT JOIN documento_retorno ON dor_envio = doe_id ";
+        $sql .= "   GROUP BY doe_documento";
         $result = $this->retrieve($sql);
         $retorno = [];
         
@@ -137,9 +133,9 @@ $sql .= "doc_arquivo = '".$documentos->getDoc_arquivo()."',";
             array_push($retorno, [
                 "documento_envio" => $doe,
                 "verificadores" => [
-                    "exige_retorno" => intval($qr["doe_retornos"]),
-                    "retornos_nao_vistos" => intval($qr["doe_retornos_nao_vistos"]),
-                    "retornos_pendentes" => intval($qr["doe_retornos_pendentes"])
+                    "exige_retorno" => intval($qr["doe_retorno"]),
+                    "retornos_nao_vistos" => intval($qr["retornos_nao_vistos"]),
+                    "retornos_pendentes" => intval($qr["retornos_pendentes"])
                 ]
             ]);
         }

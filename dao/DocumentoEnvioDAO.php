@@ -62,16 +62,16 @@ class DocumentoEnvioDAO extends DAO{
 
     function selectByIdDocumentoEnvio($iddocumentoenvio)
     {
-        $sql = "select * from documento_envio where doe_id = ". $iddocumentoenvio."limit 1 ";
+        $sql = "select * from documento_envio where doe_id = ".$iddocumentoenvio." limit 1 ";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
         $documentoenvio= new DocumentoEnvio();
         $documentoenvio->setDoe_id($qr['doe_id']);
-$documentoenvio->setDoe_documento($qr['doe_documento']);
-$documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
-$documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
-$documentoenvio->setDoe_visto($qr['doe_visto']);
-$documentoenvio->setDoe_retorno($qr['doe_retorno']);
+        $documentoenvio->setDoe_documento($qr['doe_documento']);
+        $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
+        $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
+        $documentoenvio->setDoe_visto($qr['doe_visto']);
+        $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
         return $documentoenvio;
     }
@@ -86,13 +86,13 @@ $documentoenvio->setDoe_retorno($qr['doe_retorno']);
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
-        $documentoenvio= new DocumentoEnvio();
-        $documentoenvio->setDoe_id($qr['doe_id']);
-$documentoenvio->setDoe_documento($qr['doe_documento']);
-$documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
-$documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
-$documentoenvio->setDoe_visto($qr['doe_visto']);
-$documentoenvio->setDoe_retorno($qr['doe_retorno']);
+            $documentoenvio= new DocumentoEnvio();
+            $documentoenvio->setDoe_id($qr['doe_id']);
+            $documentoenvio->setDoe_documento($qr['doe_documento']);
+            $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
+            $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
+            $documentoenvio->setDoe_visto($qr['doe_visto']);
+            $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
         array_push($lista,$documentoenvio);
         };
@@ -162,7 +162,7 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
 
     public function visualizar($idEnvio)
     {
-        $sql = "UPDATE FROM documento_envio SET doe_visto = 1 WHERE doe_id = ".$idEnvio;
+        $sql = "UPDATE documento_envio SET doe_visto = 1 WHERE doe_id = ".$idEnvio;
         return $this->executeAndReturnLastID($sql);
     }
 

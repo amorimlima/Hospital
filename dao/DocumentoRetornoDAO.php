@@ -60,7 +60,7 @@ class DocumentoRetornoDAO extends DAO{
 
     function selectByIdDocumentoRetorno($iddocumentoretorno)
     {
-        $sql = "select * from documento_retorno where dor_id = ". $iddocumentoretorno."limit 1 ";
+        $sql = "select * from documento_retorno where dor_id = ". $iddocumentoretorno." limit 1 ";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
         $documentoretorno= new DocumentoRetorno();
@@ -151,13 +151,13 @@ $documentoretorno->setDor_data($qr['dor_data']);
 
     public function visualizar($idRetorno)
     {
-        $sql = "UPDATE FROM documento_retorno SET dor_visto = 1 WHERE dor_id = ".$idEnvio;
+        $sql = "UPDATE documento_retorno SET dor_visto = 1 WHERE dor_id = ".$idRetorno;
         return $this->executeAndReturnLastID($sql);
     } 
 
     public function rejeitar($idRetorno)
     {
-        $sql = "UPDATE FROM documento_retorno SET dor_rejeitado = 1 WHERE dor_id = ".$idEnvio;
+        $sql = "UPDATE documento_retorno SET dor_rejeitado = 1 WHERE dor_id = ".$idRetorno;
         return $this->executeAndReturnLastID($sql);
     }
 

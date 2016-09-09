@@ -46,7 +46,7 @@ class DocumentoRetornoController {
     }
 
     public function selectByIdDocumentoRetorno($idDocumentoRetorno){
-        $documentoretorno = $this->documentoretornoDAO->selectByIdDocumentoRetorno($iddocumentoretorno);
+        $documentoretorno = $this->documentoretornoDAO->selectByIdDocumentoRetorno($idDocumentoRetorno);
         return  $documentoretorno;
     }
 

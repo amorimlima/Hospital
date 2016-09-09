@@ -120,19 +120,40 @@ switch ($_REQUEST['acao']) {
                 "verificadores" => $envio["verificadores"]
             ]);
         }
-
+        echo '<pre>';
         echo json_encode($retorno);
     break;
     case 'getEnvio':
 
         if(isset($_REQUEST['id'])){
-            $result = $documentoEnvioController->selectByIdDocumentoEnvio($_REQUEST['id']);
-            echo json_encode($result);
+            $envio = $documentoEnvioController->selectByIdDocumentoEnvio($_REQUEST['id']);
+            $retorno = array(
+                    "id" => intval($envio->getDoe_id()),
+                    "data_envio" => DatasFuncao::dataTimeBRExibicao($envio->getDoe_data_envio()),
+                    "visto" => $envio->getDoe_visto(),
+                    "retorno" => intval($envio->getDoe_retorno()),
+                    "documento" => $envio->getDoe_documento()
+                );
+
+            echo json_encode($retorno);
         }
 
         else{
-            $result = $documentoEnvioController->selectAllDocumentoEnvio();
-            echo json_encode($result);
+            $envios = $documentoEnvioController->selectAllDocumentoEnvio();
+            $retorno = [];
+
+            foreach ($envios as $envio) {
+                array_push($retorno, [
+                    "id" => intval($envio->getDoe_id()),
+                    "data_envio" => DatasFuncao::dataTimeBRExibicao($envio->getDoe_data_envio()),
+                    "visto" => $envio->getDoe_visto(),
+                    "retorno" => intval($envio->getDoe_retorno()),
+                    "documento" => $envio->getDoe_documento()
+                    ]
+                );
+            }
+
+            echo json_encode($retorno);
         }
 
         break;
@@ -140,13 +161,34 @@ switch ($_REQUEST['acao']) {
     case 'getRetorno':
 
         if(isset($_REQUEST['id'])){
-            $result = $documentoRetornoController->selectByIdDocumentoRetorno($_REQUEST['id']);
-            echo json_encode($result);
+            $dor = $documentoRetornoController->selectByIdDocumentoRetorno($_REQUEST['id']);
+            $retorno = array(
+                    "id" => intval($dor->getDor_id()),
+                    "documento" => intval($dor->getDor_documento()),
+                    "remetente" => intval($dor->getDor_remetente()),
+                    "envio" => intval($dor->getDor_envio()),
+                    "visto" => intval($dor->getDor_visto()),
+                    "rejeitado" => intval($dor->getDor_rejeitado())
+                );            
+            echo json_encode($retorno);
         }
 
         else{
             $result = $documentoRetornoController->selectAllDocumentoRetorno();
-            echo json_encode($result);
+            $retorno = [];
+            
+            foreach($result as $dor) {
+                array_push($retorno, [
+                    "id" => intval($dor->getDor_id()),
+                    "documento" => intval($dor->getDor_documento()),
+                    "remetente" => intval($dor->getDor_remetente()),
+                    "envio" => intval($dor->getDor_envio()),
+                    "visto" => intval($dor->getDor_visto()),
+                    "rejeitado" => intval($dor->getDor_rejeitado())
+                ]);
+            }
+            
+            echo json_encode($retorno);
         }
 
         break;
@@ -181,25 +223,38 @@ switch ($_REQUEST['acao']) {
     case 'getRetornoEscola':
 
         $result = $documentoRetornoController->listarEscola($_REQUEST['idEscola']);
-        echo json_encode($result);
+        $retorno = [];
+            
+            foreach($result as $dor) {
+                array_push($retorno, [
+                    "id" => intval($dor->getDor_id()),
+                    "documento" => intval($dor->getDor_documento()),
+                    "remetente" => intval($dor->getDor_remetente()),
+                    "envio" => intval($dor->getDor_envio()),
+                    "visto" => intval($dor->getDor_visto()),
+                    "rejeitado" => intval($dor->getDor_rejeitado())
+                ]);
+            }
+            
+            echo json_encode($retorno);
 
         break;
 
     case 'visualizarEnvio':
         $result = $documentoEnvioController->visualizar($_REQUEST['idEnvio']);
-        echo json_encode($result);
+        echo ($result);
 
         break;
 
     case 'visualizarRetorno':
         $result = $documentoRetornoController->visualizar($_REQUEST['idRetorno']);
-        echo json_encode($result);
+        echo ($result);
 
         break;
 
     case 'rejeitarRetorno':
         $result = $documentoRetornoController->rejeitar($_REQUEST['idRetorno']);
-        echo json_encode($result);
+        echo ($result);
 
         break;
 
@@ -224,7 +279,20 @@ switch ($_REQUEST['acao']) {
     case 'retornosPorDocumentoDoEnvio':
 
         $result = $documentoRetornoController->listarDocumento($_REQUEST['idDocumento']);
-        echo json_encode($result);
+        $retorno = [];
+            
+            foreach($result as $dor) {
+                array_push($retorno, [
+                    "id" => intval($dor->getDor_id()),
+                    "documento" => intval($dor->getDor_documento()),
+                    "remetente" => intval($dor->getDor_remetente()),
+                    "envio" => intval($dor_getDor_envio()),
+                    "visto" => intval($dor_getDor_visto()),
+                    "rejeitado" => intval($dor_getDor_rejeitado())
+                ]);
+            }
+            
+            echo json_encode($retorno);
 
         break;
     
