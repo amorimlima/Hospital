@@ -211,7 +211,8 @@ class DocumentoRetornoDAO extends DAO{
     public function getRetornosByEscolaAndEnvio($idesc, $iddoe) {
         $sql  = "select * from documento_retorno dor ";
         $sql .= "join documento doc on dor.dor_documento = doc.doc_id ";
-        $sql .= "where dor_envio = {$iddoe} and dor_remetente = {$idesc};";
+        $sql .= "where dor_envio = {$iddoe} and dor_remetente = {$idesc} ";
+        $sql .= "order by dor_data desc, dor_id desc;";
 
         
         $result = $this->retrieve($sql);

@@ -193,7 +193,10 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
     }
     
     public function getEnviosByDocumento($doc_id) {
-        $sql  = "select doe.*, esc.esc_id, esc.esc_nome, dor.dor_id, dor.dor_rejeitado, doc.doc_id, doc.doc_descricao is not null as doc_descricao, dor.dor_visto is not null as dor_visto ";
+        $sql  = "select distinct dor.dor_envio, doe.*, esc.esc_id, esc.esc_nome, ";
+        $sql .= "IF (dor.dor_id = (select max(dor2.dor_id) from documento_retorno dor2 where dor2.dor_envio = doe.doe_id) or dor.dor_id is null, dor.dor_id, 'antigo') as dor_id, ";
+        $sql .= "dor.dor_rejeitado, dor.dor_visto is not null as dor_visto, ";
+        $sql .= "doc.doc_id, doc.doc_descricao is not null as doc_descricao ";
         $sql .= "from documento_envio doe ";
         $sql .=	"join escola esc on doe.doe_destinatario = esc.esc_id ";
         $sql .=    "left join documento_retorno dor on doe.doe_id = dor.dor_envio ";
@@ -202,8 +205,12 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         
         $result = $this->retrieve($sql);
         $retorno = [];
-
+        
         while ($qr = mysqli_fetch_array($result)) {
+            if($qr["dor_id"] == "antigo"){
+                continue;
+            }
+            
             $doe = new DocumentoEnvio();
             $doe->setDoe_id($qr["doe_id"]);
             $doe->setDoe_data_envio($qr["doe_data_envio"]);

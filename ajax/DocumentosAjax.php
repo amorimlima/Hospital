@@ -184,7 +184,6 @@ switch ($_REQUEST['acao']) {
                 "retorno_rejeitado" => intval($doe["verificadores"]["retorno_rejeitado"])
             ]);
         }
-
         echo json_encode($retorno);
 
         break;

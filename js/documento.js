@@ -497,6 +497,7 @@ function viewDocumentosEnviados() {
 
 function viewDocumentosRecebidos() {
   envioDocs.getDocumentosRecebidos(function(data) {
+    console.log(data);
     var html = "";
     if (data.length > 0) {
       for (var i in data) {
@@ -608,7 +609,7 @@ function verEnvioRecebido(id) {
           $("#btnNovoRetorno").removeAttr("disabled");
 
         for (var i in retornos) {
-          html += '<div class="envio-doc" onclick="viewRetorno(' + retornos[i].id + ')">';
+          html += '<div class="envio-doc clickable" onclick="viewRetorno(' + retornos[i].id + ')">';
           html +=  '<div class="envio-doc-header">';
           html +=    '<span class="envio-doc-title">';
           html +=        retornos[i].documento.assunto;
