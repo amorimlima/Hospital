@@ -88,18 +88,6 @@ switch ($_REQUEST['acao']) {
 
         break;
 
-    // case 'getDocumento':
-
-    //     if(isset($_REQUEST['id']))
-    //         $result = $documentoController->listarkey($_REQUEST['id']);
-    //         echo json_encode($result);
-
-    //     else
-    //         $result = $documentoController->listarTodos();
-    //         echo json_encode($result);
-
-    //     break;
-
     case "getDocumentosEnviados":
         $envios = $documentosController->selectDocumentosEnviados();
         $retorno = [];
@@ -123,6 +111,7 @@ switch ($_REQUEST['acao']) {
 
         echo json_encode($retorno);
     break;
+
     case 'getEnvio':
 
         if(isset($_REQUEST['id'])){
@@ -150,7 +139,10 @@ switch ($_REQUEST['acao']) {
                     "descricao" => utf8_encode($result->getDor_documento()->getDoc_descricao()),
                     "arquivo" => $result->getDor_documento()->getDoc_arquivo()
                 ],
-                "remetente" => intval($result->getDor_remetente()),
+                "remetente" => [
+                    "id" => intval($result->getDor_remetente()->getEsc_id()),
+                    "nome" => utf8_encode($result->getDor_remetente()->getEsc_nome())
+                ],
                 "envio" => [
                     "id" => intval($result->getDor_envio()->getDoe_id()),
                     "documento" => intval($result->getDor_envio()->getDoe_documento())

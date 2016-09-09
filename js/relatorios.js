@@ -143,6 +143,32 @@ var envioDocs = {
         callback(data);
       }
     });
+  },
+  setEnvioVisto: function(idenvio) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "POST",
+      data: "acao=visualizarEnvio&idEnvio=" + idenvio,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage)
+      },
+      success: function(data) {
+        console.log(parseInt(data));
+      }
+    });
+  },
+  setRetornoVisto: function(idretorno) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "POST",
+      data: "acao=visualizarRetorno&idRetorno=" + idretorno,
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage)
+      },
+      success: function(data) {
+        console.log(parseInt(data));
+      }
+    });
   }
 }
 
@@ -820,17 +846,16 @@ function atribuirEventosModal() {
       closeUserInfoModal();
     });
 
-    // Fecha os modais ao clicar no bg.
-    $(".modal-generic").each(function(i) {
-      $(".modal-generic").eq(i).parent().click(function(evt) {
-        closeEnvioDocModal();
-        closeFormNovoEnvioDocModal();
-      });
+    $("#envioDocModalBg").click(function(evt) {
+      closeEnvioDocModal();
     });
 
-    // Evitar fechar o modal ao clicar nele.
-    $(".modal-generic").click(function(evt) {
-        evt.stopPropagation();
+    $("#userInfoModal").click(function(evt) {
+      evt.stopPropagation();
+    });
+
+    $("#envioDocModal").click(function(evt) {
+      evt.stopPropagation();
     });
 }
 
@@ -913,7 +938,7 @@ function showModalNovoEnvioDoc() {
 function closeEnvioDocModal() {
     $("#envioDocModal").animate({top: "-5%"}, 400);
     $("#envioDocModal").parent().fadeOut(400, function() {
-        sairRetornoEnvioDoc();
+      $("#envioDocModal").html("<p class='text-center'>Carregando...</p>");
     });
 }
 
@@ -929,39 +954,7 @@ function getEscolas(callback) {
   });
 }
 
-function viewRetornoEnvioDoc() {
-  var html =
-  '<div class="envio-doc-modal-content">'+
-    '<div class="envio-doc-modal-header">'+
-      '<h2>Retorno de documento</h2>'+
-    '</div>'+
-    '<div class="envio-doc-modal-body">'+
-      '<h3 name="assunto_documento">Re: Assunto do documento</h3>'+
-      '<h6>Respondido em <span name="data_envio">00/00/0000</span> às <span name="horario_envio">00:00</span></h6>'+
-      '<h6>Escola: <span name="nome_escola">Nome do destinatário</span></h6>'+
-      '<h5>Comentário</h5>'+
-      '<p name="descricao_documento">'+
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec diam enim, pellentesque eu tortor vitae, ultrices aliquet enim. Aenean molestie diam velit, eget imperdiet justo viverra at. Sed nec tempor dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras auctor molestie sodales. Fusce vestibulum elit magna, a luctus dui porta vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et sed.'+
-      '</p>'+
-      '<p name="download_documento">'+
-        '<span class="glyphicon glyphicon-download-alt"></span>'+
-        '<a href="#">Download do documento</a>'+
-      '</p>'+
-      '<p name="voltar">'+
-        '<span class="glyphicon glyphicon-arrow-left"></span>'+
-        '<span class="link" onclick="sairRetornoEnvioDoc()">Voltar</span>'+
-      '</p>'+
-    '</div>'+
-  '</div>';
 
-  $("#envioDocModal .envio-doc-modal-content").eq(1).hide();
-  $("#envioDocModal").append(html);
-}
-
-function sairRetornoEnvioDoc() {
-  $("#envioDocModal .envio-doc-modal-content").eq(2).remove();
-  $("#envioDocModal .envio-doc-modal-content").eq(0).show();
-}
 
 function filtrarPanelList(input) {
   var lista = $("#"+input).next().find(".envio-doc");
@@ -1091,7 +1084,7 @@ function viewListaSelectDestinatarios(escolas) {
 function closeFormNovoEnvioDocModal() {
     $("#formEnvioDocModal").animate({top: "-5%"}, 400);
     $("#formEnvioDocModal").parent().fadeOut(400, function() {
-        // sairRetornoEnvioDoc();
+        
     });
 }
 
@@ -1172,7 +1165,7 @@ function viewDocumentosEnviados() {
     var html = "";
     if (data.length > 0) {
       for (var i in data) {
-        html += '<div class="envio-doc" onclick="viewEnvioDocumento(\''+data[i].documento_envio.documento.id+'\')">';
+        html += '<div class="envio-doc clickable" onclick="viewEnvioDocumento(\''+data[i].documento_envio.documento.id+'\')">';
         html +=  '<div class="envio-doc-header">';
         html +=    '<span class="envio-doc-title">';
 
@@ -1230,7 +1223,7 @@ function viewDocumentosRecebidos() {
     var html = "";
     if (data.length > 0) {
       for (var i in data) {
-        html += '<div class="envio-doc" onclick="verEnvioRecebido(' + data[i].documento.id + ')">';
+        html += '<div class="envio-doc clickable" onclick="verEnvioRecebido(' + data[i].documento.id + ')">';
         html +=  '<div class="envio-doc-header">';
         html +=    '<span class="envio-doc-title">';
 
@@ -1292,6 +1285,7 @@ function viewDocumentosRecebidos() {
 function verEnvioRecebido(id) {
   showModalEnvioDoc();
   envioDocs.getEnvioByDocumento(id, function(doe) {
+    envioDocs.setEnvioVisto(doe.id);
     var html = "";
 
     html += '<div class="envio-doc-modal-content">';
@@ -1314,7 +1308,7 @@ function verEnvioRecebido(id) {
       html +=     '<div class="envio-doc-panel">';
       html +=       '<h4>Retornos</h4>';
       html +=       '<div id="retornosEnvioDoc" class="envio-doc-lista">';
-      html +=         '<div class="alert alert-warning">Carregando destinatários...</div>';
+      html +=         '<div class="alert alert-warning">Carregando retornos...</div>';
       html +=       '</div>';
       html +=     '</div>';
     }
@@ -1408,7 +1402,7 @@ function viewEnvioDocumento(id) {
     html +=     '</p>';
     html +=     '<p name="download_documento">';
     html +=       '<span class="glyphicon glyphicon-download-alt"></span>';
-    html +=       '<a href="'+doe.documento.arquivo+'">Download do documento</a>';
+    html +=       '<a href="'+doe.documento.arquivo+'" target="_blank">Download do documento</a>';
     html +=     '</p>';
     html +=     '<div class="envio-doc-panel">';
     html +=       '<h4>Destinatários</h4>';
@@ -1426,9 +1420,8 @@ function viewEnvioDocumento(id) {
       var html = "";
 
       for (var i = 0; i < envios.length; i++) {
-        console.log(envios[i].retorno);
-        if (envios[i].retorno)
-          html += '<div class="envio-doc" onclick="getRetornoEnvioDoc(' + envios[i].retorno.id + ')">';
+        if (envios[i].retorno.id !== undefined)
+          html += '<div class="envio-doc clickable" onclick="viewRetornoRecebido(' + envios[i].retorno.id + ')">';
         else
           html += '<div class="envio-doc">';
 
@@ -1529,7 +1522,7 @@ function showFormNovoRetorno(idenvio) {
   html+=           '</span>';
   html+=         '</div>';
   html+=         '<div class="formbtns">';
-  html+=           '<button id="submitNovoDocEnvio" type="button" class="btn btn-primary" onclick="validarFormNovoRetorno()">Enviar</button>';
+  html+=           '<button id="submitNovoDocEnvio" type="button" class="btn btn-primary" onclick="validarFormNovoRetorno()" disabled="disabled" >Enviar</button>';
   html+=         '</div>';
   html+=       '</fieldset>';
   html+=     '</form>';
@@ -1552,12 +1545,15 @@ function showFormNovoRetorno(idenvio) {
   $("#envioDocModal").html(html);
 
   envioDocs.getDocumentoByEnvio(idenvio, function(doc) {
+    $("#submitNovoDocEnvio").removeAttr("disabled");
     $("#docAssunto").val("RE: " + doc.assunto);
   });
 }
 
 function validarFormNovoRetorno() {
   var valido = true;
+  $("#submitNovoDocEnvio").attr("disabled", "disabled");
+  $("#submitNovoDocEnvio").text("Aguarde...");
 
   // Verifica se o arquivo está vazio
   if ($("#docArquivo")[0].files.length == 0) {
@@ -1565,7 +1561,7 @@ function validarFormNovoRetorno() {
     valido = false;
   } else {
     $("#docArquivo").parent().parent().removeClass("input_faltando");
-  } 
+  }
 
   if (valido) {
     var form = document.getElementById("docForm");
@@ -1582,7 +1578,8 @@ function validarFormNovoRetorno() {
       $("#retornoDocForm").find("input[name='documento']").val(parseInt(doc));
 
       envioDocs.postRetorno($("#retornoDocForm").serialize(), function(dor) {
-        console.log(dor);
+        viewRetorno(parseInt(dor));
+        viewDocumentosRecebidos();
       });
     });
   }
@@ -1601,17 +1598,17 @@ function viewRetorno(id) {
     html +=   '<div class="envio-doc-modal-body">';
     html +=     '<h3 name="assunto_documento">' + dor.documento.assunto + '</h3>';
     html +=     '<h6>Enviado em <span name="data_envio">' + dor.data + '</span></h6>';
-    html +=     '<h5>Descrição</h5>';
+    html +=     '<h5>Comentário</h5>';
     html +=     '<p name="descricao_documento">';
     html +=       dor.documento.descricao;
     html +=     '</p>';
     html +=     '<p name="download_documento">';
     html +=       '<span class="glyphicon glyphicon-download-alt"></span>';
-    html +=       '<a href="'+dor.documento.arquivo+'">Download do documento</a>';
+    html +=       '<a href="' + dor.documento.arquivo + '" target="_blank">Download do documento</a>';
     html +=     '</p>';
     html +=     '<p>';
     html +=       '<span class="glyphicon glyphicon-arrow-left"></span>';
-    html +=       '<span class="link" onclick="verEnvioRecebido(' + dor.envio.documento + ')">Voltar</span>';
+    html +=       '<span class="link" onclick="verEnvioRecebido(' + dor.envio.id + ')">Voltar</span>';
     html +=     '</p>';
     html +=   '</div>';
     html += '</div>';
@@ -1623,7 +1620,7 @@ function viewRetorno(id) {
 function getRetornoEnvioDoc(id) {
   $("#envioDocModal").html("Carregando...");
 
-  envioDocs.getEnvioByDocumento(id, function(dor) {
+  envioDocs.getRetorno(id, function(dor) {
     var html = "";
 
     html += '<div class="envio-doc-modal-content">';
@@ -1633,7 +1630,7 @@ function getRetornoEnvioDoc(id) {
     html +=   '<div class="envio-doc-modal-body">';
     html +=     '<h3 name="assunto_documento">' + dor.documento.assunto + '</h3>';
     html +=     '<h6>Enviado em <span name="data_envio">' + dor.data + '</span></h6>';
-    html +=     '<h5>Descrição</h5>';
+    html +=     '<h5>Comentário</h5>';
     html +=     '<p name="descricao_documento">';
     html +=       dor.documento.descricao;
     html +=     '</p>';
@@ -1643,7 +1640,40 @@ function getRetornoEnvioDoc(id) {
     html +=     '</p>';
     html +=     '<p>';
     html +=       '<span class="glyphicon glyphicon-arrow-left"></span>';
-    html +=       '<span class="link" onclick="verEnvioRecebido()">Voltar</span>';
+    html +=       '<span class="link" onclick="viewEnvioDocumento(\'' + dor.envio.documento + '\')">Voltar</span>';
+    html +=     '</p>';
+    html +=   '</div>';
+    html += '</div>';
+
+    $("#envioDocModal").html(html);
+  });
+}
+
+function viewRetornoRecebido(id) {
+  $("#envioDocModal").html("Carregando...");
+
+  envioDocs.getRetorno(id, function(dor) {
+    envioDocs.setRetornoVisto(dor.id);
+    var html = "";
+
+    html += '<div class="envio-doc-modal-content">';
+    html +=   '<div class="envio-doc-modal-header">';
+    html +=     '<h2>Retorno recebido</h2>';
+    html +=   '</div>';
+    html +=   '<div class="envio-doc-modal-body">';
+    html +=     '<h3 name="assunto_documento">' + dor.documento.assunto + '</h3>';
+    html +=     '<h6>Recebido em <span name="data_envio">' + dor.data + '</span> de <span> ' + dor.remetente.nome + ' </span></h6>';
+    html +=     '<h5>Comentário</h5>';
+    html +=     '<p name="descricao_documento">';
+    html +=       dor.documento.descricao;
+    html +=     '</p>';
+    html +=     '<p name="download_documento">';
+    html +=       '<span class="glyphicon glyphicon-download-alt"></span>';
+    html +=       '<a href="' + dor.documento.arquivo + '" target="_blank">Download do documento</a>';
+    html +=     '</p>';
+    html +=     '<p>';
+    html +=       '<span class="glyphicon glyphicon-arrow-left"></span>';
+    html +=       '<span class="link" onclick="viewEnvioDocumento(' + dor.envio.documento + ')">Voltar</span>';
     html +=     '</p>';
     html +=   '</div>';
     html += '</div>';

@@ -163,8 +163,12 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
 
     public function visualizar($idEnvio)
     {
-        $sql = "UPDATE FROM documento_envio SET doe_visto = 1 WHERE doe_id = ".$idEnvio;
-        return $this->executeAndReturnLastID($sql);
+        $sql = "UPDATE documento_envio SET doe_visto = 1 WHERE doe_id = ".$idEnvio;
+
+        if ($this->execute($sql))
+            return 1;
+        else
+            return 0;
     }
 
     public function listarDocumento($idDocumento)

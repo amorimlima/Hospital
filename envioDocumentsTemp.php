@@ -50,6 +50,8 @@ h4 {
   width: 75%;
   font-size: 16px;
   line-height: 1.2em;
+}
+.clickable {
   cursor: pointer;
 }
 .envio-doc-date {

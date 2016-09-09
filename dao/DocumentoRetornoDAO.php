@@ -63,6 +63,7 @@ class DocumentoRetornoDAO extends DAO{
         $sql  = "select * from documento_retorno dor "; 
         $sql .= "join documento doc on dor.dor_documento = doc.doc_id ";
         $sql .= "join documento_envio doe on dor.dor_envio = doe.doe_id ";
+        $sql .= "join escola esc on dor.dor_remetente = esc.esc_id ";
         $sql .= "where dor.dor_id = ". $iddocumentoretorno." limit 1 ";
 
         $result = $this->retrieve($sql);
@@ -74,7 +75,11 @@ class DocumentoRetornoDAO extends DAO{
         $documentoretorno->getDor_documento()->setDoc_assunto($qr["doc_assunto"]);
         $documentoretorno->getDor_documento()->setDoc_descricao($qr["doc_descricao"]);
         $documentoretorno->getDor_documento()->setDoc_arquivo($qr["doc_arquivo"]);
-        $documentoretorno->setDor_remetente($qr['dor_remetente']);
+        
+        $documentoretorno->setDor_remetente(new Escola());
+        $documentoretorno->getDor_remetente()->setEsc_id($qr["esc_id"]);
+        $documentoretorno->getDor_remetente()->setEsc_nome($qr["esc_nome"]);
+        
         $documentoretorno->setDor_envio(new DocumentoEnvio());
         $documentoretorno->getDor_envio()->setDoe_id($qr["doe_id"]);
         $documentoretorno->getDor_envio()->setDoe_documento($qr["doe_documento"]);
@@ -162,8 +167,11 @@ class DocumentoRetornoDAO extends DAO{
 
     public function visualizar($idRetorno)
     {
-        $sql = "UPDATE FROM documento_retorno SET dor_visto = 1 WHERE dor_id = ".$idEnvio;
-        return $this->executeAndReturnLastID($sql);
+        $sql = "UPDATE documento_retorno SET dor_visto = 1 WHERE dor_id = ".$idRetorno;
+        if ($this->execute($sql))
+            return 1;
+        else
+            return 0;
     } 
 
     public function rejeitar($idRetorno)
