@@ -108,7 +108,6 @@ switch ($_REQUEST['acao']) {
                 "verificadores" => $envio["verificadores"]
             ]);
         }
-        echo '<pre>';
         echo json_encode($retorno);
     break;
 

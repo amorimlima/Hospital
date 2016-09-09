@@ -8,7 +8,7 @@
 </div>
 <div id="envioDocumentosActions">
   <div class="envio-doc-btns text-right">
-    <button type="button" class="btn" onclick="">Finalizar</button>
+    <button type="button" class="btn" onclick="sairTelaEnvioDocumentos()">Finalizar</button>
     <?php if ($logado["perfil_id"] == 3) { ?>
       <button type="button" class="btn btn-primary" onclick="viewFormNovoEnvioDocumento()">Novo envio</button>
     <?php } ?>

@@ -72,6 +72,20 @@ var envioDocs = {
       }
     });
   },
+  getEnvio: function(id, callback) {
+    $.ajax({
+      url: envioDocs.url,
+      type: "GET",
+      data: "acao=getEnvio&idEnvio=" + id,
+      dataType: "json",
+      error: function(e) {
+        console.log(e.errorThrown + " // " + e.txtMessage);
+      },
+      success: function(data) {
+        callback(data);
+      }
+    })
+  },
   getEnvioByDocumento: function(iddocumento, callback) {
     $.ajax({
       url: envioDocs.url,
@@ -949,10 +963,18 @@ function viewRetornoRecebido(id) {
     html +=       '<span class="glyphicon glyphicon-download-alt"></span>';
     html +=       '<a href="' + dor.documento.arquivo + '" target="_blank">Download do documento</a>';
     html +=     '</p>';
-    html +=     '<p>';
-    html +=       '<span class="glyphicon glyphicon-remove-circle text-danger"></span>';
-    html +=       '<span class="link text-danger" onclick="rejeitarRetorno(this, ' + dor.id + ', ' + dor.envio.id + ')">Rejeitar retorno</span>'
-    html +=     '</p>';
+
+    if (!dor.rejeitado) {
+      html +=     '<p>';
+      html +=       '<span class="glyphicon glyphicon-remove-circle text-danger"></span>';
+      html +=       '<span class="link text-danger" onclick="rejeitarRetorno(this, ' + dor.id + ', ' + dor.envio.id + ')">Rejeitar retorno</span>'
+      html +=     '</p>';
+    } else {
+      html +=     '<p>';
+      html +=       '<span class="glyphicon glyphicon-remove-circle text-danger"></span>';
+      html +=       '<span class="text-danger"><em>Rejeitado</em></span>';
+      html +=     '</p>';
+    }
     html +=     '<p>';
     html +=       '<span class="glyphicon glyphicon-arrow-left"></span>';
     html +=       '<span class="link" onclick="viewEnvioDocumento(' + dor.envio.documento + ')">Voltar</span>';

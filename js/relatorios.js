@@ -745,3 +745,19 @@ function updateLegendaGrafico(grafico) {
     $(legenda).html(html);
 }
 
+/**
+ * Mostra a tela de envio de documentos e esconde todas as outras.
+ */
+function viewTelaEnvioDocumentos() {
+    $("#envioDocumentosContainer").show();
+    $("#envioDocumentosContainer").siblings().hide();
+}
+
+/**
+ * Esconde a tela de envio de documntos e exibe os gráficos de relatório.
+ */
+function sairTelaEnvioDocumentos() {
+    $("#envioDocumentosContainer").hide();
+    $("#conteudoPrincipal").show();
+}
+

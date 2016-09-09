@@ -71,7 +71,7 @@ $logado = unserialize($_SESSION['USR']);
                             <div class="row">
                                 <div class="col-sm-12 col-md-9">
                                     <span class="header"></span>
-                                    <div id="conteudoPrincipal" class="conteudo_principal" style="display: none">
+                                    <div id="conteudoPrincipal" class="conteudo_principal" style="display: block">
                                         <div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
                                         <div class="tipo_grafico_picker_opcoes">
                                             <div id="graficoGaleria" class="option_selected opcoes_graficos" data-grafico="1">Acessos e Downloads na Galeria (em %)</div>
@@ -120,7 +120,7 @@ $logado = unserialize($_SESSION['USR']);
                                     <div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
                                     </div>
                                     <?php if($logado["perfil_id"] == 3 || $logado["perfil_id"] == 4) { ?>
-                                    <div id="envioDocumentosContainer" class="envio_documentos_container" style="display:block">
+                                    <div id="envioDocumentosContainer" class="envio_documentos_container" style="display:none">
                                       <?php include_once("envioDocumentsTemp.php"); ?>
                                     </div>
                                     <?php } ?>
@@ -191,6 +191,15 @@ $logado = unserialize($_SESSION['USR']);
                                                 $templateRelatorio->printCountUsuariosPorPerfil();
                                             }
                                             ?>
+
+                                            <p id="linkDocumentos" class="link" onclick="viewTelaEnvioDocumentos()">
+                                            <?php
+                                            if ($logado["perfil_id"] == 3)
+                                                echo "Documentos enviados";
+                                            elseif ($logado["perfil_id"] == 4)
+                                                echo "Documentos recebidos";
+                                            ?>
+                                            </p>
                                         </div>
                                         <div class="legenda_grafico">
                                             <h2>Legenda</h2>
