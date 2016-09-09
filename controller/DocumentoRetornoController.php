@@ -59,6 +59,11 @@ class DocumentoRetornoController {
     {
         return $this->documentoretornoDAO->insertParcial($documentoRetorno);
     }
+    
+    public function rejeitar($idRetorno)
+    {
+        return $this->documentoretornoDAO->rejeitar($idRetorno);
+    }
 
     public function listarEscola($idEscola)
     {

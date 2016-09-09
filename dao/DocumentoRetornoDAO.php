@@ -176,8 +176,12 @@ class DocumentoRetornoDAO extends DAO{
 
     public function rejeitar($idRetorno)
     {
-        $sql = "UPDATE FROM documento_retorno SET dor_rejeitado = 1 WHERE dor_id = ".$idEnvio;
-        return $this->executeAndReturnLastID($sql);
+        $sql = "UPDATE documento_retorno SET dor_rejeitado = 1 WHERE dor_id = ".$idRetorno;
+        
+        if ($this->execute($sql))
+            return 1;
+        else
+            return 0;
     }
 
     public function listarDocumento($idDocumento)

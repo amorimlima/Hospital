@@ -68,7 +68,7 @@ switch ($_REQUEST['acao']) {
             $documentoEnvio->setDoe_destinatario($destinatario[$i]);
             $documentoEnvio->setDoe_retorno($retorno);
 
-            $documentosEnvioController->insertParcial($documentoEnvio);
+            $documentoEnvioController->insertParcial($documentoEnvio);
         }
         echo 1;
 

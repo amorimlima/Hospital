@@ -555,6 +555,10 @@ br + .user-info-label:not(:first-of-type) {
     text-align: right;
 }
 
+.click-desativado {
+	pointer-events: none;
+}
+
 /* Count de usuários cadastrados */
 #countUsrByPerfil {
     margin-top: 25px;

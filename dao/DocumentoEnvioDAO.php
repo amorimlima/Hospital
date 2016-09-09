@@ -43,6 +43,7 @@ class DocumentoEnvioDAO extends DAO{
     {
         $sql =  "insert into documento_envio ( doe_documento,doe_destinatario,doe_data_envio,doe_visto,doe_retorno )values";
         $sql .= "( '".$documentoenvio->getDoe_documento()."','".$documentoenvio->getDoe_destinatario()."','".$documentoenvio->getDoe_data_envio()."','".$documentoenvio->getDoe_visto()."','".$documentoenvio->getDoe_retorno()."')";
+        echo $sql;
         return $this->executeAndReturnLastID($sql);
     }
 
@@ -192,7 +193,7 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
     }
     
     public function getEnviosByDocumento($doc_id) {
-        $sql  = "select doe.*, esc.esc_id, esc.esc_nome, dor.dor_id, dor.dor_rejeitado, doc.doc_id, doc.doc_descricao is null as doc_descricao, dor.dor_visto ";
+        $sql  = "select doe.*, esc.esc_id, esc.esc_nome, dor.dor_id, dor.dor_rejeitado, doc.doc_id, doc.doc_descricao is not null as doc_descricao, dor.dor_visto is not null as dor_visto ";
         $sql .= "from documento_envio doe ";
         $sql .=	"join escola esc on doe.doe_destinatario = esc.esc_id ";
         $sql .=    "left join documento_retorno dor on doe.doe_id = dor.dor_envio ";
