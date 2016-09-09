@@ -65,7 +65,6 @@ class DocumentoRetornoDAO extends DAO{
         $sql .= "join documento_envio doe on dor.dor_envio = doe.doe_id ";
         $sql .= "join escola esc on dor.dor_remetente = esc.esc_id ";
         $sql .= "where dor.dor_id = ". $iddocumentoretorno." limit 1 ";
-
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
         $documentoretorno= new DocumentoRetorno();

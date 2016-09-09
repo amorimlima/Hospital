@@ -88,13 +88,13 @@ class DocumentoEnvioDAO extends DAO{
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
-        $documentoenvio= new DocumentoEnvio();
-        $documentoenvio->setDoe_id($qr['doe_id']);
-$documentoenvio->setDoe_documento($qr['doe_documento']);
-$documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
-$documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
-$documentoenvio->setDoe_visto($qr['doe_visto']);
-$documentoenvio->setDoe_retorno($qr['doe_retorno']);
+            $documentoenvio= new DocumentoEnvio();
+            $documentoenvio->setDoe_id($qr['doe_id']);
+            $documentoenvio->setDoe_documento($qr['doe_documento']);
+            $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
+            $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
+            $documentoenvio->setDoe_visto($qr['doe_visto']);
+            $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
         array_push($lista,$documentoenvio);
         };
