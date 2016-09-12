@@ -30,4 +30,16 @@ class DocumentoDestinatarioController {
     public function get($dod_id) {
         return $this->documentoDestinatarioDAO->get($dod_id);
     }
+    
+    public function getAll() {
+        return $this->documentoDestinatarioDAO->getAll();
+    }
+    
+    public function getAllByEnvio($doe_id) {
+        return $this->documentoDestinatarioDAO->getAllByEnvio($doe_id);
+    }
+    
+    public function checkPendenciasOf($dod_id) {
+        return $this->documentoDestinatarioDAO->checkPendenciasOf($dod_id);
+    }
 }

@@ -25,7 +25,8 @@ include_once($path["beans"]."DocumentoRetorno.php");
 /**
  * Description of DocumentoEnvioDAO
  *
- * @author MURANO DESIGN
+ * @author Diego Garcia
+ * @author Lucas Tavares
  */
 
 class DocumentoEnvioDAO extends DAO{
@@ -91,12 +92,10 @@ class DocumentoEnvioDAO extends DAO{
             $documentoenvio= new DocumentoEnvio();
             $documentoenvio->setDoe_id($qr['doe_id']);
             $documentoenvio->setDoe_documento($qr['doe_documento']);
-            $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
             $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
-            $documentoenvio->setDoe_visto($qr['doe_visto']);
             $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
-        array_push($lista,$documentoenvio);
+            array_push($lista,$documentoenvio);
         };
         return $lista;
     }
@@ -261,6 +260,15 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
         return $qr["pendencia"]; 
+    }
+    
+    public function checkPendenciasOf($doe_id) {
+        $sql  = "select if (";
+        $sql .=    "(select count(dod_id) from documento_destinatario ";
+        $sql .=     "where dod_envio = {$doe_id} and dod_visto = 1) = 0, 1, 0) as pendencias ";
+        $sql .= "from documento_envio;";
+        
+        return mysqli_fetch_assoc($this->retrieve($sql))["pendencias"];
     }
 }
 ?>

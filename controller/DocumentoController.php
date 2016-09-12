@@ -65,5 +65,9 @@ class DocumentoController {
     public function selectDocumentoByEnvio($idenvio) {
         return $this->documentosDAO->selectDocumentoByEnvio($idenvio);
     }
+    
+    public function getEnviados() {
+        return $this->documentosDAO->getEnviados();
+    }
 }
 ?>

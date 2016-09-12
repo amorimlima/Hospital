@@ -39,9 +39,11 @@ class DocumentoRetornoDAO extends DAO{
 
     public function insertDocumentoRetorno($documentoretorno)
     {
-        $sql =  "insert into documento_retorno ( dor_documento,dor_remetente,dor_envio,dor_visto,dor_rejeitado,dor_data )values";
-        $sql .= "( '".$documentoretorno->getDor_documento()."','".$documentoretorno->getDor_remetente()."','".$documentoretorno->getDor_envio()."','".$documentoretorno->getDor_visto()."','".$documentoretorno->getDor_rejeitado()."','".$documentoretorno->getDor_data()."')";
-        return $this->execute($sql);
+        $sql  = "insert into documento_retorno (dor_documento, dor_destinatario, dor_data) ";
+        $sql .= "values ('{$documentoretorno->getDor_documento()}', ";
+        $sql .= "'{$documentoretorno->getDor_destinatario()}', ";
+        $sql .= "CURDATE());";
+        return $this->executeAndReturnLastID($sql);
     }
 
     // **********************
@@ -242,7 +244,7 @@ class DocumentoRetornoDAO extends DAO{
         $sql = "SELECT dor_visto FROM documento_retorno ORDER BY dor_visto ASC LIMIT 1";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
-        return 1 - $qr["dor_visto"];
+        return 1 - intval($qr["dor_visto"]);
     }
 }
 ?>

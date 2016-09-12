@@ -22,8 +22,8 @@ class DocumentoDestinatarioDAO extends DAO {
     }
     
     public function insert($dod) {
-        $sql = "insert into documento_destinatario (dod_envio, dod_destinatario) ";
-        $sql = "values ('{$dod->getDod_envio()}', '{$dod->getDod_destinatario()}');";
+        $sql  = "insert into documento_destinatario (dod_envio, dod_destinatario) ";
+        $sql .= "values ('{$dod->getDod_envio()}', '{$dod->getDod_destinatario()}');";
         
         return $this->executeAndReturnLastID($sql);
     }
@@ -40,7 +40,8 @@ class DocumentoDestinatarioDAO extends DAO {
     public function update($dod) {
         $sql  = "update documento_destinatario set ";
         $sql .= "dod_envio = {$dod->getDod_envio()}, ";
-        $sql .= "dod_destinatario = {$dod->getDod_destinatario()} ";
+        $sql .= "dod_destinatario = {$dod->getDod_destinatario()}, ";
+        $sql .= "dod_visto = {$dod->getDod_visto()} ";
         $sql .= "where dod_id = {$dod->getDod_id()};";
         
         if ($this->execute($sql))
@@ -55,11 +56,12 @@ class DocumentoDestinatarioDAO extends DAO {
         $result = $this->retrieve($sql);
         $retorno = 0;
         
-        if ($qr = mysqli_fetch_array($result)) {
+        if ($qr = mysqli_fetch_assoc($result)) {
             $retorno = new DocumentoDestinatario();
             $retorno->setDod_id($qr["dod_id"]);
             $retorno->setDod_envio($qr["dod_envio"]);
             $retorno->setDod_destinatario($qr["dod_destinatario"]);
+            $retorno->setDod_visto($qr["dod_visto"]);
         } else {
             $retorno = 0;
         }
@@ -72,11 +74,12 @@ class DocumentoDestinatarioDAO extends DAO {
         $retorno = [];
         
         if ($result = $this->retrieve($sql)) {
-            while ($qr = mysqli_fetch_array($result)) {
+            while ($qr = mysqli_fetch_assoc($result)) {
                 $dod = new DocumentoDestinatario();
                 $dod->setDod_id($qr["dod_id"]);
                 $dod->setDod_envio($qr["dod_envio"]);
                 $dod->setDod_destinatario($qr["dod_destinatario"]);
+                $dod->setDod_visto($qr["dod_visto"]);
 
                 array_push($retorno, $dod);
             }
@@ -92,11 +95,12 @@ class DocumentoDestinatarioDAO extends DAO {
         $retorno = [];
         
         if ($result = $this->retrieve($sql)) {
-            while ($qr = mysqli_fetch_array($result)) {
+            while ($qr = mysqli_fetch_assoc($result)) {
                 $dod = new DocumentoDestinatario();
                 $dod->setDod_id($qr["dod_id"]);
                 $dod->setDod_envio($qr["dod_envio"]);
                 $dod->setDod_destinatario($qr["dod_destinatario"]);
+                $dod->setDod_visto($qr["dod_visto"]);
                 
                 array_push($retorno, $dod);
             }
@@ -107,13 +111,15 @@ class DocumentoDestinatarioDAO extends DAO {
         return $retorno;
     }
     
-    public function checkPendenciasById($dod_id) {
-        $sql  = "select if ((select count(dor_id) from documento_retorno ";
-        $sql .=     "where dor_destinatario = ${$dod_id}) > 0, 1, 0) as pendencia ";
+    public function checkPendenciasOf($dod_id) {
+        $sql  = "select if (";
+        $sql .=     "(select count(dor_id) from documento_retorno ";
+        $sql .=     "where dor_destinatario = {$dod_id} and dor_rejeitado = 0) > 0, ";
+        $sql .= "0, 1) as pendencia ";
         $sql .= "from documento_destinatario;";
         
         $result = mysqli_fetch_assoc($this->retrieve($sql));
         
         return intval($result["pendencia"]);
-    }          
+    }
 }

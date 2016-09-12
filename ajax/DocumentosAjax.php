@@ -4,23 +4,24 @@ require_once /* $_SESSION['BASE_URL'] */'../_loadPaths.inc.php';
 
 $path = $_SESSION['PATH_SYS'];
 
+include_once($path['controller'] . 'EscolaController.php');
 include_once($path['controller'] . 'DocumentoController.php');
 include_once($path['controller'] . 'DocumentoEnvioController.php');
 include_once($path['controller'] . 'DocumentoRetornoController.php');
-include_once($path['beans'] . 'Documento.php');
-include_once($path['beans'] . 'DocumentoEnvio.php');
-include_once($path['beans'] . 'DocumentoRetorno.php');
+include_once($path['controller'] . 'DocumentoDestinatarioController.php');
 include_once($path['funcao'] . 'DatasFuncao.php');
 
+$escolaController = new EscolaController();
 $documentosController = new DocumentoController();
 $documentoEnvioController = new DocumentoEnvioController();
 $documentoRetornoController = new DocumentoRetornoController();
+$documentoDestinatarioController = new DocumentoDestinatarioController();
 
 $maxSize = 30000000; //Tamanho máximo de arquivo 30Mb
 
 switch ($_REQUEST['acao']) {
-	case 'postDocumento':
-		$assunto = $_REQUEST['assunto'];
+    case 'postDocumento':
+	$assunto = $_REQUEST['assunto'];
         $descricao = $_REQUEST['descricao'];
 
         $_SESSION["cadastro"] = "";
@@ -54,10 +55,10 @@ switch ($_REQUEST['acao']) {
 
 		break;
 	
-	case 'postEnvio':
-		$documento    = $_REQUEST['documento'];
-		$destinatario = $_REQUEST['destinatario'];
-		$retorno      = $_REQUEST['retorno'];
+    case 'postEnvio':
+        $documento    = $_REQUEST['documento'];
+        $destinatario = $_REQUEST['destinatario'];
+        $retorno      = $_REQUEST['retorno'];
         $feedback     = ["envios" => []];
 
         $destinatario = explode(',',$destinatario);
@@ -73,36 +74,52 @@ switch ($_REQUEST['acao']) {
         echo 1;
 
 		break;
+                
+    case "postDestinatarios" : {
+        $retorno = 0;
+
+        for($i = 0; $i < count(explode(",", $_REQUEST["destinatarios"])); $i++) {
+            $dod = new DocumentoDestinatario();
+            $dod->setDor_envio($_REQUEST["envio"]);
+            $dod->setDor_destinatario(explode(",", $_REQUEST["destinatarios"])[$i]);
+
+            if ($documentoDestinatarioController->insert($dod))
+                $retorno = 1;
+            else
+                $retorno = 0;
+        }
+        
+        echo $retorno;
+        break;
+    }
+        
 
     case 'postRetorno':
-        $documento  = $_REQUEST['documento'];
-        $remetente  = $_REQUEST['remetente'];
-        $envio      = $_REQUEST['envio'];
-
         $documentosRetorno = new DocumentoRetorno();
-        $documentosRetorno->setDor_documento($documento);
-        $documentosRetorno->setDor_remetente($remetente);
-        $documentosRetorno->setDor_envio($envio);
+        $documentosRetorno->setDor_documento($_REQUEST["documento"]);
+        $documentosRetorno->setDor_destinatario($_REQUEST["destinatario"]);
         $result = $documentoRetornoController->insertParcial($documentosRetorno);
+        
         echo $result;
 
         break;
 
     case "getDocumentosEnviados":
-        $envios = $documentosController->selectDocumentosEnviados();
+        $envios = $documentoEnvioController->selectAllDocumentoEnvio();
         $retorno = [];
-        //foreach($envios["documento_envio"] as $envio) {
+
         foreach ($envios as $envio) {
+            $doc = $documentosController->selectByIdDocumentos($envio->getDoe_documento());
+
             array_push($retorno, [
-                "documento_envio" => [
+                "envio" => [
                     "id" => intval($envio["documento_envio"]->getDoe_id()),
                     "data_envio" => DatasFuncao::dataTimeBRExibicao($envio["documento_envio"]->getDoe_data_envio()),
-                    "visto" => $envio["documento_envio"]->getDoe_visto(),
                     "retorno" => intval($envio["documento_envio"]->getDoe_retorno()),
                     "documento" => [
-                        "id" => intval($envio["documento_envio"]->getDoe_documento()->getDoc_id()),
-                        "assunto" => utf8_encode($envio["documento_envio"]->getDoe_documento()->getDoc_assunto()),
-                        "descricao" => intval($envio["documento_envio"]->getDoe_documento()->getDoc_descricao())
+                        "id" => intval($doc->getDoc_id()),
+                        "assunto" => utf8_encode($doc->getDoc_assunto()),
+                        "descricao" => intval($doc->getDoc_descricao())
                     ]
                 ],
                 "verificadores" => $envio["verificadores"]
@@ -384,6 +401,55 @@ switch ($_REQUEST['acao']) {
         
         echo json_encode($retorno);
     break;
+
+    case "getEnviados": {
+        $docs = $documentosController->getEnviados();
+        $retorno = [];
+        
+        foreach($docs as $doc) {
+            array_push($retorno, [
+                "id" => intval($doc->getDoc_id()),
+                "assunto" => $doc->getDoc_assunto(),
+                "descricao" => $doc->getDoc_descricao(),
+                "arquivo" => $doc->getDoc_arquivo()
+            ]);
+        }
+
+        echo json_encode($retorno);
+        break;
+    }
+    
+    case "getDestinatariosByEnvio" : {
+        $dods = $documentoDestinatarioController->getAllByEnvio($doe_id);
+        $retorno = [];
+
+        foreach($dods as $dod) {
+            $esc = $escolaController->select($dod->getDod_destinatario());
+            array_push($retorno, [
+                "id" => intval($dod->getDod_id()),
+                "envio" => intval($dod->getDod_envio()),
+                "destinatario" => [
+                    "id" => intval($esc->getEsc_id()),
+                    "nome" => utf8_encode($esc->getEsc_nome())
+                ],
+                "visto" => intval($dod->getDod_visto())
+            ]);
+        }
+        
+        echo json_encode($retorno);
+    }
+    
+    case "setDestinatarioVisto": {
+        $dod = $documentoDestinatarioController->get($_POST["id"]);
+        $dod->setDod_visto(1);
+        
+        echo $documentoDestinatarioController->update($dod);
+    }
+    
+    case "checkPendenciasOf" : {
+        echo $documentoDestinatarioController->checkPendenciasOf($_GET["id"]);
+        break;
+    }
 
     default:
         echo "Erro: Serviço não reconhecido!";

@@ -160,5 +160,28 @@ $sql .= "doc_arquivo = '".$documentos->getDoc_arquivo()."',";
         
         return $doc;
     }
+    
+    public function getEnviados() {
+        $sql  = "select distinct doc.* from documento doc "; 
+        $sql .= "join documento_envio doe on doe.doe_documento = doc.doc_id;";
+        $retorno = [];
+        $result = $this->retrieve($sql);
+        
+        if($result) {
+            while($qr = mysqli_fetch_assoc($result)) {
+                $doc = new Documento();
+                $doc->setDoc_id($qr["doc_id"]);
+                $doc->setDoc_assunto($qr["doc_assunto"]);
+                $doc->setDoc_descricao($qr["doc_descricao"]);
+                $doc->setDoc_arquivo($qr["doc_arquivo"]);
+                
+                array_push($retorno, $doc);
+            }
+        } else {
+            $retorno = 0;
+        }
+        
+        return $retorno;
+    }
 }
 ?>

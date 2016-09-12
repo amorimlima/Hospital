@@ -15,6 +15,9 @@ class DocumentoDestinatario {
     private $dod_id;
     private $dod_envio;
     private $dod_destinatario;
+    private $dod_visto;
+    
+    public function DocumentoDestinatario() { }
     
     public function getDod_id() {
         return $this->dod_id;
@@ -28,6 +31,10 @@ class DocumentoDestinatario {
         return $this->dod_destinatario;
     }
     
+    public function getDod_visto() {
+        return $this->dod_visto;
+    }
+    
     public function setDod_id($id) {
         $this->dod_id = $id;
     }
@@ -38,5 +45,9 @@ class DocumentoDestinatario {
     
     public function setDod_destinatario($destinatario) {
         $this->dod_destinatario = $destinatario;
+    }
+    
+    public function setDod_visto($visto) {
+        $this->dod_visto = $visto;
     }
 }
