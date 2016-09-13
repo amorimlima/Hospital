@@ -141,14 +141,18 @@ class DocumentoDestinatarioDAO extends DAO {
     }
     
     public function checkRetornoRejeitadoOf($dod_id) {
-        $sql = "select ";
+        $sql = "select distinct ";
         $sql .=     "(select count(dor_id) from documento_retorno ";
         $sql .=         "where dor_destinatario = {$dod_id} and dor_rejeitado = 1) = ";
         $sql .=     "(select count(dor_id) from documento_retorno ";
         $sql .=         "where dor_destinatario = {$dod_id}) ";
-        $sql .= "as rejeitado from documento_destinatario ";
-        $sql .= "where dod_destinatario = {$dod_id};";
+        $sql .= "as rejeitado from documento_retorno ";
+        $sql .= "where dor_destinatario = {$dod_id};";
         
-        return mysqli_fetch_assoc($this->retrieve($sql))["rejeitado"];
+        echo $sql;
+        $result = $this->retrieve($sql);
+        $qr = mysqli_fetch_assoc($result);
+        
+        return $qr["rejeitado"];
     }
 }
