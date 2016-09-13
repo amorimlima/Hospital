@@ -446,7 +446,7 @@ function createEnvioDocumento(documento) {
     $("#submitNovoDocEnvio").removeAttr("disabled");
     $("#submitNovoDocEnvio").text("Enviar");
     viewDocumentosEnviados();
-    closeFormNovoEnvioDocModal()
+    closeEnvioDocModal();
   });
 }
 
