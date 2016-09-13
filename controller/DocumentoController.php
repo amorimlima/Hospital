@@ -14,7 +14,6 @@
 *
 */
 
-session_start();
 $path = $_SESSION['PATH_SYS'];
 
 include_once($path['dao'].'DocumentoDAO.php');
@@ -49,13 +48,26 @@ class DocumentoController {
     }
 
     public function selectByIdDocumentos($idDocumentos){
-        $documentos = $this->documentosDAO->selectByIdDocumentos($iddocumentos);
+        $documentos = $this->documentosDAO->selectByIdDocumentos($idDocumentos);
         return  $documentos;
     }
 
     public function selectAllDocumentos(){
         $documentos = $this->documentosDAO->selectAllDocumentos();
         return  $documentos;
+    }
+    
+    public function selectDocumentosEnviados()
+    {
+        return $this->documentosDAO->selectDocumentoEnviados();
+    }
+    
+    public function selectDocumentoByEnvio($idenvio) {
+        return $this->documentosDAO->selectDocumentoByEnvio($idenvio);
+    }
+    
+    public function getEnviados() {
+        return $this->documentosDAO->getEnviados();
     }
 }
 ?>

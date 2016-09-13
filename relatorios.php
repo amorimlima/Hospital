@@ -44,6 +44,7 @@ $logado = unserialize($_SESSION['USR']);
         <link rel="stylesheet" type="text/css" href="css/modulos/formulario.css">
         <link rel="stylesheet" type="text/css" href="css/box-modal.css">
         <link rel="stylesheet" type="text/css" href="css/relatorios.css">
+        <link rel="stylesheet" type="text/css" href="css/documento.css">
         <link href='http://fonts.googleapis.com/css?family=Overlock:400,400italic,700,900,700italic,900italic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900,900italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="js/malihu.3.0.3/mCustomScrollbar.css" />
@@ -70,7 +71,7 @@ $logado = unserialize($_SESSION['USR']);
                             <div class="row">
                                 <div class="col-sm-12 col-md-9">
                                     <span class="header"></span>
-                                    <div id="conteudoPrincipal" class="conteudo_principal" style="display: none">
+                                    <div id="conteudoPrincipal" class="conteudo_principal" style="display: block">
                                         <div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
                                         <div class="tipo_grafico_picker_opcoes">
                                             <div id="graficoGaleria" class="option_selected opcoes_graficos" data-grafico="1">Acessos e Downloads na Galeria (em %)</div>
@@ -118,9 +119,11 @@ $logado = unserialize($_SESSION['USR']);
                                     </div>
                                     <div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
                                     </div>
-                                    <div id="envioDocumentosContainer" class="envio_documentos_container" style="display:block">
-                                      <?php include_once("envioDocumentsTemp.php"); ?>
+                                    <?php if($logado["perfil_id"] == 3 || $logado["perfil_id"] == 4) { ?>
+                                    <div id="envioDocumentosContainer" class="envio_documentos_container" style="display:none">
+                                      <?php include_once("telaEnvioDocumentos.php"); ?>
                                     </div>
+                                    <?php } ?>
                                     <div id="criarGrupoContainer" class="liberar_grupo_container" style="display:none">
                                         <form action="">
                                             <fieldset>
@@ -188,6 +191,8 @@ $logado = unserialize($_SESSION['USR']);
                                                 $templateRelatorio->printCountUsuariosPorPerfil();
                                             }
                                             ?>
+                                            
+                                            <?php $templateRelatorio->printAcessarEnvioDocs(); ?>
                                         </div>
                                         <div class="legenda_grafico">
                                             <h2>Legenda</h2>
@@ -234,7 +239,7 @@ $logado = unserialize($_SESSION['USR']);
 
         <!-- Modal de visualização das infos básicas do usuário -->
 
-        <div id="userInfoModalBg" class="user-info-modal-bg">
+        <div id="userInfoModalBg" class="user-info-modal-bg" data-component="modal">
             <div id="userInfoModal" class="user-info-modal">
                 <p class="text-center">Carregando...</p>
             </div>
@@ -253,41 +258,35 @@ $logado = unserialize($_SESSION['USR']);
             $templateGeral->mensagemRetorno('livros', 'Capítulo bloqueado com sucesso!', 'sucesso');
             ?>
         </div>
+        <div id="mensagemSucessoEnvioDoc" class="modalMensagem" style="display: none">
+            <?php
+            $templateGeral->mensagemRetorno("livros", "Documento enviado com sucesso", "sucesso");
+            ?>
+        </div>
+
         <!--  Modal envio documentos -->
+
         <div id="envioDocModalBg" class="envio-doc-modal-bg">
-          <div id="envioDocModal" class="envio-doc-modal">
-            <div class="envio-doc-modal-header">
-              <h2>Documento enviado</h2>
+            <div id="envioDocModal" class="envio-doc-modal modal-generic" data-component="modal">
+          <!-- Envio existente -->
             </div>
-            <div class="envio-doc-modal-body">
-              <h3 name="assunto-documento">Assunto do documento</h3>
-              <h6>Enviado em <span name="data-envio">00/00/0000</span> às <span name="horario-envio">00:00</span></h6>
-              <p name="descricao-documento">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec diam enim, pellentesque eu tortor vitae, ultrices aliquet enim. Aenean molestie diam velit, eget imperdiet justo viverra at. Sed nec tempor dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras auctor molestie sodales. Fusce vestibulum elit magna, a luctus dui porta vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et sed.
-              </p>
-              <p name="download-documento">
-                <span class="glyphicon glyphicon-download-alt"></span>
-                <a href="#">Download do documento</a>
-              </p>
-              <div class="envio-doc-modal-lista-panel">
-                <h4>Destinatários</h4>
-                <input id="filtroDestinatarios" class="form-control filtro-envio-doc" type="text" name="filtro-envio-doc" placeholder="Pesquisar" />
-              </div>
-            </div>
-          </div>
         </div>
 
     </body>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.mask.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.maskedinput.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/malihu.3.0.3/mCustomScrollbar.js"></script>
     <script src="js/malihu.3.0.3/mCustomScrollbar.concat.min.js"></script>
     <script src="bootstrap/js/bootstrap-datepicker.js"></script>
+    <script src="js/modulos/formulario.js"></script>
     <script src="js/EstadoCidade.js"></script>
     <script src="js/funcoes.js"></script>
     <script src="js/cadastro.js" async></script>
     <script src="js/relatorios.js" async></script>
+    <script src="js/documento.js" async></script>
     <script src="js/liberarCapitulos.js" async></script>
     <script src="js/goMobileUpload.js"></script>
 </html>

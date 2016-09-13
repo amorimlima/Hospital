@@ -14,7 +14,6 @@
 *
 */
 
-session_start();
 $path = $_SESSION['PATH_SYS'];
 
 include_once($path['dao'].'DocumentoEnvioDAO.php');
@@ -48,7 +47,7 @@ class DocumentoEnvioController {
     }
 
     public function selectByIdDocumentoEnvio($idDocumentoEnvio){
-        $documentoenvio = $this->documentoenvioDAO->selectByIdDocumentoEnvio($iddocumentoenvio);
+        $documentoenvio = $this->documentoenvioDAO->selectByIdDocumentoEnvio($idDocumentoEnvio);
         return  $documentoenvio;
     }
 
@@ -75,6 +74,25 @@ class DocumentoEnvioController {
     public function listarDocumento($idDocumento)
     {
         return $this->documentoenvioDAO->listarDocumento($idDocumento);
+    }
+    
+    public function getEnviosByDocumento($doc_id)
+    {   
+        return $this->documentoenvioDAO->getEnviosByDocumento($doc_id);
+    }
+    
+    public function isPendenciaRetornoEscola($idEscola)
+    {
+        return $this->documentoenvioDAO->isPendenciaRetornoEscola($idEscola);
+    }
+
+    public function isPendenciasRetornoHospital()
+    {
+        return $this->documentoenvioDAO->isPendenciasRetornoHospital();
+    }
+    
+    public function checkRetornoOf($doe_id) {
+        return $this->documentoenvioDAO->checkRetornoOf($doe_id);
     }
 }
 ?>

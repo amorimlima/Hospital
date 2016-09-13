@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$system = "W"; // W ou L
+$system = "L"; // W, M ou L
 
 if ($system == "W")
 	$_PATH_SEPARATOR = '\\';  // Windows
@@ -11,6 +11,8 @@ else
 
 if ($system == "W")
 	$_LOAD_PATH_SYS['home']    = 'C:\\xampp\\htdocs\\Hospital\\'; // Windows
+elseif($system == "M")
+	$_LOAD_PATH_SYS['home']    = '/Applications/MAMP/htdocs/Hospital/'; // MAC
 else
 	$_LOAD_PATH_SYS['home']    = '/var/www/html/';
 
@@ -38,7 +40,7 @@ $_LOAD_PATH_SYS['template']   		  = $_LOAD_PATH_SYS['home'].'template'.$_PATH_SE
 $_LOAD_PATH_SYS['funcao']     		  = $_LOAD_PATH_SYS['home'].'funcao'.$_PATH_SEPARATOR;
 $_LOAD_PATH_SYS['PHPMailer']     	  = $_LOAD_PATH_SYS['home'].'PHPMailer'.$_PATH_SEPARATOR;
 
-if ($system == "W")
+if ($system == "W" || $system == "M")
 	$_LOAD_URL_SYS['BASE_URL']    = '/Hospital/';
 else
 	$_LOAD_URL_SYS['BASE_URL']    = '/var/www/html/';

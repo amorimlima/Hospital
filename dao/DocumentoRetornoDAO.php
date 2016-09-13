@@ -14,7 +14,6 @@
 *
 */
 
-session_start();
 $path = $_SESSION['PATH_SYS'];
 include_once($path['DB'].'DataAccess.php');
 include_once($path['DB'].'DAO.php');
@@ -40,9 +39,11 @@ class DocumentoRetornoDAO extends DAO{
 
     public function insertDocumentoRetorno($documentoretorno)
     {
-        $sql =  "insert into documento_retorno ( dor_documento,dor_remetente,dor_envio,dor_visto,dor_rejeitado,dor_data )values";
-        $sql .= "( '".$documentoretorno->getDor_documento()."','".$documentoretorno->getDor_remetente()."','".$documentoretorno->getDor_envio()."','".$documentoretorno->getDor_visto()."','".$documentoretorno->getDor_rejeitado()."','".$documentoretorno->getDor_data()."')";
-        return $this->execute($sql);
+        $sql  = "insert into documento_retorno (dor_documento, dor_destinatario, dor_data) ";
+        $sql .= "values ('{$documentoretorno->getDor_documento()}', ";
+        $sql .= "'{$documentoretorno->getDor_destinatario()}', ";
+        $sql .= "CURDATE());";
+        return $this->executeAndReturnLastID($sql);
     }
 
     // **********************
@@ -61,17 +62,17 @@ class DocumentoRetornoDAO extends DAO{
 
     function selectByIdDocumentoRetorno($iddocumentoretorno)
     {
-        $sql = "select * from documento_retorno where dor_id = ". $iddocumentoretorno."limit 1 ";
+        $sql  = "select * from documento_retorno dor ";
+        $sql .= "where dor_id = ". $iddocumentoretorno." limit 1 ";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
-        $documentoretorno= new DocumentoRetorno();
-        $documentoretorno->setDor_id($qr['dor_id']);
-$documentoretorno->setDor_documento($qr['dor_documento']);
-$documentoretorno->setDor_remetente($qr['dor_remetente']);
-$documentoretorno->setDor_envio($qr['dor_envio']);
-$documentoretorno->setDor_visto($qr['dor_visto']);
-$documentoretorno->setDor_rejeitado($qr['dor_rejeitado']);
-$documentoretorno->setDor_data($qr['dor_data']);
+        $documentoretorno = new DocumentoRetorno();
+        $documentoretorno->setDor_id($qr["dor_id"]);
+        $documentoretorno->setDor_documento($qr["dor_documento"]);
+        $documentoretorno->setDor_destinatario($qr["dor_destinatario"]);
+        $documentoretorno->setDor_data($qr["dor_data"]);
+        $documentoretorno->setDor_visto($qr["dor_visto"]);
+        $documentoretorno->setDor_rejeitado($qr["dor_rejeitado"]);
 
         return $documentoretorno;
     }
@@ -122,11 +123,11 @@ $documentoretorno->setDor_data($qr['dor_data']);
      {
         $sql  = "insert into documento_retorno (dor_documento, dor_remetente, dor_envio, dor_data) values ";
         $sql .= "('".$dor->getDor_documento()."', ";
-        $sql .= "'".$dor->getDor_emetente()."', ";
+        $sql .= "'".$dor->getDor_remetente()."', ";
         $sql .= "'".$dor->getDor_envio()."', ";
         $sql .= "CURDATE()) ";
-        echo $sql;
-        return $this->execute($sql);
+
+        return $this->executeAndReturnLastID($sql);
      }
 
     public function listarEscola($idEscola)
@@ -153,20 +154,27 @@ $documentoretorno->setDor_data($qr['dor_data']);
 
     public function visualizar($idRetorno)
     {
-        $sql = "UPDATE FROM documento_retorno SET dor_visto = 1 WHERE dor_id = ".$idEnvio;
-        return $this->executeAndReturnLastID($sql);
+        $sql = "UPDATE documento_retorno SET dor_visto = 1 WHERE dor_id = ".$idRetorno;
+        if ($this->execute($sql))
+            return 1;
+        else
+            return 0;
     } 
 
     public function rejeitar($idRetorno)
     {
-        $sql = "UPDATE FROM documento_retorno SET dor_rejeitado = 1 WHERE dor_id = ".$idEnvio;
-        return $this->executeAndReturnLastID($sql);
+        $sql = "UPDATE documento_retorno SET dor_rejeitado = 1 WHERE dor_id = ".$idRetorno;
+        
+        if ($this->execute($sql))
+            return 1;
+        else
+            return 0;
     }
 
     public function listarDocumento($idDocumento)
     {
         $sql = "SELECT * FROM documento_retorno ";
-        $sql .= "JOIN documento_envio ON doe_id = dor_envio";
+        $sql .= "JOIN documento_envio ON doe_id = dor_envio ";
         $sql .= "WHERE dor_documento = ".$idDocumento." ORDER BY dor_data DESC";
         $lista = array();
         $result = $this->retrieve($sql);
@@ -185,6 +193,54 @@ $documentoretorno->setDor_data($qr['dor_data']);
 
         return $lista;
 
+    }
+    
+    public function getRetornosOf($dod_id) {
+        $sql  = "select * from documento_retorno ";
+        $sql .= "where dor_destinatario = {$dod_id} ";
+        $sql .= "order by dor_data desc, dor_id desc;";
+        
+        $result = $this->retrieve($sql);
+        $retorno = [];
+        
+        while($qr = mysqli_fetch_array($result)) {
+            $dor = new DocumentoRetorno();
+            $dor->setDor_id($qr["dor_id"]);
+            $dor->setDor_documento($qr["dor_documento"]);
+            $dor->setDor_destinatario($qr["dor_destinatario"]);
+            $dor->setDor_rejeitado($qr["dor_rejeitado"]);
+            $dor->setDor_visto($qr["dor_visto"]);
+            $dor->setDor_data($qr["dor_data"]);
+            
+            array_push($retorno, $dor);
+        }
+        
+        return $retorno;
+    }
+
+    public function isPendenciasRetornoHospital()
+    {
+        $sql = "SELECT dor_visto FROM documento_retorno ORDER BY dor_visto ASC LIMIT 1";
+        $result = $this->retrieve($sql);
+        $qr = mysqli_fetch_array($result);
+        return 1 - intval($qr["dor_visto"]);
+    }
+    
+    public function getMaisRecenteOf($dod_id) {
+        $sql  = "select * from documento_retorno "; 
+        $sql .= "where dor_destinatario = {$dod_id} ";
+        $sql .= "order by dor_data desc, dor_id desc limit 1";
+        
+        $qr = mysqli_fetch_assoc($this->retrieve($sql));
+        $dor = new DocumentoRetorno();
+        $dor->setDor_id($qr["dor_id"]);
+        $dor->setDor_documento($qr["dor_documento"]);
+        $dor->setDor_destinatario($qr["dor_destinatario"]);
+        $dor->setDor_data($qr["dor_data"]);
+        $dor->setDor_visto($qr["dor_visto"]);
+        $dor->setDor_rejeitado($qr["dor_rejeitado"]);
+        
+        return $dor;
     }
 }
 ?>

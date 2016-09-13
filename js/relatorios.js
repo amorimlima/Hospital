@@ -12,6 +12,8 @@ $(document).ready(function() {
     botoesGrupo();
     voltarGrafico();
     atribuirEventosModal();
+
+    // TESTE
 });
 
 function gerarPickerTipoGrafico() {
@@ -38,12 +40,12 @@ function atribuirBarrasRolagem () {
             enable:true
         }
     });
-    $("#envioDocumentosLista").mCustomScrollbar({
-      axis: "y",
-      scrollButtons: {
-        enable: true
-      }
-    });
+    // $(".envio-doc-lista").mCustomScrollbar({
+    //   axis: "y",
+    //   scrollButtons: {
+    //     enable: true
+    //   }
+    // });
 }
 
 function toggleGrafico(item, grafico)
@@ -654,27 +656,34 @@ function gerarHtmlFooterBasicInfoEscola(usr) {
 
 /**
  * Atribui os eventos referentes ao modal#userInfoModal: <br>
- * - Ao clicar na div#userInfoModalBg, o modal fecha <br>
+ * - Ao clicar no bg, o modal fecha <br>
  * - Ao pressionar a tecla "Esc", o modal fecha <br>
  * - Ao clicar sobre o modal#userInfoModal, o evento de click é anulado
  */
 function atribuirEventosModal() {
-    document.onkeyup = function(evt) {
-        if (evt.keyCode == 27) // Verificar se a tecla apertada é a Esc
-            closeUserInfoModal();
-    };
+    $(document).keyup(function(evt) {
+      if (evt.keyCode == 27) { // Veririficar se a tecla apertada é a "Esc"
+        closeUserInfoModal();
+        closeEnvioDocModal();
+        closeFormNovoEnvioDocModal();
+      }
+    });
 
-    document.getElementById("userInfoModalBg").onclick = closeUserInfoModal;
+    $("#userInfoModalBg").click(function(evt) {
+      closeUserInfoModal();
+    });
 
-    document.getElementById("envioDocModalBg").onclick = closeEnvioDocModal;
+    $("#envioDocModalBg").click(function(evt) {
+      closeEnvioDocModal();
+    });
 
-    document.getElementById("userInfoModal").onclick = function(evt) {
+    $("#userInfoModal").click(function(evt) {
       evt.stopPropagation();
-    };
+    });
 
-    document.getElementById("envioDocModal").onclick = function(evt) {
+    $("#envioDocModal").click(function(evt) {
       evt.stopPropagation();
-    };
+    });
 }
 
 /**
@@ -736,15 +745,20 @@ function updateLegendaGrafico(grafico) {
     $(legenda).html(html);
 }
 
-/* Envio de documentos */
-function showModalEnvioDoc() {
-  $("#envioDocModalBg").fadeIn(400);
-  $("#envioDocModal").animate({top: "20%"}, 400);
+/**
+ * Mostra a tela de envio de documentos e esconde todas as outras.
+ */
+function viewTelaEnvioDocumentos(link) {
+    $(link).find("span").remove();
+    $("#envioDocumentosContainer").show();
+    $("#envioDocumentosContainer").siblings().hide();
 }
 
-function closeEnvioDocModal() {
-    $("#envioDocModal").animate({top: "10%"}, 400);
-    $("#envioDocModal").parent().fadeOut(400, function() {
-        $("#envioDocModal").html("<p class='text-center'>Carregando...</p>");
-    });
+/**
+ * Esconde a tela de envio de documntos e exibe os gráficos de relatório.
+ */
+function sairTelaEnvioDocumentos() {
+    $("#envioDocumentosContainer").hide();
+    $("#conteudoPrincipal").show();
 }
+

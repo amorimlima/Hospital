@@ -14,7 +14,6 @@
 *
 */
 
-session_start();
 $path = $_SESSION['PATH_SYS'];
 
 include_once($path['dao'].'DocumentoRetornoDAO.php');
@@ -47,7 +46,7 @@ class DocumentoRetornoController {
     }
 
     public function selectByIdDocumentoRetorno($idDocumentoRetorno){
-        $documentoretorno = $this->documentoretornoDAO->selectByIdDocumentoRetorno($iddocumentoretorno);
+        $documentoretorno = $this->documentoretornoDAO->selectByIdDocumentoRetorno($idDocumentoRetorno);
         return  $documentoretorno;
     }
 
@@ -59,6 +58,11 @@ class DocumentoRetornoController {
     public function insertParcial($documentoRetorno)
     {
         return $this->documentoretornoDAO->insertParcial($documentoRetorno);
+    }
+    
+    public function rejeitar($idRetorno)
+    {
+        return $this->documentoretornoDAO->rejeitar($idRetorno);
     }
 
     public function listarEscola($idEscola)
@@ -74,6 +78,19 @@ class DocumentoRetornoController {
     public function listarDocumento($idDocumento)
     {
         return $this->documentoretornoDAO->listarDocumento($idDocumento);
+    }
+    
+    public function getRetornosOf($dod_id) {
+        return $this->documentoretornoDAO->getRetornosOf($dod_id);
+    }
+    
+    public function isPendenciasRetornoHospital()
+    {
+        return $this->documentoretornoDAO->isPendenciasRetornoHospital();
+    }
+    
+    public function getMaisRecenteOf($dod_id) {
+        return $this->documentoretornoDAO->getMaisRecenteOf($dod_id);
     }
 }
 ?>

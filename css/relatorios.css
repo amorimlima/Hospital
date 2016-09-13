@@ -413,6 +413,62 @@ button:hover {
 }
 
 /* Modal de informações do usuário selecionado */
+.modal-generic{
+	position: relative;
+	top: -5%;
+	width: 600px;
+	margin: 5% auto;
+	padding: 20px 30px;
+	border: 2px dashed #6db43b;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 2px 4px rgba(0,0,0,.3);
+}
+
+.item-container {
+	text-align: left;
+    background-color: #fff;
+    color: #4D4D4D;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 6px 8px 6px;
+    line-height: 1em;
+}
+
+.item-container.item-check-container {
+	padding-left: 29px ;
+}
+
+.modal-generic .envio-doc-lista {
+	height: 162px;
+}
+
+.modal-generic input[type="checkbox"] {
+	display: none;
+}
+
+.modal-generic input[type="checkbox"] + label {
+	position: relative;
+    margin-right: 35px;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1em;
+    cursor: pointer;
+}
+
+.modal-generic input[type="checkbox"] + label::before {
+    content: url(../img/checkbox_form.png);
+	position: absolute;
+    left: -23px;
+    top: -2px;
+}
+
+.modal-generic input[type="checkbox"]:checked + label::before {
+    content: url(../img/checkbox_form_h.png);
+}
 
 .user-info-modal-bg,
 .envio-doc-modal-bg {
@@ -424,9 +480,19 @@ button:hover {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, .4);
+	overflow-y: auto; 
 }
-.user-info-modal,
 .envio-doc-modal {
+	width: 600px;
+	margin: 10% auto;
+	z-index: inherit;
+	padding: 20px 30px;
+	border: 2px dashed #6db43b;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 2px 4px rgba(0,0,0,.3);
+}
+.user-info-modal {
     /* Dimensões e posicionamento */
     position: fixed;
     width: 600px;
@@ -487,6 +553,15 @@ br + .user-info-label:not(:first-of-type) {
 .user-info-foto {
     margin-bottom: 15px;
     text-align: right;
+}
+
+.click-desativado {
+	pointer-events: none;
+}
+
+#linkDocumentos {
+	position: absolute;
+	bottom: 20px;
 }
 
 /* Count de usuários cadastrados */
