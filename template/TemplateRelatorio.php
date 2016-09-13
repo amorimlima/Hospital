@@ -5,6 +5,10 @@ if(!isset($_SESSION['PATH_SYS'])){
 }
 include_once($path['controller'].'RelatorioController.php');
 include_once($path['controller'].'UsuarioController.php');
+include_once($path['controller'] . 'DocumentoController.php');
+include_once($path['controller'] . 'DocumentoEnvioController.php');
+include_once($path['controller'] . 'DocumentoRetornoController.php');
+include_once($path['controller'] . 'DocumentoDestinatarioController.php');
 $path = $_SESSION['PATH_SYS'];
 /**
  * Description of Template
@@ -133,6 +137,34 @@ class TemplateRelatorio{
         echo        "<span class='user-info-value'>" . $total . "</span>";
         echo    "</p>";
         echo "</div>";
+    }
+
+    public function printAcessarEnvioDocs() {
+        $dorController = new DocumentoRetornoController();
+        $doeController = new DocumentoEnvioController();
+        $logado = unserialize($_SESSION["USR"]);
+        $pendencias = 0;
+
+        if ($logado["perfil_id"] == 3)
+            if ($dorController->isPendenciasRetornoHospital()
+                || $doeController->isPendenciasRetornoHospital())
+                $pendencias = 1;
+        else
+            $pendencias = $doeController->isPendenciaRetornoEscola($logado["escola"]);
+        
+        if ($logado["perfil_id"] == 3 || $logado["perfil_id"] == 4) {
+            echo "<p id='linkDocumentos' class='link' onclick='viewTelaEnvioDocumentos(this)'>";
+            
+            if ($logado["perfil_id"] == 3)
+                echo "Documentos enviados";
+            elseif($logado["perfil_id"] == 4)
+                echo "Documentos recebidos";
+            
+            if ($pendencias)
+                echo "<span class='label label-default' style='margin-left: 5px'>Novo</span>";
+            
+            echo "</p>";
+        }
     }
 
 }

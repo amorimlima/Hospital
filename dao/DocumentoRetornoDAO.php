@@ -62,31 +62,17 @@ class DocumentoRetornoDAO extends DAO{
 
     function selectByIdDocumentoRetorno($iddocumentoretorno)
     {
-        $sql  = "select * from documento_retorno dor "; 
-        $sql .= "join documento doc on dor.dor_documento = doc.doc_id ";
-        $sql .= "join documento_envio doe on dor.dor_envio = doe.doe_id ";
-        $sql .= "join escola esc on dor.dor_remetente = esc.esc_id ";
-        $sql .= "where dor.dor_id = ". $iddocumentoretorno." limit 1 ";
+        $sql  = "select * from documento_retorno dor ";
+        $sql .= "where dor_id = ". $iddocumentoretorno." limit 1 ";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
-        $documentoretorno= new DocumentoRetorno();
-        $documentoretorno->setDor_id($qr['dor_id']);
-        $documentoretorno->setDor_documento(new Documento());
-        $documentoretorno->getDor_documento()->setDoc_id($qr["doc_id"]);
-        $documentoretorno->getDor_documento()->setDoc_assunto($qr["doc_assunto"]);
-        $documentoretorno->getDor_documento()->setDoc_descricao($qr["doc_descricao"]);
-        $documentoretorno->getDor_documento()->setDoc_arquivo($qr["doc_arquivo"]);
-        
-        $documentoretorno->setDor_remetente(new Escola());
-        $documentoretorno->getDor_remetente()->setEsc_id($qr["esc_id"]);
-        $documentoretorno->getDor_remetente()->setEsc_nome($qr["esc_nome"]);
-        
-        $documentoretorno->setDor_envio(new DocumentoEnvio());
-        $documentoretorno->getDor_envio()->setDoe_id($qr["doe_id"]);
-        $documentoretorno->getDor_envio()->setDoe_documento($qr["doe_documento"]);
-        $documentoretorno->setDor_visto($qr['dor_visto']);
-        $documentoretorno->setDor_rejeitado($qr['dor_rejeitado']);
-        $documentoretorno->setDor_data($qr['dor_data']);
+        $documentoretorno = new DocumentoRetorno();
+        $documentoretorno->setDor_id($qr["dor_id"]);
+        $documentoretorno->setDor_documento($qr["dor_documento"]);
+        $documentoretorno->setDor_destinatario($qr["dor_destinatario"]);
+        $documentoretorno->setDor_data($qr["dor_data"]);
+        $documentoretorno->setDor_visto($qr["dor_visto"]);
+        $documentoretorno->setDor_rejeitado($qr["dor_rejeitado"]);
 
         return $documentoretorno;
     }
@@ -209,12 +195,10 @@ class DocumentoRetornoDAO extends DAO{
 
     }
     
-    public function getRetornosByEscolaAndEnvio($idesc, $iddoe) {
-        $sql  = "select * from documento_retorno dor ";
-        $sql .= "join documento doc on dor.dor_documento = doc.doc_id ";
-        $sql .= "where dor_envio = {$iddoe} and dor_remetente = {$idesc} ";
+    public function getRetornosOf($dod_id) {
+        $sql  = "select * from documento_retorno ";
+        $sql .= "where dor_destinatario = {$dod_id} ";
         $sql .= "order by dor_data desc, dor_id desc;";
-
         
         $result = $this->retrieve($sql);
         $retorno = [];
@@ -222,13 +206,8 @@ class DocumentoRetornoDAO extends DAO{
         while($qr = mysqli_fetch_array($result)) {
             $dor = new DocumentoRetorno();
             $dor->setDor_id($qr["dor_id"]);
-            $dor->setDor_envio($qr["dor_envio"]);
-            $dor->setDor_remetente($qr["dor_remetente"]);
-            $dor->setDor_documento(new Documento());
-            $dor->getDor_documento()->setDoc_id($qr["doc_id"]);
-            $dor->getDor_documento()->setDoc_assunto($qr["doc_assunto"]);
-            $dor->getDor_documento()->setDoc_descricao($qr["doc_descricao"]);
-            $dor->getDor_documento()->setDoc_arquivo($qr["doc_arquivo"]);
+            $dor->setDor_documento($qr["dor_documento"]);
+            $dor->setDor_destinatario($qr["dor_destinatario"]);
             $dor->setDor_rejeitado($qr["dor_rejeitado"]);
             $dor->setDor_visto($qr["dor_visto"]);
             $dor->setDor_data($qr["dor_data"]);
@@ -245,6 +224,23 @@ class DocumentoRetornoDAO extends DAO{
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
         return 1 - intval($qr["dor_visto"]);
+    }
+    
+    public function getMaisRecenteOf($dod_id) {
+        $sql  = "select * from documento_retorno "; 
+        $sql .= "where dor_destinatario = {$dod_id} ";
+        $sql .= "order by dor_data desc, dor_id desc limit 1";
+        
+        $qr = mysqli_fetch_assoc($this->retrieve($sql));
+        $dor = new DocumentoRetorno();
+        $dor->setDor_id($qr["dor_id"]);
+        $dor->setDor_documento($qr["dor_documento"]);
+        $dor->setDor_destinatario($qr["dor_destinatario"]);
+        $dor->setDor_data($qr["dor_data"]);
+        $dor->setDor_visto($qr["dor_visto"]);
+        $dor->setDor_rejeitado($qr["dor_rejeitado"]);
+        
+        return $dor;
     }
 }
 ?>

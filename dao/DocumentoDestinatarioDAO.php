@@ -114,12 +114,41 @@ class DocumentoDestinatarioDAO extends DAO {
     public function checkPendenciasOf($dod_id) {
         $sql  = "select if (";
         $sql .=     "(select count(dor_id) from documento_retorno ";
-        $sql .=     "where dor_destinatario = {$dod_id} and dor_rejeitado = 0) > 0, ";
+        $sql .=     "where dor_destinatario = {$dod_id}) > 0, ";
         $sql .= "0, 1) as pendencia ";
-        $sql .= "from documento_destinatario;";
+        $sql .= "from documento_destinatario where dod_id = {$dod_id};";
         
         $result = mysqli_fetch_assoc($this->retrieve($sql));
         
-        return intval($result["pendencia"]);
+        return $result["pendencia"];
+    }
+    
+    public function getEnviosFor($esc_id) {
+        $sql = "select * from documento_destinatario where dod_destinatario = {$esc_id};";
+        $result = $this->retrieve($sql);
+        $retorno = [];
+        
+        while($qr = mysqli_fetch_assoc($result)) {
+            $dod = new DocumentoDestinatario();
+            $dod->setDod_id($qr["dod_id"]);
+            $dod->setDod_envio($qr["dod_envio"]);
+            $dod->setDod_destinatario($qr["dod_destinatario"]);
+            $dod->setDod_visto($qr["dod_visto"]);
+            array_push($retorno, $dod);
+        }
+        
+        return $retorno;
+    }
+    
+    public function checkRetornoRejeitadoOf($dod_id) {
+        $sql = "select ";
+        $sql .=     "(select count(dor_id) from documento_retorno ";
+        $sql .=         "where dor_destinatario = {$dod_id} and dor_rejeitado = 1) = ";
+        $sql .=     "(select count(dor_id) from documento_retorno ";
+        $sql .=         "where dor_destinatario = {$dod_id}) ";
+        $sql .= "as rejeitado from documento_destinatario ";
+        $sql .= "where dod_destinatario = {$dod_id};";
+        
+        return mysqli_fetch_assoc($this->retrieve($sql))["rejeitado"];
     }
 }

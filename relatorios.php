@@ -121,7 +121,7 @@ $logado = unserialize($_SESSION['USR']);
                                     </div>
                                     <?php if($logado["perfil_id"] == 3 || $logado["perfil_id"] == 4) { ?>
                                     <div id="envioDocumentosContainer" class="envio_documentos_container" style="display:none">
-                                      <?php include_once("envioDocumentsTemp.php"); ?>
+                                      <?php include_once("telaEnvioDocumentos.php"); ?>
                                     </div>
                                     <?php } ?>
                                     <div id="criarGrupoContainer" class="liberar_grupo_container" style="display:none">
@@ -191,15 +191,8 @@ $logado = unserialize($_SESSION['USR']);
                                                 $templateRelatorio->printCountUsuariosPorPerfil();
                                             }
                                             ?>
-
-                                            <p id="linkDocumentos" class="link" onclick="viewTelaEnvioDocumentos()">
-                                            <?php
-                                            if ($logado["perfil_id"] == 3)
-                                                echo "Documentos enviados";
-                                            elseif ($logado["perfil_id"] == 4)
-                                                echo "Documentos recebidos";
-                                            ?>
-                                            </p>
+                                            
+                                            <?php $templateRelatorio->printAcessarEnvioDocs(); ?>
                                         </div>
                                         <div class="legenda_grafico">
                                             <h2>Legenda</h2>
@@ -273,24 +266,10 @@ $logado = unserialize($_SESSION['USR']);
 
         <!--  Modal envio documentos -->
 
-        <?php
-        // APAGAR ISSO PELO AMOR DE DEUS
-        $nomes = ["Escola da Ponte", "Desembargador Amorim Lima", "Escolinha do Diego", "Heat high school"];
-        ?>
-
         <div id="envioDocModalBg" class="envio-doc-modal-bg">
-            <div id="envioDocModal" class="envio-doc-modal" data-component="modal">
+            <div id="envioDocModal" class="envio-doc-modal modal-generic" data-component="modal">
           <!-- Envio existente -->
             </div>
-        </div>
-
-
-        <!-- Modal novo envio de documento -->
-        <div id="formEnvioDocModalBg" class="envio-doc-modal-bg">
-          <!-- Formulário novo envio -->
-          <div id="formEnvioDocModal" class="modal-generic">
-            <p class="text-center">Carregando...</p>
-          </div>
         </div>
 
     </body>

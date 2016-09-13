@@ -42,4 +42,12 @@ class DocumentoDestinatarioController {
     public function checkPendenciasOf($dod_id) {
         return $this->documentoDestinatarioDAO->checkPendenciasOf($dod_id);
     }
+    
+    public function getEnviosFor($esc_id) {
+        return $this->documentoDestinatarioDAO->getEnviosFor($esc_id);
+    }
+    
+    public function checkRetornoRejeitadoOf($dod_id) {
+        return $this->documentoDestinatarioDAO->checkRetornoRejeitadoOf($dod_id);
+    }
 }

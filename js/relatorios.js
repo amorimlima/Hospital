@@ -748,7 +748,8 @@ function updateLegendaGrafico(grafico) {
 /**
  * Mostra a tela de envio de documentos e esconde todas as outras.
  */
-function viewTelaEnvioDocumentos() {
+function viewTelaEnvioDocumentos(link) {
+    $(link).find("span").remove();
     $("#envioDocumentosContainer").show();
     $("#envioDocumentosContainer").siblings().hide();
 }

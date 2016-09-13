@@ -75,9 +75,9 @@ switch ($_REQUEST['acao']) {
 
     case 'postRetorno': {
         $documentosRetorno = new DocumentoRetorno();
-        $documentosRetorno->setDor_documento($_REQUEST["documento"]);
-        $documentosRetorno->setDor_destinatario($_REQUEST["destinatario"]);
-        $result = $documentoRetornoController->insertParcial($documentosRetorno);
+        $documentosRetorno->setDor_documento($_POST["documento"]);
+        $documentosRetorno->setDor_destinatario($_POST["destinatario"]);
+        $result = $documentoRetornoController->insertDocumentoRetorno($documentosRetorno);
         
         echo $result;
 
@@ -170,29 +170,34 @@ switch ($_REQUEST['acao']) {
         break;
 
     case 'getRetorno':
-
-        if(isset($_REQUEST['id'])){
-            $result = $documentoRetornoController->selectByIdDocumentoRetorno($_REQUEST['id']);
+        if(isset($_GET['id'])){
+            $dor = $documentoRetornoController->selectByIdDocumentoRetorno($_GET['id']);
+            $doc = $documentosController->selectByIdDocumentos($dor->getDor_documento());
+            $dod = $documentoDestinatarioController->get($dor->getDor_destinatario());
+            $esc = $escolaController->select($dod->getDod_destinatario());
+            
             $retorno = [
-                "id" => $result->getDor_id(),
+                "id" => $dor->getDor_id(),
                 "documento" => [
-                    "id" =>  intval($result->getDor_documento()->getDoc_id()),
-                    "assunto" => utf8_encode($result->getDor_documento()->getDoc_assunto()),
-                    "descricao" => utf8_encode($result->getDor_documento()->getDoc_descricao()),
-                    "arquivo" => $result->getDor_documento()->getDoc_arquivo()
+                    "id" => intval($doc->getDoc_id()),
+                    "assunto" => $doc->getDoc_assunto(),
+                    "descricao" => $doc->getDoc_descricao(),
+                    "arquivo" => $doc->getDoc_arquivo()
                 ],
-                "remetente" => [
-                    "id" => intval($result->getDor_remetente()->getEsc_id()),
-                    "nome" => utf8_encode($result->getDor_remetente()->getEsc_nome())
+                "destinatario" => [
+                    "id" => intval($dod->getDod_id()),
+                    "envio" => intval($dod->getDod_envio()),
+                    "destinatario" => [
+                        "id" => intval($esc->getEsc_id()),
+                        "nome" => utf8_encode($esc->getEsc_nome())
+                    ],
+                    "visto" => intval($dod->getDod_visto())
                 ],
-                "envio" => [
-                    "id" => intval($result->getDor_envio()->getDoe_id()),
-                    "documento" => intval($result->getDor_envio()->getDoe_documento())
-                ],
-                "visto" => intval($result->getDor_visto()),
-                "rejeitado" => intval($result->getDor_rejeitado()),
-                "data" => DatasFuncao::dataTimeBRExibicao($result->getDor_data())
+                "data" => DatasFuncao::dataTimeBRExibicao($dor->getDor_data()),
+                "visto" => intval($dor->getDor_visto()),
+                "rejeitado" => intval($dor->getDor_rejeitado())
             ];
+            
 
             echo json_encode($retorno);
 
@@ -217,27 +222,43 @@ switch ($_REQUEST['acao']) {
         break;
 
     case 'getEnvioEscola':
-        $result = $documentoEnvioController->listarEscola($_REQUEST['idEscola']);
+        $result = $documentoDestinatarioController->getEnviosFor($_GET['id']);
         $retorno = [];
         
-        
-        foreach($result as $doe) {
+        foreach($result as $dod) {
+            $doe = $documentoEnvioController->selectByIdDocumentoEnvio($dod->getDod_envio());
+            $doc = $documentosController->selectByIdDocumentos($doe->getDoe_documento());
+            $pendencias = $documentoDestinatarioController->checkPendenciasOf($dod->getDod_id());
+            $rejeitado = 0;
+            
+            if ($pendencias)
+                $rejeitado = $documentoDestinatarioController->checkRetornoRejeitadoOf($dod->getDod_id());
+                
+            
             array_push($retorno, [
-                "id" => intval($doe["documento_envio"]->getDoe_id()),
-                "destinatario" => intval($doe["documento_envio"]->getDoe_destinatario()),
-                "data_envio" => DatasFuncao::dataTimeBRExibicao($doe["documento_envio"]->getDoe_data_envio()),
-                "visto" => intval($doe["documento_envio"]->getDoe_visto()),
-                "retorno" => intval($doe["documento_envio"]->getDoe_retorno()),
-                "documento" => [
-                    "id" => intval($doe["documento_envio"]->getDoe_documento()->getDoc_id()),
-                    "assunto" => utf8_encode($doe["documento_envio"]->getDoe_documento()->getDoc_assunto()),
-                    "descricao" => utf8_encode($doe["documento_envio"]->getDoe_documento()->getDoc_descricao()),
-                    "arquivo" => $doe["documento_envio"]->getDoe_documento()->getDoc_arquivo()
+                "destinatario" => [
+                    "id" => intval($dod->getDod_id()),
+                    "envio" => [
+                        "id" => intval($doe->getDoe_id()),
+                        "documento" => [
+                            "id" => intval($doc->getDoc_id()),
+                            "assunto" => $doc->getDoc_assunto(),
+                            "descricao" => $doc->getDoc_descricao(),
+                            "arquivo" => $doc->getDoc_arquivo()
+                        ],
+                        "data" => DatasFuncao::dataTimeBRExibicao($doe->getDoe_data_envio()),
+                        "retorno" => intval($doe->getDoe_retorno())
+                    ],
+                    "destinatario" => intval($dod->getDod_destinatario()),
+                    "visto" => intval($dod->getDod_visto())
                 ],
-                "retorno_pendente" => intval($doe["verificadores"]["retorno_pendente"]),
-                "retorno_rejeitado" => intval($doe["verificadores"]["retorno_rejeitado"])
+                "verificadores" => [
+                    "retorno_pendente" => intval($pendencias),
+                    "retorno_rejeitado" => intval($rejeitado)
+                ]
             ]);
         }
+
         echo json_encode($retorno);
 
         break;
@@ -318,61 +339,48 @@ switch ($_REQUEST['acao']) {
 
         break;
     
-    case "destinatariosPorDocumento":
-        $result = $documentoEnvioController->getEnviosByDocumento($_REQUEST['idDocumento']);
-        $retorno = [];
-
-        foreach($result as $envio) {
-            $dados = [
-                "id" => intval($envio["envio"]->getDoe_id()),
-                "documento" => intval($envio["envio"]->getDoe_documento()),
-                "destinatario" => [
-                    "id" => intval($envio["envio"]->getDoe_destinatario()->getEsc_id()),
-                    "nome" => utf8_encode($envio["envio"]->getDoe_destinatario()->getEsc_nome())
+    case "envioPorDestinatario": {
+        $dod = $documentoDestinatarioController->get($_GET['id']);
+        $doe = $documentoEnvioController->selectByIdDocumentoEnvio($dod->getDod_envio());
+        $doc = $documentosController->selectByIdDocumentos($doe->getDoe_documento());
+        
+        $retorno = [
+            "id" => intval($dod->getDod_id()),
+            "envio" => [
+                "id" => intval($doe->getDoe_id()),
+                "documento" => [
+                    "id" => intval($doc->getDoc_id()),
+                    "assunto" => $doc->getDoc_assunto(),
+                    "descricao" => $doc->getDoc_descricao(),
+                    "arquivo" => $doc->getDoc_arquivo()
                 ],
-                "data_envio" => DatasFuncao::dataTimeBRExibicao($envio["envio"]->getDoe_data_envio()),
-                "visto" => intval($envio["envio"]->getDoe_visto()),
-            ];
+                "data_envio" => DatasFuncao::dataTimeBRExibicao($doe->getDoe_data_envio()),
+                "retorno" => intval($doe->getDoe_retorno())
+            ],
+            "destinatario" => intval($dod->getDod_destinatario()),
+            "visto" => intval($dod->getDod_visto())
+        ];
 
-            if (intval($envio["envio"]->getDoe_retorno())) {
-                $dados["retorno"] = [];
-                
-                if ($envio["retorno"] != null) {
-                   $dados["retorno"] = [
-                       "id" => intval($envio["retorno"]->getDor_id()),
-                       "documento" => [
-                            "id" => intval($envio["retorno"]->getDor_documento()->getDoc_id()),
-                            "descricao" => intval($envio["retorno"]->getDor_documento()->getDoc_descricao())
-                       ],
-                       "rejeitado" => intval($envio["retorno"]->getDor_rejeitado()),
-                       "visto" => intval($envio["retorno"]->getDor_visto())
-                   ];
-                }
-            } else {
-                $dados["retorno"] = 0;
-            }
-            
-            array_push($retorno, $dados);
-        }
         echo json_encode($retorno);
         
         break;
+    }
         
-        case "retornosPorEnvioEscola": 
-            $result = $documentoRetornoController->getRetornosByEscolaAndEnvio($_GET["idEscola"], $_GET["idEnvio"]);
+        case "retornosPorDestinatario":
+            $result = $documentoRetornoController->getRetornosOf($_GET["id"]);
             $retorno = [];
             
             foreach($result as $dor) {
+                $doc = $documentosController->selectByIdDocumentos($dor->getDor_documento());
                 array_push($retorno, [
                     "id" => intval($dor->getDor_id()),
                     "documento" => [
-                        "id" => intval($dor->getDor_documento()->getDoc_id()),
-                        "assunto" => utf8_encode($dor->getDor_documento()->getDoc_assunto()),
-                        "descricao" =>utf8_encode($dor->getDor_documento()->getDoc_descricao()),
-                        "arquivo" => $dor->getDor_documento()->getDoc_arquivo()
+                        "id" => intval($doc->getDoc_id()),
+                        "assunto" => $doc->getDoc_assunto(),
+                        "descricao" => $doc->getDoc_descricao(),
+                        "arquivo" => $doc->getDoc_arquivo()
                     ],
-                    "remetente" => intval($dor->getDor_remetente()),
-                    "envio" => intval($dor->getDor_envio()),
+                    "destinatario" => intval($dor->getDor_destinatario()),
                     "visto" => intval($dor->getDor_visto()),
                     "rejeitado" => intval($dor->getDor_rejeitado()),
                     "data" => DatasFuncao::dataTimeBRExibicao($dor->getDor_data())
@@ -431,19 +439,44 @@ switch ($_REQUEST['acao']) {
 
         foreach($dods as $dod) {
             $esc = $escolaController->select($dod->getDod_destinatario());
-            $pendencias = [];
+            $pendente = $documentoDestinatarioController->checkPendenciasOf($dod->getDod_id());
+            $dor = $documentoRetornoController->getMaisRecenteOf($dod->getDod_id());
+            
+            if (!intval($pendente)) {
+                $doc = $documentosController->selectByIdDocumentos($dor->getDor_documento());
+                $dor = [
+                    "id" => intval($dor->getDor_id()),
+                    "documento" => [
+                        "id" => intval($doc->getDoc_id()),
+                        "assunto" => $doc->getDoc_assunto(),
+                        "descricao" => $doc->getDoc_descricao(),
+                        "arquivo" => $doc->getDoc_arquivo()
+                    ],
+                    "destinatario" => intval($dor->getDor_destinatario()),
+                    "data" => DatasFuncao::dataTimeBRExibicao($dor->getDor_data()),
+                    "visto" => intval($dor->getDor_visto()),
+                    "rejeitado" => intval($dor->getDor_rejeitado())
+                ];
+            } else {
+                $dor = 0;
+            }
             
             array_push($retorno, [
-                "id" => intval($dod->getDod_id()),
-                "envio" => intval($dod->getDod_envio()),
                 "destinatario" => [
-                    "id" => intval($esc->getEsc_id()),
-                    "nome" => utf8_encode($esc->getEsc_nome())
+                    "id" => intval($dod->getDod_id()),
+                    "envio" => intval($dod->getDod_envio()),
+                    "destinatario" => [
+                        "id" => intval($esc->getEsc_id()),
+                        "nome" => utf8_encode($esc->getEsc_nome())
+                    ],
+                    "visto" => intval($dod->getDod_visto())
                 ],
-                "visto" => intval($dod->getDod_visto())
+                "retorno" => $dor,
+                "verificadores" => [
+                    "retorno_pendente" => intval($pendente)
+                ],
             ]);
         }
-        
         echo json_encode($retorno);
     }
     
