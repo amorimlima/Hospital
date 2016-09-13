@@ -60,15 +60,15 @@ class DocumentoDAO extends DAO{
 
     function selectByIdDocumentos($iddocumentos)
     {
-        $sql = "select * from documento where doc_id = ". $iddocumentos."limit 1 ";
+        $sql = "select * from documento where doc_id = ". $iddocumentos." limit 1 ";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
-        $documentos= new Documentos();
+        $documentos= new Documento();
         $documentos->setDoc_id($qr['doc_id']);
-$documentos->setDoc_assunto($qr['doc_assunto']);
-$documentos->setDoc_descricao($qr['doc_descricao']);
-$documentos->setDoc_arquivo($qr['doc_arquivo']);
-
+        $documentos->setDoc_assunto($qr['doc_assunto']);
+        $documentos->setDoc_descricao($qr['doc_descricao']);
+        $documentos->setDoc_arquivo($qr['doc_arquivo']);
+        
         return $documentos;
     }
 

@@ -86,11 +86,11 @@ var envioDocs = {
       }
     })
   },
-  getEnvioByDocumento: function(iddocumento, callback) {
+  getDestinatariosByEnvio: function(idenvio, callback) {
     $.ajax({
       url: envioDocs.url,
       type: "GET",
-      data: "acao=enviosPorDocumento&idDocumento=" + iddocumento,
+      data: "acao=destinatariosPorEnvio&id=" + idenvio,
       dataType: "json",
       error: function(e) {
         console.log(e.errorThrown + " // " + e.txtMessage);
@@ -456,11 +456,11 @@ function viewDocumentosEnviados() {
     var html = "";
     if (data.length > 0) {
       for (var i in data) {
-        html += '<div class="envio-doc clickable" onclick="viewEnvioDocumento(\''+data[i].documento_envio.documento.id+'\')">';
+        html += '<div class="envio-doc clickable" onclick="viewEnvioDocumento(\''+data[i].documento_envio.id+'\')">';
         html +=  '<div class="envio-doc-header">';
         html +=    '<span class="envio-doc-title">';
 
-        if (!data[i].verificadores.retornos_nao_vistos)
+        if (data[i].verificadores.retornos_nao_vistos)
           html +=      '<strong>' + data[i].documento_envio.documento.assunto + '</strong>';
         else
           html +=      data[i].documento_envio.documento.assunto;
@@ -576,7 +576,7 @@ function viewDocumentosRecebidos() {
 
 function verEnvioRecebido(id) {
   showModalEnvioDoc();
-  envioDocs.getEnvioByDocumento(id, function(doe) {
+  envioDocs.getDestinatariosByEnvio(id, function(doe) {
     envioDocs.setEnvioVisto(doe.id);
     var html = "";
 
@@ -678,7 +678,7 @@ function verEnvioRecebido(id) {
 function viewEnvioDocumento(id) {
   showModalEnvioDoc();
 
-  envioDocs.getEnvioByDocumento(id, function(doe) {
+  envioDocs.getEnvio(id, function(doe) {
     var html = "";
 
     html += '<div class="envio-doc-modal-content">';
@@ -708,12 +708,12 @@ function viewEnvioDocumento(id) {
 
     $("#envioDocModal").html(html);
 
-    envioDocs.getDestinatariosByDocumento(doe.documento.id, function(envios) {
+    envioDocs.getDestinatariosByEnvio(doe.documento.id, function(envios) {
       var html = "";
 
       for (var i = 0; i < envios.length; i++) {
-        if (envios[i].retorno.id !== undefined)
-          html += '<div class="envio-doc clickable" onclick="viewRetornoRecebido(' + envios[i].retorno.id + ')">';
+        if (envios[i].id !== undefined)
+          html += '<div class="envio-doc clickable">'; //onclick="viewRetornoRecebido(' + envios[i].id + ')">';
         else
           html += '<div class="envio-doc">';
 

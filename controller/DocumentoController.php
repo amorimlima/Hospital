@@ -48,7 +48,7 @@ class DocumentoController {
     }
 
     public function selectByIdDocumentos($idDocumentos){
-        $documentos = $this->documentosDAO->selectByIdDocumentos($iddocumentos);
+        $documentos = $this->documentosDAO->selectByIdDocumentos($idDocumentos);
         return  $documentos;
     }
 
