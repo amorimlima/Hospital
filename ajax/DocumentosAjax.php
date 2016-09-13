@@ -36,7 +36,7 @@ switch ($_REQUEST['acao']) {
             $_SESSION['cadastro'] = "excedeu";
         } else {
             move_uploaded_file($arquivo_temporario, $local.$nomeArquivo);
-            $arquivo = $local.$nomeImage;
+            $arquivo = $local.$nomeArquivo;
         }
 
         if (!$_SESSION['cadastro'] == "excedeu") {
@@ -478,6 +478,7 @@ switch ($_REQUEST['acao']) {
             ]);
         }
         echo json_encode($retorno);
+        break;
     }
     
     case "setDestinatarioVisto": {
