@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$system = "M"; // W, M ou L
+$system = "L"; // W, M ou L
 
 if ($system == "W")
 	$_PATH_SEPARATOR = '\\';  // Windows
