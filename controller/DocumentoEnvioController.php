@@ -90,5 +90,9 @@ class DocumentoEnvioController {
     {
         return $this->documentoenvioDAO->isPendenciasRetornoHospital();
     }
+    
+    public function checkRetornoOf($doe_id) {
+        return $this->documentoenvioDAO->checkRetornoOf($doe_id);
+    }
 }
 ?>

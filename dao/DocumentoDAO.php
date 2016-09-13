@@ -60,15 +60,15 @@ class DocumentoDAO extends DAO{
 
     function selectByIdDocumentos($iddocumentos)
     {
-        $sql = "select * from documento where doc_id = ". $iddocumentos."limit 1 ";
+        $sql = "select * from documento where doc_id = ". $iddocumentos." limit 1 ";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
-        $documentos= new Documentos();
+        $documentos= new Documento();
         $documentos->setDoc_id($qr['doc_id']);
-$documentos->setDoc_assunto($qr['doc_assunto']);
-$documentos->setDoc_descricao($qr['doc_descricao']);
-$documentos->setDoc_arquivo($qr['doc_arquivo']);
-
+        $documentos->setDoc_assunto($qr['doc_assunto']);
+        $documentos->setDoc_descricao($qr['doc_descricao']);
+        $documentos->setDoc_arquivo($qr['doc_arquivo']);
+        
         return $documentos;
     }
 
@@ -159,6 +159,29 @@ $sql .= "doc_arquivo = '".$documentos->getDoc_arquivo()."',";
         $doc->setDoc_arquivo($qr["doc_arquivo"]);
         
         return $doc;
+    }
+    
+    public function getEnviados() {
+        $sql  = "select distinct doc.* from documento doc "; 
+        $sql .= "join documento_envio doe on doe.doe_documento = doc.doc_id;";
+        $retorno = [];
+        $result = $this->retrieve($sql);
+        
+        if($result) {
+            while($qr = mysqli_fetch_assoc($result)) {
+                $doc = new Documento();
+                $doc->setDoc_id($qr["doc_id"]);
+                $doc->setDoc_assunto($qr["doc_assunto"]);
+                $doc->setDoc_descricao($qr["doc_descricao"]);
+                $doc->setDoc_arquivo($qr["doc_arquivo"]);
+                
+                array_push($retorno, $doc);
+            }
+        } else {
+            $retorno = 0;
+        }
+        
+        return $retorno;
     }
 }
 ?>

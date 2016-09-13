@@ -71,7 +71,7 @@ $logado = unserialize($_SESSION['USR']);
                             <div class="row">
                                 <div class="col-sm-12 col-md-9">
                                     <span class="header"></span>
-                                    <div id="conteudoPrincipal" class="conteudo_principal" style="display: none">
+                                    <div id="conteudoPrincipal" class="conteudo_principal" style="display: block">
                                         <div id="tipo_grafico_picker" class="tipo_grafico_picker">Acessos e Downloads na Galeria (em %)</div>
                                         <div class="tipo_grafico_picker_opcoes">
                                             <div id="graficoGaleria" class="option_selected opcoes_graficos" data-grafico="1">Acessos e Downloads na Galeria (em %)</div>
@@ -120,8 +120,8 @@ $logado = unserialize($_SESSION['USR']);
                                     <div id="liberarCapituloContainer" class="liberar_capitulo_container" style="display:none">
                                     </div>
                                     <?php if($logado["perfil_id"] == 3 || $logado["perfil_id"] == 4) { ?>
-                                    <div id="envioDocumentosContainer" class="envio_documentos_container" style="display:block">
-                                      <?php include_once("envioDocumentsTemp.php"); ?>
+                                    <div id="envioDocumentosContainer" class="envio_documentos_container" style="display:none">
+                                      <?php include_once("telaEnvioDocumentos.php"); ?>
                                     </div>
                                     <?php } ?>
                                     <div id="criarGrupoContainer" class="liberar_grupo_container" style="display:none">
@@ -191,6 +191,8 @@ $logado = unserialize($_SESSION['USR']);
                                                 $templateRelatorio->printCountUsuariosPorPerfil();
                                             }
                                             ?>
+                                            
+                                            <?php $templateRelatorio->printAcessarEnvioDocs(); ?>
                                         </div>
                                         <div class="legenda_grafico">
                                             <h2>Legenda</h2>
@@ -264,24 +266,10 @@ $logado = unserialize($_SESSION['USR']);
 
         <!--  Modal envio documentos -->
 
-        <?php
-        // APAGAR ISSO PELO AMOR DE DEUS
-        $nomes = ["Escola da Ponte", "Desembargador Amorim Lima", "Escolinha do Diego", "Heat high school"];
-        ?>
-
         <div id="envioDocModalBg" class="envio-doc-modal-bg">
-            <div id="envioDocModal" class="envio-doc-modal" data-component="modal">
+            <div id="envioDocModal" class="envio-doc-modal modal-generic" data-component="modal">
           <!-- Envio existente -->
             </div>
-        </div>
-
-
-        <!-- Modal novo envio de documento -->
-        <div id="formEnvioDocModalBg" class="envio-doc-modal-bg">
-          <!-- Formulário novo envio -->
-          <div id="formEnvioDocModal" class="modal-generic">
-            <p class="text-center">Carregando...</p>
-          </div>
         </div>
 
     </body>

@@ -25,7 +25,8 @@ include_once($path["beans"]."DocumentoRetorno.php");
 /**
  * Description of DocumentoEnvioDAO
  *
- * @author MURANO DESIGN
+ * @author Diego Garcia
+ * @author Lucas Tavares
  */
 
 class DocumentoEnvioDAO extends DAO{
@@ -41,9 +42,11 @@ class DocumentoEnvioDAO extends DAO{
 
     public function insertDocumentoEnvio($documentoenvio)
     {
-        $sql =  "insert into documento_envio ( doe_documento,doe_destinatario,doe_data_envio,doe_visto,doe_retorno )values";
-        $sql .= "( '".$documentoenvio->getDoe_documento()."','".$documentoenvio->getDoe_destinatario()."','".$documentoenvio->getDoe_data_envio()."','".$documentoenvio->getDoe_visto()."','".$documentoenvio->getDoe_retorno()."')";
-        echo $sql;
+        $sql  = "insert into documento_envio (doe_documento, doe_data_envio, doe_retorno) values";
+        $sql .= "({$documentoenvio->getDoe_documento()}, ";
+        $sql .= "CURDATE(), ";
+        $sql .= "{$documentoenvio->getDoe_retorno()})";
+
         return $this->executeAndReturnLastID($sql);
     }
 
@@ -70,9 +73,7 @@ class DocumentoEnvioDAO extends DAO{
         $documentoenvio= new DocumentoEnvio();
         $documentoenvio->setDoe_id($qr['doe_id']);
         $documentoenvio->setDoe_documento($qr['doe_documento']);
-        $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
         $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
-        $documentoenvio->setDoe_visto($qr['doe_visto']);
         $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
         return $documentoenvio;
@@ -84,20 +85,19 @@ class DocumentoEnvioDAO extends DAO{
 
     function  selectAllDocumentoEnvio()
     {
-        $sql = "select * from documento_envio ";
+        $sql = "select * from documento_envio order by doe_data_envio desc, doe_id desc;";
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){
             $documentoenvio= new DocumentoEnvio();
             $documentoenvio->setDoe_id($qr['doe_id']);
             $documentoenvio->setDoe_documento($qr['doe_documento']);
-            $documentoenvio->setDoe_destinatario($qr['doe_destinatario']);
             $documentoenvio->setDoe_data_envio($qr['doe_data_envio']);
-            $documentoenvio->setDoe_visto($qr['doe_visto']);
             $documentoenvio->setDoe_retorno($qr['doe_retorno']);
 
-        array_push($lista,$documentoenvio);
+            array_push($lista,$documentoenvio);
         };
+
         return $lista;
     }
 
@@ -193,7 +193,10 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
     }
     
     public function getEnviosByDocumento($doc_id) {
-        $sql  = "select doe.*, esc.esc_id, esc.esc_nome, dor.dor_id, dor.dor_rejeitado, doc.doc_id, doc.doc_descricao is not null as doc_descricao, dor.dor_visto is not null as dor_visto ";
+        $sql  = "select distinct dor.dor_envio, doe.*, esc.esc_id, esc.esc_nome, ";
+        $sql .= "IF (dor.dor_id = (select max(dor2.dor_id) from documento_retorno dor2 where dor2.dor_envio = doe.doe_id) or dor.dor_id is null, dor.dor_id, 'antigo') as dor_id, ";
+        $sql .= "dor.dor_rejeitado, dor.dor_visto is not null as dor_visto, ";
+        $sql .= "doc.doc_id, doc.doc_descricao is not null as doc_descricao ";
         $sql .= "from documento_envio doe ";
         $sql .=	"join escola esc on doe.doe_destinatario = esc.esc_id ";
         $sql .=    "left join documento_retorno dor on doe.doe_id = dor.dor_envio ";
@@ -202,8 +205,12 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         
         $result = $this->retrieve($sql);
         $retorno = [];
-
+        
         while ($qr = mysqli_fetch_array($result)) {
+            if($qr["dor_id"] == "antigo"){
+                continue;
+            }
+            
             $doe = new DocumentoEnvio();
             $doe->setDoe_id($qr["doe_id"]);
             $doe->setDoe_data_envio($qr["doe_data_envio"]);
@@ -238,7 +245,7 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
 
     public function isPendenciaRetornoEscola($idEscola)
     {
-        $sql = "SELECT MAX(IF(doe.doe_retorno = 1 AND (dor.dor_id IS NULL), 1, 0)) AS pendencia, MIN(dor.dor_rejeitado) as rejeitado FROM documento_envio doe LEFT JOIN documento_retorno dor ON dor.dor_envio = doe.doe_id WHERE doe.doe_destinatario = 72 GROUP BY doe.doe_id ORDER BY pendencia DESC";
+        $sql = "SELECT MAX(IF(doe.doe_retorno = 1 AND (dor.dor_id IS NULL), 1, 0)) AS pendencia, MIN(dor.dor_rejeitado) as rejeitado FROM documento_envio doe LEFT JOIN documento_retorno dor ON dor.dor_envio = doe.doe_id WHERE doe.doe_destinatario = {$idEscola} GROUP BY doe.doe_id ORDER BY pendencia DESC";
         $result = $this->retrieve($sql);
         while($qr = mysqli_fetch_array($result)){
             if ($qr["pendencia"] == 1 || $qr["rejeitado"] == 1)
@@ -254,6 +261,21 @@ $sql .= "doe_retorno = '".$documentoenvio->getDoe_retorno()."',";
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_array($result);
         return $qr["pendencia"]; 
+    }
+    
+    public function checkPendenciasOf($doe_id) {
+        $sql  = "select if (";
+        $sql .=    "(select count(dod_id) from documento_destinatario ";
+        $sql .=     "where dod_envio = {$doe_id} and dod_visto = 1) = 0, 1, 0) as pendencias ";
+        $sql .= "from documento_envio;";
+        
+        return mysqli_fetch_assoc($this->retrieve($sql))["pendencias"];
+    }
+    
+    public function checkRetornoOf($doe_id) {
+        $sql  = "select doe_retorno from documento_envio where doe_id = {$doe_id}";
+        
+        return intval(mysqli_fetch_assoc($this->retrieve($sql))["doe_retorno"]);
     }
 }
 ?>

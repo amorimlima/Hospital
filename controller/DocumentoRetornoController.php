@@ -80,12 +80,17 @@ class DocumentoRetornoController {
         return $this->documentoretornoDAO->listarDocumento($idDocumento);
     }
     
-    public function getRetornosByEscolaAndEnvio($idesc, $iddoe) {
-        return $this->documentoretornoDAO->getRetornosByEscolaAndEnvio($idesc, $iddoe);
+    public function getRetornosOf($dod_id) {
+        return $this->documentoretornoDAO->getRetornosOf($dod_id);
     }
+    
     public function isPendenciasRetornoHospital()
     {
         return $this->documentoretornoDAO->isPendenciasRetornoHospital();
+    }
+    
+    public function getMaisRecenteOf($dod_id) {
+        return $this->documentoretornoDAO->getMaisRecenteOf($dod_id);
     }
 }
 ?>

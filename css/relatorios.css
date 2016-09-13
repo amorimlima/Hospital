@@ -559,6 +559,11 @@ br + .user-info-label:not(:first-of-type) {
 	pointer-events: none;
 }
 
+#linkDocumentos {
+	position: absolute;
+	bottom: 20px;
+}
+
 /* Count de usuários cadastrados */
 #countUsrByPerfil {
     margin-top: 25px;
