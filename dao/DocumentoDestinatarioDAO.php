@@ -148,8 +148,7 @@ class DocumentoDestinatarioDAO extends DAO {
         $sql .=         "where dor_destinatario = {$dod_id}) ";
         $sql .= "as rejeitado from documento_retorno ";
         $sql .= "where dor_destinatario = {$dod_id};";
-        
-        echo $sql;
+
         $result = $this->retrieve($sql);
         $qr = mysqli_fetch_assoc($result);
         
