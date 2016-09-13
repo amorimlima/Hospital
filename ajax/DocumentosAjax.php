@@ -229,10 +229,7 @@ switch ($_REQUEST['acao']) {
             $doe = $documentoEnvioController->selectByIdDocumentoEnvio($dod->getDod_envio());
             $doc = $documentosController->selectByIdDocumentos($doe->getDoe_documento());
             $pendencias = $documentoDestinatarioController->checkPendenciasOf($dod->getDod_id());
-            $rejeitado = 0;
-            
-            if ($pendencias)
-                $rejeitado = $documentoDestinatarioController->checkRetornoRejeitadoOf($dod->getDod_id());
+            $rejeitado = $documentoDestinatarioController->checkRetornoRejeitadoOf($dod->getDod_id());
                 
             
             array_push($retorno, [
