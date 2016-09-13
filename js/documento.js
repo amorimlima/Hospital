@@ -542,14 +542,14 @@ function viewDocumentosRecebidos() {
         }
 
         if (data[i].destinatario.envio.retorno) {
-          if (!data[i].verificadores.retorno_pendente) {
-            html +=      '<span class="glyphicon glyphicon-upload text-success">';
-            html +=        '<span class="icon-label text-success">Retorno enviado</span>';
+          if (data[i].verificadores.retorno_rejeitado) {
+            html +=      '<span class="glyphicon glyphicon-exclamation-sign text-danger">';
+            html +=        '<span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>';
             html +=      '</span>';
           } else {
-            if (data[i].verificadores.retorno_rejeitado) {
-              html +=      '<span class="glyphicon glyphicon-exclamation-sign text-danger">';
-              html +=        '<span class="icon-label text-danger">Retorno rejeitado pelo NEC</span>';
+            if (data[i].verificadores.retorno_pendente) {
+              html +=      '<span class="glyphicon glyphicon-upload text-success">';
+              html +=        '<span class="icon-label text-success">Retorno enviado</span>';
               html +=      '</span>';
             } else {
               html +=      '<span class="glyphicon glyphicon-upload">';
