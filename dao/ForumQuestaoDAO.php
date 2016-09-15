@@ -305,5 +305,29 @@ class ForumQuestaoDAO extends DAO{
        $sql = "UPDATE forum_questao SET frq_visualizacoes = frq_visualizacoes + 1 WHERE frq_id = {$idfrq};";
        return $this->execute($sql);
     }
+
+     public function testeJu($idfrq)
+    {
+        $sql = "Select * from forum_questao";
+        $result = $this->retrieve($sql);
+        $lista = Array();
+        
+        while ($qr = mysqli_fetch_array($result))
+        {
+            $frq = new ForumQuestao();
+            $frq->setFrq_id($qr["frq_id"]);
+            $frq->setFrq_usuario($qr["frq_usuario"]);
+            $frq->setFrq_topico($qr["frq_topico"]);
+            $frq->setFrq_questao($qr["frq_questao"]);
+            $frq->setFrq_data($qr["frq_data"]);
+            $frq->setFrq_anexo($qr["frq_anexo"]);
+            $frq->setFrq_visualizacoes($qr["frq_visualizacoes"]);
+            
+            array_push($lista,$frq);
+        }
+        
+        return $lista;
+    }
+
 }
 ?>
