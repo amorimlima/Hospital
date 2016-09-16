@@ -110,7 +110,7 @@ class UsuarioVariavelDAO extends DAO{
                     $userv->setUsv_id($qr["usv_id"]);
                     $userv->setUsv_usuario($qr["usv_usuario"]);
                     $userv->setUsv_ano_letivo($qr["usv_ano_letivo"]);
-                    //$userv->setUsv_serie($qr["usv_serie"]);
+                    $userv->setUsv_serie($qr["usv_serie"]);
                     $userv->setUsv_grau_instrucao($qr["usv_grau_instrucao"]);
                     $userv->setUsv_categoria_funcional($qr["usv_categoria_funcional"]);
                     $userv->setUsv_grupo($qr["usv_grupo"]);

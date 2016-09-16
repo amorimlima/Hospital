@@ -34,7 +34,7 @@
 			$userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
 
 			if ($logado['perfil'] == "Aluno") {
-				$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(), $logado['escola'],  $capitulo);
+				$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_serie(), $logado['escola'],  $capitulo);
 
 				if(!empty($exercicios))
 					$bool = true;

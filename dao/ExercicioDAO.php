@@ -126,8 +126,6 @@ class ExercicioDAO extends DAO{
             $sql .=" and ex.exe_capitulo = ".$capitulo;
         }
         $sql .= " order by ex.exe_ordem asc";
-
-        //echo $sql;
         $lista = array();
         $result = $this->retrieve($sql);
         while ($qr = mysqli_fetch_array($result)){           

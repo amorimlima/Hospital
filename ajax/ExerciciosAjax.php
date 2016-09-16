@@ -23,7 +23,7 @@ switch ($_REQUEST["acao"]){
 		$userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
 
 		if($logado['perfil'] == "Aluno"){
-			$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(),$logado['escola'],$capitulo);
+			$exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_serie(),$logado['escola'],$capitulo);
 			$lista = array();		
 			foreach ($exercicios as $key => $value) {
 				$result = '';

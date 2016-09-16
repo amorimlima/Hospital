@@ -79,7 +79,7 @@ class Template {
                                                 $usuarioVariavelController = new UsuarioVariavelController();
                                                 $exercicioController = new ExercicioController();
                                                 $userVariavel = $usuarioVariavelController->selectByIdUsuario($logado['id']);
-                                                $exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_ano_letivo(), $logado['escola'],"");
+                                                $exercicios = $exercicioController->selectAllExercicioBySerieCapituloLiberado($userVariavel->getUsv_serie(), $logado['escola'],"");
                                                 $capitulos = Array();
 
                                                 foreach ($exercicios as $i => $value){
