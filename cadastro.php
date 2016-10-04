@@ -45,6 +45,7 @@ $escolasHtml = '';
 $serieHtml = '';
 $serieCheckbox = '';
 $periodosHtml = "";
+$escolaEdicao = "";
 
 $isVisible = [
     "aluno"     => "display: none;",
@@ -60,6 +61,10 @@ if (isset($_GET["perfil"])) {
         $isVisible["professor"] = "";
     elseif (intval($_GET["perfil"]) == 4)
         $isVisible["escola"] = "";
+}
+
+if (isset($_GET["usuario"])){
+
 }
 
 if(count($serie)>0){
@@ -117,7 +122,11 @@ $largura = $logado['perfil'] == "Aluno" || $logado['perfil'] == "NEC" ? '' : "co
   </head>
   <body>
   	<input type="hidden" value="<?php echo $logado['id'];?>" name="idUsuario" id="idUsuario">
-  	<div id="container">
+  	<?php if (isset($_GET["usuario"])) { ?>
+    <input type="hidden" value="<?php echo $_GET['usuario'];?>" name="escolaEdicao" id="escolaEdicao">
+    <?php } ?>
+
+    <div id="container">
         <div class="row">
 			<?php 
             	$templateGeral->topoSite();

@@ -1578,6 +1578,8 @@ function listarEscolas(){
         		var outerHTML = perfisEscolasGerados[a].gerarHTML();
         		$('.update_escola_accordion').append(outerHTML);
         	}
+
+            focusEscola();
         	 
         },error:function(){
         	console.log('Erro ao listar escolas!!');
@@ -2061,4 +2063,29 @@ function showArquivoPesquisaGerado(idesc, arquivo)
 
     $("#arquivo"+idesc).attr("onclick","showArquivoPesquisaGerado('"+idesc+"','"+arquivo+"')");
     window.open(path, "_blank");
+}
+
+function focusEscola () {
+    console.log("chamou");
+    if ($('#escolaEdicao').length){
+        focusCorpo();
+        focusEscolaLista();
+        openEscola();
+    }
+}
+
+function focusCorpo () {
+    $('body').scrollTop(
+        $('#Conteudo_Area').offset().top - $('body').offset().top + $('body').scrollTop()
+    );
+}
+
+function focusEscolaLista () {
+    window.setTimeout(function() {
+        $(".conteudo_escola").mCustomScrollbar("scrollTo","#updateEscInfo" + $('#escolaEdicao').val());
+    }, 500);
+}
+
+function openEscola () {
+    $('#updateEscInfo' + $('#escolaEdicao').val()).trigger('click');
 }

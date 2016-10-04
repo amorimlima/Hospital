@@ -48,11 +48,14 @@ class TemplateRelatorio{
                 echo                    '<div class="bt-chart" onclick="showModalUserBasicInfo(' . $listado["idusuario"] . ')">';
                 echo                        '<span class="glyphicon glyphicon-eye-open"></span>';
                 echo                    '</div>';
-                echo                    '<a href="cadastro.php?perfil=' . $listado["perfil"] . '&usuario=' . $listado["idusuario"] . '">';
-                echo                        '<div class="bt-chart">';
-                echo                            '<span class="glyphicon glyphicon-edit"></span>';
-                echo                        '</div>';
-                echo                    '</a>';
+                if ($listado["perfil"] == "escola"){
+                    echo                    '<a href="cadastro.php?perfil=' . $listado["perfil"] . '&usuario=' . $listado["idusuario"] . '">';
+                    echo                        '<div class="bt-chart">';
+                    echo                            '<span class="glyphicon glyphicon-edit"></span>';
+                    echo                        '</div>';
+                    echo                    '</a>';
+                }
+                
                 echo                '</div>';
                 echo            '</div>';
                 echo        '</div>';
