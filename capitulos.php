@@ -63,7 +63,7 @@ $logado = unserialize($_SESSION['USR']);
                                     </div>
                                 </div>
                                 <?php if ($logado["perfil"] != "Aluno"): ?>
-                                    <a href="documentos/CAP<?=$_GET["capitulo"]?>_L<?=$_GET["ano"]?>_OP.pdf"
+                                    <a href="documentos/Cap<?=$_GET["capitulo"]?>_L<?=$_GET["ano"]?>_OP.pdf"
                                        target="_blank"
                                        title="Ver as orientações ao professor">
                                         <div class="download-op"><span>Ver OP</span></div>
