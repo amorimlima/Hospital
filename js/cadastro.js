@@ -674,7 +674,7 @@ $(document).ready(function() {
             	$("#mensagemErroCadastro").show();
             	return false;
             }
-    	});    		
+    	});		
     	
     	return false;
     });

@@ -50,4 +50,9 @@ class DocumentoDestinatarioController {
     public function checkRetornoRejeitadoOf($dod_id) {
         return $this->documentoDestinatarioDAO->checkRetornoRejeitadoOf($dod_id);
     }
+
+    public function insertDocumentosPadrao($esc_id)
+    {
+        return $this->documentoDestinatarioDAO->insertDocumentosPadrao($esc_id);
+    }
 }

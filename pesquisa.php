@@ -32,31 +32,6 @@ $templateGeral = new Template();
         <link href="css/pesquisa.css" rel="stylesheet" />
     </head>
     <body>
-        <div id="modalDocsBg">
-            <div id="modalDocsDownload" class="modal-doc modal-doc-in">
-                <h2>Documentos para cadastro</h2>
-                <p>Antes de prosseguirmos com seu registro de interesse, pedimos que realize o download e preencha os documentos abaixo.</p>
-                <p>Não se esqueça de inserir o arquivo <span class="text-danger text-uppercase">{{a definir}}</span> preenchido ao final do formulário a seguir.</p>
-                <p class="text-center link-area">
-                    <a href="arquivos/DocsEscola.zip">
-                        <span class="link text-uppercase" onclick="fecharModal('modalDocsDownload')">Clique aqui para fazer o download</span>
-                    </a>
-                </p>
-            </div>
-            <div id="modalDocsUpload" class="modal-doc hidden">
-                <h2>Documentos para cadastro</h2>
-                <p>Para finalizar o seu registro de interesse, insira o arquivo <span class="text-danger text-uppercase">{{a definir}}</span> preenchido.</p>
-                <p class="text-center link-area">
-                    <span id="fileName" class="hidden text-uppercase text-success">{{Nome do arquivo}}</span>
-                    <label for="inputDocUpload">
-                        <span id="getFileTrigger" class="link text-uppercase">Clique aqui para inserir o arquivo</span>
-                    </label>
-                </p>
-                <p class="text-center link-area">
-                    <button id="btnFinalizar" disabled type="button" class="btn_primary" onclick="enviarFormulario()">Finalizar</button>
-                </p>
-            </div>
-        </div>
         <div class="area_conteudo">
             <div class="logo_container">
                 <img src="img/logo/logo_sm.png">

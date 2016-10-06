@@ -8,6 +8,7 @@ include_once($path['controller'].'EscolaController.php');
 include_once($path['controller'].'UsuarioVariavelController.php');
 include_once($path['controller'].'GrupoController.php');
 include_once($path['controller'].'EnvioDocumentoController.php');
+include_once($path['controller'].'DocumentoDestinatarioController.php');
 include_once($path['beans'].'Usuario.php');
 include_once($path['beans'].'UsuarioVariavel.php');
 include_once($path['beans'].'Escola.php');
@@ -165,6 +166,7 @@ switch ($_REQUEST["acao"]) {
      	$enderecoController = new EnderecoController();
      	$usuarioController = new UsuarioController();
      	$usuarioVarController = new UsuarioVariavelController();
+     	$documentoDestinatarioController = new DocumentoDestinatarioController();
      	
       	if ($escolaController->verificaCnpj($_POST['cnpj']) > 0){
         	$result = Array('erro'=>true,'msg'=>'CNPJ já cadastrado!');
@@ -232,6 +234,9 @@ switch ($_REQUEST["acao"]) {
 				
 				if (isset($_POST['preCadastro'])){
 					$_SESSION['idEscolaPre'] = $idEscola;
+				}
+				else{
+					$documentoDestinatarioController->insertDocumentosPadrao($idEscola);
 				}
 				
 	    		if($idUsuario = $usuarioController->insert($usuario)){
@@ -616,11 +621,14 @@ switch ($_REQUEST["acao"]) {
 	}
 	case "confirm": {
 		$escolasController = new EscolaController();
+		$documentoDestinatarioController = new DocumentoDestinatarioController();
 		$idesc = $_REQUEST["id"];
 		$result = "";
 
-		if ($confirmacao = $escolasController->confirmCadastro($idesc))
+		if ($confirmacao = $escolasController->confirmCadastro($idesc)){
 			$result = Array("status"=>"1", "mensagem"=>"Cadastro confirmado com sucesso!");
+			$documentoDestinatarioController->insertDocumentosPadrao($idesc);
+		}
 		else
 			$result = Array("status"=>"0", "mensagem"=>"Erro ao confirmar o cadastro.");
 

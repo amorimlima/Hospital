@@ -154,4 +154,10 @@ class DocumentoDestinatarioDAO extends DAO {
         
         return $qr["rejeitado"];
     }
+
+    public function insertDocumentosPadrao($esc_id)
+    {
+        $sql = "INSERT INTO documento_destinatario (`dod_envio`, `dod_destinatario`) VALUES (1, ".$esc_id.")";
+        return $this->executeAndReturnLastID($sql);
+    }
 }

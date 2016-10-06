@@ -11,7 +11,7 @@ function atribuirEventos() {
         idBtnEnviar: "enviar_pesquisa_escola",
         idBtnCancelar: null,
         aoValidar: function () {
-            abrirModal("modalDocsUpload");
+            enviarFormulario()
         },
         aoInvalidar: function () {
             return;
@@ -108,22 +108,6 @@ function voltarParaPaginaLogin() {
 }
 
 // Documentos para pré-cadastro
-
-/**
- * Exibe o modal passado como parâmetro
- * @param {String, Number} idmodal Id do elemento do modal
- */
-function abrirModal(idmodal) {
-    var modal = document.getElementById(idmodal);
-    var bg = document.getElementById("modalDocsBg");
-
-    bg.classList.remove("hidden");
-    bg.classList.remove("fade-out");
-    bg.classList.add("fade-in");
-    modal.classList.remove("hidden");
-    modal.classList.remove("modal-doc-out");
-    modal.classList.add("modal-doc-in");
-}
 
 /**
  * Fecha o modal passado como parâmetro
